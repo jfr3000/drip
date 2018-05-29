@@ -10,7 +10,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "run-android": "./node_modules/.bin/react-native run-android",
     "log": "./node_modules/.bin/react-native log-android",
-    "test": "mocha --recursive test && npm run lint",
+    "test": "mocha --recursive --require babel-core/register test && npm run lint",
     "lint": "eslint app test"
   },
   "dependencies": {
@@ -21,6 +21,7 @@
   "devDependencies": {
     "babel-preset-react-native": "4.0.0",
     "chai": "^4.1.2",
+    "eslint": "^4.19.1",
     "mocha": "^5.2.0",
     "react-test-renderer": "16.3.1"
   },
