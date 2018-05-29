@@ -9,12 +9,13 @@ A menstrual cycle tracking app that's open-source and leaves your data on your p
 2. Clone this repository:
 
     ```
-    git clone git@gitlab.com:bloodyhealth/bleed.git
-    cd bleed
+    git clone git@gitlab.com:bloodyhealth/drip.git
+    cd drip
     ```
 
 4. Run `npm install`
 5. Run `npm start`
+6. Run `npm install -g react-native`
 6. Run `react-native run-android`
 7. We recommend installing an [ESLint plugin in your editor](https://eslint.org/docs/user-guide/integrations#editors). There will soon be an `.eslintrc` file in this project which will be used by the plugin to check your code for style errors and potential bugs. 
 
