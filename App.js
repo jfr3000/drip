@@ -6,9 +6,10 @@ import {
   TextInput,
   FlatList
 } from 'react-native'
+console.log('first hi')
+import * as styles from './styles'
+import Datastore from 'react-native-local-mongodb'
 
-const styles = require('./styles')
-const Datastore = require('react-native-local-mongodb')
 const db = new Datastore({ filename: 'asyncStorageKey', autoload: true })
 
 export default class drip extends Component {
@@ -17,6 +18,7 @@ export default class drip extends Component {
     this.state = {
       temperatures: []
     }
+    console.log('hello')
     db.find({ key: { $exists: true } }, (err, persistedTemperatures) => {
       if (err) throw err
       this.setState({

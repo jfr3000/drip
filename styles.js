@@ -1,5 +1,6 @@
-const StyleSheet = require('react-native').StyleSheet
-module.exports = StyleSheet.create({
+import { StyleSheet } from 'react-native'
+
+const ourStyle = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
@@ -11,3 +12,5 @@ module.exports = StyleSheet.create({
     margin: 10,
   }
 })
+
+export { ourStyle }
