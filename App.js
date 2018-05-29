@@ -26,6 +26,7 @@ export default class drip extends Component {
   }
 
   render() {
+    console.log('beweis fuer tina')
     return (
       <View style={styles.container}>
         <TextInput
