@@ -7,6 +7,7 @@ import {
 import styles from './styles'
 import { createStackNavigator } from 'react-navigation'
 import temperatureList from './List'
+import datepicker from './datepicker'
 
 class home extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class home extends Component {
           title="Edit symptoms for today">
         </Button>
         <Button
-          onPress={() => {}}
+          onPress={() => navigate('datepicker')}
           title="Go to calendar">
         </Button>
       </View>
@@ -33,5 +34,6 @@ class home extends Component {
 
 export default createStackNavigator({
   home: { screen: home },
-  temperatureList: { screen: temperatureList }
+  temperatureList: { screen: temperatureList },
+  datepicker: { screen: datepicker }
 })
