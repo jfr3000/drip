@@ -11,7 +11,7 @@ import Datastore from 'react-native-local-mongodb'
 
 const db = new Datastore({ filename: 'asyncStorageKey', autoload: true })
 
-export default class temp extends Component {
+export default class Temp extends Component {
   constructor(props) {
     super(props)
     this.state = {
