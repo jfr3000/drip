@@ -1,4 +1,4 @@
 import { AppRegistry } from 'react-native'
-import App from './App'
+import Home from './App'
 
-AppRegistry.registerComponent('drip', () => App)
+AppRegistry.registerComponent('home', () => Home)
