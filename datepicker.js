@@ -5,7 +5,7 @@ import {
 import moment from 'moment'
 import * as styles from './styles'
 
-export default class datePickView extends Component {
+export default class DatePickView extends Component {
   constructor(props) {
     super(props)
   }

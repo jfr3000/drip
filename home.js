@@ -5,11 +5,8 @@ import {
   Text
 } from 'react-native'
 import styles from './styles'
-import { createStackNavigator } from 'react-navigation'
-import temperatureList from './List'
-import datepicker from './datepicker'
 
-class home extends Component {
+export default class Home extends Component {
   constructor(props) {
     super(props)
   }
@@ -31,9 +28,3 @@ class home extends Component {
     )
   }
 }
-
-export default createStackNavigator({
-  home: { screen: home },
-  temperatureList: { screen: temperatureList },
-  datepicker: { screen: datepicker }
-})
