@@ -7,7 +7,7 @@ let cycleDaysSortedbyTempValueView = []
 const TemperatureSchema = {
   name: 'Temperature',
   properties: {
-    value: 'int',
+    value: 'double',
     exclude: 'bool'
   }
 }

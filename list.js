@@ -33,6 +33,7 @@ export default class Temp extends Component {
         />
         <Button
           onPress={() => {
+            console.log(Number(this.state.currentValue))
             saveTemperature(
               new Date(),
               {
@@ -48,7 +49,6 @@ export default class Temp extends Component {
           }}
           title="Save"
         />
-        <Text>{cycleDaysSortedbyTempValueView.length}</Text>
         <FlatList
           data = { cycleDaysSortedbyTempValueView }
           renderItem={({item}) => <Text>{item.temperature.value}</Text>}
