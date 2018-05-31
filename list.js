@@ -14,7 +14,10 @@ import { cycleDaysSortedbyTempValueView, saveTemperature } from './db'
 export default class Temp extends Component {
   constructor(props) {
     super(props)
-    this.state = { currentValue: '' }
+    this.state = {
+      currentValue: '',
+      rerenderToggle: false
+    }
   }
 
   render() {
@@ -38,13 +41,18 @@ export default class Temp extends Component {
               }
             )
             this.setState({currentValue: ''})
+            // FlatList only reacts to primitive value changes,
+            // this boolean toggle makes sure the list updates
+            this.setState({ reRender: !this.state.rerenderToggle})
             Keyboard.dismiss()
           }}
           title="Save"
         />
+        <Text>{cycleDaysSortedbyTempValueView.length}</Text>
         <FlatList
           data = { cycleDaysSortedbyTempValueView }
           renderItem={({item}) => <Text>{item.temperature.value}</Text>}
+          extraData = { this.state }
         />
       </View>
     )
