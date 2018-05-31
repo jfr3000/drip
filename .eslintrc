@@ -12,7 +12,8 @@
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
-    }
+    },
+    "ecmaVersion": 2018
   },
   "plugins": [
     "react"
@@ -45,6 +46,7 @@
     ],
     "no-var": "error",
     "prefer-const": "error",
-    "no-trailing-spaces": "error"
+    "no-trailing-spaces": "error",
+    "react/prop-types": ["error", {"ignore": ["navigation"]}]
   }
 }
