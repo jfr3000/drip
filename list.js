@@ -4,25 +4,20 @@ import {
   Text,
   Button,
   TextInput,
-  FlatList
+  FlatList,
+  Keyboard
 } from 'react-native'
-import * as styles from './styles'
-import Datastore from 'react-native-local-mongodb'
 
-const db = new Datastore({ filename: 'asyncStorageKey', autoload: true })
+import * as styles from './styles'
+import { cycleDaysSortedbyTempValueView, saveTemperature } from './db'
 
 export default class Temp extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      temperatures: []
+      currentValue: '',
+      rerenderToggle: false
     }
-    db.find({ key: { $exists: true } }, (err, persistedTemperatures) => {
-      if (err) throw err
-      this.setState({
-        temperatures: [...persistedTemperatures, ...this.state.temperatures]
-      })
-    })
   }
 
   render() {
@@ -33,26 +28,31 @@ export default class Temp extends Component {
           onChangeText={(val) => {
             this.setState({currentValue: val})
           }}
+          keyboardType='numeric'
+          value = {this.state.currentValue}
         />
         <Button
           onPress={() => {
-            const newTemp = {
-              value: this.state.currentValue,
-              key: Date.now().toString()
-            }
-            this.setState({
-              temperatures: [newTemp, ...this.state.temperatures]
-            })
-            db.insert(newTemp, (err) => {
-              if (err) console.log(err)
-            })
+            console.log(Number(this.state.currentValue))
+            saveTemperature(
+              new Date(),
+              {
+                value: Number(this.state.currentValue),
+                exclude: false
+              }
+            )
+            this.setState({currentValue: ''})
+            // FlatList only reacts to primitive value changes,
+            // this boolean toggle makes sure the list updates
+            this.setState({ reRender: !this.state.rerenderToggle})
+            Keyboard.dismiss()
           }}
           title="Save"
         />
         <FlatList
-          data = {this.state.temperatures}
-          extraData = {this.state}
-          renderItem={({item}) => <Text>{item.value}</Text>}
+          data = { cycleDaysSortedbyTempValueView }
+          renderItem={({item}) => <Text>{item.temperature.value}</Text>}
+          extraData = { this.state }
         />
       </View>
     )

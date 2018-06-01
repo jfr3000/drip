@@ -1,4 +1,9 @@
 import { AppRegistry } from 'react-native'
 import Home from './app'
+import { openDatabase } from './db'
 
-AppRegistry.registerComponent('home', () => Home)
+// TODO error handling
+openDatabase()
+  .then(() => {
+    AppRegistry.registerComponent('home', () => Home)
+  })
