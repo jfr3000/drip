@@ -42,5 +42,5 @@ function findLastFirstBleedingDay(cycleDays) {
 function isBleedingDay(cycleDay) {
   return cycleDay.bleeding
     && cycleDay.bleeding.value
-    && !cycleDay.exclude
+    && !cycleDay.bleeding.exclude
 }
