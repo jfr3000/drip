@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import {
   View, Button, DatePickerAndroid
 } from 'react-native'
-import moment from 'moment'
 import * as styles from './styles'
+import { getOrCreateCycleDay } from './db'
 
 export default class DatePickView extends Component {
   constructor(props) {
@@ -15,12 +15,10 @@ export default class DatePickView extends Component {
       date: new Date()
     })
     if (result.action !== DatePickerAndroid.dismissedAction) {
+      const date = new Date(result.year, result.month, result.day)
+      const cycleDay = getOrCreateCycleDay(date)
       const navigate = this.props.navigation.navigate
-      // continue here and actually make that view
-      navigate(
-        'dayView',
-        { date: moment(new Date(result.year, result.month, result.day)) }
-      )
+      navigate('dayView', { cycleDay })
     }
   }
 
