@@ -20,10 +20,17 @@ export default class DayView extends Component {
     const navigate = this.props.navigation.navigate
     const day = this.state.cycleDay
     const bleedingValue = day.bleeding && day.bleeding.value
+    let bleedingLabel
+    if (typeof bleedingValue === 'number') {
+      bleedingLabel = `Bleeding: ${labels[bleedingValue]}`
+    } else {
+      bleedingLabel = ''
+    }
+
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>{formatDateForViewHeader(day.date)}</Text>
-        <Text style={styles.welcome}>{typeof bleedingValue === 'number' ? labels[bleedingValue] : ''}</Text>
+        <Text style={styles.welcome}>{bleedingLabel}</Text>
         <Button
           onPress={() => navigate('bleeding', { cycleDay: day })}
           title="Edit bleeding">
