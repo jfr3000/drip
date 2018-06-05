@@ -50,7 +50,7 @@ async function openDatabase() {
   })
   // just for testing purposes, the highest temperature will be topmost
   // because I was too layz to make a scroll view
-  cycleDaysSortedbyTempValueView = db.objects('CycleDay').sorted('temperature.value', true)
+  cycleDaysSortedbyTempValueView = db.objects('CycleDay').filtered('temperature != null').sorted('temperature.value', true)
   cycleDaysSortedbyDate = db.objects('CycleDay').sorted('date', true)
 }
 
