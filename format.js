@@ -1,5 +1,5 @@
 import moment from "moment"
 
 export function formatDateForViewHeader(date) {
-  return moment(date).format()
+  return moment(date).format('MMMM Do YYYY')
 }

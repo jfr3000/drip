@@ -1,5 +1,4 @@
 import realm from 'realm'
-import moment from 'moment'
 import { v4 as uuid } from 'uuid'
 
 let db

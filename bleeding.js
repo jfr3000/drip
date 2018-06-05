@@ -8,13 +8,14 @@ import {
 import styles from './styles'
 import { saveBleeding } from './db'
 import { formatDateForViewHeader } from './format'
+import { bleeding as labels } from './labels'
 
 export default class Bleeding extends Component {
   constructor(props) {
     super(props)
     this.state = {
       cycleDay: props.navigation.state.params.cycleDay,
-      currentValue: null
+      currentValue: "1"
     }
   }
 
@@ -25,16 +26,17 @@ export default class Bleeding extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>{formatDateForViewHeader(day.date)}</Text>
+        <Text>Bleeding</Text>
         <Picker
           selectedValue={this.state.currentValue}
-          style={{ height: 50, width: 100 }}
+          style={{ height: 50, width: 150 }}
           onValueChange={(itemValue) => {
             this.setState({ currentValue: itemValue })
           }}>
-          <Picker.Item label="spotting" value="1" />
-          <Picker.Item label="light" value="2" />
-          <Picker.Item label="medium" value="3" />
-          <Picker.Item label="heavy" value="4" />
+          <Picker.Item label={labels[0]} value="0" />
+          <Picker.Item label={labels[1]} value="1" />
+          <Picker.Item label={labels[2]} value="2" />
+          <Picker.Item label={labels[3]} value="3" />
         </Picker>
         <Button
           onPress={() => {
