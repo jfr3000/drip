@@ -23,7 +23,7 @@ export default class DayView extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>{formatDateForViewHeader(day.date)}</Text>
-        <Text style={styles.welcome}>{bleedingValue != undefined ? labels[bleedingValue] : ''}</Text>
+        <Text style={styles.welcome}>{typeof bleedingValue === 'number' ? labels[bleedingValue] : ''}</Text>
         <Button
           onPress={() => navigate('bleeding', { cycleDay: day })}
           title="Edit bleeding">

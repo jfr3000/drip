@@ -13,9 +13,10 @@ import { bleeding as labels } from './labels'
 export default class Bleeding extends Component {
   constructor(props) {
     super(props)
+    const cycleDay = props.navigation.state.params.cycleDay
     this.state = {
-      cycleDay: props.navigation.state.params.cycleDay,
-      currentValue: "1"
+      cycleDay,
+      currentValue: Number((cycleDay.bleeding && cycleDay.bleeding.value) || 0).toString()
     }
   }
 
@@ -38,6 +39,19 @@ export default class Bleeding extends Component {
           <Picker.Item label={labels[2]} value="2" />
           <Picker.Item label={labels[3]} value="3" />
         </Picker>
+        <Button
+          onPress={() => {
+            navigate('dayView', { cycleDay: day })
+          }}
+          title="Cancel">
+        </Button>
+        <Button
+          onPress={() => {
+            saveBleeding(day)
+            navigate('dayView', { cycleDay: day })
+          }}
+          title="Delete entry">
+        </Button>
         <Button
           onPress={() => {
             saveBleeding(day, {
