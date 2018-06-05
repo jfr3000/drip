@@ -1,10 +1,15 @@
-import { expect } from 'chai'
+import chai from 'chai'
+import dirtyChai from 'dirty-chai'
 import moment from 'moment'
 
-import getCycleDayNumber from '../get-cycle-day-number'
+const expect = chai.expect
+chai.use(dirtyChai)
 
-describe('getCycleDay returns the cycle day', () => {
-  it('if the last data entered is a bleeding day', function () {
+import getCycleDayNumberModule from '../get-cycle-day-number'
+
+describe('getCycleDay', () => {
+  const getCycleDayNumber = getCycleDayNumberModule()
+  it('works if the last data entered is a bleeding day', function () {
     const cycleDays = [{
       date: moment([2018, 5, 2])
     }, {
@@ -30,7 +35,7 @@ describe('getCycleDay returns the cycle day', () => {
     expect(result).to.eql(9)
   })
 
-  it('if the last data entered is a non-bleeding day', function () {
+  it('works if the last data entered is a non-bleeding day', function () {
     const cycleDays = [{
       date: moment([2018, 5, 2])
     }, {
@@ -90,10 +95,10 @@ describe('getCycleDay returns the cycle day', () => {
 
     const targetDate = moment([2018, 5, 17])
     const result = getCycleDayNumber(cycleDays, targetDate)
-    expect(result).to.eql(9)
+    expect(result).to.eql(5)
   })
 
-  it('if there are only bleeding days', function () {
+  it('works when there are only bleeding days', function () {
     const cycleDays = [{
       date: moment([2018, 5, 9]),
       bleeding: {
@@ -110,7 +115,7 @@ describe('getCycleDay returns the cycle day', () => {
     expect(result).to.eql(9)
   })
 
-  it('if some bleedings are exluded', function () {
+  it('works if some bleedings are exluded', function () {
     const cycleDays = [{
       date: moment([2018, 5, 2])
     }, {
@@ -139,7 +144,8 @@ describe('getCycleDay returns the cycle day', () => {
   })
 })
 
-describe('getCycleDay returns undefined', () => {
+describe('getCycleDay returns null', () => {
+  const getCycleDayNumber = getCycleDayNumberModule()
   it('if there are no bleeding days', function () {
     const cycleDays = [{
       date: moment([2018, 5, 2])
@@ -152,13 +158,54 @@ describe('getCycleDay returns undefined', () => {
     }]
     const targetDate = moment([2018, 5, 17])
     const result = getCycleDayNumber(cycleDays, targetDate)
-    expect(result).to.be.undefined
+    expect(result).to.be.null()
   })
 
   it('if there are no cycle days', function () {
     const cycleDays = []
     const targetDate = moment([2018, 5, 17])
     const result = getCycleDayNumber(cycleDays, targetDate)
-    expect(result).to.be.undefined
+    expect(result).to.be.null()
+  })
+})
+
+describe('getCycleDay with cycle thresholds', () => {
+  const getCycleDayNumber = getCycleDayNumberModule({
+    minCycleLengthInDays: 5
+  })
+
+  it('disregards bleeding breaks shorter than the min cycle threshold in a bleeding period', () => {
+    const cycleDays = [{
+      date: moment([2018, 5, 10]),
+      bleeding: {
+        value: 2
+      }
+    }, {
+      date: moment([2018, 5, 14]),
+      bleeding: {
+        value: 2
+      }
+    }]
+
+    const targetDate = moment([2018, 5, 17])
+    const result = getCycleDayNumber(cycleDays, targetDate)
+    expect(result).to.eql(8)
+  })
+
+  it('counts bleeding breaks longer than the min cycle threshold in a bleeding period', () => {
+    const cycleDays = [{
+      date: moment([2018, 5, 9]),
+      bleeding: {
+        value: 2
+      }
+    }, {
+      date: moment([2018, 5, 14]),
+      bleeding: {
+        value: 2
+      }
+    }]
+    const targetDate = moment([2018, 5, 17])
+    const result = getCycleDayNumber(cycleDays, targetDate)
+    expect(result).to.eql(4)
   })
 })
