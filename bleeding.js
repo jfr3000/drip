@@ -9,6 +9,7 @@ import styles from './styles'
 import { saveBleeding } from './db'
 import { formatDateForViewHeader } from './format'
 import { bleeding as labels } from './labels'
+import getCycleDay from './get-cycle-day'
 
 export default class Bleeding extends Component {
   constructor(props) {
@@ -27,6 +28,7 @@ export default class Bleeding extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>{formatDateForViewHeader(day.date)}</Text>
+        <Text>Cycle day {getCycleDay()}</Text>
         <Text>Bleeding</Text>
         <Picker
           selectedValue={this.state.currentValue}
