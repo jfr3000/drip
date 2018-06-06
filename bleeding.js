@@ -3,9 +3,9 @@ import {
   View,
   Button,
   Text,
-  Picker,
   Switch
 } from 'react-native'
+import RadioForm from 'react-native-simple-radio-button'
 import styles from './styles'
 import { saveBleeding } from './db'
 import { formatDateForViewHeader } from './format'
@@ -16,9 +16,13 @@ export default class Bleeding extends Component {
   constructor(props) {
     super(props)
     const cycleDay = props.navigation.state.params.cycleDay
+    let bleedingValue = cycleDay.bleeding && cycleDay.bleeding.value
+    if (! (typeof bleedingValue === 'number') ){
+      bleedingValue = -1
+    }
     this.state = {
       cycleDay,
-      currentValue: Number((cycleDay.bleeding && cycleDay.bleeding.value) || 0).toString(),
+      currentValue: bleedingValue,
       exclude: cycleDay.bleeding ? cycleDay.bleeding.exclude : false
     }
   }
@@ -27,22 +31,26 @@ export default class Bleeding extends Component {
   render() {
     const navigate = this.props.navigation.navigate
     const day = this.state.cycleDay
+    const bleedingRadioProps = [
+      {label: labels[0], value: 0 },
+      {label: labels[1], value: 1 },
+      {label: labels[2], value: 2 },
+      {label: labels[3], value: 3 },
+    ]
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>{formatDateForViewHeader(day.date)}</Text>
         <Text>Cycle day {getCycleDay()}</Text>
         <Text>Bleeding</Text>
-        <Picker
-          selectedValue={this.state.currentValue}
-          style={{ height: 50, width: 150 }}
-          onValueChange={(itemValue) => {
+        <RadioForm
+          radio_props={bleedingRadioProps}
+          initial={this.state.currentValue}
+          formHorizontal={true}
+          labelHorizontal={false}
+          onPress={(itemValue) => {
             this.setState({ currentValue: itemValue })
-          }}>
-          <Picker.Item label={labels[0]} value="0" />
-          <Picker.Item label={labels[1]} value="1" />
-          <Picker.Item label={labels[2]} value="2" />
-          <Picker.Item label={labels[3]} value="3" />
-        </Picker>
+          }}
+        />
         <Text>Exclude</Text>
         <Switch
           onValueChange={(val) => {
