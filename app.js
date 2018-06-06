@@ -1,6 +1,7 @@
 import { createStackNavigator } from 'react-navigation'
 import Home from './home'
-import TemperatureList from './list'
+
+import Temperature from './temperature'
 import Calendar from './calendar'
 import DayView from './day-view'
 import Bleeding from './bleeding'
@@ -11,7 +12,8 @@ YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated'])
 
 export default createStackNavigator({
   home: { screen: Home },
-  temperatureList: { screen: TemperatureList },
+
+  temperature: { screen: Temperature },
   calendar: { screen: Calendar },
   dayView: { screen: DayView },
   bleeding: { screen: Bleeding }

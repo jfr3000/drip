@@ -18,10 +18,6 @@ export default class Home extends Component {
       <View style={styles.container}>
         <Text style={styles.welcome}>Welcome! Today is day {getCycleDay()} of your current cycle</Text>
         <Button
-          onPress={() => navigate('temperatureList')}
-          title="Edit symptoms for today">
-        </Button>
-        <Button
           onPress={() => navigate('calendar')}
           title="Go to calendar">
         </Button>
