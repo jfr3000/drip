@@ -3,7 +3,8 @@ import {
   View,
   Button,
   Text,
-  Picker
+  Picker,
+  Switch
 } from 'react-native'
 import styles from './styles'
 import { saveBleeding } from './db'
@@ -17,7 +18,8 @@ export default class Bleeding extends Component {
     const cycleDay = props.navigation.state.params.cycleDay
     this.state = {
       cycleDay,
-      currentValue: Number((cycleDay.bleeding && cycleDay.bleeding.value) || 0).toString()
+      currentValue: Number((cycleDay.bleeding && cycleDay.bleeding.value) || 0).toString(),
+      exclude: cycleDay.bleeding && cycleDay.bleeding.exclude
     }
   }
 
@@ -41,6 +43,12 @@ export default class Bleeding extends Component {
           <Picker.Item label={labels[2]} value="2" />
           <Picker.Item label={labels[3]} value="3" />
         </Picker>
+        <Text>Exclude</Text>
+        <Switch
+          onValueChange={(val) => {
+            this.setState({ exclude: val })
+          }}
+          value={this.state.exclude} />
         <Button
           onPress={() => {
             navigate('dayView', { cycleDay: day })
@@ -58,7 +66,7 @@ export default class Bleeding extends Component {
           onPress={() => {
             saveBleeding(day, {
               value: Number(this.state.currentValue),
-              exclude: false
+              exclude: this.state.exclude
             })
             navigate('dayView', { cycleDay: day })
           }}
