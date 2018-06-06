@@ -1,9 +1,8 @@
 import realm from 'realm'
 
 let db
-
-let bleedingDaysSortedByDate = []
 let cycleDaysSortedbyDate = []
+let bleedingDaysSortedByDate = []
 
 const TemperatureSchema = {
   name: 'Temperature',
@@ -48,11 +47,8 @@ async function openDatabase() {
     deleteRealmIfMigrationNeeded: true
   })
 
-  bleedingDaysSortedByDate = db.objects('CycleDay').fil<<<<<<< 933b64056a13d04c3bfdebf531962b84d9daa4ce
-  // just for testing purposes, the highest temperature will be topmost
-  // because I was too layz to make a scroll view
-  cycleDaysSortedbyTempValueView = db.objects('CycleDay').filtered('temperature != null').sorted('temperature.value', true) tered('bleeding != null').sorted('date', true)
   cycleDaysSortedbyDate = db.objects('CycleDay').sorted('date', true)
+  bleedingDaysSortedByDate = db.objects('CycleDay').filtered('bleeding != null').sorted('date', true)
 }
 
 function saveTemperature(cycleDay, temperature) {
@@ -79,10 +75,20 @@ function getOrCreateCycleDay(localDate) {
   return result
 }
 
+function getPreviousTemperature(cycleDay) {
+  const cycleDayIndex = cycleDaysSortedbyDate.findIndex(day => day === cycleDay)
+  const previousCycleDays = cycleDaysSortedbyDate.slice(cycleDayIndex + 1)
+  const winner = previousCycleDays.find(cycleDay => cycleDay.temperature)
+  if (!winner) return null
+  return winner.temperature.value
+}
+
 export {
+  cycleDaysSortedbyDate,
   openDatabase,
   saveTemperature,
   saveBleeding,
   getOrCreateCycleDay,
-  bleedingDaysSortedByDate
+  bleedingDaysSortedByDate,
+  getPreviousTemperature
 }

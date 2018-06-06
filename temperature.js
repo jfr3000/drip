@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 
 import styles from './styles'
-import { saveTemperature } from './db'
+import { saveTemperature, getPreviousTemperature } from './db'
 import { formatDateForViewHeader } from './format'
 import getCycleDay from './get-cycle-day'
 
@@ -16,10 +16,18 @@ export default class Temp extends Component {
   constructor(props) {
     super(props)
     const cycleDay = props.navigation.state.params.cycleDay
-    console.log(cycleDay.temperature ? cycleDay.temperature.value : '')
+    let initialValue
+
+    if(cycleDay.temperature) {
+      initialValue = cycleDay.temperature.toString()
+    } else {
+      const prevTemp = getPreviousTemperature(cycleDay)
+      initialValue = prevTemp ? prevTemp.toString() : ''
+    }
+
     this.state = {
       cycleDay,
-      currentValue: cycleDay.temperature ? cycleDay.temperature.value.toString() : '',
+      currentValue: initialValue,
       exclude: cycleDay.temperature ? cycleDay.temperature.exclude : false
     }
   }
