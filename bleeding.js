@@ -19,7 +19,7 @@ export default class Bleeding extends Component {
     this.state = {
       cycleDay,
       currentValue: Number((cycleDay.bleeding && cycleDay.bleeding.value) || 0).toString(),
-      exclude: cycleDay.bleeding && cycleDay.bleeding.exclude
+      exclude: cycleDay.bleeding ? cycleDay.bleeding.exclude : false
     }
   }
 
