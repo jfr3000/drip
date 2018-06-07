@@ -12,7 +12,13 @@ export default function config(opts) {
     // the past as we iterate over the array
     // also, to retrieve the number, we only need the cycle days before the target day
     // TODO we can probably rely on the db to do the sorting for us
-    const sorted = [...unsorted].sort((a, b) => b.date.isAfter(a.date))
+    targetDate = moment(targetDate)
+    const sorted = unsorted
+      .map(day => {
+        day.date = moment(day.date)
+        return day
+      })
+      .sort((a, b) => b.date.isAfter(a.date))
     const firstDayBeforeTargetDayIndex = sorted.findIndex(day => day.date.isBefore(targetDate))
     const cycleDays = sorted.slice(firstDayBeforeTargetDayIndex)
 
