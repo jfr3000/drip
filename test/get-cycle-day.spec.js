@@ -142,6 +142,35 @@ describe('getCycleDay', () => {
     const result = getCycleDayNumber(cycleDays, targetDate)
     expect(result).to.eql(15)
   })
+
+  it('gets the correct number if the target day is not in the current cycle', () => {
+    const cycleDays = [{
+      date: moment([2018, 5, 14]),
+    }, {
+      date: moment([2018, 5, 13]),
+      bleeding: {
+        value: 2
+      }
+    }, {
+      date: moment([2018, 4, 12]),
+    }, {
+      date: moment([2018, 4, 11]),
+      bleeding: {
+        value: 2
+      }
+    }, {
+      date: moment([2018, 4, 10]),
+      bleeding: {
+        value: 2
+      }
+    }, {
+      date: moment([2018, 4, 9]),
+    }]
+
+    const targetDate = moment([2018, 4, 27])
+    const result = getCycleDayNumber(cycleDays, targetDate)
+    expect(result).to.eql(18)
+  })
 })
 
 describe('getCycleDay returns null', () => {
