@@ -73,7 +73,7 @@ export default class Bleeding extends Component {
         <Button
           onPress={() => {
             saveBleeding(day, {
-              value: Number(this.state.currentValue),
+              value: this.state.currentValue,
               exclude: this.state.exclude
             })
             navigate('dayView', { cycleDay: day })
