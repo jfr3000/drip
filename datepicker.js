@@ -7,12 +7,11 @@ import { getOrCreateCycleDay, bleedingDaysSortedByDate } from './db'
 export default class DatePickView extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      cycleDays: bleedingDaysSortedByDate
-    }
+    this.state = { bleedingDaysInCalFormat: getBleedingDaysInCalFormat(bleedingDaysSortedByDate) }
+
     // so we rerender the calendar when there are new bleeding days
     bleedingDaysSortedByDate.addListener(() => {
-      this.setState({ cycleDays: bleedingDaysSortedByDate })
+      this.setState({ bleedingDaysInCalFormat: getBleedingDaysInCalFormat(bleedingDaysSortedByDate) })
     })
   }
 
@@ -24,21 +23,12 @@ export default class DatePickView extends Component {
     navigate('dayView', { cycleDay })
   }
 
-  rerenderCalendar() {
-
-  }
-
   render() {
-    const bleedingDaysInCalFormat = bleedingDaysSortedByDate.reduce((acc, day) => {
-      const dateString = day.date.toISOString().slice(0, 10)
-      acc[dateString] = { startingDay: true, endingDay: true, color: 'red' }
-      return acc
-    }, {})
     return (
       <View style={styles.container}>
         <Calendar
           onDayPress={ this.passDateToDayView.bind(this) }
-          markedDates = { bleedingDaysInCalFormat }
+          markedDates = { this.state.bleedingDaysInCalFormat }
           markingType = {'period'}
         />
       </View>
@@ -46,4 +36,10 @@ export default class DatePickView extends Component {
   }
 }
 
-
+function getBleedingDaysInCalFormat(bleedingDaysSortedByDate) {
+  return bleedingDaysSortedByDate.reduce((acc, day) => {
+    const dateString = day.date.toISOString().slice(0, 10)
+    acc[dateString] = { startingDay: true, endingDay: true, color: 'red' }
+    return acc
+  }, {})
+}
