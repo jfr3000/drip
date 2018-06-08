@@ -11,7 +11,6 @@ import { saveBleeding } from './db'
 import { formatDateForViewHeader } from './format'
 import { bleeding as labels } from './labels'
 import getCycleDay from './get-cycle-day'
-import { bleedingDaysSortedByDate } from './db'
 
 export default class Bleeding extends Component {
   constructor(props) {
