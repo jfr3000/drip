@@ -22,7 +22,7 @@ export default class Home extends Component {
           title="Edit symptoms for today">
         </Button>
         <Button
-          onPress={() => navigate('datepicker')}
+          onPress={() => navigate('calendar')}
           title="Go to calendar">
         </Button>
       </View>
