@@ -4,6 +4,7 @@ import { v4 as uuid } from 'uuid'
 let db
 let cycleDaysSortedbyTempValueView = []
 let cycleDaysSortedbyDate = []
+let bleedingDaysSortedByDate = []
 
 const TemperatureSchema = {
   name: 'Temperature',
@@ -52,6 +53,7 @@ async function openDatabase() {
   // because I was too layz to make a scroll view
   cycleDaysSortedbyTempValueView = db.objects('CycleDay').filtered('temperature != null').sorted('temperature.value', true)
   cycleDaysSortedbyDate = db.objects('CycleDay').sorted('date', true)
+  bleedingDaysSortedByDate = db.objects('CycleDay').filtered('bleeding != null').sorted('date', true)
 }
 
 function saveTemperature(date, temperature) {
@@ -89,5 +91,6 @@ export {
   openDatabase,
   saveTemperature,
   saveBleeding,
-  getOrCreateCycleDay
+  getOrCreateCycleDay,
+  bleedingDaysSortedByDate
 }
