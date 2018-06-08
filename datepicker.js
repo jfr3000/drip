@@ -4,14 +4,16 @@ import { Calendar } from 'react-native-calendars'
 import * as styles from './styles'
 import { getOrCreateCycleDay, bleedingDaysSortedByDate } from './db'
 
-
-
 export default class DatePickView extends Component {
   constructor(props) {
     super(props)
     this.state = {
       cycleDays: bleedingDaysSortedByDate
     }
+    // so we rerender the calendar when there are new bleeding days
+    bleedingDaysSortedByDate.addListener(() => {
+      this.setState({ cycleDays: bleedingDaysSortedByDate })
+    })
   }
 
   passDateToDayView(result) {
