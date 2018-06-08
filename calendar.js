@@ -37,9 +37,10 @@ export default class DatePickView extends Component {
 }
 
 function getBleedingDaysInCalFormat(bleedingDaysSortedByDate) {
+  const shadesOfRed = ['#ffbaba', '#ff7b7b', '#ff5252', '#ff0000']
   return bleedingDaysSortedByDate.reduce((acc, day) => {
     const dateString = day.date.toISOString().slice(0, 10)
-    acc[dateString] = { startingDay: true, endingDay: true, color: 'red' }
+    acc[dateString] = { startingDay: true, endingDay: true, color: shadesOfRed[day.bleeding.value] }
     return acc
   }, {})
 }
