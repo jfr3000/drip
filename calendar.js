@@ -9,10 +9,11 @@ export default class DatePickView extends Component {
     super(props)
     this.state = { bleedingDaysInCalFormat: getBleedingDaysInCalFormat(bleedingDaysSortedByDate) }
 
-    // so we rerender the calendar when there are new bleeding days
-    bleedingDaysSortedByDate.addListener(() => {
-      this.setState({ bleedingDaysInCalFormat: getBleedingDaysInCalFormat(bleedingDaysSortedByDate) })
-    })
+    bleedingDaysSortedByDate.addListener(setStateWithCalendarFormattedDays.bind(this))
+  }
+
+  componentWillUnmount() {
+    bleedingDaysSortedByDate.removeListener(setStateWithCalendarFormattedDays)
   }
 
   passDateToDayView(result) {
@@ -43,4 +44,8 @@ function getBleedingDaysInCalFormat(bleedingDaysSortedByDate) {
     acc[dateString] = { startingDay: true, endingDay: true, color: shadesOfRed[day.bleeding.value] }
     return acc
   }, {})
+}
+
+function setStateWithCalendarFormattedDays() {
+  this.setState({ bleedingDaysInCalFormat: getBleedingDaysInCalFormat(bleedingDaysSortedByDate) })
 }
