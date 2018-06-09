@@ -15,14 +15,20 @@ const getCycleDay = cycleDayModule(bleedingDaysSortedByDate)
 export default class DayView extends Component {
   constructor(props) {
     super(props)
+    this.cycleDay = props.navigation.state.params.cycleDay
     this.state = {
-      cycleDay: props.navigation.state.params.cycleDay
+      cycleDayNumber: getCycleDay(this.cycleDay.date),
     }
+    bleedingDaysSortedByDate.addListener(setStateWithCurrentCycleDayNumber.bind(this))
+  }
+
+  componentWillUnmount() {
+    bleedingDaysSortedByDate.removeListener(setStateWithCurrentCycleDayNumber)
   }
 
   render() {
     const navigate = this.props.navigation.navigate
-    const day = this.state.cycleDay
+    const day = this.cycleDay
     const bleedingValue = day.bleeding && day.bleeding.value
     let bleedingLabel
     if (typeof bleedingValue === 'number') {
@@ -43,4 +49,10 @@ export default class DayView extends Component {
       </View >
     )
   }
+}
+
+function setStateWithCurrentCycleDayNumber() {
+  this.setState({
+    cycleDayNumber: getCycleDay(this.cycleDay.date)
+  })
 }
