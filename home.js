@@ -6,22 +6,27 @@ import {
 } from 'react-native'
 import styles from './styles'
 import cycleDayModule from './get-cycle-day-number'
-import { getCycleDaysSortedByDateView, deleteAll } from './db'
+import { bleedingDaysSortedByDate, deleteAll } from './db'
 import { LocalDate } from 'js-joda'
 
-const cycleDaysSortedByDateView = getCycleDaysSortedByDateView()
-const getCycleDayNumber = cycleDayModule(cycleDaysSortedByDateView)
-const now = new Date()
-const cycleDayNumber = getCycleDayNumber(LocalDate.of(now.getFullYear(), now.getMonth() + 1, now.getDate()))
-const welcomeTextWithCycleDay = `Welcome! Today is day ${cycleDayNumber} of your current cycle`
-const welcomeText = `Welcome! We don't have enough information to know what your current cycle day is`
+const getCycleDayNumber = cycleDayModule(bleedingDaysSortedByDate)
 
 export default class Home extends Component {
   constructor(props) {
     super(props)
+    const now = new Date()
+    this.todayDateString = LocalDate.of(now.getFullYear(), now.getMonth() + 1, now.getDate()).toString()
+    const cycleDayNumber = getCycleDayNumber(this.todayDateString)
+
     this.state = {
-      welcomeText: cycleDayNumber ? welcomeTextWithCycleDay : welcomeText
+      welcomeText: determineWelcomeText(cycleDayNumber)
     }
+
+    bleedingDaysSortedByDate.addListener(setStateWithCurrentWelcomeText.bind(this))
+  }
+
+  componentWillUnmount() {
+    bleedingDaysSortedByDate.removeListener(setStateWithCurrentWelcomeText)
   }
 
   render() {
@@ -44,4 +49,14 @@ export default class Home extends Component {
       </View>
     )
   }
+}
+
+function determineWelcomeText(cycleDayNumber) {
+  const welcomeTextWithCycleDay = `Welcome! Today is day ${cycleDayNumber} of your current cycle`
+  const welcomeText = `Welcome! We don't have enough information to know what your current cycle day is`
+  return cycleDayNumber ? welcomeTextWithCycleDay : welcomeText
+}
+
+function setStateWithCurrentWelcomeText() {
+  this.setState({ welcomeText: determineWelcomeText(getCycleDayNumber(this.todayDateString)) })
 }

@@ -11,9 +11,9 @@ import { saveBleeding } from './db'
 import { formatDateForViewHeader } from './format'
 import { bleeding as labels } from './labels'
 import cycleDayModule from './get-cycle-day-number'
-import { getCycleDaysSortedByDateView } from './db'
+import { bleedingDaysSortedByDate } from './db'
 
-const getCycleDay = cycleDayModule(getCycleDaysSortedByDateView())
+const getCycleDay = cycleDayModule(bleedingDaysSortedByDate)
 
 export default class Bleeding extends Component {
   constructor(props) {
