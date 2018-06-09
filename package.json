@@ -14,6 +14,7 @@
     "lint": "eslint app test"
   },
   "dependencies": {
+    "js-joda": "^1.8.2",
     "moment": "^2.22.1",
     "react": "16.3.1",
     "react-native": "0.55.4",

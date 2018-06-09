@@ -7,7 +7,10 @@ import {
 import styles from './styles'
 import { formatDateForViewHeader } from './format'
 import { bleeding as labels} from './labels'
-import getCycleDay from './get-cycle-day'
+import cycleDayModule from './get-cycle-day-number'
+import { getCycleDaysSortedByDateView } from './db'
+
+const getCycleDay = cycleDayModule(getCycleDaysSortedByDateView())
 
 export default class DayView extends Component {
   constructor(props) {
@@ -31,7 +34,7 @@ export default class DayView extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>{formatDateForViewHeader(day.date)}</Text>
-        <Text>Cycle day {getCycleDay()}</Text>
+        <Text>Cycle day {getCycleDay(day.date)}</Text>
         <Text style={styles.welcome}>{bleedingLabel}</Text>
         <Button
           onPress={() => navigate('bleeding', { cycleDay: day })}
