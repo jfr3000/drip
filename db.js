@@ -1,9 +1,7 @@
 import realm from 'realm'
-import { v4 as uuid } from 'uuid'
 
 let db
 let cycleDaysSortedbyTempValueView = []
-let cycleDaysSortedbyDate = []
 let bleedingDaysSortedByDate = []
 
 const TemperatureSchema = {
@@ -24,10 +22,9 @@ const BleedingSchema = {
 
 const CycleDaySchema = {
   name: 'CycleDay',
-  primaryKey: 'key',
+  primaryKey: 'date',
   properties: {
-    key: 'string',
-    date: 'date',
+    date: 'string',
     temperature: {
       type: 'Temperature',
       optional: true
@@ -52,14 +49,12 @@ async function openDatabase() {
   // just for testing purposes, the highest temperature will be topmost
   // because I was too layz to make a scroll view
   cycleDaysSortedbyTempValueView = db.objects('CycleDay').filtered('temperature != null').sorted('temperature.value', true)
-  cycleDaysSortedbyDate = db.objects('CycleDay').sorted('date', true)
   bleedingDaysSortedByDate = db.objects('CycleDay').filtered('bleeding != null').sorted('date', true)
 }
 
 function saveTemperature(date, temperature) {
   db.write(() => {
     const doc = {
-      key: uuid(),
       date,
       temperature
     }
@@ -73,13 +68,12 @@ function saveBleeding(cycleDay, bleeding) {
   })
 }
 
-function getOrCreateCycleDay(date) {
-  let result = Array.from(cycleDaysSortedbyDate.filtered('date = $0', date))[0]
+function getOrCreateCycleDay(localDate) {
+  let result = db.objectForPrimaryKey('CycleDay', localDate)
   if (!result) {
     db.write(() => {
       result = db.create('CycleDay', {
-        key: uuid(),
-        date
+        date: localDate
       })
     })
   }

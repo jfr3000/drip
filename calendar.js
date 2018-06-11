@@ -17,9 +17,7 @@ export default class DatePickView extends Component {
   }
 
   passDateToDayView(result) {
-    // TODO this also has date as a string, perhaps useful for LocalDateFormat
-    const date = new Date(result.year, result.month - 1, result.day)
-    const cycleDay = getOrCreateCycleDay(date)
+    const cycleDay = getOrCreateCycleDay(result.dateString)
     const navigate = this.props.navigation.navigate
     navigate('dayView', { cycleDay })
   }
@@ -40,8 +38,7 @@ export default class DatePickView extends Component {
 function getBleedingDaysInCalFormat(bleedingDaysSortedByDate) {
   const shadesOfRed = ['#ffbaba', '#ff7b7b', '#ff5252', '#ff0000']
   return bleedingDaysSortedByDate.reduce((acc, day) => {
-    const dateString = day.date.toISOString().slice(0, 10)
-    acc[dateString] = { startingDay: true, endingDay: true, color: shadesOfRed[day.bleeding.value] }
+    acc[day.date] = { startingDay: true, endingDay: true, color: shadesOfRed[day.bleeding.value] }
     return acc
   }, {})
 }
