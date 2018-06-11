@@ -78,6 +78,20 @@ describe('getCycleDay', () => {
     const result = getCycleDayNumber(targetDate)
     expect(result).to.eql(18)
   })
+
+  it('gets the correct number if the target day is the only bleeding day', () => {
+    const bleedingDays = [{
+      date: '2018-05-13',
+      bleeding: {
+        value: 2
+      }
+    }]
+
+    const targetDate = '2018-05-13'
+    const getCycleDayNumber = getCycleDayNumberModule({bleedingDaysSortedByDate: bleedingDays})
+    const result = getCycleDayNumber(targetDate)
+    expect(result).to.eql(1)
+  })
 })
 
 describe('getCycleDay returns null', () => {

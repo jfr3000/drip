@@ -16,7 +16,13 @@ export default function config(opts = {}) {
         return day
       })
 
-    const firstBleedingDayBeforeTargetDayIndex = withWrappedDates.findIndex(day => day.wrappedDate.isBefore(targetDate))
+    const firstBleedingDayBeforeTargetDayIndex = withWrappedDates.findIndex(day => {
+      return (
+        day.wrappedDate.isEqual(targetDate) ||
+        day.wrappedDate.isBefore(targetDate)
+      )
+    })
+
     if (firstBleedingDayBeforeTargetDayIndex < 0) return null
     const previousBleedingDays = withWrappedDates.slice(firstBleedingDayBeforeTargetDayIndex)
 
