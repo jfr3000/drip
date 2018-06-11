@@ -78,6 +78,7 @@ export default class Bleeding extends Component {
             })
             navigate('dayView', { cycleDay: day })
           }}
+          disabled={ this.state.currentValue === -1 }
           title="Save">
         </Button>
       </View>
