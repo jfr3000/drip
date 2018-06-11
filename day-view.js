@@ -10,14 +10,14 @@ import { bleeding as labels} from './labels'
 import cycleDayModule from './get-cycle-day-number'
 import { bleedingDaysSortedByDate } from './db'
 
-const getCycleDay = cycleDayModule(bleedingDaysSortedByDate)
+const getCycleDayNumber = cycleDayModule()
 
 export default class DayView extends Component {
   constructor(props) {
     super(props)
     this.cycleDay = props.navigation.state.params.cycleDay
     this.state = {
-      cycleDayNumber: getCycleDay(this.cycleDay.date),
+      cycleDayNumber: getCycleDayNumber(this.cycleDay.date),
     }
     bleedingDaysSortedByDate.addListener(setStateWithCurrentCycleDayNumber.bind(this))
   }
@@ -40,7 +40,7 @@ export default class DayView extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>{formatDateForViewHeader(day.date)}</Text>
-        <Text>Cycle day {getCycleDay(day.date)}</Text>
+        <Text>Cycle day {getCycleDayNumber(day.date)}</Text>
         <Text style={styles.welcome}>{bleedingLabel}</Text>
         <Button
           onPress={() => navigate('bleeding', { cycleDay: day })}
@@ -53,6 +53,6 @@ export default class DayView extends Component {
 
 function setStateWithCurrentCycleDayNumber() {
   this.setState({
-    cycleDayNumber: getCycleDay(this.cycleDay.date)
+    cycleDayNumber: getCycleDayNumber(this.cycleDay.date)
   })
 }

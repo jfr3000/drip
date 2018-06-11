@@ -24,7 +24,7 @@ describe('getCycleDay', () => {
         value: 2
       }
     }]
-    const getCycleDayNumber = getCycleDayNumberModule(bleedingDays)
+    const getCycleDayNumber = getCycleDayNumberModule({bleedingDaysSortedByDate: bleedingDays})
     const targetDate = '2018-05-17'
     const result = getCycleDayNumber(targetDate)
     expect(result).to.eql(9)
@@ -50,7 +50,7 @@ describe('getCycleDay', () => {
       }
     }]
     const targetDate = '2018-05-17'
-    const getCycleDayNumber = getCycleDayNumberModule(bleedingDays)
+    const getCycleDayNumber = getCycleDayNumberModule({bleedingDaysSortedByDate: bleedingDays})
     const result = getCycleDayNumber(targetDate)
     expect(result).to.eql(15)
   })
@@ -74,7 +74,7 @@ describe('getCycleDay', () => {
     }]
 
     const targetDate = '2018-04-27'
-    const getCycleDayNumber = getCycleDayNumberModule(bleedingDays)
+    const getCycleDayNumber = getCycleDayNumberModule({bleedingDaysSortedByDate: bleedingDays})
     const result = getCycleDayNumber(targetDate)
     expect(result).to.eql(18)
   })
@@ -84,14 +84,14 @@ describe('getCycleDay returns null', () => {
   it('if there are no bleeding days', function () {
     const bleedingDays = []
     const targetDate = '2018-05-17'
-    const getCycleDayNumber = getCycleDayNumberModule(bleedingDays)
+    const getCycleDayNumber = getCycleDayNumberModule({bleedingDaysSortedByDate: bleedingDays})
     const result = getCycleDayNumber(targetDate)
     expect(result).to.be.null()
   })
 })
 
 describe('getCycleDay with cycle thresholds', () => {
-  const opts = { maxBreakInBleeding: 3 }
+  const maxBreakInBleeding = 3
 
   it('disregards bleeding breaks shorter than max allowed bleeding break in a bleeding period', () => {
     const bleedingDays = [{
@@ -107,7 +107,7 @@ describe('getCycleDay with cycle thresholds', () => {
     }]
 
     const targetDate = '2018-05-17'
-    const getCycleDayNumber = getCycleDayNumberModule(bleedingDays, opts)
+    const getCycleDayNumber = getCycleDayNumberModule({bleedingDaysSortedByDate: bleedingDays, maxBreakInBleeding })
     const result = getCycleDayNumber(targetDate)
     expect(result).to.eql(8)
   })
@@ -125,7 +125,7 @@ describe('getCycleDay with cycle thresholds', () => {
       }
     }]
     const targetDate = '2018-05-17'
-    const getCycleDayNumber = getCycleDayNumberModule(bleedingDays, opts)
+    const getCycleDayNumber = getCycleDayNumberModule({bleedingDaysSortedByDate: bleedingDays, maxBreakInBleeding })
     const result = getCycleDayNumber(targetDate)
     expect(result).to.eql(4)
   })

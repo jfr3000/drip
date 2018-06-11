@@ -1,15 +1,15 @@
 import * as joda from 'js-joda'
+import { bleedingDaysSortedByDate as bleedingDaysSortedByDateView} from './db'
 
 const LocalDate = joda.LocalDate
 
-export default function config(bleedingDaysSortedByDateView, opts) {
-  opts = opts || {
-    maxBreakInBleeding: 1
-  }
+export default function config(opts = {}) {
+  const bleedingDaysSortedByDate = opts.bleedingDaysSortedByDate || bleedingDaysSortedByDateView
+  const maxBreakInBleeding = opts.maxBreakInBleeding || 1
 
   return function getCycleDayNumber(targetDateString) {
     const targetDate = LocalDate.parse(targetDateString)
-    const withWrappedDates = bleedingDaysSortedByDateView
+    const withWrappedDates = bleedingDaysSortedByDate
       .filter(day => !day.bleeding.exclude)
       .map(day => {
         day.wrappedDate = LocalDate.parse(day.date)
@@ -21,7 +21,7 @@ export default function config(bleedingDaysSortedByDateView, opts) {
     const previousBleedingDays = withWrappedDates.slice(firstBleedingDayBeforeTargetDayIndex)
 
     const lastPeriodStart = previousBleedingDays.find((day, i) => {
-      return thereIsNoPreviousBleedingDayWithinTheThreshold(day, previousBleedingDays.slice(i + 1), opts.maxBreakInBleeding)
+      return thereIsNoPreviousBleedingDayWithinTheThreshold(day, previousBleedingDays.slice(i + 1), maxBreakInBleeding)
     })
 
     const diffInDays = lastPeriodStart.wrappedDate.until(targetDate, joda.ChronoUnit.DAYS)

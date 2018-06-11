@@ -11,9 +11,8 @@ import { saveBleeding } from './db'
 import { formatDateForViewHeader } from './format'
 import { bleeding as labels } from './labels'
 import cycleDayModule from './get-cycle-day-number'
-import { bleedingDaysSortedByDate } from './db'
 
-const getCycleDay = cycleDayModule(bleedingDaysSortedByDate)
+const getCycleDayNumber = cycleDayModule()
 
 export default class Bleeding extends Component {
   constructor(props) {
@@ -43,7 +42,7 @@ export default class Bleeding extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>{formatDateForViewHeader(day.date)}</Text>
-        <Text>Cycle day {getCycleDay(day.date)}</Text>
+        <Text>Cycle day {getCycleDayNumber(day.date)}</Text>
         <Text>Bleeding</Text>
         <RadioForm
           radio_props={bleedingRadioProps}

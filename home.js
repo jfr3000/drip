@@ -9,13 +9,12 @@ import cycleDayModule from './get-cycle-day-number'
 import { bleedingDaysSortedByDate, deleteAll } from './db'
 import { LocalDate } from 'js-joda'
 
-const getCycleDayNumber = cycleDayModule(bleedingDaysSortedByDate)
+const getCycleDayNumber = cycleDayModule()
 
 export default class Home extends Component {
   constructor(props) {
     super(props)
-    const now = new Date()
-    this.todayDateString = LocalDate.of(now.getFullYear(), now.getMonth() + 1, now.getDate()).toString()
+    this.todayDateString = LocalDate.now().toString()
     const cycleDayNumber = getCycleDayNumber(this.todayDateString)
 
     this.state = {
