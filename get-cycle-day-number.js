@@ -1,10 +1,15 @@
 import * as joda from 'js-joda'
-import { bleedingDaysSortedByDate as bleedingDaysSortedByDateView} from './db'
 
 const LocalDate = joda.LocalDate
 
 export default function config(opts = {}) {
-  const bleedingDaysSortedByDate = opts.bleedingDaysSortedByDate || bleedingDaysSortedByDateView
+  let bleedingDaysSortedByDate
+  if (!opts.bleedingDaysSortedByDate) {
+    // we only want to require (and run) the db module when not running the tests
+    bleedingDaysSortedByDate = require('./db').bleedingDaysSortedByDate
+  } else {
+    bleedingDaysSortedByDate = opts.bleedingDaysSortedByDate
+  }
   const maxBreakInBleeding = opts.maxBreakInBleeding || 1
 
   return function getCycleDayNumber(targetDateString) {
