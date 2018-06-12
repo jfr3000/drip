@@ -1,8 +1,10 @@
 import realm from 'realm'
+import { LocalDate } from 'js-joda'
 
 let db
 let cycleDaysSortedbyDate = []
 let bleedingDaysSortedByDate = []
+let temperatureDaysSortedByDate
 
 const TemperatureSchema = {
   name: 'Temperature',
@@ -49,6 +51,7 @@ async function openDatabase() {
 
   cycleDaysSortedbyDate = db.objects('CycleDay').sorted('date', true)
   bleedingDaysSortedByDate = db.objects('CycleDay').filtered('bleeding != null').sorted('date', true)
+  temperatureDaysSortedByDate = db.objects('CycleDay').filtered('temperature != null').sorted('date', true)
 }
 
 function saveTemperature(cycleDay, temperature) {
@@ -76,9 +79,11 @@ function getOrCreateCycleDay(localDate) {
 }
 
 function getPreviousTemperature(cycleDay) {
-  const cycleDayIndex = cycleDaysSortedbyDate.findIndex(day => day === cycleDay)
-  const previousCycleDays = cycleDaysSortedbyDate.slice(cycleDayIndex + 1)
-  const winner = previousCycleDays.find(cycleDay => cycleDay.temperature)
+  cycleDay.wrappedDate = LocalDate.parse(cycleDay.date)
+  const winner = temperatureDaysSortedByDate.find(day => {
+    const wrappedDate = LocalDate.parse(day.date)
+    return wrappedDate.isBefore(cycleDay.wrappedDate)
+  })
   if (!winner) return null
   return winner.temperature.value
 }
