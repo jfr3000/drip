@@ -26,7 +26,7 @@ export default class DayView extends Component {
       bleedingLabel = `Bleeding: ${labels[bleedingValue]}`
       if (cycleDay.bleeding.exclude) bleedingLabel += " (Excluded)"
     } else {
-      bleedingLabel = ''
+      bleedingLabel = null
     }
     const temperatureValue = cycleDay.temperature && cycleDay.temperature.value
     let temperatureLabel
@@ -34,7 +34,7 @@ export default class DayView extends Component {
       temperatureLabel = `Temperature: ${temperatureValue}`
       if (cycleDay.temperature.exclude) temperatureLabel += " (Excluded)"
     } else {
-      temperatureLabel = ''
+      temperatureLabel = null
     }
 
     return (
