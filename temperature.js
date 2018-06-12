@@ -19,7 +19,7 @@ export default class Temp extends Component {
     let initialValue
 
     if(cycleDay.temperature) {
-      initialValue = cycleDay.temperature.toString()
+      initialValue = cycleDay.temperature.value.toString()
     } else {
       const prevTemp = getPreviousTemperature(cycleDay)
       initialValue = prevTemp ? prevTemp.toString() : ''
