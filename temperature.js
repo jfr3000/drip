@@ -15,26 +15,25 @@ import getCycleDay from './get-cycle-day'
 export default class Temp extends Component {
   constructor(props) {
     super(props)
-    const cycleDay = props.navigation.state.params.cycleDay
+    this.cycleDay = props.navigation.state.params.cycleDay
     let initialValue
 
-    if(cycleDay.temperature) {
-      initialValue = cycleDay.temperature.value.toString()
+    if(this.cycleDay.temperature) {
+      initialValue = this.cycleDay.temperature.value.toString()
     } else {
-      const prevTemp = getPreviousTemperature(cycleDay)
+      const prevTemp = getPreviousTemperature(this.cycleDay)
       initialValue = prevTemp ? prevTemp.toString() : ''
     }
 
     this.state = {
-      cycleDay,
       currentValue: initialValue,
-      exclude: cycleDay.temperature ? cycleDay.temperature.exclude : false
+      exclude: this.cycleDay.temperature ? this.cycleDay.temperature.exclude : false
     }
   }
 
   render() {
     const navigate = this.props.navigation.navigate
-    const cycleDay = this.state.cycleDay
+    const cycleDay = this.cycleDay
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>{formatDateForViewHeader(cycleDay.date)}</Text>
