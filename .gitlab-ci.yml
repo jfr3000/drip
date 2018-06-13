@@ -1,4 +1,4 @@
-image: jfr3000/docker-nativescript
+image: node:8
 
 # This folder is cached between builds
 # http://docs.gitlab.com/ce/ci/yaml/README.html#cache
