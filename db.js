@@ -1,4 +1,6 @@
 import Realm from 'realm'
+import { LocalDate } from 'js-joda'
+
 
 const TemperatureSchema = {
   name: 'Temperature',
@@ -42,16 +44,12 @@ const db = new Realm({
   deleteRealmIfMigrationNeeded: true
 })
 
-const cycleDaysSortedbyTempValueView = db.objects('CycleDay').filtered('temperature != null').sorted('temperature.value', true)
 const bleedingDaysSortedByDate = db.objects('CycleDay').filtered('bleeding != null').sorted('date', true)
+const temperatureDaysSortedByDate = db.objects('CycleDay').filtered('temperature != null').sorted('date', true)
 
-function saveTemperature(date, temperature) {
+function saveTemperature(cycleDay, temperature) {
   db.write(() => {
-    const doc = {
-      date,
-      temperature
-    }
-    db.create('CycleDay', doc)
+    cycleDay.temperature = temperature
   })
 }
 
@@ -81,12 +79,22 @@ function deleteAll() {
   })
 }
 
+function getPreviousTemperature(cycleDay) {
+  cycleDay.wrappedDate = LocalDate.parse(cycleDay.date)
+  const winner = temperatureDaysSortedByDate.find(day => {
+    const wrappedDate = LocalDate.parse(day.date)
+    return wrappedDate.isBefore(cycleDay.wrappedDate)
+  })
+  if (!winner) return null
+  return winner.temperature.value
+}
+
 export {
-  cycleDaysSortedbyTempValueView,
   saveTemperature,
   saveBleeding,
   getOrCreateCycleDay,
   bleedingDaysSortedByDate,
   getCycleDaysSortedByDateView,
-  deleteAll
+  deleteAll,
+  getPreviousTemperature
 }

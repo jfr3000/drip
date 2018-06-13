@@ -17,22 +17,21 @@ const getCycleDayNumber = cycleDayModule()
 export default class Bleeding extends Component {
   constructor(props) {
     super(props)
-    const cycleDay = props.navigation.state.params.cycleDay
-    let bleedingValue = cycleDay.bleeding && cycleDay.bleeding.value
+    this.cycleDay = props.navigation.state.params.cycleDay
+    let bleedingValue = this.cycleDay.bleeding && this.cycleDay.bleeding.value
     if (! (typeof bleedingValue === 'number') ){
       bleedingValue = -1
     }
     this.state = {
-      cycleDay,
       currentValue: bleedingValue,
-      exclude: cycleDay.bleeding ? cycleDay.bleeding.exclude : false
+      exclude: this.cycleDay.bleeding ? this.cycleDay.bleeding.exclude : false
     }
   }
 
   // TODO display cycle day
   render() {
     const navigate = this.props.navigation.navigate
-    const day = this.state.cycleDay
+    const day = this.cycleDay
     const bleedingRadioProps = [
       {label: labels[0], value: 0 },
       {label: labels[1], value: 1 },
@@ -50,13 +49,13 @@ export default class Bleeding extends Component {
           formHorizontal={true}
           labelHorizontal={false}
           onPress={(itemValue) => {
-            this.setState({ currentValue: itemValue })
+            this.setState({currentValue: itemValue})
           }}
         />
         <Text>Exclude</Text>
         <Switch
           onValueChange={(val) => {
-            this.setState({ exclude: val })
+            this.setState({exclude: val})
           }}
           value={this.state.exclude} />
         <Button

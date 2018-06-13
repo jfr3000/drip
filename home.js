@@ -4,10 +4,10 @@ import {
   Button,
   Text
 } from 'react-native'
+import { LocalDate } from 'js-joda'
 import styles from './styles'
 import cycleDayModule from './get-cycle-day-number'
-import { bleedingDaysSortedByDate, deleteAll } from './db'
-import { LocalDate } from 'js-joda'
+import { getOrCreateCycleDay, bleedingDaysSortedByDate, deleteAll } from './db'
 
 const getCycleDayNumber = cycleDayModule()
 
@@ -28,13 +28,20 @@ export default class Home extends Component {
     bleedingDaysSortedByDate.removeAllListeners()
   }
 
+  passTodayToDayView() {
+    const todayDateString = LocalDate.now().toString()
+    const cycleDay = getOrCreateCycleDay(todayDateString)
+    const navigate = this.props.navigation.navigate
+    navigate('dayView', { cycleDay })
+  }
+
   render() {
     const navigate = this.props.navigation.navigate
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>{this.state.welcomeText}</Text>
         <Button
-          onPress={() => navigate('temperatureList')}
+          onPress={() => this.passTodayToDayView()}
           title="Edit symptoms for today">
         </Button>
         <Button
