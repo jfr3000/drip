@@ -13,7 +13,7 @@ export default class DatePickView extends Component {
   }
 
   componentWillUnmount() {
-    bleedingDaysSortedByDate.removeListener(setStateWithCalendarFormattedDays)
+    bleedingDaysSortedByDate.removeAllListeners()
   }
 
   passDateToDayView(result) {

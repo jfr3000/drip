@@ -6,12 +6,26 @@ import {
 } from 'react-native'
 import { LocalDate } from 'js-joda'
 import styles from './styles'
-import getCycleDay from './get-cycle-day'
-import { getOrCreateCycleDay } from './db'
+import cycleDayModule from './get-cycle-day-number'
+import { getOrCreateCycleDay, bleedingDaysSortedByDate, deleteAll } from './db'
+
+const getCycleDayNumber = cycleDayModule()
 
 export default class Home extends Component {
   constructor(props) {
     super(props)
+    this.todayDateString = LocalDate.now().toString()
+    const cycleDayNumber = getCycleDayNumber(this.todayDateString)
+
+    this.state = {
+      welcomeText: determineWelcomeText(cycleDayNumber)
+    }
+
+    bleedingDaysSortedByDate.addListener(setStateWithCurrentWelcomeText.bind(this))
+  }
+
+  componentWillUnmount() {
+    bleedingDaysSortedByDate.removeAllListeners()
   }
 
   passTodayToDayView() {
@@ -25,7 +39,7 @@ export default class Home extends Component {
     const navigate = this.props.navigation.navigate
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome! Today is day {getCycleDay()} of your current cycle</Text>
+        <Text style={styles.welcome}>{this.state.welcomeText}</Text>
         <Button
           onPress={() => this.passTodayToDayView()}
           title="Edit symptoms for today">
@@ -34,7 +48,21 @@ export default class Home extends Component {
           onPress={() => navigate('calendar')}
           title="Go to calendar">
         </Button>
+        <Button
+          onPress={() => deleteAll()}
+          title="delete everything">
+        </Button>
       </View>
     )
   }
+}
+
+function determineWelcomeText(cycleDayNumber) {
+  const welcomeTextWithCycleDay = `Welcome! Today is day ${cycleDayNumber} of your current cycle`
+  const welcomeText = `Welcome! We don't have enough information to know what your current cycle day is`
+  return cycleDayNumber ? welcomeTextWithCycleDay : welcomeText
+}
+
+function setStateWithCurrentWelcomeText() {
+  this.setState({ welcomeText: determineWelcomeText(getCycleDayNumber(this.todayDateString)) })
 }

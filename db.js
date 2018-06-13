@@ -1,10 +1,6 @@
-import realm from 'realm'
+import Realm from 'realm'
 import { LocalDate } from 'js-joda'
 
-let db
-let cycleDaysSortedbyDate = []
-let bleedingDaysSortedByDate = []
-let temperatureDaysSortedByDate
 
 const TemperatureSchema = {
   name: 'Temperature',
@@ -38,27 +34,26 @@ const CycleDaySchema = {
   }
 }
 
-async function openDatabase() {
-  db = await realm.open({
-    schema: [
-      CycleDaySchema,
-      TemperatureSchema,
-      BleedingSchema
-    ],
-    // we only want this in dev mode
-    deleteRealmIfMigrationNeeded: true
-  })
+const db = new Realm({
+  schema: [
+    CycleDaySchema,
+    TemperatureSchema,
+    BleedingSchema
+  ],
+  // we only want this in dev mode
+  deleteRealmIfMigrationNeeded: true
+})
 
-  cycleDaysSortedbyDate = db.objects('CycleDay').sorted('date', true)
-  bleedingDaysSortedByDate = db.objects('CycleDay').filtered('bleeding != null').sorted('date', true)
-  temperatureDaysSortedByDate = db.objects('CycleDay').filtered('temperature != null').sorted('date', true)
-}
+const bleedingDaysSortedByDate = db.objects('CycleDay').filtered('bleeding != null').sorted('date', true)
+const temperatureDaysSortedByDate = db.objects('CycleDay').filtered('temperature != null').sorted('date', true)
 
 function saveTemperature(cycleDay, temperature) {
   db.write(() => {
     cycleDay.temperature = temperature
   })
 }
+
+const getCycleDaysSortedByDateView = () => db.objects('CycleDay').sorted('date', true)
 
 function saveBleeding(cycleDay, bleeding) {
   db.write(() => {
@@ -78,6 +73,12 @@ function getOrCreateCycleDay(localDate) {
   return result
 }
 
+function deleteAll() {
+  db.write(() => {
+    db.deleteAll()
+  })
+}
+
 function getPreviousTemperature(cycleDay) {
   cycleDay.wrappedDate = LocalDate.parse(cycleDay.date)
   const winner = temperatureDaysSortedByDate.find(day => {
@@ -89,11 +90,11 @@ function getPreviousTemperature(cycleDay) {
 }
 
 export {
-  cycleDaysSortedbyDate,
-  openDatabase,
   saveTemperature,
   saveBleeding,
   getOrCreateCycleDay,
   bleedingDaysSortedByDate,
+  getCycleDaysSortedByDateView,
+  deleteAll,
   getPreviousTemperature
 }

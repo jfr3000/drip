@@ -10,7 +10,9 @@ import {
 import styles from './styles'
 import { saveTemperature, getPreviousTemperature } from './db'
 import { formatDateForViewHeader } from './format'
-import getCycleDay from './get-cycle-day'
+import cycleDayModule from './get-cycle-day-number'
+
+const getCycleDayNumber = cycleDayModule()
 
 export default class Temp extends Component {
   constructor(props) {
@@ -37,7 +39,7 @@ export default class Temp extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>{formatDateForViewHeader(cycleDay.date)}</Text>
-        <Text>Cycle day {getCycleDay()}</Text>
+        <Text>Cycle day {getCycleDayNumber()}</Text>
         <Text>Temperature</Text>
         <TextInput
           placeholder="Enter temperature"
