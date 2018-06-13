@@ -23,7 +23,7 @@ export default class DayView extends Component {
   }
 
   componentWillUnmount() {
-    bleedingDaysSortedByDate.removeListener(setStateWithCurrentCycleDayNumber)
+    bleedingDaysSortedByDate.removeAllListeners()
   }
 
   render() {

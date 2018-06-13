@@ -25,7 +25,7 @@ export default class Home extends Component {
   }
 
   componentWillUnmount() {
-    bleedingDaysSortedByDate.removeListener(setStateWithCurrentWelcomeText)
+    bleedingDaysSortedByDate.removeAllListeners()
   }
 
   render() {
