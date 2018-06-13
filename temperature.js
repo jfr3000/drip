@@ -75,6 +75,7 @@ export default class Temp extends Component {
             })
             navigate('dayView', { cycleDay })
           }}
+          disabled={ this.state.currentValue === '' }
           title="Save">
         </Button>
       </View>
