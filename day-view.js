@@ -19,23 +19,37 @@ export default class DayView extends Component {
 
   render() {
     const navigate = this.props.navigation.navigate
-    const day = this.state.cycleDay
-    const bleedingValue = day.bleeding && day.bleeding.value
+    const cycleDay = this.state.cycleDay
+    const bleedingValue = cycleDay.bleeding && cycleDay.bleeding.value
     let bleedingLabel
     if (typeof bleedingValue === 'number') {
       bleedingLabel = `Bleeding: ${labels[bleedingValue]}`
+      if (cycleDay.bleeding.exclude) bleedingLabel += " (Excluded)"
     } else {
-      bleedingLabel = ''
+      bleedingLabel = null
+    }
+    const temperatureValue = cycleDay.temperature && cycleDay.temperature.value
+    let temperatureLabel
+    if (typeof temperatureValue === 'number') {
+      temperatureLabel = `Temperature: ${temperatureValue}`
+      if (cycleDay.temperature.exclude) temperatureLabel += " (Excluded)"
+    } else {
+      temperatureLabel = null
     }
 
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>{formatDateForViewHeader(day.date)}</Text>
+        <Text style={styles.welcome}>{formatDateForViewHeader(cycleDay.date)}</Text>
         <Text>Cycle day {getCycleDay()}</Text>
         <Text style={styles.welcome}>{bleedingLabel}</Text>
+        <Text style={styles.welcome}>{temperatureLabel}</Text>
         <Button
-          onPress={() => navigate('bleeding', { cycleDay: day })}
+          onPress={() => navigate('bleeding', { cycleDay })}
           title="Edit bleeding">
+        </Button>
+        <Button
+          onPress={() => navigate('temperature', { cycleDay })}
+          title="Edit temperature">
         </Button>
       </View >
     )

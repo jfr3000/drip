@@ -1,8 +1,10 @@
 import realm from 'realm'
+import { LocalDate } from 'js-joda'
 
 let db
-let cycleDaysSortedbyTempValueView = []
+let cycleDaysSortedbyDate = []
 let bleedingDaysSortedByDate = []
+let temperatureDaysSortedByDate
 
 const TemperatureSchema = {
   name: 'Temperature',
@@ -46,19 +48,15 @@ async function openDatabase() {
     // we only want this in dev mode
     deleteRealmIfMigrationNeeded: true
   })
-  // just for testing purposes, the highest temperature will be topmost
-  // because I was too layz to make a scroll view
-  cycleDaysSortedbyTempValueView = db.objects('CycleDay').filtered('temperature != null').sorted('temperature.value', true)
+
+  cycleDaysSortedbyDate = db.objects('CycleDay').sorted('date', true)
   bleedingDaysSortedByDate = db.objects('CycleDay').filtered('bleeding != null').sorted('date', true)
+  temperatureDaysSortedByDate = db.objects('CycleDay').filtered('temperature != null').sorted('date', true)
 }
 
-function saveTemperature(date, temperature) {
+function saveTemperature(cycleDay, temperature) {
   db.write(() => {
-    const doc = {
-      date,
-      temperature
-    }
-    db.create('CycleDay', doc)
+    cycleDay.temperature = temperature
   })
 }
 
@@ -80,11 +78,22 @@ function getOrCreateCycleDay(localDate) {
   return result
 }
 
+function getPreviousTemperature(cycleDay) {
+  cycleDay.wrappedDate = LocalDate.parse(cycleDay.date)
+  const winner = temperatureDaysSortedByDate.find(day => {
+    const wrappedDate = LocalDate.parse(day.date)
+    return wrappedDate.isBefore(cycleDay.wrappedDate)
+  })
+  if (!winner) return null
+  return winner.temperature.value
+}
+
 export {
-  cycleDaysSortedbyTempValueView,
+  cycleDaysSortedbyDate,
   openDatabase,
   saveTemperature,
   saveBleeding,
   getOrCreateCycleDay,
-  bleedingDaysSortedByDate
+  bleedingDaysSortedByDate,
+  getPreviousTemperature
 }
