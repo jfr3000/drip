@@ -47,6 +47,6 @@
     "no-var": "error",
     "prefer-const": "error",
     "no-trailing-spaces": "error",
-    "react/prop-types": ["error", {"ignore": ["navigation"]}]
+    "react/prop-types": 0
   }
 }
