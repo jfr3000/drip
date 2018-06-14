@@ -4,16 +4,24 @@ import { Calendar } from 'react-native-calendars'
 import * as styles from './styles'
 import { getOrCreateCycleDay, bleedingDaysSortedByDate } from './db'
 
-export default class DatePickView extends Component {
+export default class CalendarView extends Component {
   constructor(props) {
     super(props)
     this.state = { bleedingDaysInCalFormat: getBleedingDaysInCalFormat(bleedingDaysSortedByDate) }
 
-    bleedingDaysSortedByDate.addListener(setStateWithCalendarFormattedDays.bind(this))
+    this.setStateWithCalendarFormattedDays = (function (CalendarComponent) {
+      return function() {
+        CalendarComponent.setState({
+          bleedingDaysInCalFormat: getBleedingDaysInCalFormat(bleedingDaysSortedByDate)
+        })
+      }
+    })(this)
+
+    bleedingDaysSortedByDate.addListener(this.setStateWithCalendarFormattedDays)
   }
 
   componentWillUnmount() {
-    bleedingDaysSortedByDate.removeAllListeners()
+    bleedingDaysSortedByDate.removeListener(this.setStateWithCalendarFormattedDays)
   }
 
   passDateToDayView(result) {
@@ -41,8 +49,4 @@ function getBleedingDaysInCalFormat(bleedingDaysSortedByDate) {
     acc[day.date] = { startingDay: true, endingDay: true, color: shadesOfRed[day.bleeding.value] }
     return acc
   }, {})
-}
-
-function setStateWithCalendarFormattedDays() {
-  this.setState({ bleedingDaysInCalFormat: getBleedingDaysInCalFormat(bleedingDaysSortedByDate) })
 }

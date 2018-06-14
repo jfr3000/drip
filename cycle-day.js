@@ -16,7 +16,6 @@ export default class Day extends Component {
   constructor(props) {
     super(props)
     this.cycleDay = props.navigation.state.params.cycleDay
-    this.cycleDayNumber = getCycleDayNumber(this.cycleDay.date)
 
     this.state = {
       visibleComponent: 'dayView',
@@ -28,10 +27,11 @@ export default class Day extends Component {
   }
 
   render() {
+    const cycleDayNumber = getCycleDayNumber(this.cycleDay.date)
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>{formatDateForViewHeader(this.cycleDay.date)}</Text>
-        { this.cycleDayNumber && <Text>Cycle day {this.cycleDayNumber}</Text> }
+        { cycleDayNumber && <Text>Cycle day {cycleDayNumber}</Text> }
         {
           { dayView: <DayView cycleDay={this.cycleDay} showView={this.showView} />,
             bleedingEditView: <BleedingEditView cycleDay={this.cycleDay} showView={this.showView}/>,
