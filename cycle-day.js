@@ -22,7 +22,7 @@ export default class Day extends Component {
       visibleComponent: 'dayView',
     }
 
-    this.bringIntoView = view => {
+    this.showView = view => {
       this.setState({visibleComponent: view})
     }
   }
@@ -33,9 +33,9 @@ export default class Day extends Component {
         <Text style={styles.welcome}>{formatDateForViewHeader(this.cycleDay.date)}</Text>
         { this.cycleDayNumber && <Text>Cycle day {this.cycleDayNumber}</Text> }
         {
-          { dayView: <DayView cycleDay={this.cycleDay} bringIntoView={this.bringIntoView} />,
-            bleedingEditView: <BleedingEditView cycleDay={this.cycleDay} bringIntoView={this.bringIntoView}/>,
-            temperatureEditView: <TemperatureEditView cycleDay={this.cycleDay} bringIntoView={this.bringIntoView}/>
+          { dayView: <DayView cycleDay={this.cycleDay} bringIntoView={this.showView} />,
+            bleedingEditView: <BleedingEditView cycleDay={this.cycleDay} bringIntoView={this.showView}/>,
+            temperatureEditView: <TemperatureEditView cycleDay={this.cycleDay} bringIntoView={this.showView}/>
           }[this.state.visibleComponent]
         }
 

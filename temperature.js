@@ -13,7 +13,7 @@ export default class Temp extends Component {
   constructor(props) {
     super(props)
     this.cycleDay = props.cycleDay
-    this.bringIntoView = props.bringIntoView
+    this.showView = props.bringIntoView
     let initialValue
 
     if(this.cycleDay.temperature) {
@@ -51,14 +51,14 @@ export default class Temp extends Component {
         />
         <Button
           onPress={() => {
-            this.bringIntoView('dayView')
+            this.showView('dayView')
           }}
           title="Cancel">
         </Button>
         <Button
           onPress={() => {
             saveTemperature(cycleDay)
-            this.bringIntoView('dayView')
+            this.showView('dayView')
           }}
           title="Delete entry">
         </Button>
@@ -68,7 +68,7 @@ export default class Temp extends Component {
               value: Number(this.state.currentValue),
               exclude: this.state.exclude
             })
-            this.bringIntoView('dayView')
+            this.showView('dayView')
           }}
           disabled={ this.state.currentValue === '' }
           title="Save">

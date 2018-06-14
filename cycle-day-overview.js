@@ -15,7 +15,7 @@ export default class DayView extends Component {
   constructor(props) {
     super(props)
     this.cycleDay = props.cycleDay
-    this.bringIntoView = props.bringIntoView
+    this.showView = props.bringIntoView
     bleedingDaysSortedByDate.addListener(setStateWithCurrentCycleDayNumber.bind(this))
   }
 
@@ -46,11 +46,11 @@ export default class DayView extends Component {
         <Text style={styles.welcome}>{bleedingLabel}</Text>
         <Text style={styles.welcome}>{temperatureLabel}</Text>
         <Button
-          onPress={() => this.bringIntoView('bleedingEditView')}
+          onPress={() => this.showView('bleedingEditView')}
           title="Edit bleeding">
         </Button>
         <Button
-          onPress={() => this.bringIntoView('temperatureEditView')}
+          onPress={() => this.showView('temperatureEditView')}
           title="Edit temperature">
         </Button>
       </View >

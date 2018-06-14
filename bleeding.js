@@ -14,7 +14,7 @@ export default class Bleeding extends Component {
   constructor(props) {
     super(props)
     this.cycleDay = props.cycleDay
-    this.bringIntoView = props.bringIntoView
+    this.showView = props.bringIntoView
     let bleedingValue = this.cycleDay.bleeding && this.cycleDay.bleeding.value
     if (! (typeof bleedingValue === 'number') ){
       bleedingValue = -1
@@ -51,13 +51,13 @@ export default class Bleeding extends Component {
           }}
           value={this.state.exclude} />
         <Button
-          onPress={() => this.bringIntoView('dayView')}
+          onPress={() => this.showView('dayView')}
           title="Cancel">
         </Button>
         <Button
           onPress={() => {
             saveBleeding(this.cycleDay)
-            this.bringIntoView('dayView')
+            this.showView('dayView')
           }}
           title="Delete entry">
         </Button>
@@ -67,7 +67,7 @@ export default class Bleeding extends Component {
               value: this.state.currentValue,
               exclude: this.state.exclude
             })
-            this.bringIntoView('dayView')
+            this.showView('dayView')
           }}
           disabled={ this.state.currentValue === -1 }
           title="Save">
