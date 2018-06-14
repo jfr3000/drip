@@ -13,7 +13,7 @@ export default class Temp extends Component {
   constructor(props) {
     super(props)
     this.cycleDay = props.cycleDay
-    this.showView = props.bringIntoView
+    this.showView = props.showView
     let initialValue
 
     if(this.cycleDay.temperature) {

@@ -15,7 +15,7 @@ export default class DayView extends Component {
   constructor(props) {
     super(props)
     this.cycleDay = props.cycleDay
-    this.showView = props.bringIntoView
+    this.showView = props.showView
     bleedingDaysSortedByDate.addListener(setStateWithCurrentCycleDayNumber.bind(this))
   }
 

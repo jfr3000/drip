@@ -33,9 +33,9 @@ export default class Day extends Component {
         <Text style={styles.welcome}>{formatDateForViewHeader(this.cycleDay.date)}</Text>
         { this.cycleDayNumber && <Text>Cycle day {this.cycleDayNumber}</Text> }
         {
-          { dayView: <DayView cycleDay={this.cycleDay} bringIntoView={this.showView} />,
-            bleedingEditView: <BleedingEditView cycleDay={this.cycleDay} bringIntoView={this.showView}/>,
-            temperatureEditView: <TemperatureEditView cycleDay={this.cycleDay} bringIntoView={this.showView}/>
+          { dayView: <DayView cycleDay={this.cycleDay} showView={this.showView} />,
+            bleedingEditView: <BleedingEditView cycleDay={this.cycleDay} showView={this.showView}/>,
+            temperatureEditView: <TemperatureEditView cycleDay={this.cycleDay} showView={this.showView}/>
           }[this.state.visibleComponent]
         }
 

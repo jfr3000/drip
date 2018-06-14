@@ -14,7 +14,7 @@ export default class Bleeding extends Component {
   constructor(props) {
     super(props)
     this.cycleDay = props.cycleDay
-    this.showView = props.bringIntoView
+    this.showView = props.showView
     let bleedingValue = this.cycleDay.bleeding && this.cycleDay.bleeding.value
     if (! (typeof bleedingValue === 'number') ){
       bleedingValue = -1
