@@ -8,16 +8,13 @@ import {
 import RadioForm from 'react-native-simple-radio-button'
 import styles from './styles'
 import { saveBleeding } from './db'
-import { formatDateForViewHeader } from './format'
 import { bleeding as labels } from './labels'
-import cycleDayModule from './get-cycle-day-number'
-
-const getCycleDayNumber = cycleDayModule()
 
 export default class Bleeding extends Component {
   constructor(props) {
     super(props)
-    this.cycleDay = props.navigation.state.params.cycleDay
+    this.cycleDay = props.cycleDay
+    this.bringIntoView = props.bringIntoView
     let bleedingValue = this.cycleDay.bleeding && this.cycleDay.bleeding.value
     if (! (typeof bleedingValue === 'number') ){
       bleedingValue = -1
@@ -28,10 +25,7 @@ export default class Bleeding extends Component {
     }
   }
 
-  // TODO display cycle day
   render() {
-    const navigate = this.props.navigation.navigate
-    const day = this.cycleDay
     const bleedingRadioProps = [
       {label: labels[0], value: 0 },
       {label: labels[1], value: 1 },
@@ -40,8 +34,6 @@ export default class Bleeding extends Component {
     ]
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>{formatDateForViewHeader(day.date)}</Text>
-        <Text>Cycle day {getCycleDayNumber(day.date)}</Text>
         <Text>Bleeding</Text>
         <RadioForm
           radio_props={bleedingRadioProps}
@@ -59,25 +51,23 @@ export default class Bleeding extends Component {
           }}
           value={this.state.exclude} />
         <Button
-          onPress={() => {
-            navigate('dayView', { cycleDay: day })
-          }}
+          onPress={() => this.bringIntoView('dayView')}
           title="Cancel">
         </Button>
         <Button
           onPress={() => {
-            saveBleeding(day)
-            navigate('dayView', { cycleDay: day })
+            saveBleeding(this.cycleDay)
+            this.bringIntoView('dayView')
           }}
           title="Delete entry">
         </Button>
         <Button
           onPress={() => {
-            saveBleeding(day, {
+            saveBleeding(this.cycleDay, {
               value: this.state.currentValue,
               exclude: this.state.exclude
             })
-            navigate('dayView', { cycleDay: day })
+            this.bringIntoView('dayView')
           }}
           disabled={ this.state.currentValue === -1 }
           title="Save">
