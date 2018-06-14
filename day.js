@@ -4,7 +4,6 @@ import {
   Text
 } from 'react-native'
 import cycleDayModule from './get-cycle-day-number'
-import { bleedingDaysSortedByDate } from './db'
 import DayView from './day-view'
 import BleedingEditView from './bleeding'
 import TemperatureEditView from './temperature'
@@ -26,10 +25,6 @@ export default class Day extends Component {
     this.bringIntoView = view => {
       this.setState({visibleComponent: view})
     }
-  }
-
-  componentWillUnmount() {
-    bleedingDaysSortedByDate.removeAllListeners()
   }
 
   render() {
