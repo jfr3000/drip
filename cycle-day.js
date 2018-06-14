@@ -4,7 +4,7 @@ import {
   Text
 } from 'react-native'
 import cycleDayModule from './get-cycle-day-number'
-import DayView from './day-view'
+import DayView from './cycle-day-overview'
 import BleedingEditView from './bleeding'
 import TemperatureEditView from './temperature'
 import { formatDateForViewHeader } from './format'
