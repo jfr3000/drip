@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 
 import { saveTemperature, getPreviousTemperature } from './db'
+import styles from './styles'
 
 export default class Temp extends Component {
   constructor(props) {
@@ -32,47 +33,69 @@ export default class Temp extends Component {
   render() {
     const cycleDay = this.cycleDay
     return (
-      <View>
-        <Text>Temperature</Text>
-        <TextInput
-          placeholder="Enter temperature"
-          onChangeText={(val) => {
-            this.setState({currentValue: val})
-          }}
-          keyboardType='numeric'
-          value = {this.state.currentValue}
-        />
-        <Text>Exclude</Text>
-        <Switch
-          onValueChange = {(val) => {
-            this.setState({ exclude: val })
-          }}
-          value = { this.state.exclude }
-        />
-        <Button
-          onPress={() => {
-            this.showView('dayView')
-          }}
-          title="Cancel">
-        </Button>
-        <Button
-          onPress={() => {
-            saveTemperature(cycleDay)
-            this.showView('dayView')
-          }}
-          title="Delete entry">
-        </Button>
-        <Button
-          onPress={() => {
-            saveTemperature(cycleDay, {
-              value: Number(this.state.currentValue),
-              exclude: this.state.exclude
-            })
-            this.showView('dayView')
-          }}
-          disabled={ this.state.currentValue === '' }
-          title="Save">
-        </Button>
+      <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start'}}>
+        <View style={{flex: 4, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start'}}>
+          <View style={{flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
+            <View style={{flex: 3, margin: 5}}>
+              <Text style={styles.symptomDayView}>Temperature (°C)</Text>
+            </View>
+            <View style={{flex: 1, margin: 5}}>
+              <TextInput
+                placeholder="Enter temperature"
+                onChangeText={(val) => {
+                  this.setState({currentValue: val})
+                }}
+                keyboardType='numeric'
+                value = {this.state.currentValue}
+              />
+            </View>
+          </View>
+          <View style={{flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center'}}>
+            <View style={{flex: 1, margin: 5}}>
+              <Text style={styles.symptomDayView}>Exclude</Text>
+            </View>
+            <View style={{flex: 1, margin: 5}}>
+              <Switch
+                onValueChange = {(val) => {
+                  this.setState({ exclude: val })
+                }}
+                value = { this.state.exclude }
+              />
+            </View>
+          </View>
+        </View>
+        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center'}}>
+          <View style={{flex: 1, margin: 5}}>
+            <Button
+              onPress={() => {
+                this.showView('dayView')
+              }}
+              title="Cancel">
+            </Button>
+          </View>
+          <View style={{flex: 1, margin: 5}}>
+            <Button
+              onPress={() => {
+                saveTemperature(cycleDay)
+                this.showView('dayView')
+              }}
+              title="Delete">
+            </Button>
+          </View>
+          <View style={{flex: 1, margin: 5}}>
+            <Button
+              onPress={() => {
+                saveTemperature(cycleDay, {
+                  value: Number(this.state.currentValue),
+                  exclude: this.state.exclude
+                })
+                this.showView('dayView')
+              }}
+              disabled={ this.state.currentValue === '' }
+              title="Save">
+            </Button>
+          </View>
+        </View>
       </View>
     )
   }
