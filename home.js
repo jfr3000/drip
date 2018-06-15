@@ -21,11 +21,19 @@ export default class Home extends Component {
       welcomeText: determineWelcomeText(cycleDayNumber)
     }
 
-    bleedingDaysSortedByDate.addListener(setStateWithCurrentWelcomeText.bind(this))
+    this.setStateWithCurrentWelcomeText = (function (HomeComponent) {
+      return function () {
+        HomeComponent.setState({
+          welcomeText: determineWelcomeText(getCycleDayNumber(HomeComponent.todayDateString))
+        })
+      }
+    })(this)
+
+    bleedingDaysSortedByDate.addListener(this.setStateWithCurrentWelcomeText)
   }
 
   componentWillUnmount() {
-    bleedingDaysSortedByDate.removeAllListeners()
+    bleedingDaysSortedByDate.removeListener(this.setStateWithCurrentWelcomeText)
   }
 
   passTodayToDayView() {
@@ -63,6 +71,3 @@ function determineWelcomeText(cycleDayNumber) {
   return cycleDayNumber ? welcomeTextWithCycleDay : welcomeText
 }
 
-function setStateWithCurrentWelcomeText() {
-  this.setState({ welcomeText: determineWelcomeText(getCycleDayNumber(this.todayDateString)) })
-}
