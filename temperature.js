@@ -7,17 +7,13 @@ import {
   Switch
 } from 'react-native'
 
-import styles from './styles'
 import { saveTemperature, getPreviousTemperature } from './db'
-import { formatDateForViewHeader } from './format'
-import cycleDayModule from './get-cycle-day-number'
-
-const getCycleDayNumber = cycleDayModule()
 
 export default class Temp extends Component {
   constructor(props) {
     super(props)
-    this.cycleDay = props.navigation.state.params.cycleDay
+    this.cycleDay = props.cycleDay
+    this.showView = props.showView
     let initialValue
 
     if(this.cycleDay.temperature) {
@@ -34,12 +30,9 @@ export default class Temp extends Component {
   }
 
   render() {
-    const navigate = this.props.navigation.navigate
     const cycleDay = this.cycleDay
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>{formatDateForViewHeader(cycleDay.date)}</Text>
-        <Text>Cycle day {getCycleDayNumber()}</Text>
+      <View>
         <Text>Temperature</Text>
         <TextInput
           placeholder="Enter temperature"
@@ -58,14 +51,14 @@ export default class Temp extends Component {
         />
         <Button
           onPress={() => {
-            navigate('dayView', { cycleDay })
+            this.showView('dayView')
           }}
           title="Cancel">
         </Button>
         <Button
           onPress={() => {
             saveTemperature(cycleDay)
-            navigate('dayView', { cycleDay })
+            this.showView('dayView')
           }}
           title="Delete entry">
         </Button>
@@ -75,7 +68,7 @@ export default class Temp extends Component {
               value: Number(this.state.currentValue),
               exclude: this.state.exclude
             })
-            navigate('dayView', { cycleDay })
+            this.showView('dayView')
           }}
           disabled={ this.state.currentValue === '' }
           title="Save">

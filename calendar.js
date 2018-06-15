@@ -19,7 +19,7 @@ export default class DatePickView extends Component {
   passDateToDayView(result) {
     const cycleDay = getOrCreateCycleDay(result.dateString)
     const navigate = this.props.navigation.navigate
-    navigate('dayView', { cycleDay })
+    navigate('cycleDay', { cycleDay })
   }
 
   render() {
