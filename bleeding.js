@@ -33,9 +33,9 @@ export default class Bleeding extends Component {
       {label: labels[3], value: 3 },
     ]
     return (
-      <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start'}}>
-        <View style={{flex: 4, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start'}}>
-          <View style={{flex: 1, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start'}}>
+      <View style={ styles.symptomEditView }>
+        <View style={ styles.symptomEditSplitSymptomsAndLastRowButtons }>
+          <View style={ styles.symptomEditListedSymptomView }>
             <View style={{flex: 1}}>
               <Text style={styles.symptomDayView}>Bleeding</Text>
             </View>
@@ -52,11 +52,11 @@ export default class Bleeding extends Component {
               />
             </View>
           </View>
-          <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center'}}>
-            <View style={{flex: 1, margin: 5}}>
-              <Text style={styles.symptomDayView}>Exclude</Text>
+          <View style={ styles.itemsInRowSeparatedView }>
+            <View style={ styles.singleButtonView }>
+              <Text style={ styles.symptomDayView }>Exclude</Text>
             </View>
-            <View style={{flex: 1, margin: 5}}>
+            <View style={ styles.singleButtonView }>
               <Switch
                 onValueChange={(val) => {
                   this.setState({exclude: val})
@@ -66,14 +66,14 @@ export default class Bleeding extends Component {
             </View>
           </View>
         </View>
-        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center'}}>
-          <View style={{flex: 1, margin: 5}}>
+        <View style={ styles.itemsInRowSeparatedView }>
+          <View style={ styles.singleButtonView }>
             <Button
               onPress={() => this.showView('dayView')}
               title="Cancel">
             </Button>
           </View>
-          <View style={{flex: 1, margin: 5}}>
+          <View style={ styles.singleButtonView }>
             <Button
               onPress={() => {
                 saveBleeding(this.cycleDay)
@@ -82,7 +82,7 @@ export default class Bleeding extends Component {
               title="Delete">
             </Button>
           </View>
-          <View style={{flex: 1, margin: 5}}>
+          <View style={ styles.singleButtonView }>
             <Button
               onPress={() => {
                 saveBleeding(this.cycleDay, {

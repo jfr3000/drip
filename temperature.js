@@ -33,15 +33,15 @@ export default class Temp extends Component {
   render() {
     const cycleDay = this.cycleDay
     return (
-      <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start'}}>
-        <View style={{flex: 4, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start'}}>
-          <View style={{flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center'}}>
+      <View style={ styles.symptomEditView }>
+        <View style={ styles.symptomEditSplitSymptomsAndLastRowButtons }>
+          <View style={ styles.itemsInRowView }>
             <View style={{flex: 3, margin: 5}}>
               <Text style={styles.symptomDayView}>Temperature (°C)</Text>
             </View>
             <View style={{flex: 1, margin: 5}}>
               <TextInput
-                placeholder="Enter temperature"
+                placeholder="Enter"
                 onChangeText={(val) => {
                   this.setState({currentValue: val})
                 }}
@@ -50,7 +50,7 @@ export default class Temp extends Component {
               />
             </View>
           </View>
-          <View style={{flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center'}}>
+          <View style={ styles.itemsInRowSeparatedView }>
             <View style={{flex: 1, margin: 5}}>
               <Text style={styles.symptomDayView}>Exclude</Text>
             </View>
@@ -64,8 +64,8 @@ export default class Temp extends Component {
             </View>
           </View>
         </View>
-        <View style={{flex: 1, flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center'}}>
-          <View style={{flex: 1, margin: 5}}>
+        <View style={ styles.itemsInRowSeparatedView }>
+          <View style={ styles.singleButtonView }>
             <Button
               onPress={() => {
                 this.showView('dayView')
@@ -73,7 +73,7 @@ export default class Temp extends Component {
               title="Cancel">
             </Button>
           </View>
-          <View style={{flex: 1, margin: 5}}>
+          <View style={ styles.singleButtonView }>
             <Button
               onPress={() => {
                 saveTemperature(cycleDay)
@@ -82,7 +82,7 @@ export default class Temp extends Component {
               title="Delete">
             </Button>
           </View>
-          <View style={{flex: 1, margin: 5}}>
+          <View style={ styles.singleButtonView }>
             <Button
               onPress={() => {
                 saveTemperature(cycleDay, {

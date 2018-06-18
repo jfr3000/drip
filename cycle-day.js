@@ -29,16 +29,16 @@ export default class Day extends Component {
   render() {
     const cycleDayNumber = getCycleDayNumber(this.cycleDay.date)
     return (
-      <View style={{flex: 1, flexDirection: 'column', justifyContent: 'space-around'}}>
-        <View style={{flex: 2, justifyContent: 'center', backgroundColor: 'steelblue'}}>
+      <View style={ styles.cycleDayOuterView }>
+        <View style={ styles.cycleDayDateView }>
           <Text style={styles.dateHeader}>
             {formatDateForViewHeader(this.cycleDay.date)}
           </Text>
         </View >
-        <View style={{flex: 1, justifyContent: 'center', backgroundColor: 'skyblue'}}>
+        <View style={ styles.cycleDayNumberView }>
           { cycleDayNumber && <Text style={styles.cycleDayNumber} >Cycle day {cycleDayNumber}</Text> }
         </View >
-        <View style={{flex: 8, justifyContent: 'center',}}>
+        <View style={ styles.cycleDaySymptomsView }>
           {
             { dayView: <DayView cycleDay={this.cycleDay} showView={this.showView} />,
               bleedingEditView: <BleedingEditView cycleDay={this.cycleDay} showView={this.showView}/>,

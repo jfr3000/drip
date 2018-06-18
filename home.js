@@ -46,13 +46,13 @@ export default class Home extends Component {
   render() {
     const navigate = this.props.navigation.navigate
     return (
-      <View style={{flex: 0.5, flexDirection: 'column', justifyContent: 'space-around'}}>
+      <View style={ styles.homeContainerView }>
         <View style={{flex: 2}}>
           <View>
             <Text style={styles.welcome}>{this.state.welcomeText}</Text>
           </View>
         </View>
-        <View style={{flex: 3, flexDirection: 'column', justifyContent: 'space-around', margin: 5}}>
+        <View style={ styles.homeButtonsView}>
           <View>
             <Button
               onPress={() => this.passTodayToDayView()}

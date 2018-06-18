@@ -54,23 +54,23 @@ export default class DayView extends Component {
     }
 
     return (
-      <View style={{flex: 1, flexDirection: 'column', justifyContent: 'flex-start'}}>
-        <View style={{flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center'}}>
+      <View style={ styles.symptomEditListedSymptomView }>
+        <View style={ styles.itemsInRowSeparatedView }>
           <View style={{flex: 1}}>
             <Text style={styles.symptomDayView}>Bleeding</Text>
           </View>
-          <View style={{flex: 1, margin:5}}>
+          <View style={ styles.singleButtonView }>
             <Button
               onPress={() => this.showView('bleedingEditView')}
               title={bleedingLabel}>
             </Button>
           </View>
         </View>
-        <View style={{flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center'}}>
+        <View style={ styles.itemsInRowSeparatedView}>
           <View style={{flex: 1}}>
             <Text style={styles.symptomDayView}>Temperature</Text>
           </View>
-          <View style={{flex: 1, margin:5}}>
+          <View style={ styles.singleButtonView }>
             <Button
               onPress={() => this.showView('temperatureEditView')}
               title={temperatureLabel}>
