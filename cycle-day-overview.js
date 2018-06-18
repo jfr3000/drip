@@ -39,32 +39,44 @@ export default class DayView extends Component {
     const bleedingValue = this.cycleDay.bleeding && this.cycleDay.bleeding.value
     let bleedingLabel
     if (typeof bleedingValue === 'number') {
-      bleedingLabel = `Bleeding: ${labels[bleedingValue]}`
-      if (this.cycleDay.bleeding.exclude) bleedingLabel += " (Excluded)"
+      bleedingLabel = `${labels[bleedingValue]}`
+      if (this.cycleDay.bleeding.exclude) bleedingLabel = "( " + bleedingLabel + " )"
     } else {
-      bleedingLabel = null
+      bleedingLabel = 'edit'
     }
     const temperatureValue = this.cycleDay.temperature && this.cycleDay.temperature.value
     let temperatureLabel
     if (typeof temperatureValue === 'number') {
-      temperatureLabel = `Temperature: ${temperatureValue}`
-      if (this.cycleDay.temperature.exclude) temperatureLabel += " (Excluded)"
+      temperatureLabel = `${temperatureValue} °C`
+      if (this.cycleDay.temperature.exclude) temperatureLabel = "( " + temperatureLabel + " )"
     } else {
-      temperatureLabel = null
+      temperatureLabel = 'edit'
     }
 
     return (
-      <View>
-        <Text style={styles.welcome}>{bleedingLabel}</Text>
-        <Text style={styles.welcome}>{temperatureLabel}</Text>
-        <Button
-          onPress={() => this.showView('bleedingEditView')}
-          title="Edit bleeding">
-        </Button>
-        <Button
-          onPress={() => this.showView('temperatureEditView')}
-          title="Edit temperature">
-        </Button>
+      <View style={ styles.symptomEditListedSymptomView }>
+        <View style={ styles.itemsInRowSeparatedView }>
+          <View style={{flex: 1}}>
+            <Text style={styles.symptomDayView}>Bleeding</Text>
+          </View>
+          <View style={ styles.singleButtonView }>
+            <Button
+              onPress={() => this.showView('bleedingEditView')}
+              title={bleedingLabel}>
+            </Button>
+          </View>
+        </View>
+        <View style={ styles.itemsInRowSeparatedView}>
+          <View style={{flex: 1}}>
+            <Text style={styles.symptomDayView}>Temperature</Text>
+          </View>
+          <View style={ styles.singleButtonView }>
+            <Button
+              onPress={() => this.showView('temperatureEditView')}
+              title={temperatureLabel}>
+            </Button>
+          </View>
+        </View>
       </View >
     )
   }
