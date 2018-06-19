@@ -67,6 +67,12 @@ export default class Home extends Component {
           </View>
           <View>
             <Button
+              onPress={() => navigate('chart')}
+              title="Go to chart">
+            </Button>
+          </View>
+          <View>
+            <Button
               onPress={() => deleteAll()}
               title="delete everything">
             </Button>
