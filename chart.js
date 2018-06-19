@@ -74,7 +74,7 @@ export default class SvgExample extends Component {
 
   makeDayColumn(labelInfo) {
     return (
-      <G>
+      <G key={labelInfo.label}>
         <Rect
           x={labelInfo.rightOffset}
           y={top}
