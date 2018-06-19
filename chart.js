@@ -86,7 +86,7 @@ export default class SvgExample extends Component {
           onPress={() => this.passDateToDayView(labelInfo.label)}
         />
         <Text
-          stroke="purple"
+          stroke="grey"
           fontSize="10"
           x={labelInfo.rightOffset}
           y={bottom - top - dateRow.height}
@@ -106,8 +106,9 @@ export default class SvgExample extends Component {
           <Polyline
             points={determineCurvePoints()}
             fill="none"
-            stroke="black"
+            stroke="darkblue"
             strokeWidth="2"
+            strokeLinejoin="round"
           />
         </Svg>
       </ScrollView>
