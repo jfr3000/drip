@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { ScrollView } from 'react-native'
-import { temperatureDaysSortedByDate, getOrCreateCycleDay } from './db'
+import { bleedingDaysSortedByDate, temperatureDaysSortedByDate, getOrCreateCycleDay } from './db'
 import range from 'date-range'
 import Svg,{
   G,
   Polyline,
   Rect,
   Text,
+  Circle
 } from 'react-native-svg'
 import { LocalDate } from 'js-joda'
 
@@ -61,6 +62,17 @@ function normalizeToScale(temp) {
   return scaleHeight * tempInScaleDecs
 }
 
+function placeBleedingSymbolsOnColumns() {
+  return bleedingDaysSortedByDate.map(day => {
+    // TODO handle no bleeding days, same for curve
+    // TODO exclude future bleeding days (??)
+    const match = xAxisDatesWithRightOffset.find(tick => {
+      return tick.label === day.date
+    })
+    const x = match.rightOffset + columnWidth / 2
+    return (<Circle key={day.date} cx={x} cy="50" r="7" fill="red"/>)
+  })
+}
 
 export default class SvgExample extends Component {
   constructor(props) {
@@ -103,6 +115,9 @@ export default class SvgExample extends Component {
           width="2000"
         >
           { xAxisDatesWithRightOffset.map(this.makeDayColumn.bind(this)) }
+
+          { placeBleedingSymbolsOnColumns() }
+
           <Polyline
             points={determineCurvePoints()}
             fill="none"
