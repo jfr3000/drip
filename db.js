@@ -94,6 +94,7 @@ export {
   saveBleeding,
   getOrCreateCycleDay,
   bleedingDaysSortedByDate,
+  temperatureDaysSortedByDate,
   getCycleDaysSortedByDateView,
   deleteAll,
   getPreviousTemperature
