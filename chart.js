@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { ScrollView } from 'react-native'
-import { bleedingDaysSortedByDate, temperatureDaysSortedByDate, getOrCreateCycleDay } from './db'
 import range from 'date-range'
 import Svg,{
   G,
@@ -10,8 +9,9 @@ import Svg,{
   Circle
 } from 'react-native-svg'
 import { LocalDate } from 'js-joda'
+import { bleedingDaysSortedByDate, temperatureDaysSortedByDate, getOrCreateCycleDay } from './db'
 
-const right = 350
+const right = 600
 const top = 10
 const bottom = 350
 const columnWidth = 30
@@ -20,7 +20,6 @@ const dateRow = {
   width: right
 }
 
-
 function getPreviousDays(n) {
   const today = new Date()
   today.setHours(0); today.setMinutes(0); today.setSeconds(0); today.setMilliseconds(0)
@@ -28,6 +27,7 @@ function getPreviousDays(n) {
 
   return range(twoWeeksAgo, today).reverse()
 }
+
 const xAxisDates = getPreviousDays(14).map(jsDate => {
   return LocalDate.of(
     jsDate.getFullYear(),
@@ -35,6 +35,7 @@ const xAxisDates = getPreviousDays(14).map(jsDate => {
     jsDate.getDate()
   ).toString()
 })
+
 const xAxisDatesWithRightOffset = xAxisDates.map((datestring, columnIndex) => {
   const rightOffset = right - (columnWidth * (columnIndex + 1))
   return {
@@ -57,9 +58,9 @@ function normalizeToScale(temp) {
     low: 33,
     high: 40
   }
-  const tempInScaleDecs = (scale.high - temp) / (scale.high - scale.low)
+  const valueRelativeToScale = (scale.high - temp) / (scale.high - scale.low)
   const scaleHeight = bottom - top
-  return scaleHeight * tempInScaleDecs
+  return scaleHeight * valueRelativeToScale
 }
 
 function placeBleedingSymbolsOnColumns() {
@@ -107,16 +108,30 @@ export default class SvgExample extends Component {
     )
   }
 
+  componentDidMount() {
+    this.scrollContainer.scrollToEnd()
+  }
+
   render() {
     return (
-      <ScrollView horizontal={true}>
+      <ScrollView
+        ref={(scroll) => {
+          if (scroll) this.scrollContainer = scroll
+        }}
+        horizontal={true}>
+
         <Svg
           height="350"
-          width="2000"
+          width={right}
+          // the svg is not complete on 'componentDidMount' = why?
+          // not sure if this is the right event, for now a hack
+          // because there is no 'onLoad' attribute
+          // we scroll to the very left because we want to show the most recent data
+          onLayout={() => this.scrollContainer.scrollToEnd()}
         >
-          { xAxisDatesWithRightOffset.map(this.makeDayColumn.bind(this)) }
+          {xAxisDatesWithRightOffset.map(this.makeDayColumn.bind(this))}
 
-          { placeBleedingSymbolsOnColumns() }
+          {placeBleedingSymbolsOnColumns()}
 
           <Polyline
             points={determineCurvePoints()}
