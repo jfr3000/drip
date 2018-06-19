@@ -19,65 +19,16 @@ const dateRow = {
   height: 30,
   width: right
 }
-
-function getPreviousDays(n) {
-  const today = new Date()
-  today.setHours(0); today.setMinutes(0); today.setSeconds(0); today.setMilliseconds(0)
-  const twoWeeksAgo = new Date(today - (range.DAY * n))
-
-  return range(twoWeeksAgo, today).reverse()
+const temperatureScale = {
+  low: 33,
+  high: 40
 }
+const cycleDaysToShow = 40
 
-const xAxisDates = getPreviousDays(14).map(jsDate => {
-  return LocalDate.of(
-    jsDate.getFullYear(),
-    jsDate.getMonth() + 1,
-    jsDate.getDate()
-  ).toString()
-})
-
-const xAxisDatesWithRightOffset = xAxisDates.map((datestring, columnIndex) => {
-  const rightOffset = right - (columnWidth * (columnIndex + 1))
-  return {
-    label: datestring,
-    rightOffset
-  }
-})
-
-function determineCurvePoints() {
-  return temperatureDaysSortedByDate.map(cycleDay => {
-    const match = xAxisDatesWithRightOffset.find(tick => tick.label === cycleDay.date)
-    const x = match.rightOffset + columnWidth / 2
-    const y = normalizeToScale(cycleDay.temperature.value)
-    return [x,y].join()
-  }).join(' ')
-}
-
-function normalizeToScale(temp) {
-  const scale = {
-    low: 33,
-    high: 40
-  }
-  const valueRelativeToScale = (scale.high - temp) / (scale.high - scale.low)
-  const scaleHeight = bottom - top
-  return scaleHeight * valueRelativeToScale
-}
-
-function placeBleedingSymbolsOnColumns() {
-  return bleedingDaysSortedByDate.map(day => {
-    // TODO handle no bleeding days, same for curve
-    // TODO exclude future bleeding days (??)
-    const match = xAxisDatesWithRightOffset.find(tick => {
-      return tick.label === day.date
-    })
-    const x = match.rightOffset + columnWidth / 2
-    return (<Circle key={day.date} cx={x} cy="50" r="7" fill="red"/>)
-  })
-}
-
-export default class SvgExample extends Component {
+export default class CycleChart extends Component {
   constructor(props) {
     super(props)
+    this.xAxisTicks = makeXAxisTicks(cycleDaysToShow)
   }
 
   passDateToDayView(dateString) {
@@ -85,32 +36,58 @@ export default class SvgExample extends Component {
     this.props.navigation.navigate('cycleDay', { cycleDay })
   }
 
-  makeDayColumn(labelInfo) {
+  makeDayColumn(columnInfo) {
     return (
-      <G key={labelInfo.label}>
+      <G key={columnInfo.label}>
         <Rect
-          x={labelInfo.rightOffset}
+          x={columnInfo.rightOffset}
           y={top}
           width={columnWidth}
           height={bottom - top - dateRow.height}
           fill="lightgrey"
           strokeWidth="1"
           stroke="grey"
-          onPress={() => this.passDateToDayView(labelInfo.label)}
+          onPress={() => this.passDateToDayView(columnInfo.label)}
         />
         <Text
           stroke="grey"
           fontSize="10"
-          x={labelInfo.rightOffset}
+          x={columnInfo.rightOffset}
           y={bottom - top - dateRow.height}
-        >{labelInfo.label.split('-')[2]}</Text>
+        >{columnInfo.label.split('-')[2]}</Text>
       </G>
     )
+  }
+
+  makeColumnGrid(xAxisTicks) {
+    return xAxisTicks.map(this.makeDayColumn.bind(this))
+  }
+
+  placeBleedingSymbolsOnColumns() {
+    return bleedingDaysSortedByDate.map(day => {
+      // TODO handle no bleeding days, same for curve
+      // TODO exclude future bleeding days (??)
+      const match = this.xAxisTicks.find(tick => {
+        return tick.label === day.date
+      })
+      const x = match.rightOffset + columnWidth / 2
+      return (<Circle key={day.date} cx={x} cy="50" r="7" fill="red" />)
+    })
+  }
+
+  determineCurvePoints() {
+    return temperatureDaysSortedByDate.map(cycleDay => {
+      const match = this.xAxisTicks.find(tick => tick.label === cycleDay.date)
+      const x = match.rightOffset + columnWidth / 2
+      const y = normalizeToScale(cycleDay.temperature.value)
+      return [x, y].join()
+    }).join(' ')
   }
 
   componentDidMount() {
     this.scrollContainer.scrollToEnd()
   }
+
 
   render() {
     return (
@@ -129,12 +106,13 @@ export default class SvgExample extends Component {
           // we scroll to the very left because we want to show the most recent data
           onLayout={() => this.scrollContainer.scrollToEnd()}
         >
-          {xAxisDatesWithRightOffset.map(this.makeDayColumn.bind(this))}
 
-          {placeBleedingSymbolsOnColumns()}
+          {this.makeColumnGrid(this.xAxisTicks)}
+
+          {this.placeBleedingSymbolsOnColumns()}
 
           <Polyline
-            points={determineCurvePoints()}
+            points={ this.determineCurvePoints() }
             fill="none"
             stroke="darkblue"
             strokeWidth="2"
@@ -144,4 +122,36 @@ export default class SvgExample extends Component {
       </ScrollView>
     )
   }
+}
+
+function makeXAxisTicks(n) {
+  const xAxisDates = getPreviousDays(n).map(jsDate => {
+    return LocalDate.of(
+      jsDate.getFullYear(),
+      jsDate.getMonth() + 1,
+      jsDate.getDate()
+    ).toString()
+  })
+
+  return xAxisDates.map((datestring, columnIndex) => {
+    const rightOffset = right - (columnWidth * (columnIndex + 1))
+    return {
+      label: datestring,
+      rightOffset
+    }
+  })
+}
+
+function getPreviousDays(n) {
+  const today = new Date()
+  today.setHours(0); today.setMinutes(0); today.setSeconds(0); today.setMilliseconds(0)
+  const twoWeeksAgo = new Date(today - (range.DAY * n))
+
+  return range(twoWeeksAgo, today).reverse()
+}
+
+function normalizeToScale(temp) {
+  const valueRelativeToScale = (temperatureScale.high - temp) / (temperatureScale.high - temperatureScale.low)
+  const scaleHeight = bottom - top
+  return scaleHeight * valueRelativeToScale
 }
