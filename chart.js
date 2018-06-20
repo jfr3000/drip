@@ -64,24 +64,26 @@ export default class CycleChart extends Component {
   }
 
   placeBleedingSymbolsOnColumns() {
-    return bleedingDaysSortedByDate.map(day => {
-      // TODO handle no bleeding days, same for curve
-      // TODO exclude future bleeding days (??)
-      const match = this.xAxisTicks.find(tick => {
-        return tick.label === day.date
+    return bleedingDaysSortedByDate
+      .filter(cycleDayIsNotInTheFuture())
+      .map(day => {
+        const match = this.xAxisTicks.find(tick => {
+          return tick.label === day.date
+        })
+        const x = match.rightOffset + columnWidth / 2
+        return (<Circle key={day.date} cx={x} cy="50" r="7" fill="red" />)
       })
-      const x = match.rightOffset + columnWidth / 2
-      return (<Circle key={day.date} cx={x} cy="50" r="7" fill="red" />)
-    })
   }
 
   determineCurvePoints() {
-    return temperatureDaysSortedByDate.map(cycleDay => {
-      const match = this.xAxisTicks.find(tick => tick.label === cycleDay.date)
-      const x = match.rightOffset + columnWidth / 2
-      const y = normalizeToScale(cycleDay.temperature.value)
-      return [x, y].join()
-    }).join(' ')
+    return temperatureDaysSortedByDate
+      .filter(cycleDayIsNotInTheFuture())
+      .map(cycleDay => {
+        const match = this.xAxisTicks.find(tick => tick.label === cycleDay.date)
+        const x = match.rightOffset + columnWidth / 2
+        const y = normalizeToScale(cycleDay.temperature.value)
+        return [x, y].join()
+      }).join(' ')
   }
 
   componentDidMount() {
@@ -154,4 +156,12 @@ function normalizeToScale(temp) {
   const valueRelativeToScale = (temperatureScale.high - temp) / (temperatureScale.high - temperatureScale.low)
   const scaleHeight = bottom - top
   return scaleHeight * valueRelativeToScale
+}
+
+function cycleDayIsNotInTheFuture() {
+  const today = LocalDate.now()
+  return function (cycleDay) {
+    const cycleDayLocalDate = LocalDate.parse(cycleDay.date)
+    return cycleDayLocalDate.isBefore(today) || cycleDayLocalDate.isEqual(today)
+  }
 }
