@@ -9,7 +9,7 @@ import Svg,{
   Circle
 } from 'react-native-svg'
 import { LocalDate } from 'js-joda'
-import { bleedingDaysSortedByDate, temperatureDaysSortedByDate, getOrCreateCycleDay } from './db'
+import { bleedingDaysSortedByDate, temperatureDaysSortedByDate, getOrCreateCycleDay } from '../db'
 
 const right = 600
 const top = 10
