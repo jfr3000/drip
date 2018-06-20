@@ -75,21 +75,17 @@ export default class CycleChart extends Component {
       })
   }
 
-  determineCurvePoints() {
+  makeTemperatureCurves() {
     return temperatureDaysSortedByDate
       .filter(cycleDayIsNotInTheFuture())
-      .map(cycleDay => {
-        const match = this.xAxisTicks.find(tick => tick.label === cycleDay.date)
-        const x = match.rightOffset + columnWidth / 2
-        const y = normalizeToScale(cycleDay.temperature.value)
-        return [x, y].join()
-      }).join(' ')
+      .reduce(separateIntoContinousChunks, [[]])
+      .map(makeCurveCoordinatesForChunk.bind(this))
+      .map(makeCurveFromPoints)
   }
 
   componentDidMount() {
     this.scrollContainer.scrollToEnd()
   }
-
 
   render() {
     return (
@@ -109,17 +105,12 @@ export default class CycleChart extends Component {
           onLayout={() => this.scrollContainer.scrollToEnd()}
         >
 
-          {this.makeColumnGrid(this.xAxisTicks)}
+          { this.makeColumnGrid(this.xAxisTicks) }
 
-          {this.placeBleedingSymbolsOnColumns()}
+          { this.placeBleedingSymbolsOnColumns() }
 
-          <Polyline
-            points={ this.determineCurvePoints() }
-            fill="none"
-            stroke="darkblue"
-            strokeWidth="2"
-            strokeLinejoin="round"
-          />
+          { this.makeTemperatureCurves() }
+
         </Svg>
       </ScrollView>
     )
@@ -164,4 +155,48 @@ function cycleDayIsNotInTheFuture() {
     const cycleDayLocalDate = LocalDate.parse(cycleDay.date)
     return cycleDayLocalDate.isBefore(today) || cycleDayLocalDate.isEqual(today)
   }
+}
+
+function separateIntoContinousChunks(curveChunks, curr) {
+  const lastChunk = curveChunks[curveChunks.length - 1]
+  const lastSeenCycleDate = lastChunk.length && lastChunk[lastChunk.length - 1]
+
+  if (!lastSeenCycleDate) {
+    lastChunk.push(curr)
+    return curveChunks
+  }
+
+  const lastSeenLocalDate = LocalDate.parse(lastSeenCycleDate.date)
+  const currLocalDate = LocalDate.parse(curr.date)
+  if (lastSeenLocalDate.compareTo(currLocalDate) === 1) {
+    lastChunk.push(curr)
+  } else {
+    curveChunks.push([curr])
+  }
+
+  return curveChunks
+}
+
+function makeCurveCoordinatesForChunk(chunk) {
+  return chunk
+    .map(cycleDay => {
+      const match = this.xAxisTicks.find(tick => tick.label === cycleDay.date)
+      const x = match.rightOffset + columnWidth / 2
+      const y = normalizeToScale(cycleDay.temperature.value)
+      return [x, y].join()
+    })
+    .join(' ')
+}
+
+function makeCurveFromPoints(curveChunkPoints, i) {
+  return (
+    <Polyline
+      key={i}
+      points={curveChunkPoints}
+      fill="none"
+      stroke="darkblue"
+      strokeWidth="2"
+      strokeLinejoin="round"
+    />
+  )
 }
