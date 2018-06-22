@@ -24,6 +24,8 @@ const temperatureScale = {
   high: 40
 }
 const cycleDaysToShow = 40
+const dotRadius = 4
+const curveColor = 'darkblue'
 
 export default class CycleChart extends Component {
   constructor(props) {
@@ -183,20 +185,30 @@ function makeCurveCoordinatesForChunk(chunk) {
       const match = this.xAxisTicks.find(tick => tick.label === cycleDay.date)
       const x = match.rightOffset + columnWidth / 2
       const y = normalizeToScale(cycleDay.temperature.value)
-      return [x, y].join()
+      return [x, y]
     })
-    .join(' ')
 }
 
 function makeCurveFromPoints(curveChunkPoints, i) {
+  const pointsInPolyLineFormat = curveChunkPoints
+    .map(xYPair => xYPair.join())
+    .join(' ')
+
   return (
-    <Polyline
-      key={i}
-      points={curveChunkPoints}
-      fill="none"
-      stroke="darkblue"
-      strokeWidth="2"
-      strokeLinejoin="round"
-    />
+    <G>
+      <Polyline
+        key={i}
+        points={pointsInPolyLineFormat}
+        fill="none"
+        stroke={curveColor}
+        strokeWidth="2"
+        strokeLinejoin="round"
+      />
+      { makeDots(curveChunkPoints) }
+    </G>
   )
+}
+
+function makeDots(points) {
+  return points.map(([x, y], i) => <Circle cx={x} cy={y} r={dotRadius} fill={curveColor} key={i} />)
 }
