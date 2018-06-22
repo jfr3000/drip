@@ -33,7 +33,8 @@ export default class CycleChart extends Component {
     this.xAxisTicks = makeXAxisTicks(cycleDaysToShow)
 
     this.state = {
-      curveCoordinates: this.makeCurveCoordinates()
+      curveCoordinates: this.makeCurveCoordinates(),
+      bleedIconCoordinates: this.makeBleedIconCoordinates()
     }
 
     this.setStateWithNewCurveCoordinates = (function (chartComponent) {
@@ -44,11 +45,21 @@ export default class CycleChart extends Component {
       }
     })(this)
 
+    this.setStateWithNewBleedIconCoordinates = (function (chartComponent) {
+      return function () {
+        chartComponent.setState({
+          bleedIconCoordinates: chartComponent.makeBleedIconCoordinates()
+        })
+      }
+    })(this)
+
     temperatureDaysSortedByDate.addListener(this.setStateWithNewCurveCoordinates)
+    bleedingDaysSortedByDate.addListener(this.setStateWithNewBleedIconCoordinates)
   }
 
   componentWillUnmount() {
     temperatureDaysSortedByDate.removeListener(this.setStateWithNewCurveCoordinates)
+    temperatureDaysSortedByDate.removeListener(this.setStateWithNewBleedIconCoordinates)
   }
 
   passDateToDayView(dateString) {
@@ -84,15 +95,9 @@ export default class CycleChart extends Component {
   }
 
   placeBleedingSymbolsOnColumns() {
-    return bleedingDaysSortedByDate
-      .filter(cycleDayIsNotInTheFuture())
-      .map(day => {
-        const match = this.xAxisTicks.find(tick => {
-          return tick.label === day.date
-        })
-        const x = match.rightOffset + columnWidth / 2
-        return (<Circle key={day.date} cx={x} cy="50" r="7" fill="red" />)
-      })
+    return this.state.bleedIconCoordinates.map(x => {
+      return (<Circle key={x} cx={x} cy="50" r="7" fill="red" />)
+    })
   }
 
   makeCurveCoordinates() {
@@ -100,6 +105,17 @@ export default class CycleChart extends Component {
       .filter(cycleDayIsNotInTheFuture())
       .reduce(separateIntoContinousChunks, [[]])
       .map(makeCurveCoordinatesForChunk.bind(this))
+  }
+
+  makeBleedIconCoordinates() {
+    return bleedingDaysSortedByDate
+      .filter(cycleDayIsNotInTheFuture())
+      .map(day => {
+        const match = this.xAxisTicks.find(tick => {
+          return tick.label === day.date
+        })
+        return match.rightOffset + columnWidth / 2
+      })
   }
 
   makeTemperatureCurves() {
