@@ -31,6 +31,24 @@ export default class CycleChart extends Component {
   constructor(props) {
     super(props)
     this.xAxisTicks = makeXAxisTicks(cycleDaysToShow)
+
+    this.state = {
+      curveCoordinates: this.makeCurveCoordinates()
+    }
+
+    this.setStateWithNewCurveCoordinates = (function (chartComponent) {
+      return function () {
+        chartComponent.setState({
+          curveCoordinates: chartComponent.makeCurveCoordinates()
+        })
+      }
+    })(this)
+
+    temperatureDaysSortedByDate.addListener(this.setStateWithNewCurveCoordinates)
+  }
+
+  componentWillUnmount() {
+    temperatureDaysSortedByDate.removeListener(this.setStateWithNewCurveCoordinates)
   }
 
   passDateToDayView(dateString) {
@@ -77,12 +95,15 @@ export default class CycleChart extends Component {
       })
   }
 
-  makeTemperatureCurves() {
+  makeCurveCoordinates() {
     return temperatureDaysSortedByDate
       .filter(cycleDayIsNotInTheFuture())
       .reduce(separateIntoContinousChunks, [[]])
       .map(makeCurveCoordinatesForChunk.bind(this))
-      .map(makeCurveFromPoints)
+  }
+
+  makeTemperatureCurves() {
+    return this.state.curveCoordinates.map(makeCurveFromPoints)
   }
 
   componentDidMount() {
@@ -195,9 +216,8 @@ function makeCurveFromPoints(curveChunkPoints, i) {
     .join(' ')
 
   return (
-    <G>
+    <G key={i}>
       <Polyline
-        key={i}
         points={pointsInPolyLineFormat}
         fill="none"
         stroke={curveColor}
