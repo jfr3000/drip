@@ -78,7 +78,6 @@ export default class CycleChart extends Component {
           fill="lightgrey"
           strokeWidth="1"
           stroke="grey"
-          onPress={() => this.passDateToDayView(columnInfo.label)}
         />
         <Text
           stroke="grey"
@@ -92,6 +91,22 @@ export default class CycleChart extends Component {
 
   makeColumnGrid(xAxisTicks) {
     return xAxisTicks.map(this.makeDayColumn.bind(this))
+  }
+
+  placeTouchHandlerRectangles() {
+    return this.xAxisTicks.map(columnInfo => {
+      return (
+        <Rect
+          key={columnInfo.label}
+          x={columnInfo.rightOffset}
+          y={top}
+          width={columnWidth}
+          height={bottom - top - dateRow.height}
+          fillOpacity={0}
+          onPress={() => this.passDateToDayView(columnInfo.label)}
+        />
+      )
+    })
   }
 
   placeBleedingSymbolsOnColumns() {
@@ -149,6 +164,10 @@ export default class CycleChart extends Component {
           { this.placeBleedingSymbolsOnColumns() }
 
           { this.makeTemperatureCurves() }
+
+          {/* we place a trasnparent rectangle over every day column */}
+          {/* so that all elements including the line and circles are clickable */}
+          { this.placeTouchHandlerRectangles() }
 
         </Svg>
       </ScrollView>
