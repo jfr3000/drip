@@ -53,7 +53,7 @@ function saveTemperature(cycleDay, temperature) {
   })
 }
 
-const getCycleDaysSortedByDateView = () => db.objects('CycleDay').sorted('date', true)
+const cycleDaysSortedByDate = db.objects('CycleDay').sorted('date', true)
 
 function saveBleeding(cycleDay, bleeding) {
   db.write(() => {
@@ -71,6 +71,10 @@ function getOrCreateCycleDay(localDate) {
     })
   }
   return result
+}
+
+function getCycleDay(localDate) {
+  return db.objectForPrimaryKey('CycleDay', localDate)
 }
 
 function deleteAll() {
@@ -95,7 +99,8 @@ export {
   getOrCreateCycleDay,
   bleedingDaysSortedByDate,
   temperatureDaysSortedByDate,
-  getCycleDaysSortedByDateView,
+  cycleDaysSortedByDate,
   deleteAll,
-  getPreviousTemperature
+  getPreviousTemperature,
+  getCycleDay
 }

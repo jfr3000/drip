@@ -1,20 +1,21 @@
 import React, { Component } from 'react'
-import { ScrollView } from 'react-native'
+import { FlatList } from 'react-native'
 import range from 'date-range'
 import Svg,{
   G,
-  Polyline,
   Rect,
   Text,
-  Circle
+  Circle,
+  Line
 } from 'react-native-svg'
 import { LocalDate } from 'js-joda'
-import { bleedingDaysSortedByDate, temperatureDaysSortedByDate, getOrCreateCycleDay } from '../db'
+import { getCycleDay, getOrCreateCycleDay, cycleDaysSortedByDate } from '../db'
 
 const right = 600
 const top = 10
 const bottom = 350
 const columnWidth = 30
+const middle = columnWidth / 2
 const dateRow = {
   height: 30,
   width: right
@@ -30,36 +31,21 @@ const curveColor = 'darkblue'
 export default class CycleChart extends Component {
   constructor(props) {
     super(props)
-    this.xAxisTicks = makeXAxisTicks(cycleDaysToShow)
-
     this.state = {
-      curveCoordinates: this.makeCurveCoordinates(),
-      bleedIconCoordinates: this.makeBleedIconCoordinates()
+      columns: makeColumnInfo(cycleDaysToShow)
     }
 
-    this.setStateWithNewCurveCoordinates = (function (chartComponent) {
-      return function () {
-        chartComponent.setState({
-          curveCoordinates: chartComponent.makeCurveCoordinates()
-        })
+    this.recalculateChartInfo = (function(Chart) {
+      return function() {
+        Chart.setState({columns: makeColumnInfo(cycleDaysToShow)})
       }
     })(this)
 
-    this.setStateWithNewBleedIconCoordinates = (function (chartComponent) {
-      return function () {
-        chartComponent.setState({
-          bleedIconCoordinates: chartComponent.makeBleedIconCoordinates()
-        })
-      }
-    })(this)
-
-    temperatureDaysSortedByDate.addListener(this.setStateWithNewCurveCoordinates)
-    bleedingDaysSortedByDate.addListener(this.setStateWithNewBleedIconCoordinates)
+    cycleDaysSortedByDate.addListener(this.recalculateChartInfo)
   }
 
   componentWillUnmount() {
-    temperatureDaysSortedByDate.removeListener(this.setStateWithNewCurveCoordinates)
-    temperatureDaysSortedByDate.removeListener(this.setStateWithNewBleedIconCoordinates)
+    cycleDaysSortedByDate.removeListener(this.recalculateChartInfo)
   }
 
   passDateToDayView(dateString) {
@@ -67,11 +53,11 @@ export default class CycleChart extends Component {
     this.props.navigation.navigate('cycleDay', { cycleDay })
   }
 
-  makeDayColumn(columnInfo) {
+  makeDayColumn({ label, cycleDay, y }, index) {
     return (
-      <G key={columnInfo.label}>
+      <G key={label} onPress={() => this.passDateToDayView(label)}>
         <Rect
-          x={columnInfo.rightOffset}
+          x={0}
           y={top}
           width={columnWidth}
           height={bottom - top - dateRow.height}
@@ -82,100 +68,78 @@ export default class CycleChart extends Component {
         <Text
           stroke="grey"
           fontSize="10"
-          x={columnInfo.rightOffset}
+          x={0}
           y={bottom - top - dateRow.height}
-        >{columnInfo.label.split('-')[2]}</Text>
+        >{label.split('-')[2]}</Text>
+
+        {cycleDay && cycleDay.bleeding ? <Circle cx={middle} cy="50" r="7" fill="red" /> : null}
+
+        {y ? this.drawDotAndLine(y, index) : null}
       </G>
     )
   }
 
-  makeColumnGrid(xAxisTicks) {
-    return xAxisTicks.map(this.makeDayColumn.bind(this))
-  }
+  drawDotAndLine(currY, index) {
+    let lineToRight
+    let lineToLeft
+    const cols = this.state.columns
 
-  placeTouchHandlerRectangles() {
-    return this.xAxisTicks.map(columnInfo => {
-      return (
-        <Rect
-          key={columnInfo.label}
-          x={columnInfo.rightOffset}
-          y={top}
-          width={columnWidth}
-          height={bottom - top - dateRow.height}
-          fillOpacity={0}
-          onPress={() => this.passDateToDayView(columnInfo.label)}
-        />
-      )
-    })
-  }
+    function makeLine(otherColY, x) {
+      const middleY = ((otherColY - currY) / 2) + currY
+      const rightTarget = [x, middleY]
+      return <Line
+        x1={middle}
+        y1={currY}
+        x2={rightTarget[0]}
+        y2={rightTarget[1]}
+        stroke={'lightseagreen'}
+        strokeWidth={2}
+      />
+    }
 
-  placeBleedingSymbolsOnColumns() {
-    return this.state.bleedIconCoordinates.map(x => {
-      return (<Circle key={x} cx={x} cy="50" r="7" fill="red" />)
-    })
-  }
+    const thereIsADotToTheRight = index > 0 && cols[index - 1].y
+    const thereIsADotToTheLeft = index < cols.length - 1 && cols[index + 1].y
 
-  makeCurveCoordinates() {
-    return temperatureDaysSortedByDate
-      .filter(cycleDayIsNotInTheFuture())
-      .reduce(separateIntoContinousChunks, [[]])
-      .map(makeCurveCoordinatesForChunk.bind(this))
-  }
+    if (thereIsADotToTheRight) {
+      lineToRight = makeLine(cols[index - 1].y, columnWidth)
+    }
+    if (thereIsADotToTheLeft) {
+      lineToLeft = makeLine(cols[index + 1].y, 0)
+    }
 
-  makeBleedIconCoordinates() {
-    return bleedingDaysSortedByDate
-      .filter(cycleDayIsNotInTheFuture())
-      .map(day => {
-        const match = this.xAxisTicks.find(tick => {
-          return tick.label === day.date
-        })
-        return match.rightOffset + columnWidth / 2
-      })
-  }
-
-  makeTemperatureCurves() {
-    return this.state.curveCoordinates.map(makeCurveFromPoints)
-  }
-
-  componentDidMount() {
-    this.scrollContainer.scrollToEnd()
+    return (<G>
+      <Circle
+        cx={middle}
+        cy={currY}
+        r={dotRadius}
+        fill={curveColor}
+      />
+      {lineToRight}
+      {lineToLeft}
+    </G>)
   }
 
   render() {
     return (
-      <ScrollView
-        ref={(scroll) => {
-          if (scroll) this.scrollContainer = scroll
+      <FlatList
+        horizontal={true}
+        inverted={true}
+        data={this.state.columns}
+        renderItem={({item, index}) => {
+          return (
+            <Svg width={columnWidth} height={bottom}>
+              {this.makeDayColumn(item, index)}
+            </Svg>
+          )
         }}
-        horizontal={true}>
-
-        <Svg
-          height="350"
-          width={right}
-          // the svg is not complete on 'componentDidMount' = why?
-          // not sure if this is the right event, for now a hack
-          // because there is no 'onLoad' attribute
-          // we scroll to the very left because we want to show the most recent data
-          onLayout={() => this.scrollContainer.scrollToEnd()}
-        >
-
-          { this.makeColumnGrid(this.xAxisTicks) }
-
-          { this.placeBleedingSymbolsOnColumns() }
-
-          { this.makeTemperatureCurves() }
-
-          {/* we place a trasnparent rectangle over every day column */}
-          {/* so that all elements including the line and circles are clickable */}
-          { this.placeTouchHandlerRectangles() }
-
-        </Svg>
-      </ScrollView>
+        keyExtractor={item => item.label}
+      >
+      </FlatList>
     )
   }
 }
 
-function makeXAxisTicks(n) {
+function makeColumnInfo(n) {
   const xAxisDates = getPreviousDays(n).map(jsDate => {
     return LocalDate.of(
       jsDate.getFullYear(),
@@ -184,11 +148,13 @@ function makeXAxisTicks(n) {
     ).toString()
   })
 
-  return xAxisDates.map((datestring, columnIndex) => {
-    const rightOffset = right - (columnWidth * (columnIndex + 1))
+  return xAxisDates.map(datestring => {
+    const cycleDay = getCycleDay(datestring)
+    const temp = cycleDay && cycleDay.temperature && cycleDay.temperature.value
     return {
       label: datestring,
-      rightOffset
+      cycleDay,
+      y: temp ? normalizeToScale(temp) : null
     }
   })
 }
@@ -205,65 +171,4 @@ function normalizeToScale(temp) {
   const valueRelativeToScale = (temperatureScale.high - temp) / (temperatureScale.high - temperatureScale.low)
   const scaleHeight = bottom - top
   return scaleHeight * valueRelativeToScale
-}
-
-function cycleDayIsNotInTheFuture() {
-  const today = LocalDate.now()
-  return function (cycleDay) {
-    const cycleDayLocalDate = LocalDate.parse(cycleDay.date)
-    return cycleDayLocalDate.isBefore(today) || cycleDayLocalDate.isEqual(today)
-  }
-}
-
-function separateIntoContinousChunks(curveChunks, curr) {
-  const lastChunk = curveChunks[curveChunks.length - 1]
-  const lastSeenCycleDate = lastChunk.length && lastChunk[lastChunk.length - 1]
-
-  if (!lastSeenCycleDate) {
-    lastChunk.push(curr)
-    return curveChunks
-  }
-
-  const lastSeenLocalDate = LocalDate.parse(lastSeenCycleDate.date)
-  const currLocalDate = LocalDate.parse(curr.date)
-  if (lastSeenLocalDate.compareTo(currLocalDate) === 1) {
-    lastChunk.push(curr)
-  } else {
-    curveChunks.push([curr])
-  }
-
-  return curveChunks
-}
-
-function makeCurveCoordinatesForChunk(chunk) {
-  return chunk
-    .map(cycleDay => {
-      const match = this.xAxisTicks.find(tick => tick.label === cycleDay.date)
-      const x = match.rightOffset + columnWidth / 2
-      const y = normalizeToScale(cycleDay.temperature.value)
-      return [x, y]
-    })
-}
-
-function makeCurveFromPoints(curveChunkPoints, i) {
-  const pointsInPolyLineFormat = curveChunkPoints
-    .map(xYPair => xYPair.join())
-    .join(' ')
-
-  return (
-    <G key={i}>
-      <Polyline
-        points={pointsInPolyLineFormat}
-        fill="none"
-        stroke={curveColor}
-        strokeWidth="2"
-        strokeLinejoin="round"
-      />
-      { makeDots(curveChunkPoints) }
-    </G>
-  )
-}
-
-function makeDots(points) {
-  return points.map(([x, y], i) => <Circle cx={x} cy={y} r={dotRadius} fill={curveColor} key={i} />)
 }
