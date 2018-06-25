@@ -49,7 +49,7 @@ export default class CycleChart extends Component {
     const dateLabel = dateString.split('-').slice(1).join('-')
 
     return (
-      <G key={dateString} onPress={() => this.passDateToDayView(dateString)}>
+      <G onPress={() => this.passDateToDayView(dateString)}>
         <Rect {...styles.column.rect} />
         <Text {...label.number} y={config.cycleDayNumberRowY}>{cycleDayNumber}</Text>
         <Text {...label.date} y={config.dateRowY}>{dateLabel}</Text>
@@ -62,25 +62,27 @@ export default class CycleChart extends Component {
               Q13.5 6.8 15 3z" />
           : null}
 
-        {y ? this.drawDotAndLines(y, index) : null}
+        {y ? this.drawDotAndLines(y, cycleDay.temperature.exclude, index) : null}
       </G>
     )
   }
 
-  drawDotAndLines(currY, index) {
+  drawDotAndLines(currY, exclude, index) {
     let lineToRight
     let lineToLeft
     const cols = this.state.columns
 
-    function makeLine(otherColY, x) {
+    function makeLine(otherColY, x, excludeLine) {
       const middleY = ((otherColY - currY) / 2) + currY
-      const rightTarget = [x, middleY]
+      const target = [x, middleY]
+      const lineStyle = excludeLine ? styles.curveExcluded : styles.curve
+
       return <Line
         x1={config.columnMiddle}
         y1={currY}
-        x2={rightTarget[0]}
-        y2={rightTarget[1]}
-        {...styles.curve}
+        x2={target[0]}
+        y2={target[1]}
+        {...lineStyle}
       />
     }
 
@@ -88,20 +90,25 @@ export default class CycleChart extends Component {
     const thereIsADotToTheLeft = index < cols.length - 1 && cols[index + 1].y
 
     if (thereIsADotToTheRight) {
-      lineToRight = makeLine(cols[index - 1].y, config.columnWidth)
+      const otherDot = cols[index - 1]
+      const excludedLine = otherDot.cycleDay.temperature.exclude || exclude
+      lineToRight = makeLine(otherDot.y, config.columnWidth, excludedLine)
     }
     if (thereIsADotToTheLeft) {
-      lineToLeft = makeLine(cols[index + 1].y, 0)
+      const otherDot = cols[index + 1]
+      const excludedLine = otherDot.cycleDay.temperature.exclude || exclude
+      lineToLeft = makeLine(otherDot.y, 0, excludedLine)
     }
 
+    const dotStyle = exclude ? styles.curveDotsExcluded : styles.curveDots
     return (<G>
+      {lineToRight}
+      {lineToLeft}
       <Circle
         cx={config.columnMiddle}
         cy={currY}
-        {...styles.curveDots}
+        {...dotStyle}
       />
-      {lineToRight}
-      {lineToLeft}
     </G>)
   }
 
@@ -118,7 +125,7 @@ export default class CycleChart extends Component {
             </Svg>
           )
         }}
-        keyExtractor={item => item.label}
+        keyExtractor={item => item.dateString}
       >
       </FlatList>
     )

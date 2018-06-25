@@ -5,8 +5,17 @@ const styles = {
     stroke: '#ffc425',
     strokeWidth: 2
   },
+  curveExcluded: {
+    stroke: 'lightgrey',
+    strokeWidth: 2,
+    strokeDashArray: [4]
+  },
   curveDots: {
     fill: '#00aedb',
+    r: 6
+  },
+  curveDotsExcluded: {
+    fill: 'lightgrey',
     r: 6
   },
   column: {
