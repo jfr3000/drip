@@ -6,7 +6,8 @@ import Svg,{
   Rect,
   Text,
   Circle,
-  Line
+  Line,
+  Path
 } from 'react-native-svg'
 import { LocalDate } from 'js-joda'
 import { getCycleDay, getOrCreateCycleDay, cycleDaysSortedByDate } from '../db'
@@ -53,7 +54,13 @@ export default class CycleChart extends Component {
         <Text {...labelProps} y={config.cycleDayNumberRowY}>{cycleDayNumber}</Text>
         <Text {...labelProps} y={config.dateRowY}>{dateLabel}</Text>
 
-        {cycleDay && cycleDay.bleeding ? <Circle {...styles.bleedingIcon} /> : null}
+        {cycleDay && cycleDay.bleeding ?
+          <Path {...styles.bleedingIcon}
+            d="M15 3
+              Q16.5 6.8 25 18
+              A12.8 12.8 0 1 1 5 18
+              Q13.5 6.8 15 3z" />
+          : null}
 
         {y ? this.drawDotAndLines(y, index) : null}
       </G>

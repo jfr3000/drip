@@ -2,12 +2,12 @@ import config from './config'
 
 const styles = {
   curve: {
-    stroke: 'lightseagreen',
+    stroke: '#ffc425',
     strokeWidth: 2
   },
   curveDots: {
-    fill: 'darkblue',
-    r: 4
+    fill: '#00aedb',
+    r: 6
   },
   column: {
     label: {
@@ -16,7 +16,7 @@ const styles = {
       x: 0
     },
     rect: {
-      fill: 'lightgrey',
+      fill: '#f9f9f9',
       strokeWidth: 1,
       stroke: 'grey',
       x: 0,
@@ -26,10 +26,10 @@ const styles = {
     }
   },
   bleedingIcon: {
-    cx: config.columnMiddle,
-    cy: 50,
-    r: 7,
-    fill: 'red'
+    fill: '#fb2e01',
+    scale: 0.6,
+    x: 7,
+    y: 3
   }
 }
 
