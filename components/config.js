@@ -1,5 +1,5 @@
 const config = {
-  chartLength: 350,
+  chartHeight: 350,
   columnWidth: 30,
   temperatureScale: {
     low: 33,
@@ -10,7 +10,7 @@ const config = {
 
 const margin = 3
 config.columnMiddle = config.columnWidth / 2,
-config.dateRowY = config.chartLength - 15 - margin
-config.cycleDayNumberRowY = config.chartLength - margin
+config.dateRowY = config.chartHeight - 15 - margin
+config.cycleDayNumberRowY = config.chartHeight - margin
 
 export default config

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { FlatList } from 'react-native'
+import { View, FlatList } from 'react-native'
 import range from 'date-range'
 import Svg,{
   G,
@@ -112,22 +112,49 @@ export default class CycleChart extends Component {
     </G>)
   }
 
+  placeTicksForYAxis() {
+    const scaleMin = config.temperatureScale.low
+    const scaleMax = config.temperatureScale.high
+    const numberOfTicks = (scaleMax - scaleMin) * 2
+    const tickDistance = config.chartHeight / numberOfTicks
+    const ticks = []
+    const labelStyle = styles.column.label.date
+    for (let i = 0; i < numberOfTicks; i++) {
+      const y = tickDistance * i
+      ticks.push(
+        <G key={i}>
+          <Line
+            x1={18} y1={y} x2={22} y2={y}
+            {...styles.yAxis}
+          />
+          <Text {...labelStyle} y={y}>{scaleMax - i * 0.5}</Text>
+        </G>
+      )
+    }
+    return ticks
+  }
+
   render() {
     return (
-      <FlatList
-        horizontal={true}
-        inverted={true}
-        data={this.state.columns}
-        renderItem={({item, index}) => {
-          return (
-            <Svg width={config.columnWidth} height={config.chartLength}>
-              {this.makeDayColumn(item, index)}
-            </Svg>
-          )
-        }}
-        keyExtractor={item => item.dateString}
-      >
-      </FlatList>
+      <View style={{flex: 1, flexDirection: 'row'}}>
+        <Svg {...styles.yAxis}>
+          {this.placeTicksForYAxis()}
+        </Svg>
+        <FlatList
+          horizontal={true}
+          inverted={true}
+          data={this.state.columns}
+          renderItem={({ item, index }) => {
+            return (
+              <Svg width={config.columnWidth} height={config.chartHeight}>
+                {this.makeDayColumn(item, index)}
+              </Svg>
+            )
+          }}
+          keyExtractor={item => item.dateString}
+        >
+        </FlatList>
+      </View>
     )
   }
 }
@@ -163,6 +190,6 @@ function getPreviousDays(n) {
 function normalizeToScale(temp) {
   const temperatureScale = config.temperatureScale
   const valueRelativeToScale = (temperatureScale.high - temp) / (temperatureScale.high - temperatureScale.low)
-  const scaleHeight = config.chartLength
+  const scaleHeight = config.chartHeight
   return scaleHeight * valueRelativeToScale
 }

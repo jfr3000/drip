@@ -38,7 +38,7 @@ const styles = {
       x: 0,
       y: 0,
       width: config.columnWidth,
-      height: config.chartLength
+      height: config.chartHeight
     }
   },
   bleedingIcon: {
@@ -46,6 +46,11 @@ const styles = {
     scale: 0.6,
     x: 7,
     y: 3
+  },
+  yAxis: {
+    height: config.chartHeight,
+    width: config.columnWidth,
+    stroke: 'grey'
   }
 }
 
