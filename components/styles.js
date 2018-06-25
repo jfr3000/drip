@@ -11,9 +11,16 @@ const styles = {
   },
   column: {
     label: {
-      stroke: 'grey',
-      fontSize: 10,
-      x: 0
+      date: {
+        stroke: 'grey',
+        fontSize: 10,
+        x: 2
+      },
+      number: {
+        stroke: 'purple',
+        fontSize: 13,
+        x: config.columnMiddle - 1
+      }
     },
     rect: {
       fill: '#f9f9f9',

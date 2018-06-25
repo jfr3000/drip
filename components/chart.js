@@ -45,14 +45,14 @@ export default class CycleChart extends Component {
 
   makeDayColumn({ dateString, cycleDay, y }, index) {
     const cycleDayNumber = getCycleDayNumber(dateString)
-    const labelProps = styles.column.label
+    const label = styles.column.label
     const dateLabel = dateString.split('-').slice(1).join('-')
 
     return (
       <G key={dateString} onPress={() => this.passDateToDayView(dateString)}>
         <Rect {...styles.column.rect} />
-        <Text {...labelProps} y={config.cycleDayNumberRowY}>{cycleDayNumber}</Text>
-        <Text {...labelProps} y={config.dateRowY}>{dateLabel}</Text>
+        <Text {...label.number} y={config.cycleDayNumberRowY}>{cycleDayNumber}</Text>
+        <Text {...label.date} y={config.dateRowY}>{dateLabel}</Text>
 
         {cycleDay && cycleDay.bleeding ?
           <Path {...styles.bleedingIcon}
