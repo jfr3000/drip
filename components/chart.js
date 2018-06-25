@@ -10,16 +10,20 @@ import Svg,{
 } from 'react-native-svg'
 import { LocalDate } from 'js-joda'
 import { getCycleDay, getOrCreateCycleDay, cycleDaysSortedByDate } from '../db'
+import getCycleDayNumberModule from '../get-cycle-day-number'
 
-const right = 600
-const top = 10
-const bottom = 350
+const getCycleDayNumber = getCycleDayNumberModule()
+
+const chartLength = 350
 const columnWidth = 30
 const middle = columnWidth / 2
-const dateRow = {
-  height: 30,
-  width: right
+const xAxis = {
+  top: chartLength - 15,
+  margin: 3
 }
+const dateRowY = xAxis.top - xAxis.margin
+const cycleDayNumberRowY = chartLength - xAxis.margin
+
 const temperatureScale = {
   low: 33,
   high: 40
@@ -53,24 +57,29 @@ export default class CycleChart extends Component {
     this.props.navigation.navigate('cycleDay', { cycleDay })
   }
 
-  makeDayColumn({ label, cycleDay, y }, index) {
+  makeDayColumn({ dateString, cycleDay, y }, index) {
+    const cycleDayNumber = getCycleDayNumber(dateString)
+    const labelProps = {
+      stroke: "grey",
+      fontSize: "10",
+      x: 0,
+    }
+
+    const dateLabel = dateString.split('-').slice(1).join('-')
+
     return (
-      <G key={label} onPress={() => this.passDateToDayView(label)}>
+      <G key={dateString} onPress={() => this.passDateToDayView(dateString)}>
         <Rect
           x={0}
-          y={top}
+          y={0}
           width={columnWidth}
-          height={bottom - top - dateRow.height}
+          height={chartLength}
           fill="lightgrey"
           strokeWidth="1"
           stroke="grey"
         />
-        <Text
-          stroke="grey"
-          fontSize="10"
-          x={0}
-          y={bottom - top - dateRow.height}
-        >{label.split('-')[2]}</Text>
+        <Text {...labelProps} y={cycleDayNumberRowY}>{cycleDayNumber}</Text>
+        <Text {...labelProps} y={dateRowY}>{dateLabel}</Text>
 
         {cycleDay && cycleDay.bleeding ? <Circle cx={middle} cy="50" r="7" fill="red" /> : null}
 
@@ -127,7 +136,7 @@ export default class CycleChart extends Component {
         data={this.state.columns}
         renderItem={({item, index}) => {
           return (
-            <Svg width={columnWidth} height={bottom}>
+            <Svg width={columnWidth} height={chartLength}>
               {this.makeDayColumn(item, index)}
             </Svg>
           )
@@ -148,11 +157,11 @@ function makeColumnInfo(n) {
     ).toString()
   })
 
-  return xAxisDates.map(datestring => {
-    const cycleDay = getCycleDay(datestring)
+  return xAxisDates.map(dateString => {
+    const cycleDay = getCycleDay(dateString)
     const temp = cycleDay && cycleDay.temperature && cycleDay.temperature.value
     return {
-      label: datestring,
+      dateString,
       cycleDay,
       y: temp ? normalizeToScale(temp) : null
     }
@@ -169,6 +178,6 @@ function getPreviousDays(n) {
 
 function normalizeToScale(temp) {
   const valueRelativeToScale = (temperatureScale.high - temp) / (temperatureScale.high - temperatureScale.low)
-  const scaleHeight = bottom - top
+  const scaleHeight = chartLength
   return scaleHeight * valueRelativeToScale
 }
