@@ -11,45 +11,30 @@ import Svg,{
 import { LocalDate } from 'js-joda'
 import { getCycleDay, getOrCreateCycleDay, cycleDaysSortedByDate } from '../db'
 import getCycleDayNumberModule from '../get-cycle-day-number'
+import styles from './styles'
+import config from './config'
 
 const getCycleDayNumber = getCycleDayNumberModule()
 
-const chartLength = 350
-const columnWidth = 30
-const middle = columnWidth / 2
-const xAxis = {
-  top: chartLength - 15,
-  margin: 3
-}
-const dateRowY = xAxis.top - xAxis.margin
-const cycleDayNumberRowY = chartLength - xAxis.margin
-
-const temperatureScale = {
-  low: 33,
-  high: 40
-}
-const cycleDaysToShow = 40
-const dotRadius = 4
-const curveColor = 'darkblue'
 
 export default class CycleChart extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      columns: makeColumnInfo(cycleDaysToShow)
+      columns: makeColumnInfo(config.cycleDaysToShow)
     }
 
-    this.recalculateChartInfo = (function(Chart) {
+    this.reCalculateChartInfo = (function(Chart) {
       return function() {
-        Chart.setState({columns: makeColumnInfo(cycleDaysToShow)})
+        Chart.setState({columns: makeColumnInfo(config.cycleDaysToShow)})
       }
     })(this)
 
-    cycleDaysSortedByDate.addListener(this.recalculateChartInfo)
+    cycleDaysSortedByDate.addListener(this.reCalculateChartInfo)
   }
 
   componentWillUnmount() {
-    cycleDaysSortedByDate.removeListener(this.recalculateChartInfo)
+    cycleDaysSortedByDate.removeListener(this.reCalculateChartInfo)
   }
 
   passDateToDayView(dateString) {
@@ -59,36 +44,23 @@ export default class CycleChart extends Component {
 
   makeDayColumn({ dateString, cycleDay, y }, index) {
     const cycleDayNumber = getCycleDayNumber(dateString)
-    const labelProps = {
-      stroke: "grey",
-      fontSize: "10",
-      x: 0,
-    }
-
+    const labelProps = styles.column.label
     const dateLabel = dateString.split('-').slice(1).join('-')
 
     return (
       <G key={dateString} onPress={() => this.passDateToDayView(dateString)}>
-        <Rect
-          x={0}
-          y={0}
-          width={columnWidth}
-          height={chartLength}
-          fill="lightgrey"
-          strokeWidth="1"
-          stroke="grey"
-        />
-        <Text {...labelProps} y={cycleDayNumberRowY}>{cycleDayNumber}</Text>
-        <Text {...labelProps} y={dateRowY}>{dateLabel}</Text>
+        <Rect {...styles.column.rect} />
+        <Text {...labelProps} y={config.cycleDayNumberRowY}>{cycleDayNumber}</Text>
+        <Text {...labelProps} y={config.dateRowY}>{dateLabel}</Text>
 
-        {cycleDay && cycleDay.bleeding ? <Circle cx={middle} cy="50" r="7" fill="red" /> : null}
+        {cycleDay && cycleDay.bleeding ? <Circle {...styles.bleedingIcon} /> : null}
 
-        {y ? this.drawDotAndLine(y, index) : null}
+        {y ? this.drawDotAndLines(y, index) : null}
       </G>
     )
   }
 
-  drawDotAndLine(currY, index) {
+  drawDotAndLines(currY, index) {
     let lineToRight
     let lineToLeft
     const cols = this.state.columns
@@ -97,12 +69,11 @@ export default class CycleChart extends Component {
       const middleY = ((otherColY - currY) / 2) + currY
       const rightTarget = [x, middleY]
       return <Line
-        x1={middle}
+        x1={config.columnMiddle}
         y1={currY}
         x2={rightTarget[0]}
         y2={rightTarget[1]}
-        stroke={'lightseagreen'}
-        strokeWidth={2}
+        {...styles.curve}
       />
     }
 
@@ -110,7 +81,7 @@ export default class CycleChart extends Component {
     const thereIsADotToTheLeft = index < cols.length - 1 && cols[index + 1].y
 
     if (thereIsADotToTheRight) {
-      lineToRight = makeLine(cols[index - 1].y, columnWidth)
+      lineToRight = makeLine(cols[index - 1].y, config.columnWidth)
     }
     if (thereIsADotToTheLeft) {
       lineToLeft = makeLine(cols[index + 1].y, 0)
@@ -118,10 +89,9 @@ export default class CycleChart extends Component {
 
     return (<G>
       <Circle
-        cx={middle}
+        cx={config.columnMiddle}
         cy={currY}
-        r={dotRadius}
-        fill={curveColor}
+        {...styles.curveDots}
       />
       {lineToRight}
       {lineToLeft}
@@ -136,7 +106,7 @@ export default class CycleChart extends Component {
         data={this.state.columns}
         renderItem={({item, index}) => {
           return (
-            <Svg width={columnWidth} height={chartLength}>
+            <Svg width={config.columnWidth} height={config.chartLength}>
               {this.makeDayColumn(item, index)}
             </Svg>
           )
@@ -177,7 +147,8 @@ function getPreviousDays(n) {
 }
 
 function normalizeToScale(temp) {
+  const temperatureScale = config.temperatureScale
   const valueRelativeToScale = (temperatureScale.high - temp) / (temperatureScale.high - temperatureScale.low)
-  const scaleHeight = chartLength
+  const scaleHeight = config.chartLength
   return scaleHeight * valueRelativeToScale
 }
