@@ -44,6 +44,21 @@ export default class CycleChart extends Component {
     this.props.navigation.navigate('cycleDay', { cycleDay })
   }
 
+  placeHorizontalGrid() {
+    return yAxis.tickPositions.map(tick => {
+      return (
+        <Line
+          x1={0}
+          y1={tick}
+          x2={config.columnWidth}
+          y2={tick}
+          {...styles.horizontalGrid}
+          key={tick}
+        />
+      )
+    })
+  }
+
   makeDayColumn({ dateString, cycleDay, y }, index) {
     const cycleDayNumber = getCycleDayNumber(dateString)
     const label = styles.column.label
@@ -52,6 +67,7 @@ export default class CycleChart extends Component {
     return (
       <G onPress={() => this.passDateToDayView(dateString)}>
         <Rect {...styles.column.rect} />
+        {this.placeHorizontalGrid()}
         <Text {...label.number} y={config.cycleDayNumberRowY}>{cycleDayNumber}</Text>
         <Text {...label.date} y={config.dateRowY}>{dateLabel}</Text>
 
@@ -183,7 +199,10 @@ function makeYAxis() {
   for (let i = 0; i < numberOfTicks; i++) {
     const y = tickDistance * i
     const style = styles.yAxisLabel
-    style.top = y
+    // this eyeballing is sadly necessary because RN does not
+    // support percentag values for transforms, which we'd need
+    // to reliably place the label vertically centered to the grid
+    style.top = y - 8
     labels.push(
       <ReactNativeText
         style={{...style}}

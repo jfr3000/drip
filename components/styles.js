@@ -57,6 +57,10 @@ const styles = {
     color: 'grey',
     fontSize: 12,
     fontWeight: 'bold'
+  },
+  horizontalGrid: {
+    stroke: 'lightgrey',
+    strokeWidth: 1
   }
 }
 
