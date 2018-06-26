@@ -196,11 +196,12 @@ function makeYAxis() {
   const tickPositions = []
   const labels = []
 
-  for (let i = 0; i < numberOfTicks; i++) {
+  // for style reasons, we don't want the first and last tick
+  for (let i = 1; i < numberOfTicks - 1; i++) {
     const y = tickDistance * i
     const style = styles.yAxisLabel
     // this eyeballing is sadly necessary because RN does not
-    // support percentag values for transforms, which we'd need
+    // support percentage values for transforms, which we'd need
     // to reliably place the label vertically centered to the grid
     style.top = y - 8
     labels.push(
