@@ -23,10 +23,11 @@ const styles = {
       date: {
         stroke: 'grey',
         fontSize: 10,
-        x: 2
+        x: 2,
+        fontWeight: '100'
       },
       number: {
-        stroke: 'purple',
+        stroke: '#00b159',
         fontSize: 13,
         x: config.columnMiddle - 1
       }
