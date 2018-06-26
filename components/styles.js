@@ -50,7 +50,13 @@ const styles = {
   yAxis: {
     height: config.chartHeight,
     width: config.columnWidth,
-    stroke: 'grey'
+  },
+  yAxisLabel: {
+    position: 'absolute',
+    right: 3,
+    color: 'grey',
+    fontSize: 12,
+    fontWeight: 'bold'
   }
 }
 

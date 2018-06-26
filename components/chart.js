@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, FlatList } from 'react-native'
+import { Text as ReactNativeText, View, FlatList } from 'react-native'
 import range from 'date-range'
 import Svg,{
   G,
@@ -17,6 +17,7 @@ import config from './config'
 
 const getCycleDayNumber = getCycleDayNumberModule()
 
+const yAxis = makeYAxis(config)
 
 export default class CycleChart extends Component {
   constructor(props) {
@@ -112,34 +113,10 @@ export default class CycleChart extends Component {
     </G>)
   }
 
-  placeTicksForYAxis() {
-    const scaleMin = config.temperatureScale.low
-    const scaleMax = config.temperatureScale.high
-    const numberOfTicks = (scaleMax - scaleMin) * 2
-    const tickDistance = config.chartHeight / numberOfTicks
-    const ticks = []
-    const labelStyle = styles.column.label.date
-    for (let i = 0; i < numberOfTicks; i++) {
-      const y = tickDistance * i
-      ticks.push(
-        <G key={i}>
-          <Line
-            x1={18} y1={y} x2={22} y2={y}
-            {...styles.yAxis}
-          />
-          <Text {...labelStyle} y={y}>{scaleMax - i * 0.5}</Text>
-        </G>
-      )
-    }
-    return ticks
-  }
-
   render() {
     return (
       <View style={{flex: 1, flexDirection: 'row'}}>
-        <Svg {...styles.yAxis}>
-          {this.placeTicksForYAxis()}
-        </Svg>
+        <View {...styles.yAxis}>{yAxis.labels}</View>
         <FlatList
           horizontal={true}
           inverted={true}
@@ -192,4 +169,30 @@ function normalizeToScale(temp) {
   const valueRelativeToScale = (temperatureScale.high - temp) / (temperatureScale.high - temperatureScale.low)
   const scaleHeight = config.chartHeight
   return scaleHeight * valueRelativeToScale
+}
+
+function makeYAxis() {
+  const scaleMin = config.temperatureScale.low
+  const scaleMax = config.temperatureScale.high
+  const numberOfTicks = (scaleMax - scaleMin) * 2
+  const tickDistance = config.chartHeight / numberOfTicks
+
+  const tickPositions = []
+  const labels = []
+
+  for (let i = 0; i < numberOfTicks; i++) {
+    const y = tickDistance * i
+    const style = styles.yAxisLabel
+    style.top = y
+    labels.push(
+      <ReactNativeText
+        style={{...style}}
+        key={i}>
+        {scaleMax - i * 0.5}
+      </ReactNativeText>
+    )
+    tickPositions.push(y)
+  }
+
+  return {labels, tickPositions}
 }
