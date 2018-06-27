@@ -5,7 +5,7 @@ const config = {
     low: 33,
     high: 40
   },
-  cycleDaysToShow: 40,
+  xAxisRangeInDays: 40
 }
 
 const margin = 3

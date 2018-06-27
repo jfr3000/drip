@@ -23,12 +23,12 @@ export default class CycleChart extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      columns: makeColumnInfo(config.cycleDaysToShow)
+      columns: makeColumnInfo(config.xAxisRangeInDays)
     }
 
     this.reCalculateChartInfo = (function(Chart) {
       return function() {
-        Chart.setState({columns: makeColumnInfo(config.cycleDaysToShow)})
+        Chart.setState({columns: makeColumnInfo(config.xAxisRangeInDays)})
       }
     })(this)
 
@@ -176,9 +176,9 @@ function makeColumnInfo(n) {
 function getPreviousDays(n) {
   const today = new Date()
   today.setHours(0); today.setMinutes(0); today.setSeconds(0); today.setMilliseconds(0)
-  const twoWeeksAgo = new Date(today - (range.DAY * n))
+  const earlierDate = new Date(today - (range.DAY * n))
 
-  return range(twoWeeksAgo, today).reverse()
+  return range(earlierDate, today).reverse()
 }
 
 function normalizeToScale(temp) {
