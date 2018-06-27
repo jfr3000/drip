@@ -136,6 +136,7 @@ export default class CycleChart extends Component {
         <FlatList
           horizontal={true}
           inverted={true}
+          showsHorizontalScrollIndicator={false}
           data={this.state.columns}
           renderItem={({ item, index }) => {
             return (
