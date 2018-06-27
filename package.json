@@ -14,12 +14,14 @@
     "lint": "eslint app test"
   },
   "dependencies": {
+    "date-range": "0.0.2",
     "js-joda": "^1.8.2",
     "moment": "^2.22.1",
     "react": "16.3.1",
     "react-native": "0.55.4",
     "react-native-calendars": "^1.19.3",
     "react-native-simple-radio-button": "^2.7.1",
+    "react-native-svg": "^6.3.1",
     "react-navigation": "^2.0.4",
     "realm": "^2.7.1",
     "uuid": "^3.2.1"
