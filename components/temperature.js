@@ -7,8 +7,8 @@ import {
   Switch
 } from 'react-native'
 
-import { saveTemperature, getPreviousTemperature } from './db'
-import styles from './styles'
+import { saveTemperature, getPreviousTemperature } from '../db'
+import styles from '../styles/index'
 
 export default class Temp extends Component {
   constructor(props) {

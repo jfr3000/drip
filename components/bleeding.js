@@ -6,9 +6,9 @@ import {
   Switch
 } from 'react-native'
 import RadioForm from 'react-native-simple-radio-button'
-import styles from './styles'
-import { saveBleeding } from './db'
-import { bleeding as labels } from './labels'
+import styles from '../styles/index'
+import { saveBleeding } from '../db'
+import { bleeding as labels } from '../labels/labels'
 
 export default class Bleeding extends Component {
   constructor(props) {

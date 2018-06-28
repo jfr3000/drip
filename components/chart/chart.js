@@ -10,8 +10,8 @@ import Svg,{
   Path
 } from 'react-native-svg'
 import { LocalDate } from 'js-joda'
-import { getCycleDay, getOrCreateCycleDay, cycleDaysSortedByDate } from '../db'
-import getCycleDayNumberModule from '../get-cycle-day-number'
+import { getCycleDay, getOrCreateCycleDay, cycleDaysSortedByDate } from '../../db'
+import getCycleDayNumberModule from '../../lib/get-cycle-day-number'
 import styles from './styles'
 import config from './config'
 
