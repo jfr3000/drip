@@ -4,8 +4,8 @@ import {
   Button,
   Text
 } from 'react-native'
-import styles from '../styles'
-import { bleeding as labels} from '../labels'
+import styles from '../styles/index'
+import { bleeding as labels} from '../labels/labels'
 import cycleDayModule from '../lib/get-cycle-day-number'
 import { bleedingDaysSortedByDate } from '../db'
 

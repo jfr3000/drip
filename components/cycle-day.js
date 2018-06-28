@@ -7,8 +7,8 @@ import cycleDayModule from '../lib/get-cycle-day-number'
 import DayView from './cycle-day-overview'
 import BleedingEditView from './bleeding'
 import TemperatureEditView from './temperature'
-import { formatDateForViewHeader } from '../format'
-import styles from '../styles'
+import { formatDateForViewHeader } from '../labels/format'
+import styles from '../styles/index'
 
 const getCycleDayNumber = cycleDayModule()
 

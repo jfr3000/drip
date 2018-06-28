@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import { Calendar } from 'react-native-calendars'
-import * as styles from '../styles'
+import * as styles from '../styles/index'
 import { getOrCreateCycleDay, bleedingDaysSortedByDate } from '../db'
 
 export default class CalendarView extends Component {
