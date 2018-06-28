@@ -5,9 +5,9 @@ import {
   Text
 } from 'react-native'
 import { LocalDate } from 'js-joda'
-import styles from './styles'
-import cycleDayModule from './get-cycle-day-number'
-import { getOrCreateCycleDay, bleedingDaysSortedByDate, deleteAll } from './db'
+import styles from '../styles'
+import cycleDayModule from '../lib/get-cycle-day-number'
+import { getOrCreateCycleDay, bleedingDaysSortedByDate, deleteAll } from '../db'
 
 const getCycleDayNumber = cycleDayModule()
 

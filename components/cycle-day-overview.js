@@ -4,10 +4,10 @@ import {
   Button,
   Text
 } from 'react-native'
-import styles from './styles'
-import { bleeding as labels} from './labels'
-import cycleDayModule from './get-cycle-day-number'
-import { bleedingDaysSortedByDate } from './db'
+import styles from '../styles'
+import { bleeding as labels} from '../labels'
+import cycleDayModule from '../lib/get-cycle-day-number'
+import { bleedingDaysSortedByDate } from '../db'
 
 const getCycleDayNumber = cycleDayModule()
 

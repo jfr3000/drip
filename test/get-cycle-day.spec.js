@@ -4,7 +4,7 @@ import dirtyChai from 'dirty-chai'
 const expect = chai.expect
 chai.use(dirtyChai)
 
-import getCycleDayNumberModule from '../get-cycle-day-number'
+import getCycleDayNumberModule from '../lib/get-cycle-day-number'
 
 describe('getCycleDay', () => {
   it('works for a simple example', function () {
