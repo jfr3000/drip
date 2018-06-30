@@ -28,6 +28,28 @@ describe.only('sensiplan', () => {
         })
       })
 
+      it('detects no temperature shift when there are no 6 low temps', function () {
+        const tempShift = [36.47, 36.49, 36.57, 36.62, 36.55, 36.8, 36.86, 36.8]
+        const status = detectTemperatureShift(tempShift)
+        expect(status).to.eql({
+          low: [36.45, 36.5, 36.55, 36.6, 36.55, 36.8],
+          ltl: 36.8,
+          high: [36.85, 36.8],
+          shiftDetected: false
+        })
+      })
+
+      it('detects no temperature shift if the shift is not high enough', function () {
+        const tempShift = [36.57, 36.7, 36.47, 36.49, 36.57, 36.62, 36.55, 36.8, 36.86, 36.8]
+        const status = detectTemperatureShift(tempShift)
+        expect(status).to.eql({
+          low: [36.55, 36.7, 36.45, 36.5, 36.55, 36.6, 36.55],
+          ltl: 36.7,
+          high: [36.8, 36.85, 36.8],
+          shiftDetected: false
+        })
+      })
+
       it('detects missing temperature shift correctly', function () {
         const noTempShift = [36.7, 36.57, 36.47, 36.49, 36.57, 36.62, 36.55, 36.8, 36.86, 36.77]
         const status = detectTemperatureShift(noTempShift)
