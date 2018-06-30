@@ -3,14 +3,14 @@ import {
   View,
   Text
 } from 'react-native'
-import cycleDayModule from '../lib/get-cycle-day-number'
+import cycleModule from '../lib/cycle'
 import DayView from './cycle-day-overview'
 import BleedingEditView from './bleeding'
 import TemperatureEditView from './temperature'
 import { formatDateForViewHeader } from '../labels/format'
 import styles from '../styles/index'
 
-const getCycleDayNumber = cycleDayModule()
+const getCycleDayNumber = cycleModule().getCycleDayNumber
 
 export default class Day extends Component {
   constructor(props) {

@@ -1,13 +1,12 @@
 import chai from 'chai'
 import dirtyChai from 'dirty-chai'
+import cycleModule from '../lib/cycle'
 
 const expect = chai.expect
 chai.use(dirtyChai)
 
-import getCycleDayNumberModule from '../lib/get-cycle-day-number'
-
 describe('getCycleDay', () => {
-  it('works for a simple example', function () {
+  it('works for a simple example', () => {
     const bleedingDays = [{
       date: '2018-05-10',
       bleeding: {
@@ -24,7 +23,7 @@ describe('getCycleDay', () => {
         value: 2
       }
     }]
-    const getCycleDayNumber = getCycleDayNumberModule({bleedingDaysSortedByDate: bleedingDays})
+    const getCycleDayNumber = cycleModule({bleedingDaysSortedByDate: bleedingDays}).getCycleDayNumber
     const targetDate = '2018-05-17'
     const result = getCycleDayNumber(targetDate)
     expect(result).to.eql(9)
@@ -50,7 +49,7 @@ describe('getCycleDay', () => {
       }
     }]
     const targetDate = '2018-05-17'
-    const getCycleDayNumber = getCycleDayNumberModule({bleedingDaysSortedByDate: bleedingDays})
+    const getCycleDayNumber = cycleModule({bleedingDaysSortedByDate: bleedingDays}).getCycleDayNumber
     const result = getCycleDayNumber(targetDate)
     expect(result).to.eql(15)
   })
@@ -74,7 +73,7 @@ describe('getCycleDay', () => {
     }]
 
     const targetDate = '2018-04-27'
-    const getCycleDayNumber = getCycleDayNumberModule({bleedingDaysSortedByDate: bleedingDays})
+    const getCycleDayNumber = cycleModule({bleedingDaysSortedByDate: bleedingDays}).getCycleDayNumber
     const result = getCycleDayNumber(targetDate)
     expect(result).to.eql(18)
   })
@@ -88,7 +87,7 @@ describe('getCycleDay', () => {
     }]
 
     const targetDate = '2018-05-13'
-    const getCycleDayNumber = getCycleDayNumberModule({bleedingDaysSortedByDate: bleedingDays})
+    const getCycleDayNumber = cycleModule({bleedingDaysSortedByDate: bleedingDays}).getCycleDayNumber
     const result = getCycleDayNumber(targetDate)
     expect(result).to.eql(1)
   })
@@ -98,7 +97,7 @@ describe('getCycleDay returns null', () => {
   it('if there are no bleeding days', function () {
     const bleedingDays = []
     const targetDate = '2018-05-17'
-    const getCycleDayNumber = getCycleDayNumberModule({bleedingDaysSortedByDate: bleedingDays})
+    const getCycleDayNumber = cycleModule({bleedingDaysSortedByDate: bleedingDays}).getCycleDayNumber
     const result = getCycleDayNumber(targetDate)
     expect(result).to.be.null()
   })
@@ -121,7 +120,7 @@ describe('getCycleDay with cycle thresholds', () => {
     }]
 
     const targetDate = '2018-05-17'
-    const getCycleDayNumber = getCycleDayNumberModule({bleedingDaysSortedByDate: bleedingDays, maxBreakInBleeding })
+    const getCycleDayNumber = cycleModule({bleedingDaysSortedByDate: bleedingDays, maxBreakInBleeding }).getCycleDayNumber
     const result = getCycleDayNumber(targetDate)
     expect(result).to.eql(8)
   })
@@ -139,7 +138,7 @@ describe('getCycleDay with cycle thresholds', () => {
       }
     }]
     const targetDate = '2018-05-17'
-    const getCycleDayNumber = getCycleDayNumberModule({bleedingDaysSortedByDate: bleedingDays, maxBreakInBleeding })
+    const getCycleDayNumber = cycleModule({bleedingDaysSortedByDate: bleedingDays, maxBreakInBleeding }).getCycleDayNumber
     const result = getCycleDayNumber(targetDate)
     expect(result).to.eql(4)
   })

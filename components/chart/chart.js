@@ -11,11 +11,11 @@ import Svg,{
 } from 'react-native-svg'
 import { LocalDate } from 'js-joda'
 import { getCycleDay, getOrCreateCycleDay, cycleDaysSortedByDate } from '../../db'
-import getCycleDayNumberModule from '../../lib/get-cycle-day-number'
+import cycleModule from '../../lib/cycle'
 import styles from './styles'
 import config from './config'
 
-const getCycleDayNumber = getCycleDayNumberModule()
+const getCycleDayNumber = cycleModule().getCycleDayNumber
 
 const yAxis = makeYAxis(config)
 

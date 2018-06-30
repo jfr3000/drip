@@ -6,14 +6,16 @@ import {
 } from 'react-native'
 import styles from '../styles/index'
 import { bleeding as labels} from '../labels/labels'
-import cycleDayModule from '../lib/get-cycle-day-number'
+import cycleModule from '../lib/cycle'
 import { bleedingDaysSortedByDate } from '../db'
 
-const getCycleDayNumber = cycleDayModule()
+const getCycleDayNumber = cycleModule().getCycleDayNumber
 
 export default class DayView extends Component {
   constructor(props) {
     super(props)
+    console.log('new')
+    console.log(props.cycleDay)
     this.cycleDay = props.cycleDay
     this.showView = props.showView
     this.state = {

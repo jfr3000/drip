@@ -6,10 +6,10 @@ import {
 } from 'react-native'
 import { LocalDate } from 'js-joda'
 import styles from '../styles/index'
-import cycleDayModule from '../lib/get-cycle-day-number'
+import cycleModule from '../lib/cycle'
 import { getOrCreateCycleDay, bleedingDaysSortedByDate, deleteAll } from '../db'
 
-const getCycleDayNumber = cycleDayModule()
+const getCycleDayNumber = cycleModule().getCycleDayNumber
 
 export default class Home extends Component {
   constructor(props) {
