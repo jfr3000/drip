@@ -4,16 +4,12 @@ import { detectTemperatureShift } from '../lib/sensiplan'
 const expect = chai.expect
 
 describe.only('sensiplan', () => {
-  describe('getTemperatureStatus', () => {
+  describe('detect temperature shift', () => {
     describe('regular rule', () => {
       it('reports lower temperature status before shift', function () {
         const lowerTemps = [36.7, 36.57, 36.47, 36.49, 36.57]
         const status = detectTemperatureShift(lowerTemps)
-        expect(status).to.eql({
-          low: [36.7, 36.55, 36.45, 36.5, 36.55],
-          ltl: 36.7,
-          shiftDetected: false,
-        })
+        expect(status).to.eql({ detected: false })
       })
 
       it('detects temperature shift correctly', function () {
@@ -23,41 +19,27 @@ describe.only('sensiplan', () => {
           low: [36.55, 36.45, 36.5, 36.55, 36.6, 36.55],
           ltl: 36.6,
           high: [36.8, 36.85, 36.8],
-          shiftDetected: true
+          detected: true,
+          rules: { regular: true }
         })
       })
 
       it('detects no temperature shift when there are no 6 low temps', function () {
         const tempShift = [36.47, 36.49, 36.57, 36.62, 36.55, 36.8, 36.86, 36.8]
         const status = detectTemperatureShift(tempShift)
-        expect(status).to.eql({
-          low: [36.45, 36.5, 36.55, 36.6, 36.55, 36.8],
-          ltl: 36.8,
-          potentialHigh: [36.85, 36.8],
-          shiftDetected: false
-        })
+        expect(status).to.eql({ detected: false })
       })
 
       it('detects no temperature shift if the shift is not high enough', function () {
         const tempShift = [36.57, 36.7, 36.47, 36.49, 36.57, 36.62, 36.55, 36.8, 36.86, 36.8]
         const status = detectTemperatureShift(tempShift)
-        expect(status).to.eql({
-          low: [36.7, 36.45, 36.5, 36.55, 36.6, 36.55],
-          ltl: 36.7,
-          potentialHigh: [36.8, 36.85, 36.8],
-          shiftDetected: false
-        })
+        expect(status).to.eql({ detected: false })
       })
 
       it('detects missing temperature shift correctly', function () {
         const noTempShift = [36.7, 36.57, 36.47, 36.49, 36.57, 36.62, 36.55, 36.8, 36.86, 36.77]
         const status = detectTemperatureShift(noTempShift)
-        expect(status).to.eql({
-          low: [36.55, 36.45, 36.5, 36.55, 36.6, 36.55],
-          ltl: 36.6,
-          potentialHigh: [36.8, 36.85, 36.75],
-          shiftDetected: false
-        })
+        expect(status).to.eql({ detected: false })
       })
     })
 
@@ -69,18 +51,15 @@ describe.only('sensiplan', () => {
           low: [36.55, 36.45, 36.5, 36.55, 36.6, 36.55],
           ltl: 36.6,
           high: [36.8, 36.85, 36.75, 36.65],
-          shiftDetected: true
+          detected: true,
+          rules: { firstException: true }
         })
       })
 
-      it.skip('detects missing temperature shift correctly', function () {
+      it('detects missing temperature shift correctly', function () {
         const firstExceptionNoShift = [36.7, 36.57, 36.47, 36.49, 36.57, 36.62, 36.55, 36.8, 36.86, 36.77, 36.57]
         const status = detectTemperatureShift(firstExceptionNoShift)
-        expect(status).to.eql({
-          low: [36.7, 36.55, 36.45, 36.5, 36.55, 36.6, 36.55, 36.8, 36.85, 36.75, 36.55],
-          ltl: 36.85,
-          shiftDetected: false
-        })
+        expect(status).to.eql({ detected: false })
       })
     })
   })
