@@ -1,18 +1,28 @@
 import chai from 'chai'
-import * as sensiplan from '../lib/sensiplan'
-import cycleDaysFixtures from './fixtures/regular-cycles.json'
+import { getTemperatureStatus } from '../lib/sensiplan'
+import tempShift from './fixtures/temp-shift.json'
+import lowerTempDays from './fixtures/lower-temps.json'
 
 const expect = chai.expect
 
-describe('sensiplan', () => {
+describe.only('sensiplan', () => {
   describe('getTemperatureStatus', () => {
-    it('detects temperature shift', function () {
-      const targetDate = '2018-06-14'
-      const status = sensiplan.getTemperatureStatus(targetDate, cycleDaysFixtures)
+    it('reports lower temperature status before shift', function () {
+      const status = getTemperatureStatus('2018-06-09', lowerTempDays)
       expect(status).to.eql({
-        lowerTemps: [36.6, 36.5, 36.5, 36.6, 36.6, 36.6],
+        low: [36.7, 36.55, 36.45, 36.5, 36.55],
+        ltl: 36.7,
+        high: [],
+        shiftDetected: false
+      })
+    })
+
+    it('detects temperature shift', function () {
+      const status = getTemperatureStatus('2018-06-14', tempShift)
+      expect(status).to.eql({
+        low: [36.7, 36.55, 36.45, 36.5, 36.55, 36.6, 36.55],
         ltl: 36.6,
-        higherTemps: [36.8, 36.9, 36.8],
+        high: [36.8, 36.85, 36.8],
         shiftDetected: true
       })
     })

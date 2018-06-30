@@ -1,0 +1,31 @@
+[{
+  "date": "2018-06-04",
+  "temperature": {
+    "value": 36.7,
+    "exclude": null
+  }
+}, {
+  "date": "2018-06-05",
+  "temperature": {
+    "value": 36.57,
+    "exclude": null
+  }
+}, {
+  "date": "2018-06-06",
+  "temperature": {
+    "value": 36.47,
+    "exclude": null
+  }
+}, {
+  "date": "2018-06-07",
+  "temperature": {
+    "value": 36.49,
+    "exclude": null
+  }
+}, {
+  "date": "2018-06-09",
+  "temperature": {
+    "value": 36.57,
+    "exclude": null
+  }
+}]
