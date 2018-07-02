@@ -82,6 +82,12 @@ describe.only('sensiplan', () => {
         expect(status).to.eql({ detected: false })
       })
 
+      it('detects missing temperature shift with not enough high temps', function () {
+        const temps = [36.7, 36.57, 36.47, 36.49, 36.57, 36.62, 36.55, 36.8, 36.86, 36.77]
+        const status = detectTemperatureShift(temps)
+        expect(status).to.eql({ detected: false })
+      })
+
       it('detects shift after an earlier one was invalid', function () {
         const temps = [36.4, 36.4, 36.4, 36.4, 36.4, 36.4, 36.6, 36.6, 36.4, 36.4, 36.7, 36.7, 36.7, 36.7]
 
@@ -92,6 +98,56 @@ describe.only('sensiplan', () => {
           high: [36.7, 36.7, 36.7, 36.7],
           detected: true,
           rules: { firstException: true }
+        })
+      })
+    })
+
+    describe('2nd exception rule', () => {
+      it('detects temperature shift with exception temp eql ltl', function () {
+        const secondException = [36.7, 36.57, 36.47, 36.49, 36.57, 36.62, 36.55, 36.8, 36.86, 36.6, 36.8]
+        const status = detectTemperatureShift(secondException)
+        expect(status).to.eql({
+          low: [36.55, 36.45, 36.5, 36.55, 36.6, 36.55],
+          ltl: 36.6,
+          high: [36.8, 36.85, 36.6, 36.8],
+          detected: true,
+          rules: { secondException: true }
+        })
+      })
+
+      it('detects temperature shift with exception temp lower than ltl', function () {
+        const secondException = [36.7, 36.57, 36.47, 36.49, 36.57, 36.62, 36.55, 36.8, 36.86, 36.4, 36.8]
+        const status = detectTemperatureShift(secondException)
+        expect(status).to.eql({
+          low: [36.55, 36.45, 36.5, 36.55, 36.6, 36.55],
+          ltl: 36.6,
+          high: [36.8, 36.85, 36.4, 36.8],
+          detected: true,
+          rules: { secondException: true }
+        })
+      })
+
+      it('detects missing temperature shift correctly', function () {
+        const temps = [36.7, 36.57, 36.47, 36.49, 36.57, 36.62, 36.55, 36.8, 36.86, 36.4, 36.77, 36.77]
+        const status = detectTemperatureShift(temps)
+        expect(status).to.eql({ detected: false })
+      })
+
+      it('detects missing temperature shift when not enough high temps', function () {
+        const temps = [36.7, 36.57, 36.47, 36.49, 36.57, 36.62, 36.55, 36.8, 36.86, 36.4]
+        const status = detectTemperatureShift(temps)
+        expect(status).to.eql({ detected: false })
+      })
+
+      it('detects shift after an earlier one was invalid', function () {
+        const temps = [36.7, 36.57, 36.47, 36.49, 36.57, 36.62, 36.55, 36.8, 36.86, 36.4, 36.77, 36.9, 36.9, 36.86, 37.04]
+        const status = detectTemperatureShift(temps)
+        expect(status).to.eql({
+          low: [36.6, 36.55, 36.8, 36.85, 36.4, 36.75],
+          ltl: 36.85,
+          high: [36.9, 36.9, 36.85, 37.05],
+          detected: true,
+          rules: { secondException: true }
         })
       })
     })
