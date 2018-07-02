@@ -14,8 +14,6 @@ const getCycleDayNumber = cycleModule().getCycleDayNumber
 export default class DayView extends Component {
   constructor(props) {
     super(props)
-    console.log('new')
-    console.log(props.cycleDay)
     this.cycleDay = props.cycleDay
     this.showView = props.showView
     this.state = {

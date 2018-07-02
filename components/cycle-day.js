@@ -4,6 +4,7 @@ import {
   Text
 } from 'react-native'
 import cycleModule from '../lib/cycle'
+import { getTemperatureFertilityStatus } from '../lib/sensiplan-adapter'
 import DayView from './cycle-day-overview'
 import BleedingEditView from './bleeding'
 import TemperatureEditView from './temperature'
@@ -28,6 +29,7 @@ export default class Day extends Component {
 
   render() {
     const cycleDayNumber = getCycleDayNumber(this.cycleDay.date)
+    const temperatureFertilityStatus = getTemperatureFertilityStatus(this.cycleDay.date)
     return (
       <View style={ styles.cycleDayOuterView }>
         <View style={ styles.cycleDayDateView }>
@@ -37,6 +39,7 @@ export default class Day extends Component {
         </View >
         <View style={ styles.cycleDayNumberView }>
           { cycleDayNumber && <Text style={styles.cycleDayNumber} >Cycle day {cycleDayNumber}</Text> }
+          { cycleDayNumber && <Text style={styles.cycleDayNumber} >Temperature status: {temperatureFertilityStatus}</Text> }
         </View >
         <View style={ styles.cycleDaySymptomsView }>
           {

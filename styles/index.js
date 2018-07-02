@@ -14,14 +14,13 @@ export default StyleSheet.create({
   dateHeader: {
     fontSize: 20,
     fontWeight: 'bold',
-    margin: 30,
+    margin: 20,
     color: 'white',
     textAlign: 'center',
     textAlignVertical: 'center'
   },
   cycleDayNumber: {
     fontSize: 18,
-    margin: 20,
     textAlign: 'center',
     textAlignVertical: 'center'
   },
@@ -77,14 +76,13 @@ export default StyleSheet.create({
     justifyContent: 'space-around'
   },
   cycleDayDateView: {
-    flex: 2,
     justifyContent: 'center',
     backgroundColor: 'steelblue'
   },
   cycleDayNumberView: {
-    flex: 1,
     justifyContent: 'center',
-    backgroundColor: 'skyblue'
+    backgroundColor: 'skyblue',
+    padding: 10
   },
   cycleDaySymptomsView: {
     flex: 8,
