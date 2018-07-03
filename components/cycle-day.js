@@ -4,7 +4,7 @@ import {
   Text
 } from 'react-native'
 import cycleModule from '../lib/cycle'
-import { getTemperatureFertilityStatus } from '../lib/sensiplan-adapter'
+import { getTemperatureFertilityStatus } from '../lib/sympto-adapter'
 import DayView from './cycle-day-overview'
 import BleedingEditView from './bleeding'
 import TemperatureEditView from './temperature'

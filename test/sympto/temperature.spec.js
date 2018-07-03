@@ -1,9 +1,9 @@
 import chai from 'chai'
-import { detectTemperatureShift } from '../lib/sensiplan'
+import { detectTemperatureShift } from '../../lib/sympto/temperature'
 
 const expect = chai.expect
 
-describe.only('sensiplan', () => {
+describe.only('sympto', () => {
   describe('detect temperature shift', () => {
     describe('regular rule', () => {
       it('reports lower temperature status before shift', function () {
