@@ -20,7 +20,7 @@ describe.only('sympto', () => {
           ltl: 36.6,
           high: [36.8, 36.85, 36.8],
           detected: true,
-          rules: { regular: true }
+          rule: 0
         })
       })
 
@@ -51,7 +51,7 @@ describe.only('sympto', () => {
           ltl: 36.6,
           high: [36.7, 36.8, 36.9],
           detected: true,
-          rules: { regular: true }
+          rule: 0
         })
       })
 
@@ -72,7 +72,7 @@ describe.only('sympto', () => {
           ltl: 36.6,
           high: [36.8, 36.85, 36.75, 36.65],
           detected: true,
-          rules: { firstException: true }
+          rule: 1
         })
       })
 
@@ -97,7 +97,7 @@ describe.only('sympto', () => {
           ltl: 36.6,
           high: [36.7, 36.7, 36.7, 36.7],
           detected: true,
-          rules: { firstException: true }
+          rule: 1
         })
       })
     })
@@ -111,7 +111,7 @@ describe.only('sympto', () => {
           ltl: 36.6,
           high: [36.8, 36.85, 36.6, 36.8],
           detected: true,
-          rules: { secondException: true }
+          rule: 2
         })
       })
 
@@ -123,7 +123,7 @@ describe.only('sympto', () => {
           ltl: 36.6,
           high: [36.8, 36.85, 36.4, 36.8],
           detected: true,
-          rules: { secondException: true }
+          rule: 2
         })
       })
 
@@ -147,7 +147,7 @@ describe.only('sympto', () => {
           ltl: 36.85,
           high: [36.9, 36.9, 36.85, 37.05],
           detected: true,
-          rules: { secondException: true }
+          rule: 2
         })
       })
     })
