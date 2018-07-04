@@ -12,6 +12,7 @@ import {
   mucusFeeling as feelingLabels,
   mucusTexture as textureLabels
 } from '../labels/labels'
+import computeSensiplanValue from '../lib/sensiplan-mucus'
 
 export default class Mucus extends Component {
   constructor(props) {
@@ -137,11 +138,11 @@ export default class Mucus extends Component {
                 saveMucus(this.cycleDay, {
                   feeling: this.state.currentFeelingValue,
                   texture: this.state.currentTextureValue,
+                  computedValue: computeSensiplanValue(this.state.currentFeelingValue, this.state.currentTextureValue),
                   exclude: this.state.exclude
                 })
                 this.showView('dayView')
               }}
-              // FIXME: find out how disabled works when 2 values need to be checked
               disabled={ this.state.currentFeelingValue === -1 || this.state.currentTextureValue === -1 }
               title="Save">
             </Button>
