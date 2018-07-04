@@ -6,11 +6,12 @@ import {
 } from 'react-native'
 import styles from '../../styles'
 import {
-  bleedingLabels as bleedingLabels,
-  mucusFeeling as feelingLabels
-} from './labels/labels'
-import cycleDayModule from '../../lib/get-cycle-day-number'
-import { bleedingDaysSortedByDate } from '../../db'
+  bleeding as labels,
+  mucusFeeling as feelingLabels,
+  mucusTexture as textureLabels,
+} from '../labels/labels'
+import cycleDayModule from '../lib/get-cycle-day-number'
+import { bleedingDaysSortedByDate } from '../db'
 
 const getCycleDayNumber = cycleDayModule()
 
@@ -42,7 +43,7 @@ export default class DayView extends Component {
     const bleedingValue = this.cycleDay.bleeding && this.cycleDay.bleeding.value
     let bleedingLabel
     if (typeof bleedingValue === 'number') {
-      bleedingLabel = `${bleedingLabels[bleedingValue]}`
+      bleedingLabel = `${labels[bleedingValue]}`
       if (this.cycleDay.bleeding.exclude) bleedingLabel = "( " + bleedingLabel + " )"
     } else {
       bleedingLabel = 'edit'
@@ -58,13 +59,14 @@ export default class DayView extends Component {
       temperatureLabel = 'edit'
     }
 
-    const mucusFeelingValue = this.cycleDay.mucus && this.cycleDay.mucus.value
-    let mucusFeelingLabel
-    if (typeof mucusFeelingValue === 'number') {
-      mucusFeelingLabel = `${feelingLabels[mucusFeelingValue]}`
-      if (this.cycleDay.mucus.exclude) mucusFeelingLabel = "( " + mucusFeelingLabel + " )"
+    const mucusFeelingValue = this.cycleDay.mucus && this.cycleDay.mucus.feeling
+    const mucusTextureValue = this.cycleDay.mucus && this.cycleDay.mucus.texture
+    let mucusLabel
+    if (typeof mucusFeelingValue === 'number' && typeof mucusTextureValue === 'number') {
+      mucusLabel = `${feelingLabels[mucusFeelingValue]} + ${textureLabels[mucusTextureValue]}`
+      if (this.cycleDay.mucus.exclude) mucusLabel = "( " + mucusLabel + " )"
     } else {
-      mucusFeelingLabel = 'edit'
+      mucusLabel = 'edit'
     }
 
     return (
@@ -94,7 +96,7 @@ export default class DayView extends Component {
           <View style={ styles.singleButtonView }>
             <Button
               onPress={() => this.showView('mucusEditView')}
-              title={mucusFeelingLabel}>
+              title={mucusLabel}>
             </Button>
           </View>
         </View>
