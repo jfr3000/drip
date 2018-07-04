@@ -7,6 +7,7 @@ import cycleDayModule from '../../lib/get-cycle-day-number'
 import DayView from './cycle-day-overview'
 import BleedingEditView from './symptoms/bleeding'
 import TemperatureEditView from './symptoms/temperature'
+import MucusEditView from './symptoms/mucus'
 import { formatDateForViewHeader } from './labels/format'
 import styles from '../../styles'
 import actionButtonModule from './action-buttons'
@@ -44,8 +45,9 @@ export default class Day extends Component {
         <View>
           {
             { dayView: <DayView cycleDay={this.cycleDay} showView={this.showView} />,
-              bleedingEditView: <BleedingEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons}/>,
-              temperatureEditView: <TemperatureEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons}/>
+              bleedingEditView: <BleedingEditView cycleDay={this.cycleDay} showView={this.showView}/>,
+              temperatureEditView: <TemperatureEditView cycleDay={this.cycleDay} showView={this.showView}/>,
+              mucusEditView: <MucusEditView cycleDay={this.cycleDay} showView={this.showView}/>
             }[this.state.visibleComponent]
           }
         </View >

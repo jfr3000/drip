@@ -18,6 +18,15 @@ const BleedingSchema = {
   }
 }
 
+const MucusSchema = {
+  name: 'Mucus',
+  properties: {
+    feeling: 'int',
+    texture: 'int',
+    exclude: 'bool'
+  }
+}
+
 const CycleDaySchema = {
   name: 'CycleDay',
   primaryKey: 'date',
@@ -30,6 +39,10 @@ const CycleDaySchema = {
     bleeding: {
       type: 'Bleeding',
       optional: true
+    },
+    mucus: {
+      type: 'Mucus',
+      optional: true
     }
   }
 }
@@ -38,7 +51,8 @@ const db = new Realm({
   schema: [
     CycleDaySchema,
     TemperatureSchema,
-    BleedingSchema
+    BleedingSchema,
+    MucusSchema
   ],
   // we only want this in dev mode
   deleteRealmIfMigrationNeeded: true
