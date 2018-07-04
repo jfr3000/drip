@@ -11,6 +11,7 @@
     "android": "./node_modules/.bin/react-native run-android",
     "log": "./node_modules/.bin/react-native log-android | grep -v 'Warning: isMounted(...) is deprecated'",
     "test": "mocha --recursive --require babel-core/register test && npm run lint",
+    "test-watch": "mocha --recursive --require babel-core/register --watch test",
     "lint": "eslint app test"
   },
   "dependencies": {
