@@ -16,7 +16,7 @@ describe('sympto', () => {
       it('detects mucus shift correctly', function () {
         const values = [0, 0, 0, 1, 1, 2, 2, 2, 3, 3, 3, 2, 2, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0]
           .map(turnIntoCycleDayObject)
-        const status = getMucusStatus(values)
+        const status = getMucusStatus(values, 30)
         expect(status).to.eql({
           detected: true,
           mucusPeak: {
@@ -29,7 +29,7 @@ describe('sympto', () => {
       it('detects no mucus shift when there are less than 3 days of lower quality', function () {
         const values = [0, 1, 1, 2, 0, 0, 1, 2, 3, 2, 3, 3, 3, 2, 2]
           .map(turnIntoCycleDayObject)
-        const status = getMucusStatus(values)
+        const status = getMucusStatus(values, 30)
         expect(status).to.eql({ detected: false })
       })
 
@@ -41,7 +41,7 @@ describe('sympto', () => {
       it('detects no mucus shift when the mucus values are all the same', function () {
         const values = [2, 2, 2, 2, 2, 2, 2, 2]
           .map(turnIntoCycleDayObject)
-        const status = getMucusStatus(values)
+        const status = getMucusStatus(values, 30)
         expect(status).to.eql({ detected: false })
       })
     })
