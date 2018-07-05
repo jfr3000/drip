@@ -4,18 +4,18 @@ import getSensiplanStatus from '../../lib/sympto'
 const expect = chai.expect
 
 function convertToSymptoFormat(val, i) {
-  return {
-    date: i,
-    temperature: val.temperature ? { value: val.temperature } : null,
-    mucus: val.mucus ? { value: val.mucus } : null
-  }
+  const sympto = { date: i }
+  if (val.temperature) sympto.temperature = { value: val.temperature }
+  if (val.mucus) sympto.mucus = { value: val.mucus }
+  if (val.bleeding) sympto.bleeding = { value: val.bleeding }
+  return sympto
 }
 
 describe('sympto', () => {
   describe('evaluating mucus and temperature shift together', () => {
     it('reports fertile when mucus reaches best quality again within temperature evaluation phase', function () {
       const values = [
-        { temperature: 36.6 },
+        { temperature: 36.6 , bleeding: 2 },
         { temperature: 36.65 },
         { temperature: 36.5 },
         { temperature: 36.6 },
@@ -48,6 +48,11 @@ describe('sympto', () => {
       const status = getSensiplanStatus(temperatures)
       expect(status).to.eql({
         assumeFertility: false,
+        phases: [
+          { startDate: 0, startTime: '00:00'},
+          'TODO',
+          { startDate: 17, startTime: '18:00'}
+        ],
         temperatureShift: {
           detected: true,
           ltl: 36.55,
@@ -60,7 +65,7 @@ describe('sympto', () => {
           evaluationCompleteDay: {
             date: 17,
             temperature: { value: 36.75 },
-            mucus: { value: 4 }
+            mucus: { value: 4 },
           }
         },
         mucusShift: {
@@ -68,7 +73,7 @@ describe('sympto', () => {
           mucusPeak: {
             date: 17,
             mucus: { value: 4 },
-            temperature: { value: 36.75 }
+            temperature: { value: 36.75 },
           }
         }
       })
