@@ -39,14 +39,14 @@ describe('sympto', () => {
         expect(status.phases.periOvulatory).to.eql({
           start: { date: '2018-06-01' },
           end: { date: '2018-06-21', time: '18:00' },
-          cycleDays: cycleWithTempAndMucusShift.slice(0, 21)
+          cycleDays: cycleWithTempAndMucusShift.filter(({date}) => date <= '2018-06-21')
         })
         expect(status.phases.postOvulatory).to.eql({
           start: {
             date: '2018-06-21',
             time: '18:00'
           },
-          cycleDays: cycleWithTempAndMucusShift.slice(20)
+          cycleDays: cycleWithTempAndMucusShift.filter(({date}) => date >= '2018-06-21')
         })
       })
     })
@@ -79,12 +79,12 @@ describe('sympto', () => {
         expect(Object.keys(status.phases).length).to.eql(2)
         expect(status.assumeFertility).to.be.true()
         expect(status.phases.preOvulatory).to.eql({
-          cycleDays: cycleWithTempAndNoMucusShift.slice(0,5),
+          cycleDays: cycleWithTempAndNoMucusShift.filter(({date}) => date <= '2018-06-05'),
           start: { date: '2018-06-01' },
           end: { date: '2018-06-05' }
         })
         expect(status.phases.periOvulatory).to.eql({
-          cycleDays: cycleWithTempAndNoMucusShift.slice(5),
+          cycleDays: cycleWithTempAndNoMucusShift.filter(({date}) => date > '2018-06-05'),
           start: { date: '2018-06-06' }
         })
       })
@@ -100,17 +100,17 @@ describe('sympto', () => {
         expect(Object.keys(status.phases).length).to.eql(3)
         expect(status.assumeFertility).to.be.false()
         expect(status.phases.preOvulatory).to.eql({
-          cycleDays: cycleWithTempAndMucusShift.slice(0,5),
+          cycleDays: cycleWithTempAndMucusShift.filter(({date}) => date <= '2018-06-05'),
           start: { date: '2018-06-01' },
           end: { date: '2018-06-05' }
         })
         expect(status.phases.periOvulatory).to.eql({
-          cycleDays: cycleWithTempAndMucusShift.slice(5, 21),
+          cycleDays: cycleWithTempAndMucusShift.filter(({date}) => date > '2018-06-05' && date <= '2018-06-21'),
           start: { date: '2018-06-06' },
           end: { date: '2018-06-21', time: '18:00'}
         })
         expect(status.phases.postOvulatory).to.eql({
-          cycleDays: cycleWithTempAndMucusShift.slice(20),
+          cycleDays: cycleWithTempAndMucusShift.filter(({date}) => date >= '2018-06-21'),
           start: { date: '2018-06-21', time: '18:00'}
         })
       })
