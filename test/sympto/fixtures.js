@@ -83,10 +83,19 @@ const cycleWithoutAnyShifts = [
   { temperature: 36.45, mucus: 1 }
 ].map(convertToSymptoFormat)
 
+const fiveDayCycle = [
+  { temperature: 36.6, bleeding: 2 },
+  { temperature: 36.65 },
+  { temperature: 36.5 },
+  { temperature: 36.6 },
+  { temperature: 36.55 }
+].map(convertToSymptoFormat)
+
 export {
   cycleWithoutTempShift,
   cycleWithTempAndMucusShift,
   cycleWithTempAndNoMucusShift,
   cycleWithTempShift,
-  cycleWithoutAnyShifts
+  cycleWithoutAnyShifts,
+  fiveDayCycle
 }
