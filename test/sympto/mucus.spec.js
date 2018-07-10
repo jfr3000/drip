@@ -16,12 +16,16 @@ describe('sympto', () => {
       it('detects mucus shift correctly', function () {
         const values = [0, 0, 0, 1, 1, 2, 2, 2, 3, 3, 3, 2, 2, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0]
           .map(turnIntoCycleDayObject)
-        const status = getMucusStatus(values, 30)
+        const status = getMucusStatus(values, 12)
         expect(status).to.eql({
           detected: true,
           mucusPeak: {
             date: 10,
             mucus: { value: 3 }
+          },
+          evaluationCompleteDay: {
+            date: 13,
+            mucus: { value: 0 }
           }
         })
       })
