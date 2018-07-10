@@ -10,10 +10,12 @@ function convertToSymptoFormat(val) {
 const cycleWithTempShift = [36.6, 36.6, 36.6, 36.6, 36.6, 36.6, 36.8, 36.8, 36.8]
   .map(num => ({ date: '2018-06-01', temperature: num }))
   .map(convertToSymptoFormat)
+cycleWithTempShift.unshift({date: '2018-05-30', bleeding: { value: 2 }})
 
 const cycleWithoutTempShift = [36.6, 36.6, 36.6, 36.6, 36.6, 36.6, 36.8, 36.8]
   .map(num => ({ date: '2018-06-01', temperature: num }))
   .map(convertToSymptoFormat)
+cycleWithoutTempShift.unshift({date: '2018-05-30', bleeding: { value: 2 }})
 
 const cycleWithTempAndMucusShift = [
   { date: '2018-06-01', temperature: 36.6, bleeding: 2 },
