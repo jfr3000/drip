@@ -4,7 +4,9 @@ import getSensiplanStatus from '../../lib/sympto'
 const expect = chai.expect
 
 function convertToSymptoFormat(val, i) {
-  const sympto = { date: i }
+  ++i
+  const dayString = i < 10 ? `0${i}` : i
+  const sympto = { date: `2018-06-${dayString}` }
   if (val.temperature) sympto.temperature = { value: val.temperature }
   if (val.mucus) sympto.mucus = { value: val.mucus }
   if (val.bleeding) sympto.bleeding = { value: val.bleeding }
@@ -49,6 +51,31 @@ const cycleWithTempAndMucusShift = [
   { temperature: 36.9, mucus: 1 }
 ].map(convertToSymptoFormat)
 
+const cycleWithTempAndNoMucusShift = [
+  { temperature: 36.6, bleeding: 2 },
+  { temperature: 36.65 },
+  { temperature: 36.5 },
+  { temperature: 36.6 },
+  { temperature: 36.55 },
+  { temperature: 36.7, mucus: 0 },
+  { temperature: 36.75, mucus: 0 },
+  { temperature: 36.45, mucus: 1 },
+  { temperature: 36.5, mucus: 4 },
+  { temperature: 36.4, mucus: 2 },
+  { temperature: 36.5, mucus: 3 },
+  { temperature: 36.55, mucus: 3 },
+  { temperature: 36.45, mucus: 3 },
+  { temperature: 36.5, mucus: 4 },
+  { temperature: 36.55, mucus: 4 },
+  { temperature: 36.7, mucus: 3 },
+  { temperature: 36.65, mucus: 3 },
+  { temperature: 36.75, mucus: 4 },
+  { temperature: 36.8, mucus: 4 },
+  { temperature: 36.85, mucus: 4 },
+  { temperature: 36.8, mucus: 4 },
+  { temperature: 36.9, mucus: 4 }
+].map(convertToSymptoFormat)
+
 describe('sympto', () => {
   describe('evaluating mucus and temperature shift together', () => {
     describe('with no previous higher measurement', () => {
@@ -74,10 +101,7 @@ describe('sympto', () => {
           assumeFertility: true,
           phases: {
             periOvulatory: {
-              start: {
-                date: 0,
-                time: '00:00'
-              },
+              start: { date: '2018-06-01' },
               cycleDays: cycle
             }
           },
@@ -95,15 +119,12 @@ describe('sympto', () => {
         expect(status.assumeFertility).to.be.true()
         expect(Object.keys(status.phases)).to.eql(['periOvulatory', 'postOvulatory'])
         expect(status.phases.periOvulatory).to.eql({
-          start: {
-            date: 0,
-            time: '00:00'
-          },
+          start: { date: '2018-06-01' },
           cycleDays: cycleWithTempAndMucusShift.slice(0, 21)
         })
         expect(status.phases.postOvulatory).to.eql({
           start: {
-            date: 20,
+            date: '2018-06-21',
             time: '18:00'
           },
           cycleDays: cycleWithTempAndMucusShift.slice(20)
@@ -111,42 +132,27 @@ describe('sympto', () => {
       })
     })
   })
-  describe('with shifts', () => {
-    it.skip('reports fertile when mucus reaches best quality again within temperature evaluation phase', function () {
-      const status = getSensiplanStatus(temperatures)
-      expect(status).to.eql({
-        assumeFertility: false,
-        phases: {
-          preOvulatory:
-            { startDate: 0, startTime: '00:00' },
-          periOvulatory: 'TODO',
-          postOvulatory: { startDate: 17, startTime: '18:00' }
-        },
-        temperatureShift: {
-          detected: true,
-          ltl: 36.55,
-          rule: 0,
-          firstHighMeasurementDay: {
-            date: 15,
-            temperature: { value: 36.7 },
-            mucus: { value: 3 }
-          },
-          evaluationCompleteDay: {
-            date: 17,
-            temperature: { value: 36.75 },
-            mucus: { value: 4 },
-          }
-        },
-        mucusShift: {
-          detected: true,
-          mucusPeak: {
-            date: 17,
-            mucus: { value: 4 },
-            temperature: { value: 36.75 },
-          }
-        }
-      })
-    })
+  describe('with previous higher measurement', () => {
+    describe('with no shifts detects pre- and periovulatory phase', function () {
+      it('according to 5-day-rule', function () {
+        const status = getSensiplanStatus({
+          cycle: cycleWithTempAndNoMucusShift,
+          previousCycle: cycleWithTempShift
+        })
 
+        expect(Object.keys(status.phases)).to.eql(['periOvulatory', 'preOvulatory'])
+        expect(status.assumeFertility).to.be.true()
+        expect(status.phases.preOvulatory).to.eql({
+          cycleDays: cycleWithTempAndNoMucusShift.slice(0,5),
+          start: { date: '2018-06-01' },
+          end: { date: '2018-06-05' }
+        })
+        expect(status.phases.periOvulatory).to.eql({
+          cycleDays: cycleWithTempAndNoMucusShift.slice(5),
+          start: { date: '2018-06-06' }
+        })
+      })
+
+    })
   })
 })
