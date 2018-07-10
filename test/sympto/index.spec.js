@@ -1,7 +1,13 @@
 import chai from 'chai'
 import getSensiplanStatus from '../../lib/sympto'
 import {
-  cycleWithoutTempShift, cycleWithTempAndMucusShift, cycleWithTempAndNoMucusShift, cycleWithTempShift, cycleWithoutAnyShifts, fiveDayCycle
+  cycleWithoutTempShift,
+  cycleWithTempAndMucusShift,
+  cycleWithTempAndNoMucusShift,
+  cycleWithTempShift,
+  cycleWithoutAnyShifts,
+  fiveDayCycle,
+  cycleWithEarlyMucus
 } from './fixtures'
 
 const expect = chai.expect
@@ -86,7 +92,24 @@ describe('sympto', () => {
           start: { date: '2018-06-06' }
         })
       })
+      it('according to 5-day-rule with shortened pre-phase', function () {
+        const status = getSensiplanStatus({
+          cycle: cycleWithEarlyMucus,
+          previousCycle: cycleWithTempShift
+        })
 
+        expect(Object.keys(status.phases).length).to.eql(2)
+        expect(status.assumeFertility).to.be.true()
+        expect(status.phases.preOvulatory).to.eql({
+          cycleDays: [cycleWithEarlyMucus[0]],
+          start: { date: '2018-06-01' },
+          end: { date: '2018-06-01' }
+        })
+        expect(status.phases.periOvulatory).to.eql({
+          cycleDays: cycleWithEarlyMucus.slice(1),
+          start: { date: '2018-06-02' }
+        })
+      })
     })
     describe('with shifts detects pre- and peri-ovulatory phase', function () {
       it('according to 5-day-rule', function () {
