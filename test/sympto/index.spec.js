@@ -1,5 +1,6 @@
 import chai from 'chai'
 import getSensiplanStatus from '../../lib/sympto'
+import { AssertionError } from 'assert'
 import {
   cycleWithoutTempShift,
   cycleWithTempAndMucusShift,
@@ -141,10 +142,10 @@ describe('sympto', () => {
   describe('when args are wrong', () => {
     it('throws when arg object is not in right format', () => {
       const wrongObject = { hello: 'world' }
-      expect(() => getSensiplanStatus(wrongObject)).to.throw('cycle days as array')
+      expect(() => getSensiplanStatus(wrongObject)).to.throw(AssertionError)
     })
     it('throws if cycle array is empty', () => {
-      expect(() => getSensiplanStatus({cycle: []})).to.throw('cycle days as array')
+      expect(() => getSensiplanStatus({cycle: []})).to.throw(AssertionError)
     })
     it('throws if cycle days are not in right format', () => {
       expect(() => getSensiplanStatus({
@@ -156,7 +157,7 @@ describe('sympto', () => {
           date: '1992-09-09',
           bleeding: { value: 0 }
         }]
-      })).to.throw('correct format')
+      })).to.throw(AssertionError)
       expect(() => getSensiplanStatus({
         cycle: [{
           date: '2018-04-13',
@@ -167,7 +168,7 @@ describe('sympto', () => {
           date: '1992-09-09',
           bleeding: { value: 0 }
         }]
-      })).to.throw('correct format')
+      })).to.throw(AssertionError)
       expect(() => getSensiplanStatus({
         cycle: [{
           date: '09-14-2017',
@@ -177,7 +178,7 @@ describe('sympto', () => {
           date: '1992-09-09',
           bleeding: { value: 0 }
         }]
-      })).to.throw('ISO')
+      })).to.throw(AssertionError)
     })
     it('throws if first cycle day does not have bleeding value', () => {
       expect(() => getSensiplanStatus({
@@ -192,7 +193,7 @@ describe('sympto', () => {
             date: '2017-09-23',
           }
         ]
-      })).to.throw('start with bleeding')
+      })).to.throw(AssertionError)
     })
   })
 })
