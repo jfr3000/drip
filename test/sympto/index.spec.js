@@ -79,7 +79,7 @@ const cycleWithTempAndNoMucusShift = [
 describe('sympto', () => {
   describe('evaluating mucus and temperature shift together', () => {
     describe('with no previous higher measurement', () => {
-      it('with no shifts detects only periovulatory', function () {
+      it('with no shifts detects only peri-ovulatory', function () {
         const values = [
           { temperature: 36.6, bleeding: 2 },
           { temperature: 36.65 },
@@ -108,7 +108,7 @@ describe('sympto', () => {
         })
       })
 
-      it('with shifts detects only periovulatory and postovulatory', function () {
+      it('with shifts detects only peri-ovulatory and post-ovulatory', function () {
         const status = getSensiplanStatus({
           cycle: cycleWithTempAndMucusShift,
           previousCycle: cycleWithoutTempShift
@@ -116,10 +116,11 @@ describe('sympto', () => {
 
         expect(status.temperatureShift).to.be.an('object')
         expect(status.mucusShift).to.be.an('object')
-        expect(status.assumeFertility).to.be.true()
-        expect(Object.keys(status.phases)).to.eql(['periOvulatory', 'postOvulatory'])
+        expect(status.assumeFertility).to.be.false()
+        expect(Object.keys(status.phases).length).to.eql(2)
         expect(status.phases.periOvulatory).to.eql({
           start: { date: '2018-06-01' },
+          end: { date: '2018-06-21', time: '18:00' },
           cycleDays: cycleWithTempAndMucusShift.slice(0, 21)
         })
         expect(status.phases.postOvulatory).to.eql({
@@ -133,14 +134,14 @@ describe('sympto', () => {
     })
   })
   describe('with previous higher measurement', () => {
-    describe('with no shifts detects pre- and periovulatory phase', function () {
+    describe('with no shifts detects pre- and peri-ovulatory phase', function () {
       it('according to 5-day-rule', function () {
         const status = getSensiplanStatus({
           cycle: cycleWithTempAndNoMucusShift,
           previousCycle: cycleWithTempShift
         })
 
-        expect(Object.keys(status.phases)).to.eql(['periOvulatory', 'preOvulatory'])
+        expect(Object.keys(status.phases).length).to.eql(2)
         expect(status.assumeFertility).to.be.true()
         expect(status.phases.preOvulatory).to.eql({
           cycleDays: cycleWithTempAndNoMucusShift.slice(0,5),
@@ -150,6 +151,32 @@ describe('sympto', () => {
         expect(status.phases.periOvulatory).to.eql({
           cycleDays: cycleWithTempAndNoMucusShift.slice(5),
           start: { date: '2018-06-06' }
+        })
+      })
+
+    })
+    describe('with shifts detects pre- and peri-ovulatory phase', function () {
+      it('according to 5-day-rule', function () {
+        const status = getSensiplanStatus({
+          cycle: cycleWithTempAndMucusShift,
+          previousCycle: cycleWithTempShift
+        })
+
+        expect(Object.keys(status.phases).length).to.eql(3)
+        expect(status.assumeFertility).to.be.false()
+        expect(status.phases.preOvulatory).to.eql({
+          cycleDays: cycleWithTempAndMucusShift.slice(0,5),
+          start: { date: '2018-06-01' },
+          end: { date: '2018-06-05' }
+        })
+        expect(status.phases.periOvulatory).to.eql({
+          cycleDays: cycleWithTempAndMucusShift.slice(5, 21),
+          start: { date: '2018-06-06' },
+          end: { date: '2018-06-21', time: '18:00'}
+        })
+        expect(status.phases.postOvulatory).to.eql({
+          cycleDays: cycleWithTempAndMucusShift.slice(20),
+          start: { date: '2018-06-21', time: '18:00'}
         })
       })
 
