@@ -8,7 +8,12 @@ import {
   cycleWithTempShift,
   cycleWithoutAnyShifts,
   fiveDayCycle,
-  cycleWithEarlyMucus
+  cycleWithEarlyMucus,
+  mucusPeakAndFhmOnSameDay,
+  fhmTwoDaysBeforeMucusPeak,
+  fhm5DaysAfterMucusPeak,
+  mucusPeak5DaysAfterFhm,
+  mucusPeakTwoDaysBeforeFhm
 } from './fixtures'
 
 const expect = chai.expect
@@ -139,6 +144,164 @@ describe('sympto', () => {
 
     })
   })
+
+  describe('combining first higher measurment and mucus peak', () => {
+    it('with fhM + mucus peak on same day finds correct start of post-ovu phase', () => {
+      const status = getSensiplanStatus({
+        cycle: mucusPeakAndFhmOnSameDay,
+        previousCycle: cycleWithTempShift
+      })
+
+      expect(status.temperatureShift).to.be.an('object')
+      expect(status.mucusShift).to.be.an('object')
+      expect(status.assumeFertility).to.be.false()
+      expect(Object.keys(status.phases).length).to.eql(3)
+      expect(status.phases.preOvulatory).to.eql({
+        start: { date: '2018-06-01' },
+        end: { date: '2018-06-05' },
+        cycleDays: mucusPeakAndFhmOnSameDay.filter(({date}) => date <= '2018-06-05')
+      })
+      expect(status.phases.periOvulatory).to.eql({
+        start: { date: '2018-06-06' },
+        end: { date: '2018-06-21', time: '18:00' },
+        cycleDays: mucusPeakAndFhmOnSameDay.filter(({date}) => {
+          return date > '2018-06-05' && date <= '2018-06-21'
+        })
+      })
+      expect(status.phases.postOvulatory).to.eql({
+        start: {
+          date: '2018-06-21',
+          time: '18:00'
+        },
+        cycleDays: mucusPeakAndFhmOnSameDay.filter(({date}) => date >= '2018-06-21')
+      })
+    })
+
+    it('with fhM 2 days before mucus peak waits for end of mucus eval', () => {
+      const status = getSensiplanStatus({
+        cycle: fhmTwoDaysBeforeMucusPeak,
+        previousCycle: cycleWithTempShift
+      })
+
+      expect(status.temperatureShift).to.be.an('object')
+      expect(status.mucusShift).to.be.an('object')
+      expect(status.assumeFertility).to.be.false()
+      expect(Object.keys(status.phases).length).to.eql(3)
+      expect(status.phases.preOvulatory).to.eql({
+        start: { date: '2018-06-01' },
+        end: { date: '2018-06-05' },
+        cycleDays: fhmTwoDaysBeforeMucusPeak.filter(({date}) => date <= '2018-06-05')
+      })
+      expect(status.phases.periOvulatory).to.eql({
+        start: { date: '2018-06-06' },
+        end: { date: '2018-06-26', time: '18:00' },
+        cycleDays: fhmTwoDaysBeforeMucusPeak.filter(({date}) => {
+          return date > '2018-06-05' && date <= '2018-06-26'
+        })
+      })
+      expect(status.phases.postOvulatory).to.eql({
+        start: {
+          date: '2018-06-26',
+          time: '18:00'
+        },
+        cycleDays: fhmTwoDaysBeforeMucusPeak.filter(({date}) => date >= '2018-06-26')
+      })
+    })
+
+    it('with another mucus peak 5 days after fHM ignores it', () => {
+      const status = getSensiplanStatus({
+        cycle: mucusPeak5DaysAfterFhm,
+        previousCycle: cycleWithTempShift
+      })
+
+      expect(status.temperatureShift).to.be.an('object')
+      expect(status.mucusShift).to.be.an('object')
+      expect(status.assumeFertility).to.be.false()
+      expect(Object.keys(status.phases).length).to.eql(3)
+      expect(status.phases.preOvulatory).to.eql({
+        start: { date: '2018-06-01' },
+        end: { date: '2018-06-01' },
+        cycleDays: mucusPeak5DaysAfterFhm.filter(({date}) => date <= '2018-06-01')
+      })
+      expect(status.phases.periOvulatory).to.eql({
+        start: { date: '2018-06-02' },
+        end: { date: '2018-06-22', time: '18:00' },
+        cycleDays: mucusPeak5DaysAfterFhm.filter(({date}) => {
+          return date > '2018-06-01' && date <= '2018-06-22'
+        })
+      })
+      expect(status.phases.postOvulatory).to.eql({
+        start: {
+          date: '2018-06-22',
+          time: '18:00'
+        },
+        cycleDays: mucusPeak5DaysAfterFhm.filter(({date}) => date >= '2018-06-22')
+      })
+    })
+
+    it('with mucus peak 2 days before fhM waits for end of temp eval', () => {
+      const status = getSensiplanStatus({
+        cycle:  mucusPeakTwoDaysBeforeFhm,
+        previousCycle: cycleWithTempShift
+      })
+
+      expect(status.temperatureShift).to.be.an('object')
+      expect(status.mucusShift).to.be.an('object')
+      expect(status.assumeFertility).to.be.false()
+      expect(Object.keys(status.phases).length).to.eql(3)
+      expect(status.phases.preOvulatory).to.eql({
+        start: { date: '2018-06-01' },
+        end: { date: '2018-06-04' },
+        cycleDays: mucusPeakTwoDaysBeforeFhm.filter(({date}) => date <= '2018-06-04')
+      })
+      expect(status.phases.periOvulatory).to.eql({
+        start: { date: '2018-06-05' },
+        end: { date: '2018-07-03', time: '18:00' },
+        cycleDays: mucusPeakTwoDaysBeforeFhm.filter(({date}) => {
+          return date > '2018-06-04' && date <= '2018-07-03'
+        })
+      })
+      expect(status.phases.postOvulatory).to.eql({
+        start: {
+          date: '2018-07-03',
+          time: '18:00'
+        },
+        cycleDays: mucusPeakTwoDaysBeforeFhm.filter(({date}) => date >= '2018-07-03')
+      })
+    })
+
+    it('with mucus peak 5 days before fhM waits for end of temp eval', () => {
+      const status = getSensiplanStatus({
+        cycle:  fhm5DaysAfterMucusPeak,
+        previousCycle: cycleWithTempShift
+      })
+
+      expect(status.temperatureShift).to.be.an('object')
+      expect(status.mucusShift).to.be.an('object')
+      expect(status.assumeFertility).to.be.false()
+      expect(Object.keys(status.phases).length).to.eql(3)
+      expect(status.phases.preOvulatory).to.eql({
+        start: { date: '2018-06-01' },
+        end: { date: '2018-06-05' },
+        cycleDays: fhm5DaysAfterMucusPeak.filter(({date}) => date <= '2018-06-05')
+      })
+      expect(status.phases.periOvulatory).to.eql({
+        start: { date: '2018-06-06' },
+        end: { date: '2018-06-21', time: '18:00' },
+        cycleDays: fhm5DaysAfterMucusPeak.filter(({date}) => {
+          return date > '2018-06-05' && date <= '2018-06-21'
+        })
+      })
+      expect(status.phases.postOvulatory).to.eql({
+        start: {
+          date: '2018-06-21',
+          time: '18:00'
+        },
+        cycleDays: fhm5DaysAfterMucusPeak.filter(({date}) => date >= '2018-06-21')
+      })
+    })
+  })
+
   describe('when args are wrong', () => {
     it('throws when arg object is not in right format', () => {
       const wrongObject = { hello: 'world' }
