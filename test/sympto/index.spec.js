@@ -13,7 +13,8 @@ import {
   fhmTwoDaysBeforeMucusPeak,
   fhm5DaysAfterMucusPeak,
   mucusPeak5DaysAfterFhm,
-  mucusPeakTwoDaysBeforeFhm
+  mucusPeakTwoDaysBeforeFhm,
+  fhmOnDay12
 } from './fixtures'
 
 const expect = chai.expect
@@ -303,7 +304,36 @@ describe('sympto', () => {
   })
 
   describe('applying the minus-8 rule', () => {
-    it('shortens the pre-ovu phase if there is a previous <13 fhm')
+    it('shortens the pre-ovu phase if there is a previous <13 fhm', () => {
+      const status = getSensiplanStatus({
+        cycle:  cycleWithTempAndMucusShift,
+        previousCycles: [fhmOnDay12, cycleWithTempShift]
+      })
+
+      expect(status.temperatureShift).to.be.an('object')
+      expect(status.mucusShift).to.be.an('object')
+      expect(status.assumeFertility).to.be.false()
+      expect(Object.keys(status.phases).length).to.eql(3)
+      expect(status.phases.preOvulatory).to.eql({
+        start: { date: '2018-06-01' },
+        end: { date: '2018-06-04' },
+        cycleDays: fhm5DaysAfterMucusPeak.filter(({date}) => date <= '2018-06-04')
+      })
+      expect(status.phases.periOvulatory).to.eql({
+        start: { date: '2018-06-05' },
+        end: { date: '2018-06-17', time: '18:00' },
+        cycleDays: fhm5DaysAfterMucusPeak.filter(({date}) => {
+          return date > '2018-06-04' && date <= '2018-06-17'
+        })
+      })
+      expect(status.phases.postOvulatory).to.eql({
+        start: {
+          date: '2018-06-17',
+          time: '18:00'
+        },
+        cycleDays: fhm5DaysAfterMucusPeak.filter(({date}) => date >= '2018-06-17')
+      })
+    })
     it('shortens the pre-ovu phase if there is a previous <13 fhm with less than 12 cycles')
     it('shortens the pre-ovu phase if mucus occurs')
     it('lengthens the pre-ovu phase if >= 12 cycles')

@@ -7,17 +7,17 @@ function convertToSymptoFormat(val) {
   return sympto
 }
 
-const cycleWithTempShift = [36.6, 36.6, 36.6, 36.6, 36.6, 36.6, 36.8, 36.8, 36.8]
+export const cycleWithTempShift = [36.6, 36.6, 36.6, 36.6, 36.6, 36.6, 36.8, 36.8, 36.8]
   .map(num => ({ date: '2018-06-01', temperature: num }))
   .map(convertToSymptoFormat)
 cycleWithTempShift.unshift({date: '2018-05-30', bleeding: { value: 2 }})
 
-const cycleWithoutTempShift = [36.6, 36.6, 36.6, 36.6, 36.6, 36.6, 36.8, 36.8]
+export const cycleWithoutTempShift = [36.6, 36.6, 36.6, 36.6, 36.6, 36.6, 36.8, 36.8]
   .map(num => ({ date: '2018-06-01', temperature: num }))
   .map(convertToSymptoFormat)
 cycleWithoutTempShift.unshift({date: '2018-05-30', bleeding: { value: 2 }})
 
-const cycleWithTempAndMucusShift = [
+export const cycleWithTempAndMucusShift = [
   { date: '2018-06-01', temperature: 36.6, bleeding: 2 },
   { date: '2018-06-02', temperature: 36.65 },
   { date: '2018-06-04', temperature: 36.6 },
@@ -40,7 +40,7 @@ const cycleWithTempAndMucusShift = [
   { date: '2018-06-27', temperature: 36.9, mucus: 1 }
 ].map(convertToSymptoFormat)
 
-const cycleWithTempAndNoMucusShift = [
+export const cycleWithTempAndNoMucusShift = [
   { date: '2018-06-01', temperature: 36.6, bleeding: 2 },
   { date: '2018-06-02', temperature: 36.65 },
   { date: '2018-06-05', temperature: 36.55 },
@@ -63,7 +63,7 @@ const cycleWithTempAndNoMucusShift = [
   { date: '2018-06-27', temperature: 36.9, mucus: 4 }
 ].map(convertToSymptoFormat)
 
-const cycleWithEarlyMucus = [
+export const cycleWithEarlyMucus = [
   { date: '2018-06-01', temperature: 36.6, bleeding: 2 },
   { date: '2018-06-02', temperature: 36.65, mucus: 3 },
   { date: '2018-06-05', temperature: 36.55 },
@@ -86,7 +86,7 @@ const cycleWithEarlyMucus = [
   { date: '2018-06-27', temperature: 36.9, mucus: 4 }
 ].map(convertToSymptoFormat)
 
-const cycleWithoutAnyShifts = [
+export const cycleWithoutAnyShifts = [
   { date: '2018-06-01', temperature: 36.6, bleeding: 2 },
   { date: '2018-06-02', temperature: 36.65 },
   { date: '2018-06-04', temperature: 36.6 },
@@ -96,12 +96,12 @@ const cycleWithoutAnyShifts = [
   { date: '2018-06-08', temperature: 36.45, mucus: 1 }
 ].map(convertToSymptoFormat)
 
-const fiveDayCycle = [
+export const fiveDayCycle = [
   { date: '2018-06-01', bleeding: 2 },
   { date: '2018-06-03', bleeding: 3 },
 ].map(convertToSymptoFormat)
 
-const mucusPeakAndFhmOnSameDay = [
+export const mucusPeakAndFhmOnSameDay = [
   { date: '2018-06-01', temperature: 36.6, bleeding: 2 },
   { date: '2018-06-02', temperature: 36.65 },
   { date: '2018-06-04', temperature: 36.6 },
@@ -124,7 +124,7 @@ const mucusPeakAndFhmOnSameDay = [
   { date: '2018-06-27', temperature: 36.9, mucus: 1 }
 ].map(convertToSymptoFormat)
 
-const fhmTwoDaysBeforeMucusPeak = [
+export const fhmTwoDaysBeforeMucusPeak = [
   { date: '2018-06-01', temperature: 36.6, bleeding: 2 },
   { date: '2018-06-02', temperature: 36.65 },
   { date: '2018-06-04', temperature: 36.6 },
@@ -146,7 +146,7 @@ const fhmTwoDaysBeforeMucusPeak = [
   { date: '2018-06-26', temperature: 36.8, mucus: 1 },
 ].map(convertToSymptoFormat)
 
-const mucusPeakTwoDaysBeforeFhm = [
+export const mucusPeakTwoDaysBeforeFhm = [
   { date: '2018-06-01', temperature: 36.6, bleeding: 2 },
   { date: '2018-06-02', temperature: 36.65 },
   { date: '2018-06-04', temperature: 36.6 },
@@ -165,7 +165,7 @@ const mucusPeakTwoDaysBeforeFhm = [
   { date: '2018-07-04', temperature: 36.8, mucus: 2 },
 ].map(convertToSymptoFormat)
 
-const mucusPeak5DaysAfterFhm = [
+export const mucusPeak5DaysAfterFhm = [
   { date: '2018-06-01', temperature: 36.6, bleeding: 2 },
   { date: '2018-06-02', temperature: 36.65, mucus: 2 },
   { date: '2018-06-04', temperature: 36.6 },
@@ -190,7 +190,7 @@ const mucusPeak5DaysAfterFhm = [
   { date: '2018-07-02', temperature: 36.9, mucus: 1 }
 ].map(convertToSymptoFormat)
 
-const fhm5DaysAfterMucusPeak = [
+export const fhm5DaysAfterMucusPeak = [
   { date: '2018-06-01', temperature: 36.6, bleeding: 2 },
   { date: '2018-06-02', temperature: 36.65 },
   { date: '2018-06-04', temperature: 36.6 },
@@ -213,17 +213,15 @@ const fhm5DaysAfterMucusPeak = [
   { date: '2018-06-27', temperature: 36.9, mucus: 1 }
 ].map(convertToSymptoFormat)
 
-export {
-  cycleWithoutTempShift,
-  cycleWithTempAndMucusShift,
-  cycleWithTempAndNoMucusShift,
-  cycleWithTempShift,
-  cycleWithoutAnyShifts,
-  fiveDayCycle,
-  cycleWithEarlyMucus,
-  fhm5DaysAfterMucusPeak,
-  fhmTwoDaysBeforeMucusPeak,
-  mucusPeak5DaysAfterFhm,
-  mucusPeakAndFhmOnSameDay,
-  mucusPeakTwoDaysBeforeFhm
-}
+export const fhmOnDay12 = [
+  { date: '2018-06-01', temperature: 36.6, bleeding: 2 },
+  { date: '2018-06-02', temperature: 36.65 },
+  { date: '2018-06-04', temperature: 36.6 },
+  { date: '2018-06-05', temperature: 36.55 },
+  { date: '2018-06-06', temperature: 36.7, mucus: 0 },
+  { date: '2018-06-09', temperature: 36.5, mucus: 2 },
+  { date: '2018-06-10', temperature: 36.4, mucus: 3 },
+  { date: '2018-06-12', temperature: 36.8, mucus: 3 },
+  { date: '2018-06-14', temperature: 36.9, mucus: 2 },
+  { date: '2018-06-17', temperature: 36.9, mucus: 2 },
+].map(convertToSymptoFormat)
