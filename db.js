@@ -23,6 +23,7 @@ const MucusSchema = {
   properties: {
     feeling: 'int',
     texture: 'int',
+    computedNfp: 'int',
     exclude: 'bool'
   }
 }

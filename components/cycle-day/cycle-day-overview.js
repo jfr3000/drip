@@ -9,6 +9,7 @@ import {
   bleeding as labels,
   mucusFeeling as feelingLabels,
   mucusTexture as textureLabels,
+  mucusNFP as computeSensiplanMucusLabels,
 } from '../labels/labels'
 import cycleDayModule from '../lib/get-cycle-day-number'
 import { bleedingDaysSortedByDate } from '../db'
@@ -61,9 +62,10 @@ export default class DayView extends Component {
 
     const mucusFeelingValue = this.cycleDay.mucus && this.cycleDay.mucus.feeling
     const mucusTextureValue = this.cycleDay.mucus && this.cycleDay.mucus.texture
+    const mucusComputedValue = this.cycleDay.mucus && this.cycleDay.mucus.computedNfp
     let mucusLabel
     if (typeof mucusFeelingValue === 'number' && typeof mucusTextureValue === 'number') {
-      mucusLabel = `${feelingLabels[mucusFeelingValue]} + ${textureLabels[mucusTextureValue]}`
+      mucusLabel = `${feelingLabels[mucusFeelingValue]} + ${textureLabels[mucusTextureValue]} ( ${computeSensiplanMucusLabels[mucusComputedValue]} )`
       if (this.cycleDay.mucus.exclude) mucusLabel = "( " + mucusLabel + " )"
     } else {
       mucusLabel = 'edit'
