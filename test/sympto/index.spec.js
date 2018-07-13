@@ -15,7 +15,8 @@ import {
   mucusPeak5DaysAfterFhm,
   mucusPeakTwoDaysBeforeFhm,
   fhmOnDay12,
-  fhmOnDay15
+  fhmOnDay15,
+  mucusPeakSlightlyBeforeTempShift
 } from './fixtures'
 
 const expect = chai.expect
@@ -220,6 +221,40 @@ describe('sympto', () => {
         },
         cycleDays: fhmTwoDaysBeforeMucusPeak
           .filter(({date}) => date >= '2018-06-26')
+      })
+    })
+
+    it('another example for mucus peak before temp shift', () => {
+      const status = getSensiplanStatus({
+        cycle: mucusPeakSlightlyBeforeTempShift,
+        previousCycles: [cycleWithFhm]
+      })
+
+      expect(status.temperatureShift).to.be.an('object')
+      expect(status.mucusShift).to.be.an('object')
+      expect(status.assumeFertility).to.be.false()
+      expect(Object.keys(status.phases).length).to.eql(3)
+      expect(status.phases.preOvulatory).to.eql({
+        start: { date: '2018-06-01' },
+        end: { date: '2018-06-05' },
+        cycleDays: mucusPeakSlightlyBeforeTempShift
+          .filter(({date}) => date <= '2018-06-05')
+      })
+      expect(status.phases.periOvulatory).to.eql({
+        start: { date: '2018-06-06' },
+        end: { date: '2018-06-17', time: '18:00' },
+        cycleDays: mucusPeakSlightlyBeforeTempShift
+          .filter(({date}) => {
+            return date > '2018-06-05' && date <= '2018-06-17'
+          })
+      })
+      expect(status.phases.postOvulatory).to.eql({
+        start: {
+          date: '2018-06-17',
+          time: '18:00'
+        },
+        cycleDays: mucusPeakSlightlyBeforeTempShift
+          .filter(({date}) => date >= '2018-06-17')
       })
     })
 
