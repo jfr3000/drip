@@ -43,10 +43,9 @@ export default class Day extends Component {
               Cycle day {cycleDayNumber}
             </Text> }
 
-          { cycleDayNumber &&
           <Text style={styles.cycleDayNumber} >
             {fertilityStatus}
-          </Text> }
+          </Text>
         </View >
         <View style={ styles.cycleDaySymptomsView }>
           {
