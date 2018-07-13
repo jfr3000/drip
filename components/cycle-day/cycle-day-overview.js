@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 import styles from '../../styles'
 import {
-  bleeding as labels,
+  bleeding as bleedingLabels,
   mucusFeeling as feelingLabels,
   mucusTexture as textureLabels,
   mucusNFP as computeSensiplanMucusLabels,
@@ -44,7 +44,7 @@ export default class DayView extends Component {
     const bleedingValue = this.cycleDay.bleeding && this.cycleDay.bleeding.value
     let bleedingLabel
     if (typeof bleedingValue === 'number') {
-      bleedingLabel = `${labels[bleedingValue]}`
+      bleedingLabel = `${bleedingLabels[bleedingValue]}`
       if (this.cycleDay.bleeding.exclude) bleedingLabel = "( " + bleedingLabel + " )"
     } else {
       bleedingLabel = 'edit'
