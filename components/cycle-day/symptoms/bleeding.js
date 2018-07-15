@@ -34,7 +34,7 @@ export default class Bleeding extends Component {
     return (
       <View style={styles.symptomEditView}>
         <Text style={styles.symptomDayView}>Bleeding</Text>
-        <View style={{marginTop: 15}}>
+        <View style={styles.radioButtonRow}>
           <RadioForm
             radio_props={bleedingRadioProps}
             initial={this.state.currentValue}

@@ -31,7 +31,7 @@ export default StyleSheet.create({
   },
   radioButton: {
     fontSize: 18,
-    margin: 5,
+    margin: 8,
     textAlign: 'center',
     textAlignVertical: 'center'
   },
@@ -77,5 +77,10 @@ export default StyleSheet.create({
   },
   symptomEditButton: {
     width: 130
+  },
+  radioButtonRow: {
+    marginTop: 15,
+    marginLeft: 'auto',
+    marginRight: 'auto'
   }
 })
