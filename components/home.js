@@ -49,28 +49,30 @@ export default class Home extends Component {
       <View>
         <Text style={styles.welcome}>{this.state.welcomeText}</Text>
         <View style={styles.homeButtons}>
-          <Button
-            onPress={() => this.passTodayToDayView()}
-            title="Edit symptoms for today">
-          </Button>
-        </View>
-        <View style={styles.homeButton}>
-          <Button
-            onPress={() => navigate('calendar')}
-            title="Go to calendar">
-          </Button>
-        </View>
-        <View style={styles.homeButton}>
-          <Button
-            onPress={() => navigate('chart')}
-            title="Go to chart">
-          </Button>
-        </View>
-        <View style={styles.homeButton}>
-          <Button
-            onPress={() => deleteAll()}
-            title="delete everything">
-          </Button>
+          <View style={styles.homeButton}>
+            <Button
+              onPress={() => this.passTodayToDayView()}
+              title="Edit symptoms for today">
+            </Button>
+          </View>
+          <View style={styles.homeButton}>
+            <Button
+              onPress={() => navigate('calendar')}
+              title="Go to calendar">
+            </Button>
+          </View>
+          <View style={styles.homeButton}>
+            <Button
+              onPress={() => navigate('chart')}
+              title="Go to chart">
+            </Button>
+          </View>
+          <View style={styles.homeButton}>
+            <Button
+              onPress={() => deleteAll()}
+              title="delete everything">
+            </Button>
+          </View>
         </View>
       </View>
     )
