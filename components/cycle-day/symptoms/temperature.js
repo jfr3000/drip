@@ -17,9 +17,11 @@ export default class Temp extends Component {
     this.makeActionButtons = props.makeActionButtons
     let initialValue
 
-    if (this.cycleDay.temperature) {
-      initialValue = this.cycleDay.temperature.value.toString()
-      this.time = this.cycleDay.temperature.time
+    const temp = this.cycleDay.temperature
+
+    if (temp) {
+      initialValue = temp.value.toString()
+      this.time = temp.time
     } else {
       const prevTemp = getPreviousTemperature(this.cycleDay)
       initialValue = prevTemp ? prevTemp.toString() : ''
@@ -27,8 +29,8 @@ export default class Temp extends Component {
 
     this.state = {
       currentValue: initialValue,
-      exclude: this.cycleDay.temperature ? this.cycleDay.temperature.exclude : false,
-      time: this.cycleDay.temperature ? this.cycleDay.temperature.time : null
+      exclude: temp ? temp.exclude : false,
+      time: this.time || LocalTime.now().truncatedTo(ChronoUnit.MINUTES).toString()
     }
   }
 
@@ -48,7 +50,7 @@ export default class Temp extends Component {
             value={this.state.currentValue}
           />
         </View>
-        <View style={styles.symptomViewRowInline} display={this.state.time ? 'flex' : 'none'}>
+        <View style={styles.symptomViewRowInline}>
           <Text style={styles.symptomDayView}>Time</Text>
           <TextInput
             style={styles.temperatureTextInput}
@@ -76,8 +78,7 @@ export default class Temp extends Component {
               const dataToSave = {
                 value: Number(this.state.currentValue),
                 exclude: this.state.exclude,
-                time: this.state.time ||
-                  LocalTime.now().truncatedTo(ChronoUnit.MINUTES).toString()
+                time: this.state.time
               }
               if (!cycleDay.temperature || cycleDay.temperature && !cycleDay.temperature.time) {
                 const now = LocalTime.now().truncatedTo(ChronoUnit.MINUTES).toString()
