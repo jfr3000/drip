@@ -10,9 +10,9 @@ import {
   mucusFeeling as feelingLabels,
   mucusTexture as textureLabels,
   mucusNFP as computeSensiplanMucusLabels,
-} from '../labels/labels'
-import cycleDayModule from '../lib/get-cycle-day-number'
-import { bleedingDaysSortedByDate } from '../db'
+} from './labels/labels'
+import cycleDayModule from '../../lib/get-cycle-day-number'
+import { bleedingDaysSortedByDate } from '../../db'
 
 const getCycleDayNumber = cycleDayModule()
 
@@ -91,11 +91,9 @@ export default class DayView extends Component {
             </Button>
           </View>
         </View>
-        <View style={ styles.itemsInRowSeparatedView }>
-          <View style={{flex: 1}}>
-            <Text style={styles.symptomDayView}>Mucus</Text>
-          </View>
-          <View style={ styles.singleButtonView }>
+        <View style={ styles.symptomViewRowInline }>
+          <Text style={styles.symptomDayView}>Mucus</Text>
+          <View style={ styles.symptomEditButton }>
             <Button
               onPress={() => this.showView('mucusEditView')}
               title={mucusLabel}>

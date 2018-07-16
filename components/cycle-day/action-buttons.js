@@ -24,7 +24,7 @@ export default function (showView) {
           saveAction()
           showView('dayView')
         },
-        disabled: saveDisabled
+        disabledCondition: saveDisabled
       }
     ]
 

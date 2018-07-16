@@ -45,9 +45,9 @@ export default class Day extends Component {
         <View>
           {
             { dayView: <DayView cycleDay={this.cycleDay} showView={this.showView} />,
-              bleedingEditView: <BleedingEditView cycleDay={this.cycleDay} showView={this.showView}/>,
-              temperatureEditView: <TemperatureEditView cycleDay={this.cycleDay} showView={this.showView}/>,
-              mucusEditView: <MucusEditView cycleDay={this.cycleDay} showView={this.showView}/>
+              bleedingEditView: <BleedingEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons}/>,
+              temperatureEditView: <TemperatureEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons}/>,
+              mucusEditView: <MucusEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons}/>
             }[this.state.visibleComponent]
           }
         </View >
