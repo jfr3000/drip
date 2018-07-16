@@ -3,13 +3,15 @@ import {
   View,
   Text
 } from 'react-native'
-import cycleModule from '../lib/cycle'
-import getFertilityStatus from '../lib/sympto-adapter'
+import cycleModule from '../../lib/cycle'
+import getFertilityStatus from '../../lib/sympto-adapter'
 import DayView from './cycle-day-overview'
-import BleedingEditView from './bleeding'
-import TemperatureEditView from './temperature'
-import { formatDateForViewHeader } from '../labels/format'
-import styles from '../styles/index'
+import BleedingEditView from './symptoms/bleeding'
+import TemperatureEditView from './symptoms/temperature'
+import MucusEditView from './symptoms/mucus'
+import { formatDateForViewHeader } from './labels/format'
+import styles from '../../styles'
+import actionButtonModule from './action-buttons'
 
 const getCycleDayNumber = cycleModule().getCycleDayNumber
 
@@ -25,13 +27,15 @@ export default class Day extends Component {
     this.showView = view => {
       this.setState({visibleComponent: view})
     }
+
+    this.makeActionButtons = actionButtonModule(this.showView)
   }
 
   render() {
     const cycleDayNumber = getCycleDayNumber(this.cycleDay.date)
     const fertilityStatus = getFertilityStatus(this.cycleDay.date)
     return (
-      <View style={ styles.cycleDayOuterView }>
+      <View>
         <View style={ styles.cycleDayDateView }>
           <Text style={styles.dateHeader}>
             {formatDateForViewHeader(this.cycleDay.date)}
@@ -47,11 +51,12 @@ export default class Day extends Component {
             {fertilityStatus}
           </Text>
         </View >
-        <View style={ styles.cycleDaySymptomsView }>
+        <View>
           {
             { dayView: <DayView cycleDay={this.cycleDay} showView={this.showView} />,
-              bleedingEditView: <BleedingEditView cycleDay={this.cycleDay} showView={this.showView}/>,
-              temperatureEditView: <TemperatureEditView cycleDay={this.cycleDay} showView={this.showView}/>
+              bleedingEditView: <BleedingEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons}/>,
+              temperatureEditView: <TemperatureEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons}/>,
+              mucusEditView: <MucusEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons}/>
             }[this.state.visibleComponent]
           }
         </View >

@@ -46,32 +46,28 @@ export default class Home extends Component {
   render() {
     const navigate = this.props.navigation.navigate
     return (
-      <View style={ styles.homeContainerView }>
-        <View style={{flex: 2}}>
-          <View>
-            <Text style={styles.welcome}>{this.state.welcomeText}</Text>
-          </View>
-        </View>
-        <View style={ styles.homeButtonsView}>
-          <View>
+      <View>
+        <Text style={styles.welcome}>{this.state.welcomeText}</Text>
+        <View style={styles.homeButtons}>
+          <View style={styles.homeButton}>
             <Button
               onPress={() => this.passTodayToDayView()}
               title="Edit symptoms for today">
             </Button>
           </View>
-          <View>
+          <View style={styles.homeButton}>
             <Button
               onPress={() => navigate('calendar')}
               title="Go to calendar">
             </Button>
           </View>
-          <View>
+          <View style={styles.homeButton}>
             <Button
               onPress={() => navigate('chart')}
               title="Go to chart">
             </Button>
           </View>
-          <View>
+          <View style={styles.homeButton}>
             <Button
               onPress={() => deleteAll()}
               title="delete everything">

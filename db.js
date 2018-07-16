@@ -18,6 +18,16 @@ const BleedingSchema = {
   }
 }
 
+const MucusSchema = {
+  name: 'Mucus',
+  properties: {
+    feeling: 'int',
+    texture: 'int',
+    computedNfp: 'int',
+    exclude: 'bool'
+  }
+}
+
 const CycleDaySchema = {
   name: 'CycleDay',
   primaryKey: 'date',
@@ -30,6 +40,10 @@ const CycleDaySchema = {
     bleeding: {
       type: 'Bleeding',
       optional: true
+    },
+    mucus: {
+      type: 'Mucus',
+      optional: true
     }
   }
 }
@@ -38,7 +52,8 @@ const db = new Realm({
   schema: [
     CycleDaySchema,
     TemperatureSchema,
-    BleedingSchema
+    BleedingSchema,
+    MucusSchema
   ],
   // we only want this in dev mode
   deleteRealmIfMigrationNeeded: true
@@ -47,19 +62,13 @@ const db = new Realm({
 const bleedingDaysSortedByDate = db.objects('CycleDay').filtered('bleeding != null').sorted('date', true)
 const temperatureDaysSortedByDate = db.objects('CycleDay').filtered('temperature != null').sorted('date', true)
 
-function saveTemperature(cycleDay, temperature) {
+function saveSymptom(symptom, cycleDay, val) {
   db.write(() => {
-    cycleDay.temperature = temperature
+    cycleDay[symptom] = val
   })
 }
 
 const cycleDaysSortedByDate = db.objects('CycleDay').sorted('date', true)
-
-function saveBleeding(cycleDay, bleeding) {
-  db.write(() => {
-    cycleDay.bleeding = bleeding
-  })
-}
 
 function getOrCreateCycleDay(localDate) {
   let result = db.objectForPrimaryKey('CycleDay', localDate)
@@ -94,8 +103,7 @@ function getPreviousTemperature(cycleDay) {
 }
 
 export {
-  saveTemperature,
-  saveBleeding,
+  saveSymptom,
   getOrCreateCycleDay,
   bleedingDaysSortedByDate,
   temperatureDaysSortedByDate,

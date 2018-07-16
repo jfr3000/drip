@@ -14,66 +14,41 @@ export default StyleSheet.create({
   dateHeader: {
     fontSize: 20,
     fontWeight: 'bold',
-    margin: 20,
+    margin: 15,
     color: 'white',
     textAlign: 'center',
     textAlignVertical: 'center'
   },
   cycleDayNumber: {
     fontSize: 18,
+    margin: 15,
     textAlign: 'center',
     textAlignVertical: 'center'
   },
   symptomDayView: {
     fontSize: 20,
-    margin: 30,
-    textAlign: 'left',
     textAlignVertical: 'center'
   },
   radioButton: {
     fontSize: 18,
-    margin: 5,
+    margin: 8,
     textAlign: 'center',
     textAlignVertical: 'center'
   },
-  singleButtonView: {
-    flex: 1,
-    margin: 5
-  },
-  itemsInRowView: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center'
-  },
-  itemsInRowSeparatedView: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center'
-  },
   symptomEditView: {
-    flex: 1,
-    flexDirection: 'column',
     justifyContent: 'space-between',
-    alignItems: 'flex-start'
+    marginHorizontal: 15
   },
-  symptomEditSplitSymptomsAndLastRowButtons: {
-    flex: 4,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start'
+  symptomEditRow: {
+    justifyContent: 'space-between',
+    marginBottom: 10,
   },
-  symptomEditListedSymptomView: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start'
-  },
-  cycleDayOuterView: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-around'
+  symptomViewRowInline: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+    alignItems: 'center',
+    height: 50
   },
   cycleDayDateView: {
     justifyContent: 'center',
@@ -82,21 +57,30 @@ export default StyleSheet.create({
   cycleDayNumberView: {
     justifyContent: 'center',
     backgroundColor: 'skyblue',
-    padding: 10
+    marginBottom: 15
   },
-  cycleDaySymptomsView: {
-    flex: 8,
-    justifyContent: 'center'
+  homeButtons: {
+    marginHorizontal: 15
   },
-  homeContainerView: {
-    flex: 0.5,
-    flexDirection: 'column',
-    justifyContent: 'space-around'
+  homeButton: {
+    marginBottom: 15
   },
-  homeButtonsView: {
-    flex: 3,
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    margin: 5
+  temperatureTextInput: {
+    width: 80,
+    textAlign: 'center',
+    fontSize: 20
+  },
+  actionButtonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginTop: 50
+  },
+  symptomEditButton: {
+    width: 130
+  },
+  radioButtonRow: {
+    marginTop: 15,
+    marginLeft: 'auto',
+    marginRight: 'auto'
   }
 })
