@@ -5,7 +5,12 @@ import {
   Text
 } from 'react-native'
 import styles from '../../styles'
-import { bleeding as labels} from './labels/labels'
+import {
+  bleeding as bleedingLabels,
+  mucusFeeling as feelingLabels,
+  mucusTexture as textureLabels,
+  mucusNFP as computeSensiplanMucusLabels,
+} from './labels/labels'
 import cycleDayModule from '../../lib/get-cycle-day-number'
 import { bleedingDaysSortedByDate } from '../../db'
 
@@ -39,7 +44,7 @@ export default class DayView extends Component {
     const bleedingValue = this.cycleDay.bleeding && this.cycleDay.bleeding.value
     let bleedingLabel
     if (typeof bleedingValue === 'number') {
-      bleedingLabel = `${labels[bleedingValue]}`
+      bleedingLabel = `${bleedingLabels[bleedingValue]}`
       if (this.cycleDay.bleeding.exclude) bleedingLabel = "( " + bleedingLabel + " )"
     } else {
       bleedingLabel = 'edit'
@@ -53,6 +58,17 @@ export default class DayView extends Component {
       }
     } else {
       temperatureLabel = 'edit'
+    }
+
+    const mucusFeelingValue = this.cycleDay.mucus && this.cycleDay.mucus.feeling
+    const mucusTextureValue = this.cycleDay.mucus && this.cycleDay.mucus.texture
+    const mucusComputedValue = this.cycleDay.mucus && this.cycleDay.mucus.computedNfp
+    let mucusLabel
+    if (typeof mucusFeelingValue === 'number' && typeof mucusTextureValue === 'number') {
+      mucusLabel = `${feelingLabels[mucusFeelingValue]} + ${textureLabels[mucusTextureValue]} ( ${computeSensiplanMucusLabels[mucusComputedValue]} )`
+      if (this.cycleDay.mucus.exclude) mucusLabel = "( " + mucusLabel + " )"
+    } else {
+      mucusLabel = 'edit'
     }
 
     return (
@@ -72,6 +88,15 @@ export default class DayView extends Component {
             <Button
               onPress={() => this.showView('temperatureEditView')}
               title={temperatureLabel}>
+            </Button>
+          </View>
+        </View>
+        <View style={ styles.symptomViewRowInline }>
+          <Text style={styles.symptomDayView}>Mucus</Text>
+          <View style={ styles.symptomEditButton }>
+            <Button
+              onPress={() => this.showView('mucusEditView')}
+              title={mucusLabel}>
             </Button>
           </View>
         </View>
