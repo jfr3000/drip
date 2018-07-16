@@ -27,7 +27,8 @@ export default class Temp extends Component {
 
     this.state = {
       currentValue: initialValue,
-      exclude: this.cycleDay.temperature ? this.cycleDay.temperature.exclude : false
+      exclude: this.cycleDay.temperature ? this.cycleDay.temperature.exclude : false,
+      time: this.cycleDay.temperature ? this.cycleDay.temperature.time : null
     }
   }
 
@@ -47,6 +48,17 @@ export default class Temp extends Component {
             value={this.state.currentValue}
           />
         </View>
+        <View style={styles.symptomViewRowInline} display={this.state.time ? 'flex' : 'none'}>
+          <Text style={styles.symptomDayView}>Time</Text>
+          <TextInput
+            style={styles.temperatureTextInput}
+            onChangeText={(val) => {
+              this.setState({ time: val })
+            }}
+            keyboardType='numeric'
+            value={this.state.time}
+          />
+        </View>
         <View style={styles.symptomViewRowInline}>
           <Text style={styles.symptomDayView}>Exclude</Text>
           <Switch
@@ -63,7 +75,9 @@ export default class Temp extends Component {
             saveAction: () => {
               const dataToSave = {
                 value: Number(this.state.currentValue),
-                exclude: this.state.exclude
+                exclude: this.state.exclude,
+                time: this.state.time ||
+                  LocalTime.now().truncatedTo(ChronoUnit.MINUTES).toString()
               }
               if (!cycleDay.temperature || cycleDay.temperature && !cycleDay.temperature.time) {
                 const now = LocalTime.now().truncatedTo(ChronoUnit.MINUTES).toString()
