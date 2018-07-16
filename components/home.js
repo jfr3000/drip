@@ -5,7 +5,7 @@ import {
   Text
 } from 'react-native'
 import { LocalDate } from 'js-joda'
-import styles from '../styles/index'
+import styles from '../styles'
 import cycleDayModule from '../lib/get-cycle-day-number'
 import { getOrCreateCycleDay, bleedingDaysSortedByDate, deleteAll } from '../db'
 
@@ -46,32 +46,28 @@ export default class Home extends Component {
   render() {
     const navigate = this.props.navigation.navigate
     return (
-      <View style={ styles.homeContainerView }>
-        <View style={{flex: 2}}>
-          <View>
-            <Text style={styles.welcome}>{this.state.welcomeText}</Text>
-          </View>
-        </View>
-        <View style={ styles.homeButtonsView}>
-          <View>
+      <View>
+        <Text style={styles.welcome}>{this.state.welcomeText}</Text>
+        <View style={styles.homeButtons}>
+          <View style={styles.homeButton}>
             <Button
               onPress={() => this.passTodayToDayView()}
               title="Edit symptoms for today">
             </Button>
           </View>
-          <View>
+          <View style={styles.homeButton}>
             <Button
               onPress={() => navigate('calendar')}
               title="Go to calendar">
             </Button>
           </View>
-          <View>
+          <View style={styles.homeButton}>
             <Button
               onPress={() => navigate('chart')}
               title="Go to chart">
             </Button>
           </View>
-          <View>
+          <View style={styles.homeButton}>
             <Button
               onPress={() => deleteAll()}
               title="delete everything">

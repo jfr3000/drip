@@ -4,10 +4,10 @@ import {
   Button,
   Text
 } from 'react-native'
-import styles from '../styles/index'
-import { bleeding as labels} from '../labels/labels'
-import cycleDayModule from '../lib/get-cycle-day-number'
-import { bleedingDaysSortedByDate } from '../db'
+import styles from '../../styles'
+import { bleeding as labels} from './labels/labels'
+import cycleDayModule from '../../lib/get-cycle-day-number'
+import { bleedingDaysSortedByDate } from '../../db'
 
 const getCycleDayNumber = cycleDayModule()
 
@@ -47,30 +47,28 @@ export default class DayView extends Component {
     const temperatureValue = this.cycleDay.temperature && this.cycleDay.temperature.value
     let temperatureLabel
     if (typeof temperatureValue === 'number') {
-      temperatureLabel = `${temperatureValue} °C`
-      if (this.cycleDay.temperature.exclude) temperatureLabel = "( " + temperatureLabel + " )"
+      temperatureLabel = `${temperatureValue} °C - ${this.cycleDay.temperature.time}`
+      if (this.cycleDay.temperature.exclude) {
+        temperatureLabel = "( " + temperatureLabel + " )"
+      }
     } else {
       temperatureLabel = 'edit'
     }
 
     return (
-      <View style={ styles.symptomEditListedSymptomView }>
-        <View style={ styles.itemsInRowSeparatedView }>
-          <View style={{flex: 1}}>
-            <Text style={styles.symptomDayView}>Bleeding</Text>
-          </View>
-          <View style={ styles.singleButtonView }>
+      <View style={styles.symptomEditView}>
+        <View style={styles.symptomViewRowInline}>
+          <Text style={styles.symptomDayView}>Bleeding</Text>
+          <View style={styles.symptomEditButton}>
             <Button
               onPress={() => this.showView('bleedingEditView')}
               title={bleedingLabel}>
             </Button>
           </View>
         </View>
-        <View style={ styles.itemsInRowSeparatedView}>
-          <View style={{flex: 1}}>
-            <Text style={styles.symptomDayView}>Temperature</Text>
-          </View>
-          <View style={ styles.singleButtonView }>
+        <View style={styles.symptomViewRowInline}>
+          <Text style={styles.symptomDayView}>Temperature</Text>
+          <View style={styles.symptomEditButton}>
             <Button
               onPress={() => this.showView('temperatureEditView')}
               title={temperatureLabel}>
