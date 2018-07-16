@@ -62,7 +62,7 @@ export default class DayView extends Component {
 
     const mucusFeelingValue = this.cycleDay.mucus && this.cycleDay.mucus.feeling
     const mucusTextureValue = this.cycleDay.mucus && this.cycleDay.mucus.texture
-    const mucusComputedValue = this.cycleDay.mucus && this.cycleDay.mucus.computedNfp
+    const mucusComputedValue = this.cycleDay.mucus && this.cycleDay.mucus.value
     let mucusLabel
     if (typeof mucusFeelingValue === 'number' && typeof mucusTextureValue === 'number') {
       mucusLabel = `${feelingLabels[mucusFeelingValue]} + ${textureLabels[mucusTextureValue]} ( ${computeSensiplanMucusLabels[mucusComputedValue]} )`
