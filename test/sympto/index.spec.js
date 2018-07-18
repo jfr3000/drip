@@ -30,7 +30,7 @@ describe('sympto', () => {
       })
 
       expect(status).to.eql({
-        assumeFertility: true,
+        
         phases: {
           periOvulatory: {
             start: { date: '2018-06-01' },
@@ -48,7 +48,7 @@ describe('sympto', () => {
 
       expect(status.temperatureShift).to.be.an('object')
       expect(status.mucusShift).to.be.an('object')
-      expect(status.assumeFertility).to.be.false()
+
       expect(Object.keys(status.phases).length).to.eql(2)
       expect(status.phases.periOvulatory).to.eql({
         start: { date: '2018-06-01' },
@@ -75,7 +75,7 @@ describe('sympto', () => {
         })
 
         expect(Object.keys(status.phases).length).to.eql(1)
-        expect(status.assumeFertility).to.be.false()
+  
         expect(status.phases.preOvulatory).to.eql({
           cycleDays: fiveDayCycle,
           start: { date: '2018-06-01' },
@@ -92,7 +92,7 @@ describe('sympto', () => {
         })
 
         expect(Object.keys(status.phases).length).to.eql(2)
-        expect(status.assumeFertility).to.be.true()
+  
         expect(status.phases.preOvulatory).to.eql({
           cycleDays: cycleWithTempAndNoMucusShift
             .filter(({date}) => date <= '2018-06-05'),
@@ -112,7 +112,7 @@ describe('sympto', () => {
         })
 
         expect(Object.keys(status.phases).length).to.eql(2)
-        expect(status.assumeFertility).to.be.true()
+  
         expect(status.phases.preOvulatory).to.eql({
           cycleDays: [cycleWithEarlyMucus[0]],
           start: { date: '2018-06-01' },
@@ -132,7 +132,7 @@ describe('sympto', () => {
         })
 
         expect(Object.keys(status.phases).length).to.eql(3)
-        expect(status.assumeFertility).to.be.false()
+  
         expect(status.phases.preOvulatory).to.eql({
           cycleDays: longAndComplicatedCycle
             .filter(({date}) => date <= '2018-06-05'),
@@ -164,7 +164,7 @@ describe('sympto', () => {
 
       expect(status.temperatureShift).to.be.an('object')
       expect(status.mucusShift).to.be.an('object')
-      expect(status.assumeFertility).to.be.false()
+
       expect(Object.keys(status.phases).length).to.eql(3)
       expect(status.phases.preOvulatory).to.eql({
         start: { date: '2018-06-01' },
@@ -198,7 +198,7 @@ describe('sympto', () => {
 
       expect(status.temperatureShift).to.be.an('object')
       expect(status.mucusShift).to.be.an('object')
-      expect(status.assumeFertility).to.be.false()
+
       expect(Object.keys(status.phases).length).to.eql(3)
       expect(status.phases.preOvulatory).to.eql({
         start: { date: '2018-06-01' },
@@ -232,7 +232,7 @@ describe('sympto', () => {
 
       expect(status.temperatureShift).to.be.an('object')
       expect(status.mucusShift).to.be.an('object')
-      expect(status.assumeFertility).to.be.false()
+
       expect(Object.keys(status.phases).length).to.eql(3)
       expect(status.phases.preOvulatory).to.eql({
         start: { date: '2018-06-01' },
@@ -266,7 +266,7 @@ describe('sympto', () => {
 
       expect(status.temperatureShift).to.be.an('object')
       expect(status.mucusShift).to.be.an('object')
-      expect(status.assumeFertility).to.be.false()
+
       expect(Object.keys(status.phases).length).to.eql(3)
       expect(status.phases.preOvulatory).to.eql({
         start: { date: '2018-06-01' },
@@ -300,7 +300,7 @@ describe('sympto', () => {
 
       expect(status.temperatureShift).to.be.an('object')
       expect(status.mucusShift).to.be.an('object')
-      expect(status.assumeFertility).to.be.false()
+
       expect(Object.keys(status.phases).length).to.eql(3)
       expect(status.phases.preOvulatory).to.eql({
         start: { date: '2018-06-01' },
@@ -334,7 +334,7 @@ describe('sympto', () => {
 
       expect(status.temperatureShift).to.be.an('object')
       expect(status.mucusShift).to.be.an('object')
-      expect(status.assumeFertility).to.be.false()
+
       expect(Object.keys(status.phases).length).to.eql(3)
       expect(status.phases.preOvulatory).to.eql({
         start: { date: '2018-06-01' },
@@ -371,7 +371,7 @@ describe('sympto', () => {
 
       expect(status.temperatureShift).to.be.an('object')
       expect(status.mucusShift).to.be.an('object')
-      expect(status.assumeFertility).to.be.false()
+
       expect(Object.keys(status.phases).length).to.eql(3)
       expect(status.phases.preOvulatory).to.eql({
         start: { date: '2018-06-01' },
@@ -405,7 +405,7 @@ describe('sympto', () => {
 
       expect(status.temperatureShift).to.be.an('object')
       expect(status.mucusShift).to.be.an('object')
-      expect(status.assumeFertility).to.be.false()
+
       expect(Object.keys(status.phases).length).to.eql(3)
       expect(status.phases.preOvulatory).to.eql({
         start: { date: '2018-06-01' },
@@ -437,7 +437,7 @@ describe('sympto', () => {
         earlierCycles: Array(10).fill(fhmOnDay12)
       })
 
-      expect(status.assumeFertility).to.be.true()
+
       expect(Object.keys(status.phases).length).to.eql(2)
       expect(status.phases.preOvulatory).to.eql({
         start: { date: '2018-06-01' },
@@ -460,7 +460,7 @@ describe('sympto', () => {
         earlierCycles: Array(11).fill(fhmOnDay15)
       })
 
-      expect(status.assumeFertility).to.be.false()
+
       expect(Object.keys(status.phases).length).to.eql(3)
       expect(status.phases.preOvulatory).to.eql({
         start: { date: '2018-06-01' },
@@ -493,7 +493,7 @@ describe('sympto', () => {
         earlierCycles: Array(10).fill(fhmOnDay15)
       })
 
-      expect(status.assumeFertility).to.be.false()
+
       expect(Object.keys(status.phases).length).to.eql(3)
       expect(status.phases.preOvulatory).to.eql({
         start: { date: '2018-06-01' },
@@ -526,7 +526,7 @@ describe('sympto', () => {
         earlierCycles: [...Array(12).fill(fhmOnDay15)]
       })
 
-      expect(status.assumeFertility).to.be.false()
+
       expect(Object.keys(status.phases).length).to.eql(2)
       expect(status.phases.periOvulatory).to.eql({
         start: { date: '2018-06-01' },
