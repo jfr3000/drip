@@ -30,7 +30,7 @@ describe('sympto', () => {
       })
 
       expect(status).to.eql({
-        
+
         phases: {
           periOvulatory: {
             start: { date: '2018-06-01' },
@@ -75,7 +75,7 @@ describe('sympto', () => {
         })
 
         expect(Object.keys(status.phases).length).to.eql(1)
-  
+
         expect(status.phases.preOvulatory).to.eql({
           cycleDays: fiveDayCycle,
           start: { date: '2018-06-01' },
@@ -92,7 +92,7 @@ describe('sympto', () => {
         })
 
         expect(Object.keys(status.phases).length).to.eql(2)
-  
+
         expect(status.phases.preOvulatory).to.eql({
           cycleDays: cycleWithTempAndNoMucusShift
             .filter(({date}) => date <= '2018-06-05'),
@@ -112,7 +112,7 @@ describe('sympto', () => {
         })
 
         expect(Object.keys(status.phases).length).to.eql(2)
-  
+
         expect(status.phases.preOvulatory).to.eql({
           cycleDays: [cycleWithEarlyMucus[0]],
           start: { date: '2018-06-01' },
@@ -132,7 +132,7 @@ describe('sympto', () => {
         })
 
         expect(Object.keys(status.phases).length).to.eql(3)
-  
+
         expect(status.phases.preOvulatory).to.eql({
           cycleDays: longAndComplicatedCycle
             .filter(({date}) => date <= '2018-06-05'),
