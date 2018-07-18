@@ -26,7 +26,7 @@ describe('sympto', () => {
     it('with no shifts detects only peri-ovulatory', function () {
       const status = getSensiplanStatus({
         cycle: cycleWithoutAnyShifts,
-        previousCycles: [cycleWithoutFhm,]
+        previousCycle: cycleWithoutFhm
       })
 
       expect(status).to.eql({
@@ -43,7 +43,7 @@ describe('sympto', () => {
     it('with shifts detects only peri-ovulatory and post-ovulatory', () => {
       const status = getSensiplanStatus({
         cycle: longAndComplicatedCycle,
-        previousCycles: [cycleWithoutFhm,]
+        previousCycle: cycleWithoutFhm
       })
 
       expect(status.temperatureShift).to.be.an('object')
@@ -71,7 +71,7 @@ describe('sympto', () => {
       it('according to 5-day-rule', function () {
         const status = getSensiplanStatus({
           cycle: fiveDayCycle,
-          previousCycles: [cycleWithFhm]
+          previousCycle: cycleWithFhm
         })
 
         expect(Object.keys(status.phases).length).to.eql(1)
@@ -88,7 +88,7 @@ describe('sympto', () => {
       it('according to 5-day-rule', function () {
         const status = getSensiplanStatus({
           cycle: cycleWithTempAndNoMucusShift,
-          previousCycles: [cycleWithFhm]
+          previousCycle: cycleWithFhm
         })
 
         expect(Object.keys(status.phases).length).to.eql(2)
@@ -108,7 +108,7 @@ describe('sympto', () => {
       it('according to 5-day-rule with shortened pre-phase', function () {
         const status = getSensiplanStatus({
           cycle: cycleWithEarlyMucus,
-          previousCycles: [cycleWithFhm]
+          previousCycle: cycleWithFhm
         })
 
         expect(Object.keys(status.phases).length).to.eql(2)
@@ -128,7 +128,7 @@ describe('sympto', () => {
       it('according to 5-day-rule', function () {
         const status = getSensiplanStatus({
           cycle: longAndComplicatedCycle,
-          previousCycles: [cycleWithFhm]
+          previousCycle: cycleWithFhm
         })
 
         expect(Object.keys(status.phases).length).to.eql(3)
@@ -159,7 +159,7 @@ describe('sympto', () => {
     it('with fhM + mucus peak on same day finds start of postovu phase', () => {
       const status = getSensiplanStatus({
         cycle: mucusPeakAndFhmOnSameDay,
-        previousCycles: [cycleWithFhm]
+        previousCycle: cycleWithFhm
       })
 
       expect(status.temperatureShift).to.be.an('object')
@@ -193,7 +193,7 @@ describe('sympto', () => {
     it('with fhM 2 days before mucus peak waits for end of mucus eval', () => {
       const status = getSensiplanStatus({
         cycle: fhmTwoDaysBeforeMucusPeak,
-        previousCycles: [cycleWithFhm]
+        previousCycle: cycleWithFhm
       })
 
       expect(status.temperatureShift).to.be.an('object')
@@ -227,7 +227,7 @@ describe('sympto', () => {
     it('another example for mucus peak before temp shift', () => {
       const status = getSensiplanStatus({
         cycle: mucusPeakSlightlyBeforeTempShift,
-        previousCycles: [cycleWithFhm]
+        previousCycle: cycleWithFhm
       })
 
       expect(status.temperatureShift).to.be.an('object')
@@ -261,7 +261,7 @@ describe('sympto', () => {
     it('with another mucus peak 5 days after fHM ignores it', () => {
       const status = getSensiplanStatus({
         cycle: mucusPeak5DaysAfterFhm,
-        previousCycles: [cycleWithFhm]
+        previousCycle: cycleWithFhm
       })
 
       expect(status.temperatureShift).to.be.an('object')
@@ -295,7 +295,7 @@ describe('sympto', () => {
     it('with mucus peak 2 days before fhM waits for end of temp eval', () => {
       const status = getSensiplanStatus({
         cycle:  mucusPeakTwoDaysBeforeFhm,
-        previousCycles: [cycleWithFhm]
+        previousCycle: cycleWithFhm
       })
 
       expect(status.temperatureShift).to.be.an('object')
@@ -329,7 +329,7 @@ describe('sympto', () => {
     it('with mucus peak 5 days before fhM waits for end of temp eval', () => {
       const status = getSensiplanStatus({
         cycle:  fhm5DaysAfterMucusPeak,
-        previousCycles: [cycleWithFhm]
+        previousCycle: cycleWithFhm
       })
 
       expect(status.temperatureShift).to.be.an('object')
@@ -365,7 +365,8 @@ describe('sympto', () => {
     it('shortens the pre-ovu phase if there is a previous <13 fhm', () => {
       const status = getSensiplanStatus({
         cycle:  longAndComplicatedCycle,
-        previousCycles: [fhmOnDay12, ...Array(13).fill(fhmOnDay15)]
+        previousCycle: fhmOnDay15,
+        earlierCycles: [fhmOnDay12, ...Array(10).fill(fhmOnDay15)]
       })
 
       expect(status.temperatureShift).to.be.an('object')
@@ -398,7 +399,8 @@ describe('sympto', () => {
     it('shortens pre-ovu phase with prev <13 fhm even with <12 cycles', () => {
       const status = getSensiplanStatus({
         cycle:  longAndComplicatedCycle,
-        previousCycles: Array(11).fill(fhmOnDay12)
+        previousCycle: fhmOnDay12,
+        earlierCycles: Array(10).fill(fhmOnDay12)
       })
 
       expect(status.temperatureShift).to.be.an('object')
@@ -431,7 +433,8 @@ describe('sympto', () => {
     it('shortens the pre-ovu phase if mucus occurs', () => {
       const status = getSensiplanStatus({
         cycle: cycleWithEarlyMucus,
-        previousCycles: Array(11).fill(fhmOnDay12)
+        previousCycle: fhmOnDay12,
+        earlierCycles: Array(10).fill(fhmOnDay12)
       })
 
       expect(status.assumeFertility).to.be.true()
@@ -453,7 +456,8 @@ describe('sympto', () => {
     it('lengthens the pre-ovu phase if >= 12 cycles with fhm > 13', () => {
       const status = getSensiplanStatus({
         cycle: longAndComplicatedCycle,
-        previousCycles: Array(12).fill(fhmOnDay15)
+        previousCycle: fhmOnDay15,
+        earlierCycles: Array(11).fill(fhmOnDay15)
       })
 
       expect(status.assumeFertility).to.be.false()
@@ -485,7 +489,8 @@ describe('sympto', () => {
     it('does not lengthen the pre-ovu phase if < 12 cycles', () => {
       const status = getSensiplanStatus({
         cycle: longAndComplicatedCycle,
-        previousCycles: Array(11).fill(fhmOnDay15)
+        previousCycle: fhmOnDay15,
+        earlierCycles: Array(10).fill(fhmOnDay15)
       })
 
       expect(status.assumeFertility).to.be.false()
@@ -517,7 +522,8 @@ describe('sympto', () => {
     it('does not detect any pre-ovu phase if prev cycle had no fhm', () => {
       const status = getSensiplanStatus({
         cycle: longAndComplicatedCycle,
-        previousCycles: [...Array(12).fill(fhmOnDay15), cycleWithoutFhm]
+        previousCycle: cycleWithoutFhm,
+        earlierCycles: [...Array(12).fill(fhmOnDay15)]
       })
 
       expect(status.assumeFertility).to.be.false()
@@ -555,7 +561,7 @@ describe('sympto', () => {
           hello: 'world',
           bleeding: { value: 0 }
         }],
-        previousCycles: [[{
+        earlierCycles: [[{
           date: '1992-09-09',
           bleeding: { value: 0 }
         }]]
@@ -566,7 +572,7 @@ describe('sympto', () => {
           temperature: {value: '35'},
           bleeding: { value: 0 }
         }],
-        previousCycles: [[{
+        earlierCycles: [[{
           date: '1992-09-09',
           bleeding: { value: 0 }
         }]]
@@ -576,7 +582,7 @@ describe('sympto', () => {
           date: '09-14-2017',
           bleeding: { value: 0 }
         }],
-        previousCycles: [[{
+        earlierCycles: [[{
           date: '1992-09-09',
           bleeding: { value: 0 }
         }]]
@@ -590,7 +596,7 @@ describe('sympto', () => {
             value: 'medium'
           }
         }],
-        previousCycles: [[
+        earlierCycles: [[
           {
             date: '2017-09-23',
           }
