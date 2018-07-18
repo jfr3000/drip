@@ -80,16 +80,21 @@ export default class Temp extends Component {
                 exclude: this.state.exclude,
                 time: this.state.time
               }
-              if (!cycleDay.temperature || cycleDay.temperature && !cycleDay.temperature.time) {
-                const now = LocalTime.now().truncatedTo(ChronoUnit.MINUTES).toString()
-                dataToSave.time = now
-              }
               saveSymptom('temperature', cycleDay, dataToSave)
             },
-            saveDisabled: this.state.currentValue === ''
+            saveDisabled: this.state.currentValue === '' || isInvalidTime(this.state.time)
           })}
         </View>
       </View>
     )
   }
+}
+
+function isInvalidTime(timeString) {
+  try {
+    LocalTime.parse(timeString)
+  } catch (err) {
+    return true
+  }
+  return false
 }
