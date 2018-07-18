@@ -94,7 +94,7 @@ export default class Mucus extends Component {
                 saveSymptom('mucus', this.cycleDay, {
                   feeling: this.state.currentFeelingValue,
                   texture: this.state.currentTextureValue,
-                  computedNfp: computeSensiplanValue(this.state.currentFeelingValue, this.state.currentTextureValue),
+                  value: computeSensiplanValue(this.state.currentFeelingValue, this.state.currentTextureValue),
                   exclude: this.state.exclude
                 })
               },

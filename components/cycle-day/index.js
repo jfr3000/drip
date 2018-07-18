@@ -4,7 +4,7 @@ import {
   Text
 } from 'react-native'
 import cycleModule from '../../lib/cycle'
-import getFertilityStatus from '../../lib/sympto-adapter'
+import { getFertilityStatusStringForDay } from '../../lib/sympto-adapter'
 import DayView from './cycle-day-overview'
 import BleedingEditView from './symptoms/bleeding'
 import TemperatureEditView from './symptoms/temperature'
@@ -33,7 +33,7 @@ export default class Day extends Component {
 
   render() {
     const cycleDayNumber = getCycleDayNumber(this.cycleDay.date)
-    const fertilityStatus = getFertilityStatus(this.cycleDay.date)
+    const fertilityStatus = getFertilityStatusStringForDay(this.cycleDay.date)
     return (
       <View>
         <View style={ styles.cycleDayDateView }>
