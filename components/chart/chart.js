@@ -14,6 +14,7 @@ import { getCycleDay, getOrCreateCycleDay, cycleDaysSortedByDate } from '../../d
 import cycleModule from '../../lib/cycle'
 import styles from './styles'
 import config from './config'
+import { getCycleStatusForDay } from '../../lib/sympto-adapter'
 
 const getCycleDayNumber = cycleModule().getCycleDayNumber
 
@@ -63,10 +64,21 @@ export default class CycleChart extends Component {
     const cycleDayNumber = getCycleDayNumber(dateString)
     const label = styles.column.label
     const dateLabel = dateString.split('-').slice(1).join('-')
+    const getFhmAndLtlInfo = setUpFertilityStatusFunc()
+    const nfpLineInfo = getFhmAndLtlInfo(dateString)
 
     return (
       <G onPress={() => this.passDateToDayView(dateString)}>
         <Rect {...styles.column.rect} />
+        {nfpLineInfo.drawFhmLine ?
+          <Line
+            x1="0"
+            y1="20"
+            x2="0"
+            y2={config.chartHeight - 20}
+            stroke="orange"
+            strokeWidth="5"
+          /> : null}
         {this.placeHorizontalGrid()}
         <Text {...label.number} y={config.cycleDayNumberRowY}>{cycleDayNumber}</Text>
         <Text {...label.date} y={config.dateRowY}>{dateLabel}</Text>
@@ -78,6 +90,16 @@ export default class CycleChart extends Component {
               A12.8 12.8 0 1 1 5 18
               Q13.5 6.8 15 3z" />
           : null}
+
+        {nfpLineInfo.drawLtlAt ?
+          <Line
+            x1="0"
+            y1={nfpLineInfo.drawLtlAt}
+            x2={config.columnWidth}
+            y2={nfpLineInfo.drawLtlAt}
+            stroke="orange"
+            strokeWidth="3"
+          /> : null}
 
         {y ? this.drawDotAndLines(y, cycleDay.temperature.exclude, index) : null}
       </G>
@@ -196,7 +218,6 @@ function makeYAxis() {
 
   const tickPositions = []
   const labels = []
-
   // for style reasons, we don't want the first and last tick
   for (let i = 1; i < numberOfTicks - 1; i++) {
     const y = tickDistance * i
@@ -216,4 +237,52 @@ function makeYAxis() {
   }
 
   return {labels, tickPositions}
+}
+
+function setUpFertilityStatusFunc() {
+  let cycleStatus
+  let cycleStartDate
+  let noMoreCycles = false
+
+  function updateCurrentCycle(dateString) {
+    cycleStatus = getCycleStatusForDay(dateString)
+    if(!cycleStatus) {
+      noMoreCycles = true
+      return
+    }
+    if (cycleStatus.phases.preOvulatory) {
+      cycleStartDate = cycleStatus.phases.preOvulatory.start.date
+    } else {
+      cycleStartDate = cycleStatus.phases.periOvulatory.start.date
+    }
+  }
+
+  function dateIsInPeriOrPostPhase(dateString) {
+    return (
+      dateString >= cycleStatus.phases.periOvulatory.start.date &&
+      dateString <= cycleStatus.phases.postOvulatory.start.date
+    )
+  }
+
+  return function(dateString) {
+    const ret = {}
+    if (!cycleStatus && !noMoreCycles) updateCurrentCycle(dateString)
+    if (noMoreCycles) return ret
+
+    if (dateString < cycleStartDate) updateCurrentCycle(dateString)
+    if (noMoreCycles) return ret
+
+    // now we know we have the current cycle
+    const tempShift = cycleStatus.temperatureShift
+
+    if (tempShift && tempShift.firstHighMeasurementDay.date === dateString) {
+      ret.drawFhmLine = true
+    }
+
+    if (tempShift && dateIsInPeriOrPostPhase(dateString)) {
+      ret.drawLtlAt = normalizeToScale(tempShift.ltl)
+    }
+
+    return ret
+  }
 }
