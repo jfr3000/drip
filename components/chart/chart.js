@@ -72,14 +72,15 @@ export default class CycleChart extends Component {
         <Rect {...styles.column.rect} />
         {nfpLineInfo.drawFhmLine ?
           <Line
-            x1="0"
+            x1={0 + styles.nfpLine.strokeWidth / 2}
             y1="20"
-            x2="0"
+            x2={0 + styles.nfpLine.strokeWidth / 2}
             y2={config.chartHeight - 20}
-            stroke="orange"
-            strokeWidth="5"
+            {...styles.nfpLine}
           /> : null}
+
         {this.placeHorizontalGrid()}
+
         <Text {...label.number} y={config.cycleDayNumberRowY}>{cycleDayNumber}</Text>
         <Text {...label.date} y={config.dateRowY}>{dateLabel}</Text>
 
@@ -97,8 +98,7 @@ export default class CycleChart extends Component {
             y1={nfpLineInfo.drawLtlAt}
             x2={config.columnWidth}
             y2={nfpLineInfo.drawLtlAt}
-            stroke="orange"
-            strokeWidth="3"
+            {...styles.nfpLine}
           /> : null}
 
         {y ? this.drawDotAndLines(y, cycleDay.temperature.exclude, index) : null}
