@@ -65,7 +65,7 @@ export default class CycleChart extends Component {
     const label = styles.column.label
     const dateLabel = dateString.split('-').slice(1).join('-')
     const getFhmAndLtlInfo = setUpFertilityStatusFunc()
-    const nfpLineInfo = getFhmAndLtlInfo(dateString)
+    const nfpLineInfo = getFhmAndLtlInfo(dateString, cycleDay)
 
     return (
       <G onPress={() => this.passDateToDayView(dateString)}>
@@ -81,8 +81,12 @@ export default class CycleChart extends Component {
 
         {this.placeHorizontalGrid()}
 
-        <Text {...label.number} y={config.cycleDayNumberRowY}>{cycleDayNumber}</Text>
-        <Text {...label.date} y={config.dateRowY}>{dateLabel}</Text>
+        <Text {...label.number} y={config.cycleDayNumberRowY}>
+          {cycleDayNumber}
+        </Text>
+        <Text {...label.date} y={config.dateRowY}>
+          {dateLabel}
+        </Text>
 
         {cycleDay && cycleDay.bleeding ?
           <Path {...styles.bleedingIcon}
@@ -101,7 +105,10 @@ export default class CycleChart extends Component {
             {...styles.nfpLine}
           /> : null}
 
-        {y ? this.drawDotAndLines(y, cycleDay.temperature.exclude, index) : null}
+        {y ?
+          this.drawDotAndLines(y, cycleDay.temperature.exclude, index)
+          : null
+        }
       </G>
     )
   }
@@ -197,15 +204,18 @@ function makeColumnInfo(n) {
 
 function getPreviousDays(n) {
   const today = new Date()
-  today.setHours(0); today.setMinutes(0); today.setSeconds(0); today.setMilliseconds(0)
+  today.setHours(0)
+  today.setMinutes(0)
+  today.setSeconds(0)
+  today.setMilliseconds(0)
   const earlierDate = new Date(today - (range.DAY * n))
 
   return range(earlierDate, today).reverse()
 }
 
 function normalizeToScale(temp) {
-  const temperatureScale = config.temperatureScale
-  const valueRelativeToScale = (temperatureScale.high - temp) / (temperatureScale.high - temperatureScale.low)
+  const scale = config.temperatureScale
+  const valueRelativeToScale = (scale.high - temp) / (scale.high - scale.low)
   const scaleHeight = config.chartHeight
   return scaleHeight * valueRelativeToScale
 }
@@ -264,7 +274,15 @@ function setUpFertilityStatusFunc() {
     )
   }
 
-  return function(dateString) {
+  function precededByAnotherTempValue(dateString) {
+    return Object.keys(cycleStatus.phases).some(phaseName => {
+      return cycleStatus.phases[phaseName].cycleDays.some(day => {
+        return day.temperature && day.date < dateString
+      })
+    })
+  }
+
+  return function(dateString, cycleDay) {
     const ret = {}
     if (!cycleStatus && !noMoreCycles) updateCurrentCycle(dateString)
     if (noMoreCycles) return ret
@@ -272,14 +290,21 @@ function setUpFertilityStatusFunc() {
     if (dateString < cycleStartDate) updateCurrentCycle(dateString)
     if (noMoreCycles) return ret
 
-    // now we know we have the current cycle
     const tempShift = cycleStatus.temperatureShift
 
-    if (tempShift && tempShift.firstHighMeasurementDay.date === dateString) {
+    if (
+      tempShift &&
+      tempShift.firstHighMeasurementDay.date === dateString
+    ) {
       ret.drawFhmLine = true
     }
 
-    if (tempShift && dateIsInPeriOrPostPhase(dateString)) {
+    if (
+      tempShift &&
+      cycleDay &&
+      (cycleDay.temperature || precededByAnotherTempValue(dateString)) &&
+      dateIsInPeriOrPostPhase(dateString)
+    ) {
       ret.drawLtlAt = normalizeToScale(tempShift.ltl)
     }
 
