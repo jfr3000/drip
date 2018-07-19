@@ -3,8 +3,10 @@ import {
   View,
   Text,
   TextInput,
-  Switch
+  Switch,
+  Keyboard
 } from 'react-native'
+import DateTimePicker from 'react-native-modal-datetime-picker-nevo'
 
 import { getPreviousTemperature, saveSymptom } from '../../../db'
 import styles from '../../../styles'
@@ -30,7 +32,8 @@ export default class Temp extends Component {
     this.state = {
       currentValue: initialValue,
       exclude: temp ? temp.exclude : false,
-      time: this.time || LocalTime.now().truncatedTo(ChronoUnit.MINUTES).toString()
+      time: this.time || LocalTime.now().truncatedTo(ChronoUnit.MINUTES).toString(),
+      isTimePickerVisible: false
     }
   }
 
@@ -54,13 +57,24 @@ export default class Temp extends Component {
           <Text style={styles.symptomDayView}>Time</Text>
           <TextInput
             style={styles.temperatureTextInput}
-            onChangeText={(val) => {
-              this.setState({ time: val })
+            onFocus={() => {
+              Keyboard.dismiss()
+              this.setState({isTimePickerVisible: true})
             }}
-            keyboardType='numeric'
             value={this.state.time}
           />
         </View>
+        <DateTimePicker
+          mode="time"
+          isVisible={this.state.isTimePickerVisible}
+          onConfirm={jsDate => {
+            this.setState({
+              time: `${jsDate.getHours()}:${jsDate.getMinutes()}`,
+              isTimePickerVisible: false
+            })
+          }}
+          onCancel={() => this.setState({isTimePickerVisible: false})}
+        />
         <View style={styles.symptomViewRowInline}>
           <Text style={styles.symptomDayView}>Exclude</Text>
           <Switch
