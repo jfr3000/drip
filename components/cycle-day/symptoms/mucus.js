@@ -21,17 +21,17 @@ export default class Mucus extends Component {
     this.makeActionButtons = props.makeActionButtons
     this.state = {
       exclude: this.cycleDay.mucus ? this.cycleDay.mucus.exclude : false
-    }
+    };
 
-    this.state.currentFeelingValue = this.cycleDay.mucus && this.cycleDay.mucus.feeling
-    if (typeof this.state.currentFeelingValue !== 'number') {
-      this.state.currentFeelingValue = -1
-    }
+    /* eslint-disable react/no-direct-mutation-state */
+    ['feeling', 'texture'].forEach(label => {
+      this.state[label] = this.cycleDay.mucus && this.cycleDay.mucus[label]
+      if (typeof this.state[label] !== 'number') {
+        this.state[label] = -1
+      }
+    })
+    /* eslint-enable react/no-direct-mutation-state */
 
-    this.state.currentTextureValue = this.cycleDay.mucus && this.cycleDay.mucus.texture
-    if (typeof this.state.currentTextureValue !== 'number') {
-      this.state.currentTextureValue = -1
-    }
   }
 
   render() {
@@ -53,12 +53,12 @@ export default class Mucus extends Component {
         <View style={styles.radioButtonRow}>
           <RadioForm
             radio_props={mucusFeelingRadioProps}
-            initial={this.state.currentFeelingValue}
+            initial={this.state.feeling}
             formHorizontal={true}
             labelHorizontal={false}
             labelStyle={styles.radioButton}
             onPress={(itemValue) => {
-              this.setState({ currentFeelingValue: itemValue })
+              this.setState({feeling: itemValue })
             }}
           />
         </View>
@@ -66,12 +66,12 @@ export default class Mucus extends Component {
         <View style={styles.radioButtonRow}>
           <RadioForm
             radio_props={mucusTextureRadioProps}
-            initial={this.state.currentTextureValue}
+            initial={this.state.texture}
             formHorizontal={true}
             labelHorizontal={false}
             labelStyle={styles.radioButton}
             onPress={(itemValue) => {
-              this.setState({ currentTextureValue: itemValue })
+              this.setState({texture: itemValue })
             }}
           />
         </View>
@@ -92,13 +92,13 @@ export default class Mucus extends Component {
               cycleDay: this.cycleDay,
               saveAction: () => {
                 saveSymptom('mucus', this.cycleDay, {
-                  feeling: this.state.currentFeelingValue,
-                  texture: this.state.currentTextureValue,
-                  computedNfp: computeSensiplanValue(this.state.currentFeelingValue, this.state.currentTextureValue),
+                  feeling: this.state.feeling,
+                  texture: this.state.texture,
+                  computedNfp: computeSensiplanValue(this.state.feeling, this.state.texture),
                   exclude: this.state.exclude
                 })
               },
-              saveDisabled: this.state.currentFeelingValue === -1 || this.state.currentTextureValue === -1
+              saveDisabled: this.state.feeling === -1 || this.state.texture === -1
             }
           )}
         </View>

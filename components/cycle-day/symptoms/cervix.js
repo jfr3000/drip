@@ -20,20 +20,16 @@ export default class Cervix extends Component {
     this.makeActionButtons = props.makeActionButtons
     this.state = {
       exclude: this.cycleDay.cervix ? this.cycleDay.cervix.exclude : false
-    }
+    };
 
-    this.state.currentOpeningValue = this.cycleDay.cervix && this.cycleDay.cervix.opening
-    if (typeof this.state.currentOpeningValue !== 'number') {
-      this.state.currentOpeningValue = -1
-    }
-    this.state.currentFirmnessValue = this.cycleDay.cervix && this.cycleDay.cervix.firmness
-    if (typeof this.state.currentFirmnessValue !== 'number') {
-      this.state.currentFirmnessValue = -1
-    }
-    this.state.currentPositionValue = this.cycleDay.cervix && this.cycleDay.cervix.position
-    if (typeof this.state.currentPositionValue !== 'number') {
-      this.state.currentPositionValue = -1
-    }
+    /* eslint-disable react/no-direct-mutation-state */
+    ['opening', 'firmness', 'position'].forEach(label => {
+      this.state[label] = this.cycleDay.cervix && this.cycleDay.cervix[label]
+      if (typeof this.state[label] !== 'number') {
+        this.state[label] = -1
+      }
+    })
+    /* eslint-enable react/no-direct-mutation-state */
   }
 
   render() {
@@ -58,12 +54,12 @@ export default class Cervix extends Component {
         <View style={styles.radioButtonRow}>
           <RadioForm
             radio_props={cervixOpeningRadioProps}
-            initial={this.state.currentOpeningValue}
+            initial={this.state.opening}
             formHorizontal={true}
             labelHorizontal={false}
             labelStyle={styles.radioButton}
             onPress={(itemValue) => {
-              this.setState({currentOpeningValue: itemValue})
+              this.setState({opening: itemValue})
             }}
           />
         </View>
@@ -71,12 +67,12 @@ export default class Cervix extends Component {
         <View style={styles.radioButtonRow}>
           <RadioForm
             radio_props={cervixFirmnessRadioProps}
-            initial={this.state.currentFirmnessValue}
+            initial={this.state.firmness}
             formHorizontal={true}
             labelHorizontal={false}
             labelStyle={styles.radioButton}
             onPress={(itemValue) => {
-              this.setState({currentFirmnessValue: itemValue})
+              this.setState({firmness: itemValue})
             }}
           />
         </View>
@@ -84,12 +80,12 @@ export default class Cervix extends Component {
         <View style={styles.radioButtonRow}>
           <RadioForm
             radio_props={cervixPositionRadioProps}
-            initial={this.state.currentPositionValue}
+            initial={this.state.position}
             formHorizontal={true}
             labelHorizontal={false}
             labelStyle={styles.radioButton}
             onPress={(itemValue) => {
-              this.setState({currentPositionValue: itemValue})
+              this.setState({position: itemValue})
             }}
           />
         </View>
@@ -109,13 +105,13 @@ export default class Cervix extends Component {
               cycleDay: this.cycleDay,
               saveAction: () => {
                 saveSymptom('cervix', this.cycleDay, {
-                  opening: this.state.currentOpeningValue,
-                  firmness: this.state.currentFirmnessValue,
-                  position: this.state.currentPositionValue,
+                  opening: this.state.opening,
+                  firmness: this.state.firmness,
+                  position: this.state.position,
                   exclude: this.state.exclude
                 })
               },
-              saveDisabled: this.state.currentOpeningValue === -1 || this.state.currentFirmnessValue === -1
+              saveDisabled: this.state.opening === -1 || this.state.firmness === -1
             }
           )}
         </View>
