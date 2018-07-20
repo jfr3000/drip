@@ -3,8 +3,10 @@ import {
   View,
   Text,
   TextInput,
-  Switch
+  Switch,
+  Keyboard
 } from 'react-native'
+import DateTimePicker from 'react-native-modal-datetime-picker-nevo'
 
 import { getPreviousTemperature, saveSymptom } from '../../../db'
 import styles from '../../../styles'
@@ -17,9 +19,11 @@ export default class Temp extends Component {
     this.makeActionButtons = props.makeActionButtons
     let initialValue
 
-    if (this.cycleDay.temperature) {
-      initialValue = this.cycleDay.temperature.value.toString()
-      this.time = this.cycleDay.temperature.time
+    const temp = this.cycleDay.temperature
+
+    if (temp) {
+      initialValue = temp.value.toString()
+      this.time = temp.time
     } else {
       const prevTemp = getPreviousTemperature(this.cycleDay)
       initialValue = prevTemp ? prevTemp.toString() : ''
@@ -27,7 +31,9 @@ export default class Temp extends Component {
 
     this.state = {
       currentValue: initialValue,
-      exclude: this.cycleDay.temperature ? this.cycleDay.temperature.exclude : false
+      exclude: temp ? temp.exclude : false,
+      time: this.time || LocalTime.now().truncatedTo(ChronoUnit.MINUTES).toString(),
+      isTimePickerVisible: false
     }
   }
 
@@ -48,6 +54,28 @@ export default class Temp extends Component {
           />
         </View>
         <View style={styles.symptomViewRowInline}>
+          <Text style={styles.symptomDayView}>Time</Text>
+          <TextInput
+            style={styles.temperatureTextInput}
+            onFocus={() => {
+              Keyboard.dismiss()
+              this.setState({isTimePickerVisible: true})
+            }}
+            value={this.state.time}
+          />
+        </View>
+        <DateTimePicker
+          mode="time"
+          isVisible={this.state.isTimePickerVisible}
+          onConfirm={jsDate => {
+            this.setState({
+              time: `${jsDate.getHours()}:${jsDate.getMinutes()}`,
+              isTimePickerVisible: false
+            })
+          }}
+          onCancel={() => this.setState({isTimePickerVisible: false})}
+        />
+        <View style={styles.symptomViewRowInline}>
           <Text style={styles.symptomDayView}>Exclude</Text>
           <Switch
             onValueChange={(val) => {
@@ -63,18 +91,24 @@ export default class Temp extends Component {
             saveAction: () => {
               const dataToSave = {
                 value: Number(this.state.currentValue),
-                exclude: this.state.exclude
-              }
-              if (!cycleDay.temperature || cycleDay.temperature && !cycleDay.temperature.time) {
-                const now = LocalTime.now().truncatedTo(ChronoUnit.MINUTES).toString()
-                dataToSave.time = now
+                exclude: this.state.exclude,
+                time: this.state.time
               }
               saveSymptom('temperature', cycleDay, dataToSave)
             },
-            saveDisabled: this.state.currentValue === ''
+            saveDisabled: this.state.currentValue === '' || isInvalidTime(this.state.time)
           })}
         </View>
       </View>
     )
   }
+}
+
+function isInvalidTime(timeString) {
+  try {
+    LocalTime.parse(timeString)
+  } catch (err) {
+    return true
+  }
+  return false
 }

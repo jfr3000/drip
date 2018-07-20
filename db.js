@@ -6,7 +6,11 @@ const TemperatureSchema = {
   name: 'Temperature',
   properties: {
     value: 'double',
-    exclude: 'bool'
+    exclude: 'bool',
+    time: {
+      type: 'string',
+      optional: true
+    },
   }
 }
 
