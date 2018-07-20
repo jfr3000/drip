@@ -10,6 +10,9 @@ import {
   mucusFeeling as feelingLabels,
   mucusTexture as textureLabels,
   mucusNFP as computeSensiplanMucusLabels,
+  cervixOpening as openingLabels,
+  cervixFirmness as firmnessLabels,
+  cervixPosition as positionLabels
 } from './labels/labels'
 import cycleDayModule from '../../lib/get-cycle-day-number'
 import { bleedingDaysSortedByDate } from '../../db'
@@ -49,6 +52,7 @@ export default class DayView extends Component {
     } else {
       bleedingLabel = 'edit'
     }
+
     const temperatureValue = this.cycleDay.temperature && this.cycleDay.temperature.value
     let temperatureLabel
     if (typeof temperatureValue === 'number') {
@@ -69,6 +73,17 @@ export default class DayView extends Component {
       if (this.cycleDay.mucus.exclude) mucusLabel = "( " + mucusLabel + " )"
     } else {
       mucusLabel = 'edit'
+    }
+
+    const cervixOpeningValue = this.cycleDay.cervix && this.cycleDay.cervix.opening
+    const cervixFirmnessValue = this.cycleDay.cervix && this.cycleDay.cervix.firmness
+    const cervixPositionValue = this.cycleDay.cervix && this.cycleDay.cervix.position
+    let cervixLabel
+    if (typeof cervixPositionValue === 'number' && typeof cervixOpeningValue === 'number') {
+      cervixLabel = `${openingLabels[cervixOpeningValue]} + ${firmnessLabels[cervixFirmnessValue]} ( ${positionLabels[cervixPositionValue]} )`
+      if (this.cycleDay.cervix.exclude) cervixLabel = "( " + cervixLabel + " )"
+    } else {
+      cervixLabel = 'edit'
     }
 
     return (
@@ -97,6 +112,17 @@ export default class DayView extends Component {
             <Button
               onPress={() => this.showView('mucusEditView')}
               title={mucusLabel}>
+            </Button>
+          </View>
+        </View>
+        <View style={ styles.itemsInRowSeparatedView }>
+          <View style={{flex: 1}}>
+            <Text style={styles.symptomDayView}>Cervix</Text>
+          </View>
+          <View style={ styles.singleButtonView }>
+            <Button
+              onPress={() => this.showView('cervixEditView')}
+              title={cervixLabel}>
             </Button>
           </View>
         </View>

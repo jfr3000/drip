@@ -32,6 +32,16 @@ const MucusSchema = {
   }
 }
 
+const CervixSchema = {
+  name: 'Cervix',
+  properties: {
+    opening: 'int',
+    firmness: 'int',
+    position: {type: 'int', optional: true },
+    exclude: 'bool'
+  }
+}
+
 const CycleDaySchema = {
   name: 'CycleDay',
   primaryKey: 'date',
@@ -48,6 +58,10 @@ const CycleDaySchema = {
     mucus: {
       type: 'Mucus',
       optional: true
+    },
+    cervix: {
+      type: 'Cervix',
+      optional: true
     }
   }
 }
@@ -57,7 +71,8 @@ const db = new Realm({
     CycleDaySchema,
     TemperatureSchema,
     BleedingSchema,
-    MucusSchema
+    MucusSchema,
+    CervixSchema
   ],
   // we only want this in dev mode
   deleteRealmIfMigrationNeeded: true
