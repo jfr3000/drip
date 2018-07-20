@@ -120,11 +120,9 @@ export default class DayView extends Component {
             </Button>
           </View>
         </View>
-        <View style={ styles.itemsInRowSeparatedView }>
-          <View style={{flex: 1}}>
-            <Text style={styles.symptomDayView}>Cervix</Text>
-          </View>
-          <View style={ styles.singleButtonView }>
+        <View style={styles.symptomViewRowInline}>
+          <Text style={styles.symptomDayView}>Cervix</Text>
+          <View style={ styles.symptomEditButton }>
             <Button
               onPress={() => this.showView('cervixEditView')}
               title={cervixLabel}>
