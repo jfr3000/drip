@@ -269,17 +269,33 @@ function setUpFertilityStatusFunc() {
 
   function dateIsInPeriOrPostPhase(dateString) {
     return (
-      dateString >= cycleStatus.phases.periOvulatory.start.date &&
-      dateString <= cycleStatus.phases.postOvulatory.start.date
+      dateString >= cycleStatus.phases.periOvulatory.start.date
     )
   }
 
   function precededByAnotherTempValue(dateString) {
-    return Object.keys(cycleStatus.phases).some(phaseName => {
-      return cycleStatus.phases[phaseName].cycleDays.some(day => {
-        return day.temperature && day.date < dateString
+    return (
+      // we are only interested in days that have a preceding
+      // temp
+      Object.keys(cycleStatus.phases).some(phaseName => {
+        return cycleStatus.phases[phaseName].cycleDays.some(day => {
+          return day.temperature && day.date < dateString
+        })
       })
-    })
+      // and also a following temp, so we don't draw the line
+      // longer than necessary
+      &&
+      cycleStatus.phases.postOvulatory.cycleDays.some(day => {
+        return day.temperature && day.date > dateString
+      })
+    )
+  }
+
+  function isInTempMeasuringPhase(cycleDay, dateString) {
+    return (
+      cycleDay && cycleDay.temperature
+      || precededByAnotherTempValue(dateString)
+    )
   }
 
   return function(dateString, cycleDay) {
@@ -292,20 +308,17 @@ function setUpFertilityStatusFunc() {
 
     const tempShift = cycleStatus.temperatureShift
 
-    if (
-      tempShift &&
-      tempShift.firstHighMeasurementDay.date === dateString
-    ) {
-      ret.drawFhmLine = true
-    }
+    if (tempShift) {
+      if (tempShift.firstHighMeasurementDay.date === dateString) {
+        ret.drawFhmLine = true
+      }
 
-    if (
-      tempShift &&
-      cycleDay &&
-      (cycleDay.temperature || precededByAnotherTempValue(dateString)) &&
-      dateIsInPeriOrPostPhase(dateString)
-    ) {
-      ret.drawLtlAt = normalizeToScale(tempShift.ltl)
+      if (
+        dateIsInPeriOrPostPhase(dateString) &&
+        isInTempMeasuringPhase(cycleDay, dateString)
+      ) {
+        ret.drawLtlAt = normalizeToScale(tempShift.ltl)
+      }
     }
 
     return ret

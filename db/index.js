@@ -117,6 +117,12 @@ function fillWithDummyData() {
   })
 }
 
+function deleteAll() {
+  db.write(() => {
+    db.deleteAll()
+  })
+}
+
 function getPreviousTemperature(cycleDay) {
   cycleDay.wrappedDate = LocalDate.parse(cycleDay.date)
   const winner = temperatureDaysSortedByDate.find(day => {
@@ -134,6 +140,7 @@ export {
   temperatureDaysSortedByDate,
   cycleDaysSortedByDate,
   fillWithDummyData,
+  deleteAll,
   getPreviousTemperature,
   getCycleDay
 }
