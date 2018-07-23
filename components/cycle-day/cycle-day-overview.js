@@ -113,7 +113,7 @@ export default class DayView extends Component {
         </View>
         <View style={ styles.symptomViewRowInline }>
           <Text style={styles.symptomDayView}>Mucus</Text>
-          <View style={ styles.symptomEditButton }>
+          <View style={styles.symptomEditButton}>
             <Button
               onPress={() => this.showView('mucusEditView')}
               title={mucusLabel}>
@@ -122,7 +122,7 @@ export default class DayView extends Component {
         </View>
         <View style={styles.symptomViewRowInline}>
           <Text style={styles.symptomDayView}>Cervix</Text>
-          <View style={ styles.symptomEditButton }>
+          <View style={styles.symptomEditButton}>
             <Button
               onPress={() => this.showView('cervixEditView')}
               title={cervixLabel}>
