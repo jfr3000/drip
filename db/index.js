@@ -1,6 +1,10 @@
 import Realm from 'realm'
 import { LocalDate } from 'js-joda'
-
+import {
+  cycleWithTempAndNoMucusShift,
+  cycleWithFhm,
+  longAndComplicatedCycle
+} from './fixtures'
 
 const TemperatureSchema = {
   name: 'Temperature',
@@ -48,7 +52,7 @@ const CycleDaySchema = {
   }
 }
 
-const db = new Realm({
+const realmConfig = {
   schema: [
     CycleDaySchema,
     TemperatureSchema,
@@ -57,7 +61,9 @@ const db = new Realm({
   ],
   // we only want this in dev mode
   deleteRealmIfMigrationNeeded: true
-})
+}
+
+const db = new Realm(realmConfig)
 
 const bleedingDaysSortedByDate = db.objects('CycleDay').filtered('bleeding != null').sorted('date', true)
 const temperatureDaysSortedByDate = db.objects('CycleDay').filtered('temperature != null').sorted('date', true)
@@ -86,9 +92,28 @@ function getCycleDay(localDate) {
   return db.objectForPrimaryKey('CycleDay', localDate)
 }
 
-function deleteAll() {
+function fillWithDummyData() {
+  const dummyCycles = [
+    cycleWithFhm,
+    longAndComplicatedCycle,
+    cycleWithTempAndNoMucusShift
+  ]
+
   db.write(() => {
     db.deleteAll()
+    dummyCycles.forEach(cycle => {
+      cycle.forEach(day => {
+        const existing = getCycleDay(day.date)
+        if (existing) {
+          Object.keys(day).forEach(key => {
+            if (key === 'date') return
+            existing[key] = day[key]
+          })
+        } else {
+          db.create('CycleDay', day)
+        }
+      })
+    })
   })
 }
 
@@ -108,7 +133,7 @@ export {
   bleedingDaysSortedByDate,
   temperatureDaysSortedByDate,
   cycleDaysSortedByDate,
-  deleteAll,
+  fillWithDummyData,
   getPreviousTemperature,
   getCycleDay
 }

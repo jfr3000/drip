@@ -7,7 +7,7 @@ import {
 import { LocalDate } from 'js-joda'
 import styles from '../styles/index'
 import cycleModule from '../lib/cycle'
-import { getOrCreateCycleDay, bleedingDaysSortedByDate, deleteAll } from '../db'
+import { getOrCreateCycleDay, bleedingDaysSortedByDate, fillWithDummyData } from '../db'
 
 const getCycleDayNumber = cycleModule().getCycleDayNumber
 
@@ -69,8 +69,8 @@ export default class Home extends Component {
           </View>
           <View style={styles.homeButton}>
             <Button
-              onPress={() => deleteAll()}
-              title="delete everything">
+              onPress={() => fillWithDummyData()}
+              title="fill with example data">
             </Button>
           </View>
         </View>
