@@ -10,6 +10,7 @@ import BleedingEditView from './symptoms/bleeding'
 import TemperatureEditView from './symptoms/temperature'
 import MucusEditView from './symptoms/mucus'
 import { formatDateForViewHeader } from './labels/format'
+import CervixEditView from './symptoms/cervix'
 import styles from '../../styles'
 import actionButtonModule from './action-buttons'
 
@@ -48,7 +49,8 @@ export default class Day extends Component {
             { dayView: <DayView cycleDay={this.cycleDay} showView={this.showView} />,
               bleedingEditView: <BleedingEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons}/>,
               temperatureEditView: <TemperatureEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons}/>,
-              mucusEditView: <MucusEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons}/>
+              mucusEditView: <MucusEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons}/>,
+              cervixEditView: <CervixEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons} />
             }[this.state.visibleComponent]
           }
         </View >

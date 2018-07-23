@@ -10,6 +10,9 @@ import {
   mucusFeeling as feelingLabels,
   mucusTexture as textureLabels,
   mucusNFP as computeSensiplanMucusLabels,
+  cervixOpening as openingLabels,
+  cervixFirmness as firmnessLabels,
+  cervixPosition as positionLabels
 } from './labels/labels'
 import cycleDayModule from '../../lib/get-cycle-day-number'
 import { bleedingDaysSortedByDate } from '../../db'
@@ -41,34 +44,51 @@ export default class DayView extends Component {
   }
 
   render() {
-    const bleedingValue = this.cycleDay.bleeding && this.cycleDay.bleeding.value
     let bleedingLabel
-    if (typeof bleedingValue === 'number') {
-      bleedingLabel = `${bleedingLabels[bleedingValue]}`
-      if (this.cycleDay.bleeding.exclude) bleedingLabel = "( " + bleedingLabel + " )"
+    if (this.cycleDay.bleeding) {
+      const bleeding = this.cycleDay.bleeding
+      if (typeof bleeding === 'number') {
+        bleedingLabel = `${bleedingLabels[bleeding]}`
+        if (bleeding.exclude) bleedingLabel = "( " + bleedingLabel + " )"
+      }
     } else {
       bleedingLabel = 'edit'
     }
-    const temperatureValue = this.cycleDay.temperature && this.cycleDay.temperature.value
+
     let temperatureLabel
-    if (typeof temperatureValue === 'number') {
-      temperatureLabel = `${temperatureValue} °C - ${this.cycleDay.temperature.time}`
-      if (this.cycleDay.temperature.exclude) {
-        temperatureLabel = "( " + temperatureLabel + " )"
+    if (this.cycleDay.temperature) {
+      const temperature = this.cycleDay.temperature
+      if (typeof temperature === 'number') {
+        temperatureLabel = `${temperature} °C - ${temperature.time}`
+        if (temperature.exclude) {
+          temperatureLabel = "( " + temperatureLabel + " )"
+        }
       }
     } else {
       temperatureLabel = 'edit'
     }
 
-    const mucusFeelingValue = this.cycleDay.mucus && this.cycleDay.mucus.feeling
-    const mucusTextureValue = this.cycleDay.mucus && this.cycleDay.mucus.texture
-    const mucusComputedValue = this.cycleDay.mucus && this.cycleDay.mucus.computedNfp
     let mucusLabel
-    if (typeof mucusFeelingValue === 'number' && typeof mucusTextureValue === 'number') {
-      mucusLabel = `${feelingLabels[mucusFeelingValue]} + ${textureLabels[mucusTextureValue]} ( ${computeSensiplanMucusLabels[mucusComputedValue]} )`
-      if (this.cycleDay.mucus.exclude) mucusLabel = "( " + mucusLabel + " )"
+    if (this.cycleDay.mucus) {
+      const mucus = this.cycleDay.mucus
+      if (typeof mucus.feeling === 'number' && typeof mucus.texture === 'number') {
+        mucusLabel = `${feelingLabels[mucus.feeling]} + ${textureLabels[mucus.texture]} ( ${computeSensiplanMucusLabels[mucus.computedNfp]} )`
+        if (mucus.exclude) mucusLabel = "( " + mucusLabel + " )"
+      }
     } else {
       mucusLabel = 'edit'
+    }
+
+    let cervixLabel
+    if (this.cycleDay.cervix) {
+      const cervix = this.cycleDay.cervix
+      if (cervix.opening > -1 && cervix.firmness > -1) {
+        cervixLabel = `${openingLabels[cervix.opening]} + ${firmnessLabels[cervix.firmness]}`
+        if (cervix.position > -1) cervixLabel += `+ ${positionLabels[cervix.position]}`
+        if (cervix.exclude) cervixLabel = "( " + cervixLabel + " )"
+      }
+    } else {
+      cervixLabel = 'edit'
     }
 
     return (
@@ -97,6 +117,15 @@ export default class DayView extends Component {
             <Button
               onPress={() => this.showView('mucusEditView')}
               title={mucusLabel}>
+            </Button>
+          </View>
+        </View>
+        <View style={styles.symptomViewRowInline}>
+          <Text style={styles.symptomDayView}>Cervix</Text>
+          <View style={ styles.symptomEditButton }>
+            <Button
+              onPress={() => this.showView('cervixEditView')}
+              title={cervixLabel}>
             </Button>
           </View>
         </View>
