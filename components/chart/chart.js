@@ -79,6 +79,12 @@ export default class CycleChart extends Component {
               Q13.5 6.8 15 3z" />
           : null}
 
+        {cycleDay && cycleDay.mucus ?
+          <Circle
+            {...styles.mucusIcon}
+            fill={styles.mucusIconShades[cycleDay.mucus.computedNfp]}
+          /> : null}
+
         {y ? this.drawDotAndLines(y, cycleDay.temperature.exclude, index) : null}
       </G>
     )

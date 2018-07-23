@@ -45,9 +45,21 @@ const styles = {
   bleedingIcon: {
     fill: '#fb2e01',
     scale: 0.6,
-    x: 7,
+    x: 6,
     y: 3
   },
+  mucusIcon: {
+    cx: config.columnWidth / 2,
+    cy: 50,
+    r: 10
+  },
+  mucusIconShades: [
+    '#cc99cc',
+    '#bf7fbf',
+    '#b266b2',
+    '#a64ca6',
+    '#993299'
+  ],
   yAxis: {
     height: config.chartHeight,
     width: config.columnWidth,
