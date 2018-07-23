@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import {
   View,
-  Text
+  Text,
+  ScrollView
 } from 'react-native'
 import cycleModule from '../../lib/cycle'
 import { getFertilityStatusStringForDay } from '../../lib/sympto-adapter'
@@ -10,6 +11,7 @@ import BleedingEditView from './symptoms/bleeding'
 import TemperatureEditView from './symptoms/temperature'
 import MucusEditView from './symptoms/mucus'
 import { formatDateForViewHeader } from './labels/format'
+import CervixEditView from './symptoms/cervix'
 import styles from '../../styles'
 import actionButtonModule from './action-buttons'
 
@@ -35,7 +37,7 @@ export default class Day extends Component {
     const cycleDayNumber = getCycleDayNumber(this.cycleDay.date)
     const fertilityStatus = getFertilityStatusStringForDay(this.cycleDay.date)
     return (
-      <View>
+      <ScrollView>
         <View style={ styles.cycleDayDateView }>
           <Text style={styles.dateHeader}>
             {formatDateForViewHeader(this.cycleDay.date)}
@@ -56,11 +58,12 @@ export default class Day extends Component {
             { dayView: <DayView cycleDay={this.cycleDay} showView={this.showView} />,
               bleedingEditView: <BleedingEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons}/>,
               temperatureEditView: <TemperatureEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons}/>,
-              mucusEditView: <MucusEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons}/>
+              mucusEditView: <MucusEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons}/>,
+              cervixEditView: <CervixEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons} />
             }[this.state.visibleComponent]
           }
         </View >
-      </View >
+      </ScrollView >
     )
   }
 }

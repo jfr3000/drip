@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import {
   View,
   Button,
-  Text
+  Text,
+  ScrollView
 } from 'react-native'
 import { LocalDate } from 'js-joda'
 import styles from '../styles/index'
@@ -46,7 +47,7 @@ export default class Home extends Component {
   render() {
     const navigate = this.props.navigation.navigate
     return (
-      <View>
+      <ScrollView>
         <Text style={styles.welcome}>{this.state.welcomeText}</Text>
         <View style={styles.homeButtons}>
           <View style={styles.homeButton}>
@@ -80,7 +81,7 @@ export default class Home extends Component {
             </Button>
           </View>
         </View>
-      </View>
+      </ScrollView>
     )
   }
 }

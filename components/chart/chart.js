@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text as ReactNativeText, View, FlatList } from 'react-native'
+import { Text as ReactNativeText, View, FlatList, ScrollView } from 'react-native'
 import range from 'date-range'
 import Svg,{
   G,
@@ -109,6 +109,13 @@ export default class CycleChart extends Component {
           this.drawDotAndLines(y, cycleDay.temperature.exclude, index)
           : null
         }
+        {cycleDay && cycleDay.mucus ?
+          <Circle
+            {...styles.mucusIcon}
+            fill={styles.mucusIconShades[cycleDay.mucus.value]}
+          /> : null}
+
+        {y ? this.drawDotAndLines(y, cycleDay.temperature.exclude, index) : null}
       </G>
     )
   }
@@ -160,7 +167,7 @@ export default class CycleChart extends Component {
 
   render() {
     return (
-      <View style={{flex: 1, flexDirection: 'row'}}>
+      <ScrollView contentContainerStyle={{flexDirection: 'row'}}>
         <View {...styles.yAxis}>{yAxis.labels}</View>
         <FlatList
           horizontal={true}
@@ -177,7 +184,7 @@ export default class CycleChart extends Component {
           keyExtractor={item => item.dateString}
         >
         </FlatList>
-      </View>
+      </ScrollView>
     )
   }
 }
