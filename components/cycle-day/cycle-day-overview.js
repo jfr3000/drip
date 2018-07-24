@@ -72,7 +72,7 @@ export default class DayView extends Component {
     if (this.cycleDay.mucus) {
       const mucus = this.cycleDay.mucus
       if (typeof mucus.feeling === 'number' && typeof mucus.texture === 'number') {
-        mucusLabel = `${feelingLabels[mucus.feeling]} + ${textureLabels[mucus.texture]} ( ${computeSensiplanMucusLabels[mucus.computedNfp]} )`
+        mucusLabel = `${feelingLabels[mucus.feeling]} + ${textureLabels[mucus.texture]} ( ${computeSensiplanMucusLabels[mucus.value]} )`
         if (mucus.exclude) mucusLabel = "( " + mucusLabel + " )"
       }
     } else {
