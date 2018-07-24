@@ -44,53 +44,7 @@ export default class DayView extends Component {
   }
 
   render() {
-    let bleedingLabel
-    if (this.cycleDay.bleeding) {
-      const bleeding = this.cycleDay.bleeding
-      if (typeof bleeding.value === 'number') {
-        bleedingLabel = `${bleedingLabels[bleeding.value]}`
-        if (bleeding.exclude) bleedingLabel = "( " + bleedingLabel + " )"
-      }
-    } else {
-      bleedingLabel = 'edit'
-    }
-
-    let temperatureLabel
-    if (this.cycleDay.temperature) {
-      const temperature = this.cycleDay.temperature
-      if (typeof temperature.value === 'number') {
-        temperatureLabel = `${temperature.value} °C - ${temperature.time}`
-        if (temperature.exclude) {
-          temperatureLabel = "( " + temperatureLabel + " )"
-        }
-      }
-    } else {
-      temperatureLabel = 'edit'
-    }
-
-    let mucusLabel
-    if (this.cycleDay.mucus) {
-      const mucus = this.cycleDay.mucus
-      if (typeof mucus.feeling === 'number' && typeof mucus.texture === 'number') {
-        mucusLabel = `${feelingLabels[mucus.feeling]} + ${textureLabels[mucus.texture]} ( ${computeSensiplanMucusLabels[mucus.value]} )`
-        if (mucus.exclude) mucusLabel = "( " + mucusLabel + " )"
-      }
-    } else {
-      mucusLabel = 'edit'
-    }
-
-    let cervixLabel
-    if (this.cycleDay.cervix) {
-      const cervix = this.cycleDay.cervix
-      if (cervix.opening > -1 && cervix.firmness > -1) {
-        cervixLabel = `${openingLabels[cervix.opening]} + ${firmnessLabels[cervix.firmness]}`
-        if (cervix.position > -1) cervixLabel += `+ ${positionLabels[cervix.position]}`
-        if (cervix.exclude) cervixLabel = "( " + cervixLabel + " )"
-      }
-    } else {
-      cervixLabel = 'edit'
-    }
-
+    const cycleDay = this.cycleDay
     return (
       <View style={styles.symptomEditView}>
         <View style={styles.symptomViewRowInline}>
@@ -98,7 +52,7 @@ export default class DayView extends Component {
           <View style={styles.symptomEditButton}>
             <Button
               onPress={() => this.showView('bleedingEditView')}
-              title={bleedingLabel}>
+              title={getLabel('bleeding', cycleDay.bleeding)}>
             </Button>
           </View>
         </View>
@@ -107,7 +61,7 @@ export default class DayView extends Component {
           <View style={styles.symptomEditButton}>
             <Button
               onPress={() => this.showView('temperatureEditView')}
-              title={temperatureLabel}>
+              title={getLabel('temperature', cycleDay.temperature)}>
             </Button>
           </View>
         </View>
@@ -116,7 +70,7 @@ export default class DayView extends Component {
           <View style={styles.symptomEditButton}>
             <Button
               onPress={() => this.showView('mucusEditView')}
-              title={mucusLabel}>
+              title={getLabel('mucus', cycleDay.mucus)}>
             </Button>
           </View>
         </View>
@@ -125,11 +79,63 @@ export default class DayView extends Component {
           <View style={styles.symptomEditButton}>
             <Button
               onPress={() => this.showView('cervixEditView')}
-              title={cervixLabel}>
+              title={getLabel('cervix', cycleDay.cervix)}>
+            </Button>
+          </View>
+        </View>
+        <View style={styles.symptomViewRowInline}>
+          <Text style={styles.symptomDayView}>Note</Text>
+          <View style={styles.symptomEditButton}>
+            <Button
+              onPress={() => this.showView('noteEditView')}
+              title={getLabel('note', cycleDay.note)}
+            >
             </Button>
           </View>
         </View>
       </View >
     )
   }
+}
+
+function getLabel(symptomName, symptom) {
+  const labels = {
+    bleeding: bleeding => {
+      if (typeof bleeding.value === 'number') {
+        let bleedingLabel = `${bleedingLabels[bleeding.value]}`
+        if (bleeding.exclude) bleedingLabel = "( " + bleedingLabel + " )"
+        return bleedingLabel
+      }
+    },
+    temperature: temperature => {
+      if (typeof temperature.value === 'number') {
+        let temperatureLabel = `${temperature.value} °C - ${temperature.time}`
+        if (temperature.exclude) {
+          temperatureLabel = "( " + temperatureLabel + " )"
+        }
+        return temperatureLabel
+      }
+    },
+    mucus: mucus => {
+      if (typeof mucus.feeling === 'number' && typeof mucus.texture === 'number') {
+        let mucusLabel = `${feelingLabels[mucus.feeling]} + ${textureLabels[mucus.texture]} ( ${computeSensiplanMucusLabels[mucus.computedNfp]} )`
+        if (mucus.exclude) mucusLabel = "( " + mucusLabel + " )"
+        return mucusLabel
+      }
+    },
+    cervix: cervix => {
+      if (cervix.opening > -1 && cervix.firmness > -1) {
+        let cervixLabel = `${openingLabels[cervix.opening]} + ${firmnessLabels[cervix.firmness]}`
+        if (cervix.position > -1) cervixLabel += `+ ${positionLabels[cervix.position]}`
+        if (cervix.exclude) cervixLabel = "( " + cervixLabel + " )"
+        return cervixLabel
+      }
+    },
+    note: note => {
+      return note.value.slice(0, 12) + '...'
+    }
+  }
+
+  if (!symptom) return 'edit'
+  return labels[symptomName](symptom) || 'edit'
 }
