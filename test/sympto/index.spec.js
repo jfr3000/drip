@@ -9,6 +9,7 @@ import {
   cycleWithoutAnyShifts,
   fiveDayCycle,
   cycleWithEarlyMucus,
+  cycleWithMucusOnFirstDay,
   mucusPeakAndFhmOnSameDay,
   fhmTwoDaysBeforeMucusPeak,
   fhm5DaysAfterMucusPeak,
@@ -453,6 +454,23 @@ describe('sympto', () => {
           })
       })
     })
+
+    it('shortens the pre-ovu phase if mucus occurs even on the first day', () => {
+      const status = getSensiplanStatus({
+        cycle: cycleWithMucusOnFirstDay,
+        previousCycle: fhmOnDay12,
+        earlierCycles: Array(10).fill(fhmOnDay12)
+      })
+
+
+      expect(Object.keys(status.phases).length).to.eql(1)
+
+      expect(status.phases.periOvulatory).to.eql({
+        start: { date: '2018-06-01' },
+        cycleDays: cycleWithMucusOnFirstDay
+      })
+    })
+
     it('lengthens the pre-ovu phase if >= 12 cycles with fhm > 13', () => {
       const status = getSensiplanStatus({
         cycle: longAndComplicatedCycle,
