@@ -47,8 +47,8 @@ export default class DayView extends Component {
     let bleedingLabel
     if (this.cycleDay.bleeding) {
       const bleeding = this.cycleDay.bleeding
-      if (typeof bleeding === 'number') {
-        bleedingLabel = `${bleedingLabels[bleeding]}`
+      if (typeof bleeding.value === 'number') {
+        bleedingLabel = `${bleedingLabels[bleeding.value]}`
         if (bleeding.exclude) bleedingLabel = "( " + bleedingLabel + " )"
       }
     } else {
@@ -58,8 +58,8 @@ export default class DayView extends Component {
     let temperatureLabel
     if (this.cycleDay.temperature) {
       const temperature = this.cycleDay.temperature
-      if (typeof temperature === 'number') {
-        temperatureLabel = `${temperature} °C - ${temperature.time}`
+      if (typeof temperature.value === 'number') {
+        temperatureLabel = `${temperature.value} °C - ${temperature.time}`
         if (temperature.exclude) {
           temperatureLabel = "( " + temperatureLabel + " )"
         }
@@ -113,7 +113,7 @@ export default class DayView extends Component {
         </View>
         <View style={ styles.symptomViewRowInline }>
           <Text style={styles.symptomDayView}>Mucus</Text>
-          <View style={ styles.symptomEditButton }>
+          <View style={styles.symptomEditButton}>
             <Button
               onPress={() => this.showView('mucusEditView')}
               title={mucusLabel}>
@@ -122,7 +122,7 @@ export default class DayView extends Component {
         </View>
         <View style={styles.symptomViewRowInline}>
           <Text style={styles.symptomDayView}>Cervix</Text>
-          <View style={ styles.symptomEditButton }>
+          <View style={styles.symptomEditButton}>
             <Button
               onPress={() => this.showView('cervixEditView')}
               title={cervixLabel}>
