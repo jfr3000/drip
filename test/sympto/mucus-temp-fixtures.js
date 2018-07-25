@@ -4,6 +4,14 @@ function convertToSymptoFormat(val) {
   if (val.temperature) sympto.temperature = { value: val.temperature }
   if (val.mucus) sympto.mucus = { value: val.mucus }
   if (val.bleeding) sympto.bleeding = { value: val.bleeding }
+  if (val.cervix) {
+    sympto.cervix = {}
+    if (val.cervix === 'firm & closed') {
+      sympto.cervix.firmAndClosed = true
+    } else {
+      sympto.cervix.firmAndClosed = false
+    }
+  }
   return sympto
 }
 
