@@ -46,6 +46,13 @@ const CervixSchema = {
   }
 }
 
+const NoteSchema = {
+  name: 'Note',
+  properties: {
+    value: 'string'
+  }
+}
+
 const CycleDaySchema = {
   name: 'CycleDay',
   primaryKey: 'date',
@@ -66,6 +73,10 @@ const CycleDaySchema = {
     cervix: {
       type: 'Cervix',
       optional: true
+    },
+    note: {
+      type: 'Note',
+      optional: true
     }
   }
 }
@@ -76,7 +87,8 @@ const realmConfig = {
     TemperatureSchema,
     BleedingSchema,
     MucusSchema,
-    CervixSchema
+    CervixSchema,
+    NoteSchema
   ],
   // we only want this in dev mode
   deleteRealmIfMigrationNeeded: true
