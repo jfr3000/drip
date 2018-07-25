@@ -74,6 +74,10 @@ const styles = {
   horizontalGrid: {
     stroke: 'lightgrey',
     strokeWidth: 1
+  },
+  nfpLine: {
+    stroke: '#00b159',
+    strokeWidth: 3
   }
 }
 

@@ -11,11 +11,12 @@ import Svg,{
 } from 'react-native-svg'
 import { LocalDate } from 'js-joda'
 import { getCycleDay, getOrCreateCycleDay, cycleDaysSortedByDate } from '../../db'
-import getCycleDayNumberModule from '../../lib/get-cycle-day-number'
+import cycleModule from '../../lib/cycle'
 import styles from './styles'
 import config from './config'
+import { getCycleStatusForDay } from '../../lib/sympto-adapter'
 
-const getCycleDayNumber = getCycleDayNumberModule()
+const getCycleDayNumber = cycleModule().getCycleDayNumber
 
 const yAxis = makeYAxis(config)
 
@@ -63,13 +64,29 @@ export default class CycleChart extends Component {
     const cycleDayNumber = getCycleDayNumber(dateString)
     const label = styles.column.label
     const dateLabel = dateString.split('-').slice(1).join('-')
+    const getFhmAndLtlInfo = setUpFertilityStatusFunc()
+    const nfpLineInfo = getFhmAndLtlInfo(dateString, cycleDay)
 
     return (
       <G onPress={() => this.passDateToDayView(dateString)}>
         <Rect {...styles.column.rect} />
+        {nfpLineInfo.drawFhmLine ?
+          <Line
+            x1={0 + styles.nfpLine.strokeWidth / 2}
+            y1="20"
+            x2={0 + styles.nfpLine.strokeWidth / 2}
+            y2={config.chartHeight - 20}
+            {...styles.nfpLine}
+          /> : null}
+
         {this.placeHorizontalGrid()}
-        <Text {...label.number} y={config.cycleDayNumberRowY}>{cycleDayNumber}</Text>
-        <Text {...label.date} y={config.dateRowY}>{dateLabel}</Text>
+
+        <Text {...label.number} y={config.cycleDayNumberRowY}>
+          {cycleDayNumber}
+        </Text>
+        <Text {...label.date} y={config.dateRowY}>
+          {dateLabel}
+        </Text>
 
         {cycleDay && cycleDay.bleeding ?
           <Path {...styles.bleedingIcon}
@@ -79,10 +96,23 @@ export default class CycleChart extends Component {
               Q13.5 6.8 15 3z" />
           : null}
 
+        {nfpLineInfo.drawLtlAt ?
+          <Line
+            x1="0"
+            y1={nfpLineInfo.drawLtlAt}
+            x2={config.columnWidth}
+            y2={nfpLineInfo.drawLtlAt}
+            {...styles.nfpLine}
+          /> : null}
+
+        {y ?
+          this.drawDotAndLines(y, cycleDay.temperature.exclude, index)
+          : null
+        }
         {cycleDay && cycleDay.mucus ?
           <Circle
             {...styles.mucusIcon}
-            fill={styles.mucusIconShades[cycleDay.mucus.computedNfp]}
+            fill={styles.mucusIconShades[cycleDay.mucus.value]}
           /> : null}
 
         {y ? this.drawDotAndLines(y, cycleDay.temperature.exclude, index) : null}
@@ -181,15 +211,18 @@ function makeColumnInfo(n) {
 
 function getPreviousDays(n) {
   const today = new Date()
-  today.setHours(0); today.setMinutes(0); today.setSeconds(0); today.setMilliseconds(0)
+  today.setHours(0)
+  today.setMinutes(0)
+  today.setSeconds(0)
+  today.setMilliseconds(0)
   const earlierDate = new Date(today - (range.DAY * n))
 
   return range(earlierDate, today).reverse()
 }
 
 function normalizeToScale(temp) {
-  const temperatureScale = config.temperatureScale
-  const valueRelativeToScale = (temperatureScale.high - temp) / (temperatureScale.high - temperatureScale.low)
+  const scale = config.temperatureScale
+  const valueRelativeToScale = (scale.high - temp) / (scale.high - scale.low)
   const scaleHeight = config.chartHeight
   return scaleHeight * valueRelativeToScale
 }
@@ -202,7 +235,6 @@ function makeYAxis() {
 
   const tickPositions = []
   const labels = []
-
   // for style reasons, we don't want the first and last tick
   for (let i = 1; i < numberOfTicks - 1; i++) {
     const y = tickDistance * i
@@ -222,4 +254,80 @@ function makeYAxis() {
   }
 
   return {labels, tickPositions}
+}
+
+function setUpFertilityStatusFunc() {
+  let cycleStatus
+  let cycleStartDate
+  let noMoreCycles = false
+
+  function updateCurrentCycle(dateString) {
+    cycleStatus = getCycleStatusForDay(dateString)
+    if(!cycleStatus) {
+      noMoreCycles = true
+      return
+    }
+    if (cycleStatus.phases.preOvulatory) {
+      cycleStartDate = cycleStatus.phases.preOvulatory.start.date
+    } else {
+      cycleStartDate = cycleStatus.phases.periOvulatory.start.date
+    }
+  }
+
+  function dateIsInPeriOrPostPhase(dateString) {
+    return (
+      dateString >= cycleStatus.phases.periOvulatory.start.date
+    )
+  }
+
+  function precededByAnotherTempValue(dateString) {
+    return (
+      // we are only interested in days that have a preceding
+      // temp
+      Object.keys(cycleStatus.phases).some(phaseName => {
+        return cycleStatus.phases[phaseName].cycleDays.some(day => {
+          return day.temperature && day.date < dateString
+        })
+      })
+      // and also a following temp, so we don't draw the line
+      // longer than necessary
+      &&
+      cycleStatus.phases.postOvulatory.cycleDays.some(day => {
+        return day.temperature && day.date > dateString
+      })
+    )
+  }
+
+  function isInTempMeasuringPhase(cycleDay, dateString) {
+    return (
+      cycleDay && cycleDay.temperature
+      || precededByAnotherTempValue(dateString)
+    )
+  }
+
+  return function(dateString, cycleDay) {
+    const ret = {}
+    if (!cycleStatus && !noMoreCycles) updateCurrentCycle(dateString)
+    if (noMoreCycles) return ret
+
+    if (dateString < cycleStartDate) updateCurrentCycle(dateString)
+    if (noMoreCycles) return ret
+
+    const tempShift = cycleStatus.temperatureShift
+
+    if (tempShift) {
+      if (tempShift.firstHighMeasurementDay.date === dateString) {
+        ret.drawFhmLine = true
+      }
+
+      if (
+        dateIsInPeriOrPostPhase(dateString) &&
+        isInTempMeasuringPhase(cycleDay, dateString)
+      ) {
+        ret.drawLtlAt = normalizeToScale(tempShift.ltl)
+      }
+    }
+
+    return ret
+  }
 }

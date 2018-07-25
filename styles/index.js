@@ -21,7 +21,6 @@ export default StyleSheet.create({
   },
   cycleDayNumber: {
     fontSize: 18,
-    margin: 15,
     textAlign: 'center',
     textAlignVertical: 'center'
   },
@@ -57,7 +56,8 @@ export default StyleSheet.create({
   cycleDayNumberView: {
     justifyContent: 'center',
     backgroundColor: 'skyblue',
-    marginBottom: 15
+    marginBottom: 15,
+    paddingVertical: 15
   },
   homeButtons: {
     marginHorizontal: 15

@@ -6,11 +6,11 @@ import {
   ScrollView
 } from 'react-native'
 import { LocalDate } from 'js-joda'
-import styles from '../styles'
-import cycleDayModule from '../lib/get-cycle-day-number'
-import { getOrCreateCycleDay, bleedingDaysSortedByDate, deleteAll } from '../db'
+import styles from '../styles/index'
+import cycleModule from '../lib/cycle'
+import { getOrCreateCycleDay, bleedingDaysSortedByDate, fillWithDummyData, deleteAll } from '../db'
 
-const getCycleDayNumber = cycleDayModule()
+const getCycleDayNumber = cycleModule().getCycleDayNumber
 
 export default class Home extends Component {
   constructor(props) {
@@ -66,6 +66,12 @@ export default class Home extends Component {
             <Button
               onPress={() => navigate('chart')}
               title="Go to chart">
+            </Button>
+          </View>
+          <View style={styles.homeButton}>
+            <Button
+              onPress={() => fillWithDummyData()}
+              title="fill with example data">
             </Button>
           </View>
           <View style={styles.homeButton}>

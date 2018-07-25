@@ -14,10 +14,10 @@ import {
   cervixFirmness as firmnessLabels,
   cervixPosition as positionLabels
 } from './labels/labels'
-import cycleDayModule from '../../lib/get-cycle-day-number'
+import cycleDayModule from '../../lib/cycle'
 import { bleedingDaysSortedByDate } from '../../db'
 
-const getCycleDayNumber = cycleDayModule()
+const getCycleDayNumber = cycleDayModule().getCycleDayNumber
 
 export default class DayView extends Component {
   constructor(props) {
@@ -72,7 +72,7 @@ export default class DayView extends Component {
     if (this.cycleDay.mucus) {
       const mucus = this.cycleDay.mucus
       if (typeof mucus.feeling === 'number' && typeof mucus.texture === 'number') {
-        mucusLabel = `${feelingLabels[mucus.feeling]} + ${textureLabels[mucus.texture]} ( ${computeSensiplanMucusLabels[mucus.computedNfp]} )`
+        mucusLabel = `${feelingLabels[mucus.feeling]} + ${textureLabels[mucus.texture]} ( ${computeSensiplanMucusLabels[mucus.value]} )`
         if (mucus.exclude) mucusLabel = "( " + mucusLabel + " )"
       }
     } else {

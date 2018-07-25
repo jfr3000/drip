@@ -4,7 +4,8 @@ import {
   Text,
   ScrollView
 } from 'react-native'
-import cycleDayModule from '../../lib/get-cycle-day-number'
+import cycleModule from '../../lib/cycle'
+import { getFertilityStatusStringForDay } from '../../lib/sympto-adapter'
 import DayView from './cycle-day-overview'
 import BleedingEditView from './symptoms/bleeding'
 import TemperatureEditView from './symptoms/temperature'
@@ -14,7 +15,7 @@ import CervixEditView from './symptoms/cervix'
 import styles from '../../styles'
 import actionButtonModule from './action-buttons'
 
-const getCycleDayNumber = cycleDayModule()
+const getCycleDayNumber = cycleModule().getCycleDayNumber
 
 export default class Day extends Component {
   constructor(props) {
@@ -34,6 +35,7 @@ export default class Day extends Component {
 
   render() {
     const cycleDayNumber = getCycleDayNumber(this.cycleDay.date)
+    const fertilityStatus = getFertilityStatusStringForDay(this.cycleDay.date)
     return (
       <ScrollView>
         <View style={ styles.cycleDayDateView }>
@@ -42,7 +44,14 @@ export default class Day extends Component {
           </Text>
         </View >
         <View style={ styles.cycleDayNumberView }>
-          { cycleDayNumber && <Text style={styles.cycleDayNumber} >Cycle day {cycleDayNumber}</Text> }
+          { cycleDayNumber &&
+            <Text style={styles.cycleDayNumber} >
+              Cycle day {cycleDayNumber}
+            </Text> }
+
+          <Text style={styles.cycleDayNumber} >
+            {fertilityStatus}
+          </Text>
         </View >
         <View>
           {

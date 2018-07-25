@@ -6,7 +6,7 @@ chai.use(dirtyChai)
 
 import getSensiplanMucus from '../lib/sensiplan-mucus'
 
-describe.only('getSensiplanMucus', () => {
+describe('getSensiplanMucus', () => {
 
   describe('results in t for:', () => {
     it('dry feeling and no texture', function () {
