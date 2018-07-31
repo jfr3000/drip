@@ -117,8 +117,12 @@ function getLabel(symptomName, symptom) {
       }
     },
     mucus: mucus => {
-      if (typeof mucus.feeling === 'number' && typeof mucus.texture === 'number') {
-        let mucusLabel = `${feelingLabels[mucus.feeling]} + ${textureLabels[mucus.texture]} ( ${computeSensiplanMucusLabels[mucus.computedNfp]} )`
+      if (
+        typeof mucus.feeling === 'number' &&
+        typeof mucus.texture === 'number' &&
+        typeof mucus.value === 'number'
+      ) {
+        let mucusLabel = `${feelingLabels[mucus.feeling]} + ${textureLabels[mucus.texture]} ( ${computeSensiplanMucusLabels[mucus.value]} )`
         if (mucus.exclude) mucusLabel = "( " + mucusLabel + " )"
         return mucusLabel
       }
