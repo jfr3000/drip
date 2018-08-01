@@ -5,7 +5,7 @@ import periodInfo from '../lib/period-length'
 
 const expect = chai.expect
 
-describe.only('getPeriodLengthStats', () => {
+describe('getPeriodLengthStats', () => {
   it('works for a simple odd-numbered array', () => {
     const periodLengths = [99, 5, 1, 2, 100]
     const result = periodInfo(periodLengths)
