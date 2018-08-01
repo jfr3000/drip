@@ -5,7 +5,7 @@ import periodInfo from '../lib/period-length'
 
 const expect = chai.expect
 
-describe('getPeriodLengthStats', () => {
+describe.only('getPeriodLengthStats', () => {
   it('works for a simple odd-numbered array', () => {
     const periodLengths = [99, 5, 1, 2, 100]
     const result = periodInfo(periodLengths)
@@ -28,6 +28,18 @@ describe('getPeriodLengthStats', () => {
       mean: 7.83,
       median: 4.5,
       stdDeviation: 7.78
+    }
+    expect(result).to.eql(expectedResult)
+  })
+  it('works for an one-element array', () => {
+    const periodLengths = [42]
+    const result = periodInfo(periodLengths)
+    const expectedResult = {
+      minimum: 42,
+      maximum: 42,
+      mean: 42,
+      median: 42,
+      stdDeviation: null
     }
     expect(result).to.eql(expectedResult)
   })
