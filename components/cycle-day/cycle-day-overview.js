@@ -52,7 +52,7 @@ export default class DayView extends Component {
           <Text style={styles.symptomDayView}>Bleeding</Text>
           <View style={styles.symptomEditButton}>
             <Button
-              onPress={() => this.showView('bleedingEditView')}
+              onPress={() => this.showView('BleedingEditView')}
               title={getLabel('bleeding', cycleDay.bleeding)}>
             </Button>
           </View>
@@ -61,7 +61,7 @@ export default class DayView extends Component {
           <Text style={styles.symptomDayView}>Temperature</Text>
           <View style={styles.symptomEditButton}>
             <Button
-              onPress={() => this.showView('temperatureEditView')}
+              onPress={() => this.showView('TemperatureEditView')}
               title={getLabel('temperature', cycleDay.temperature)}>
             </Button>
           </View>
@@ -70,7 +70,7 @@ export default class DayView extends Component {
           <Text style={styles.symptomDayView}>Mucus</Text>
           <View style={styles.symptomEditButton}>
             <Button
-              onPress={() => this.showView('mucusEditView')}
+              onPress={() => this.showView('MucusEditView')}
               title={getLabel('mucus', cycleDay.mucus)}>
             </Button>
           </View>
@@ -79,7 +79,7 @@ export default class DayView extends Component {
           <Text style={styles.symptomDayView}>Cervix</Text>
           <View style={styles.symptomEditButton}>
             <Button
-              onPress={() => this.showView('cervixEditView')}
+              onPress={() => this.showView('CervixEditView')}
               title={getLabel('cervix', cycleDay.cervix)}>
             </Button>
           </View>
@@ -88,7 +88,7 @@ export default class DayView extends Component {
           <Text style={styles.symptomDayView}>Note</Text>
           <View style={styles.symptomEditButton}>
             <Button
-              onPress={() => this.showView('noteEditView')}
+              onPress={() => this.showView('NoteEditView')}
               title={getLabel('note', cycleDay.note)}
             >
             </Button>
