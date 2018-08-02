@@ -1,27 +1,29 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import { Calendar } from 'react-native-calendars'
-import * as styles from '../styles/index'
+import * as styles from '../styles'
 import { getOrCreateCycleDay, bleedingDaysSortedByDate } from '../db'
 
 export default class CalendarView extends Component {
   constructor(props) {
     super(props)
-    this.state = { bleedingDaysInCalFormat: getBleedingDaysInCalFormat(bleedingDaysSortedByDate) }
+    this.state = {
+      bleedingDaysInCalFormat: toCalFormat(bleedingDaysSortedByDate)
+    }
 
-    this.setStateWithCalendarFormattedDays = (function (CalendarComponent) {
+    this.setStateWithCalFormattedDays = (function (CalendarComponent) {
       return function() {
         CalendarComponent.setState({
-          bleedingDaysInCalFormat: getBleedingDaysInCalFormat(bleedingDaysSortedByDate)
+          bleedingDaysInCalFormat: toCalFormat(bleedingDaysSortedByDate)
         })
       }
     })(this)
 
-    bleedingDaysSortedByDate.addListener(this.setStateWithCalendarFormattedDays)
+    bleedingDaysSortedByDate.addListener(this.setStateWithCalFormattedDays)
   }
 
   componentWillUnmount() {
-    bleedingDaysSortedByDate.removeListener(this.setStateWithCalendarFormattedDays)
+    bleedingDaysSortedByDate.removeListener(this.setStateWithCalFormattedDays)
   }
 
   passDateToDayView(result) {
@@ -43,10 +45,14 @@ export default class CalendarView extends Component {
   }
 }
 
-function getBleedingDaysInCalFormat(bleedingDaysSortedByDate) {
+function toCalFormat(bleedingDaysSortedByDate) {
   const shadesOfRed = ['#ffbaba', '#ff7b7b', '#ff5252', '#ff0000']
   return bleedingDaysSortedByDate.reduce((acc, day) => {
-    acc[day.date] = { startingDay: true, endingDay: true, color: shadesOfRed[day.bleeding.value] }
+    acc[day.date] = {
+      startingDay: true,
+      endingDay: true,
+      color: shadesOfRed[day.bleeding.value]
+    }
     return acc
   }, {})
 }
