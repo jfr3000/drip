@@ -24,8 +24,9 @@ export default class Home extends Component {
 
     this.setStateWithCurrentWelcomeText = (function (HomeComponent) {
       return function () {
+        const cycleDayNumber = getCycleDayNumber(HomeComponent.todayDateString)
         HomeComponent.setState({
-          welcomeText: determineWelcomeText(getCycleDayNumber(HomeComponent.todayDateString))
+          welcomeText: determineWelcomeText(cycleDayNumber)
         })
       }
     })(this)
