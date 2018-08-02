@@ -299,3 +299,26 @@ export const mucusPeakSlightlyBeforeTempShift = [
   { date: '2018-06-21', temperature: 36.8, mucus: 1},
   { date: '2018-06-22', temperature: 36.8, mucus: 1}
 ].map(convertToSymptoFormat)
+
+
+export const highestMucusQualityAfterEndOfEval = [
+  { date: '2018-06-01', temperature: 36.6, bleeding: 2 },
+  { date: '2018-06-02', temperature: 36.65 },
+  { date: '2018-06-04', temperature: 36.6 },
+  { date: '2018-06-07', temperature: 36.4, mucus: 1 },
+  { date: '2018-06-08', temperature: 36.35, mucus: 2},
+  { date: '2018-06-09', temperature: 36.4, mucus: 2},
+  { date: '2018-06-10', temperature: 36.45, mucus: 2},
+  { date: '2018-06-11', temperature: 36.4, mucus: 2},
+  { date: '2018-06-12', temperature: 36.45, mucus: 2},
+  { date: '2018-06-13', temperature: 36.45, mucus: 3},
+  { date: '2018-06-14', temperature: 36.55, mucus: 2},
+  { date: '2018-06-15', temperature: 36.6, mucus: 2},
+  { date: '2018-06-16', temperature: 36.6, mucus: 2},
+  { date: '2018-06-17', temperature: 36.55, mucus: 2},
+  { date: '2018-06-18', temperature: 36.6, mucus: 1},
+  { date: '2018-06-19', temperature: 36.7, mucus: 4},
+  { date: '2018-06-20', temperature: 36.75, mucus: 1},
+  { date: '2018-06-21', temperature: 36.8, mucus: 1},
+  { date: '2018-06-22', temperature: 36.8, mucus: 1}
+].map(convertToSymptoFormat)
