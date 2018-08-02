@@ -93,6 +93,15 @@ export default class DayView extends Component {
             </Button>
           </View>
         </View>
+        <View style={ styles.symptomViewRowInline }>
+          <Text style={styles.symptomDayView}>Desire</Text>
+          <View style={styles.symptomEditButton}>
+            <Button
+              onPress={() => this.showView('desireEditView')}
+              title={getLabel('desire', cycleDay.desire)}>
+            </Button>
+          </View>
+        </View>
       </View >
     )
   }
@@ -137,6 +146,12 @@ function getLabel(symptomName, symptom) {
     },
     note: note => {
       return note.value.slice(0, 12) + '...'
+    },
+    desire: desire => {
+      if (typeof desire.value === 'number') {
+        const desireLabel = `${positionLabels[desire.value]}`
+        return desireLabel
+      }
     }
   }
 

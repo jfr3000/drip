@@ -53,6 +53,13 @@ const NoteSchema = {
   }
 }
 
+const DesireSchema = {
+  name: 'Desire',
+  properties: {
+    value: 'int'
+  }
+}
+
 const CycleDaySchema = {
   name: 'CycleDay',
   primaryKey: 'date',
@@ -77,6 +84,10 @@ const CycleDaySchema = {
     note: {
       type: 'Note',
       optional: true
+    },
+    desire: {
+      type: 'Desire',
+      optional: true
     }
   }
 }
@@ -88,7 +99,8 @@ const realmConfig = {
     BleedingSchema,
     MucusSchema,
     CervixSchema,
-    NoteSchema
+    NoteSchema,
+    DesireSchema
   ],
   // we only want this in dev mode
   deleteRealmIfMigrationNeeded: true
