@@ -12,6 +12,8 @@ import { getPreviousTemperature, saveSymptom } from '../../../db'
 import styles from '../../../styles'
 import { LocalTime, ChronoUnit } from 'js-joda'
 
+const MINUTES = ChronoUnit.MINUTES
+
 export default class Temp extends Component {
   constructor(props) {
     super(props)
@@ -32,7 +34,7 @@ export default class Temp extends Component {
     this.state = {
       currentValue: initialValue,
       exclude: temp ? temp.exclude : false,
-      time: this.time || LocalTime.now().truncatedTo(ChronoUnit.MINUTES).toString(),
+      time: this.time || LocalTime.now().truncatedTo(MINUTES).toString(),
       isTimePickerVisible: false
     }
   }
