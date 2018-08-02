@@ -115,7 +115,9 @@ export default class CycleChart extends Component {
             fill={styles.mucusIconShades[cycleDay.mucus.value]}
           /> : null}
 
-        {y ? this.drawDotAndLines(y, cycleDay.temperature.exclude, index) : null}
+        {y ?
+          this.drawDotAndLines(y, cycleDay.temperature.exclude, index)
+          : null}
       </G>
     )
   }

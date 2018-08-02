@@ -29,7 +29,7 @@ export default class DayView extends Component {
       cycleDayNumber: getCycleDayNumber(this.cycleDay.date),
     }
 
-    this.setStateWithCurrentCycleDayNumber = (function (DayViewComponent) {
+    this.setStateWithCycleDayNumber = (function (DayViewComponent) {
       return function () {
         DayViewComponent.setState({
           cycleDayNumber: getCycleDayNumber(DayViewComponent.cycleDay.date)
@@ -37,11 +37,11 @@ export default class DayView extends Component {
       }
     })(this)
 
-    bleedingDaysSortedByDate.addListener(this.setStateWithCurrentCycleDayNumber)
+    bleedingDaysSortedByDate.addListener(this.setStateWithCycleDayNumber)
   }
 
   componentWillUnmount() {
-    bleedingDaysSortedByDate.removeListener(this.setStateWithCurrentCycleDayNumber)
+    bleedingDaysSortedByDate.removeListener(this.setStateWithCycleDayNumber)
   }
 
   render() {
