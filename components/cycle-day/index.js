@@ -12,6 +12,7 @@ import TemperatureEditView from './symptoms/temperature'
 import MucusEditView from './symptoms/mucus'
 import CervixEditView from './symptoms/cervix'
 import NoteEditView from './symptoms/note'
+import DesireEditView from './symptoms/desire'
 import { formatDateForViewHeader } from './labels/format'
 import styles from '../../styles'
 import actionButtonModule from './action-buttons'
@@ -61,7 +62,8 @@ export default class Day extends Component {
               temperatureEditView: <TemperatureEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons}/>,
               mucusEditView: <MucusEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons}/>,
               cervixEditView: <CervixEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons} />,
-              noteEditView: <NoteEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons} />
+              noteEditView: <NoteEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons} />,
+              desireEditView: <DesireEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons} />
             }[this.state.visibleComponent]
           }
         </View >

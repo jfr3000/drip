@@ -21,7 +21,6 @@ export default class Temp extends Component {
   }
 
   render() {
-    console.log(this.cycleDay.note)
     return (
       <View style={styles.symptomEditView}>
         <View style={styles.symptomViewRow}>
