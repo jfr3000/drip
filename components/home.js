@@ -70,6 +70,12 @@ export default class Home extends Component {
           </View>
           <View style={styles.homeButton}>
             <Button
+              onPress={() => navigate('settings')}
+              title="Go to settings">
+            </Button>
+          </View>
+          <View style={styles.homeButton}>
+            <Button
               onPress={() => fillWithDummyData()}
               title="fill with example data">
             </Button>
