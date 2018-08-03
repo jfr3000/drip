@@ -10,7 +10,7 @@ import { saveSymptom } from '../../../db'
 import {
   cervixOpening as openingLabels,
   cervixFirmness as firmnessLabels,
-  positionOrIntensity as positionLabels
+  cervixPosition as positionLabels
 } from '../labels/labels'
 
 export default class Cervix extends Component {

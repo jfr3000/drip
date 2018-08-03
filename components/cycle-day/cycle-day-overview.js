@@ -12,7 +12,7 @@ import {
   mucusNFP as computeSensiplanMucusLabels,
   cervixOpening as openingLabels,
   cervixFirmness as firmnessLabels,
-  positionOrIntensity as positionLabels
+  cervixPosition as positionLabels
 } from './labels/labels'
 import cycleDayModule from '../../lib/cycle'
 import { bleedingDaysSortedByDate } from '../../db'

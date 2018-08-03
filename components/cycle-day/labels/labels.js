@@ -4,7 +4,7 @@ export const mucusTexture = ['nothing', 'creamy', 'egg white']
 export const mucusNFP = ['t', 'Ø', 'f', 'S', '+S']
 export const cervixOpening = ['closed', 'medium', 'open']
 export const cervixFirmness = ['hard', 'soft']
-export const positionOrIntensity = ['low', 'medium', 'high']
+export const cervixPosition = ['low', 'medium', 'high']
 
 export const fertilityStatus = {
   fertile: 'fertile',
