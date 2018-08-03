@@ -12,7 +12,8 @@ import {
   mucusNFP as computeSensiplanMucusLabels,
   cervixOpening as openingLabels,
   cervixFirmness as firmnessLabels,
-  cervixPosition as positionLabels
+  cervixPosition as positionLabels,
+  intensity as intensityLabels
 } from './labels/labels'
 import cycleDayModule from '../../lib/cycle'
 import { bleedingDaysSortedByDate } from '../../db'
@@ -149,7 +150,7 @@ function getLabel(symptomName, symptom) {
     },
     desire: desire => {
       if (typeof desire.value === 'number') {
-        const desireLabel = `${positionLabels[desire.value]}`
+        const desireLabel = `${intensityLabels[desire.value]}`
         return desireLabel
       }
     }

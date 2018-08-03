@@ -6,7 +6,7 @@ import {
 import RadioForm from 'react-native-simple-radio-button'
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
-import { positionOrIntensity as labels } from '../labels/labels'
+import { intensity as labels } from '../labels/labels'
 
 export default class Desire extends Component {
   constructor(props) {
