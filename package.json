@@ -19,8 +19,8 @@
     "date-range": "0.0.2",
     "js-joda": "^1.8.2",
     "moment": "^2.22.1",
-    "react": "16.3.1",
-    "react-native": "0.55.4",
+    "react": "16.4.1",
+    "react-native": "^0.56.0",
     "react-native-calendars": "^1.19.3",
     "react-native-modal-datetime-picker-nevo": "^4.11.0",
     "react-native-simple-radio-button": "^2.7.1",
@@ -30,7 +30,7 @@
     "uuid": "^3.2.1"
   },
   "devDependencies": {
-    "babel-preset-react-native": "4.0.0",
+    "babel-preset-react-native": "5.0.0",
     "chai": "^4.1.2",
     "dirty-chai": "^2.0.1",
     "eslint": "^4.19.1",
