@@ -10,8 +10,8 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "android": "./node_modules/.bin/react-native run-android",
     "log": "./node_modules/.bin/react-native log-android | grep -v 'Warning: isMounted(...) is deprecated'",
-    "test": "mocha --recursive --require babel-core/register test && npm run lint",
-    "test-watch": "mocha --recursive --require babel-core/register --watch test",
+    "test": "mocha --recursive --require @babel/register test && npm run lint",
+    "test-watch": "mocha --recursive --require @babel/register --watch test",
     "lint": "eslint components lib test"
   },
   "dependencies": {
@@ -30,7 +30,8 @@
     "uuid": "^3.2.1"
   },
   "devDependencies": {
-    "babel-preset-react-native": "5.0.0",
+    "@babel/register": "^7.0.0-beta.55",
+    "babel-preset-react-native": "^5.0.0",
     "chai": "^4.1.2",
     "dirty-chai": "^2.0.1",
     "eslint": "^4.19.1",
