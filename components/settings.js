@@ -7,8 +7,9 @@ import {
 } from 'react-native'
 import Share from 'react-native-share'
 import { Base64 } from 'js-base64'
-import styles from '../styles/index'
 import objectPath from 'object-path'
+import { getColumnNamesForCsv, cycleDaysSortedByDate } from '../db'
+import styles from '../styles/index'
 
 export default class Settings extends Component {
   constructor(props) {
@@ -27,8 +28,9 @@ export default class Settings extends Component {
           <View style={styles.homeButton}>
             <Button
               onPress={async () => {
-                const data = makeDataURI()
-                console.log(data)
+                // TODO show warning that there is nothing to export
+                if (!cycleDaysSortedByDate.length) return
+                const data = makeDataURI(cycleDaysSortedByDate)
                 try {
                   await Share.open({
                     title: 'My Drip data export',
@@ -51,24 +53,15 @@ export default class Settings extends Component {
   }
 }
 
-function makeDataURI() {
-  //TODO handle empty DB
-  const data = [{
-    date: '2018-06-23',
-    temperature: {
-      value: 36.8,
-      exclude: false
-    }
-  }]
-  const csv = transformToCsv(data)
+function makeDataURI(cycleDays) {
+  const csv = transformToCsv(cycleDays)
   const encoded = Base64.encodeURI(csv)
   return `data:text/csv;base64,${encoded}`
 }
 
-function transformToCsv(json) {
-  const day = json[0]
-  const columnNames = getPrefixedKeys(day)
-  const rows = json
+function transformToCsv(cycleDays) {
+  const columnNames = getColumnNamesForCsv()
+  const rows = cycleDays
     .map(day => {
       return columnNames.map(column => {
         return objectPath.get(day, column, '')
@@ -78,16 +71,4 @@ function transformToCsv(json) {
 
   rows.unshift(columnNames.join(','))
   return rows.join('\n')
-}
-
-function getPrefixedKeys(obj, prefix) {
-  return Object.keys(obj).reduce((acc, key) => {
-    const prefixedKey = prefix ? [prefix, key].join('.') : key
-    if (typeof obj[key] != 'object') {
-      acc.push(prefixedKey)
-      return acc
-    }
-    acc.push(...getPrefixedKeys(obj[key], prefixedKey))
-    return acc
-  }, [])
 }

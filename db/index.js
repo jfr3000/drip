@@ -98,14 +98,13 @@ const db = new Realm(realmConfig)
 
 const bleedingDaysSortedByDate = db.objects('CycleDay').filtered('bleeding != null').sorted('date', true)
 const temperatureDaysSortedByDate = db.objects('CycleDay').filtered('temperature != null').sorted('date', true)
+const cycleDaysSortedByDate = db.objects('CycleDay').sorted('date', true)
 
 function saveSymptom(symptom, cycleDay, val) {
   db.write(() => {
     cycleDay[symptom] = val
   })
 }
-
-const cycleDaysSortedByDate = db.objects('CycleDay').sorted('date', true)
 
 function getOrCreateCycleDay(localDate) {
   let result = db.objectForPrimaryKey('CycleDay', localDate)
@@ -164,6 +163,24 @@ function getPreviousTemperature(cycleDay) {
   return winner.temperature.value
 }
 
+function getColumnNamesForCsv() {
+  return getPrefixedKeys('CycleDay')
+
+  function getPrefixedKeys(schemaName, prefix) {
+    const schema = db.schema.find(x => x.name === schemaName).properties
+    return Object.keys(schema).reduce((acc, key) => {
+      const prefixedKey = prefix ? [prefix, key].join('.') : key
+      const childSchemaName = schema[key].objectType
+      if (!childSchemaName) {
+        acc.push(prefixedKey)
+        return acc
+      }
+      acc.push(...getPrefixedKeys(childSchemaName, prefixedKey))
+      return acc
+    }, [])
+  }
+}
+
 export {
   saveSymptom,
   getOrCreateCycleDay,
@@ -173,5 +190,6 @@ export {
   fillWithDummyData,
   deleteAll,
   getPreviousTemperature,
-  getCycleDay
+  getCycleDay,
+  getColumnNamesForCsv
 }
