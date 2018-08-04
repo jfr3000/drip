@@ -8,6 +8,8 @@ import {
 
 import Share from 'react-native-share'
 import getDataAsCsvDataUri from '../lib/export-to-csv'
+import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker'
+import rnfs from 'react-native-fs'
 import styles from '../styles/index'
 import { settings as labels } from './labels'
 

@@ -3,6 +3,8 @@ package com.drip;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.rnfs.RNFSPackage;
+import com.reactnativedocumentpicker.ReactNativeDocumentPicker;
 import cl.json.RNSharePackage;
 import cl.json.ShareApplication;
 import io.realm.react.RealmReactPackage;
@@ -27,6 +29,8 @@ public class MainApplication extends Application implements ReactApplication, Sh
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNFSPackage(),
+            new ReactNativeDocumentPicker(),
             new RNSharePackage(),
             new RealmReactPackage(),
             new SvgPackage()

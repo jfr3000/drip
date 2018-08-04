@@ -24,6 +24,8 @@
     "react": "16.4.1",
     "react-native": "^0.56.0",
     "react-native-calendars": "^1.19.3",
+    "react-native-document-picker": "^2.1.0",
+    "react-native-fs": "^2.10.14",
     "react-native-modal-datetime-picker-nevo": "^4.11.0",
     "react-native-share": "^1.1.0",
     "react-native-simple-radio-button": "^2.7.1",

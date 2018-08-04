@@ -1,5 +1,8 @@
 import Realm from 'realm'
 import { LocalDate } from 'js-joda'
+import { Base64 } from 'js-base64'
+import objectPath from 'object-path'
+
 import {
   cycleWithTempAndNoMucusShift,
   cycleWithFhm,
@@ -175,21 +178,42 @@ function getPreviousTemperature(cycleDay) {
   return winner.temperature.value
 }
 
-function getColumnNamesForCsv() {
-  return getPrefixedKeys('CycleDay')
+function getCycleDaysAsCsvDataUri() {
+  if (!cycleDaysSortedByDate.length) return null
+  const csv = transformToCsv(cycleDaysSortedByDate)
+  const encoded = Base64.encodeURI(csv)
+  return `data:text/csv;base64,${encoded}`
 
-  function getPrefixedKeys(schemaName, prefix) {
-    const schema = db.schema.find(x => x.name === schemaName).properties
-    return Object.keys(schema).reduce((acc, key) => {
-      const prefixedKey = prefix ? [prefix, key].join('.') : key
-      const childSchemaName = schema[key].objectType
-      if (!childSchemaName) {
-        acc.push(prefixedKey)
-        return acc
+  function transformToCsv() {
+    const columnNames = getColumnNamesForCsv()
+    const rows = cycleDaysSortedByDate
+      .map(day => {
+        return columnNames.map(column => {
+          return objectPath.get(day, column, '')
+        })
+      })
+      .map(row => row.join(','))
+
+    rows.unshift(columnNames.join(','))
+    return rows.join('\n')
+
+    function getColumnNamesForCsv() {
+      return getPrefixedKeys('CycleDay')
+
+      function getPrefixedKeys(schemaName, prefix) {
+        const schema = db.schema.find(x => x.name === schemaName).properties
+        return Object.keys(schema).reduce((acc, key) => {
+          const prefixedKey = prefix ? [prefix, key].join('.') : key
+          const childSchemaName = schema[key].objectType
+          if (!childSchemaName) {
+            acc.push(prefixedKey)
+            return acc
+          }
+          acc.push(...getPrefixedKeys(childSchemaName, prefixedKey))
+          return acc
+        }, [])
       }
-      acc.push(...getPrefixedKeys(childSchemaName, prefixedKey))
-      return acc
-    }, [])
+    }
   }
 }
 
@@ -203,5 +227,5 @@ export {
   deleteAll,
   getPreviousTemperature,
   getCycleDay,
-  getColumnNamesForCsv
+  getCycleDaysAsCsvDataUri
 }
