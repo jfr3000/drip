@@ -5,24 +5,26 @@ import {
 } from 'react-native'
 import { saveSymptom } from '../../db'
 
+const dayView = 'DayView'
+
 export default function (showView) {
   return function ({ symptom, cycleDay, saveAction, saveDisabled}) {
     const buttons = [
       {
         title: 'Cancel',
-        action: () => showView('dayView')
+        action: () => showView(dayView)
       },
       {
         title: 'Delete',
         action: () => {
           saveSymptom(symptom, cycleDay)
-          showView('dayView')
+          showView(dayView)
         }
       }, {
         title: 'Save',
         action: () => {
           saveAction()
-          showView('dayView')
+          showView(dayView)
         },
         disabledCondition: saveDisabled
       }

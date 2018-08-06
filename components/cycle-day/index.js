@@ -6,16 +6,11 @@ import {
 } from 'react-native'
 import cycleModule from '../../lib/cycle'
 import { getFertilityStatusStringForDay } from '../../lib/sympto-adapter'
-import DayView from './cycle-day-overview'
-import BleedingEditView from './symptoms/bleeding'
-import TemperatureEditView from './symptoms/temperature'
-import MucusEditView from './symptoms/mucus'
-import CervixEditView from './symptoms/cervix'
-import NoteEditView from './symptoms/note'
-import DesireEditView from './symptoms/desire'
 import { formatDateForViewHeader } from './labels/format'
 import styles from '../../styles'
 import actionButtonModule from './action-buttons'
+import symptomComponents from './symptoms'
+import DayView from './cycle-day-overview'
 
 const getCycleDayNumber = cycleModule().getCycleDayNumber
 
@@ -25,14 +20,32 @@ export default class Day extends Component {
     this.cycleDay = props.navigation.state.params.cycleDay
 
     this.state = {
-      visibleComponent: 'dayView',
+      visibleComponent: 'DayView',
     }
 
-    this.showView = view => {
+    const showView = view => {
       this.setState({visibleComponent: view})
     }
 
-    this.makeActionButtons = actionButtonModule(this.showView)
+    const makeActionButtons = actionButtonModule(showView)
+
+    const symptomComponentNames = Object.keys(symptomComponents)
+    this.cycleDayViews = symptomComponentNames.reduce((acc, curr) => {
+      acc[curr] = React.createElement(
+        symptomComponents[curr],
+        {
+          cycleDay: this.cycleDay,
+          makeActionButtons
+        }
+      )
+      return acc
+    }, {})
+
+    // DayView needs showView instead of makeActionButtons
+    this.cycleDayViews.DayView = React.createElement(DayView, {
+      cycleDay: this.cycleDay,
+      showView
+    })
   }
 
   render() {
@@ -56,16 +69,7 @@ export default class Day extends Component {
           </Text>
         </View >
         <View>
-          {
-            { dayView: <DayView cycleDay={this.cycleDay} showView={this.showView} />,
-              bleedingEditView: <BleedingEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons}/>,
-              temperatureEditView: <TemperatureEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons}/>,
-              mucusEditView: <MucusEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons}/>,
-              cervixEditView: <CervixEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons} />,
-              noteEditView: <NoteEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons} />,
-              desireEditView: <DesireEditView cycleDay={this.cycleDay} makeActionButtons={this.makeActionButtons} />
-            }[this.state.visibleComponent]
-          }
+          { this.cycleDayViews[this.state.visibleComponent] }
         </View >
       </ScrollView >
     )
