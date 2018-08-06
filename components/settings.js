@@ -3,12 +3,11 @@ import {
   View,
   Button,
   Text,
-  ScrollView
+  ScrollView,
+  Alert
 } from 'react-native'
 import Share from 'react-native-share'
-import { Base64 } from 'js-base64'
-import objectPath from 'object-path'
-import { getColumnNamesForCsv, cycleDaysSortedByDate } from '../db'
+import getDataAsCsvDataUri from '../lib/export-to-csv'
 import styles from '../styles/index'
 
 export default class Settings extends Component {
@@ -28,9 +27,17 @@ export default class Settings extends Component {
           <View style={styles.homeButton}>
             <Button
               onPress={async () => {
-                // TODO show warning that there is nothing to export
-                if (!cycleDaysSortedByDate.length) return
-                const data = makeDataURI(cycleDaysSortedByDate)
+                let data
+                try {
+                  data = getDataAsCsvDataUri()
+                  if (!data) {
+                    return Alert.alert('There is no data to export')
+                  }
+                } catch (err) {
+                  console.error(err)
+                  return Alert.alert('Could not convert data to CSV')
+                }
+
                 try {
                   await Share.open({
                     title: 'My Drip data export',
@@ -40,53 +47,15 @@ export default class Settings extends Component {
                     showAppsToView: true
                   })
                 } catch (err) {
-                  // TODO handle error
-                  console.log(err)
+                  console.error(err)
+                  return Alert.alert('There was a problem sharing the data export file')
                 }
               }}
-              title="Edit symptoms for today">
+              title="Export data">
             </Button>
           </View>
         </View>
       </ScrollView>
     )
   }
-}
-
-function makeDataURI(cycleDays) {
-  const csv = transformToCsv(cycleDays)
-  const encoded = Base64.encodeURI(csv)
-  return `data:text/csv;base64,${encoded}`
-}
-
-function transformToCsv(cycleDays) {
-  const columnNames = getColumnNamesForCsv()
-  const rows = cycleDays
-    .map(day => {
-      return columnNames.map(column => {
-        const val = objectPath.get(day, column, '')
-        return typeof val === 'string' ? csvify(val) : val
-      })
-    })
-    .map(row => row.join(','))
-
-  rows.unshift(columnNames.join(','))
-  return rows.join('\n')
-}
-
-function csvify (val) {
-  // escape double quotes
-  val = val.replace(/"/g, '""')
-
-  val = val.toLowerCase()
-  const hasSpecialChars = (
-    val.includes('\n') ||
-    val.includes('\t') ||
-    val.includes(',') ||
-    val.includes(';') ||
-    val.includes('.') ||
-    val.includes('\'')
-  )
-
-  return hasSpecialChars ? `"${val}"` : val
 }
