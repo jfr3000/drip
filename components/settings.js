@@ -64,11 +64,29 @@ function transformToCsv(cycleDays) {
   const rows = cycleDays
     .map(day => {
       return columnNames.map(column => {
-        return objectPath.get(day, column, '')
+        const val = objectPath.get(day, column, '')
+        return typeof val === 'string' ? csvify(val) : val
       })
     })
     .map(row => row.join(','))
 
   rows.unshift(columnNames.join(','))
   return rows.join('\n')
+}
+
+function csvify (val) {
+  // escape double quotes
+  val = val.replace(/"/g, '""')
+
+  val = val.toLowerCase()
+  const hasSpecialChars = (
+    val.includes('\n') ||
+    val.includes('\t') ||
+    val.includes(',') ||
+    val.includes(';') ||
+    val.includes('.') ||
+    val.includes('\'')
+  )
+
+  return hasSpecialChars ? `"${val}"` : val
 }
