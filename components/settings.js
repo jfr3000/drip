@@ -9,6 +9,7 @@ import {
 import Share from 'react-native-share'
 import getDataAsCsvDataUri from '../lib/export-to-csv'
 import styles from '../styles/index'
+import { settings as labels } from './labels'
 
 export default class Settings extends Component {
   constructor(props) {
@@ -31,27 +32,27 @@ export default class Settings extends Component {
                 try {
                   data = getDataAsCsvDataUri()
                   if (!data) {
-                    return Alert.alert('There is no data to export')
+                    return Alert.alert(labels.errors.noData)
                   }
                 } catch (err) {
                   console.error(err)
-                  return Alert.alert('Could not convert data to CSV')
+                  return Alert.alert(labels.errors.couldNotConvert)
                 }
 
                 try {
                   await Share.open({
-                    title: 'My Drip data export',
+                    title: labels.exportTitle,
                     url: data,
-                    subject: 'My Drip data export',
+                    subject: labels.exportSubject,
                     type: 'text/csv',
                     showAppsToView: true
                   })
                 } catch (err) {
                   console.error(err)
-                  return Alert.alert('There was a problem sharing the data export file')
+                  return Alert.alert(labels.errors.problemSharing)
                 }
               }}
-              title="Export data">
+              title={labels.buttonLabel}>
             </Button>
           </View>
         </View>
