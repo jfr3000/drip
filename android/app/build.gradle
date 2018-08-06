@@ -137,6 +137,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-share')
     compile project(':realm')
     compile project(':react-native-svg')
     compile fileTree(dir: "libs", include: ["*.jar"])
