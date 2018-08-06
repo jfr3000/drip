@@ -2,28 +2,19 @@ import React, { Component } from 'react'
 import {
   View,
   Button,
-  Text,
   ScrollView,
   Alert
 } from 'react-native'
+
 import Share from 'react-native-share'
 import getDataAsCsvDataUri from '../lib/export-to-csv'
 import styles from '../styles/index'
 import { settings as labels } from './labels'
 
 export default class Settings extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      pickerVisible: false
-    }
-  }
-
   render() {
     return (
       <ScrollView>
-        <Text style={styles.welcome}>{this.state.welcomeText}</Text>
         <View style={styles.homeButtons}>
           <View style={styles.homeButton}>
             <Button
