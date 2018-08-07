@@ -85,7 +85,7 @@ async function getFileContentAndImport() {
   }
 
   try {
-    importCsv(fileContent)
+    importCsv(fileContent, false)
   } catch(err) {
     //TODO
   }

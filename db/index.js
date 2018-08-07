@@ -230,7 +230,11 @@ function getDbType(modelProperties, path) {
 async function importCsv(csv, deleteFirst) {
   const cycleDayProperties = db.schema.find(x => x.name === 'CycleDay').properties
   const parseFuncs = {
-    bool: val => val.toLowerCase() === 'false' ? false : true,
+    bool: val => {
+      if (val.toLowerCase() === 'true') return true
+      if (val.toLowerCase() === 'false') return false
+      return val
+    },
     int: parseNumberIfPossible,
     float: parseNumberIfPossible,
     double: parseNumberIfPossible,
@@ -245,6 +249,7 @@ async function importCsv(csv, deleteFirst) {
   }
 
   const config = {
+    ignoreEmpty: true,
     colParser: getColumnNamesForCsv().reduce((acc, colName) => {
       const path = colName.split('.')
       const dbType = getDbType(cycleDayProperties, path)
@@ -270,13 +275,13 @@ async function importCsv(csv, deleteFirst) {
   putNullForEmptySymptoms(cycleDays)
 
   if (deleteFirst) {
-  db.write(() => {
-    db.delete(db.objects('CycleDay'))
+    db.write(() => {
+      db.delete(db.objects('CycleDay'))
       cycleDays.forEach(tryToCreateCycleDay)
     })
   } else {
     db.write(() => {
-    cycleDays.forEach((day, i) => {
+      cycleDays.forEach((day, i) => {
         const existing = getCycleDay(day.date)
         if (existing) {
           db.delete(existing)
@@ -288,14 +293,12 @@ async function importCsv(csv, deleteFirst) {
 }
 
 function tryToCreateCycleDay(day, i) {
-      try {
-        db.create('CycleDay', day)
-      } catch (err) {
-        const msg = `Error for line ${i + 1}(${day.date}): ${err.message}`
-        throw new Error(msg)
-      }
-    })
-  })
+  try {
+    db.create('CycleDay', day)
+  } catch (err) {
+    const msg = `Error for line ${i + 1}(${day.date}): ${err.message}`
+    throw new Error(msg)
+  }
 }
 
 function validateHeaders(headers) {
