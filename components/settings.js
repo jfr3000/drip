@@ -89,6 +89,7 @@ async function getFileContentAndImport() {
 
   try {
     importCsv(fileContent, false)
+    Alert.alert('Data successfully imported')
   } catch(err) {
     //TODO
   }
