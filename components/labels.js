@@ -6,5 +6,6 @@ export const settings = {
   },
   exportTitle: 'My Drip data export',
   exportSubject: 'My Drip data export',
-  buttonLabel: 'Export data'
+  exportLabel: 'Export data',
+  importLabel: 'Import data'
 }

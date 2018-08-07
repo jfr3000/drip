@@ -7,12 +7,12 @@ import {
 } from 'react-native'
 
 import Share from 'react-native-share'
-import getDataAsCsvDataUri from '../lib/export-to-csv'
 import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker'
 import rnfs from 'react-native-fs'
 import styles from '../styles/index'
 import { settings as labels } from './labels'
-import { importCsv } from '../db'
+import getDataAsCsvDataUri from '../lib/import-export/export-to-csv'
+import importCsv from '../lib/import-export/import-from-csv'
 
 export default class Settings extends Component {
   render() {
@@ -21,43 +21,45 @@ export default class Settings extends Component {
         <View style={styles.homeButtons}>
           <View style={styles.homeButton}>
             <Button
-              onPress={async () => {
-                let data
-                try {
-                  data = getDataAsCsvDataUri()
-                  if (!data) {
-                    return Alert.alert(labels.errors.noData)
-                  }
-                } catch (err) {
-                  console.error(err)
-                  return Alert.alert(labels.errors.couldNotConvert)
-                }
-
-                try {
-                  await Share.open({
-                    title: labels.exportTitle,
-                    url: data,
-                    subject: labels.exportSubject,
-                    type: 'text/csv',
-                    showAppsToView: true
-                  })
-                } catch (err) {
-                  console.error(err)
-                  return Alert.alert(labels.errors.problemSharing)
-                }
-              }}
-              title={labels.buttonLabel}>
+              onPress={ openShareDialogAndExport }
+              title={labels.exportLabel}>
             </Button>
           </View>
           <View style={styles.homeButton}>
             <Button
               onPress={ getFileContentAndImport }
-              title="Import data">
+              title={labels.importLabel}>
             </Button>
           </View>
         </View>
       </ScrollView>
     )
+  }
+}
+
+async function openShareDialogAndExport() {
+  let data
+  try {
+    data = getDataAsCsvDataUri()
+    if (!data) {
+      return Alert.alert(labels.errors.noData)
+    }
+  } catch (err) {
+    console.error(err)
+    return Alert.alert(labels.errors.couldNotConvert)
+  }
+
+  try {
+    await Share.open({
+      title: labels.exportTitle,
+      url: data,
+      subject: labels.exportSubject,
+      type: 'text/csv',
+      showAppsToView: true
+    })
+  } catch (err) {
+    console.error(err)
+    return Alert.alert(labels.errors.problemSharing)
   }
 }
 
