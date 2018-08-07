@@ -10,9 +10,9 @@ import Share from 'react-native-share'
 import getDataAsCsvDataUri from '../lib/export-to-csv'
 import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker'
 import rnfs from 'react-native-fs'
-import csvtojson from 'csvtojson'
 import styles from '../styles/index'
 import { settings as labels } from './labels'
+import { importCsv } from '../db'
 
 export default class Settings extends Component {
   render() {
@@ -51,7 +51,7 @@ export default class Settings extends Component {
           </View>
           <View style={styles.homeButton}>
             <Button
-              onPress={ importData }
+              onPress={ getFileContentAndImport }
               title="Import data">
             </Button>
           </View>
@@ -61,7 +61,7 @@ export default class Settings extends Component {
   }
 }
 
-async function importData() {
+async function getFileContentAndImport() {
   let fileInfo
   try {
     fileInfo = await new Promise((resolve, reject) => {
@@ -73,23 +73,20 @@ async function importData() {
       })
     })
   } catch (err) {
-    Alert.alert('There was a problem opening the file picker')
+    return Alert.alert('There was a problem opening the file picker')
   }
 
   let fileContent
   try {
     fileContent = await rnfs.readFile(fileInfo.uri, 'utf8')
   } catch (err) {
-    Alert.alert('Could not open file')
     console.log(err)
+    return Alert.alert('Could not open file')
   }
 
-  let json
   try {
-    json = await csvtojson().fromString(fileContent)
+    importCsv(fileContent)
   } catch(err) {
-    Alert.alert('Could not parse CSV file')
+    //TODO
   }
-
-  console.log(json)
 }

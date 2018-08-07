@@ -2,6 +2,8 @@ import Realm from 'realm'
 import { LocalDate } from 'js-joda'
 import { Base64 } from 'js-base64'
 import objectPath from 'object-path'
+import csvParser from 'csvtojson'
+import isObject from 'isobject'
 
 import {
   cycleWithTempAndNoMucusShift,
@@ -197,24 +199,113 @@ function getCycleDaysAsCsvDataUri() {
     rows.unshift(columnNames.join(','))
     return rows.join('\n')
 
-    function getColumnNamesForCsv() {
-      return getPrefixedKeys('CycleDay')
-
-      function getPrefixedKeys(schemaName, prefix) {
-        const schema = db.schema.find(x => x.name === schemaName).properties
-        return Object.keys(schema).reduce((acc, key) => {
-          const prefixedKey = prefix ? [prefix, key].join('.') : key
-          const childSchemaName = schema[key].objectType
-          if (!childSchemaName) {
-            acc.push(prefixedKey)
-            return acc
-          }
-          acc.push(...getPrefixedKeys(childSchemaName, prefixedKey))
-          return acc
-        }, [])
-      }
-    }
   }
+}
+
+function getColumnNamesForCsv() {
+  return getPrefixedKeys('CycleDay')
+
+  function getPrefixedKeys(schemaName, prefix) {
+    const schema = db.schema.find(x => x.name === schemaName).properties
+    return Object.keys(schema).reduce((acc, key) => {
+      const prefixedKey = prefix ? [prefix, key].join('.') : key
+      const childSchemaName = schema[key].objectType
+      if (!childSchemaName) {
+        acc.push(prefixedKey)
+        return acc
+      }
+      acc.push(...getPrefixedKeys(childSchemaName, prefixedKey))
+      return acc
+    }, [])
+  }
+}
+
+function getDbType(modelProperties, path) {
+  if (path.length === 1) return modelProperties[path[0]].type
+  const modelName = modelProperties[path[0]].objectType
+  const model = db.schema.find(x => x.name === modelName)
+  return getDbType(model.properties, path.slice(1))
+}
+
+async function importCsv(csv, deleteFirst) {
+  const cycleDayProperties = db.schema.find(x => x.name === 'CycleDay').properties
+  const parseFuncs = {
+    bool: val => val.toLowerCase() === 'false' ? false : true,
+    int: parseNumberIfPossible,
+    float: parseNumberIfPossible,
+    double: parseNumberIfPossible,
+    string: val => val
+  }
+
+  function parseNumberIfPossible(val) {
+    // Number and parseFloat catch different cases of weirdness,
+    // so we test them both
+    if (isNaN(Number(val)) || isNaN(parseFloat(val))) return val
+    return Number(val)
+  }
+
+  const config = {
+    colParser: getColumnNamesForCsv().reduce((acc, colName) => {
+      const path = colName.split('.')
+      const dbType = getDbType(cycleDayProperties, path)
+      acc[colName] = item => {
+        if (item === '') return null
+        return parseFuncs[dbType](item)
+      }
+      return acc
+    }, {})
+  }
+
+  let cycleDays
+  try {
+    cycleDays = await csvParser(config)
+      .fromString(csv)
+      .on('header', validateHeaders)
+  } catch(err) {
+    // TODO
+    console.log(err)
+  }
+
+  //remove symptoms where all fields are null
+  putNullForEmptySymptoms(cycleDays)
+
+  db.write(() => {
+    db.delete(db.objects('CycleDay'))
+    cycleDays.forEach((day, i) => {
+      try {
+        db.create('CycleDay', day)
+      } catch (err) {
+        const msg = `Error for line ${i + 1}(${day.date}): ${err.message}`
+        throw new Error(msg)
+      }
+    })
+  })
+}
+
+function validateHeaders(headers) {
+  const expectedHeaders = getColumnNamesForCsv()
+  if (!headers.every(header => {
+    return expectedHeaders.indexOf(header) > -1
+  })) {
+    const msg = `Expected CSV column titles to be ${expectedHeaders.join()}`
+    throw new Error(msg)
+  }
+}
+
+function putNullForEmptySymptoms(data) {
+  data.forEach(replaceWithNullIfAllPropertiesAreNull)
+
+  function replaceWithNullIfAllPropertiesAreNull(obj) {
+    Object.keys(obj).forEach((key) => {
+      if (!isObject(obj[key])) return
+      if (Object.values(obj[key]).every(val => val === null)) {
+        obj[key] = null
+        return
+      }
+      replaceWithNullIfAllPropertiesAreNull(obj[key])
+    })
+  }
+
 }
 
 export {
@@ -227,5 +318,6 @@ export {
   deleteAll,
   getPreviousTemperature,
   getCycleDay,
-  getCycleDaysAsCsvDataUri
+  getCycleDaysAsCsvDataUri,
+  importCsv
 }
