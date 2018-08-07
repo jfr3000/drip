@@ -75,7 +75,8 @@ async function getFileContentAndImport() {
       })
     })
   } catch (err) {
-    return Alert.alert('There was a problem opening the file picker')
+    // because cancelling also triggers an error, we do nothing here
+    return
   }
 
   let fileContent
