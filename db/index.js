@@ -269,9 +269,25 @@ async function importCsv(csv, deleteFirst) {
   //remove symptoms where all fields are null
   putNullForEmptySymptoms(cycleDays)
 
+  if (deleteFirst) {
   db.write(() => {
     db.delete(db.objects('CycleDay'))
+      cycleDays.forEach(tryToCreateCycleDay)
+    })
+  } else {
+    db.write(() => {
     cycleDays.forEach((day, i) => {
+        const existing = getCycleDay(day.date)
+        if (existing) {
+          db.delete(existing)
+        }
+        tryToCreateCycleDay(day, i)
+      })
+    })
+  }
+}
+
+function tryToCreateCycleDay(day, i) {
       try {
         db.create('CycleDay', day)
       } catch (err) {
