@@ -42,11 +42,11 @@ async function openShareDialogAndExport() {
   try {
     data = getDataAsCsvDataUri()
     if (!data) {
-      return Alert.alert(labels.errors.noData)
+      return alertError(labels.errors.noData)
     }
   } catch (err) {
     console.error(err)
-    return Alert.alert(labels.errors.couldNotConvert)
+    return alertError(labels.errors.couldNotConvert)
   }
 
   try {
@@ -59,7 +59,7 @@ async function openShareDialogAndExport() {
     })
   } catch (err) {
     console.error(err)
-    return Alert.alert(labels.errors.problemSharing)
+    return alertError(labels.errors.problemSharing)
   }
 }
 
@@ -83,14 +83,17 @@ async function getFileContentAndImport() {
   try {
     fileContent = await rnfs.readFile(fileInfo.uri, 'utf8')
   } catch (err) {
-    console.log(err)
-    return Alert.alert('Could not open file')
+    return alertError('Could not open file')
   }
 
   try {
-    importCsv(fileContent, false)
-    Alert.alert('Data successfully imported')
+    await importCsv(fileContent, false)
+    Alert.alert('Success', 'Data successfully imported')
   } catch(err) {
-    //TODO
+    alertError(err.message)
   }
+}
+
+function alertError(msg) {
+  Alert.alert('Error', msg)
 }
