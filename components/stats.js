@@ -4,7 +4,7 @@ import {
   Text,
   ScrollView
 } from 'react-native'
-import { LocalDate } from 'js-joda'
+import { LocalDate, ChronoUnit } from 'js-joda'
 import styles from '../styles/index'
 import cycleModule from '../lib/cycle'
 import getPeriodInfo from '../lib/period-length'
@@ -12,21 +12,20 @@ import getPeriodInfo from '../lib/period-length'
 export default class Stats extends Component {
   constructor(props) {
     super(props)
-    const lastMensStart = cycleModule().getLastMensesStart(
-      LocalDate.now().toString()
-    )
-    const completedCycles = cycleModule().getCyclesBefore(lastMensStart)
-    this.numberOfCycles = completedCycles.length
-    // TODO get first days, compare with joda
-    const periodLengths = completedCycles.map(cycle => {
-      return cycle.length
-    })
-    // until this point
-    this.periodInfo = getPeriodInfo(periodLengths)
+    const allMensesStarts = cycleModule().getAllMensesStarts()
+    this.test = allMensesStarts
+
+    const cycleLengths = getCycleLength(allMensesStarts)
+    this.bla = cycleLengths
+    this.numberOfCycles = cycleLengths.length
+    this.periodInfo = getPeriodInfo(cycleLengths)
 
   }
 
   render() {
+    console.log('...............')
+    console.log(this.test)
+    console.log(this.bla)
     return (
       <ScrollView>
         <Text style={styles.welcome}>based on {this.numberOfCycles} periods:</Text>
@@ -38,4 +37,15 @@ export default class Stats extends Component {
       </ScrollView>
     )
   }
+}
+
+function getCycleLength(cycleStartDates) {
+  const cycleStartDatesReverse = cycleStartDates.reverse()
+  const periodLengths = []
+  for (let i = 0; i < cycleStartDates.length - 1; i++) {
+    const periodStart = LocalDate.parse(cycleStartDatesReverse[i])
+    const periodEnd = LocalDate.parse(cycleStartDatesReverse[i + 1])
+    periodLengths.unshift(periodStart.until(periodEnd, ChronoUnit.DAYS))
+  }
+  return periodLengths.reverse()
 }
