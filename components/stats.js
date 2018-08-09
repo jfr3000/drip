@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {
-  View,
   Text,
   ScrollView
 } from 'react-native'
@@ -14,38 +13,50 @@ export default class Stats extends Component {
     super(props)
     const allMensesStarts = cycleModule().getAllMensesStarts()
     this.test = allMensesStarts
-
-    const cycleLengths = getCycleLength(allMensesStarts)
-    this.bla = cycleLengths
-    this.numberOfCycles = cycleLengths.length
-    this.periodInfo = getPeriodInfo(cycleLengths)
-
+    this.state = {
+      text: determineStatsText(allMensesStarts)
+    }
   }
 
   render() {
-    console.log('...............')
-    console.log(this.test)
-    console.log(this.bla)
     return (
       <ScrollView>
-        <Text style={styles.welcome}>based on {this.numberOfCycles} periods:</Text>
-        <Text style={styles.welcome}>min: {this.periodInfo.minimum}</Text>
-        <Text style={styles.welcome}>mean: {this.periodInfo.mean}</Text>
-        <Text style={styles.welcome}>max: {this.periodInfo.maximum}</Text>
-        <Text style={styles.welcome}>median: {this.periodInfo.median}</Text>
-        <Text style={styles.welcome}>standard deviation: {this.periodInfo.stdDeviation}</Text>
+        <Text style={styles.welcome}>{this.state.text}</Text>
       </ScrollView>
     )
   }
 }
 
 function getCycleLength(cycleStartDates) {
-  const cycleStartDatesReverse = cycleStartDates.reverse()
   const periodLengths = []
   for (let i = 0; i < cycleStartDates.length - 1; i++) {
-    const periodStart = LocalDate.parse(cycleStartDatesReverse[i])
-    const periodEnd = LocalDate.parse(cycleStartDatesReverse[i + 1])
-    periodLengths.unshift(periodStart.until(periodEnd, ChronoUnit.DAYS))
+    const nextPeriodStart = LocalDate.parse(cycleStartDates[i])
+    const periodStart = LocalDate.parse(cycleStartDates[i + 1])
+    periodLengths.push(periodStart.until(nextPeriodStart, ChronoUnit.DAYS))
   }
-  return periodLengths.reverse()
+  return periodLengths
+}
+
+function determineStatsText(allMensesStarts) {
+  const emptyStats = 'At least one completed period is needed to present you with stats here.'
+  if (allMensesStarts.length < 2) {
+    return emptyStats
+  } else {
+    const cycleLengths = getCycleLength(allMensesStarts)
+    const numberOfCycles = cycleLengths.length
+    const periodInfo = getPeriodInfo(cycleLengths)
+    if (numberOfCycles === 1) {
+      return `You have documented one period of ${cycleLengths[0]} days.`
+    } else {
+      const statsText = `Stats are based on ${numberOfCycles} completed 
+        periods.\n\n
+        Average period length: ${periodInfo.mean} days\n\n
+        shortest period: ${periodInfo.minimum} days\n
+        longest period: ${periodInfo.maximum} days\n
+        median length (meaning 50% of periods are of this length or shorter):
+         ${periodInfo.median} days\n
+        standard deviation: ${periodInfo.stdDeviation}`
+      return statsText
+    }
+  }
 }
