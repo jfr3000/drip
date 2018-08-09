@@ -3,10 +3,10 @@ package com.drip;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.oblador.vectoricons.VectorIconsPackage;
 import cl.json.RNSharePackage;
 import cl.json.ShareApplication;
 import io.realm.react.RealmReactPackage;
-import com.horcrux.svg.SvgPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -27,9 +27,9 @@ public class MainApplication extends Application implements ReactApplication, Sh
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new VectorIconsPackage(),
             new RNSharePackage(),
-            new RealmReactPackage(),
-            new SvgPackage()
+            new RealmReactPackage()
       );
     }
 

@@ -1,15 +1,8 @@
 import React, { Component } from 'react'
-import { Text as ReactNativeText, View, FlatList, ScrollView } from 'react-native'
+import { Text, View, FlatList, ScrollView } from 'react-native'
 import range from 'date-range'
-import Svg,{
-  G,
-  Rect,
-  Text,
-  Circle,
-  Line,
-  Path
-} from 'react-native-svg'
 import { LocalDate } from 'js-joda'
+import Icon from 'react-native-vector-icons/Entypo'
 import { getCycleDay, getOrCreateCycleDay, cycleDaysSortedByDate } from '../../db'
 import cycleModule from '../../lib/cycle'
 import styles from './styles'
@@ -46,83 +39,118 @@ export default class CycleChart extends Component {
   }
 
   placeHorizontalGrid() {
-    return yAxis.tickPositions.map(tick => {
-      return (
-        <Line
-          x1={0}
-          y1={tick}
-          x2={config.columnWidth}
-          y2={tick}
-          {...styles.horizontalGrid}
-          key={tick}
-        />
-      )
-    })
   }
 
   makeDayColumn({ dateString, cycleDay, y }, index) {
     const cycleDayNumber = getCycleDayNumber(dateString)
     const label = styles.column.label
-    const dateLabel = dateString.split('-').slice(1).join('-')
+    const dateText = dateString.split('-').slice(1).join('-')
     const getFhmAndLtlInfo = setUpFertilityStatusFunc()
     const nfpLineInfo = getFhmAndLtlInfo(dateString, cycleDay)
 
-    return (
-      <G onPress={() => this.passDateToDayView(dateString)}>
-        <Rect {...styles.column.rect} />
-        {nfpLineInfo.drawFhmLine ?
-          <Line
-            x1={0 + styles.nfpLine.strokeWidth / 2}
-            y1="20"
-            x2={0 + styles.nfpLine.strokeWidth / 2}
-            y2={config.chartHeight - 20}
-            {...styles.nfpLine}
-          /> : null}
-
-        {this.placeHorizontalGrid()}
-
-        <Text {...label.number} y={config.cycleDayNumberRowY}>
-          {cycleDayNumber}
-        </Text>
-        <Text {...label.date} y={config.dateRowY}>
-          {dateLabel}
-        </Text>
-
-        {cycleDay && cycleDay.bleeding ?
-          <Path {...styles.bleedingIcon}
-            d="M15 3
-              Q16.5 6.8 25 18
-              A12.8 12.8 0 1 1 5 18
-              Q13.5 6.8 15 3z" />
-          : null}
-
-        {nfpLineInfo.drawLtlAt ?
-          <Line
-            x1="0"
-            y1={nfpLineInfo.drawLtlAt}
-            x2={config.columnWidth}
-            y2={nfpLineInfo.drawLtlAt}
-            {...styles.nfpLine}
-          /> : null}
-
-        {y ?
-          this.drawDotAndLines(y, cycleDay.temperature.exclude, index)
-          : null
+    const horizontalGrid = yAxis.labels.map((_, i) => {
+      return React.createElement(
+        View,
+        {
+          style: Object.assign(
+            {},
+            styles.horizontalGrid,
+            { marginTop: yAxis.tickDistance }
+          ),
+          key: i.toString()
         }
-        {cycleDay && cycleDay.mucus ?
-          <Circle
-            {...styles.mucusIcon}
-            fill={styles.mucusIconShades[cycleDay.mucus.value]}
-          /> : null}
+      )
+    })
+    //TODO move these so they are visible
+    const cycleDayLabel = (
+      <Text {...label.number} y={config.cycleDayNumberRowY}>
+        {cycleDayNumber}
+      </Text>)
+    const dateLabel = (
+      <Text {...label.date} y={config.dateRowY}>
+        {dateText}
+      </Text>
+    )
+    const columnElements = []
+    if (cycleDay && cycleDay.bleeding) {
+      console.log('ever?')
+      columnElements.push(
+        <Icon
+          name='drop'
+          position='absolute'
+          top = {10}
+          left = {20}
+          size={30}
+          color='#900'
+          style={{ marginTop: 20 }}
+        />
+      )
+    }
+    columnElements.push(...[horizontalGrid, cycleDayLabel, dateLabel])
+    //   {nfpLineInfo.drawFhmLine ?
+    //     <Line
+    //       x1={0 + styles.nfpLine.strokeWidth / 2}
+    //       y1="20"
+    //       x2={0 + styles.nfpLine.strokeWidth / 2}
+    //       y2={config.chartHeight - 20}
+    //       {...styles.nfpLine}
+    //     /> : null}
+    // />)
 
-        {y ?
-          this.drawDotAndLines(y, cycleDay.temperature.exclude, index)
-          : null}
-      </G>
+    // onPress: () => this.passDateToDayView(dateString),
+
+    //     <Path {...styles.bleedingIcon}
+    //       d="M15 3
+    //         Q16.5 6.8 25 18
+    //         A12.8 12.8 0 1 1 5 18
+    //         Q13.5 6.8 15 3z" />
+    //     : null}
+
+    //   {nfpLineInfo.drawLtlAt ?
+    //     <Line
+    //       x1="0"
+    //       y1={nfpLineInfo.drawLtlAt}
+    //       x2={config.columnWidth}
+    //       y2={nfpLineInfo.drawLtlAt}
+    //       {...styles.nfpLine}
+    //     /> : null}
+
+    if (y) {
+      columnElements.push(this.drawDotAndLines(y, cycleDay.temperature.exclude, index))
+    }
+    //   {cycleDay && cycleDay.mucus ?
+    //     <Circle
+    //       {...styles.mucusIcon}
+    //       fill={styles.mucusIconShades[cycleDay.mucus.value]}
+    //     /> : null}
+
+    //   {y ?
+    //     this.drawDotAndLines(y, cycleDay.temperature.exclude, index)
+    //     : null} */}
+
+    return React.createElement(
+      View,
+      {
+        style: styles.column.rect,
+        key: index.toString()
+      },
+      columnElements
     )
   }
 
   drawDotAndLines(currY, exclude, index) {
+    /*       <View
+        width='150%'
+        borderStyle = 'solid'
+        borderColor = 'red'
+        borderWidth = {1}
+        position = 'absolute'
+        top={200}
+        style={{
+          transform: [{rotateZ: '30deg'}]
+        }}
+      />
+    ) */
     let lineToRight
     let lineToLeft
     const cols = this.state.columns
@@ -144,7 +172,7 @@ export default class CycleChart extends Component {
     const thereIsADotToTheRight = index > 0 && cols[index - 1].y
     const thereIsADotToTheLeft = index < cols.length - 1 && cols[index + 1].y
 
-    if (thereIsADotToTheRight) {
+    /*     if (thereIsADotToTheRight) {
       const otherDot = cols[index - 1]
       const excludedLine = otherDot.cycleDay.temperature.exclude || exclude
       lineToRight = makeLine(otherDot.y, config.columnWidth, excludedLine)
@@ -153,18 +181,20 @@ export default class CycleChart extends Component {
       const otherDot = cols[index + 1]
       const excludedLine = otherDot.cycleDay.temperature.exclude || exclude
       lineToLeft = makeLine(otherDot.y, 0, excludedLine)
-    }
+    } */
 
     const dotStyle = exclude ? styles.curveDotsExcluded : styles.curveDots
-    return (<G>
-      {lineToRight}
-      {lineToLeft}
-      <Circle
-        cx={config.columnMiddle}
-        cy={currY}
-        {...dotStyle}
+    return [
+      /* {lineToRight}
+      {lineToLeft} */
+      <View
+        position='absolute'
+        left={config.columnMiddle - dotStyle.width / 2}
+        top={currY - dotStyle.width / 2}
+        style = {dotStyle}
+        key='0'
       />
-    </G>)
+    ]
   }
 
   render() {
@@ -177,15 +207,11 @@ export default class CycleChart extends Component {
           showsHorizontalScrollIndicator={false}
           data={this.state.columns}
           renderItem={({ item, index }) => {
-            return (
-              <Svg width={config.columnWidth} height={config.chartHeight}>
-                {this.makeDayColumn(item, index)}
-              </Svg>
-            )
+            return this.makeDayColumn(item, index)
           }}
           keyExtractor={item => item.dateString}
-        >
-        </FlatList>
+          initialNumToRender={20}
+        />
       </ScrollView>
     )
   }
@@ -235,7 +261,6 @@ function makeYAxis() {
   const numberOfTicks = (scaleMax - scaleMin) * 2
   const tickDistance = config.chartHeight / numberOfTicks
 
-  const tickPositions = []
   const labels = []
   // for style reasons, we don't want the first and last tick
   for (let i = 1; i < numberOfTicks - 1; i++) {
@@ -246,16 +271,15 @@ function makeYAxis() {
     // to reliably place the label vertically centered to the grid
     style.top = y - 8
     labels.push(
-      <ReactNativeText
+      <Text
         style={{...style}}
         key={i}>
         {scaleMax - i * 0.5}
-      </ReactNativeText>
+      </Text>
     )
-    tickPositions.push(y)
   }
 
-  return {labels, tickPositions}
+  return {labels, tickDistance}
 }
 
 function setUpFertilityStatusFunc() {

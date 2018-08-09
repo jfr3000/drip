@@ -11,8 +11,10 @@ const styles = {
     strokeDashArray: [4]
   },
   curveDots: {
-    fill: '#00aedb',
-    r: 6
+    backgroundColor: '#00aedb',
+    width: 15,
+    height: 15,
+    borderRadius: 50
   },
   curveDotsExcluded: {
     fill: 'lightgrey',
@@ -33,13 +35,12 @@ const styles = {
       }
     },
     rect: {
-      fill: '#f9f9f9',
-      strokeWidth: 1,
-      stroke: 'grey',
-      x: 0,
-      y: 0,
       width: config.columnWidth,
-      height: config.chartHeight
+      height: config.chartHeight,
+      borderStyle: 'solid',
+      borderColor: 'grey',
+      borderWidth: 1,
+      backgroundColor: 'transparent'
     }
   },
   bleedingIcon: {
@@ -72,8 +73,10 @@ const styles = {
     fontWeight: 'bold'
   },
   horizontalGrid: {
-    stroke: 'lightgrey',
-    strokeWidth: 1
+    borderColor: 'lightgrey',
+    borderWidth: 1,
+    width: config.columnWidth,
+    borderStyle: 'solid'
   },
   nfpLine: {
     stroke: '#00b159',
