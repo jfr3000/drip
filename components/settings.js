@@ -22,13 +22,27 @@ export default class Settings extends Component {
           <View style={styles.homeButton}>
             <Button
               onPress={ openShareDialogAndExport }
-              title={labels.exportLabel}>
+              title={labels.export.button}>
             </Button>
           </View>
           <View style={styles.homeButton}>
             <Button
-              onPress={ getFileContentAndImport }
-              title={labels.importLabel}>
+              title={labels.import.button}
+              onPress={() => {
+                Alert.alert(
+                  labels.import.title,
+                  labels.import.message,
+                  [{
+                    text: labels.import.replaceOption,
+                    onPress: () => getFileContentAndImport({deleteExisting: false})
+                  }, {
+                    text: labels.import.deleteOption,
+                    onPress: () => getFileContentAndImport({deleteExisting: true})
+                  }, {
+                    text: labels.shared.cancel, style: 'cancel', onPress: () => { }
+                  }]
+                )
+              }}>
             </Button>
           </View>
         </View>
@@ -51,19 +65,19 @@ async function openShareDialogAndExport() {
 
   try {
     await Share.open({
-      title: labels.exportTitle,
+      title: labels.export.title,
       url: data,
-      subject: labels.exportSubject,
+      subject: labels.export.subject,
       type: 'text/csv',
       showAppsToView: true
     })
   } catch (err) {
     console.error(err)
-    return alertError(labels.errors.problemSharing)
+    return alertError(labels.export.errors.problemSharing)
   }
 }
 
-async function getFileContentAndImport() {
+async function getFileContentAndImport({ deleteExisting }) {
   let fileInfo
   try {
     fileInfo = await new Promise((resolve, reject) => {
@@ -87,7 +101,7 @@ async function getFileContentAndImport() {
   }
 
   try {
-    await importCsv(fileContent, false)
+    await importCsv(fileContent, deleteExisting)
     Alert.alert('Success', 'Data successfully imported')
   } catch(err) {
     alertError(err.message)
