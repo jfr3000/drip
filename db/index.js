@@ -176,9 +176,38 @@ function getPreviousTemperature(cycleDay) {
   return winner.temperature.value
 }
 
+const schema = db.schema.reduce((acc, curr) => {
+  acc[curr.name] = curr.properties
+  return acc
+}, {})
+
+function tryToCreateCycleDay(day, i) {
+  try {
+    db.create('CycleDay', day)
+  } catch (err) {
+    const msg = `Line ${i + 1}(${day.date}): ${err.message}`
+    throw new Error(msg)
+  }
+}
+
+function tryToImportWithDelete(cycleDays) {
+  db.write(() => {
+    db.delete(db.objects('CycleDay'))
+    cycleDays.forEach(tryToCreateCycleDay)
+  })
+}
+
+function tryToImportWithoutDelete(cycleDays) {
+  db.write(() => {
+    cycleDays.forEach((day, i) => {
+      const existing = getCycleDay(day.date)
+      if (existing) db.delete(existing)
+      tryToCreateCycleDay(day, i)
+    })
+  })
+}
 
 export {
-  db,
   saveSymptom,
   getOrCreateCycleDay,
   bleedingDaysSortedByDate,
@@ -187,5 +216,8 @@ export {
   fillWithDummyData,
   deleteAll,
   getPreviousTemperature,
-  getCycleDay
+  getCycleDay,
+  schema,
+  tryToImportWithDelete,
+  tryToImportWithoutDelete
 }
