@@ -28,21 +28,7 @@ export default class Settings extends Component {
           <View style={styles.homeButton}>
             <Button
               title={labels.import.button}
-              onPress={() => {
-                Alert.alert(
-                  labels.import.title,
-                  labels.import.message,
-                  [{
-                    text: labels.import.replaceOption,
-                    onPress: () => getFileContentAndImport({deleteExisting: false})
-                  }, {
-                    text: labels.import.deleteOption,
-                    onPress: () => getFileContentAndImport({deleteExisting: true})
-                  }, {
-                    text: labels.shared.cancel, style: 'cancel', onPress: () => { }
-                  }]
-                )
-              }}>
+              onPress={ openImportDialogAndImport }>
             </Button>
           </View>
         </View>
@@ -75,6 +61,22 @@ async function openShareDialogAndExport() {
     console.error(err)
     return alertError(labels.export.errors.problemSharing)
   }
+}
+
+function openImportDialogAndImport() {
+  Alert.alert(
+    labels.import.title,
+    labels.import.message,
+    [{
+      text: labels.import.replaceOption,
+      onPress: () => getFileContentAndImport({ deleteExisting: false })
+    }, {
+      text: labels.import.deleteOption,
+      onPress: () => getFileContentAndImport({ deleteExisting: true })
+    }, {
+      text: labels.shared.cancel, style: 'cancel', onPress: () => { }
+    }]
+  )
 }
 
 async function getFileContentAndImport({ deleteExisting }) {
