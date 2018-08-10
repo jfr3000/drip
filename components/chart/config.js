@@ -2,10 +2,10 @@ const config = {
   chartHeight: 350,
   columnWidth: 30,
   temperatureScale: {
-    low: 33,
+    low: 35,
     high: 40
   },
-  xAxisRangeInDays: 30
+  xAxisRangeInDays: 50
 }
 
 const margin = 3
