@@ -17,7 +17,15 @@ import { horizontalGrid } from './y-axis'
 const getCycleDayNumber = cycleModule().getCycleDayNumber
 
 export default class DayColumn extends Component {
-  makeDayColumn({ dateString, cycleDay, y }, index) {
+  makeDayColumn(data, index) {
+    const {
+      dateString,
+      y,
+      temperature,
+      temperatureExclude,
+      bleeding,
+      mucus
+    } = data
     const cycleDayNumber = getCycleDayNumber(dateString)
     const label = styles.column.label
     const dateLabel = dateString.split('-').slice(1).join('-')

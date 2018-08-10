@@ -43,14 +43,13 @@ export default function () {
     )
   }
 
-  function isInTempMeasuringPhase(cycleDay, dateString) {
+  function isInTempMeasuringPhase(temperature, dateString) {
     return (
-      cycleDay && cycleDay.temperature
-      || precededByAnotherTempValue(dateString)
+      temperature || precededByAnotherTempValue(dateString)
     )
   }
 
-  return function(dateString, cycleDay) {
+  return function(dateString, temperature) {
     const ret = {}
     if (!cycleStatus && !noMoreCycles) updateCurrentCycle(dateString)
     if (noMoreCycles) return ret
@@ -67,7 +66,7 @@ export default function () {
 
       if (
         dateIsInPeriOrPostPhase(dateString) &&
-        isInTempMeasuringPhase(cycleDay, dateString)
+        isInTempMeasuringPhase(temperature, dateString)
       ) {
         ret.drawLtlAt = normalizeToScale(tempShift.ltl)
       }

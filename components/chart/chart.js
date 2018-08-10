@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { View, FlatList } from 'react-native'
+import { View } from 'react-native'
+import { RecyclerListView, DataProvider, LayoutProvider } from "recyclerlistview"
 import range from 'date-range'
 import { LocalDate } from 'js-joda'
 import { yAxis, normalizeToScale } from './y-axis'
@@ -10,12 +11,53 @@ import config from './config'
 
 const yAxisView = <View {...styles.yAxis}>{yAxis.labels}</View>
 
+const dataProvider = new DataProvider((a,b) => {
+  return Object.keys(a).some(key => a[key] != b[key])
+})
+
+const layoutProvider = new LayoutProvider(
+  () => DayColumn,
+  (_, item) => {
+    item.height = config.chartHeight
+    item.width = config.columnWidth
+    return item
+  }
+)
+
+function getInfoForNeighborColumns(index, cols) {
+  const ret = {}
+  const right = index > 0 ? cols[index - 1] : undefined
+  const left = index < cols.length - 1 ? cols[index + 1] : undefined
+  if (right && right.y) {
+    ret.rightY = right.y
+    ret.rightTemperatureExclude = right.temperatureExclude
+  }
+  if (left && left.y) {
+    ret.leftY = left.y
+    ret.leftTemperatureExclude = left.temperatureExclude
+  }
+  return ret
+}
+
+function rowRenderer (_, item, index) {
+  return (
+    <DayColumn
+      item={item}
+      index={index}
+      navigate={this.props.navigation.navigate}
+      {...getInfoForNeighborColumns(index, this.columns)}
+    />
+  )
+}
+
 export default class CycleChart extends Component {
   constructor(props) {
     super(props)
+    this.columns = makeColumnInfo(config.xAxisRangeInDays)
     this.state = {
-      columns: makeColumnInfo(config.xAxisRangeInDays)
+      dataProvider: dataProvider.cloneWithRows(this.columns)
     }
+    this.rowRenderer = rowRenderer.bind(this)
 
     this.reCalculateChartInfo = (function(Chart) {
       return function() {
@@ -35,34 +77,21 @@ export default class CycleChart extends Component {
     return (
       <View style={{flexDirection: 'row'}}>
         { yAxisView }
-        <FlatList
-          horizontal={true}
-          inverted={true}
-          showsHorizontalScrollIndicator={false}
-          data={this.state.columns}
-          renderItem={({ item, index }) => {
-            const cols = this.state.columns
-            return (
-              <DayColumn
-                item={item}
-                index={index}
-                rightNeighbor = { index > 0 ? cols[index - 1] : undefined }
-                leftNeighbor = {index < cols.length - 1 ? cols[index + 1] : undefined }
-                navigate={this.props.navigation.navigate}
-              />
-            )
-          }}
-          keyExtractor={item => item.dateString}
+        <RecyclerListView
+          layoutProvider={layoutProvider}
+          dataProvider={this.state.dataProvider}
+          rowRenderer={this.rowRenderer}
+          isHorizontal={true}
           initialNumToRender={15}
         >
-        </FlatList>
+        </RecyclerListView>
       </View>
     )
   }
 }
 
 function makeColumnInfo(n) {
-  const xAxisDates = getPreviousDays(n).map(jsDate => {
+  const xAxisDates = getPreviousDays(n).reverse().map(jsDate => {
     return LocalDate.of(
       jsDate.getFullYear(),
       jsDate.getMonth() + 1,
@@ -72,11 +101,16 @@ function makeColumnInfo(n) {
 
   return xAxisDates.map(dateString => {
     const cycleDay = getCycleDay(dateString)
-    const temp = cycleDay && cycleDay.temperature && cycleDay.temperature.value
+    const symptoms = ['temperature', 'mucus', 'bleeding'].reduce((acc, symptom) => {
+      acc[symptom] = cycleDay && cycleDay[symptom] && cycleDay[symptom].value
+      acc[`${symptom}Exclude`] = cycleDay && cycleDay[symptom] && cycleDay[symptom].exclude
+      return acc
+    }, {})
+
     return {
       dateString,
-      cycleDay,
-      y: temp ? normalizeToScale(temp) : null
+      y: symptoms.temperature ? normalizeToScale(symptoms.temperature) : null,
+      ...symptoms
     }
   })
 }
