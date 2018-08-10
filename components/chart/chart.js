@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, FlatList, Dimensions } from 'react-native'
+import { View, FlatList } from 'react-native'
 import range from 'date-range'
 import { LocalDate } from 'js-joda'
 import { yAxis, normalizeToScale } from './y-axis'
@@ -29,11 +29,9 @@ export default class CycleChart extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      columns: makeColumnInfo(config.xAxisRangeInDays),
-      loading: true
+      columns: makeColumnInfo(config.xAxisRangeInDays)
     }
     this.renderColumn = ({item, index}) => {
-      if (index === 15 + 1 && this.state.loading) this.setState({loading: false})
       return (
         <DayColumn
           item={item}
@@ -59,27 +57,18 @@ export default class CycleChart extends Component {
 
 
   render() {
-    const {height, width} = Dimensions.get('window')
     return (
-      <View>
-        {this.state.loading &&
-        <View
-          width={width}
-          height={height}
-          backgroundColor='lightblue'
-        />}
-        <View style={{ flexDirection: 'row' }}>
-          {yAxisView}
-          <FlatList
-            horizontal={true}
-            inverted={true}
-            showsHorizontalScrollIndicator={false}
-            data={this.state.columns}
-            renderItem={this.renderColumn}
-            keyExtractor={item => item.dateString}
-          >
-          </FlatList>
-        </View>
+      <View style={{ flexDirection: 'row' }}>
+        {yAxisView}
+        <FlatList
+          horizontal={true}
+          inverted={true}
+          showsHorizontalScrollIndicator={false}
+          data={this.state.columns}
+          renderItem={this.renderColumn}
+          keyExtractor={item => item.dateString}
+        >
+        </FlatList>
       </View>
     )
   }
