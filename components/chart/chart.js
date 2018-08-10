@@ -67,6 +67,8 @@ export default class CycleChart extends Component {
           data={this.state.columns}
           renderItem={this.renderColumn}
           keyExtractor={item => item.dateString}
+          initialNumToRender={15}
+          maxToRenderPerBatch={5}
         >
         </FlatList>
       </View>

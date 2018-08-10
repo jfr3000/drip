@@ -2,26 +2,26 @@ import { getCycleStatusForDay } from '../../lib/sympto-adapter'
 import { normalizeToScale } from './y-axis'
 
 export default function () {
-  let cycleStatus
-  let cycleStartDate
-  let noMoreCycles = false
+  const cycle = {
+    status: null
+  }
 
   function updateCurrentCycle(dateString) {
-    cycleStatus = getCycleStatusForDay(dateString)
-    if(!cycleStatus) {
-      noMoreCycles = true
+    cycle.status = getCycleStatusForDay(dateString)
+    if(!cycle.status) {
+      cycle.noMoreCycles = true
       return
     }
-    if (cycleStatus.phases.preOvulatory) {
-      cycleStartDate = cycleStatus.phases.preOvulatory.start.date
+    if (cycle.status.phases.preOvulatory) {
+      cycle.startDate = cycle.status.phases.preOvulatory.start.date
     } else {
-      cycleStartDate = cycleStatus.phases.periOvulatory.start.date
+      cycle.startDate = cycle.status.phases.periOvulatory.start.date
     }
   }
 
   function dateIsInPeriOrPostPhase(dateString) {
     return (
-      dateString >= cycleStatus.phases.periOvulatory.start.date
+      dateString >= cycle.status.phases.periOvulatory.start.date
     )
   }
 
@@ -29,15 +29,15 @@ export default function () {
     return (
       // we are only interested in days that have a preceding
       // temp
-      Object.keys(cycleStatus.phases).some(phaseName => {
-        return cycleStatus.phases[phaseName].cycleDays.some(day => {
+      Object.keys(cycle.status.phases).some(phaseName => {
+        return cycle.status.phases[phaseName].cycleDays.some(day => {
           return day.temperature && day.date < dateString
         })
       })
       // and also a following temp, so we don't draw the line
       // longer than necessary
       &&
-      cycleStatus.phases.postOvulatory.cycleDays.some(day => {
+      cycle.status.phases.postOvulatory.cycleDays.some(day => {
         return day.temperature && day.date > dateString
       })
     )
@@ -51,13 +51,13 @@ export default function () {
 
   return function(dateString, temperature) {
     const ret = {}
-    if (!cycleStatus && !noMoreCycles) updateCurrentCycle(dateString)
-    if (noMoreCycles) return ret
+    if (!cycle.status && !cycle.noMoreCycles) updateCurrentCycle(dateString)
+    if (cycle.noMoreCycles) return ret
 
-    if (dateString < cycleStartDate) updateCurrentCycle(dateString)
-    if (noMoreCycles) return ret
+    if (dateString < cycle.startDate) updateCurrentCycle(dateString)
+    if (cycle.noMoreCycles) return ret
 
-    const tempShift = cycleStatus.temperatureShift
+    const tempShift = cycle.status.temperatureShift
 
     if (tempShift) {
       if (tempShift.firstHighMeasurementDay.date === dateString) {

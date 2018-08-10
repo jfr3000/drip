@@ -17,12 +17,12 @@ import slowlog from 'react-native-slowlog'
 
 const getCycleDayNumber = cycleModule().getCycleDayNumber
 const label = styles.column.label
+const getFhmAndLtlInfo = setUpFertilityStatusFunc()
 
 export default class DayColumn extends Component {
   constructor(props) {
     super(props)
-    this.getFhmAndLtlInfo = setUpFertilityStatusFunc()
-    // slowlog(this, /.*/)
+    slowlog(this, /.*/)
   }
   makeDayColumn(data, index) {
     const {
@@ -35,8 +35,7 @@ export default class DayColumn extends Component {
     } = data
     const cycleDayNumber = getCycleDayNumber(dateString)
     const dateLabel = dateString.split('-').slice(1).join('-')
-    // const nfpLineInfo = this.getFhmAndLtlInfo(dateString, temperature)
-    const nfpLineInfo = {}
+    const nfpLineInfo = getFhmAndLtlInfo(dateString, temperature)
 
     return (
       <G onPress={() => this.passDateToDayView(dateString)}>
