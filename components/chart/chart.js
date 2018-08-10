@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text as ReactNativeText, View, FlatList, ScrollView } from 'react-native'
+import { Text as ReactNativeText, View, FlatList } from 'react-native'
 import range from 'date-range'
 import Svg,{
   G,
@@ -45,21 +45,36 @@ export default class CycleChart extends Component {
     this.props.navigation.navigate('cycleDay', { cycleDay })
   }
 
-  placeHorizontalGrid() {
-    return yAxis.tickPositions.map(tick => {
-      return (
-        <Line
-          x1={0}
-          y1={tick}
-          x2={config.columnWidth}
-          y2={tick}
-          {...styles.horizontalGrid}
-          key={tick}
-        />
-      )
-    })
+  render() {
+    return (
+      <View style={{flexDirection: 'row'}}>
+        <View {...styles.yAxis}>{yAxis.labels}</View>
+        <FlatList
+          horizontal={true}
+          inverted={true}
+          showsHorizontalScrollIndicator={false}
+          data={this.state.columns}
+          renderItem={({ item, index }) => {
+            const cols = this.state.columns
+            return (
+              <DayColumn
+                item={item}
+                index={index}
+                rightNeighbor = { index > 0 ? cols[index - 1] : undefined }
+                leftNeighbor = {index < cols.length - 1 ? cols[index + 1] : undefined }
+              />
+            )
+          }}
+          keyExtractor={item => item.dateString}
+          initialNumToRender={20}
+        >
+        </FlatList>
+      </View>
+    )
   }
+}
 
+class DayColumn extends Component {
   makeDayColumn({ dateString, cycleDay, y }, index) {
     const cycleDayNumber = getCycleDayNumber(dateString)
     const label = styles.column.label
@@ -116,16 +131,15 @@ export default class CycleChart extends Component {
           /> : null}
 
         {y ?
-          this.drawDotAndLines(y, cycleDay.temperature.exclude, index)
+          this.drawDotAndLines(y, cycleDay.temperature.exclude)
           : null}
       </G>
     )
   }
 
-  drawDotAndLines(currY, exclude, index) {
+  drawDotAndLines(currY, exclude) {
     let lineToRight
     let lineToLeft
-    const cols = this.state.columns
 
     function makeLine(otherColY, x, excludeLine) {
       const middleY = ((otherColY - currY) / 2) + currY
@@ -141,18 +155,18 @@ export default class CycleChart extends Component {
       />
     }
 
-    const thereIsADotToTheRight = index > 0 && cols[index - 1].y
-    const thereIsADotToTheLeft = index < cols.length - 1 && cols[index + 1].y
+    const thereIsADotToTheRight = this.props.rightNeighbor && this.props.rightNeighbor.y
+    const thereIsADotToTheLeft = this.props.leftNeighbor && this.props.leftNeighbor.y
 
     if (thereIsADotToTheRight) {
-      const otherDot = cols[index - 1]
-      const excludedLine = otherDot.cycleDay.temperature.exclude || exclude
-      lineToRight = makeLine(otherDot.y, config.columnWidth, excludedLine)
+      const neighbor = this.props.rightNeighbor
+      const excludedLine = neighbor.cycleDay.temperature.exclude || exclude
+      lineToRight = makeLine(neighbor.y, config.columnWidth, excludedLine)
     }
     if (thereIsADotToTheLeft) {
-      const otherDot = cols[index + 1]
-      const excludedLine = otherDot.cycleDay.temperature.exclude || exclude
-      lineToLeft = makeLine(otherDot.y, 0, excludedLine)
+      const neighbor = this.props.leftNeighbor
+      const excludedLine = neighbor.cycleDay.temperature.exclude || exclude
+      lineToLeft = makeLine(neighbor.y, 0, excludedLine)
     }
 
     const dotStyle = exclude ? styles.curveDotsExcluded : styles.curveDots
@@ -167,26 +181,26 @@ export default class CycleChart extends Component {
     </G>)
   }
 
+  placeHorizontalGrid() {
+    return yAxis.tickPositions.map(tick => {
+      return (
+        <Line
+          x1={0}
+          y1={tick}
+          x2={config.columnWidth}
+          y2={tick}
+          {...styles.horizontalGrid}
+          key={tick}
+        />
+      )
+    })
+  }
+
   render() {
     return (
-      <ScrollView contentContainerStyle={{flexDirection: 'row'}}>
-        <View {...styles.yAxis}>{yAxis.labels}</View>
-        <FlatList
-          horizontal={true}
-          inverted={true}
-          showsHorizontalScrollIndicator={false}
-          data={this.state.columns}
-          renderItem={({ item, index }) => {
-            return (
-              <Svg width={config.columnWidth} height={config.chartHeight}>
-                {this.makeDayColumn(item, index)}
-              </Svg>
-            )
-          }}
-          keyExtractor={item => item.dateString}
-        >
-        </FlatList>
-      </ScrollView>
+      <Svg width={config.columnWidth} height={config.chartHeight}>
+        {this.makeDayColumn(this.props.item, this.props.index)}
+      </Svg>
     )
   }
 }
