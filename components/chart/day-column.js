@@ -13,10 +13,17 @@ import { getOrCreateCycleDay } from '../../db'
 import cycleModule from '../../lib/cycle'
 import setUpFertilityStatusFunc from './nfp-lines'
 import { horizontalGrid } from './y-axis'
+import slowlog from 'react-native-slowlog'
 
 const getCycleDayNumber = cycleModule().getCycleDayNumber
+const label = styles.column.label
 
 export default class DayColumn extends Component {
+  constructor(props) {
+    super(props)
+    this.getFhmAndLtlInfo = setUpFertilityStatusFunc()
+    // slowlog(this, /.*/)
+  }
   makeDayColumn(data, index) {
     const {
       dateString,
@@ -27,10 +34,9 @@ export default class DayColumn extends Component {
       mucus
     } = data
     const cycleDayNumber = getCycleDayNumber(dateString)
-    const label = styles.column.label
     const dateLabel = dateString.split('-').slice(1).join('-')
-    const getFhmAndLtlInfo = setUpFertilityStatusFunc()
-    const nfpLineInfo = getFhmAndLtlInfo(dateString, cycleDay)
+    // const nfpLineInfo = this.getFhmAndLtlInfo(dateString, temperature)
+    const nfpLineInfo = {}
 
     return (
       <G onPress={() => this.passDateToDayView(dateString)}>
@@ -53,7 +59,7 @@ export default class DayColumn extends Component {
           {dateLabel}
         </Text>
 
-        {cycleDay && cycleDay.bleeding ?
+        {bleeding ?
           <Path {...styles.bleedingIcon}
             d="M15 3
               Q16.5 6.8 25 18
@@ -71,17 +77,18 @@ export default class DayColumn extends Component {
           /> : null}
 
         {y ?
-          this.drawDotAndLines(y, cycleDay.temperature.exclude, index)
+          this.drawDotAndLines(y, temperatureExclude, index)
           : null
         }
-        {cycleDay && cycleDay.mucus ?
+
+        {mucus ?
           <Circle
             {...styles.mucusIcon}
-            fill={styles.mucusIconShades[cycleDay.mucus.value]}
+            fill={styles.mucusIconShades[mucus]}
           /> : null}
 
         {y ?
-          this.drawDotAndLines(y, cycleDay.temperature.exclude)
+          this.drawDotAndLines(y, temperatureExclude)
           : null}
       </G>
     )
@@ -105,18 +112,13 @@ export default class DayColumn extends Component {
       />
     }
 
-    const thereIsADotToTheRight = this.props.rightNeighbor && this.props.rightNeighbor.y
-    const thereIsADotToTheLeft = this.props.leftNeighbor && this.props.leftNeighbor.y
-
-    if (thereIsADotToTheRight) {
-      const neighbor = this.props.rightNeighbor
-      const excludedLine = neighbor.cycleDay.temperature.exclude || exclude
-      lineToRight = makeLine(neighbor.y, config.columnWidth, excludedLine)
+    if (this.props.rightY) {
+      const excludedLine = this.props.rightTemperatureExclude || exclude
+      lineToRight = makeLine(this.props.rightY, config.columnWidth, excludedLine)
     }
-    if (thereIsADotToTheLeft) {
-      const neighbor = this.props.leftNeighbor
-      const excludedLine = neighbor.cycleDay.temperature.exclude || exclude
-      lineToLeft = makeLine(neighbor.y, 0, excludedLine)
+    if (this.props.leftY) {
+      const excludedLine = this.props.leftTemperatureExclude || exclude
+      lineToLeft = makeLine(this.props.leftY, 0, excludedLine)
     }
 
     const dotStyle = exclude ? styles.curveDotsExcluded : styles.curveDots
@@ -131,19 +133,16 @@ export default class DayColumn extends Component {
     </G>)
   }
 
-
   passDateToDayView(dateString) {
     const cycleDay = getOrCreateCycleDay(dateString)
     this.props.navigate('cycleDay', { cycleDay })
   }
 
-  shouldComponentUpdate() {
-    // for now, until we've solved the mysterious re-rendering
-    return false
+  shouldComponentUpdate(newProps) {
+    return Object.keys(newProps).some(key => newProps[key] != this.props[key])
   }
 
   render() {
-    console.log(this.props.index)
     return (
       <Svg width={config.columnWidth} height={config.chartHeight}>
         {this.makeDayColumn(this.props.item, this.props.index)}

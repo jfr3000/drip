@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
-import { RecyclerListView, DataProvider, LayoutProvider } from "recyclerlistview"
+import { View, FlatList, Dimensions } from 'react-native'
 import range from 'date-range'
 import { LocalDate } from 'js-joda'
 import { yAxis, normalizeToScale } from './y-axis'
@@ -10,19 +9,6 @@ import styles from './styles'
 import config from './config'
 
 const yAxisView = <View {...styles.yAxis}>{yAxis.labels}</View>
-
-const dataProvider = new DataProvider((a,b) => {
-  return Object.keys(a).some(key => a[key] != b[key])
-})
-
-const layoutProvider = new LayoutProvider(
-  () => DayColumn,
-  (_, item) => {
-    item.height = config.chartHeight
-    item.width = config.columnWidth
-    return item
-  }
-)
 
 function getInfoForNeighborColumns(index, cols) {
   const ret = {}
@@ -39,25 +25,24 @@ function getInfoForNeighborColumns(index, cols) {
   return ret
 }
 
-function rowRenderer (_, item, index) {
-  return (
-    <DayColumn
-      item={item}
-      index={index}
-      navigate={this.props.navigation.navigate}
-      {...getInfoForNeighborColumns(index, this.columns)}
-    />
-  )
-}
-
 export default class CycleChart extends Component {
   constructor(props) {
     super(props)
-    this.columns = makeColumnInfo(config.xAxisRangeInDays)
     this.state = {
-      dataProvider: dataProvider.cloneWithRows(this.columns)
+      columns: makeColumnInfo(config.xAxisRangeInDays),
+      loading: true
     }
-    this.rowRenderer = rowRenderer.bind(this)
+    this.renderColumn = ({item, index}) => {
+      if (index === 15 + 1 && this.state.loading) this.setState({loading: false})
+      return (
+        <DayColumn
+          item={item}
+          index={index}
+          navigate={this.props.navigation.navigate}
+          {...getInfoForNeighborColumns(index, this.state.columns)}
+        />
+      )
+    }
 
     this.reCalculateChartInfo = (function(Chart) {
       return function() {
@@ -74,24 +59,34 @@ export default class CycleChart extends Component {
 
 
   render() {
+    const {height, width} = Dimensions.get('window')
     return (
-      <View style={{flexDirection: 'row'}}>
-        { yAxisView }
-        <RecyclerListView
-          layoutProvider={layoutProvider}
-          dataProvider={this.state.dataProvider}
-          rowRenderer={this.rowRenderer}
-          isHorizontal={true}
-          initialNumToRender={15}
-        >
-        </RecyclerListView>
+      <View>
+        {this.state.loading &&
+        <View
+          width={width}
+          height={height}
+          backgroundColor='lightblue'
+        />}
+        <View style={{ flexDirection: 'row' }}>
+          {yAxisView}
+          <FlatList
+            horizontal={true}
+            inverted={true}
+            showsHorizontalScrollIndicator={false}
+            data={this.state.columns}
+            renderItem={this.renderColumn}
+            keyExtractor={item => item.dateString}
+          >
+          </FlatList>
+        </View>
       </View>
     )
   }
 }
 
 function makeColumnInfo(n) {
-  const xAxisDates = getPreviousDays(n).reverse().map(jsDate => {
+  const xAxisDates = getPreviousDays(n).map(jsDate => {
     return LocalDate.of(
       jsDate.getFullYear(),
       jsDate.getMonth() + 1,
