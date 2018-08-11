@@ -9,7 +9,6 @@ import { getOrCreateCycleDay } from '../../db'
 import cycleModule from '../../lib/cycle'
 import setUpFertilityStatusFunc from './nfp-lines'
 import { horizontalGrid } from './y-axis'
-// import slowlog from 'react-native-slowlog'
 
 const getCycleDayNumber = cycleModule().getCycleDayNumber
 const label = styles.column.label
@@ -18,7 +17,6 @@ const getFhmAndLtlInfo = setUpFertilityStatusFunc()
 export default class DayColumn extends Component {
   constructor(props) {
     super(props)
-    // slowlog(this, /.*/, {threshold: 30})
   }
   makeDayColumn(data, index) {
     const {
@@ -44,7 +42,7 @@ export default class DayColumn extends Component {
       </Text>
     )
     const columnElements = []
-    if (bleeding) {
+    if (typeof bleeding === 'number') {
       columnElements.push(
         <Icon
           name='drop'
@@ -57,6 +55,21 @@ export default class DayColumn extends Component {
         />
       )
     }
+
+    if (typeof mucus === 'number') {
+      console.log('ever')
+      const mucusIcon = (
+        <View
+          position='absolute'
+          top = {40}
+          left = {config.columnMiddle - styles.mucusIcon.width / 2}
+          {...styles.mucusIcon}
+          backgroundColor={styles.mucusIconShades[mucus]}
+        />
+      )
+      columnElements.push(mucusIcon)
+    }
+
     columnElements.push(cycleDayLabel, dateLabel, horizontalGrid)
 
     if(nfpLineInfo.drawFhmLine) {
@@ -71,7 +84,6 @@ export default class DayColumn extends Component {
     }
 
     if(nfpLineInfo.drawLtlAt) {
-      console.log('yep')
       const ltlLine = (<View
         position = 'absolute'
         width={'100%'}
@@ -84,15 +96,7 @@ export default class DayColumn extends Component {
     if (y) {
       columnElements.push(...this.drawDotAndLine(y, temperatureExclude, index))
     }
-    //   {cycleDay && cycleDay.mucus ?
-    //     <Circle
-    //       {...styles.mucusIcon}
-    //       fill={styles.mucusIconShades[cycleDay.mucus.value]}
-    //     /> : null}
 
-    //   {y ?
-    //     this.drawDotAndLines(y, cycleDay.temperature.exclude, index)
-    //     : null} */}
 
     return React.createElement(
       TouchableOpacity,

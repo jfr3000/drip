@@ -53,9 +53,9 @@ const styles = {
     y: 3
   },
   mucusIcon: {
-    cx: config.columnWidth / 2,
-    cy: 50,
-    r: 10
+    width: 12,
+    height: 12,
+    borderRadius: 50,
   },
   mucusIconShades: [
     '#cc99cc',
