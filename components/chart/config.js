@@ -5,7 +5,7 @@ const config = {
     low: 35,
     high: 40
   },
-  xAxisRangeInDays: 50
+  xAxisRangeInDays: 1000
 }
 
 const margin = 3

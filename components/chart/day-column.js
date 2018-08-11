@@ -9,7 +9,7 @@ import { getOrCreateCycleDay } from '../../db'
 import cycleModule from '../../lib/cycle'
 import setUpFertilityStatusFunc from './nfp-lines'
 import { horizontalGrid } from './y-axis'
-import slowlog from 'react-native-slowlog'
+//import slowlog from 'react-native-slowlog'
 
 const getCycleDayNumber = cycleModule().getCycleDayNumber
 const label = styles.column.label
@@ -18,7 +18,7 @@ const getFhmAndLtlInfo = setUpFertilityStatusFunc()
 export default class DayColumn extends Component {
   constructor(props) {
     super(props)
-    slowlog(this, /.*/, {threshold: 30})
+    //slowlog(this, /.*/, {threshold: 30})
   }
   makeDayColumn(data, index) {
     const {
@@ -68,8 +68,6 @@ export default class DayColumn extends Component {
     //     /> : null}
     // />)
 
-    // onPress: () => this.passDateToDayView(dateString),
-
     //     <Path {...styles.bleedingIcon}
     //       d="M15 3
     //         Q16.5 6.8 25 18
@@ -87,7 +85,7 @@ export default class DayColumn extends Component {
     //     /> : null}
 
     if (y) {
-      columnElements.push(this.drawDotAndLines(y, temperatureExclude, index))
+      columnElements.push(...this.drawDotAndLine(y, temperatureExclude, index))
     }
     //   {cycleDay && cycleDay.mucus ?
     //     <Circle
@@ -114,55 +112,59 @@ export default class DayColumn extends Component {
     )
   }
 
-  drawDotAndLines(currY, exclude) {
-    /*       <View
-        width='150%'
-        borderStyle = 'solid'
-        borderColor = 'red'
-        borderWidth = {1}
-        position = 'absolute'
-        top={200}
-        style={{
-          transform: [{rotateZ: '30deg'}]
-        }}
-      />
-    ) */
+  drawDotAndLine(currY, exclude) {
     let lineToRight
     let lineToLeft
 
-    /* function makeLine(otherColY, x, excludeLine) {
-      const middleY = ((otherColY - currY) / 2) + currY
-      const target = [x, middleY]
+    function makeLine(leftY, rightY, leftX, excludeLine) {
+      const heightDiff = leftY - rightY
+      const angle = Math.atan2(config.columnWidth, heightDiff)
       const lineStyle = excludeLine ? styles.curveExcluded : styles.curve
+      // hypotenuse
+      const h = (config.columnWidth / 2) / Math.cos(angle)
+      const neededDiff = Math.sin(Math.PI - (angle + Math.PI / 2)) * (h / 2)
+      const projectedX = leftX - ((h / 2) - neededDiff)
+      console.log(leftX)
+      console.log(projectedX)
 
-      return <Line
-        x1={config.columnMiddle}
-        y1={currY}
-        x2={target[0]}
-        y2={target[1]}
+      return (<View
+        width={h}
+        position = 'absolute'
+        top={(leftY + rightY) / 2}
+        left={projectedX}
+        style={{
+          // the rotation by default rotates from the middle of the line,
+          // but we want the transform origin to be at its beginning
+          // react native doesn't have transformOrigin, so we do this manually
+          transform: [
+            {rotateZ: `${angle}rad`}
+          ],
+        }}
         {...lineStyle}
-      />
-    } */
-
- /*    if (this.props.rightY) {
-      const excludedLine = this.props.rightTemperatureExclude || exclude
-      lineToRight = makeLine(this.props.rightY, config.columnWidth, excludedLine)
+      />)
     }
+
     if (this.props.leftY) {
+      const middleY = ((this.props.leftY - currY) / 2) + currY
       const excludedLine = this.props.leftTemperatureExclude || exclude
-      lineToLeft = makeLine(this.props.leftY, 0, excludedLine)
-    } */
+      lineToLeft = makeLine(middleY, currY, 0, excludedLine)
+    }
+    if (this.props.rightY) {
+      const middleY = ((currY - this.props.rightY) / 2) + this.props.rightY
+      const excludedLine = this.props.rightTemperatureExclude || exclude
+      lineToRight = makeLine(currY, middleY, config.columnMiddle, excludedLine)
+    }
 
     const dotStyle = exclude ? styles.curveDotsExcluded : styles.curveDots
-/*     return (<G>
-      {lineToRight}
-      {lineToLeft}
-      <Circle
-        cx={config.columnMiddle}
-        cy={currY}
-        {...dotStyle}
+    const dot = (
+      <View
+        position='absolute'
+        top={currY - (dotStyle.height / 2)}
+        left={config.columnMiddle - (dotStyle.width / 2)}
+        style={dotStyle}
       />
-    </G>) */
+    )
+    return [lineToLeft, lineToRight, dot]
   }
 
   passDateToDayView(dateString) {
