@@ -116,16 +116,20 @@ export default class DayColumn extends Component {
     let lineToRight
     let lineToLeft
 
-    function makeLine(leftY, rightY, leftX, excludeLine) {
-      const heightDiff = leftY - rightY
-      const angle = Math.atan2(config.columnWidth, heightDiff)
+    function makeLine(leftY, rightY, direction, excludeLine) {
+      const colWidth = config.columnWidth
+      const heightDiff = -leftY - -rightY
+      const angle = Math.atan2(heightDiff, colWidth / 2)
       const lineStyle = excludeLine ? styles.curveExcluded : styles.curve
       // hypotenuse
-      const h = (config.columnWidth / 2) / Math.cos(angle)
-      const neededDiff = Math.sin(Math.PI - (angle + Math.PI / 2)) * (h / 2)
-      const projectedX = leftX - ((h / 2) - neededDiff)
-      console.log(leftX)
-      console.log(projectedX)
+      const h = (colWidth / 2) / Math.cos(angle)
+      // the rotation by default rotates from the middle of the line,
+      // but we want the transform origin to be at its beginning
+      // react native doesn't have transformOrigin, so we do this manually
+      // if it's the right line, we put the pivot at 3/4 of the column
+      // if it's to the left, at 1/4
+      const pivot = direction === 'right' ? colWidth / 4 : -(colWidth / 4)
+      const projectedX = -(h - colWidth) / 2 + pivot
 
       return (<View
         width={h}
@@ -133,9 +137,6 @@ export default class DayColumn extends Component {
         top={(leftY + rightY) / 2}
         left={projectedX}
         style={{
-          // the rotation by default rotates from the middle of the line,
-          // but we want the transform origin to be at its beginning
-          // react native doesn't have transformOrigin, so we do this manually
           transform: [
             {rotateZ: `${angle}rad`}
           ],
@@ -147,12 +148,12 @@ export default class DayColumn extends Component {
     if (this.props.leftY) {
       const middleY = ((this.props.leftY - currY) / 2) + currY
       const excludedLine = this.props.leftTemperatureExclude || exclude
-      lineToLeft = makeLine(middleY, currY, 0, excludedLine)
+      lineToLeft = makeLine(middleY, currY, 'left', excludedLine)
     }
     if (this.props.rightY) {
       const middleY = ((currY - this.props.rightY) / 2) + this.props.rightY
       const excludedLine = this.props.rightTemperatureExclude || exclude
-      lineToRight = makeLine(currY, middleY, config.columnMiddle, excludedLine)
+      lineToRight = makeLine(currY, middleY, 'right', excludedLine)
     }
 
     const dotStyle = exclude ? styles.curveDotsExcluded : styles.curveDots
