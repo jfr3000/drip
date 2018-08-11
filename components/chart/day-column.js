@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {
-  Text, View
+  Text, View, TouchableOpacity
 } from 'react-native'
 import Icon from 'react-native-vector-icons/Entypo'
 import styles from './styles'
@@ -100,10 +100,15 @@ export default class DayColumn extends Component {
     //     : null} */}
 
     return React.createElement(
-      View,
+      TouchableOpacity,
       {
         style: styles.column.rect,
-        key: index.toString()
+        key: index.toString(),
+        onPress: () => {
+          this.passDateToDayView(dateString)
+        },
+        activeOpacity: 0.,
+        
       },
       columnElements
     )
