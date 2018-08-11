@@ -60,7 +60,6 @@ export default class DayColumn extends Component {
     columnElements.push(cycleDayLabel, dateLabel, horizontalGrid)
 
     if(nfpLineInfo.drawFhmLine) {
-      console.log('jappens')
       const fhmLine = (<View
         position = 'absolute'
         top={100}
@@ -71,14 +70,16 @@ export default class DayColumn extends Component {
       columnElements.push(fhmLine)
     }
 
-    //   {nfpLineInfo.drawLtlAt ?
-    //     <Line
-    //       x1="0"
-    //       y1={nfpLineInfo.drawLtlAt}
-    //       x2={config.columnWidth}
-    //       y2={nfpLineInfo.drawLtlAt}
-    //       {...styles.nfpLine}
-    //     /> : null}
+    if(nfpLineInfo.drawLtlAt) {
+      console.log('yep')
+      const ltlLine = (<View
+        position = 'absolute'
+        width={'100%'}
+        top={nfpLineInfo.drawLtlAt}
+        {...styles.nfpLine}
+      />)
+      columnElements.push(ltlLine)
+    }
 
     if (y) {
       columnElements.push(...this.drawDotAndLine(y, temperatureExclude, index))

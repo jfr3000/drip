@@ -82,8 +82,9 @@ const styles = {
     borderStyle: 'solid'
   },
   nfpLine: {
-    backgroundColor: '#00b159',
-    strokeWidth: 3
+    borderColor: '#00b159',
+    borderWidth: 2,
+    borderStyle: 'solid'
   }
 }
 
