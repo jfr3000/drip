@@ -9,7 +9,7 @@ import { getOrCreateCycleDay } from '../../db'
 import cycleModule from '../../lib/cycle'
 import setUpFertilityStatusFunc from './nfp-lines'
 import { horizontalGrid } from './y-axis'
-//import slowlog from 'react-native-slowlog'
+// import slowlog from 'react-native-slowlog'
 
 const getCycleDayNumber = cycleModule().getCycleDayNumber
 const label = styles.column.label
@@ -18,7 +18,7 @@ const getFhmAndLtlInfo = setUpFertilityStatusFunc()
 export default class DayColumn extends Component {
   constructor(props) {
     super(props)
-    //slowlog(this, /.*/, {threshold: 30})
+    // slowlog(this, /.*/, {threshold: 30})
   }
   makeDayColumn(data, index) {
     const {
@@ -58,22 +58,18 @@ export default class DayColumn extends Component {
       )
     }
     columnElements.push(cycleDayLabel, dateLabel, horizontalGrid)
-    //   {nfpLineInfo.drawFhmLine ?
-    //     <Line
-    //       x1={0 + styles.nfpLine.strokeWidth / 2}
-    //       y1="20"
-    //       x2={0 + styles.nfpLine.strokeWidth / 2}
-    //       y2={config.chartHeight - 20}
-    //       {...styles.nfpLine}
-    //     /> : null}
-    // />)
 
-    //     <Path {...styles.bleedingIcon}
-    //       d="M15 3
-    //         Q16.5 6.8 25 18
-    //         A12.8 12.8 0 1 1 5 18
-    //         Q13.5 6.8 15 3z" />
-    //     : null}
+    if(nfpLineInfo.drawFhmLine) {
+      console.log('jappens')
+      const fhmLine = (<View
+        position = 'absolute'
+        top={100}
+        width={styles.nfpLine.strokeWidth}
+        height={200}
+        {...styles.nfpLine}
+      />)
+      columnElements.push(fhmLine)
+    }
 
     //   {nfpLineInfo.drawLtlAt ?
     //     <Line
@@ -105,8 +101,7 @@ export default class DayColumn extends Component {
         onPress: () => {
           this.passDateToDayView(dateString)
         },
-        activeOpacity: 0.,
-        
+        activeOpacity: 0.8
       },
       columnElements
     )

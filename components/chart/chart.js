@@ -10,21 +10,6 @@ import config from './config'
 
 const yAxisView = <View {...styles.yAxis}>{yAxis.labels}</View>
 
-function getInfoForNeighborColumns(index, cols) {
-  const ret = {}
-  const right = index > 0 ? cols[index - 1] : undefined
-  const left = index < cols.length - 1 ? cols[index + 1] : undefined
-  if (right && right.y) {
-    ret.rightY = right.y
-    ret.rightTemperatureExclude = right.temperatureExclude
-  }
-  if (left && left.y) {
-    ret.leftY = left.y
-    ret.leftTemperatureExclude = left.temperatureExclude
-  }
-  return ret
-}
-
 export default class CycleChart extends Component {
   constructor(props) {
     super(props)
@@ -109,4 +94,19 @@ function getPreviousDays(n) {
   const earlierDate = new Date(today - (range.DAY * n))
 
   return range(earlierDate, today).reverse()
+}
+
+function getInfoForNeighborColumns(index, cols) {
+  const ret = {}
+  const right = index > 0 ? cols[index - 1] : undefined
+  const left = index < cols.length - 1 ? cols[index + 1] : undefined
+  if (right && right.y) {
+    ret.rightY = right.y
+    ret.rightTemperatureExclude = right.temperatureExclude
+  }
+  if (left && left.y) {
+    ret.leftY = left.y
+    ret.leftTemperatureExclude = left.temperatureExclude
+  }
+  return ret
 }

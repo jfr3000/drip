@@ -82,7 +82,7 @@ const styles = {
     borderStyle: 'solid'
   },
   nfpLine: {
-    stroke: '#00b159',
+    backgroundColor: '#00b159',
     strokeWidth: 3
   }
 }

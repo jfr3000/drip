@@ -3,7 +3,7 @@ const config = {
   columnWidth: 30,
   temperatureScale: {
     low: 35,
-    high: 40
+    high: 38
   },
   xAxisRangeInDays: 1000
 }
