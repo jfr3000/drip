@@ -57,7 +57,7 @@ export default class DayColumn extends Component {
         />
       )
     }
-    columnElements.push(...[horizontalGrid, cycleDayLabel, dateLabel])
+    columnElements.push(cycleDayLabel, dateLabel, horizontalGrid)
     //   {nfpLineInfo.drawFhmLine ?
     //     <Line
     //       x1={0 + styles.nfpLine.strokeWidth / 2}
