@@ -2,8 +2,9 @@ import config from './config'
 
 const styles = {
   curve: {
-    stroke: '#ffc425',
-    strokeWidth: 2
+    borderStyle: 'solid',
+    borderColor: '#ffc425',
+    borderWidth: 2,
   },
   curveExcluded: {
     stroke: 'lightgrey',
@@ -12,13 +13,15 @@ const styles = {
   },
   curveDots: {
     backgroundColor: '#00aedb',
-    width: 15,
-    height: 15,
+    width: 12,
+    height: 12,
     borderRadius: 50
   },
   curveDotsExcluded: {
-    fill: 'lightgrey',
-    r: 6
+    backgroundColor: 'lightgrey',
+    width: 12,
+    height: 12,
+    borderRadius: 50
   },
   column: {
     label: {
