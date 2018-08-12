@@ -57,7 +57,6 @@ export default class DayColumn extends Component {
     }
 
     if (typeof mucus === 'number') {
-      console.log('ever')
       const mucusIcon = (
         <View
           position='absolute'

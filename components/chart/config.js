@@ -4,8 +4,7 @@ const config = {
   temperatureScale: {
     low: 35,
     high: 38
-  },
-  xAxisRangeInDays: 1000
+  }
 }
 
 const margin = 3

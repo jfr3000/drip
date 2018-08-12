@@ -1,5 +1,5 @@
 import Realm from 'realm'
-import { LocalDate } from 'js-joda'
+import { LocalDate, ChronoUnit } from 'js-joda'
 import {
   cycleWithTempAndNoMucusShift,
   cycleWithFhm,
@@ -193,6 +193,15 @@ function getColumnNamesForCsv() {
   }
 }
 
+function getAmountOfCycleDays() {
+  const amountOfCycleDays = cycleDaysSortedByDate.length
+  if (!amountOfCycleDays) return 0
+  const earliest = cycleDaysSortedByDate[amountOfCycleDays - 1]
+  const today = LocalDate.now()
+  const earliestAsLocalDate = LocalDate.parse(earliest.date)
+  return earliestAsLocalDate.until(today, ChronoUnit.DAYS)
+}
+
 export {
   saveSymptom,
   getOrCreateCycleDay,
@@ -203,5 +212,6 @@ export {
   deleteAll,
   getPreviousTemperature,
   getCycleDay,
-  getColumnNamesForCsv
+  getColumnNamesForCsv,
+  getAmountOfCycleDays
 }

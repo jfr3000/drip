@@ -4,9 +4,8 @@ import range from 'date-range'
 import { LocalDate } from 'js-joda'
 import { yAxis, normalizeToScale } from './y-axis'
 import DayColumn from './day-column'
-import { getCycleDay, cycleDaysSortedByDate } from '../../db'
+import { getCycleDay, cycleDaysSortedByDate, getAmountOfCycleDays } from '../../db'
 import styles from './styles'
-import config from './config'
 
 const yAxisView = <View {...styles.yAxis}>{yAxis.labels}</View>
 
@@ -14,7 +13,7 @@ export default class CycleChart extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      columns: makeColumnInfo(config.xAxisRangeInDays)
+      columns: makeColumnInfo(),
     }
     this.renderColumn = ({item, index}) => {
       return (
@@ -29,7 +28,7 @@ export default class CycleChart extends Component {
 
     this.reCalculateChartInfo = (function(Chart) {
       return function() {
-        Chart.setState({columns: makeColumnInfo(config.xAxisRangeInDays)})
+        Chart.setState({columns: makeColumnInfo()})
       }
     })(this)
 
@@ -60,8 +59,16 @@ export default class CycleChart extends Component {
   }
 }
 
-function makeColumnInfo(n) {
-  const xAxisDates = getPreviousDays(n).map(jsDate => {
+function makeColumnInfo() {
+  let amountOfCycleDays = getAmountOfCycleDays()
+  // if there's not much data yet, we want to show at least 30 days on the chart
+  if (amountOfCycleDays < 30) {
+    amountOfCycleDays = 30
+  } else {
+    // we don't want the chart to end abruptly before the first data day
+    amountOfCycleDays += 5
+  }
+  const xAxisDates = getTodayAndPreviousDays(amountOfCycleDays).map(jsDate => {
     return LocalDate.of(
       jsDate.getFullYear(),
       jsDate.getMonth() + 1,
@@ -85,7 +92,7 @@ function makeColumnInfo(n) {
   })
 }
 
-function getPreviousDays(n) {
+function getTodayAndPreviousDays(n) {
   const today = new Date()
   today.setHours(0)
   today.setMinutes(0)
