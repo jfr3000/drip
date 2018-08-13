@@ -98,8 +98,17 @@ export default class DayView extends Component {
           <Text style={styles.symptomDayView}>Desire</Text>
           <View style={styles.symptomEditButton}>
             <Button
-              onPress={() => this.showView('desireEditView')}
+              onPress={() => this.showView('DesireEditView')}
               title={getLabel('desire', cycleDay.desire)}>
+            </Button>
+          </View>
+        </View>
+        <View style={styles.symptomViewRowInline}>
+          <Text style={styles.symptomDayView}>Sex</Text>
+          <View style={styles.symptomEditButton}>
+            <Button
+              onPress={() => this.showView('SexEditView')}
+              title={getLabel('sex', cycleDay.sex)}>
             </Button>
           </View>
         </View>
@@ -132,15 +141,22 @@ function getLabel(symptomName, symptom) {
         typeof mucus.texture === 'number' &&
         typeof mucus.value === 'number'
       ) {
-        let mucusLabel = `${feelingLabels[mucus.feeling]} + ${textureLabels[mucus.texture]} ( ${computeSensiplanMucusLabels[mucus.value]} )`
+        let mucusLabel =
+          `${feelingLabels[mucus.feeling]} +
+          ${textureLabels[mucus.texture]}
+          ( ${computeSensiplanMucusLabels[mucus.value]} )`
         if (mucus.exclude) mucusLabel = "( " + mucusLabel + " )"
         return mucusLabel
       }
     },
     cervix: cervix => {
       if (cervix.opening > -1 && cervix.firmness > -1) {
-        let cervixLabel = `${openingLabels[cervix.opening]} + ${firmnessLabels[cervix.firmness]}`
-        if (cervix.position > -1) cervixLabel += `+ ${positionLabels[cervix.position]}`
+        let cervixLabel =
+          `${openingLabels[cervix.opening]} +
+          ${firmnessLabels[cervix.firmness]}`
+        if (cervix.position > -1) {
+          cervixLabel += `+ ${positionLabels[cervix.position]}`
+        }
         if (cervix.exclude) cervixLabel = "( " + cervixLabel + " )"
         return cervixLabel
       }
@@ -153,6 +169,17 @@ function getLabel(symptomName, symptom) {
         const desireLabel = `${intensityLabels[desire.value]}`
         return desireLabel
       }
+    },
+    sex: sex => {
+      let sexLabel = ''
+      if ( sex.solo || sex.partner ) {
+        sexLabel += 'Activity '
+      }
+      if (sex.condom || sex.pill || sex.iud ||
+        sex.patch || sex.ring || sex.implant || sex.other) {
+        sexLabel += 'Contraceptive'
+      }
+      return sexLabel ? sexLabel : 'edit'
     }
   }
 

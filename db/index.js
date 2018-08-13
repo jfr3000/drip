@@ -60,6 +60,22 @@ const DesireSchema = {
   }
 }
 
+const SexSchema = {
+  name: 'Sex',
+  properties: {
+    solo: { type: 'bool', optional: true },
+    partner: { type: 'bool', optional: true },
+    condom: { type: 'bool', optional: true },
+    pill: { type: 'bool', optional: true },
+    iud: { type: 'bool', optional: true },
+    patch: { type: 'bool', optional: true },
+    ring: { type: 'bool', optional: true },
+    implant: { type: 'bool', optional: true },
+    other: { type: 'bool', optional: true },
+    note: { type: 'string', optional: true }
+  }
+}
+
 const CycleDaySchema = {
   name: 'CycleDay',
   primaryKey: 'date',
@@ -88,6 +104,10 @@ const CycleDaySchema = {
     desire: {
       type: 'Desire',
       optional: true
+    },
+    sex: {
+      type: 'Sex',
+      optional: true
     }
   }
 }
@@ -100,7 +120,8 @@ const realmConfig = {
     MucusSchema,
     CervixSchema,
     NoteSchema,
-    DesireSchema
+    DesireSchema,
+    SexSchema
   ],
   // we only want this in dev mode
   deleteRealmIfMigrationNeeded: true
