@@ -119,8 +119,9 @@ export default class DayColumn extends Component {
       const heightDiff = -leftY - -rightY
       const angle = Math.atan2(heightDiff, colWidth / 2)
       const lineStyle = excludeLine ? styles.curveExcluded : styles.curve
-      // hypotenuse
-      const h = (colWidth / 2) / Math.cos(angle)
+      // hypotenuse, we add 3px for good measure, because otherwise the lines
+      // don't quite touch at the day border
+      const h = (colWidth / 2) / Math.cos(angle) + 3
       // the rotation by default rotates from the middle of the line,
       // but we want the transform origin to be at its beginning
       // react native doesn't have transformOrigin, so we do this manually
@@ -132,7 +133,7 @@ export default class DayColumn extends Component {
       return (<View
         width={h}
         position = 'absolute'
-        top={(leftY + rightY) / 2}
+        top={((leftY + rightY) / 2) - lineStyle.borderWidth / 2}
         left={projectedX}
         style={{
           transform: [
