@@ -37,8 +37,6 @@ export const yAxis = makeYAxis()
 export const horizontalGrid = yAxis.tickPositions.map(tick => {
   return (
     <View
-      position='absolute'
-      width='100%'
       top={tick}
       {...styles.horizontalGrid}
       key={tick}

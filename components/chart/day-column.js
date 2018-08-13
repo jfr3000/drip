@@ -8,7 +8,6 @@ import config from './config'
 import { getOrCreateCycleDay } from '../../db'
 import cycleModule from '../../lib/cycle'
 import setUpFertilityStatusFunc from './nfp-lines'
-import { horizontalGrid } from './y-axis'
 
 const getCycleDayNumber = cycleModule().getCycleDayNumber
 const label = styles.column.label
@@ -69,7 +68,7 @@ export default class DayColumn extends Component {
       columnElements.push(mucusIcon)
     }
 
-    columnElements.push(cycleDayLabel, dateLabel, horizontalGrid)
+    columnElements.push(cycleDayLabel, dateLabel)
 
     if(nfpLineInfo.drawFhmLine) {
       const fhmLine = (<View

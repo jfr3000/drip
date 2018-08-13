@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, FlatList } from 'react-native'
 import range from 'date-range'
 import { LocalDate } from 'js-joda'
-import { yAxis, normalizeToScale } from './y-axis'
+import { yAxis, normalizeToScale, horizontalGrid } from './y-axis'
 import DayColumn from './day-column'
 import { getCycleDay, cycleDaysSortedByDate, getAmountOfCycleDays } from '../../db'
 import styles from './styles'
@@ -43,7 +43,8 @@ export default class CycleChart extends Component {
     return (
       <View style={{ flexDirection: 'row' }}>
         {yAxisView}
-        <FlatList
+        {horizontalGrid}
+        {<FlatList
           horizontal={true}
           inverted={true}
           showsHorizontalScrollIndicator={false}
@@ -53,7 +54,7 @@ export default class CycleChart extends Component {
           initialNumToRender={15}
           maxToRenderPerBatch={5}
         >
-        </FlatList>
+        </FlatList>}
       </View>
     )
   }

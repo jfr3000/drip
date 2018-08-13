@@ -42,8 +42,7 @@ const styles = {
       height: config.chartHeight,
       borderStyle: 'solid',
       borderColor: 'grey',
-      borderWidth: 1,
-      backgroundColor: 'transparent'
+      borderWidth: 0.5
     }
   },
   bleedingIcon: {
@@ -67,6 +66,9 @@ const styles = {
   yAxis: {
     height: config.chartHeight,
     width: config.columnWidth,
+    borderRightWidth: 0.5,
+    borderColor: 'lightgrey',
+    borderStyle: 'solid'
   },
   yAxisLabel: {
     position: 'absolute',
@@ -76,10 +78,12 @@ const styles = {
     fontWeight: 'bold'
   },
   horizontalGrid: {
+    position:'absolute',
     borderColor: 'lightgrey',
-    borderWidth: 1,
-    width: config.columnWidth,
-    borderStyle: 'solid'
+    borderWidth: 0.5,
+    width: '100%',
+    borderStyle: 'solid',
+    left: config.columnWidth
   },
   nfpLine: {
     borderColor: '#00b159',
