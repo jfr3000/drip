@@ -37,17 +37,12 @@ export const cycleWithFhmNoCervixShift = [
   { date: '2018-06-02', temperature: 36.65 },
   { date: '2018-06-04', temperature: 36.6 },
   { date: '2018-06-05', temperature: 36.55 },
-  { date: '2018-06-06', temperature: 36.7 },
-  { date: '2018-06-08', temperature: 36.7 },
-  { date: '2018-06-09', temperature: 36.7 },
-  { date: '2018-06-10', temperature: 36.7 },
-  { date: '2018-06-11', temperature: 36.7 },
-  { date: '2018-06-12', temperature: 36.7 },
-  { date: '2018-06-13', temperature: 36.8 },
-  { date: '2018-06-15', temperature: 36.9 },
-  { date: '2018-06-16', temperature: 36.9 },
-  { date: '2018-06-17', temperature: 36.9 },
-  { date: '2018-06-18', temperature: 36.9 }
+  { date: '2018-06-06', temperature: 36.7, cervix: { isClosed: true, isHard: true } },
+  { date: '2018-06-13', temperature: 36.8, cervix: { isClosed: false, isHard: false } },
+  { date: '2018-06-15', temperature: 36.9, cervix: { isClosed: false, isHard: false } },
+  { date: '2018-06-17', temperature: 36.9, cervix: { isClosed: false, isHard: false } },
+  { date: '2018-06-17', temperature: 36.9, cervix: { isClosed: false, isHard: false } },
+  { date: '2018-06-18', temperature: 36.9, cervix: { isClosed: false, isHard: false } }
 ].map(convertToSymptoFormat)
 
 export const cycleWithoutFhm = [
