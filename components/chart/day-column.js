@@ -26,20 +26,8 @@ export default class DayColumn extends Component {
       bleeding,
       mucus
     } = data
-    const cycleDayNumber = getCycleDayNumber(dateString)
-    const shortDate = dateString.split('-').slice(1).join('-')
     const nfpLineInfo = getFhmAndLtlInfo(dateString, temperature)
 
-    //TODO move these so they are visible
-    const cycleDayLabel = (
-      <Text {...label.number} y={config.cycleDayNumberRowY}>
-        {cycleDayNumber}
-      </Text>)
-    const dateLabel = (
-      <Text {...label.date} y={config.dateRowY}>
-        {shortDate}
-      </Text>
-    )
     const columnElements = []
     if (typeof bleeding === 'number') {
       columnElements.push(
@@ -68,8 +56,6 @@ export default class DayColumn extends Component {
       columnElements.push(mucusIcon)
     }
 
-    columnElements.push(cycleDayLabel, dateLabel)
-
     if(nfpLineInfo.drawFhmLine) {
       const fhmLine = (<View
         position = 'absolute'
@@ -95,6 +81,23 @@ export default class DayColumn extends Component {
       columnElements.push(...this.drawDotAndLine(y, temperatureExclude, index))
     }
 
+    const cycleDayNumber = getCycleDayNumber(dateString)
+    const shortDate = dateString.split('-').slice(1).join('-')
+    const cycleDayLabel = (
+      <Text style={label.number} y={config.cycleDayNumberRowY}>
+        {cycleDayNumber}
+      </Text>)
+    const dateLabel = (
+      <Text style = {label.date} y={config.dateRowY}>
+        {shortDate}
+      </Text>
+    )
+    columnElements.push(
+      <View position='absolute' bottom={0}>
+        {cycleDayLabel}
+        {dateLabel}
+      </View>
+    )
 
     return React.createElement(
       TouchableOpacity,

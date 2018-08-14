@@ -26,16 +26,14 @@ const styles = {
   column: {
     label: {
       date: {
-        stroke: 'grey',
-        fontSize: 10,
-        fontWeight: '100',
-        color: 'red'
+        color: 'grey',
+        fontSize: 9,
+        fontWeight: '100'
       },
       number: {
-        stroke: '#00b159',
+        color: '#00b159',
         fontSize: 13,
-        marginLeft: 1,
-        marginTop: 10
+        textAlign: 'center'
       }
     },
     rect: {
