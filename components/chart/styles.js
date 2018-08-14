@@ -7,9 +7,9 @@ const styles = {
     borderWidth: 2,
   },
   curveExcluded: {
-    stroke: 'lightgrey',
-    strokeWidth: 2,
-    strokeDashArray: [4]
+    borderColor: 'lightgrey',
+    borderWidth: 2,
+    borderStyle: 'solid'
   },
   curveDots: {
     backgroundColor: '#00aedb',
@@ -28,13 +28,14 @@ const styles = {
       date: {
         stroke: 'grey',
         fontSize: 10,
-        x: 2,
-        fontWeight: '100'
+        fontWeight: '100',
+        color: 'red'
       },
       number: {
         stroke: '#00b159',
         fontSize: 13,
-        x: config.columnMiddle - 1
+        marginLeft: 1,
+        marginTop: 10
       }
     },
     rect: {
