@@ -87,6 +87,12 @@ export default class Home extends Component {
               title="delete everything">
             </Button>
           </View>
+          <View style={styles.homeButton}>
+            <Button
+              onPress={() => navigate('stats')}
+              title="Go to stats">
+            </Button>
+          </View>
         </View>
       </ScrollView>
     )
