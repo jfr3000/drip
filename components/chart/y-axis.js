@@ -4,9 +4,10 @@ import config from './config'
 import styles from './styles'
 
 function makeYAxis() {
-  const scaleMin = config.temperatureScale.low
-  const scaleMax = config.temperatureScale.high
-  const numberOfTicks = (scaleMax - scaleMin) * 2
+  const scale = config.temperatureScale
+  const scaleMin = scale.low
+  const scaleMax = scale.high
+  const numberOfTicks = (scaleMax - scaleMin) * (1 / scale.units)
   const tickDistance = config.chartHeight / numberOfTicks
 
   const tickPositions = []
@@ -23,7 +24,7 @@ function makeYAxis() {
       <Text
         style={{...style}}
         key={i}>
-        {scaleMax - i * 0.5}
+        {scaleMax - i * scale.units}
       </Text>
     )
     tickPositions.push(y)

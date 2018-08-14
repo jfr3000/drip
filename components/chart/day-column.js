@@ -104,7 +104,7 @@ export default class DayColumn extends Component {
         onPress: () => {
           this.passDateToDayView(dateString)
         },
-        activeOpacity: 0.8
+        activeOpacity: 1
       },
       columnElements
     )

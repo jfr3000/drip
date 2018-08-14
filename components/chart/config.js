@@ -1,9 +1,10 @@
 const config = {
   chartHeight: 350,
-  columnWidth: 30,
+  columnWidth: 25,
   temperatureScale: {
     low: 35,
-    high: 38
+    high: 38,
+    units: 0.1
   }
 }
 

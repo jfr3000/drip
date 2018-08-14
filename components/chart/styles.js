@@ -72,10 +72,10 @@ const styles = {
   },
   yAxisLabel: {
     position: 'absolute',
-    right: 3,
+    left: 3,
     color: 'grey',
-    fontSize: 12,
-    fontWeight: 'bold'
+    fontSize: 11,
+    textAlign: 'left'
   },
   horizontalGrid: {
     position:'absolute',
