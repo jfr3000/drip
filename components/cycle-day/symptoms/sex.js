@@ -116,13 +116,16 @@ export default class Sex extends Component {
           <CheckBox
             value={this.state.other}
             onValueChange={(val) => {
-              this.setState({other: val})
+              this.setState({
+                other: val,
+                focusTextArea: true
+              })
             }}
           />
         </View>
         { this.state.other &&
           <TextInput
-            autoFocus={true}
+            autoFocus={this.state.focusTextArea}
             multiline={true}
             placeholder="Enter"
             value={this.state.note}
