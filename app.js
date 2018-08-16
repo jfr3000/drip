@@ -15,7 +15,7 @@ import { YellowBox } from 'react-native'
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated'])
 
 const routes = {
-  Home: { screen: Home },
+  Home: createStackNavigator({Home, CycleDay}, {headerMode: 'none'}),
   Calendar: createStackNavigator({Calendar, CycleDay}, {headerMode: 'none'}),
   Chart: createStackNavigator({Chart, CycleDay}, {headerMode: 'none'}),
   Settings: { screen: Settings },
