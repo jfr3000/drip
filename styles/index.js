@@ -82,5 +82,11 @@ export default StyleSheet.create({
     marginTop: 15,
     marginLeft: 'auto',
     marginRight: 'auto'
+  },
+  stats: {
+    fontSize: 18,
+    margin: 30,
+    textAlign: 'left',
+    textAlignVertical: 'center'
   }
 })
