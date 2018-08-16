@@ -18,7 +18,7 @@ export default class CycleChart extends Component {
     this.renderColumn = ({item, index}) => {
       return (
         <DayColumn
-          item={item}
+          {...item}
           index={index}
           navigate={this.props.navigation.navigate}
           {...getInfoForNeighborColumns(index, this.state.columns)}

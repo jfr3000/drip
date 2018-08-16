@@ -4,6 +4,10 @@ import styles from './styles'
 import config from './config'
 
 export default class DotAndLine extends Component {
+  shouldComponentUpdate(newProps) {
+    return Object.keys(newProps).some(key => newProps[key] != this.props[key])
+  }
+
   render() {
     const y = this.props.y
     const exclude = this.props.exclude
@@ -28,6 +32,7 @@ export default class DotAndLine extends Component {
         top={y - (dotStyle.height / 2)}
         left={config.columnMiddle - (dotStyle.width / 2)}
         style={dotStyle}
+        key='dot'
       />
     )
     return [lineToLeft, lineToRight, dot]
@@ -61,5 +66,6 @@ function makeLine(leftY, rightY, direction, excludeLine) {
       ],
     }}
     {...lineStyle}
+    key ={direction}
   />)
 }

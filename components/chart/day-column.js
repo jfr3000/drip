@@ -15,10 +15,6 @@ const label = styles.column.label
 const getFhmAndLtlInfo = setUpFertilityStatusFunc()
 
 export default class DayColumn extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   passDateToDayView(dateString) {
     const cycleDay = getOrCreateCycleDay(dateString)
     this.props.navigate('cycleDay', { cycleDay })
@@ -36,7 +32,7 @@ export default class DayColumn extends Component {
       temperatureExclude,
       bleeding,
       mucus
-    } = this.props.item
+    } = this.props
     const nfpLineInfo = getFhmAndLtlInfo(dateString, temperature)
 
     const columnElements = []
@@ -50,6 +46,7 @@ export default class DayColumn extends Component {
           size={30}
           color='#900'
           style={{ marginTop: 20 }}
+          key='bleeding'
         />
       )
     }
@@ -62,6 +59,7 @@ export default class DayColumn extends Component {
           left = {config.columnMiddle - styles.mucusIcon.width / 2}
           {...styles.mucusIcon}
           backgroundColor={styles.mucusIconShades[mucus]}
+          key='mucus'
         />
       )
       columnElements.push(mucusIcon)
@@ -74,6 +72,7 @@ export default class DayColumn extends Component {
         width={styles.nfpLine.strokeWidth}
         height={200}
         {...styles.nfpLine}
+        key='fhm'
       />)
       columnElements.push(fhmLine)
     }
@@ -84,6 +83,7 @@ export default class DayColumn extends Component {
         width={'100%'}
         top={nfpLineInfo.drawLtlAt}
         {...styles.nfpLine}
+        key='ltl'
       />)
       columnElements.push(ltlLine)
     }
@@ -93,8 +93,11 @@ export default class DayColumn extends Component {
         <DotAndLine
           y={y}
           exclude={temperatureExclude}
+          rightY={this.props.rightY}
+          rightTemperatureExclude={this.props.rightTemperatureExclude}
           leftY={this.props.leftY}
-          rightY={this.props.righty}
+          leftTemperatureExclude={this.props.leftTemperatureExclude}
+          key='dotandline'
         />
       )
     }
@@ -111,7 +114,7 @@ export default class DayColumn extends Component {
       </Text>
     )
     columnElements.push(
-      <View position='absolute' bottom={0}>
+      <View position='absolute' bottom={0} key='date'>
         {cycleDayLabel}
         {dateLabel}
       </View>
