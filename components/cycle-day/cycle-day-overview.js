@@ -3,7 +3,8 @@ import {
   View,
   Text,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  Dimensions
 } from 'react-native'
 import styles from '../../styles'
 import {
@@ -48,51 +49,52 @@ export default class DayView extends Component {
   render() {
     const cycleDay = this.cycleDay
     return (
-      <View style={styles.symptomEditView}>
-        <View style={styles.symptomBoxesView}>
-          <SymptomBox
-            title='Bleeding'
-            icon={require('./assets/placeholder.png')}
-            onPress={() => this.showView('BleedingEditView')}
-            data={getLabel('bleeding', cycleDay.bleeding)}
-          />
-          <SymptomBox
-            title='Temperature'
-            icon={require('./assets/placeholder.png')}
-            onPress={() => this.showView('TemperatureEditView')}
-            data={getLabel('temperature', cycleDay.temperature)}
-          />
-          <SymptomBox
-            title='Mucus'
-            icon={require('./assets/placeholder.png')}
-            onPress={() => this.showView('MucusEditView')}
-            data={getLabel('mucus', cycleDay.mucus)}
-          />
-          <SymptomBox
-            title='Cervix'
-            icon={require('./assets/placeholder.png')}
-            onPress={() => this.showView('CervixEditView')}
-            data={getLabel('cervix', cycleDay.cervix)}
-          />
-          <SymptomBox
-            title='Note'
-            icon={require('./assets/placeholder.png')}
-            onPress={() => this.showView('NoteEditView')}
-            data={getLabel('note', cycleDay.note)}
-          />
-          <SymptomBox
-            title='Desire'
-            icon={require('./assets/placeholder.png')}
-            onPress={() => this.showView('DesireEditView')}
-            data={getLabel('desire', cycleDay.desire)}
-          />
-          <SymptomBox
-            title='Sex'
-            icon={require('./assets/placeholder.png')}
-            onPress={() => this.showView('SexEditView')}
-            data={getLabel('sex', cycleDay.sex)}
-          />
-        </View >
+      <View style={styles.symptomBoxesView}>
+        <SymptomBox
+          title='Bleeding'
+          icon={require('./assets/placeholder.png')}
+          onPress={() => this.showView('BleedingEditView')}
+          data={getLabel('bleeding', cycleDay.bleeding)}
+        />
+        <SymptomBox
+          title='Temperature'
+          icon={require('./assets/placeholder.png')}
+          onPress={() => this.showView('TemperatureEditView')}
+          data={getLabel('temperature', cycleDay.temperature)}
+        />
+        <SymptomBox
+          title='Mucus'
+          icon={require('./assets/placeholder.png')}
+          onPress={() => this.showView('MucusEditView')}
+          data={getLabel('mucus', cycleDay.mucus)}
+        />
+        <SymptomBox
+          title='Cervix'
+          icon={require('./assets/placeholder.png')}
+          onPress={() => this.showView('CervixEditView')}
+          data={getLabel('cervix', cycleDay.cervix)}
+        />
+        <SymptomBox
+          title='Note'
+          icon={require('./assets/placeholder.png')}
+          onPress={() => this.showView('NoteEditView')}
+          data={getLabel('note', cycleDay.note)}
+        />
+        <SymptomBox
+          title='Desire'
+          icon={require('./assets/placeholder.png')}
+          onPress={() => this.showView('DesireEditView')}
+          data={getLabel('desire', cycleDay.desire)}
+        />
+        <SymptomBox
+          title='Sex'
+          icon={require('./assets/placeholder.png')}
+          onPress={() => this.showView('SexEditView')}
+          data={getLabel('sex', cycleDay.sex)}
+        />
+        {/*  this is just to make the last row adhere to the grid
+        (and) because there are no pseudo properties in RN */}
+        <FillerBoxes/>
       </View >
     )
   }
@@ -160,12 +162,12 @@ function getLabel(symptomName, symptom) {
         sex.patch || sex.ring || sex.implant || sex.other) {
         sexLabel += 'Contraceptive'
       }
-      return sexLabel ? sexLabel : 'edit'
+      return sexLabel ? sexLabel : undefined
     }
   }
 
-  if (!symptom) return 'edit'
-  return labels[symptomName](symptom) || 'edit'
+  if (!symptom) return
+  return labels[symptomName](symptom)
 }
 
 class SymptomBox extends Component {
@@ -181,6 +183,19 @@ class SymptomBox extends Component {
           <Text>{this.props.data}</Text>
         </View>
       </TouchableOpacity>
+    )
+  }
+}
+
+class FillerBoxes extends Component {
+  render() {
+    const n = Dimensions.get('window').width / styles.symptomBox.minHeight
+    return Array(Math.ceil(n)).fill(
+      <View
+        width={styles.symptomBox.minHeight}
+        height={0}
+        key={Math.random().toString()}
+      />
     )
   }
 }

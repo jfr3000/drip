@@ -53,8 +53,9 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: '20%',
+    marginHorizontal: 1,
     minWidth: 100,
-    minHeight: 100
+    minHeight: 100,
   },
   symptomEditRow: {
     justifyContent: 'space-between',
