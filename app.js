@@ -7,7 +7,7 @@ import Chart from './components/chart/chart'
 import Settings from './components/settings'
 import Stats from './components/stats'
 
-import styles from './styles'
+import styles, { primaryColor } from './styles'
 
 // this is until react native fixes this bugg, see
 // https://github.com/facebook/react-native/issues/18868#issuecomment-382671739
@@ -26,9 +26,9 @@ const config = {
   labeled: true,
   shifting: false,
   tabBarOptions: {
-    style: {backgroundColor: '#ff7e5f'},
-    labelStyle: {fontSize: 15, color: 'white'}
-  },
+    style: {backgroundColor: primaryColor },
+    labelStyle: styles.menuLabel
+  }
 }
 
 export default createBottomTabNavigator(routes, config)

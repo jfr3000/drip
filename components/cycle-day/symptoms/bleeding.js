@@ -32,28 +32,30 @@ export default class Bleeding extends Component {
       { label: labels[3], value: 3 },
     ]
     return (
-      <View style={styles.symptomEditView}>
-        <Text style={styles.symptomDayView}>Bleeding</Text>
-        <View style={styles.radioButtonRow}>
-          <RadioForm
-            radio_props={bleedingRadioProps}
-            initial={this.state.currentValue}
-            formHorizontal={true}
-            labelHorizontal={false}
-            labelStyle={styles.radioButton}
-            onPress={(itemValue) => {
-              this.setState({ currentValue: itemValue })
-            }}
-          />
-        </View>
-        <View style={styles.symptomViewRowInline}>
-          <Text style={styles.symptomDayView}>Exclude</Text>
-          <Switch
-            onValueChange={(val) => {
-              this.setState({ exclude: val })
-            }}
-            value={this.state.exclude}
-          />
+      <View>
+        <View style={styles.symptomEditView}>
+          <Text style={styles.symptomDayView}>Bleeding</Text>
+          <View style={styles.radioButtonRow}>
+            <RadioForm
+              radio_props={bleedingRadioProps}
+              initial={this.state.currentValue}
+              formHorizontal={true}
+              labelHorizontal={false}
+              labelStyle={styles.radioButton}
+              onPress={(itemValue) => {
+                this.setState({ currentValue: itemValue })
+              }}
+            />
+          </View>
+          <View style={styles.symptomViewRowInline}>
+            <Text style={styles.symptomDayView}>Exclude</Text>
+            <Switch
+              onValueChange={(val) => {
+                this.setState({ exclude: val })
+              }}
+              value={this.state.exclude}
+            />
+          </View>
         </View>
         <View style={styles.actionButtonRow}>
           {this.makeActionButtons(

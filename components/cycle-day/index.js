@@ -5,7 +5,6 @@ import {
   ScrollView
 } from 'react-native'
 import cycleModule from '../../lib/cycle'
-import { getFertilityStatusStringForDay } from '../../lib/sympto-adapter'
 import { formatDateForViewHeader } from './labels/format'
 import styles from '../../styles'
 import actionButtonModule from './action-buttons'
@@ -50,23 +49,16 @@ export default class Day extends Component {
 
   render() {
     const cycleDayNumber = getCycleDayNumber(this.cycleDay.date)
-    const fertilityStatus = getFertilityStatusStringForDay(this.cycleDay.date)
     return (
       <ScrollView>
         <View style={ styles.cycleDayDateView }>
           <Text style={styles.dateHeader}>
             {formatDateForViewHeader(this.cycleDay.date)}
           </Text>
-        </View >
-        <View style={ styles.cycleDayNumberView }>
           { cycleDayNumber &&
             <Text style={styles.cycleDayNumber} >
               Cycle day {cycleDayNumber}
             </Text> }
-
-          <Text style={styles.cycleDayNumber} >
-            {fertilityStatus}
-          </Text>
         </View >
         <View>
           { this.cycleDayViews[this.state.visibleComponent] }

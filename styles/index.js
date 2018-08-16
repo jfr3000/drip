@@ -1,5 +1,8 @@
 import { StyleSheet } from 'react-native'
 
+export const primaryColor = '#ff7e5f'
+export const secondaryColor = '#351c4d'
+
 export default StyleSheet.create({
   container: {
     justifyContent: 'center',
@@ -12,21 +15,24 @@ export default StyleSheet.create({
     textAlignVertical: 'center'
   },
   dateHeader: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
-    margin: 15,
     color: 'white',
     textAlign: 'center',
-    textAlignVertical: 'center'
   },
   cycleDayNumber: {
-    fontSize: 18,
+    fontSize: 15,
+    color: 'white',
     textAlign: 'center',
-    textAlignVertical: 'center'
+    marginLeft: 15
   },
   symptomDayView: {
     fontSize: 20,
     textAlignVertical: 'center'
+  },
+  symptomBoxImage: {
+    width: 50,
+    height: 50
   },
   radioButton: {
     fontSize: 18,
@@ -34,9 +40,21 @@ export default StyleSheet.create({
     textAlign: 'center',
     textAlignVertical: 'center'
   },
-  symptomEditView: {
-    justifyContent: 'space-between',
-    marginHorizontal: 15
+  symptomBoxesView: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-evenly'
+  },
+  symptomBox: {
+    borderColor: secondaryColor,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '20%',
+    minWidth: 100,
+    minHeight: 100
   },
   symptomEditRow: {
     justifyContent: 'space-between',
@@ -50,14 +68,11 @@ export default StyleSheet.create({
     height: 50
   },
   cycleDayDateView: {
+    backgroundColor: primaryColor,
+    padding: 10,
+    flexDirection: 'row',
     justifyContent: 'center',
-    backgroundColor: 'steelblue'
-  },
-  cycleDayNumberView: {
-    justifyContent: 'center',
-    backgroundColor: 'skyblue',
-    marginBottom: 15,
-    paddingVertical: 15
+    alignItems: 'center'
   },
   homeButtons: {
     marginHorizontal: 15
@@ -88,5 +103,9 @@ export default StyleSheet.create({
     margin: 30,
     textAlign: 'left',
     textAlignVertical: 'center'
-  }
+  },
+  menuLabel: {
+    fontSize: 15,
+    color: 'white'
+  },
 })

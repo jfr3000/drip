@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import {
   View,
-  Button,
-  Text
+  Text,
+  Image,
+  TouchableOpacity
 } from 'react-native'
 import styles from '../../styles'
 import {
@@ -48,70 +49,50 @@ export default class DayView extends Component {
     const cycleDay = this.cycleDay
     return (
       <View style={styles.symptomEditView}>
-        <View style={styles.symptomViewRowInline}>
-          <Text style={styles.symptomDayView}>Bleeding</Text>
-          <View style={styles.symptomEditButton}>
-            <Button
-              onPress={() => this.showView('BleedingEditView')}
-              title={getLabel('bleeding', cycleDay.bleeding)}>
-            </Button>
-          </View>
-        </View>
-        <View style={styles.symptomViewRowInline}>
-          <Text style={styles.symptomDayView}>Temperature</Text>
-          <View style={styles.symptomEditButton}>
-            <Button
-              onPress={() => this.showView('TemperatureEditView')}
-              title={getLabel('temperature', cycleDay.temperature)}>
-            </Button>
-          </View>
-        </View>
-        <View style={ styles.symptomViewRowInline }>
-          <Text style={styles.symptomDayView}>Mucus</Text>
-          <View style={styles.symptomEditButton}>
-            <Button
-              onPress={() => this.showView('MucusEditView')}
-              title={getLabel('mucus', cycleDay.mucus)}>
-            </Button>
-          </View>
-        </View>
-        <View style={styles.symptomViewRowInline}>
-          <Text style={styles.symptomDayView}>Cervix</Text>
-          <View style={styles.symptomEditButton}>
-            <Button
-              onPress={() => this.showView('CervixEditView')}
-              title={getLabel('cervix', cycleDay.cervix)}>
-            </Button>
-          </View>
-        </View>
-        <View style={styles.symptomViewRowInline}>
-          <Text style={styles.symptomDayView}>Note</Text>
-          <View style={styles.symptomEditButton}>
-            <Button
-              onPress={() => this.showView('NoteEditView')}
-              title={getLabel('note', cycleDay.note)}
-            >
-            </Button>
-          </View>
-        </View>
-        <View style={ styles.symptomViewRowInline }>
-          <Text style={styles.symptomDayView}>Desire</Text>
-          <View style={styles.symptomEditButton}>
-            <Button
-              onPress={() => this.showView('DesireEditView')}
-              title={getLabel('desire', cycleDay.desire)}>
-            </Button>
-          </View>
-        </View>
-        <View style={styles.symptomViewRowInline}>
-          <Text style={styles.symptomDayView}>Sex</Text>
-          <View style={styles.symptomEditButton}>
-            <Button
-              onPress={() => this.showView('SexEditView')}
-              title={getLabel('sex', cycleDay.sex)}>
-            </Button>
-          </View>
-        </View>
+        <View style={styles.symptomBoxesView}>
+          <SymptomBox
+            title='Bleeding'
+            icon={require('./assets/placeholder.png')}
+            onPress={() => this.showView('BleedingEditView')}
+            data={getLabel('bleeding', cycleDay.bleeding)}
+          />
+          <SymptomBox
+            title='Temperature'
+            icon={require('./assets/placeholder.png')}
+            onPress={() => this.showView('TemperatureEditView')}
+            data={getLabel('temperature', cycleDay.temperature)}
+          />
+          <SymptomBox
+            title='Mucus'
+            icon={require('./assets/placeholder.png')}
+            onPress={() => this.showView('MucusEditView')}
+            data={getLabel('mucus', cycleDay.mucus)}
+          />
+          <SymptomBox
+            title='Cervix'
+            icon={require('./assets/placeholder.png')}
+            onPress={() => this.showView('CervixEditView')}
+            data={getLabel('cervix', cycleDay.cervix)}
+          />
+          <SymptomBox
+            title='Note'
+            icon={require('./assets/placeholder.png')}
+            onPress={() => this.showView('NoteEditView')}
+            data={getLabel('note', cycleDay.note)}
+          />
+          <SymptomBox
+            title='Desire'
+            icon={require('./assets/placeholder.png')}
+            onPress={() => this.showView('DesireEditView')}
+            data={getLabel('desire', cycleDay.desire)}
+          />
+          <SymptomBox
+            title='Sex'
+            icon={require('./assets/placeholder.png')}
+            onPress={() => this.showView('SexEditView')}
+            data={getLabel('sex', cycleDay.sex)}
+          />
+        </View >
       </View >
     )
   }
@@ -185,4 +166,21 @@ function getLabel(symptomName, symptom) {
 
   if (!symptom) return 'edit'
   return labels[symptomName](symptom) || 'edit'
+}
+
+class SymptomBox extends Component {
+  render() {
+    return (
+      <TouchableOpacity onPress={this.props.onPress}>
+        <View style={styles.symptomBox}>
+          <Image
+            source={require('./assets/placeholder.png')}
+            style={styles.symptomBoxImage}
+          />
+          <Text>{this.props.title}</Text>
+          <Text>{this.props.data}</Text>
+        </View>
+      </TouchableOpacity>
+    )
+  }
 }
