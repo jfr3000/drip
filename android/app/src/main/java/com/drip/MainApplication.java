@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.rnfs.RNFSPackage;
+import com.reactnativedocumentpicker.ReactNativeDocumentPicker;
 import cl.json.RNSharePackage;
 import cl.json.ShareApplication;
 import io.realm.react.RealmReactPackage;
@@ -28,6 +30,8 @@ public class MainApplication extends Application implements ReactApplication, Sh
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
             new VectorIconsPackage(),
+            new RNFSPackage(),
+            new ReactNativeDocumentPicker(),
             new RNSharePackage(),
             new RealmReactPackage()
       );
