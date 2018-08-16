@@ -137,6 +137,8 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-fs')
+    compile project(':react-native-document-picker')
     compile project(':react-native-share')
     compile project(':realm')
     compile project(':react-native-svg')

@@ -1,5 +1,6 @@
 import Realm from 'realm'
 import { LocalDate } from 'js-joda'
+
 import {
   cycleWithTempAndNoMucusShift,
   cycleWithFhm,
@@ -196,22 +197,35 @@ function getPreviousTemperature(cycleDay) {
   return winner.temperature.value
 }
 
-function getColumnNamesForCsv() {
-  return getPrefixedKeys('CycleDay')
+const schema = db.schema.reduce((acc, curr) => {
+  acc[curr.name] = curr.properties
+  return acc
+}, {})
 
-  function getPrefixedKeys(schemaName, prefix) {
-    const schema = db.schema.find(x => x.name === schemaName).properties
-    return Object.keys(schema).reduce((acc, key) => {
-      const prefixedKey = prefix ? [prefix, key].join('.') : key
-      const childSchemaName = schema[key].objectType
-      if (!childSchemaName) {
-        acc.push(prefixedKey)
-        return acc
-      }
-      acc.push(...getPrefixedKeys(childSchemaName, prefixedKey))
-      return acc
-    }, [])
+function tryToCreateCycleDay(day, i) {
+  try {
+    db.create('CycleDay', day)
+  } catch (err) {
+    const msg = `Line ${i + 1}(${day.date}): ${err.message}`
+    throw new Error(msg)
   }
+}
+
+function tryToImportWithDelete(cycleDays) {
+  db.write(() => {
+    db.delete(db.objects('CycleDay'))
+    cycleDays.forEach(tryToCreateCycleDay)
+  })
+}
+
+function tryToImportWithoutDelete(cycleDays) {
+  db.write(() => {
+    cycleDays.forEach((day, i) => {
+      const existing = getCycleDay(day.date)
+      if (existing) db.delete(existing)
+      tryToCreateCycleDay(day, i)
+    })
+  })
 }
 
 export {
@@ -224,5 +238,7 @@ export {
   deleteAll,
   getPreviousTemperature,
   getCycleDay,
-  getColumnNamesForCsv
+  schema,
+  tryToImportWithDelete,
+  tryToImportWithoutDelete
 }
