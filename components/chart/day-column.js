@@ -43,11 +43,9 @@ export default class DayColumn extends Component {
         <Icon
           name='drop'
           position='absolute'
-          top = {10}
-          left = {20}
-          size={30}
+          size={18}
           color='#900'
-          style={{ marginTop: 20 }}
+          style={{ marginTop: 10, marginLeft: 3 }}
           key='bleeding'
         />
       )

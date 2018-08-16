@@ -41,7 +41,7 @@ export default class CycleChart extends Component {
 
   render() {
     return (
-      <View style={{ flexDirection: 'row' }}>
+      <View style={{ flexDirection: 'row', marginTop: 50 }}>
         {yAxisView}
         {horizontalGrid}
         {<FlatList
