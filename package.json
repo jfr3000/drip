@@ -28,7 +28,6 @@
     "react-native-share": "^1.1.0",
     "react-native-simple-radio-button": "^2.7.1",
     "react-native-vector-icons": "^5.0.0",
-    "react-native-slowlog": "^1.0.2",
     "react-navigation": "^2.0.4",
     "realm": "^2.7.1",
     "uuid": "^3.2.1"
