@@ -99,17 +99,22 @@ async function getFileContentAndImport({ deleteExisting }) {
   try {
     fileContent = await rnfs.readFile(fileInfo.uri, 'utf8')
   } catch (err) {
-    return alertError('Could not open file')
+    return importError(labels.import.errors.couldNotOpenFile)
   }
 
   try {
     await importCsv(fileContent, deleteExisting)
-    Alert.alert('Success', 'Data successfully imported')
+    Alert.alert(labels.import.success.title, labels.import.success.message)
   } catch(err) {
-    alertError(err.message)
+    importError(err.message)
   }
 }
 
 function alertError(msg) {
-  Alert.alert('Error', msg)
+  Alert.alert(labels.shared.errorTitle, msg)
+}
+
+function importError(msg) {
+  const postFixed = `${msg}\n\n${labels.import.errors.postFix}`
+  alertError(postFixed)
 }

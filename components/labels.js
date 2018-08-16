@@ -1,6 +1,8 @@
 export const settings = {
   shared: {
-    cancel: 'Cancel'
+    cancel: 'Cancel',
+    errorTitle: 'Error',
+    successTitle: 'Success'
   },
   export: {
     errors: {
@@ -19,6 +21,13 @@ export const settings = {
 1. Keep existing cycle days and replace only the ones in the import file.
 2. Delete all existing cycle days and import cycle days from file.`,
     replaceOption: 'Import and replace',
-    deleteOption: 'Import and delete existing'
+    deleteOption: 'Import and delete existing',
+    errors: {
+      couldNotOpenFile: 'Could not open file',
+      postFix: 'No data was imported or changed'
+    },
+    success: {
+      message: 'Data successfully imported'
+    }
   }
 }
