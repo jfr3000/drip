@@ -190,12 +190,16 @@ class SymptomBox extends Component {
 class FillerBoxes extends Component {
   render() {
     const n = Dimensions.get('window').width / styles.symptomBox.minHeight
-    return Array(Math.ceil(n)).fill(
-      <View
-        width={styles.symptomBox.minHeight}
-        height={0}
-        key={Math.random().toString()}
-      />
-    )
+    const fillerBoxes = []
+    for (let i = 0; i < Math.ceil(n); i++) {
+      fillerBoxes.push(
+        <View
+          width={styles.symptomBox.minHeight}
+          height={0}
+          key={i.toString()}
+        />
+      )
+    }
+    return fillerBoxes
   }
 }
