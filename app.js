@@ -1,4 +1,4 @@
-import { createStackNavigator } from 'react-navigation'
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation'
 import Home from './components/home'
 
 import Calendar from './components/calendar'
@@ -12,11 +12,18 @@ import Stats from './components/stats'
 import { YellowBox } from 'react-native'
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated'])
 
-export default createStackNavigator({
-  home: { screen: Home },
-  calendar: { screen: Calendar },
-  cycleDay: { screen: CycleDay },
-  chart: { screen: Chart },
-  settings: { screen: Settings },
-  stats: { screen: Stats}
-})
+const routes = {
+  Home: { screen: Home },
+  Calendar: createStackNavigator({Calendar, CycleDay}),
+  Chart: createStackNavigator({Chart, CycleDay}),
+  Settings: { screen: Settings },
+  Stats: { screen: Stats}
+}
+
+const config = {
+  labeled: true,
+  shifting: false,
+  backBehavior: 'none'
+}
+
+export default createBottomTabNavigator(routes, config)
