@@ -1,6 +1,5 @@
 import Realm from 'realm'
-import { LocalDate } from 'js-joda'
-
+import { LocalDate, ChronoUnit } from 'js-joda'
 import {
   cycleWithTempAndNoMucusShift,
   cycleWithFhm,
@@ -211,6 +210,15 @@ function tryToCreateCycleDay(day, i) {
   }
 }
 
+function getAmountOfCycleDays() {
+  const amountOfCycleDays = cycleDaysSortedByDate.length
+  if (!amountOfCycleDays) return 0
+  const earliest = cycleDaysSortedByDate[amountOfCycleDays - 1]
+  const today = LocalDate.now()
+  const earliestAsLocalDate = LocalDate.parse(earliest.date)
+  return earliestAsLocalDate.until(today, ChronoUnit.DAYS)
+}
+
 function tryToImportWithDelete(cycleDays) {
   db.write(() => {
     db.delete(db.objects('CycleDay'))
@@ -238,6 +246,7 @@ export {
   deleteAll,
   getPreviousTemperature,
   getCycleDay,
+  getAmountOfCycleDays,
   schema,
   tryToImportWithDelete,
   tryToImportWithoutDelete
