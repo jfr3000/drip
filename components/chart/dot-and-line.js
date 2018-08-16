@@ -46,7 +46,7 @@ function makeLine(leftY, rightY, direction, excludeLine) {
   const lineStyle = excludeLine ? styles.curveExcluded : styles.curve
   // hypotenuse, we add 3px for good measure, because otherwise the lines
   // don't quite touch at the day border
-  const h = (colWidth / 2) / Math.cos(angle) + 3
+  const h = (colWidth / 2) / Math.cos(angle) + 10
   // the rotation by default rotates from the middle of the line,
   // but we want the transform origin to be at its beginning
   // react native doesn't have transformOrigin, so we do this manually

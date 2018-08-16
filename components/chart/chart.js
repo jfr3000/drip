@@ -3,6 +3,7 @@ import { View, FlatList } from 'react-native'
 import range from 'date-range'
 import { LocalDate } from 'js-joda'
 import { yAxis, normalizeToScale, horizontalGrid } from './y-axis'
+import setUpFertilityStatusFunc from './nfp-lines'
 import DayColumn from './day-column'
 import { getCycleDay, cycleDaysSortedByDate, getAmountOfCycleDays } from '../../db'
 import styles from './styles'
@@ -13,7 +14,7 @@ export default class CycleChart extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      columns: makeColumnInfo(),
+      columns: makeColumnInfo(setUpFertilityStatusFunc()),
     }
     this.renderColumn = ({item, index}) => {
       return (
@@ -21,14 +22,13 @@ export default class CycleChart extends Component {
           {...item}
           index={index}
           navigate={this.props.navigation.navigate}
-          {...getInfoForNeighborColumns(index, this.state.columns)}
         />
       )
     }
 
     this.reCalculateChartInfo = (function(Chart) {
       return function() {
-        Chart.setState({columns: makeColumnInfo()})
+        Chart.setState({columns: makeColumnInfo(setUpFertilityStatusFunc())})
       }
     })(this)
 
@@ -60,7 +60,7 @@ export default class CycleChart extends Component {
   }
 }
 
-function makeColumnInfo() {
+function makeColumnInfo(getFhmAndLtlInfo) {
   let amountOfCycleDays = getAmountOfCycleDays()
   // if there's not much data yet, we want to show at least 30 days on the chart
   if (amountOfCycleDays < 30) {
@@ -77,7 +77,7 @@ function makeColumnInfo() {
     ).toString()
   })
 
-  return xAxisDates.map(dateString => {
+  const columns = xAxisDates.map(dateString => {
     const cycleDay = getCycleDay(dateString)
     const symptoms = ['temperature', 'mucus', 'bleeding'].reduce((acc, symptom) => {
       acc[symptom] = cycleDay && cycleDay[symptom] && cycleDay[symptom].value
@@ -88,8 +88,14 @@ function makeColumnInfo() {
     return {
       dateString,
       y: symptoms.temperature ? normalizeToScale(symptoms.temperature) : null,
-      ...symptoms
+      ...symptoms,
+      ...getFhmAndLtlInfo(dateString, symptoms.temperature)
     }
+  })
+
+  return columns.map((col, i) => {
+    const info = getInfoForNeighborColumns(i, columns)
+    return Object.assign(col, info)
   })
 }
 
@@ -105,7 +111,12 @@ function getTodayAndPreviousDays(n) {
 }
 
 function getInfoForNeighborColumns(index, cols) {
-  const ret = {}
+  const ret = {
+    rightY: null,
+    rightTemperatureExclude: null,
+    leftY: null,
+    leftTemperatureExclude: null
+  }
   const right = index > 0 ? cols[index - 1] : undefined
   const left = index < cols.length - 1 ? cols[index + 1] : undefined
   if (right && right.y) {

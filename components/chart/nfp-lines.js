@@ -50,7 +50,10 @@ export default function () {
   }
 
   return function(dateString, temperature) {
-    const ret = {}
+    const ret = {
+      drawLtlAt: null,
+      drawFhmLine: false
+    }
     if (!cycle.status && !cycle.noMoreCycles) updateCurrentCycle(dateString)
     if (cycle.noMoreCycles) return ret
 

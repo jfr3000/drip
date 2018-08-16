@@ -7,12 +7,10 @@ import styles from './styles'
 import config from './config'
 import { getOrCreateCycleDay } from '../../db'
 import cycleModule from '../../lib/cycle'
-import setUpFertilityStatusFunc from './nfp-lines'
 import DotAndLine from './dot-and-line'
 
 const getCycleDayNumber = cycleModule().getCycleDayNumber
 const label = styles.column.label
-const getFhmAndLtlInfo = setUpFertilityStatusFunc()
 
 export default class DayColumn extends Component {
   passDateToDayView(dateString) {
@@ -28,12 +26,16 @@ export default class DayColumn extends Component {
     const {
       dateString,
       y,
-      temperature,
       temperatureExclude,
       bleeding,
-      mucus
+      mucus,
+      drawFhmLine,
+      drawLtlAt,
+      rightY,
+      rightTemperatureExclude,
+      leftY,
+      leftTemperatureExclude
     } = this.props
-    const nfpLineInfo = getFhmAndLtlInfo(dateString, temperature)
 
     const columnElements = []
     if (typeof bleeding === 'number') {
@@ -65,7 +67,7 @@ export default class DayColumn extends Component {
       columnElements.push(mucusIcon)
     }
 
-    if(nfpLineInfo.drawFhmLine) {
+    if(drawFhmLine) {
       const fhmLine = (<View
         position = 'absolute'
         top={100}
@@ -77,11 +79,11 @@ export default class DayColumn extends Component {
       columnElements.push(fhmLine)
     }
 
-    if(nfpLineInfo.drawLtlAt) {
+    if(drawLtlAt) {
       const ltlLine = (<View
         position = 'absolute'
         width={'100%'}
-        top={nfpLineInfo.drawLtlAt}
+        top={drawLtlAt}
         {...styles.nfpLine}
         key='ltl'
       />)
@@ -93,10 +95,10 @@ export default class DayColumn extends Component {
         <DotAndLine
           y={y}
           exclude={temperatureExclude}
-          rightY={this.props.rightY}
-          rightTemperatureExclude={this.props.rightTemperatureExclude}
-          leftY={this.props.leftY}
-          leftTemperatureExclude={this.props.leftTemperatureExclude}
+          rightY={rightY}
+          rightTemperatureExclude={rightTemperatureExclude}
+          leftY={leftY}
+          leftTemperatureExclude={leftTemperatureExclude}
           key='dotandline'
         />
       )
