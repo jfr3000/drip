@@ -58,6 +58,12 @@ export default StyleSheet.create({
     minWidth: 100,
     minHeight: 100,
   },
+  symptomBoxActive: {
+    backgroundColor: secondaryColor,
+  },
+  symptomTextActive: {
+    color: fontOnPrimaryColor
+  },
   symptomEditRow: {
     justifyContent: 'space-between',
     marginBottom: 10,
@@ -120,6 +126,12 @@ export default StyleSheet.create({
 export const iconStyles = {
   navigationArrow: {
     size: 45,
+    color: fontOnPrimaryColor
+  },
+  symptomBox: {
+    size: 40
+  },
+  symptomBoxActive: {
     color: fontOnPrimaryColor
   }
 }

@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import {
   View,
   Text,
-  Image,
   TouchableOpacity,
   Dimensions
 } from 'react-native'
-import styles from '../../styles'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import styles, { iconStyles } from '../../styles'
 import {
   bleeding as bleedingLabels,
   mucusFeeling as feelingLabels,
@@ -25,44 +25,37 @@ export default class DayView extends Component {
       <View style={styles.symptomBoxesView}>
         <SymptomBox
           title='Bleeding'
-          icon={require('./assets/placeholder.png')}
-          onPress={() => this.showView('BleedingEditView')}
+          onPress={() => this.props.showView('BleedingEditView')}
           data={getLabel('bleeding', cycleDay.bleeding)}
         />
         <SymptomBox
           title='Temperature'
-          icon={require('./assets/placeholder.png')}
-          onPress={() => this.showView('TemperatureEditView')}
+          onPress={() => this.props.showView('TemperatureEditView')}
           data={getLabel('temperature', cycleDay.temperature)}
         />
         <SymptomBox
           title='Mucus'
-          icon={require('./assets/placeholder.png')}
-          onPress={() => this.showView('MucusEditView')}
+          onPress={() => this.props.showView('MucusEditView')}
           data={getLabel('mucus', cycleDay.mucus)}
         />
         <SymptomBox
           title='Cervix'
-          icon={require('./assets/placeholder.png')}
-          onPress={() => this.showView('CervixEditView')}
+          onPress={() => this.props.showView('CervixEditView')}
           data={getLabel('cervix', cycleDay.cervix)}
         />
         <SymptomBox
           title='Note'
-          icon={require('./assets/placeholder.png')}
-          onPress={() => this.showView('NoteEditView')}
+          onPress={() => this.props.showView('NoteEditView')}
           data={getLabel('note', cycleDay.note)}
         />
         <SymptomBox
           title='Desire'
-          icon={require('./assets/placeholder.png')}
-          onPress={() => this.showView('DesireEditView')}
+          onPress={() => this.props.showView('DesireEditView')}
           data={getLabel('desire', cycleDay.desire)}
         />
         <SymptomBox
           title='Sex'
-          icon={require('./assets/placeholder.png')}
-          onPress={() => this.showView('SexEditView')}
+          onPress={() => this.props.showView('SexEditView')}
           data={getLabel('sex', cycleDay.sex)}
         />
         {/*  this is just to make the last row adhere to the grid
@@ -145,15 +138,23 @@ function getLabel(symptomName, symptom) {
 
 class SymptomBox extends Component {
   render() {
+    const d = this.props.data
+    const boxActive = d ? styles.symptomBoxActive : {}
+    const iconActive = d ? iconStyles.symptomBoxActive : {}
+    const textStyle = d ? styles.symptomTextActive : {}
+
+    const symptomBoxStyle = Object.assign({}, styles.symptomBox, boxActive)
+    const iconStyle = Object.assign({}, iconStyles.symptomBox, iconActive)
+
     return (
       <TouchableOpacity onPress={this.props.onPress}>
-        <View style={styles.symptomBox}>
-          <Image
-            source={require('./assets/placeholder.png')}
-            style={styles.symptomBoxImage}
+        <View style={symptomBoxStyle}>
+          <Icon
+            name='thermometer'
+            {...iconStyle}
           />
-          <Text>{this.props.title}</Text>
-          <Text>{this.props.data}</Text>
+          <Text style={textStyle}>{this.props.title}</Text>
+          <Text style={textStyle}>{this.props.data}</Text>
         </View>
       </TouchableOpacity>
     )
