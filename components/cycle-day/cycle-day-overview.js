@@ -17,37 +17,10 @@ import {
   cervixPosition as positionLabels,
   intensity as intensityLabels
 } from './labels/labels'
-import cycleDayModule from '../../lib/cycle'
-import { bleedingDaysSortedByDate } from '../../db'
-
-const getCycleDayNumber = cycleDayModule().getCycleDayNumber
 
 export default class DayView extends Component {
-  constructor(props) {
-    super(props)
-    this.cycleDay = props.cycleDay
-    this.showView = props.showView
-    this.state = {
-      cycleDayNumber: getCycleDayNumber(this.cycleDay.date),
-    }
-
-    this.setStateWithCycleDayNumber = (function (DayViewComponent) {
-      return function () {
-        DayViewComponent.setState({
-          cycleDayNumber: getCycleDayNumber(DayViewComponent.cycleDay.date)
-        })
-      }
-    })(this)
-
-    bleedingDaysSortedByDate.addListener(this.setStateWithCycleDayNumber)
-  }
-
-  componentWillUnmount() {
-    bleedingDaysSortedByDate.removeListener(this.setStateWithCycleDayNumber)
-  }
-
   render() {
-    const cycleDay = this.cycleDay
+    const cycleDay = this.props.cycleDay
     return (
       <View style={styles.symptomBoxesView}>
         <SymptomBox

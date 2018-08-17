@@ -2,6 +2,7 @@ import { StyleSheet } from 'react-native'
 
 export const primaryColor = '#ff7e5f'
 export const secondaryColor = '#351c4d'
+export const fontOnPrimaryColor = 'white'
 
 export default StyleSheet.create({
   container: {
@@ -17,12 +18,12 @@ export default StyleSheet.create({
   dateHeader: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: 'white',
+    color: fontOnPrimaryColor,
     textAlign: 'center',
   },
   cycleDayNumber: {
     fontSize: 15,
-    color: 'white',
+    color: fontOnPrimaryColor,
     textAlign: 'center',
     marginLeft: 15
   },
@@ -70,10 +71,15 @@ export default StyleSheet.create({
   },
   cycleDayDateView: {
     backgroundColor: primaryColor,
-    padding: 10,
+    paddingVertical: 18,
+    paddingHorizontal: 15,
+    alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: 'space-between'
+  },
+  navigationArrow: {
+    fontSize: 60,
+    color: fontOnPrimaryColor
   },
   homeButtons: {
     marginHorizontal: 15
@@ -107,6 +113,13 @@ export default StyleSheet.create({
   },
   menuLabel: {
     fontSize: 15,
-    color: 'white'
+    color: fontOnPrimaryColor
   },
 })
+
+export const iconStyles = {
+  navigationArrow: {
+    size: 45,
+    color: fontOnPrimaryColor
+  }
+}
