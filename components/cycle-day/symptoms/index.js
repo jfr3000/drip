@@ -5,6 +5,7 @@ import CervixEditView from './cervix'
 import NoteEditView from './note'
 import DesireEditView from './desire'
 import SexEditView from './sex'
+import PainEditView from './pain'
 
 export default {
   BleedingEditView,
@@ -13,5 +14,6 @@ export default {
   CervixEditView,
   NoteEditView,
   DesireEditView,
-  SexEditView
+  SexEditView,
+  PainEditView
 }

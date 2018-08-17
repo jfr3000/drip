@@ -94,6 +94,10 @@ export default class CycleDayOverView extends Component {
               onPress={() => this.navigate('SexEditView')}
               data={getLabel('sex', cycleDay.sex)}
             />
+            <SymptomBox
+              title='Pain'
+              onPress={() => this.navigate('PainEditView')}
+            />
             {/*  this is just to make the last row adhere to the grid
         (and) because there are no pseudo properties in RN */}
             <FillerBoxes />
@@ -162,6 +166,16 @@ function getLabel(symptomName, symptom) {
         sexLabel.push('contraceptive')
       }
       return sexLabel.join(', ')
+    },
+    pain: pain => {
+      let painLabel = ''
+      if (pain.cramps || pain.ovulationPain || pain.headache ||
+        pain.backache || pain.nausea || pain.tenderBreasts ||
+        pain.migraine
+      ) {
+        painLabel += 'Pain'
+      }
+      return painLabel ? painLabel : 'edit'
     }
   }
 

@@ -20,6 +20,16 @@ export const contraceptives = {
   other: 'Other'
 }
 
+export const pain = {
+  cramps: 'Cramps',
+  ovulationPain: 'Ovulation pain',
+  headache: 'Headache',
+  backache: 'Backache',
+  nausea: 'Nausea',
+  tenderBreasts: 'Tender breasts',
+  migraine: 'Migraine'
+}
+
 export const fertilityStatus = {
   fertile: 'fertile',
   infertile: 'infertile',
