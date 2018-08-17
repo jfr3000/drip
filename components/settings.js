@@ -9,6 +9,7 @@ import {
 import Share from 'react-native-share'
 import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker'
 import rnfs from 'react-native-fs'
+import Header from './header'
 import styles from '../styles/index'
 import { settings as labels } from './labels'
 import getDataAsCsvDataUri from '../lib/import-export/export-to-csv'
@@ -18,6 +19,7 @@ export default class Settings extends Component {
   render() {
     return (
       <ScrollView>
+        <Header title='Settings'/>
         <View style={styles.homeButtons}>
           <View style={styles.homeButton}>
             <Button

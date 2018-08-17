@@ -7,11 +7,10 @@ import {
   Dimensions
 } from 'react-native'
 import { LocalDate } from 'js-joda'
+import Header from '../header'
 import { getOrCreateCycleDay } from '../../db'
 import cycleModule from '../../lib/cycle'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { formatDateForViewHeader } from './labels/format'
 import styles, { iconStyles } from '../../styles'
 import {
   bleeding as bleedingLabels,
@@ -23,8 +22,6 @@ import {
   cervixPosition as positionLabels,
   intensity as intensityLabels
 } from './labels/labels'
-
-const getCycleDayNumber = cycleModule().getCycleDayNumber
 
 export default class CycleDayOverView extends Component {
   constructor(props) {
@@ -51,30 +48,15 @@ export default class CycleDayOverView extends Component {
 
   render() {
     const cycleDay = this.state.cycleDay
+    const getCycleDayNumber = cycleModule().getCycleDayNumber
     const cycleDayNumber = getCycleDayNumber(cycleDay.date)
     return (
       <ScrollView>
-        <View style={ styles.cycleDayDateView }>
-          <MaterialIcon
-            name='arrow-left-drop-circle'
-            {...iconStyles.navigationArrow}
-            onPress={() => this.goToCycleDay('before')}
-          />
-          <View>
-            <Text style={styles.dateHeader}>
-              {formatDateForViewHeader(cycleDay.date)}
-            </Text>
-            {cycleDayNumber &&
-              <Text style={styles.cycleDayNumber} >
-                Cycle day {cycleDayNumber}
-              </Text>}
-          </View >
-          <MaterialIcon
-            name='arrow-right-drop-circle'
-            {...iconStyles.navigationArrow}
-            onPress={() => this.goToCycleDay('after')}
-          />
-        </View >
+        <Header
+          cycleDayOverView={true}
+          cycleDayNumber={cycleDayNumber}
+          date={cycleDay.date}
+        />
         <View style={styles.symptomBoxesView}>
           <SymptomBox
             title='Bleeding'

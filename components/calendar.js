@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import { CalendarList } from 'react-native-calendars'
+import Header from './header'
 import * as styles from '../styles'
 import { getOrCreateCycleDay, bleedingDaysSortedByDate } from '../db'
 
@@ -34,12 +35,15 @@ export default class CalendarView extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <CalendarList
-          onDayPress={ this.passDateToDayView.bind(this) }
-          markedDates = { this.state.bleedingDaysInCalFormat }
-          markingType = {'period'}
-        />
+      <View>
+        <Header title='Calendar' />
+        <View style={styles.container}>
+          <CalendarList
+            onDayPress={this.passDateToDayView.bind(this)}
+            markedDates={this.state.bleedingDaysInCalFormat}
+            markingType={'period'}
+          />
+        </View>
       </View>
     )
   }

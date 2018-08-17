@@ -6,6 +6,7 @@ import {
   ScrollView
 } from 'react-native'
 import { LocalDate } from 'js-joda'
+import Header from './header'
 import styles from '../styles/index'
 import cycleModule from '../lib/cycle'
 import { getOrCreateCycleDay, bleedingDaysSortedByDate, fillWithDummyData, deleteAll } from '../db'
@@ -48,6 +49,7 @@ export default class Home extends Component {
   render() {
     return (
       <ScrollView>
+        <Header title='Home'/>
         <Text style={styles.welcome}>{this.state.welcomeText}</Text>
         <View style={styles.homeButtons}>
           <View style={styles.homeButton}>

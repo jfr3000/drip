@@ -1,10 +1,6 @@
 import React, { Component } from 'react'
-import {
-  View,
-  Text,
-  ScrollView
-} from 'react-native'
-import styles from '../../../styles'
+import { ScrollView } from 'react-native'
+import Header from '../../header'
 import actionButtonModule from '../action-buttons'
 import BleedingEditView from './bleeding'
 import TemperatureEditView from './temperature'
@@ -51,13 +47,7 @@ export default class SymptomView extends Component {
   render() {
     return (
       <ScrollView>
-        <View style={ styles.header }>
-          <View>
-            <Text style={styles.dateHeader}>
-              {titles[this.state.visibleComponent]}
-            </Text>
-          </View >
-        </View >
+        <Header title={titles[this.state.visibleComponent]}/>
         {React.createElement(
           symptomViews[this.state.visibleComponent],
           {

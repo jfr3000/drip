@@ -5,6 +5,7 @@ import {
   ScrollView
 } from 'react-native'
 import { LocalDate, ChronoUnit } from 'js-joda'
+import Header from './header'
 import styles from '../styles/index'
 import cycleModule from '../lib/cycle'
 import getCycleInfo from '../lib/cycle-length'
@@ -15,6 +16,7 @@ export default class Stats extends Component {
     const statsText = determineStatsText(allMensesStarts)
     return (
       <ScrollView>
+        <Header title='Statistics' />
         <View>
           <Text style={styles.stats}>{statsText}</Text>
         </View>
