@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
 import {
+  ScrollView,
   View,
   Text,
   TouchableOpacity,
   Dimensions
 } from 'react-native'
+import { LocalDate } from 'js-joda'
+import { getOrCreateCycleDay } from '../../db'
+import cycleModule from '../../lib/cycle'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { formatDateForViewHeader } from './labels/format'
 import styles, { iconStyles } from '../../styles'
 import {
   bleeding as bleedingLabels,
@@ -18,50 +24,98 @@ import {
   intensity as intensityLabels
 } from './labels/labels'
 
-export default class DayView extends Component {
+const getCycleDayNumber = cycleModule().getCycleDayNumber
+
+export default class CycleDayOverView extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      cycleDay: props.navigation.state.params.cycleDay
+    }
+  }
+
+  goToCycleDay(target) {
+    const localDate = LocalDate.parse(this.state.cycleDay.date)
+    const targetDate = target === 'before' ?
+      localDate.minusDays(1).toString() :
+      localDate.plusDays(1).toString()
+    this.setState({cycleDay: getOrCreateCycleDay(targetDate)})
+  }
+
+  navigate(symptom) {
+    this.props.navigation.navigate('SymptomView', {
+      symptom,
+      cycleDay: this.state.cycleDay
+    })
+  }
+
   render() {
-    const cycleDay = this.props.cycleDay
+    const cycleDay = this.state.cycleDay
+    const cycleDayNumber = getCycleDayNumber(cycleDay.date)
     return (
-      <View style={styles.symptomBoxesView}>
-        <SymptomBox
-          title='Bleeding'
-          onPress={() => this.props.showView('BleedingEditView')}
-          data={getLabel('bleeding', cycleDay.bleeding)}
-        />
-        <SymptomBox
-          title='Temperature'
-          onPress={() => this.props.showView('TemperatureEditView')}
-          data={getLabel('temperature', cycleDay.temperature)}
-        />
-        <SymptomBox
-          title='Mucus'
-          onPress={() => this.props.showView('MucusEditView')}
-          data={getLabel('mucus', cycleDay.mucus)}
-        />
-        <SymptomBox
-          title='Cervix'
-          onPress={() => this.props.showView('CervixEditView')}
-          data={getLabel('cervix', cycleDay.cervix)}
-        />
-        <SymptomBox
-          title='Note'
-          onPress={() => this.props.showView('NoteEditView')}
-          data={getLabel('note', cycleDay.note)}
-        />
-        <SymptomBox
-          title='Desire'
-          onPress={() => this.props.showView('DesireEditView')}
-          data={getLabel('desire', cycleDay.desire)}
-        />
-        <SymptomBox
-          title='Sex'
-          onPress={() => this.props.showView('SexEditView')}
-          data={getLabel('sex', cycleDay.sex)}
-        />
-        {/*  this is just to make the last row adhere to the grid
+      <ScrollView>
+        <View style={ styles.cycleDayDateView }>
+          <MaterialIcon
+            name='arrow-left-drop-circle'
+            {...iconStyles.navigationArrow}
+            onPress={() => this.goToCycleDay('before')}
+          />
+          <View>
+            <Text style={styles.dateHeader}>
+              {formatDateForViewHeader(cycleDay.date)}
+            </Text>
+            {cycleDayNumber &&
+              <Text style={styles.cycleDayNumber} >
+                Cycle day {cycleDayNumber}
+              </Text>}
+          </View >
+          <MaterialIcon
+            name='arrow-right-drop-circle'
+            {...iconStyles.navigationArrow}
+            onPress={() => this.goToCycleDay('after')}
+          />
+        </View >
+        <View style={styles.symptomBoxesView}>
+          <SymptomBox
+            title='Bleeding'
+            onPress={() => this.navigate('BleedingEditView')}
+            data={getLabel('bleeding', cycleDay.bleeding)}
+          />
+          <SymptomBox
+            title='Temperature'
+            onPress={() => this.navigate('TemperatureEditView')}
+            data={getLabel('temperature', cycleDay.temperature)}
+          />
+          <SymptomBox
+            title='Mucus'
+            onPress={() => this.navigate('MucusEditView')}
+            data={getLabel('mucus', cycleDay.mucus)}
+          />
+          <SymptomBox
+            title='Cervix'
+            onPress={() => this.navigate('CervixEditView')}
+            data={getLabel('cervix', cycleDay.cervix)}
+          />
+          <SymptomBox
+            title='Note'
+            onPress={() => this.navigate('NoteEditView')}
+            data={getLabel('note', cycleDay.note)}
+          />
+          <SymptomBox
+            title='Desire'
+            onPress={() => this.navigate('DesireEditView')}
+            data={getLabel('desire', cycleDay.desire)}
+          />
+          <SymptomBox
+            title='Sex'
+            onPress={() => this.navigate('SexEditView')}
+            data={getLabel('sex', cycleDay.sex)}
+          />
+          {/*  this is just to make the last row adhere to the grid
         (and) because there are no pseudo properties in RN */}
-        <FillerBoxes/>
-      </View >
+          <FillerBoxes />
+        </View >
+      </ScrollView >
     )
   }
 }

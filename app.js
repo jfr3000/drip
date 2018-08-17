@@ -2,7 +2,8 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import Home from './components/home'
 
 import Calendar from './components/calendar'
-import CycleDay from './components/cycle-day'
+import CycleDay from './components/cycle-day/cycle-day-overview'
+import SymptomView from './components/cycle-day/symptoms'
 import Chart from './components/chart/chart'
 import Settings from './components/settings'
 import Stats from './components/stats'
@@ -14,9 +15,11 @@ import styles, { primaryColor } from './styles'
 import { YellowBox } from 'react-native'
 YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated'])
 
+const CycleDayStack = createStackNavigator({CycleDay, SymptomView}, {headerMode: 'none'})
+
 const routes = {
-  Home: createStackNavigator({Home, CycleDay}, {headerMode: 'none'}),
-  Calendar: createStackNavigator({Calendar, CycleDay}, {headerMode: 'none'}),
+  Home: createStackNavigator({Home, CycleDayStack}, {headerMode: 'none'}),
+  Calendar: createStackNavigator({Calendar, CycleDayStack}, {headerMode: 'none'}),
   Chart: createStackNavigator({Chart, CycleDay}, {headerMode: 'none'}),
   Settings: { screen: Settings },
   Stats: { screen: Stats}
