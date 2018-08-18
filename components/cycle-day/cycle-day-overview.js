@@ -121,33 +121,28 @@ function getLabel(symptomName, symptom) {
       }
     },
     mucus: mucus => {
-      if (
-        typeof mucus.feeling === 'number' &&
-        typeof mucus.texture === 'number' &&
-        typeof mucus.value === 'number'
-      ) {
-        let mucusLabel =
-          `${feelingLabels[mucus.feeling]} +
-          ${textureLabels[mucus.texture]}
-          ( ${computeSensiplanMucusLabels[mucus.value]} )`
-        if (mucus.exclude) mucusLabel = "( " + mucusLabel + " )"
+      const categories = ['feeling', 'texture', 'value']
+      if (categories.every(c => typeof mucus[c] === 'number')) {
+        let mucusLabel = [feelingLabels[mucus.feeling], textureLabels[mucus.texture]].join(', ')
+        mucusLabel += `\n${computeSensiplanMucusLabels[mucus.value]}`
+        if (mucus.exclude) mucusLabel = `(${mucusLabel})`
         return mucusLabel
       }
     },
     cervix: cervix => {
+      let cervixLabel = []
       if (cervix.opening > -1 && cervix.firmness > -1) {
-        let cervixLabel =
-          `${openingLabels[cervix.opening]} +
-          ${firmnessLabels[cervix.firmness]}`
+        cervixLabel.push(openingLabels[cervix.opening], firmnessLabels[cervix.firmness])
         if (cervix.position > -1) {
-          cervixLabel += `+ ${positionLabels[cervix.position]}`
+          cervixLabel.push(positionLabels[cervix.position])
         }
-        if (cervix.exclude) cervixLabel = "( " + cervixLabel + " )"
+        cervixLabel = cervixLabel.join(', ')
+        if (cervix.exclude) cervixLabel = `(${cervixLabel})`
         return cervixLabel
       }
     },
     note: note => {
-      return note.value.slice(0, 12) + '...'
+      return note.value
     },
     desire: desire => {
       if (typeof desire.value === 'number') {
@@ -156,20 +151,22 @@ function getLabel(symptomName, symptom) {
       }
     },
     sex: sex => {
-      let sexLabel = ''
+      const sexLabel = []
       if ( sex.solo || sex.partner ) {
-        sexLabel += 'Activity '
+        sexLabel.push('activity')
       }
       if (sex.condom || sex.pill || sex.iud ||
         sex.patch || sex.ring || sex.implant || sex.other) {
-        sexLabel += 'Contraceptive'
+        sexLabel.push('contraceptive')
       }
-      return sexLabel ? sexLabel : undefined
+      return sexLabel.join(', ')
     }
   }
 
   if (!symptom) return
-  return labels[symptomName](symptom)
+  const label = labels[symptomName](symptom)
+  if (label.length < 50) return label
+  return label.slice(0, 47) + '...'
 }
 
 class SymptomBox extends Component {
@@ -190,7 +187,9 @@ class SymptomBox extends Component {
             {...iconStyle}
           />
           <Text style={textStyle}>{this.props.title}</Text>
-          <Text style={textStyle}>{this.props.data}</Text>
+        </View>
+        <View style={styles.symptomDataBox}>
+          <Text style={styles.symptomDataText}>{this.props.data}</Text>
         </View>
       </TouchableOpacity>
     )
@@ -199,12 +198,12 @@ class SymptomBox extends Component {
 
 class FillerBoxes extends Component {
   render() {
-    const n = Dimensions.get('window').width / styles.symptomBox.minHeight
+    const n = Dimensions.get('window').width / styles.symptomBox.width
     const fillerBoxes = []
     for (let i = 0; i < Math.ceil(n); i++) {
       fillerBoxes.push(
         <View
-          width={styles.symptomBox.minHeight}
+          width={styles.symptomBox.width}
           height={0}
           key={i.toString()}
         />

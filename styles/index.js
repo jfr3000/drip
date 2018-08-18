@@ -50,19 +50,38 @@ export default StyleSheet.create({
     borderColor: secondaryColor,
     borderStyle: 'solid',
     borderWidth: 1,
-    borderRadius: 10,
-    justifyContent: 'center',
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
     alignItems: 'center',
-    marginTop: '20%',
+    marginTop: '10%',
+    paddingVertical: '6%',
     marginHorizontal: 1,
-    minWidth: 100,
-    minHeight: 100,
+    width: 110,
+    height: 80,
   },
   symptomBoxActive: {
     backgroundColor: secondaryColor,
   },
   symptomTextActive: {
     color: fontOnPrimaryColor
+  },
+  symptomDataBox: {
+    borderColor: secondaryColor,
+    borderStyle: 'solid',
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderBottomWidth: 1,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '3%',
+    marginHorizontal: 1,
+    width: 110,
+    height: 50,
+  },
+  symptomDataText: {
+    fontSize: 12
   },
   symptomEditRow: {
     justifyContent: 'space-between',
