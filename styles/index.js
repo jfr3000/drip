@@ -82,6 +82,13 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  menu: {
+    backgroundColor: primaryColor,
+    paddingVertical: 18,
+    paddingHorizontal: 15,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   headerCycleDay: {
     flexDirection: 'row',
     justifyContent: 'space-between'

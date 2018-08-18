@@ -49,7 +49,6 @@ export default class Home extends Component {
   render() {
     return (
       <ScrollView>
-        <Header title='Home'/>
         <Text style={styles.welcome}>{this.state.welcomeText}</Text>
         <View style={styles.homeButtons}>
           <View style={styles.homeButton}>
