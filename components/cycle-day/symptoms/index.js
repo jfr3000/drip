@@ -38,10 +38,9 @@ export default class SymptomView extends Component {
       cycleDay: props.navigation.state.params.cycleDay
     }
 
-    this.showView = view => {
-      this.setState({visibleComponent: view})
-    }
-    this.makeActionButtons = actionButtonModule(this.showView)
+    this.makeActionButtons = actionButtonModule(() => {
+      this.props.navigation.navigate('CycleDay', {cycleDay: this.state.cycleDay})
+    })
   }
 
   render() {
