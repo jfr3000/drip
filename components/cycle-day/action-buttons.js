@@ -17,7 +17,8 @@ export default function (navigateToOverView) {
         action: () => {
           saveSymptom(symptom, cycleDay)
           navigateToOverView()
-        }
+        },
+        disabledCondition: !cycleDay[symptom]
       }, {
         title: 'Save',
         action: () => {
