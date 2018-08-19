@@ -13,27 +13,28 @@ export default class Menu extends Component {
         placeActionButtons()
         :
         <View style={styles.menu}>
-          <Text
-            style={styles.dateHeader}
-            onPress={() => this.props.navigate('Home')}
-          >
-            {'Home'}
-          </Text>
-          <Text
-            style={styles.dateHeader}
-            onPress={() => this.props.navigate('Calendar')}
-          >
-            {'Calendar'}
-          </Text>
-          <Text
-            style={styles.dateHeader}
-            onPress={() => this.props.navigate('Settings')}
-          >
-            {'Settings'}
-          </Text>
+          {[
+            {title: 'Home', icon: 'home', componentName: 'Home'},
+            {title: 'Calendar', icon: 'calendar-range', componentName: 'Calendar'},
+            {title: 'Chart', icon: 'chart-line', componentName: 'Chart'},
+            {title: 'Stats', icon: 'chart-pie', componentName: 'Stats'},
+            {title: 'Settings', icon: 'settings', componentName: 'Settings'},
+          ].map(makeMenuItem)}
         </View >
     )
   }
 }
 
-function placeActionButtons() {}
+function makeMenuItem({title, icon, componentName}) {
+  return (
+    <View style={{alignItems: 'center'}}>
+      <Icon name={icon} {...iconStyles.menuIcon}/>
+      <Text
+        style={styles.menuText}
+        onPress={() => this.props.navigate(componentName)}
+      >
+        {title}
+      </Text>
+    </View>
+  )
+}

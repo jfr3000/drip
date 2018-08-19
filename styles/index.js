@@ -104,10 +104,13 @@ export default StyleSheet.create({
   menu: {
     backgroundColor: primaryColor,
     paddingVertical: 18,
-    paddingHorizontal: 15,
+    paddingHorizontal: 10,
     alignItems: 'center',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     flexDirection: 'row',
+  },
+  menuText: {
+    color: fontOnPrimaryColor
   },
   headerCycleDay: {
     flexDirection: 'row',
@@ -162,6 +165,10 @@ export const iconStyles = {
     size: 40
   },
   symptomBoxActive: {
+    color: fontOnPrimaryColor
+  },
+  menuIcon: {
+    size: 20,
     color: fontOnPrimaryColor
   }
 }
