@@ -23,16 +23,24 @@ export default class App extends Component {
     }
   }
 
-  navigate(pageName) {
-    this.setState({currentPage: pageName})
+  navigate(pageName, props) {
+    this.setState({currentPage: pageName, currentProps: props})
   }
 
   render() {
     return (
-      <View>
-        <Header title={this.state.currentPage}/>
-        <CurrentPage page={this.state.currentPage} />
-        <Menu navigate={this.navigate.bind(this)}/>
+      <View style={{height: '100%', justifyContent: 'space-between' }}>
+        <View>
+          {this.state.currentPage != 'CycleDay' && <Header title={this.state.currentPage}/>}
+          <View>
+            <CurrentPage
+              page={this.state.currentPage}
+              navigate={this.navigate.bind(this)}
+              props={this.state.currentProps}
+            />
+          </View>
+        </View>
+        <Menu navigate={this.navigate.bind(this)} />
       </View>
     )
   }
@@ -40,10 +48,13 @@ export default class App extends Component {
 
 class CurrentPage extends Component {
   render () {
-    console.log('urrentpage render')
     const page = {
       Home, Calendar, CycleDay, SymptomView, Chart, Settings, Stats
     }[this.props.page]
-    return React.createElement(page)
+    const props = this.props.props || {}
+    return React.createElement(page, {
+      navigate: this.props.navigate,
+      ...props
+    })
   }
 }

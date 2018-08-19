@@ -6,7 +6,6 @@ import {
   ScrollView
 } from 'react-native'
 import { LocalDate } from 'js-joda'
-import Header from './header'
 import styles from '../styles/index'
 import cycleModule from '../lib/cycle'
 import { getOrCreateCycleDay, bleedingDaysSortedByDate, fillWithDummyData, deleteAll } from '../db'
@@ -42,7 +41,7 @@ export default class Home extends Component {
   passTodayToDayView() {
     const todayDateString = LocalDate.now().toString()
     const cycleDay = getOrCreateCycleDay(todayDateString)
-    const navigate = this.props.navigation.navigate
+    const navigate = this.props.navigate
     navigate('CycleDay', { cycleDay })
   }
 

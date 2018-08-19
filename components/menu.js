@@ -15,6 +15,12 @@ export default class Menu extends Component {
         <View style={styles.menu}>
           <Text
             style={styles.dateHeader}
+            onPress={() => this.props.navigate('Home')}
+          >
+            {'Home'}
+          </Text>
+          <Text
+            style={styles.dateHeader}
             onPress={() => this.props.navigate('Calendar')}
           >
             {'Calendar'}

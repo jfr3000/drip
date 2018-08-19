@@ -106,7 +106,8 @@ export default StyleSheet.create({
     paddingVertical: 18,
     paddingHorizontal: 15,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'space-evenly',
+    flexDirection: 'row',
   },
   headerCycleDay: {
     flexDirection: 'row',
