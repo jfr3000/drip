@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView } from 'react-native'
+import { ScrollView, BackHandler } from 'react-native'
 import Header from '../../header'
 import actionButtonModule from '../action-buttons'
 import BleedingEditView from './bleeding'
@@ -34,13 +34,24 @@ export default class SymptomView extends Component {
     super(props)
 
     this.state = {
-      visibleComponent: props.navigation.state.params.symptom,
-      cycleDay: props.navigation.state.params.cycleDay
+      visibleComponent: props.symptom,
+      cycleDay: props.cycleDay
     }
 
     this.makeActionButtons = actionButtonModule(() => {
-      this.props.navigation.navigate('CycleDay', {cycleDay: this.state.cycleDay})
+      this.props.navigate('CycleDay', {cycleDay: this.state.cycleDay})
     })
+
+    const handleBackButtonPress = function() {
+      this.props.navigate('CycleDay', {cycleDay: this.state.cycleDay})
+      return true
+    }.bind(this)
+
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButtonPress)
+  }
+
+  componentWillUnmount() {
+    this.backHandler.remove()
   }
 
   render() {

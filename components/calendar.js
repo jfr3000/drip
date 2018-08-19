@@ -10,7 +10,6 @@ export default class CalendarView extends Component {
     this.state = {
       bleedingDaysInCalFormat: toCalFormat(bleedingDaysSortedByDate)
     }
-    console.log(Object.keys(this.state.bleedingDaysInCalFormat))
 
     this.setStateWithCalFormattedDays = (function (CalendarComponent) {
       return function(_, changes) {
@@ -35,7 +34,6 @@ export default class CalendarView extends Component {
   }
 
   render() {
-    console.log('cal render')
     return (
       <View>
         <View style={styles.container}>

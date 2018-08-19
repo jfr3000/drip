@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { View, BackHandler } from 'react-native'
 import Header from './components/header'
 import Menu from './components/menu'
 import Home from './components/home'
@@ -21,6 +21,20 @@ export default class App extends Component {
     this.state = {
       currentPage: 'Home'
     }
+
+    const handleBackButtonPress = function() {
+      if (this.state.currentPage === 'Home') return false
+      // this is handled in the SymptomView
+      if (this.state.currentPage === 'SymptomView') return true
+      this.navigate('Home')
+      return true
+    }.bind(this)
+
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButtonPress)
+  }
+
+  componentWillUnmount() {
+    this.backHandler.remove()
   }
 
   navigate(pageName, props) {
