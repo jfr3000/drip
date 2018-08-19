@@ -16,7 +16,6 @@ export default class Stats extends Component {
     const statsText = determineStatsText(allMensesStarts)
     return (
       <ScrollView>
-        <Header title='Statistics' />
         <View>
           <Text style={styles.stats}>{statsText}</Text>
         </View>
