@@ -12,7 +12,7 @@ export default class Menu extends Component {
     return (
       <TouchableOpacity
         onPress={() => this.props.navigate(componentName)}
-        style={{ alignItems: 'center' }}
+        style={styles.menuItem}
       >
         <Icon name={icon} {...iconStyles.menuIcon} />
         <Text style={styles.menuText}>

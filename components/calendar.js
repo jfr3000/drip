@@ -29,7 +29,7 @@ export default class CalendarView extends Component {
 
   passDateToDayView(result) {
     const cycleDay = getOrCreateCycleDay(result.dateString)
-    const navigate = this.props.navigation.navigate
+    const navigate = this.props.navigate
     navigate('CycleDay', { cycleDay })
   }
 

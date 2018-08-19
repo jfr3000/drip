@@ -21,7 +21,7 @@ export default class CycleChart extends Component {
         <DayColumn
           {...item}
           index={index}
-          navigate={this.props.navigation.navigate}
+          navigate={this.props.navigate}
         />
       )
     }

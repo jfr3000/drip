@@ -103,11 +103,14 @@ export default StyleSheet.create({
   },
   menu: {
     backgroundColor: primaryColor,
-    paddingVertical: 18,
-    paddingHorizontal: 10,
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
+  },
+  menuItem: {
+    alignItems: 'center',
+    flex: 1,
+    paddingVertical: 15
   },
   menuText: {
     color: fontOnPrimaryColor
