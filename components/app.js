@@ -1,21 +1,15 @@
 import React, { Component } from 'react'
 import { View, BackHandler } from 'react-native'
-import Header from './components/header'
-import Menu from './components/menu'
-import Home from './components/home'
-import Calendar from './components/calendar'
-import CycleDay from './components/cycle-day/cycle-day-overview'
-import symptomViews from './components/cycle-day/symptoms'
-import Chart from './components/chart/chart'
-import Settings from './components/settings'
-import Stats from './components/stats'
-import styles from './styles'
-import {headerTitles as titles} from './components/labels'
-
-// this is until react native fixes this bugg, see
-// https://github.com/facebook/react-native/issues/18868#issuecomment-382671739
-import { YellowBox } from 'react-native'
-YellowBox.ignoreWarnings(['Warning: isMounted(...) is deprecated'])
+import Header from './header'
+import Menu from './menu'
+import Home from './home'
+import Calendar from './calendar'
+import CycleDay from './cycle-day/cycle-day-overview'
+import symptomViews from './cycle-day/symptoms'
+import Chart from './chart/chart'
+import Settings from './settings'
+import Stats from './stats'
+import {headerTitles as titles} from './labels'
 
 const isSymptomView = name => Object.keys(symptomViews).indexOf(name) > -1
 
