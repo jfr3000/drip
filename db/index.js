@@ -84,7 +84,9 @@ const PainSchema = {
     headache: { type: 'bool', optional: true },
     backache: { type: 'bool', optional: true },
     nausea: { type: 'bool', optional: true },
-    tenderBreasts: { type: 'bool', optional: true }
+    tenderBreasts: { type: 'bool', optional: true },
+    other: { type: 'bool', optional: true },
+    note: { type: 'string', optional: true }
   }
 }
 

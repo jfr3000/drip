@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {
   CheckBox,
   Text,
+  TextInput,
   View
 } from 'react-native'
 import styles from '../../../styles'
@@ -91,6 +92,31 @@ export default class Pain extends Component {
               this.setState({migraine: val})
             }}
           />
+          <Text style={styles.symptomDayView}>
+            {painLabels.other}
+          </Text>
+          <CheckBox
+            value={this.state.other}
+            onValueChange={(val) => {
+              this.setState({
+                other: val,
+                focusTextArea: true
+              })
+            }}
+          />
+        </View>
+        <View style={styles.symptomViewRowInline}>
+          { this.state.other &&
+            <TextInput
+              autoFocus={this.state.focusTextArea}
+              multiline={true}
+              placeholder="Enter"
+              value={this.state.note}
+              onChangeText={(val) => {
+                this.setState({note: val})
+              }}
+            />
+          }
         </View>
         <View style={styles.actionButtonRow}>
           {this.props.makeActionButtons(

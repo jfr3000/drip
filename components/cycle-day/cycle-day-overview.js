@@ -171,7 +171,7 @@ function getLabel(symptomName, symptom) {
       let painLabel = ''
       if (pain.cramps || pain.ovulationPain || pain.headache ||
         pain.backache || pain.nausea || pain.tenderBreasts ||
-        pain.migraine
+        pain.migraine || pain.other
       ) {
         painLabel += 'Pain'
       }

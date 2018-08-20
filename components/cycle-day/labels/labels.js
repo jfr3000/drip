@@ -27,7 +27,8 @@ export const pain = {
   backache: 'Backache',
   nausea: 'Nausea',
   tenderBreasts: 'Tender breasts',
-  migraine: 'Migraine'
+  migraine: 'Migraine',
+  other: 'Other'
 }
 
 export const fertilityStatus = {
