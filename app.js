@@ -52,7 +52,7 @@ export default class App extends Component {
       Home, Calendar, CycleDay, Chart, Settings, Stats, ...symptomViews
     }[this.state.currentPage]
     return (
-      <View style={styles.menuOnBottom}>
+      <View style={{flex: 1}}>
 
         {this.state.currentPage != 'CycleDay' && <Header title={titles[this.state.currentPage]} />}
 

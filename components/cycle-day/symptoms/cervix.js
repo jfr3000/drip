@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import {
   View,
   Text,
-  Switch
+  Switch,
+  ScrollView
 } from 'react-native'
 import RadioForm from 'react-native-simple-radio-button'
 import styles from '../../../styles'
@@ -49,57 +50,59 @@ export default class Cervix extends Component {
       { label: positionLabels[2], value: 2 }
     ]
     return (
-      <View style={styles.menuOnBottom}>
-        <View>
-          <Text style={styles.symptomDayView}>Opening</Text>
-          <View style={styles.radioButtonRow}>
-            <RadioForm
-              radio_props={cervixOpeningRadioProps}
-              initial={this.state.opening}
-              formHorizontal={true}
-              labelHorizontal={false}
-              labelStyle={styles.radioButton}
-              onPress={(itemValue) => {
-                this.setState({ opening: itemValue })
-              }}
-            />
+      <View style={{ flex: 1 }}>
+        <ScrollView>
+          <View>
+            <Text style={styles.symptomDayView}>Opening</Text>
+            <View style={styles.radioButtonRow}>
+              <RadioForm
+                radio_props={cervixOpeningRadioProps}
+                initial={this.state.opening}
+                formHorizontal={true}
+                labelHorizontal={false}
+                labelStyle={styles.radioButton}
+                onPress={(itemValue) => {
+                  this.setState({ opening: itemValue })
+                }}
+              />
+            </View>
+            <Text style={styles.symptomDayView}>Firmness</Text>
+            <View style={styles.radioButtonRow}>
+              <RadioForm
+                radio_props={cervixFirmnessRadioProps}
+                initial={this.state.firmness}
+                formHorizontal={true}
+                labelHorizontal={false}
+                labelStyle={styles.radioButton}
+                onPress={(itemValue) => {
+                  this.setState({ firmness: itemValue })
+                }}
+              />
+            </View>
+            <Text style={styles.symptomDayView}>Position</Text>
+            <View style={styles.radioButtonRow}>
+              <RadioForm
+                radio_props={cervixPositionRadioProps}
+                initial={this.state.position}
+                formHorizontal={true}
+                labelHorizontal={false}
+                labelStyle={styles.radioButton}
+                onPress={(itemValue) => {
+                  this.setState({ position: itemValue })
+                }}
+              />
+            </View>
+            <View style={styles.symptomViewRowInline}>
+              <Text style={styles.symptomDayView}>Exclude</Text>
+              <Switch
+                onValueChange={(val) => {
+                  this.setState({ exclude: val })
+                }}
+                value={this.state.exclude}
+              />
+            </View>
           </View>
-          <Text style={styles.symptomDayView}>Firmness</Text>
-          <View style={styles.radioButtonRow}>
-            <RadioForm
-              radio_props={cervixFirmnessRadioProps}
-              initial={this.state.firmness}
-              formHorizontal={true}
-              labelHorizontal={false}
-              labelStyle={styles.radioButton}
-              onPress={(itemValue) => {
-                this.setState({ firmness: itemValue })
-              }}
-            />
-          </View>
-          <Text style={styles.symptomDayView}>Position</Text>
-          <View style={styles.radioButtonRow}>
-            <RadioForm
-              radio_props={cervixPositionRadioProps}
-              initial={this.state.position}
-              formHorizontal={true}
-              labelHorizontal={false}
-              labelStyle={styles.radioButton}
-              onPress={(itemValue) => {
-                this.setState({ position: itemValue })
-              }}
-            />
-          </View>
-          <View style={styles.symptomViewRowInline}>
-            <Text style={styles.symptomDayView}>Exclude</Text>
-            <Switch
-              onValueChange={(val) => {
-                this.setState({ exclude: val })
-              }}
-              value={this.state.exclude}
-            />
-          </View>
-        </View>
+        </ScrollView>
         <ActionButtonFooter
           symptom='cervix'
           cycleDay={this.cycleDay}

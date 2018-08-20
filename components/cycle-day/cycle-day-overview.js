@@ -36,7 +36,7 @@ export default class CycleDayOverView extends Component {
     const targetDate = target === 'before' ?
       localDate.minusDays(1).toString() :
       localDate.plusDays(1).toString()
-    this.setState({cycleDay: getOrCreateCycleDay(targetDate)})
+    this.setState({ cycleDay: getOrCreateCycleDay(targetDate) })
   }
 
   navigate(symptom) {
@@ -50,53 +50,55 @@ export default class CycleDayOverView extends Component {
     const getCycleDayNumber = cycleModule().getCycleDayNumber
     const cycleDayNumber = getCycleDayNumber(cycleDay.date)
     return (
-      <ScrollView>
+      <View style={{ flex: 1 }}>
         <Header
           isCycleDayOverView={true}
           cycleDayNumber={cycleDayNumber}
           date={cycleDay.date}
         />
-        <View style={styles.symptomBoxesView}>
-          <SymptomBox
-            title='Bleeding'
-            onPress={() => this.navigate('BleedingEditView')}
-            data={getLabel('bleeding', cycleDay.bleeding)}
-          />
-          <SymptomBox
-            title='Temperature'
-            onPress={() => this.navigate('TemperatureEditView')}
-            data={getLabel('temperature', cycleDay.temperature)}
-          />
-          <SymptomBox
-            title='Mucus'
-            onPress={() => this.navigate('MucusEditView')}
-            data={getLabel('mucus', cycleDay.mucus)}
-          />
-          <SymptomBox
-            title='Cervix'
-            onPress={() => this.navigate('CervixEditView')}
-            data={getLabel('cervix', cycleDay.cervix)}
-          />
-          <SymptomBox
-            title='Note'
-            onPress={() => this.navigate('NoteEditView')}
-            data={getLabel('note', cycleDay.note)}
-          />
-          <SymptomBox
-            title='Desire'
-            onPress={() => this.navigate('DesireEditView')}
-            data={getLabel('desire', cycleDay.desire)}
-          />
-          <SymptomBox
-            title='Sex'
-            onPress={() => this.navigate('SexEditView')}
-            data={getLabel('sex', cycleDay.sex)}
-          />
-          {/*  this is just to make the last row adhere to the grid
+        <ScrollView>
+          <View style={styles.symptomBoxesView}>
+            <SymptomBox
+              title='Bleeding'
+              onPress={() => this.navigate('BleedingEditView')}
+              data={getLabel('bleeding', cycleDay.bleeding)}
+            />
+            <SymptomBox
+              title='Temperature'
+              onPress={() => this.navigate('TemperatureEditView')}
+              data={getLabel('temperature', cycleDay.temperature)}
+            />
+            <SymptomBox
+              title='Mucus'
+              onPress={() => this.navigate('MucusEditView')}
+              data={getLabel('mucus', cycleDay.mucus)}
+            />
+            <SymptomBox
+              title='Cervix'
+              onPress={() => this.navigate('CervixEditView')}
+              data={getLabel('cervix', cycleDay.cervix)}
+            />
+            <SymptomBox
+              title='Note'
+              onPress={() => this.navigate('NoteEditView')}
+              data={getLabel('note', cycleDay.note)}
+            />
+            <SymptomBox
+              title='Desire'
+              onPress={() => this.navigate('DesireEditView')}
+              data={getLabel('desire', cycleDay.desire)}
+            />
+            <SymptomBox
+              title='Sex'
+              onPress={() => this.navigate('SexEditView')}
+              data={getLabel('sex', cycleDay.sex)}
+            />
+            {/*  this is just to make the last row adhere to the grid
         (and) because there are no pseudo properties in RN */}
-          <FillerBoxes />
-        </View >
-      </ScrollView >
+            <FillerBoxes />
+          </View >
+        </ScrollView >
+      </View >
     )
   }
 }

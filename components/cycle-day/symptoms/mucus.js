@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import {
   View,
   Text,
-  Switch
+  Switch,
+  ScrollView
 } from 'react-native'
 import RadioForm from 'react-native-simple-radio-button'
 import styles from '../../../styles'
@@ -47,44 +48,46 @@ export default class Mucus extends Component {
       { label: textureLabels[2], value: 2 }
     ]
     return (
-      <View style={styles.menuOnBottom}>
-        <View>
-          <Text style={styles.symptomDayView}>Feeling</Text>
-          <View style={styles.radioButtonRow}>
-            <RadioForm
-              radio_props={mucusFeelingRadioProps}
-              initial={this.state.feeling}
-              formHorizontal={true}
-              labelHorizontal={false}
-              labelStyle={styles.radioButton}
-              onPress={(itemValue) => {
-                this.setState({ feeling: itemValue })
-              }}
-            />
+      <View style={{ flex: 1 }}>
+        <ScrollView>
+          <View>
+            <Text style={styles.symptomDayView}>Feeling</Text>
+            <View style={styles.radioButtonRow}>
+              <RadioForm
+                radio_props={mucusFeelingRadioProps}
+                initial={this.state.feeling}
+                formHorizontal={true}
+                labelHorizontal={false}
+                labelStyle={styles.radioButton}
+                onPress={(itemValue) => {
+                  this.setState({ feeling: itemValue })
+                }}
+              />
+            </View>
+            <Text style={styles.symptomDayView}>Texture</Text>
+            <View style={styles.radioButtonRow}>
+              <RadioForm
+                radio_props={mucusTextureRadioProps}
+                initial={this.state.texture}
+                formHorizontal={true}
+                labelHorizontal={false}
+                labelStyle={styles.radioButton}
+                onPress={(itemValue) => {
+                  this.setState({ texture: itemValue })
+                }}
+              />
+            </View>
+            <View style={styles.symptomViewRowInline}>
+              <Text style={styles.symptomDayView}>Exclude</Text>
+              <Switch
+                onValueChange={(val) => {
+                  this.setState({ exclude: val })
+                }}
+                value={this.state.exclude}
+              />
+            </View>
           </View>
-          <Text style={styles.symptomDayView}>Texture</Text>
-          <View style={styles.radioButtonRow}>
-            <RadioForm
-              radio_props={mucusTextureRadioProps}
-              initial={this.state.texture}
-              formHorizontal={true}
-              labelHorizontal={false}
-              labelStyle={styles.radioButton}
-              onPress={(itemValue) => {
-                this.setState({ texture: itemValue })
-              }}
-            />
-          </View>
-          <View style={styles.symptomViewRowInline}>
-            <Text style={styles.symptomDayView}>Exclude</Text>
-            <Switch
-              onValueChange={(val) => {
-                this.setState({ exclude: val })
-              }}
-              value={this.state.exclude}
-            />
-          </View>
-        </View>
+        </ScrollView>
         <ActionButtonFooter
           symptom='mucus'
           cycleDay={this.cycleDay}

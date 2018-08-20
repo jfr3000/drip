@@ -79,10 +79,6 @@ export default StyleSheet.create({
   symptomDataText: {
     fontSize: 12
   },
-  menuOnBottom: {
-    flex: 1,
-    justifyContent: 'space-between'
-  },
   symptomEditRow: {
     justifyContent: 'space-between',
     marginBottom: 10,
@@ -105,7 +101,7 @@ export default StyleSheet.create({
     backgroundColor: primaryColor,
     alignItems: 'center',
     justifyContent: 'space-between',
-    flexDirection: 'row',
+    flexDirection: 'row'
   },
   menuItem: {
     alignItems: 'center',

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {
   View,
-  Text,
+  ScrollView,
   TextInput,
 } from 'react-native'
 
@@ -23,17 +23,19 @@ export default class Temp extends Component {
 
   render() {
     return (
-      <View style={styles.menuOnBottom}>
-        <View style={styles.symptomViewRow}>
-          <TextInput
-            multiline={true}
-            placeholder="Enter"
-            onChangeText={(val) => {
-              this.setState({ currentValue: val })
-            }}
-            value={this.state.currentValue}
-          />
-        </View>
+      <View style={{ flex: 1 }}>
+        <ScrollView>
+          <View style={styles.symptomViewRow}>
+            <TextInput
+              multiline={true}
+              placeholder="Enter"
+              onChangeText={(val) => {
+                this.setState({ currentValue: val })
+              }}
+              value={this.state.currentValue}
+            />
+          </View>
+        </ScrollView>
         <ActionButtonFooter
           symptom='note'
           cycleDay={this.cycleDay}

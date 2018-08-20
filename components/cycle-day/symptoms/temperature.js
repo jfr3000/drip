@@ -5,6 +5,7 @@ import {
   TextInput,
   Switch,
   Keyboard,
+  ScrollView
 } from 'react-native'
 import DateTimePicker from 'react-native-modal-datetime-picker-nevo'
 
@@ -42,52 +43,54 @@ export default class Temp extends Component {
 
   render() {
     return (
-      <View style={styles.menuOnBottom}>
-        <View>
-          <View style={styles.symptomViewRowInline}>
-            <Text style={styles.symptomDayView}>Temperature (°C)</Text>
-            <TextInput
-              style={styles.temperatureTextInput}
-              placeholder="Enter"
-              onChangeText={(val) => {
-                this.setState({ currentValue: val })
+      <View style={{ flex: 1 }}>
+        <ScrollView>
+          <View>
+            <View style={styles.symptomViewRowInline}>
+              <Text style={styles.symptomDayView}>Temperature (°C)</Text>
+              <TextInput
+                style={styles.temperatureTextInput}
+                placeholder="Enter"
+                onChangeText={(val) => {
+                  this.setState({ currentValue: val })
+                }}
+                keyboardType='numeric'
+                value={this.state.currentValue}
+              />
+            </View>
+            <View style={styles.symptomViewRowInline}>
+              <Text style={styles.symptomDayView}>Time</Text>
+              <TextInput
+                style={styles.temperatureTextInput}
+                onFocus={() => {
+                  Keyboard.dismiss()
+                  this.setState({ isTimePickerVisible: true })
+                }}
+                value={this.state.time}
+              />
+            </View>
+            <DateTimePicker
+              mode="time"
+              isVisible={this.state.isTimePickerVisible}
+              onConfirm={jsDate => {
+                this.setState({
+                  time: `${jsDate.getHours()}:${jsDate.getMinutes()}`,
+                  isTimePickerVisible: false
+                })
               }}
-              keyboardType='numeric'
-              value={this.state.currentValue}
+              onCancel={() => this.setState({ isTimePickerVisible: false })}
             />
+            <View style={styles.symptomViewRowInline}>
+              <Text style={styles.symptomDayView}>Exclude</Text>
+              <Switch
+                onValueChange={(val) => {
+                  this.setState({ exclude: val })
+                }}
+                value={this.state.exclude}
+              />
+            </View>
           </View>
-          <View style={styles.symptomViewRowInline}>
-            <Text style={styles.symptomDayView}>Time</Text>
-            <TextInput
-              style={styles.temperatureTextInput}
-              onFocus={() => {
-                Keyboard.dismiss()
-                this.setState({ isTimePickerVisible: true })
-              }}
-              value={this.state.time}
-            />
-          </View>
-          <DateTimePicker
-            mode="time"
-            isVisible={this.state.isTimePickerVisible}
-            onConfirm={jsDate => {
-              this.setState({
-                time: `${jsDate.getHours()}:${jsDate.getMinutes()}`,
-                isTimePickerVisible: false
-              })
-            }}
-            onCancel={() => this.setState({ isTimePickerVisible: false })}
-          />
-          <View style={styles.symptomViewRowInline}>
-            <Text style={styles.symptomDayView}>Exclude</Text>
-            <Switch
-              onValueChange={(val) => {
-                this.setState({ exclude: val })
-              }}
-              value={this.state.exclude}
-            />
-          </View>
-        </View>
+        </ScrollView>
         <ActionButtonFooter
           symptom='temperature'
           cycleDay={this.cycleDay}

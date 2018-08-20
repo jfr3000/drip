@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {
   View,
-  Text
+  ScrollView
 } from 'react-native'
 import RadioForm from 'react-native-simple-radio-button'
 import styles from '../../../styles'
@@ -28,21 +28,23 @@ export default class Desire extends Component {
       { label: labels[2], value: 2 }
     ]
     return (
-      <View style={styles.menuOnBottom}>
-        <View>
-          <View style={styles.radioButtonRow}>
-            <RadioForm
-              radio_props={desireRadioProps}
-              initial={this.state.currentValue}
-              formHorizontal={true}
-              labelHorizontal={false}
-              labelStyle={styles.radioButton}
-              onPress={(itemValue) => {
-                this.setState({ currentValue: itemValue })
-              }}
-            />
+      <View style={{ flex: 1 }}>
+        <ScrollView>
+          <View>
+            <View style={styles.radioButtonRow}>
+              <RadioForm
+                radio_props={desireRadioProps}
+                initial={this.state.currentValue}
+                formHorizontal={true}
+                labelHorizontal={false}
+                labelStyle={styles.radioButton}
+                onPress={(itemValue) => {
+                  this.setState({ currentValue: itemValue })
+                }}
+              />
+            </View>
           </View>
-        </View>
+        </ScrollView>
         <ActionButtonFooter
           symptom='desire'
           cycleDay={this.cycleDay}
