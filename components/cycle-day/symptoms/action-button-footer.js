@@ -38,6 +38,11 @@ export default class ActionButtonFooter extends Component {
     return (
       <View style={styles.menu}>
         {buttons.map(({ title, action, disabledCondition, icon }, i) => {
+          const textStyle = disabledCondition ? styles.menuTextInActive : styles.menuText
+          const iconStyle = disabledCondition ?
+            Object.assign({}, iconStyles.menuIcon, iconStyles.menuIconInactive) :
+            iconStyles.menuIcon
+
           return (
             <TouchableOpacity
               onPress={action}
@@ -45,8 +50,8 @@ export default class ActionButtonFooter extends Component {
               disabled={disabledCondition}
               key={i.toString()}
             >
-              <Icon name={icon} {...iconStyles.menuIcon} />
-              <Text style={styles.menuText}>
+              <Icon name={icon} {...iconStyle} />
+              <Text style={textStyle}>
                 {title}
               </Text>
             </TouchableOpacity>

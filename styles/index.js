@@ -119,6 +119,9 @@ export default StyleSheet.create({
   menuText: {
     color: fontOnPrimaryColor
   },
+  menuTextInActive: {
+    color: 'lightgrey'
+  },
   headerCycleDay: {
     flexDirection: 'row',
     justifyContent: 'space-between'
@@ -177,5 +180,8 @@ export const iconStyles = {
   menuIcon: {
     size: 20,
     color: fontOnPrimaryColor
+  },
+  menuIconInactive: {
+    color: 'lightgrey'
   }
 }
