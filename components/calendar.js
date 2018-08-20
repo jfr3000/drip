@@ -35,15 +35,11 @@ export default class CalendarView extends Component {
 
   render() {
     return (
-      <View>
-        <View style={styles.container}>
-          <CalendarList
-            onDayPress={this.passDateToDayView.bind(this)}
-            markedDates={this.state.bleedingDaysInCalFormat}
-            markingType={'period'}
-          />
-        </View>
-      </View>
+      <CalendarList
+        onDayPress={this.passDateToDayView.bind(this)}
+        markedDates={this.state.bleedingDaysInCalFormat}
+        markingType={'period'}
+      />
     )
   }
 }

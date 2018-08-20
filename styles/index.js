@@ -5,10 +5,6 @@ export const secondaryColor = '#351c4d'
 export const fontOnPrimaryColor = 'white'
 
 export default StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
   welcome: {
     fontSize: 20,
     margin: 30,
