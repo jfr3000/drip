@@ -40,9 +40,8 @@ export default class CycleDayOverView extends Component {
   }
 
   navigate(symptom) {
-    this.props.navigate('SymptomView', {
-      symptom,
-      cycleDay: this.state.cycleDay
+    this.props.navigate(symptom, {
+      cycleDay: this.state.cycleDay,
     })
   }
 

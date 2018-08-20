@@ -4,7 +4,7 @@ import {
   Text,
   TextInput,
   Switch,
-  Keyboard
+  Keyboard,
 } from 'react-native'
 import DateTimePicker from 'react-native-modal-datetime-picker-nevo'
 
@@ -37,10 +37,27 @@ export default class Temp extends Component {
       time: this.time || LocalTime.now().truncatedTo(MINUTES).toString(),
       isTimePickerVisible: false
     }
+
+    props.setActionButtonState({
+      symptom : 'temperature',
+      cycleDay: props.cycleDay,
+      saveAction: () => {
+        const dataToSave = {
+          value: Number(this.state.currentValue),
+          exclude: this.state.exclude,
+          time: this.state.time
+        }
+        saveSymptom('temperature', props.cycleDay, dataToSave)
+      },
+      saveDisabled: this.state.currentValue === '' || isInvalidTime(this.state.time)
+    })
+  }
+
+  componentWillUnmount() {
+    this.props.unsetActionButtonState()
   }
 
   render() {
-    const cycleDay = this.cycleDay
     return (
       <View style={styles.symptomEditView}>
         <View style={styles.symptomViewRowInline}>
@@ -61,7 +78,7 @@ export default class Temp extends Component {
             style={styles.temperatureTextInput}
             onFocus={() => {
               Keyboard.dismiss()
-              this.setState({isTimePickerVisible: true})
+              this.setState({ isTimePickerVisible: true })
             }}
             value={this.state.time}
           />
@@ -75,7 +92,7 @@ export default class Temp extends Component {
               isTimePickerVisible: false
             })
           }}
-          onCancel={() => this.setState({isTimePickerVisible: false})}
+          onCancel={() => this.setState({ isTimePickerVisible: false })}
         />
         <View style={styles.symptomViewRowInline}>
           <Text style={styles.symptomDayView}>Exclude</Text>
@@ -85,21 +102,6 @@ export default class Temp extends Component {
             }}
             value={this.state.exclude}
           />
-        </View>
-        <View style={styles.actionButtonRow}>
-          {this.makeActionButtons({
-            symptom: 'temperature',
-            cycleDay: this.cycleDay,
-            saveAction: () => {
-              const dataToSave = {
-                value: Number(this.state.currentValue),
-                exclude: this.state.exclude,
-                time: this.state.time
-              }
-              saveSymptom('temperature', cycleDay, dataToSave)
-            },
-            saveDisabled: this.state.currentValue === '' || isInvalidTime(this.state.time)
-          })}
         </View>
       </View>
     )

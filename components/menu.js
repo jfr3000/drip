@@ -8,11 +8,12 @@ import styles, { iconStyles } from '../styles'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default class Menu extends Component {
-  makeMenuItem({ title, icon, componentName }) {
+  makeMenuItem({ title, icon, onPress}, i) {
     return (
       <TouchableOpacity
-        onPress={() => this.props.navigate(componentName)}
+        onPress={onPress}
         style={styles.menuItem}
+        key={i.toString()}
       >
         <Icon name={icon} {...iconStyles.menuIcon} />
         <Text style={styles.menuText}>
@@ -21,20 +22,22 @@ export default class Menu extends Component {
       </TouchableOpacity>
     )
   }
+
+  goTo(componentName) {
+    this.props.navigate(componentName)
+  }
+
   render() {
     return (
-      this.props.symptomView ?
-        placeActionButtons()
-        :
-        <View style={styles.menu}>
-          {[
-            {title: 'Home', icon: 'home', componentName: 'Home'},
-            {title: 'Calendar', icon: 'calendar-range', componentName: 'Calendar'},
-            {title: 'Chart', icon: 'chart-line', componentName: 'Chart'},
-            {title: 'Stats', icon: 'chart-pie', componentName: 'Stats'},
-            {title: 'Settings', icon: 'settings', componentName: 'Settings'},
-          ].map(this.makeMenuItem.bind(this))}
-        </View >
+      <View style={styles.menu}>
+        {[
+          { title: 'Home', icon: 'home', onPress: () => this.goTo('Home') },
+          { title: 'Calendar', icon: 'calendar-range', onPress: () => this.goTo('Calendar') },
+          { title: 'Chart', icon: 'chart-line', onPress: () => this.goTo('Chart') },
+          { title: 'Stats', icon: 'chart-pie', onPress: () => this.goTo('Stats') },
+          { title: 'Settings', icon: 'settings', onPress: () => this.goTo('Settings') },
+        ].map(this.makeMenuItem.bind(this))}
+      </View >
     )
   }
 }

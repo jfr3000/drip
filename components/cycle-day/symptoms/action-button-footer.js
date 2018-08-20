@@ -1,19 +1,20 @@
 import React, { Component } from 'react'
 import {
-  View,
-  Button,
+  View, TouchableOpacity, Text
 } from 'react-native'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { saveSymptom } from '../../../db'
-import styles from '../../../styles'
+import styles, {iconStyles} from '../../../styles'
 
 export default class ActionButtonFooter extends Component {
   render() {
     const { symptom, cycleDay, saveAction, saveDisabled, navigate} = this.props
-    const navigateToOverView = () => navigate('CycleDay', cycleDay)
+    const navigateToOverView = () => navigate('CycleDay', {cycleDay})
     const buttons = [
       {
         title: 'Cancel',
-        action: () => navigateToOverView()
+        action: () => navigateToOverView(),
+        icon: 'cancel'
       },
       {
         title: 'Delete',
@@ -21,31 +22,34 @@ export default class ActionButtonFooter extends Component {
           saveSymptom(symptom, cycleDay)
           navigateToOverView()
         },
-        disabledCondition: !cycleDay[symptom]
+        disabledCondition: !cycleDay[symptom],
+        icon: 'delete-outline'
       }, {
         title: 'Save',
         action: () => {
           saveAction()
           navigateToOverView()
         },
-        disabledCondition: saveDisabled
+        disabledCondition: saveDisabled,
+        icon: 'content-save-outline'
       }
     ]
 
     return (
-      <View style={styles.actionButtonRow}>
-        {buttons.map(({ title, action, disabledCondition }, i) => {
-          const style = { flex: 1, marginHorizontal: 10 }
-          if (i === 0) style.marginLeft = 0
-          if (i === buttons.length - 1) style.marginRight = 0
+      <View style={styles.menu}>
+        {buttons.map(({ title, action, disabledCondition, icon }, i) => {
           return (
-            <View style={style} key={i}>
-              <Button
-                onPress={action}
-                disabled={disabledCondition}
-                title={title}>
-              </Button>
-            </View >
+            <TouchableOpacity
+              onPress={action}
+              style={styles.menuItem}
+              disabled={disabledCondition}
+              key={i.toString()}
+            >
+              <Icon name={icon} {...iconStyles.menuIcon} />
+              <Text style={styles.menuText}>
+                {title}
+              </Text>
+            </TouchableOpacity>
           )
         })}
       </View>
