@@ -55,6 +55,7 @@ export default class CycleDayOverView extends Component {
           isCycleDayOverView={true}
           cycleDayNumber={cycleDayNumber}
           date={cycleDay.date}
+          goToCycleDay={this.goToCycleDay.bind(this)}
         />
         <ScrollView>
           <View style={styles.symptomBoxesView}>

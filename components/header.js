@@ -15,7 +15,7 @@ export default class Header extends Component {
           <Icon
             name='arrow-left-drop-circle'
             {...iconStyles.navigationArrow}
-            onPress={() => this.goToCycleDay('before')}
+            onPress={() => this.props.goToCycleDay('before')}
           />
           <View>
             <Text style={styles.dateHeader}>
@@ -29,7 +29,7 @@ export default class Header extends Component {
           <Icon
             name='arrow-right-drop-circle'
             {...iconStyles.navigationArrow}
-            onPress={() => this.goToCycleDay('after')}
+            onPress={() => this.props.goToCycleDay('after')}
           />
         </View >
         :
