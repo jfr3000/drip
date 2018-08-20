@@ -167,8 +167,8 @@ function getLabel(symptomName, symptom) {
 
   if (!symptom) return
   const label = labels[symptomName](symptom)
-  if (label.length < 50) return label
-  return label.slice(0, 47) + '...'
+  if (label.length < 45) return label
+  return label.slice(0, 42) + '...'
 }
 
 class SymptomBox extends Component {
