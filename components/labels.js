@@ -31,3 +31,18 @@ export const settings = {
     }
   }
 }
+
+export const headerTitles = {
+  Home: 'Home',
+  Calendar: 'Calendar',
+  Chart: 'Chart',
+  Stats: 'Statistics',
+  Settings: 'Settings',
+  BleedingEditView: 'Bleeding',
+  TemperatureEditView: 'Temperature',
+  MucusEditView: 'Mucus',
+  CervixEditView: 'Cervix',
+  NoteEditView: 'Note',
+  DesireEditView: 'Desire',
+  SexEditView: 'Sex'
+}

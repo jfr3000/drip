@@ -49,7 +49,6 @@ export default class Mucus extends Component {
     return (
       <View style={styles.menuOnBottom}>
         <View>
-          <Text style={styles.symptomDayView}>Mucus</Text>
           <Text style={styles.symptomDayView}>Feeling</Text>
           <View style={styles.radioButtonRow}>
             <RadioForm

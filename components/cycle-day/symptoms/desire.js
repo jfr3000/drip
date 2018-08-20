@@ -30,7 +30,6 @@ export default class Desire extends Component {
     return (
       <View style={styles.menuOnBottom}>
         <View>
-          <Text style={styles.symptomDayView}>Desire</Text>
           <View style={styles.radioButtonRow}>
             <RadioForm
               radio_props={desireRadioProps}

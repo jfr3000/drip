@@ -51,7 +51,6 @@ export default class Cervix extends Component {
     return (
       <View style={styles.menuOnBottom}>
         <View>
-          <Text style={styles.symptomDayView}>Cervix</Text>
           <Text style={styles.symptomDayView}>Opening</Text>
           <View style={styles.radioButtonRow}>
             <RadioForm

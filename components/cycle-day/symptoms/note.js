@@ -25,7 +25,6 @@ export default class Temp extends Component {
     return (
       <View style={styles.menuOnBottom}>
         <View style={styles.symptomViewRow}>
-          <Text style={styles.symptomDayView}>Note</Text>
           <TextInput
             multiline={true}
             placeholder="Enter"

@@ -33,7 +33,6 @@ export default class Sex extends Component {
     return (
       <View style={styles.menuOnBottom}>
         <View>
-          <Text style={styles.symptomDayView}>SEX</Text>
           <View style={styles.symptomViewRowInline}>
             <Text style={styles.symptomDayView}>{activityLabels.solo}</Text>
             <CheckBox

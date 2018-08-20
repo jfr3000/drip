@@ -10,6 +10,7 @@ import Chart from './components/chart/chart'
 import Settings from './components/settings'
 import Stats from './components/stats'
 import styles from './styles'
+import {headerTitles as titles} from './components/labels'
 
 // this is until react native fixes this bugg, see
 // https://github.com/facebook/react-native/issues/18868#issuecomment-382671739
@@ -53,7 +54,7 @@ export default class App extends Component {
     return (
       <View style={styles.menuOnBottom}>
 
-        {this.state.currentPage != 'CycleDay' && <Header title={this.state.currentPage} />}
+        {this.state.currentPage != 'CycleDay' && <Header title={titles[this.state.currentPage]} />}
 
         {React.createElement(page, {
           navigate: this.navigate.bind(this),
