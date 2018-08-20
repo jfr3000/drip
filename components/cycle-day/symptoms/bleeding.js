@@ -8,6 +8,7 @@ import RadioForm from 'react-native-simple-radio-button'
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
 import { bleeding as labels } from '../labels/labels'
+import ActionButtonFooter from './action-button-footer'
 
 export default class Bleeding extends Component {
   constructor(props) {
@@ -32,8 +33,8 @@ export default class Bleeding extends Component {
       { label: labels[3], value: 3 },
     ]
     return (
-      <View>
-        <View style={styles.symptomEditView}>
+      <View style={styles.menuOnBottom}>
+        <View>
           <Text style={styles.symptomDayView}>Bleeding</Text>
           <View style={styles.radioButtonRow}>
             <RadioForm
@@ -57,21 +58,18 @@ export default class Bleeding extends Component {
             />
           </View>
         </View>
-        <View style={styles.actionButtonRow}>
-          {this.makeActionButtons(
-            {
-              symptom: 'bleeding',
-              cycleDay: this.cycleDay,
-              saveAction: () => {
-                saveSymptom('bleeding', this.cycleDay, {
-                  value: this.state.currentValue,
-                  exclude: this.state.exclude
-                })
-              },
-              saveDisabled: this.state.currentValue === -1
-            }
-          )}
-        </View>
+        <ActionButtonFooter
+          symptom='bleeding'
+          cycleDay={this.props.cycleDay}
+          saveAction={() => {
+            saveSymptom('bleeding', this.props.cycleDay, {
+              value: this.state.currentValue,
+              exclude: this.state.exclude
+            })
+          }}
+          saveDisabled={this.state.currentValue === -1}
+          navigate={this.props.navigate}
+        />
       </View>
     )
   }

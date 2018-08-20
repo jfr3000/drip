@@ -7,6 +7,7 @@ import {
 
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
+import ActionButtonFooter from './action-button-footer'
 
 export default class Temp extends Component {
   constructor(props) {
@@ -22,7 +23,7 @@ export default class Temp extends Component {
 
   render() {
     return (
-      <View style={styles.symptomEditView}>
+      <View style={styles.menuOnBottom}>
         <View style={styles.symptomViewRow}>
           <Text style={styles.symptomDayView}>Note</Text>
           <TextInput
@@ -34,18 +35,17 @@ export default class Temp extends Component {
             value={this.state.currentValue}
           />
         </View>
-        <View style={styles.actionButtonRow}>
-          {this.makeActionButtons({
-            symptom: 'note',
-            cycleDay: this.cycleDay,
-            saveAction: () => {
-              saveSymptom('note', this.cycleDay, {
-                value: this.state.currentValue
-              })
-            },
-            saveDisabled: !this.state.currentValue
-          })}
-        </View>
+        <ActionButtonFooter
+          symptom='note'
+          cycleDay={this.cycleDay}
+          saveAction={() => {
+            saveSymptom('note', this.cycleDay, {
+              value: this.state.currentValue
+            })
+          }}
+          saveDisabled={!this.state.currentValue}
+          navigate={this.props.navigate}
+        />
       </View>
     )
   }

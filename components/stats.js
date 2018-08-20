@@ -5,7 +5,6 @@ import {
   ScrollView
 } from 'react-native'
 import { LocalDate, ChronoUnit } from 'js-joda'
-import Header from './header'
 import styles from '../styles/index'
 import cycleModule from '../lib/cycle'
 import getCycleInfo from '../lib/cycle-length'

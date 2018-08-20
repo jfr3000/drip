@@ -83,6 +83,10 @@ export default StyleSheet.create({
   symptomDataText: {
     fontSize: 12
   },
+  menuOnBottom: {
+    flex: 1,
+    justifyContent: 'space-between'
+  },
   symptomEditRow: {
     justifyContent: 'space-between',
     marginBottom: 10,
