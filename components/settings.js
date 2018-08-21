@@ -3,21 +3,28 @@ import {
   View,
   Button,
   ScrollView,
-  Alert
+  Alert,
+  Text
 } from 'react-native'
-
+import Slider from '@ptomasroos/react-native-multi-slider'
 import Share from 'react-native-share'
 import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker'
 import rnfs from 'react-native-fs'
 import styles from '../styles/index'
+import config from '../config'
 import { settings as labels } from './labels'
 import getDataAsCsvDataUri from '../lib/import-export/export-to-csv'
 import importCsv from '../lib/import-export/import-from-csv'
+import { getTempScale, saveTempScale } from '../local-storage'
 
 export default class Settings extends Component {
   render() {
     return (
       <ScrollView>
+        <View style={styles.settingsSegment}>
+          <Text>{labels.tempScale.segmentTitle}</Text>
+          <TempSlider/>
+        </View>
         <View style={styles.homeButtons}>
           <View style={styles.homeButton}>
             <Button
@@ -33,6 +40,55 @@ export default class Settings extends Component {
           </View>
         </View>
       </ScrollView>
+    )
+  }
+}
+
+class TempSlider extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      min: config.temperatureScale.low,
+      max: config.temperatureScale.high
+    }
+    this.getStoredScale()
+  }
+
+  async getStoredScale() {
+    const storedScale = await getTempScale()
+    if (!storedScale) return
+    this.setState(storedScale)
+  }
+
+  onValuesChange = (values) => {
+    this.setState({
+      min: values[0],
+      max: values[1]
+    })
+  }
+
+  onValuesChangeFinish = (values) => {
+    this.setState({
+      min: values[0],
+      max: values[1]
+    })
+    saveTempScale(this.state)
+  }
+
+  render() {
+    return (
+      <View>
+        <Text>{`${labels.tempScale.min} ${this.state.min}`}</Text>
+        <Text>{`${labels.tempScale.max} ${this.state.max}`}</Text>
+        <Slider
+          values={[this.state.min, this.state.max]}
+          min={config.temperatureScale.min}
+          max={config.temperatureScale.max}
+          step={0.5}
+          onValuesChange={this.onValuesChange}
+          onValuesChangeFinish={this.onValuesChangeFinish}
+        />
+      </View>
     )
   }
 }

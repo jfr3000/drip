@@ -88,5 +88,10 @@ export default StyleSheet.create({
     margin: 30,
     textAlign: 'left',
     textAlignVertical: 'center'
+  },
+  settingsSegment: {
+    backgroundColor: 'lightgrey',
+    padding: 10,
+    marginTop: 10
   }
 })

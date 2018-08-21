@@ -29,5 +29,10 @@ export const settings = {
     success: {
       message: 'Data successfully imported'
     }
+  },
+  tempScale: {
+    segmentTitle: 'Change temperature scale',
+    min: 'Min',
+    max: 'Max'
   }
 }
