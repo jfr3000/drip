@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, View } from 'react-native'
-import config from './config'
+import config from '../../config'
 import styles from './styles'
 
 function makeYAxis() {

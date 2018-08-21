@@ -4,7 +4,7 @@ import {
 } from 'react-native'
 import Icon from 'react-native-vector-icons/Entypo'
 import styles from './styles'
-import config from './config'
+import config from '../../config'
 import { getOrCreateCycleDay } from '../../db'
 import cycleModule from '../../lib/cycle'
 import DotAndLine from './dot-and-line'

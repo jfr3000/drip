@@ -4,6 +4,8 @@ const config = {
   temperatureScale: {
     low: 35,
     high: 38,
+    min: 34,
+    max: 40,
     units: 0.1
   }
 }
