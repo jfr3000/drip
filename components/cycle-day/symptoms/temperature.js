@@ -70,8 +70,12 @@ export default class Temp extends Component {
           mode="time"
           isVisible={this.state.isTimePickerVisible}
           onConfirm={jsDate => {
+            let hours = jsDate.getHours()
+            if (hours < 10) hours = `0${hours}`
+            let minutes = jsDate.getMinutes()
+            if (minutes < 10) minutes = `0${minutes}`
             this.setState({
-              time: `${jsDate.getHours()}:${jsDate.getMinutes()}`,
+              time: `${hours}:${minutes}`,
               isTimePickerVisible: false
             })
           }}
