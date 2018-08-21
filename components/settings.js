@@ -22,26 +22,36 @@ export default class Settings extends Component {
     return (
       <ScrollView>
         <View style={styles.settingsSegment}>
-          <Text style={styles.settingsSegmentTitle}>{labels.tempScale.segmentTitle}</Text>
+          <Text style={styles.settingsSegmentTitle}>
+            {labels.tempScale.segmentTitle}
+          </Text>
           <Text>{labels.tempScale.segmentExplainer}</Text>
           <TempSlider/>
         </View>
         <View style={styles.settingsSegment}>
-          <Text style={styles.settingsSegmentTitle}>{labels.export.button}</Text>
+          <Text style={styles.settingsSegmentTitle}>
+            {labels.export.button}
+          </Text>
           <Text>{labels.export.segmentExplainer}</Text>
           <TouchableOpacity
             onPress={openShareDialogAndExport}
             style={styles.settingsButton}>
-            <Text style={styles.settingsButtonText}>{labels.export.button}</Text>
+            <Text style={styles.settingsButtonText}>
+              {labels.export.button}
+            </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.settingsSegment}>
-          <Text style={styles.settingsSegmentTitle}>{labels.import.button}</Text>
+          <Text style={styles.settingsSegmentTitle}>
+            {labels.import.button}
+          </Text>
           <Text>{labels.import.segmentExplainer}</Text>
           <TouchableOpacity
             onPress={openImportDialogAndImport}
             style={styles.settingsButton}>
-            <Text style={styles.settingsButtonText}>{labels.import.button}</Text>
+            <Text style={styles.settingsButtonText}>
+              {labels.import.button}
+            </Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
