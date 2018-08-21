@@ -1,11 +1,17 @@
 import { AsyncStorage } from 'react-native'
+import Observable from 'obv'
 
-export async function getTempScale() {
+export const tempScaleObservable = Observable()
+getTempScale()
+
+async function getTempScale() {
   const result = await AsyncStorage.getItem('tempScale')
   if (!result) return result
-  return JSON.parse(result)
+  tempScaleObservable.set(JSON.parse(result))
 }
 
 export async function saveTempScale(scale) {
-  return AsyncStorage.setItem('tempScale', JSON.stringify(scale))
+  await AsyncStorage.setItem('tempScale', JSON.stringify(scale))
+  tempScaleObservable.set(scale)
 }
+
