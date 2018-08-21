@@ -60,7 +60,13 @@ class TempSlider extends Component {
   }
 
   async getStoredScale() {
-    const storedScale = await getTempScale()
+    let storedScale
+    try {
+      storedScale = await getTempScale()
+    } catch(err) {
+      alertError(labels.tempScale.loadError)
+      return
+    }
     if (!storedScale) return
     this.setState(storedScale)
   }
@@ -77,7 +83,11 @@ class TempSlider extends Component {
       min: values[0],
       max: values[1]
     })
-    saveTempScale(this.state)
+    try {
+      saveTempScale(this.state)
+    } catch(err) {
+      alertError(labels.tempScale.saveError)
+    }
   }
 
   render() {

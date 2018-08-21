@@ -36,6 +36,8 @@ export const settings = {
     segmentTitle: 'Temperature scale',
     segmentExplainer: 'Change the minimum and maximum value for entered temperatures',
     min: 'Min',
-    max: 'Max'
+    max: 'Max',
+    loadError: 'Could not load saved temperature scale settings',
+    saveError: 'Could not save temperature scale settings'
   }
 }
