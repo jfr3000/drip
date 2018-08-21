@@ -92,6 +92,15 @@ export default StyleSheet.create({
   settingsSegment: {
     backgroundColor: 'lightgrey',
     padding: 10,
-    marginTop: 10
+    marginTop: 10,
+  },
+  settingsSegmentTitle: {
+    fontWeight: 'bold'
+  },
+  settingsButton: {
+    backgroundColor: 'darkgrey',
+    padding: 10,
+    alignItems: 'center',
+    margin: 10
   }
 })

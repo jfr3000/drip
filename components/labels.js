@@ -13,6 +13,7 @@ export const settings = {
     title: 'My Drip data export',
     subject: 'My Drip data export',
     button: 'Export data',
+    segmentExplainer: 'Export data in CSV format for backup or so you can use it elsewhere'
   },
   import: {
     button: 'Import data',
@@ -28,10 +29,12 @@ export const settings = {
     },
     success: {
       message: 'Data successfully imported'
-    }
+    },
+    segmentExplainer: 'Import data in CSV format'
   },
   tempScale: {
-    segmentTitle: 'Change temperature scale',
+    segmentTitle: 'Temperature scale',
+    segmentExplainer: 'Change the minimum and maximum value for entered temperatures',
     min: 'Min',
     max: 'Max'
   }
