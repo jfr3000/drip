@@ -98,9 +98,12 @@ export default StyleSheet.create({
     fontWeight: 'bold'
   },
   settingsButton: {
-    backgroundColor: 'darkgrey',
+    backgroundColor: '#351c4d',
     padding: 10,
     alignItems: 'center',
     margin: 10
+  },
+  settingsButtonText: {
+    color: 'white'
   }
 })

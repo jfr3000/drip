@@ -32,7 +32,7 @@ export default class Settings extends Component {
           <TouchableOpacity
             onPress={openShareDialogAndExport}
             style={styles.settingsButton}>
-            <Text>{labels.export.button}</Text>
+            <Text style={styles.settingsButtonText}>{labels.export.button}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.settingsSegment}>
@@ -41,7 +41,7 @@ export default class Settings extends Component {
           <TouchableOpacity
             onPress={openImportDialogAndImport}
             style={styles.settingsButton}>
-            <Text>{labels.import.button}</Text>
+            <Text style={styles.settingsButtonText}>{labels.import.button}</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -82,7 +82,7 @@ class TempSlider extends Component {
 
   render() {
     return (
-      <View>
+      <View style={{alignItems: 'center'}}>
         <Text>{`${labels.tempScale.min} ${this.state.min}`}</Text>
         <Text>{`${labels.tempScale.max} ${this.state.max}`}</Text>
         <Slider
@@ -92,6 +92,22 @@ class TempSlider extends Component {
           step={0.5}
           onValuesChange={this.onValuesChange}
           onValuesChangeFinish={this.onValuesChangeFinish}
+          selectedStyle={{
+            backgroundColor: 'darkgrey',
+          }}
+          unselectedStyle={{
+            backgroundColor: 'silver',
+          }}
+          trackStyle={{
+            height:10,
+          }}
+          markerStyle={{
+            backgroundColor: '#351c4d',
+            height: 20,
+            width: 20,
+            borderRadius: 100,
+            marginTop: 10
+          }}
         />
       </View>
     )
