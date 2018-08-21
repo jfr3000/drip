@@ -2,8 +2,8 @@ const config = {
   chartHeight: 350,
   columnWidth: 25,
   temperatureScale: {
-    low: 35,
-    high: 38,
+    defaultLow: 35,
+    defaultHigh: 38,
     min: 34,
     max: 40,
     units: 0.1

@@ -63,8 +63,8 @@ class TempSlider extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      min: config.temperatureScale.low,
-      max: config.temperatureScale.high
+      min: config.temperatureScale.defaultLow,
+      max: config.temperatureScale.defaultHigh
     }
     this.getStoredScale()
   }
