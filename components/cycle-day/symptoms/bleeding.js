@@ -2,12 +2,14 @@ import React, { Component } from 'react'
 import {
   View,
   Text,
-  Switch
+  Switch,
+  ScrollView
 } from 'react-native'
 import RadioForm from 'react-native-simple-radio-button'
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
 import { bleeding as labels } from '../labels/labels'
+import ActionButtonFooter from './action-button-footer'
 
 export default class Bleeding extends Component {
   constructor(props) {
@@ -32,44 +34,44 @@ export default class Bleeding extends Component {
       { label: labels[3], value: 3 },
     ]
     return (
-      <View style={styles.symptomEditView}>
-        <Text style={styles.symptomDayView}>Bleeding</Text>
-        <View style={styles.radioButtonRow}>
-          <RadioForm
-            radio_props={bleedingRadioProps}
-            initial={this.state.currentValue}
-            formHorizontal={true}
-            labelHorizontal={false}
-            labelStyle={styles.radioButton}
-            onPress={(itemValue) => {
-              this.setState({ currentValue: itemValue })
-            }}
-          />
-        </View>
-        <View style={styles.symptomViewRowInline}>
-          <Text style={styles.symptomDayView}>Exclude</Text>
-          <Switch
-            onValueChange={(val) => {
-              this.setState({ exclude: val })
-            }}
-            value={this.state.exclude}
-          />
-        </View>
-        <View style={styles.actionButtonRow}>
-          {this.makeActionButtons(
-            {
-              symptom: 'bleeding',
-              cycleDay: this.cycleDay,
-              saveAction: () => {
-                saveSymptom('bleeding', this.cycleDay, {
-                  value: this.state.currentValue,
-                  exclude: this.state.exclude
-                })
-              },
-              saveDisabled: this.state.currentValue === -1
-            }
-          )}
-        </View>
+      <View style={{ flex: 1 }}>
+        <ScrollView>
+          <View>
+            <View style={styles.radioButtonRow}>
+              <RadioForm
+                radio_props={bleedingRadioProps}
+                initial={this.state.currentValue}
+                formHorizontal={true}
+                labelHorizontal={false}
+                labelStyle={styles.radioButton}
+                onPress={(itemValue) => {
+                  this.setState({ currentValue: itemValue })
+                }}
+              />
+            </View>
+            <View style={styles.symptomViewRowInline}>
+              <Text style={styles.symptomDayView}>Exclude</Text>
+              <Switch
+                onValueChange={(val) => {
+                  this.setState({ exclude: val })
+                }}
+                value={this.state.exclude}
+              />
+            </View>
+          </View>
+        </ScrollView>
+        <ActionButtonFooter
+          symptom='bleeding'
+          cycleDay={this.props.cycleDay}
+          saveAction={() => {
+            saveSymptom('bleeding', this.props.cycleDay, {
+              value: this.state.currentValue,
+              exclude: this.state.exclude
+            })
+          }}
+          saveDisabled={this.state.currentValue === -1}
+          navigate={this.props.navigate}
+        />
       </View>
     )
   }

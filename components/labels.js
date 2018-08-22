@@ -43,3 +43,29 @@ export const settings = {
     saveError: 'Could not save temperature scale settings'
   }
 }
+
+export const headerTitles = {
+  Home: 'Home',
+  Calendar: 'Calendar',
+  Chart: 'Chart',
+  Stats: 'Statistics',
+  Settings: 'Settings',
+  BleedingEditView: 'Bleeding',
+  TemperatureEditView: 'Temperature',
+  MucusEditView: 'Mucus',
+  CervixEditView: 'Cervix',
+  NoteEditView: 'Note',
+  DesireEditView: 'Desire',
+  SexEditView: 'Sex'
+}
+
+export const stats = {
+  emptyStats: 'At least one completed cycle is needed to present you with stats here.',
+  oneCycleStats: (number) => `You have documented one cycle of ${number} days.`,
+  getBasisOfStats: (numberOfCycles) => `Stats are based on ${numberOfCycles} completed cycles.`,
+  daysLabel: 'days',
+  averageLabel: 'Average cycle length',
+  minLabel: 'Shortest cycle',
+  maxLabel: 'Longest cycle',
+  stdLabel: 'Standard deviation'
+}
