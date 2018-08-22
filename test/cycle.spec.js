@@ -344,3 +344,126 @@ describe('getCycleForDay', () => {
     ])
   })
 })
+
+describe.only('getPredictedMenses', () => {
+  describe('cannot predict next menses', () => {
+    it('if no bleeding is documented', () => {
+      const cycleDaysSortedByDate = [ {} ]
+
+      const { getPredictedMenses } = cycleModule({
+        cycleDaysSortedByDate,
+        bleedingDaysSortedByDate: cycleDaysSortedByDate.filter(d => d.bleeding)
+      })
+      const result = getPredictedMenses(99, 1)
+      expect(result).to.eql({})
+    })
+    it('if no cycle is completed', () => {
+      const cycleDaysSortedByDate = [
+        {
+          date: '2018-06-02',
+          bleeding: { value: 2 }
+        }
+      ]
+
+      const { getPredictedMenses } = cycleModule({
+        cycleDaysSortedByDate,
+        bleedingDaysSortedByDate: cycleDaysSortedByDate.filter(d => d.bleeding)
+      })
+      const result = getPredictedMenses(99, 1)
+      expect(result).to.eql({})
+    })
+    it('if number of cycles is below minCyclesForPrediction', () => {
+      const cycleDaysSortedByDate = [
+        {
+          date: '2018-06-02',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2018-06-01',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2018-05-01',
+          bleeding: { value: 2 }
+        },
+      ]
+
+      const { getPredictedMenses } = cycleModule({
+        cycleDaysSortedByDate,
+        bleedingDaysSortedByDate: cycleDaysSortedByDate.filter(d => d.bleeding)
+      })
+      const result = getPredictedMenses()
+      expect(result).to.eql({})
+    })
+    it('if last bleeding was more than maxCycleLength days ago', () => {
+      const cycleDaysSortedByDate = [
+        {
+          date: '2017-07-02',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2017-06-01',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2017-05-01',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2017-04-01',
+          bleeding: { value: 2 }
+        }
+      ]
+
+      const { getPredictedMenses } = cycleModule({
+        cycleDaysSortedByDate,
+        bleedingDaysSortedByDate: cycleDaysSortedByDate.filter(d => d.bleeding)
+      })
+      const result = getPredictedMenses()
+      expect(result).to.eql({})
+    })
+  })
+  describe('works', () => {
+    it('if number of cycles is above minCyclesForPrediction with little standard deviation', () => {
+      const cycleDaysSortedByDate = [
+        {
+          date: '2018-08-02',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2018-07-02',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2018-06-01',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2018-05-01',
+          bleeding: { value: 2 }
+        },
+      ]
+
+      const { getPredictedMenses } = cycleModule({
+        cycleDaysSortedByDate,
+        bleedingDaysSortedByDate: cycleDaysSortedByDate.filter(d => d.bleeding)
+      })
+      const result = getPredictedMenses()
+      const expectedResult = [
+        {
+          'startDate': '2018-09-01',
+          'endDate': '2018-09-03'
+        },
+        {
+          'startDate': '2018-10-02',
+          'endDate': '2018-10-04'
+        },
+        {
+          'startDate': '2018-11-02',
+          'endDate': '2018-11-04'
+        }
+      ]
+      expect(result).to.eql(expectedResult)
+    })
+  })
+})

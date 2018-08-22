@@ -4,10 +4,10 @@ import {
   View,
   ScrollView
 } from 'react-native'
-import { LocalDate, ChronoUnit } from 'js-joda'
+
 import styles from '../styles/index'
 import cycleModule from '../lib/cycle'
-import getCycleInfo from '../lib/cycle-length'
+import {getCycleLengthStats as getCycleInfo, getCycleLength} from '../lib/cycle-length'
 import {stats as labels} from './labels'
 
 export default class Stats extends Component {
@@ -56,14 +56,4 @@ export default class Stats extends Component {
       </ScrollView>
     )
   }
-}
-
-function getCycleLength(cycleStartDates) {
-  const cycleLengths = []
-  for (let i = 0; i < cycleStartDates.length - 1; i++) {
-    const nextCycleStart = LocalDate.parse(cycleStartDates[i])
-    const cycleStart = LocalDate.parse(cycleStartDates[i + 1])
-    cycleLengths.push(cycleStart.until(nextCycleStart, ChronoUnit.DAYS))
-  }
-  return cycleLengths
 }
