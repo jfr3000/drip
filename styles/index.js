@@ -146,9 +146,25 @@ export default StyleSheet.create({
     marginLeft: 'auto',
     marginRight: 'auto'
   },
-  stats: {
+  statsIntro: {
     fontSize: 18,
-    margin: 30,
+    margin: 10,
+    textAlign: 'left',
+    textAlignVertical: 'center'
+  },
+  statsRow: {
+    flexDirection: 'row',
+    width: '100%'
+  },
+  statsLabelLeft: {
+    fontSize: 18,
+    width: '60%',
+    textAlign: 'left',
+    textAlignVertical: 'center',
+    marginLeft: 10
+  },
+  statsLabelRight: {
+    fontSize: 18,
     textAlign: 'left',
     textAlignVertical: 'center'
   },
