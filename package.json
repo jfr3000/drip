@@ -8,8 +8,8 @@
   ],
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "android": "./node_modules/.bin/react-native run-android",
-    "log": "./node_modules/.bin/react-native log-android | grep -v 'Warning: isMounted(...) is deprecated'",
+    "android": "react-native run-android",
+    "log": "react-native log-android",
     "test": "mocha --recursive --require @babel/register test && npm run lint",
     "test-watch": "mocha --recursive --require @babel/register --watch test",
     "lint": "eslint components lib test"
@@ -46,5 +46,25 @@
     "eslint-plugin-react": "^7.8.2",
     "mocha": "^5.2.0",
     "react-test-renderer": "16.3.1"
-  }
+  },
+  "description": "A menstrual cycle tracking app that's open-source and leaves your data on your phone. Use it to track your menstrual cycle or for fertility awareness!",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/bloodyhealth/drip.git"
+  },
+  "keywords": [
+    "cycle-tracking",
+    "symptothermal"
+  ],
+  "author": "",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://gitlab.com/bloodyhealth/drip/issues"
+  },
+  "homepage": "https://gitlab.com/bloodyhealth/drip#README"
 }
