@@ -42,11 +42,10 @@ export default class Home extends Component {
     const todayDateString = LocalDate.now().toString()
     const cycleDay = getOrCreateCycleDay(todayDateString)
     const navigate = this.props.navigation.navigate
-    navigate('cycleDay', { cycleDay })
+    navigate('CycleDay', { cycleDay })
   }
 
   render() {
-    const navigate = this.props.navigation.navigate
     return (
       <ScrollView>
         <Text style={styles.welcome}>{this.state.welcomeText}</Text>
@@ -59,24 +58,6 @@ export default class Home extends Component {
           </View>
           <View style={styles.homeButton}>
             <Button
-              onPress={() => navigate('calendar')}
-              title="Go to calendar">
-            </Button>
-          </View>
-          <View style={styles.homeButton}>
-            <Button
-              onPress={() => navigate('chart')}
-              title="Go to chart">
-            </Button>
-          </View>
-          <View style={styles.homeButton}>
-            <Button
-              onPress={() => navigate('settings')}
-              title="Go to settings">
-            </Button>
-          </View>
-          <View style={styles.homeButton}>
-            <Button
               onPress={() => fillWithDummyData()}
               title="fill with example data">
             </Button>
@@ -85,12 +66,6 @@ export default class Home extends Component {
             <Button
               onPress={() => deleteAll()}
               title="delete everything">
-            </Button>
-          </View>
-          <View style={styles.homeButton}>
-            <Button
-              onPress={() => navigate('stats')}
-              title="Go to stats">
             </Button>
           </View>
         </View>

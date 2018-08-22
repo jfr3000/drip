@@ -1,5 +1,5 @@
 import Realm from 'realm'
-import { LocalDate } from 'js-joda'
+import { LocalDate, ChronoUnit } from 'js-joda'
 import {
   cycleWithTempAndNoMucusShift,
   cycleWithFhm,
@@ -60,6 +60,22 @@ const DesireSchema = {
   }
 }
 
+const SexSchema = {
+  name: 'Sex',
+  properties: {
+    solo: { type: 'bool', optional: true },
+    partner: { type: 'bool', optional: true },
+    condom: { type: 'bool', optional: true },
+    pill: { type: 'bool', optional: true },
+    iud: { type: 'bool', optional: true },
+    patch: { type: 'bool', optional: true },
+    ring: { type: 'bool', optional: true },
+    implant: { type: 'bool', optional: true },
+    other: { type: 'bool', optional: true },
+    note: { type: 'string', optional: true }
+  }
+}
+
 const CycleDaySchema = {
   name: 'CycleDay',
   primaryKey: 'date',
@@ -88,6 +104,10 @@ const CycleDaySchema = {
     desire: {
       type: 'Desire',
       optional: true
+    },
+    sex: {
+      type: 'Sex',
+      optional: true
     }
   }
 }
@@ -100,7 +120,8 @@ const realmConfig = {
     MucusSchema,
     CervixSchema,
     NoteSchema,
-    DesireSchema
+    DesireSchema,
+    SexSchema
   ],
   // we only want this in dev mode
   deleteRealmIfMigrationNeeded: true
@@ -175,22 +196,44 @@ function getPreviousTemperature(cycleDay) {
   return winner.temperature.value
 }
 
-function getColumnNamesForCsv() {
-  return getPrefixedKeys('CycleDay')
+const schema = db.schema.reduce((acc, curr) => {
+  acc[curr.name] = curr.properties
+  return acc
+}, {})
 
-  function getPrefixedKeys(schemaName, prefix) {
-    const schema = db.schema.find(x => x.name === schemaName).properties
-    return Object.keys(schema).reduce((acc, key) => {
-      const prefixedKey = prefix ? [prefix, key].join('.') : key
-      const childSchemaName = schema[key].objectType
-      if (!childSchemaName) {
-        acc.push(prefixedKey)
-        return acc
-      }
-      acc.push(...getPrefixedKeys(childSchemaName, prefixedKey))
-      return acc
-    }, [])
+function tryToCreateCycleDay(day, i) {
+  try {
+    db.create('CycleDay', day)
+  } catch (err) {
+    const msg = `Line ${i + 1}(${day.date}): ${err.message}`
+    throw new Error(msg)
   }
+}
+
+function getAmountOfCycleDays() {
+  const amountOfCycleDays = cycleDaysSortedByDate.length
+  if (!amountOfCycleDays) return 0
+  const earliest = cycleDaysSortedByDate[amountOfCycleDays - 1]
+  const today = LocalDate.now()
+  const earliestAsLocalDate = LocalDate.parse(earliest.date)
+  return earliestAsLocalDate.until(today, ChronoUnit.DAYS)
+}
+
+function tryToImportWithDelete(cycleDays) {
+  db.write(() => {
+    db.delete(db.objects('CycleDay'))
+    cycleDays.forEach(tryToCreateCycleDay)
+  })
+}
+
+function tryToImportWithoutDelete(cycleDays) {
+  db.write(() => {
+    cycleDays.forEach((day, i) => {
+      const existing = getCycleDay(day.date)
+      if (existing) db.delete(existing)
+      tryToCreateCycleDay(day, i)
+    })
+  })
 }
 
 export {
@@ -203,5 +246,8 @@ export {
   deleteAll,
   getPreviousTemperature,
   getCycleDay,
-  getColumnNamesForCsv
+  getAmountOfCycleDays,
+  schema,
+  tryToImportWithDelete,
+  tryToImportWithoutDelete
 }

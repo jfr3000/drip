@@ -2,44 +2,46 @@ import config from './config'
 
 const styles = {
   curve: {
-    stroke: '#ffc425',
-    strokeWidth: 2
+    borderStyle: 'solid',
+    borderColor: '#ffc425',
+    borderWidth: 2,
   },
   curveExcluded: {
-    stroke: 'lightgrey',
-    strokeWidth: 2,
-    strokeDashArray: [4]
+    borderColor: 'lightgrey',
+    borderWidth: 2,
+    borderStyle: 'solid'
   },
   curveDots: {
-    fill: '#00aedb',
-    r: 6
+    backgroundColor: '#00aedb',
+    width: 12,
+    height: 12,
+    borderRadius: 50
   },
   curveDotsExcluded: {
-    fill: 'lightgrey',
-    r: 6
+    backgroundColor: 'lightgrey',
+    width: 12,
+    height: 12,
+    borderRadius: 50
   },
   column: {
     label: {
       date: {
-        stroke: 'grey',
-        fontSize: 10,
-        x: 2,
+        color: 'grey',
+        fontSize: 9,
         fontWeight: '100'
       },
       number: {
-        stroke: '#00b159',
+        color: '#00b159',
         fontSize: 13,
-        x: config.columnMiddle - 1
+        textAlign: 'center'
       }
     },
     rect: {
-      fill: '#f9f9f9',
-      strokeWidth: 1,
-      stroke: 'grey',
-      x: 0,
-      y: 0,
       width: config.columnWidth,
-      height: config.chartHeight
+      height: config.chartHeight,
+      borderStyle: 'solid',
+      borderColor: 'grey',
+      borderWidth: 0.5
     }
   },
   bleedingIcon: {
@@ -49,9 +51,9 @@ const styles = {
     y: 3
   },
   mucusIcon: {
-    cx: config.columnWidth / 2,
-    cy: 50,
-    r: 10
+    width: 12,
+    height: 12,
+    borderRadius: 50,
   },
   mucusIconShades: [
     '#cc99cc',
@@ -63,21 +65,29 @@ const styles = {
   yAxis: {
     height: config.chartHeight,
     width: config.columnWidth,
+    borderRightWidth: 0.5,
+    borderColor: 'lightgrey',
+    borderStyle: 'solid'
   },
   yAxisLabel: {
     position: 'absolute',
-    right: 3,
+    left: 3,
     color: 'grey',
-    fontSize: 12,
-    fontWeight: 'bold'
+    fontSize: 11,
+    textAlign: 'left'
   },
   horizontalGrid: {
-    stroke: 'lightgrey',
-    strokeWidth: 1
+    position:'absolute',
+    borderColor: 'lightgrey',
+    borderWidth: 0.5,
+    width: '100%',
+    borderStyle: 'solid',
+    left: config.columnWidth
   },
   nfpLine: {
-    stroke: '#00b159',
-    strokeWidth: 3
+    borderColor: '#00b159',
+    borderWidth: 2,
+    borderStyle: 'solid'
   }
 }
 
