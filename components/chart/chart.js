@@ -7,7 +7,7 @@ import setUpFertilityStatusFunc from './nfp-lines'
 import DayColumn from './day-column'
 import { getCycleDay, cycleDaysSortedByDate, getAmountOfCycleDays } from '../../db'
 import styles from './styles'
-
+import { scaleObservable } from '../../local-storage'
 
 export default class CycleChart extends Component {
   constructor(props) {
@@ -24,7 +24,6 @@ export default class CycleChart extends Component {
         />
       )
     }
-    this.yAxisView = <View {...styles.yAxis}>{makeYAxisLabels()}</View>
 
     this.reCalculateChartInfo = (function(Chart) {
       return function() {
@@ -33,16 +32,18 @@ export default class CycleChart extends Component {
     })(this)
 
     cycleDaysSortedByDate.addListener(this.reCalculateChartInfo)
+    this.removeObvListener = scaleObservable(this.reCalculateChartInfo, false)
   }
 
   componentWillUnmount() {
     cycleDaysSortedByDate.removeListener(this.reCalculateChartInfo)
+    this.removeObvListener()
   }
 
   render() {
     return (
       <View style={{ flexDirection: 'row', marginTop: 50 }}>
-        {this.yAxisView}
+        <View {...styles.yAxis}>{makeYAxisLabels()}</View>
         {makeHorizontalGrid()}
         {<FlatList
           horizontal={true}

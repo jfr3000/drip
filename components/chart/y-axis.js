@@ -2,11 +2,11 @@ import React from 'react'
 import { Text, View } from 'react-native'
 import config from '../../config'
 import styles from './styles'
-import { tempScaleObservable } from '../../local-storage'
+import { scaleObservable } from '../../local-storage'
 
 export function makeYAxisLabels() {
   const units = config.temperatureScale.units
-  const scaleMax = tempScaleObservable.value.max
+  const scaleMax = scaleObservable.value.max
 
   return getTickPositions().map((y, i) => {
     const style = styles.yAxisLabel
@@ -38,8 +38,8 @@ export function makeHorizontalGrid() {
 
 function getTickPositions() {
   const units = config.temperatureScale.units
-  const scaleMin = tempScaleObservable.value.min
-  const scaleMax = tempScaleObservable.value.max
+  const scaleMin = scaleObservable.value.min
+  const scaleMax = scaleObservable.value.max
   const numberOfTicks = (scaleMax - scaleMin) * (1 / units)
   const tickDistance = config.chartHeight / numberOfTicks
 
@@ -52,8 +52,8 @@ function getTickPositions() {
 }
 
 export function normalizeToScale(temp) {
-  const scale = config.temperatureScale
-  const valueRelativeToScale = (scale.high - temp) / (scale.high - scale.low)
+  const scale = scaleObservable.value
+  const valueRelativeToScale = (scale.max - temp) / (scale.max - scale.min)
   const scaleHeight = config.chartHeight
   return scaleHeight * valueRelativeToScale
 }

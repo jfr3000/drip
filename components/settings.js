@@ -15,7 +15,7 @@ import config from '../config'
 import { settings as labels } from './labels'
 import getDataAsCsvDataUri from '../lib/import-export/export-to-csv'
 import importCsv from '../lib/import-export/import-from-csv'
-import { tempScaleObservable, saveTempScale } from '../local-storage'
+import { scaleObservable, saveTempScale } from '../local-storage'
 
 export default class Settings extends Component {
   render() {
@@ -62,7 +62,7 @@ export default class Settings extends Component {
 class TempSlider extends Component {
   constructor(props) {
     super(props)
-    this.state = Object.assign({}, tempScaleObservable.value)
+    this.state = Object.assign({}, scaleObservable.value)
   }
 
   onValuesChange = (values) => {

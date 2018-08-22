@@ -2,7 +2,7 @@ import { AsyncStorage } from 'react-native'
 import Observable from 'obv'
 import config from '../config'
 
-export const tempScaleObservable = Observable()
+export const scaleObservable = Observable()
 setTempScaleInitially()
 
 async function setTempScaleInitially() {
@@ -16,11 +16,11 @@ async function setTempScaleInitially() {
       max: config.temperatureScale.defaultHigh
     }
   }
-  tempScaleObservable.set(value)
+  scaleObservable.set(value)
 }
 
 export async function saveTempScale(scale) {
   await AsyncStorage.setItem('tempScale', JSON.stringify(scale))
-  tempScaleObservable.set(scale)
+  scaleObservable.set(scale)
 }
 
