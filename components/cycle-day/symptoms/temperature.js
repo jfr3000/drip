@@ -45,6 +45,7 @@ export default class Temp extends Component {
         const [integer, fractional] = prevTemp.toString().split('.')
         this.state.integer = integer
         this.state.fractional = fractional
+        this.state.isSuggestion = true
       }
     }
   }
@@ -58,6 +59,7 @@ export default class Temp extends Component {
             integer={this.state.integer}
             fractional={this.state.fractional}
             setState={(val) => this.setState(val)}
+            isSuggestion={this.state.isSuggestion}
           />
         </View>
         <View style={styles.symptomViewRowInline}>
@@ -125,6 +127,7 @@ class TempInputPair extends Component {
           integer={this.props.integer}
           fractional={this.props.fractional}
           setState={this.props.setState}
+          isSuggestion={this.props.isSuggestion}
         />
         <Text style={styles.temperatureTextInput}>.</Text>
         <TempInput
@@ -132,6 +135,7 @@ class TempInputPair extends Component {
           integer={this.props.integer}
           fractional={this.props.fractional}
           setState={this.props.setState}
+          isSuggestion={this.props.isSuggestion}
         />
       </View>
     )
@@ -151,12 +155,16 @@ class TempInput extends Component {
   }
 
   render() {
+    const style = [styles.temperatureTextInput]
+    if (this.props.isSuggestion) {
+      style.push(styles.temperatureTextInputSuggestion)
+    }
     return (
       <TextInput
-        style={styles.temperatureTextInput}
+        style={style}
         onChangeText={(val) => {
           if (isNaN(Number(val))) return
-          this.props.setState({ [this.props.type]: val })
+          this.props.setState({ [this.props.type]: val, isSuggestion: false })
         }}
         keyboardType='numeric'
         value={this.props[this.props.type]}

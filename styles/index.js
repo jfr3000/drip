@@ -66,7 +66,11 @@ export default StyleSheet.create({
     marginBottom: 15
   },
   temperatureTextInput: {
-    fontSize: 20
+    fontSize: 20,
+    color: 'black'
+  },
+  temperatureTextInputSuggestion: {
+    color: '#939393'
   },
   actionButtonRow: {
     flexDirection: 'row',
