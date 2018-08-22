@@ -66,8 +66,6 @@ export default StyleSheet.create({
     marginBottom: 15
   },
   temperatureTextInput: {
-    width: 80,
-    textAlign: 'center',
     fontSize: 20
   },
   actionButtonRow: {
@@ -105,5 +103,8 @@ export default StyleSheet.create({
   },
   settingsButtonText: {
     color: 'white'
+  },
+  warning: {
+    color: 'red'
   }
 })

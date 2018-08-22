@@ -1,9 +1,11 @@
+export const shared = {
+  cancel: 'Cancel',
+  errorTitle: 'Error',
+  successTitle: 'Success',
+  warning: 'Warning'
+}
+
 export const settings = {
-  shared: {
-    cancel: 'Cancel',
-    errorTitle: 'Error',
-    successTitle: 'Success'
-  },
   export: {
     errors: {
       noData: 'There is no data to export',

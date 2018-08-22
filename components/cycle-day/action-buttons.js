@@ -22,8 +22,8 @@ export default function (showView) {
         }
       }, {
         title: 'Save',
-        action: () => {
-          saveAction()
+        action: async () => {
+          await saveAction()
           showView(dayView)
         },
         disabledCondition: saveDisabled
