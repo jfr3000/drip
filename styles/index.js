@@ -163,13 +163,13 @@ export default StyleSheet.create({
     fontWeight: 'bold'
   },
   settingsButton: {
-    backgroundColor: '#351c4d',
+    backgroundColor: secondaryColor,
     padding: 10,
     alignItems: 'center',
     margin: 10
   },
   settingsButtonText: {
-    color: 'white'
+    color: fontOnPrimaryColor
   },
   statsRow: {
     flexDirection: 'row',

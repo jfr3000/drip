@@ -10,7 +10,7 @@ import Slider from '@ptomasroos/react-native-multi-slider'
 import Share from 'react-native-share'
 import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker'
 import rnfs from 'react-native-fs'
-import styles from '../styles/index'
+import styles, { secondaryColor } from '../styles/index'
 import config from '../config'
 import { settings as labels } from './labels'
 import getDataAsCsvDataUri from '../lib/import-export/export-to-csv'
@@ -106,7 +106,7 @@ class TempSlider extends Component {
             height:10,
           }}
           markerStyle={{
-            backgroundColor: '#351c4d',
+            backgroundColor: secondaryColor,
             height: 20,
             width: 20,
             borderRadius: 100,
