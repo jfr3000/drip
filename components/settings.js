@@ -4,8 +4,11 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
-  Text
+  Text,
+  TextInput,
+  Keyboard
 } from 'react-native'
+import DateTimePicker from 'react-native-modal-datetime-picker-nevo'
 import Slider from '@ptomasroos/react-native-multi-slider'
 import Share from 'react-native-share'
 import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker'
@@ -18,9 +21,39 @@ import importCsv from '../lib/import-export/import-from-csv'
 import { scaleObservable, saveTempScale } from '../local-storage'
 
 export default class Settings extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
+
   render() {
     return (
       <ScrollView>
+        <View style={styles.settingsSegment}>
+          <Text style={styles.settingsSegmentTitle}>
+            {settingsLabels.tempReminder.title}
+          </Text>
+          <Text>{settingsLabels.tempReminder.explainer}</Text>
+          <TextInput
+            style={styles.temperatureTextInput}
+            onFocus={() => {
+              Keyboard.dismiss()
+              this.setState({ isTimePickerVisible: true })
+            }}
+            value={this.state.time}
+          />
+          <DateTimePicker
+            mode="time"
+            isVisible={this.state.isTimePickerVisible}
+            onConfirm={jsDate => {
+              this.setState({
+                time: `${jsDate.getHours()}:${jsDate.getMinutes()}`,
+                isTimePickerVisible: false
+              })
+            }}
+            onCancel={() => this.setState({ isTimePickerVisible: false })}
+          />
+        </View>
         <View style={styles.settingsSegment}>
           <Text style={styles.settingsSegmentTitle}>
             {settingsLabels.tempScale.segmentTitle}
