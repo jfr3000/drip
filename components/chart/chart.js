@@ -2,13 +2,12 @@ import React, { Component } from 'react'
 import { View, FlatList } from 'react-native'
 import range from 'date-range'
 import { LocalDate } from 'js-joda'
-import { yAxis, normalizeToScale, horizontalGrid } from './y-axis'
+import { makeYAxisLabels, normalizeToScale, makeHorizontalGrid } from './y-axis'
 import setUpFertilityStatusFunc from './nfp-lines'
 import DayColumn from './day-column'
 import { getCycleDay, cycleDaysSortedByDate, getAmountOfCycleDays } from '../../db'
 import styles from './styles'
 
-const yAxisView = <View {...styles.yAxis}>{yAxis.labels}</View>
 
 export default class CycleChart extends Component {
   constructor(props) {
@@ -25,6 +24,7 @@ export default class CycleChart extends Component {
         />
       )
     }
+    this.yAxisView = <View {...styles.yAxis}>{makeYAxisLabels()}</View>
 
     this.reCalculateChartInfo = (function(Chart) {
       return function() {
@@ -42,8 +42,8 @@ export default class CycleChart extends Component {
   render() {
     return (
       <View style={{ flexDirection: 'row', marginTop: 50 }}>
-        {yAxisView}
-        {horizontalGrid}
+        {this.yAxisView}
+        {makeHorizontalGrid()}
         {<FlatList
           horizontal={true}
           inverted={true}

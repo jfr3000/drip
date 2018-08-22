@@ -15,7 +15,7 @@ import config from '../config'
 import { settings as labels } from './labels'
 import getDataAsCsvDataUri from '../lib/import-export/export-to-csv'
 import importCsv from '../lib/import-export/import-from-csv'
-import { getTempScale, saveTempScale } from '../local-storage'
+import { tempScaleObservable, saveTempScale } from '../local-storage'
 
 export default class Settings extends Component {
   render() {
@@ -62,23 +62,7 @@ export default class Settings extends Component {
 class TempSlider extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      min: config.temperatureScale.defaultLow,
-      max: config.temperatureScale.defaultHigh
-    }
-    this.getStoredScale()
-  }
-
-  async getStoredScale() {
-    let storedScale
-    try {
-      storedScale = await getTempScale()
-    } catch(err) {
-      alertError(labels.tempScale.loadError)
-      return
-    }
-    if (!storedScale) return
-    this.setState(storedScale)
+    this.state = Object.assign({}, tempScaleObservable.value)
   }
 
   onValuesChange = (values) => {
