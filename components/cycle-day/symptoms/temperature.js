@@ -49,48 +49,16 @@ export default class Temp extends Component {
     }
   }
 
-  checkRange = () => {
-    const value = Number(`${this.state.integer}.${this.state.fractional}`)
-    if (isNaN(value)) return
-    const scale = scaleObservable.value
-    if (value < scale.min || value > scale.max) {
-      Alert.alert(
-        shared.warning,
-        tempLabels.outOfRangeWarning,
-      )
-    }
-  }
-
   render() {
     return (
       <View style={styles.symptomEditView}>
         <View style={styles.symptomViewRowInline}>
           <Text style={styles.symptomDayView}>Temperature (°C)</Text>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <TextInput
-              style={styles.temperatureTextInput}
-              onChangeText={(val) => {
-                if (isNaN(Number(val))) return
-                this.setState({ integer: val })
-              }}
-              keyboardType='numeric'
-              value={this.state.integer}
-              maxLength={2}
-            />
-            <Text style={styles.temperatureTextInput}>.</Text>
-            <TextInput
-              style={styles.temperatureTextInput}
-              onChangeText={(val) => {
-                if (isNaN(Number(val))) return
-                this.setState({ fractional: val })
-              }}
-              keyboardType='numeric'
-              value={this.state.fractional}
-              onBlur={this.checkRange}
-              maxLength={2}
-              autoFocus={true}
-            />
-          </View>
+          <TempInputPair
+            integer={this.state.integer}
+            fractional={this.state.fractional}
+            setState={(val) => this.setState(val)}
+          />
         </View>
         <View style={styles.symptomViewRowInline}>
           <Text style={styles.symptomDayView}>Time</Text>
@@ -144,6 +112,58 @@ export default class Temp extends Component {
           })}
         </View>
       </View>
+    )
+  }
+}
+
+class TempInputPair extends Component {
+  render() {
+    return (
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <TempInput
+          type='integer'
+          integer={this.props.integer}
+          fractional={this.props.fractional}
+          setState={this.props.setState}
+        />
+        <Text style={styles.temperatureTextInput}>.</Text>
+        <TempInput
+          type='fractional'
+          integer={this.props.integer}
+          fractional={this.props.fractional}
+          setState={this.props.setState}
+        />
+      </View>
+    )
+  }
+}
+class TempInput extends Component {
+  checkRange = () => {
+    const value = Number(`${this.props.integer}.${this.props.fractional}`)
+    if (isNaN(value)) return
+    const scale = scaleObservable.value
+    if (value < scale.min || value > scale.max) {
+      Alert.alert(
+        shared.warning,
+        tempLabels.outOfRangeWarning,
+      )
+    }
+  }
+
+  render() {
+    return (
+      <TextInput
+        style={styles.temperatureTextInput}
+        onChangeText={(val) => {
+          if (isNaN(Number(val))) return
+          this.props.setState({ [this.props.type]: val })
+        }}
+        keyboardType='numeric'
+        value={this.props[this.props.type]}
+        onBlur={this.checkRange}
+        maxLength={2}
+        autoFocus={this.props.type === 'fractional'}
+      />
     )
   }
 }
