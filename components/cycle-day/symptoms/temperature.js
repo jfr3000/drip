@@ -38,7 +38,7 @@ export default class Temp extends Component {
     if (temp) {
       const [integer, fractional] = temp.value.toString().split('.')
       this.state.integer = integer
-      this.state.fractional = fractional
+      this.state.fractional = fractional || '0'
     } else {
       const prevTemp = getPreviousTemperature(this.cycleDay)
       if (prevTemp) {
