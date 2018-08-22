@@ -70,21 +70,25 @@ export default class Temp extends Component {
             <TextInput
               style={styles.temperatureTextInput}
               onChangeText={(val) => {
+                if (isNaN(Number(val))) return
                 this.setState({ integer: val })
               }}
               keyboardType='numeric'
               value={this.state.integer}
-              onBlur={this.checkRange}
+              maxLength={2}
             />
             <Text style={styles.temperatureTextInput}>.</Text>
             <TextInput
               style={styles.temperatureTextInput}
               onChangeText={(val) => {
+                if (isNaN(Number(val))) return
                 this.setState({ fractional: val })
               }}
               keyboardType='numeric'
               value={this.state.fractional}
               onBlur={this.checkRange}
+              maxLength={2}
+              autoFocus={true}
             />
           </View>
         </View>
