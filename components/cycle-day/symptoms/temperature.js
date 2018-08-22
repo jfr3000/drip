@@ -30,21 +30,19 @@ export default class Temp extends Component {
       exclude: temp ? temp.exclude : false,
       time: temp ? temp.time : LocalTime.now().truncatedTo(minutes).toString(),
       isTimePickerVisible: false,
-      integer: '',
-      fractional: '',
       outOfRange: null
     }
 
     if (temp) {
-      const [integer, fractional] = temp.value.toString().split('.')
-      this.state.integer = integer
-      this.state.fractional = fractional || '0'
+      this.state.temperature = temp.value.toString()
+      if (temp.value === Math.floor(temp.value)) {
+        this.state.temperature = `${this.state.temperature}.0`
+      }
     } else {
       const prevTemp = getPreviousTemperature(this.cycleDay)
+      console.log(prevTemp)
       if (prevTemp) {
-        const [integer, fractional] = prevTemp.toString().split('.')
-        this.state.integer = integer
-        this.state.fractional = fractional
+        this.state.temperature = prevTemp.toString()
         this.state.isSuggestion = true
       }
     }
@@ -55,9 +53,8 @@ export default class Temp extends Component {
       <View style={styles.symptomEditView}>
         <View style={styles.symptomViewRowInline}>
           <Text style={styles.symptomDayView}>Temperature (°C)</Text>
-          <TempInputPair
-            integer={this.state.integer}
-            fractional={this.state.fractional}
+          <TempInput
+            value={this.state.temperature}
             setState={(val) => this.setState(val)}
             isSuggestion={this.state.isSuggestion}
           />
@@ -78,7 +75,7 @@ export default class Temp extends Component {
           isVisible={this.state.isTimePickerVisible}
           onConfirm={jsDate => {
             this.setState({
-              time: `${jsDate.getinteger()}:${jsDate.getfractional()}`,
+              time: `${jsDate.getHours()}:${jsDate.getMinutes()}`,
               isTimePickerVisible: false
             })
           }}
@@ -98,18 +95,16 @@ export default class Temp extends Component {
             symptom: 'temperature',
             cycleDay: this.cycleDay,
             saveAction: async () => {
-              const v = Number(`${this.state.integer}.${this.state.fractional}`)
               const dataToSave = {
-                value: v,
+                value: Number(this.state.temperature),
                 exclude: this.state.exclude,
                 time: this.state.time
               }
               saveSymptom('temperature', this.cycleDay, dataToSave)
             },
             saveDisabled:
-              this.state.integer === '' ||
-              isNaN(Number(this.state.integer)) ||
-              isNaN(Number(this.state.fractional)) ||
+              this.state.temperature === '' ||
+              isNaN(Number(this.state.temperature)) ||
               isInvalidTime(this.state.time)
           })}
         </View>
@@ -118,32 +113,10 @@ export default class Temp extends Component {
   }
 }
 
-class TempInputPair extends Component {
-  render() {
-    return (
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <TempInput
-          type='integer'
-          integer={this.props.integer}
-          fractional={this.props.fractional}
-          setState={this.props.setState}
-          isSuggestion={this.props.isSuggestion}
-        />
-        <Text style={styles.temperatureTextInput}>.</Text>
-        <TempInput
-          type='fractional'
-          integer={this.props.integer}
-          fractional={this.props.fractional}
-          setState={this.props.setState}
-          isSuggestion={this.props.isSuggestion}
-        />
-      </View>
-    )
-  }
-}
 class TempInput extends Component {
   checkRange = () => {
-    const value = Number(`${this.props.integer}.${this.props.fractional}`)
+    const value = Number(this.props.value)
+    console.log(value)
     if (isNaN(value)) return
     const scale = scaleObservable.value
     if (value < scale.min || value > scale.max) {
@@ -164,13 +137,12 @@ class TempInput extends Component {
         style={style}
         onChangeText={(val) => {
           if (isNaN(Number(val))) return
-          this.props.setState({ [this.props.type]: val, isSuggestion: false })
+          this.props.setState({ temperature: val, isSuggestion: false })
         }}
         keyboardType='numeric'
-        value={this.props[this.props.type]}
+        value={this.props.value}
         onBlur={this.checkRange}
-        maxLength={2}
-        autoFocus={this.props.type === 'fractional'}
+        autoFocus={true}
       />
     )
   }
