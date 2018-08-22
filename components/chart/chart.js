@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, FlatList } from 'react-native'
+import { View, FlatList, ScrollView } from 'react-native'
 import range from 'date-range'
 import { LocalDate } from 'js-joda'
 import { yAxis, normalizeToScale, horizontalGrid } from './y-axis'
@@ -21,7 +21,7 @@ export default class CycleChart extends Component {
         <DayColumn
           {...item}
           index={index}
-          navigate={this.props.navigation.navigate}
+          navigate={this.props.navigate}
         />
       )
     }
@@ -41,21 +41,23 @@ export default class CycleChart extends Component {
 
   render() {
     return (
-      <View style={{ flexDirection: 'row', marginTop: 50 }}>
-        {yAxisView}
-        {horizontalGrid}
-        {<FlatList
-          horizontal={true}
-          inverted={true}
-          showsHorizontalScrollIndicator={false}
-          data={this.state.columns}
-          renderItem={this.renderColumn}
-          keyExtractor={item => item.dateString}
-          initialNumToRender={15}
-          maxToRenderPerBatch={5}
-        >
-        </FlatList>}
-      </View>
+      <ScrollView>
+        <View style={{ flexDirection: 'row', marginTop: 50 }}>
+          {yAxisView}
+          {horizontalGrid}
+          {<FlatList
+            horizontal={true}
+            inverted={true}
+            showsHorizontalScrollIndicator={false}
+            data={this.state.columns}
+            renderItem={this.renderColumn}
+            keyExtractor={item => item.dateString}
+            initialNumToRender={15}
+            maxToRenderPerBatch={5}
+          >
+          </FlatList>}
+        </View>
+      </ScrollView>
     )
   }
 }

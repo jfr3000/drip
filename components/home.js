@@ -41,7 +41,7 @@ export default class Home extends Component {
   passTodayToDayView() {
     const todayDateString = LocalDate.now().toString()
     const cycleDay = getOrCreateCycleDay(todayDateString)
-    const navigate = this.props.navigation.navigate
+    const navigate = this.props.navigate
     navigate('CycleDay', { cycleDay })
   }
 

@@ -1,10 +1,17 @@
 import React, { Component } from 'react'
 import {
+  ScrollView,
   View,
-  Button,
-  Text
+  Text,
+  TouchableOpacity,
+  Dimensions
 } from 'react-native'
-import styles from '../../styles'
+import { LocalDate } from 'js-joda'
+import Header from '../header'
+import { getOrCreateCycleDay } from '../../db'
+import cycleModule from '../../lib/cycle'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import styles, { iconStyles } from '../../styles'
 import {
   bleeding as bleedingLabels,
   mucusFeeling as feelingLabels,
@@ -15,103 +22,83 @@ import {
   cervixPosition as positionLabels,
   intensity as intensityLabels
 } from './labels/labels'
-import cycleDayModule from '../../lib/cycle'
-import { bleedingDaysSortedByDate } from '../../db'
 
-const getCycleDayNumber = cycleDayModule().getCycleDayNumber
-
-export default class DayView extends Component {
+export default class CycleDayOverView extends Component {
   constructor(props) {
     super(props)
-    this.cycleDay = props.cycleDay
-    this.showView = props.showView
     this.state = {
-      cycleDayNumber: getCycleDayNumber(this.cycleDay.date),
+      cycleDay: props.cycleDay
     }
-
-    this.setStateWithCycleDayNumber = (function (DayViewComponent) {
-      return function () {
-        DayViewComponent.setState({
-          cycleDayNumber: getCycleDayNumber(DayViewComponent.cycleDay.date)
-        })
-      }
-    })(this)
-
-    bleedingDaysSortedByDate.addListener(this.setStateWithCycleDayNumber)
   }
 
-  componentWillUnmount() {
-    bleedingDaysSortedByDate.removeListener(this.setStateWithCycleDayNumber)
+  goToCycleDay(target) {
+    const localDate = LocalDate.parse(this.state.cycleDay.date)
+    const targetDate = target === 'before' ?
+      localDate.minusDays(1).toString() :
+      localDate.plusDays(1).toString()
+    this.setState({ cycleDay: getOrCreateCycleDay(targetDate) })
+  }
+
+  navigate(symptom) {
+    this.props.navigate(symptom, {
+      cycleDay: this.state.cycleDay,
+    })
   }
 
   render() {
-    const cycleDay = this.cycleDay
+    const cycleDay = this.state.cycleDay
+    const getCycleDayNumber = cycleModule().getCycleDayNumber
+    const cycleDayNumber = getCycleDayNumber(cycleDay.date)
     return (
-      <View style={styles.symptomEditView}>
-        <View style={styles.symptomViewRowInline}>
-          <Text style={styles.symptomDayView}>Bleeding</Text>
-          <View style={styles.symptomEditButton}>
-            <Button
-              onPress={() => this.showView('BleedingEditView')}
-              title={getLabel('bleeding', cycleDay.bleeding)}>
-            </Button>
-          </View>
-        </View>
-        <View style={styles.symptomViewRowInline}>
-          <Text style={styles.symptomDayView}>Temperature</Text>
-          <View style={styles.symptomEditButton}>
-            <Button
-              onPress={() => this.showView('TemperatureEditView')}
-              title={getLabel('temperature', cycleDay.temperature)}>
-            </Button>
-          </View>
-        </View>
-        <View style={ styles.symptomViewRowInline }>
-          <Text style={styles.symptomDayView}>Mucus</Text>
-          <View style={styles.symptomEditButton}>
-            <Button
-              onPress={() => this.showView('MucusEditView')}
-              title={getLabel('mucus', cycleDay.mucus)}>
-            </Button>
-          </View>
-        </View>
-        <View style={styles.symptomViewRowInline}>
-          <Text style={styles.symptomDayView}>Cervix</Text>
-          <View style={styles.symptomEditButton}>
-            <Button
-              onPress={() => this.showView('CervixEditView')}
-              title={getLabel('cervix', cycleDay.cervix)}>
-            </Button>
-          </View>
-        </View>
-        <View style={styles.symptomViewRowInline}>
-          <Text style={styles.symptomDayView}>Note</Text>
-          <View style={styles.symptomEditButton}>
-            <Button
-              onPress={() => this.showView('NoteEditView')}
-              title={getLabel('note', cycleDay.note)}
-            >
-            </Button>
-          </View>
-        </View>
-        <View style={ styles.symptomViewRowInline }>
-          <Text style={styles.symptomDayView}>Desire</Text>
-          <View style={styles.symptomEditButton}>
-            <Button
-              onPress={() => this.showView('DesireEditView')}
-              title={getLabel('desire', cycleDay.desire)}>
-            </Button>
-          </View>
-        </View>
-        <View style={styles.symptomViewRowInline}>
-          <Text style={styles.symptomDayView}>Sex</Text>
-          <View style={styles.symptomEditButton}>
-            <Button
-              onPress={() => this.showView('SexEditView')}
-              title={getLabel('sex', cycleDay.sex)}>
-            </Button>
-          </View>
-        </View>
+      <View style={{ flex: 1 }}>
+        <Header
+          isCycleDayOverView={true}
+          cycleDayNumber={cycleDayNumber}
+          date={cycleDay.date}
+          goToCycleDay={this.goToCycleDay.bind(this)}
+        />
+        <ScrollView>
+          <View style={styles.symptomBoxesView}>
+            <SymptomBox
+              title='Bleeding'
+              onPress={() => this.navigate('BleedingEditView')}
+              data={getLabel('bleeding', cycleDay.bleeding)}
+            />
+            <SymptomBox
+              title='Temperature'
+              onPress={() => this.navigate('TemperatureEditView')}
+              data={getLabel('temperature', cycleDay.temperature)}
+            />
+            <SymptomBox
+              title='Mucus'
+              onPress={() => this.navigate('MucusEditView')}
+              data={getLabel('mucus', cycleDay.mucus)}
+            />
+            <SymptomBox
+              title='Cervix'
+              onPress={() => this.navigate('CervixEditView')}
+              data={getLabel('cervix', cycleDay.cervix)}
+            />
+            <SymptomBox
+              title='Note'
+              onPress={() => this.navigate('NoteEditView')}
+              data={getLabel('note', cycleDay.note)}
+            />
+            <SymptomBox
+              title='Desire'
+              onPress={() => this.navigate('DesireEditView')}
+              data={getLabel('desire', cycleDay.desire)}
+            />
+            <SymptomBox
+              title='Sex'
+              onPress={() => this.navigate('SexEditView')}
+              data={getLabel('sex', cycleDay.sex)}
+            />
+            {/*  this is just to make the last row adhere to the grid
+        (and) because there are no pseudo properties in RN */}
+            <FillerBoxes />
+          </View >
+        </ScrollView >
       </View >
     )
   }
@@ -136,33 +123,28 @@ function getLabel(symptomName, symptom) {
       }
     },
     mucus: mucus => {
-      if (
-        typeof mucus.feeling === 'number' &&
-        typeof mucus.texture === 'number' &&
-        typeof mucus.value === 'number'
-      ) {
-        let mucusLabel =
-          `${feelingLabels[mucus.feeling]} +
-          ${textureLabels[mucus.texture]}
-          ( ${computeSensiplanMucusLabels[mucus.value]} )`
-        if (mucus.exclude) mucusLabel = "( " + mucusLabel + " )"
+      const categories = ['feeling', 'texture', 'value']
+      if (categories.every(c => typeof mucus[c] === 'number')) {
+        let mucusLabel = [feelingLabels[mucus.feeling], textureLabels[mucus.texture]].join(', ')
+        mucusLabel += `\n${computeSensiplanMucusLabels[mucus.value]}`
+        if (mucus.exclude) mucusLabel = `(${mucusLabel})`
         return mucusLabel
       }
     },
     cervix: cervix => {
+      let cervixLabel = []
       if (cervix.opening > -1 && cervix.firmness > -1) {
-        let cervixLabel =
-          `${openingLabels[cervix.opening]} +
-          ${firmnessLabels[cervix.firmness]}`
+        cervixLabel.push(openingLabels[cervix.opening], firmnessLabels[cervix.firmness])
         if (cervix.position > -1) {
-          cervixLabel += `+ ${positionLabels[cervix.position]}`
+          cervixLabel.push(positionLabels[cervix.position])
         }
-        if (cervix.exclude) cervixLabel = "( " + cervixLabel + " )"
+        cervixLabel = cervixLabel.join(', ')
+        if (cervix.exclude) cervixLabel = `(${cervixLabel})`
         return cervixLabel
       }
     },
     note: note => {
-      return note.value.slice(0, 12) + '...'
+      return note.value
     },
     desire: desire => {
       if (typeof desire.value === 'number') {
@@ -171,18 +153,64 @@ function getLabel(symptomName, symptom) {
       }
     },
     sex: sex => {
-      let sexLabel = ''
+      const sexLabel = []
       if ( sex.solo || sex.partner ) {
-        sexLabel += 'Activity '
+        sexLabel.push('activity')
       }
       if (sex.condom || sex.pill || sex.iud ||
         sex.patch || sex.ring || sex.implant || sex.other) {
-        sexLabel += 'Contraceptive'
+        sexLabel.push('contraceptive')
       }
-      return sexLabel ? sexLabel : 'edit'
+      return sexLabel.join(', ')
     }
   }
 
-  if (!symptom) return 'edit'
-  return labels[symptomName](symptom) || 'edit'
+  if (!symptom) return
+  const label = labels[symptomName](symptom)
+  if (label.length < 45) return label
+  return label.slice(0, 42) + '...'
+}
+
+class SymptomBox extends Component {
+  render() {
+    const d = this.props.data
+    const boxActive = d ? styles.symptomBoxActive : {}
+    const iconActive = d ? iconStyles.symptomBoxActive : {}
+    const textStyle = d ? styles.symptomTextActive : {}
+
+    const symptomBoxStyle = Object.assign({}, styles.symptomBox, boxActive)
+    const iconStyle = Object.assign({}, iconStyles.symptomBox, iconActive)
+
+    return (
+      <TouchableOpacity onPress={this.props.onPress}>
+        <View style={symptomBoxStyle}>
+          <Icon
+            name='thermometer'
+            {...iconStyle}
+          />
+          <Text style={textStyle}>{this.props.title}</Text>
+        </View>
+        <View style={styles.symptomDataBox}>
+          <Text style={styles.symptomDataText}>{this.props.data}</Text>
+        </View>
+      </TouchableOpacity>
+    )
+  }
+}
+
+class FillerBoxes extends Component {
+  render() {
+    const n = Dimensions.get('window').width / styles.symptomBox.width
+    const fillerBoxes = []
+    for (let i = 0; i < Math.ceil(n); i++) {
+      fillerBoxes.push(
+        <View
+          width={styles.symptomBox.width}
+          height={0}
+          key={i.toString()}
+        />
+      )
+    }
+    return fillerBoxes
+  }
 }

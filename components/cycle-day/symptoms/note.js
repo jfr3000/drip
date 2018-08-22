@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import {
   View,
-  Text,
+  ScrollView,
   TextInput,
 } from 'react-native'
 
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
+import ActionButtonFooter from './action-button-footer'
 
 export default class Temp extends Component {
   constructor(props) {
@@ -22,30 +23,30 @@ export default class Temp extends Component {
 
   render() {
     return (
-      <View style={styles.symptomEditView}>
-        <View style={styles.symptomViewRow}>
-          <Text style={styles.symptomDayView}>Note</Text>
-          <TextInput
-            multiline={true}
-            placeholder="Enter"
-            onChangeText={(val) => {
-              this.setState({ currentValue: val })
-            }}
-            value={this.state.currentValue}
-          />
-        </View>
-        <View style={styles.actionButtonRow}>
-          {this.makeActionButtons({
-            symptom: 'note',
-            cycleDay: this.cycleDay,
-            saveAction: () => {
-              saveSymptom('note', this.cycleDay, {
-                value: this.state.currentValue
-              })
-            },
-            saveDisabled: !this.state.currentValue
-          })}
-        </View>
+      <View style={{ flex: 1 }}>
+        <ScrollView>
+          <View style={styles.symptomViewRow}>
+            <TextInput
+              multiline={true}
+              placeholder="Enter"
+              onChangeText={(val) => {
+                this.setState({ currentValue: val })
+              }}
+              value={this.state.currentValue}
+            />
+          </View>
+        </ScrollView>
+        <ActionButtonFooter
+          symptom='note'
+          cycleDay={this.cycleDay}
+          saveAction={() => {
+            saveSymptom('note', this.cycleDay, {
+              value: this.state.currentValue
+            })
+          }}
+          saveDisabled={!this.state.currentValue}
+          navigate={this.props.navigate}
+        />
       </View>
     )
   }

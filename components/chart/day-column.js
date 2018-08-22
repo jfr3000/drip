@@ -15,7 +15,7 @@ const label = styles.column.label
 export default class DayColumn extends Component {
   passDateToDayView(dateString) {
     const cycleDay = getOrCreateCycleDay(dateString)
-    this.props.navigate('cycleDay', { cycleDay })
+    this.props.navigate('CycleDay', { cycleDay })
   }
 
   shouldComponentUpdate(newProps) {

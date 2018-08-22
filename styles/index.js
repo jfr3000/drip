@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native'
 
+export const primaryColor = '#ff7e5f'
+export const secondaryColor = '#351c4d'
+export const fontOnPrimaryColor = 'white'
+
 export default StyleSheet.create({
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
   welcome: {
     fontSize: 20,
     margin: 30,
@@ -12,21 +12,24 @@ export default StyleSheet.create({
     textAlignVertical: 'center'
   },
   dateHeader: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
-    margin: 15,
-    color: 'white',
+    color: fontOnPrimaryColor,
     textAlign: 'center',
-    textAlignVertical: 'center'
   },
   cycleDayNumber: {
-    fontSize: 18,
+    fontSize: 15,
+    color: fontOnPrimaryColor,
     textAlign: 'center',
-    textAlignVertical: 'center'
+    marginLeft: 15
   },
   symptomDayView: {
     fontSize: 20,
     textAlignVertical: 'center'
+  },
+  symptomBoxImage: {
+    width: 50,
+    height: 50
   },
   radioButton: {
     fontSize: 18,
@@ -34,9 +37,47 @@ export default StyleSheet.create({
     textAlign: 'center',
     textAlignVertical: 'center'
   },
-  symptomEditView: {
-    justifyContent: 'space-between',
-    marginHorizontal: 15
+  symptomBoxesView: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-evenly'
+  },
+  symptomBox: {
+    borderColor: secondaryColor,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    alignItems: 'center',
+    marginTop: '10%',
+    paddingVertical: '6%',
+    marginHorizontal: 1,
+    width: 110,
+    height: 80,
+  },
+  symptomBoxActive: {
+    backgroundColor: secondaryColor,
+  },
+  symptomTextActive: {
+    color: fontOnPrimaryColor
+  },
+  symptomDataBox: {
+    borderColor: secondaryColor,
+    borderStyle: 'solid',
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderBottomWidth: 1,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '3%',
+    marginHorizontal: 1,
+    width: 110,
+    height: 50,
+  },
+  symptomDataText: {
+    fontSize: 12
   },
   symptomEditRow: {
     justifyContent: 'space-between',
@@ -49,15 +90,37 @@ export default StyleSheet.create({
     alignItems: 'center',
     height: 50
   },
-  cycleDayDateView: {
-    justifyContent: 'center',
-    backgroundColor: 'steelblue'
+  header: {
+    backgroundColor: primaryColor,
+    paddingVertical: 18,
+    paddingHorizontal: 15,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
-  cycleDayNumberView: {
-    justifyContent: 'center',
-    backgroundColor: 'skyblue',
-    marginBottom: 15,
+  menu: {
+    backgroundColor: primaryColor,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row'
+  },
+  menuItem: {
+    alignItems: 'center',
+    flex: 1,
     paddingVertical: 15
+  },
+  menuText: {
+    color: fontOnPrimaryColor
+  },
+  menuTextInActive: {
+    color: 'lightgrey'
+  },
+  headerCycleDay: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  navigationArrow: {
+    fontSize: 60,
+    color: fontOnPrimaryColor
   },
   homeButtons: {
     marginHorizontal: 15
@@ -104,5 +167,29 @@ export default StyleSheet.create({
     fontSize: 18,
     textAlign: 'left',
     textAlignVertical: 'center'
-  }
+  },
+  menuLabel: {
+    fontSize: 15,
+    color: fontOnPrimaryColor
+  },
 })
+
+export const iconStyles = {
+  navigationArrow: {
+    size: 45,
+    color: fontOnPrimaryColor
+  },
+  symptomBox: {
+    size: 40
+  },
+  symptomBoxActive: {
+    color: fontOnPrimaryColor
+  },
+  menuIcon: {
+    size: 20,
+    color: fontOnPrimaryColor
+  },
+  menuIconInactive: {
+    color: 'lightgrey'
+  }
+}

@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import {
   View,
-  Text
+  ScrollView
 } from 'react-native'
 import RadioForm from 'react-native-simple-radio-button'
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
 import { intensity as labels } from '../labels/labels'
+import ActionButtonFooter from './action-button-footer'
 
 export default class Desire extends Component {
   constructor(props) {
@@ -27,32 +28,32 @@ export default class Desire extends Component {
       { label: labels[2], value: 2 }
     ]
     return (
-      <View style={styles.symptomEditView}>
-        <Text style={styles.symptomDayView}>Desire</Text>
-        <View style={styles.radioButtonRow}>
-          <RadioForm
-            radio_props={desireRadioProps}
-            initial={this.state.currentValue}
-            formHorizontal={true}
-            labelHorizontal={false}
-            labelStyle={styles.radioButton}
-            onPress={(itemValue) => {
-              this.setState({ currentValue: itemValue })
-            }}
-          />
-        </View>
-        <View style={styles.actionButtonRow}>
-          {this.makeActionButtons(
-            {
-              symptom: 'desire',
-              cycleDay: this.cycleDay,
-              saveAction: () => {
-                saveSymptom('desire', this.cycleDay, { value: this.state.currentValue })
-              },
-              saveDisabled: this.state.currentValue === -1
-            }
-          )}
-        </View>
+      <View style={{ flex: 1 }}>
+        <ScrollView>
+          <View>
+            <View style={styles.radioButtonRow}>
+              <RadioForm
+                radio_props={desireRadioProps}
+                initial={this.state.currentValue}
+                formHorizontal={true}
+                labelHorizontal={false}
+                labelStyle={styles.radioButton}
+                onPress={(itemValue) => {
+                  this.setState({ currentValue: itemValue })
+                }}
+              />
+            </View>
+          </View>
+        </ScrollView>
+        <ActionButtonFooter
+          symptom='desire'
+          cycleDay={this.cycleDay}
+          saveAction={() => {
+            saveSymptom('desire', this.cycleDay, { value: this.state.currentValue })
+          }}
+          saveDisabled={this.state.currentValue === -1}
+          navigate={this.props.navigate}
+        />
       </View>
     )
   }
