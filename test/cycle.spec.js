@@ -357,7 +357,7 @@ describe('getPredictedMenses', () => {
         minCyclesForPrediction: 1
       })
       const result = getPredictedMenses()
-      expect(result).to.eql({})
+      expect(result).to.eql([])
     })
     it('if one bleeding is documented (no completed cycle)', () => {
       const cycleDaysSortedByDate = [
@@ -374,7 +374,7 @@ describe('getPredictedMenses', () => {
         minCyclesForPrediction: 1
       })
       const result = getPredictedMenses()
-      expect(result).to.eql({})
+      expect(result).to.eql([])
     })
     it('if number of cycles is below minCyclesForPrediction', () => {
       const cycleDaysSortedByDate = [
@@ -397,7 +397,7 @@ describe('getPredictedMenses', () => {
         bleedingDaysSortedByDate: cycleDaysSortedByDate.filter(d => d.bleeding)
       })
       const result = getPredictedMenses()
-      expect(result).to.eql({})
+      expect(result).to.eql([])
     })
   })
   describe('works', () => {
@@ -420,18 +420,27 @@ describe('getPredictedMenses', () => {
       })
       const result = getPredictedMenses()
       const expectedResult = [
-        {
-          'startDate': '2018-07-27',
-          'endDate': '2018-07-31'
-        },
-        {
-          'startDate': '2018-08-10',
-          'endDate': '2018-08-14'
-        },
-        {
-          'startDate': '2018-08-24',
-          'endDate': '2018-08-28'
-        }
+        [
+          '2018-07-27',
+          '2018-07-28',
+          '2018-07-29',
+          '2018-07-30',
+          '2018-07-31'
+        ],
+        [
+          '2018-08-10',
+          '2018-08-11',
+          '2018-08-12',
+          '2018-08-13',
+          '2018-08-14',
+        ],
+        [
+          '2018-08-24',
+          '2018-08-25',
+          '2018-08-26',
+          '2018-08-27',
+          '2018-08-28',
+        ]
       ]
       expect(result).to.eql(expectedResult)
     })
@@ -461,18 +470,21 @@ describe('getPredictedMenses', () => {
       })
       const result = getPredictedMenses()
       const expectedResult = [
-        {
-          'startDate': '2018-09-01',
-          'endDate': '2018-09-03'
-        },
-        {
-          'startDate': '2018-10-02',
-          'endDate': '2018-10-04'
-        },
-        {
-          'startDate': '2018-11-02',
-          'endDate': '2018-11-04'
-        }
+        [
+          '2018-09-01',
+          '2018-09-02',
+          '2018-09-03'
+        ],
+        [
+          '2018-10-02',
+          '2018-10-03',
+          '2018-10-04'
+        ],
+        [
+          '2018-11-02',
+          '2018-11-03',
+          '2018-11-04'
+        ]
       ]
       expect(result).to.eql(expectedResult)
     })
@@ -502,18 +514,21 @@ describe('getPredictedMenses', () => {
       })
       const result = getPredictedMenses()
       const expectedResult = [
-        {
-          'startDate': '2018-08-14',
-          'endDate': '2018-08-16'
-        },
-        {
-          'startDate': '2018-08-28',
-          'endDate': '2018-08-30'
-        },
-        {
-          'startDate': '2018-09-11',
-          'endDate': '2018-09-13'
-        }
+        [
+          '2018-08-14',
+          '2018-08-15',
+          '2018-08-16'
+        ],
+        [
+          '2018-08-28',
+          '2018-08-29',
+          '2018-08-30'
+        ],
+        [
+          '2018-09-11',
+          '2018-09-12',
+          '2018-09-13'
+        ]
       ]
       expect(result).to.eql(expectedResult)
     })
@@ -543,18 +558,27 @@ describe('getPredictedMenses', () => {
       })
       const result = getPredictedMenses()
       const expectedResult = [
-        {
-          'startDate': '2018-08-13',
-          'endDate': '2018-08-17'
-        },
-        {
-          'startDate': '2018-08-27',
-          'endDate': '2018-08-31'
-        },
-        {
-          'startDate': '2018-09-10',
-          'endDate': '2018-09-14'
-        }
+        [
+          '2018-08-13',
+          '2018-08-14',
+          '2018-08-15',
+          '2018-08-16',
+          '2018-08-17',
+        ],
+        [
+          '2018-08-27',
+          '2018-08-28',
+          '2018-08-29',
+          '2018-08-30',
+          '2018-08-31',
+        ],
+        [
+          '2018-09-10',
+          '2018-09-11',
+          '2018-09-12',
+          '2018-09-13',
+          '2018-09-14',
+        ]
       ]
       expect(result).to.eql(expectedResult)
     })
