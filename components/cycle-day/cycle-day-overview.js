@@ -175,8 +175,11 @@ function getLabel(symptomName, symptom) {
       let painLabel = []
       if (pain && Object.values(pain).some(val => val)){
         Object.keys(pain).forEach(key => {
-          if(pain[key]) {
+          if(pain[key] && key !== 'note') {
             painLabel.push(painLabels[key])
+          }
+          if(key === 'note'){
+            painLabel.push(pain.note)
           }
         })
         painLabel = painLabel.join(', ')
