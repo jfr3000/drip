@@ -108,7 +108,7 @@ export default class DayColumn extends Component {
 
     return (
       <View>
-        <View style={{ height: symptomHeight }}>
+        <View style={[styles.symptomRow, {height: symptomHeight}]}>
           {typeof mucus === 'number' &&
             <View
               {...styles.mucusIcon}

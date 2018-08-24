@@ -87,6 +87,10 @@ const styles = {
     borderColor: '#00b159',
     borderWidth: 2,
     borderStyle: 'solid'
+  },
+  symptomRow: {
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 }
 
