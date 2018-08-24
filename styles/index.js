@@ -92,16 +92,17 @@ export default StyleSheet.create({
   },
   header: {
     backgroundColor: primaryColor,
-    paddingVertical: 18,
     paddingHorizontal: 15,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    height: '10%'
   },
   menu: {
     backgroundColor: primaryColor,
     alignItems: 'center',
     justifyContent: 'space-between',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    height: '12%'
   },
   menuItem: {
     alignItems: 'center',
@@ -116,7 +117,8 @@ export default StyleSheet.create({
   },
   headerCycleDay: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    height: '15%'
   },
   navigationArrow: {
     fontSize: 60,

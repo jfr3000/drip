@@ -1,6 +1,7 @@
 const config = {
-  chartHeight: 350,
   columnWidth: 25,
+  columnHeightPercentage: 0.92,
+  xAxisHeightPercentage: 0.08,
   temperatureScale: {
     defaultLow: 35,
     defaultHigh: 38,
@@ -10,9 +11,6 @@ const config = {
   }
 }
 
-const margin = 3
-config.columnMiddle = config.columnWidth / 2,
-config.dateRowY = config.chartHeight - 15 - margin
-config.cycleDayNumberRowY = config.chartHeight - margin
+config.columnMiddle = config.columnWidth / 2
 
 export default config

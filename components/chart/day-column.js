@@ -105,25 +105,22 @@ export default class DayColumn extends Component {
     const cycleDayNumber = getCycleDayNumber(dateString)
     const shortDate = dateString.split('-').slice(1).join('-')
     const cycleDayLabel = (
-      <Text style={label.number} y={config.cycleDayNumberRowY}>
+      <Text style={label.number}>
         {cycleDayNumber}
       </Text>)
     const dateLabel = (
-      <Text style = {label.date} y={config.dateRowY}>
+      <Text style = {label.date}>
         {shortDate}
       </Text>
     )
-    columnElements.push(
-      <View position='absolute' bottom={0} key='date'>
-        {cycleDayLabel}
-        {dateLabel}
-      </View>
-    )
 
-    return React.createElement(
+    const columnHeight = this.props.chartHeight * config.columnHeightPercentage
+    const xAxisHeight = this.props.chartHeight * config.xAxisHeightPercentage
+
+    const column = React.createElement(
       TouchableOpacity,
       {
-        style: styles.column.rect,
+        style: [styles.column.rect, {height: columnHeight}],
         key: this.props.index.toString(),
         onPress: () => {
           this.passDateToDayView(dateString)
@@ -131,6 +128,16 @@ export default class DayColumn extends Component {
         activeOpacity: 1
       },
       columnElements
+    )
+
+    return (
+      <View>
+        {column}
+        <View style={{height: xAxisHeight}}>
+          {cycleDayLabel}
+          {dateLabel}
+        </View>
+      </View>
     )
   }
 }

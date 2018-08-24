@@ -42,7 +42,6 @@ export default class Temp extends Component {
       }
     } else {
       const prevTemp = getPreviousTemperature(this.cycleDay)
-      console.log(prevTemp)
       if (prevTemp) {
         this.state.temperature = prevTemp.toString()
         this.state.isSuggestion = true
@@ -122,7 +121,6 @@ export default class Temp extends Component {
 class TempInput extends Component {
   checkRange = () => {
     const value = Number(this.props.value)
-    console.log(value)
     if (isNaN(value)) return
     const scale = scaleObservable.value
     if (value < scale.min || value > scale.max) {

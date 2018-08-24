@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { View, FlatList, ScrollView } from 'react-native'
+import { View, FlatList, Text } from 'react-native'
 import range from 'date-range'
 import { LocalDate } from 'js-joda'
 import { makeYAxisLabels, normalizeToScale, makeHorizontalGrid } from './y-axis'
-import setUpFertilityStatusFunc from './nfp-lines'
+import nfpLines from './nfp-lines'
 import DayColumn from './day-column'
 import { getCycleDay, cycleDaysSortedByDate, getAmountOfCycleDays } from '../../db'
 import styles from './styles'
@@ -12,24 +12,27 @@ import { scaleObservable } from '../../local-storage'
 export default class CycleChart extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      columns: makeColumnInfo(setUpFertilityStatusFunc()),
-    }
+    this.state = {}
     this.renderColumn = ({item, index}) => {
       return (
         <DayColumn
           {...item}
           index={index}
           navigate={this.props.navigate}
+          chartHeight={this.state.chartHeight}
         />
       )
     }
+  }
 
-    this.reCalculateChartInfo = (function(Chart) {
-      return function() {
-        Chart.setState({columns: makeColumnInfo(setUpFertilityStatusFunc())})
-      }
-    })(this)
+  onLayout = ({ nativeEvent }) => {
+    if (this.state.chartHeight) return
+
+    const height = nativeEvent.layout.height
+    this.setState({ chartHeight: height })
+    this.reCalculateChartInfo = () => {
+      this.setState({ columns: this.makeColumnInfo(nfpLines(height)) })
+    }
 
     cycleDaysSortedByDate.addListener(this.reCalculateChartInfo)
     this.removeObvListener = scaleObservable(this.reCalculateChartInfo, false)
@@ -40,13 +43,65 @@ export default class CycleChart extends Component {
     this.removeObvListener()
   }
 
+  makeColumnInfo(getFhmAndLtlInfo) {
+    let amountOfCycleDays = getAmountOfCycleDays()
+    // if there's not much data yet, we want to show at least 30 days on the chart
+    if (amountOfCycleDays < 30) {
+      amountOfCycleDays = 30
+    } else {
+      // we don't want the chart to end abruptly before the first data day
+      amountOfCycleDays += 5
+    }
+    const jsDates = getTodayAndPreviousDays(amountOfCycleDays)
+    const xAxisDates = jsDates.map(jsDate => {
+      return LocalDate.of(
+        jsDate.getFullYear(),
+        jsDate.getMonth() + 1,
+        jsDate.getDate()
+      ).toString()
+    })
+
+    const columns = xAxisDates.map(dateString => {
+      const cycleDay = getCycleDay(dateString)
+      const symptoms = ['temperature', 'mucus', 'bleeding'].reduce((acc, symptom) => {
+        acc[symptom] = cycleDay && cycleDay[symptom] && cycleDay[symptom].value
+        acc[`${symptom}Exclude`] = cycleDay && cycleDay[symptom] && cycleDay[symptom].exclude
+        return acc
+      }, {})
+
+      const temp = symptoms.temperature
+      return {
+        dateString,
+        y: temp ? normalizeToScale(temp, this.state.chartHeight) : null,
+        ...symptoms,
+        ...getFhmAndLtlInfo(dateString, temp)
+      }
+    })
+
+    return columns.map((col, i) => {
+      const info = getInfoForNeighborColumns(i, columns)
+      return Object.assign(col, info)
+    })
+  }
+
   render() {
     return (
-      <ScrollView>
-        <View style={{ flexDirection: 'row', marginTop: 50 }}>
-          <View {...styles.yAxis}>{makeYAxisLabels()}</View>
-          {makeHorizontalGrid()}
-          {<FlatList
+      <View
+        onLayout={this.onLayout}
+        style={{ flexDirection: 'row', flex: 1 }}
+      >
+        {!this.state.chartHeight && <Text>Loading...</Text>}
+        {this.state.chartHeight &&
+          <View
+            style={[styles.yAxis, {height: this.state.chartHeight}]}
+          >
+            {makeYAxisLabels(this.state.chartHeight)}
+          </View>}
+
+        {this.state.chartHeight && makeHorizontalGrid(this.state.chartHeight)}
+
+        {this.state.chartHeight &&
+          <FlatList
             horizontal={true}
             inverted={true}
             showsHorizontalScrollIndicator={false}
@@ -56,51 +111,13 @@ export default class CycleChart extends Component {
             initialNumToRender={15}
             maxToRenderPerBatch={5}
           >
-          </FlatList>}
-        </View>
-      </ScrollView>
+          </FlatList>
+        }
+      </View>
     )
   }
 }
 
-function makeColumnInfo(getFhmAndLtlInfo) {
-  let amountOfCycleDays = getAmountOfCycleDays()
-  // if there's not much data yet, we want to show at least 30 days on the chart
-  if (amountOfCycleDays < 30) {
-    amountOfCycleDays = 30
-  } else {
-    // we don't want the chart to end abruptly before the first data day
-    amountOfCycleDays += 5
-  }
-  const xAxisDates = getTodayAndPreviousDays(amountOfCycleDays).map(jsDate => {
-    return LocalDate.of(
-      jsDate.getFullYear(),
-      jsDate.getMonth() + 1,
-      jsDate.getDate()
-    ).toString()
-  })
-
-  const columns = xAxisDates.map(dateString => {
-    const cycleDay = getCycleDay(dateString)
-    const symptoms = ['temperature', 'mucus', 'bleeding'].reduce((acc, symptom) => {
-      acc[symptom] = cycleDay && cycleDay[symptom] && cycleDay[symptom].value
-      acc[`${symptom}Exclude`] = cycleDay && cycleDay[symptom] && cycleDay[symptom].exclude
-      return acc
-    }, {})
-
-    return {
-      dateString,
-      y: symptoms.temperature ? normalizeToScale(symptoms.temperature) : null,
-      ...symptoms,
-      ...getFhmAndLtlInfo(dateString, symptoms.temperature)
-    }
-  })
-
-  return columns.map((col, i) => {
-    const info = getInfoForNeighborColumns(i, columns)
-    return Object.assign(col, info)
-  })
-}
 
 function getTodayAndPreviousDays(n) {
   const today = new Date()
