@@ -8,6 +8,7 @@ import DayColumn from './day-column'
 import { getCycleDay, cycleDaysSortedByDate, getAmountOfCycleDays } from '../../db'
 import styles from './styles'
 import { scaleObservable } from '../../local-storage'
+import config from '../../config'
 
 export default class CycleChart extends Component {
   constructor(props) {
@@ -70,9 +71,10 @@ export default class CycleChart extends Component {
       }, {})
 
       const temp = symptoms.temperature
+      const columnHeight = this.state.chartHeight * config.columnHeightPercentage
       return {
         dateString,
-        y: temp ? normalizeToScale(temp, this.state.chartHeight) : null,
+        y: temp ? normalizeToScale(temp, columnHeight) : null,
         ...symptoms,
         ...getFhmAndLtlInfo(dateString, temp)
       }
@@ -85,6 +87,12 @@ export default class CycleChart extends Component {
   }
 
   render() {
+    let columnHeight
+    let symptomRowHeight
+    if (this.state.chartHeight) {
+      columnHeight = this.state.chartHeight * config.columnHeightPercentage
+      symptomRowHeight = this.state.chartHeight * config.symptomRowHeightPercentage
+    }
     return (
       <View
         onLayout={this.onLayout}
@@ -93,12 +101,15 @@ export default class CycleChart extends Component {
         {!this.state.chartHeight && <Text>Loading...</Text>}
         {this.state.chartHeight &&
           <View
-            style={[styles.yAxis, {height: this.state.chartHeight}]}
+            style={[styles.yAxis, {
+              height: columnHeight,
+              marginTop: symptomRowHeight
+            }]}
           >
-            {makeYAxisLabels(this.state.chartHeight)}
+            {makeYAxisLabels(columnHeight)}
           </View>}
 
-        {this.state.chartHeight && makeHorizontalGrid(this.state.chartHeight)}
+        {this.state.chartHeight && makeHorizontalGrid(columnHeight, symptomRowHeight)}
 
         {this.state.chartHeight &&
           <FlatList
@@ -110,8 +121,7 @@ export default class CycleChart extends Component {
             keyExtractor={item => item.dateString}
             initialNumToRender={15}
             maxToRenderPerBatch={5}
-          >
-          </FlatList>
+          />
         }
       </View>
     )

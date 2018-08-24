@@ -34,36 +34,11 @@ export default class DayColumn extends Component {
       rightY,
       rightTemperatureExclude,
       leftY,
-      leftTemperatureExclude
+      leftTemperatureExclude,
+      chartHeight
     } = this.props
 
     const columnElements = []
-    if (typeof bleeding === 'number') {
-      columnElements.push(
-        <Icon
-          name='drop'
-          position='absolute'
-          size={18}
-          color='#900'
-          style={{ marginTop: 10, marginLeft: 3 }}
-          key='bleeding'
-        />
-      )
-    }
-
-    if (typeof mucus === 'number') {
-      const mucusIcon = (
-        <View
-          position='absolute'
-          top = {40}
-          left = {config.columnMiddle - styles.mucusIcon.width / 2}
-          {...styles.mucusIcon}
-          backgroundColor={styles.mucusIconShades[mucus]}
-          key='mucus'
-        />
-      )
-      columnElements.push(mucusIcon)
-    }
 
     if(drawFhmLine) {
       const fhmLine = (<View
@@ -114,8 +89,9 @@ export default class DayColumn extends Component {
       </Text>
     )
 
-    const columnHeight = this.props.chartHeight * config.columnHeightPercentage
-    const xAxisHeight = this.props.chartHeight * config.xAxisHeightPercentage
+    const columnHeight = chartHeight * config.columnHeightPercentage
+    const xAxisHeight = chartHeight * config.xAxisHeightPercentage
+    const symptomHeight = chartHeight * config.symptomRowHeightPercentage
 
     const column = React.createElement(
       TouchableOpacity,
@@ -132,7 +108,26 @@ export default class DayColumn extends Component {
 
     return (
       <View>
+        <View style={{ height: symptomHeight }}>
+          {typeof mucus === 'number' &&
+            <View
+              {...styles.mucusIcon}
+              backgroundColor={styles.mucusIconShades[mucus]}
+              key='mucus'
+            />
+          }
+          {typeof bleeding === 'number' &&
+            <Icon
+              name='drop'
+              size={18}
+              color='#900'
+              key='bleeding'
+            />
+          }
+        </View>
+
         {column}
+
         <View style={{height: xAxisHeight}}>
           {cycleDayLabel}
           {dateLabel}

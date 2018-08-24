@@ -4,15 +4,16 @@ import config from '../../config'
 import styles from './styles'
 import { scaleObservable } from '../../local-storage'
 
-export function makeYAxisLabels(chartHeight) {
+export function makeYAxisLabels(columnHeight) {
   const units = config.temperatureScale.units
   const scaleMax = scaleObservable.value.max
   const style = styles.yAxisLabel
 
-  return getTickPositions(chartHeight).map((y, i) => {
+  return getTickPositions(columnHeight).map((y, i) => {
     // this eyeballing is sadly necessary because RN does not
     // support percentage values for transforms, which we'd need
     // to reliably place the label vertically centered to the grid
+    if (scaleMax - i * units === 37) console.log(y)
     return (
       <Text
         style={[style, {top: y - 8}]}
@@ -23,11 +24,11 @@ export function makeYAxisLabels(chartHeight) {
   })
 }
 
-export function makeHorizontalGrid(chartHeight) {
-  return getTickPositions(chartHeight).map(tick => {
+export function makeHorizontalGrid(columnHeight, symptomRowHeight) {
+  return getTickPositions(columnHeight).map(tick => {
     return (
       <View
-        top={tick}
+        top={tick + symptomRowHeight}
         {...styles.horizontalGrid}
         key={tick}
       />
@@ -35,25 +36,31 @@ export function makeHorizontalGrid(chartHeight) {
   })
 }
 
-function getTickPositions(chartHeight) {
+function getTickPositions(columnHeight) {
   const units = config.temperatureScale.units
   const scaleMin = scaleObservable.value.min
   const scaleMax = scaleObservable.value.max
   const numberOfTicks = (scaleMax - scaleMin) * (1 / units) + 1
-  const columnHeight = chartHeight * config.columnHeightPercentage
-  const tickDistance = columnHeight / numberOfTicks
+  const tickDistance = 1 / (numberOfTicks - 1)
 
   const tickPositions = []
-  const margin = tickDistance / 2
   for (let i = 0; i < numberOfTicks; i++) {
-    tickPositions.push(tickDistance * i + margin)
+    const position = getAbsoluteValue(tickDistance * i, columnHeight)
+    tickPositions.push(position)
   }
   return tickPositions
 }
 
-export function normalizeToScale(temp, chartHeight) {
+export function normalizeToScale(temp, columnHeight) {
   const scale = scaleObservable.value
   const valueRelativeToScale = (scale.max - temp) / (scale.max - scale.min)
-  const scaleHeight = chartHeight * config.columnHeightPercentage
-  return scaleHeight * valueRelativeToScale
+  return getAbsoluteValue(valueRelativeToScale, columnHeight)
+}
+
+function getAbsoluteValue(relative, columnHeight) {
+  // we add some height to have some breathing room
+  const verticalPadding = columnHeight * config.temperatureScale.verticalPadding
+  const scaleHeight = columnHeight - verticalPadding
+  return scaleHeight * relative + verticalPadding
+
 }
