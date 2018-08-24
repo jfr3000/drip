@@ -43,7 +43,9 @@ export default class Sex extends Component {
                   this.setState({ solo: val })
                 }}
               />
-              <Text style={styles.symptomDayView}>{activityLabels.partner}</Text>
+              <Text style={styles.symptomDayView}>
+                {activityLabels.partner}
+              </Text>
               <CheckBox
                 value={this.state.partner}
                 onValueChange={(val) => {

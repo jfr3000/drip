@@ -20,7 +20,8 @@ import {
   cervixOpening as openingLabels,
   cervixFirmness as firmnessLabels,
   cervixPosition as positionLabels,
-  intensity as intensityLabels
+  intensity as intensityLabels,
+  pain as painLabels
 } from './labels/labels'
 
 export default class CycleDayOverView extends Component {
@@ -138,7 +139,10 @@ function getLabel(symptomName, symptom) {
     cervix: cervix => {
       let cervixLabel = []
       if (cervix.opening > -1 && cervix.firmness > -1) {
-        cervixLabel.push(openingLabels[cervix.opening], firmnessLabels[cervix.firmness])
+        cervixLabel.push(
+          openingLabels[cervix.opening],
+          firmnessLabels[cervix.firmness]
+        )
         if (cervix.position > -1) {
           cervixLabel.push(positionLabels[cervix.position])
         }
@@ -168,14 +172,17 @@ function getLabel(symptomName, symptom) {
       return sexLabel.join(', ')
     },
     pain: pain => {
-      let painLabel = ''
-      if (pain.cramps || pain.ovulationPain || pain.headache ||
-        pain.backache || pain.nausea || pain.tenderBreasts ||
-        pain.migraine || pain.other
-      ) {
-        painLabel += 'Pain'
+      let painLabel = []
+      if (pain && Object.values(pain).some(val => val)){
+        Object.keys(pain).forEach(key => {
+          if(pain[key]) {
+            painLabel.push(painLabels[key])
+          }
+        })
+        painLabel = painLabel.join(', ')
+        if (pain.exclude) painLabel = `(${painLabel})`
       }
-      return painLabel ? painLabel : 'edit'
+      return painLabel
     }
   }
 
