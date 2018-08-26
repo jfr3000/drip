@@ -98,8 +98,13 @@ export default class CycleChart extends Component {
         onLayout={this.onLayout}
         style={{ flexDirection: 'row', flex: 1 }}
       >
-        {!this.state.chartHeight && <Text>Loading...</Text>}
-        {this.state.chartHeight &&
+        {!this.state.chartLoaded &&
+          <View style={{width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+            <Text>Loading...</Text>
+          </View>
+        }
+
+        {this.state.chartHeight && this.state.chartLoaded &&
           <View
             style={[styles.yAxis, {
               height: columnHeight,
@@ -109,7 +114,7 @@ export default class CycleChart extends Component {
             {makeYAxisLabels(columnHeight)}
           </View>}
 
-        {this.state.chartHeight && makeHorizontalGrid(columnHeight, symptomRowHeight)}
+        {this.state.chartHeight && this.state.chartLoaded && makeHorizontalGrid(columnHeight, symptomRowHeight)}
 
         {this.state.chartHeight &&
           <FlatList
@@ -121,6 +126,7 @@ export default class CycleChart extends Component {
             keyExtractor={item => item.dateString}
             initialNumToRender={15}
             maxToRenderPerBatch={5}
+            onLayout={() => this.setState({chartLoaded: true})}
           />
         }
       </View>
