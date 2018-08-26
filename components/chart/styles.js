@@ -39,7 +39,6 @@ const styles = {
     rect: {
       width: config.columnWidth,
       borderStyle: 'solid',
-      borderColor: 'grey',
       borderLeftWidth: 0.5,
       borderRightWidth: 0.5,
     }

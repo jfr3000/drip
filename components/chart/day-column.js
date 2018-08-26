@@ -38,19 +38,11 @@ export default class DayColumn extends Component {
       chartHeight
     } = this.props
 
-    const columnElements = []
+    const columnHeight = chartHeight * config.columnHeightPercentage
+    const xAxisHeight = chartHeight * config.xAxisHeightPercentage
+    const symptomHeight = chartHeight * config.symptomRowHeightPercentage
 
-    if(drawFhmLine) {
-      const fhmLine = (<View
-        position = 'absolute'
-        top={100}
-        width={styles.nfpLine.strokeWidth}
-        height={200}
-        {...styles.nfpLine}
-        key='fhm'
-      />)
-      columnElements.push(fhmLine)
-    }
+    const columnElements = []
 
     if(drawLtlAt) {
       const ltlLine = (<View
@@ -89,14 +81,22 @@ export default class DayColumn extends Component {
       </Text>
     )
 
-    const columnHeight = chartHeight * config.columnHeightPercentage
-    const xAxisHeight = chartHeight * config.xAxisHeightPercentage
-    const symptomHeight = chartHeight * config.symptomRowHeightPercentage
+    // we merge the colors here instead of from the stylesheet because of a RN
+    // bug that doesn't apply borderLeftColor otherwise
+    const customStyle = {
+      height: columnHeight,
+      borderLeftColor: 'grey',
+      borderRightColor: 'grey'
+    }
 
+    if (drawFhmLine) {
+      customStyle.borderLeftColor = styles.nfpLine.borderColor
+      customStyle.borderLeftWidth = 3
+    }
     const column = React.createElement(
       TouchableOpacity,
       {
-        style: [styles.column.rect, {height: columnHeight}],
+        style: [styles.column.rect, customStyle],
         key: this.props.index.toString(),
         onPress: () => {
           this.passDateToDayView(dateString)
