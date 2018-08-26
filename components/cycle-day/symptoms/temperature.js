@@ -17,6 +17,7 @@ import { temperature as tempLabels } from '../labels/labels'
 import { scaleObservable } from '../../../local-storage'
 import { shared } from '../../labels'
 import ActionButtonFooter from './action-button-footer'
+import config from '../../../config'
 
 const minutes = ChronoUnit.MINUTES
 
@@ -48,6 +49,47 @@ export default class Temp extends Component {
       }
     }
   }
+
+  saveTemperature = () => {
+    const dataToSave = {
+      value: Number(this.state.temperature),
+      exclude: this.state.exclude,
+      time: this.state.time
+    }
+    saveSymptom('temperature', this.cycleDay, dataToSave)
+    this.props.navigate('CycleDay', {cycleDay: this.cycleDay})
+  }
+
+  checkRangeAndSave = () => {
+    const value = Number(this.state.temperature)
+
+    const absolute = {
+      min: config.temperatureScale.min,
+      max: config.temperatureScale.max
+    }
+    const scale = scaleObservable.value
+    let warningMsg
+    if (value < absolute.min || value > absolute.max) {
+      warningMsg = tempLabels.outOfAbsoluteRangeWarning
+    } else if (value < scale.min || value > scale.max) {
+      warningMsg = tempLabels.outOfRangeWarning
+    }
+
+    if (warningMsg) {
+      Alert.alert(
+        shared.warning,
+        warningMsg,
+        [
+          { text: shared.cancel },
+          { text: shared.save, onPress: this.saveTemperature}
+        ]
+      )
+    } else {
+      this.saveTemperature()
+    }
+
+  }
+
 
   render() {
     return (
@@ -98,20 +140,14 @@ export default class Temp extends Component {
         <ActionButtonFooter
           symptom='temperature'
           cycleDay={this.cycleDay}
-          saveAction={() => {
-            const dataToSave = {
-              value: Number(this.state.temperature),
-              exclude: this.state.exclude,
-              time: this.state.time
-            }
-            saveSymptom('temperature', this.cycleDay, dataToSave)
-          }}
+          saveAction={() => this.checkRangeAndSave()}
           saveDisabled={
             this.state.temperature === '' ||
             isNaN(Number(this.state.temperature)) ||
             isInvalidTime(this.state.time)
           }
           navigate={this.props.navigate}
+          autoShowDayView={false}
         />
       </View>
     )
@@ -119,18 +155,6 @@ export default class Temp extends Component {
 }
 
 class TempInput extends Component {
-  checkRange = () => {
-    const value = Number(this.props.value)
-    if (isNaN(value)) return
-    const scale = scaleObservable.value
-    if (value < scale.min || value > scale.max) {
-      Alert.alert(
-        shared.warning,
-        tempLabels.outOfRangeWarning,
-      )
-    }
-  }
-
   render() {
     const style = [styles.temperatureTextInput]
     if (this.props.isSuggestion) {

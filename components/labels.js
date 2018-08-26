@@ -1,5 +1,6 @@
 export const shared = {
   cancel: 'Cancel',
+  save: 'Save',
   errorTitle: 'Error',
   successTitle: 'Success',
   warning: 'Warning'

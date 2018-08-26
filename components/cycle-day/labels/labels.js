@@ -29,5 +29,6 @@ export const fertilityStatus = {
 
 export const temperature = {
   outOfRangeWarning: 'This temperature value is out of the current range for the temperature chart. You can change the range in the settings.',
+  outOfAbsoluteRangeWarning: 'This temperature value is too high or low to be shown on the temperature chart.',
   saveAnyway: 'Save anyway'
 }
