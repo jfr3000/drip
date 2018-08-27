@@ -46,7 +46,8 @@ export const settings = {
   tempReminder: {
     title: 'Temperature reminder',
     noTimeSet: 'Set a time for a daily reminder to take your temperature',
-    timeSet: time => `Daily reminder set for ${time}`
+    timeSet: time => `Daily reminder set for ${time}`,
+    notification: 'Record your morning temperature'
   }
 }
 

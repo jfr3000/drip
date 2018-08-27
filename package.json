@@ -31,6 +31,7 @@
     "react-native-document-picker": "^2.1.0",
     "react-native-fs": "^2.10.14",
     "react-native-modal-datetime-picker-nevo": "^4.11.0",
+    "react-native-push-notification": "^3.1.1",
     "react-native-share": "^1.1.0",
     "react-native-simple-radio-button": "^2.7.1",
     "react-native-vector-icons": "^5.0.0",

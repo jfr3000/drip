@@ -21,6 +21,7 @@ export default class App extends Component {
       currentPage: 'Home'
     }
     this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonPress)
+    setupNotifications(this.navigate)
   }
 
   componentWillUnmount() {
@@ -62,5 +63,3 @@ export default class App extends Component {
     )
   }
 }
-
-setupNotifications()
