@@ -5,8 +5,7 @@ import {
   ScrollView,
   Alert,
   Text,
-  TextInput,
-  Keyboard
+  Switch
 } from 'react-native'
 import DateTimePicker from 'react-native-modal-datetime-picker-nevo'
 import Slider from '@ptomasroos/react-native-multi-slider'
@@ -36,12 +35,20 @@ export default class Settings extends Component {
           <Text style={styles.settingsSegmentTitle}>
             {settingsLabels.tempReminder.title}
           </Text>
-          {this.state.time ?
-            <Text>{settingsLabels.tempReminder.explainerChange}</Text>
-            :
-            <Text>{settingsLabels.tempReminder.explainer}</Text>
-          }
-          <Text>{this.state.time}</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <View style={{ flex: 1 }}>
+              {this.state.time ?
+                <Text>{settingsLabels.tempReminder.timeSet(this.state.time)}</Text>
+                :
+                <Text>{settingsLabels.tempReminder.noTimeSet}</Text>
+              }
+            </View>
+            <Switch
+              value={this.state.tempReminderEnabled}
+              onValueChange={val => this.setState({ tempReminderEnabled: val })}
+              onTintColor={secondaryColor}
+            />
+          </View>
           <DateTimePicker
             mode="time"
             isVisible={this.state.isTimePickerVisible}
