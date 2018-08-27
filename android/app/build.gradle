@@ -138,7 +138,6 @@ android {
 }
 
 dependencies {
-    compile project(':react-native-notifications')
     compile project(':react-native-vector-icons')
     compile project(':react-native-fs')
     compile project(':react-native-document-picker')
