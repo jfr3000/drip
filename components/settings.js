@@ -29,31 +29,31 @@ export default class Settings extends Component {
   render() {
     return (
       <ScrollView>
-        <View style={styles.settingsSegment}>
+        <TouchableOpacity
+          style={styles.settingsSegment}
+          onPress={() => this.setState({ isTimePickerVisible: true })}
+        >
           <Text style={styles.settingsSegmentTitle}>
             {settingsLabels.tempReminder.title}
           </Text>
-          <Text>{settingsLabels.tempReminder.explainer}</Text>
-          <TextInput
-            style={styles.temperatureTextInput}
-            onFocus={() => {
-              Keyboard.dismiss()
-              this.setState({ isTimePickerVisible: true })
-            }}
-            value={this.state.time}
-          />
+          {this.state.time ?
+            <Text>{settingsLabels.tempReminder.explainerChange}</Text>
+            :
+            <Text>{settingsLabels.tempReminder.explainer}</Text>
+          }
+          <Text>{this.state.time}</Text>
           <DateTimePicker
             mode="time"
             isVisible={this.state.isTimePickerVisible}
             onConfirm={jsDate => {
               this.setState({
-                time: `${jsDate.getHours()}:${jsDate.getMinutes()}`,
+                time: padWithZeros(`${jsDate.getHours()}:${jsDate.getMinutes()}`),
                 isTimePickerVisible: false
               })
             }}
             onCancel={() => this.setState({ isTimePickerVisible: false })}
           />
-        </View>
+        </TouchableOpacity>
         <View style={styles.settingsSegment}>
           <Text style={styles.settingsSegmentTitle}>
             {settingsLabels.tempScale.segmentTitle}
@@ -231,4 +231,14 @@ function alertError(msg) {
 function importError(msg) {
   const postFixed = `${msg}\n\n${settingsLabels.import.errors.postFix}`
   alertError(postFixed)
+}
+
+function padWithZeros(time) {
+  const vals = time.split(':')
+  return vals.map(val => {
+    if (parseInt(val) < 10) {
+      val = `0${val}`
+    }
+    return val
+  }).join(':')
 }
