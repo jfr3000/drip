@@ -17,7 +17,12 @@ import config from '../config'
 import { settings as settingsLabels, shared as sharedLabels } from './labels'
 import getDataAsCsvDataUri from '../lib/import-export/export-to-csv'
 import importCsv from '../lib/import-export/import-from-csv'
-import { scaleObservable, saveTempScale } from '../local-storage'
+import {
+  scaleObservable,
+  saveTempScale,
+  tempReminderObservable,
+  saveTempReminder
+} from '../local-storage'
 
 export default class Settings extends Component {
   constructor(props) {
@@ -35,31 +40,7 @@ export default class Settings extends Component {
           <Text style={styles.settingsSegmentTitle}>
             {settingsLabels.tempReminder.title}
           </Text>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <View style={{ flex: 1 }}>
-              {this.state.time ?
-                <Text>{settingsLabels.tempReminder.timeSet(this.state.time)}</Text>
-                :
-                <Text>{settingsLabels.tempReminder.noTimeSet}</Text>
-              }
-            </View>
-            <Switch
-              value={this.state.tempReminderEnabled}
-              onValueChange={val => this.setState({ tempReminderEnabled: val })}
-              onTintColor={secondaryColor}
-            />
-          </View>
-          <DateTimePicker
-            mode="time"
-            isVisible={this.state.isTimePickerVisible}
-            onConfirm={jsDate => {
-              this.setState({
-                time: padWithZeros(`${jsDate.getHours()}:${jsDate.getMinutes()}`),
-                isTimePickerVisible: false
-              })
-            }}
-            onCancel={() => this.setState({ isTimePickerVisible: false })}
-          />
+          <TempReminderPicker/>
         </TouchableOpacity>
         <View style={styles.settingsSegment}>
           <Text style={styles.settingsSegmentTitle}>
@@ -95,6 +76,52 @@ export default class Settings extends Component {
           </TouchableOpacity>
         </View>
       </ScrollView>
+    )
+  }
+}
+
+class TempReminderPicker extends Component {
+  constructor(props) {
+    super(props)
+    this.state = Object.assign({}, tempReminderObservable.value)
+  }
+
+  render() {
+    return (
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <View style={{ flex: 1 }}>
+          {this.state.time && this.state.enabled ?
+            <Text>{settingsLabels.tempReminder.timeSet(this.state.time)}</Text>
+            :
+            <Text>{settingsLabels.tempReminder.noTimeSet}</Text>
+          }
+        </View>
+        <Switch
+          value={this.state.enabled}
+          onValueChange={val => {
+            this.setState({ enabled: val })
+            if (val && !this.state.time) this.setState({ isTimePickerVisible: true })
+            if (!val) saveTempReminder({ enabled: false })
+          }}
+          onTintColor={secondaryColor}
+        />
+        <DateTimePicker
+          mode="time"
+          isVisible={this.state.isTimePickerVisible}
+          onConfirm={jsDate => {
+            const time = padWithZeros(`${jsDate.getHours()}:${jsDate.getMinutes()}`)
+            this.setState({
+              time,
+              isTimePickerVisible: false
+            })
+            saveTempReminder({
+              time,
+              enabled: true
+            })
+          }}
+          onCancel={() => this.setState({ isTimePickerVisible: false })}
+        />
+      </View>
     )
   }
 }

@@ -3,20 +3,25 @@ import Observable from 'obv'
 import config from '../config'
 
 export const scaleObservable = Observable()
-setTempScaleInitially()
+setObvWithInitValue('tempScale', scaleObservable, {
+  min: config.temperatureScale.defaultLow,
+  max: config.temperatureScale.defaultHigh
+})
 
-async function setTempScaleInitially() {
-  const result = await AsyncStorage.getItem('tempScale')
+export const tempReminderObservable = Observable()
+setObvWithInitValue('tempReminder', tempReminderObservable, {
+  enabled: false
+})
+
+async function setObvWithInitValue(key, obv, defaultValue) {
+  const result = await AsyncStorage.getItem(key)
   let value
   if (result) {
     value = JSON.parse(result)
   } else {
-    value = {
-      min: config.temperatureScale.defaultLow,
-      max: config.temperatureScale.defaultHigh
-    }
+    value = defaultValue
   }
-  scaleObservable.set(value)
+  obv.set(value)
 }
 
 export async function saveTempScale(scale) {
@@ -24,3 +29,7 @@ export async function saveTempScale(scale) {
   scaleObservable.set(scale)
 }
 
+export async function saveTempReminder(reminder) {
+  await AsyncStorage.setItem('tempReminder', JSON.stringify(reminder))
+  tempReminderObservable.set(reminder)
+}
