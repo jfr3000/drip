@@ -33,15 +33,7 @@ export default class Settings extends Component {
   render() {
     return (
       <ScrollView>
-        <TouchableOpacity
-          style={styles.settingsSegment}
-          onPress={() => this.setState({ isTimePickerVisible: true })}
-        >
-          <Text style={styles.settingsSegmentTitle}>
-            {settingsLabels.tempReminder.title}
-          </Text>
-          <TempReminderPicker/>
-        </TouchableOpacity>
+        <TempReminderPicker/>
         <View style={styles.settingsSegment}>
           <Text style={styles.settingsSegmentTitle}>
             {settingsLabels.tempScale.segmentTitle}
@@ -88,43 +80,52 @@ class TempReminderPicker extends Component {
 
   render() {
     return (
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        <View style={{ flex: 1 }}>
-          {this.state.time && this.state.enabled ?
-            <Text>{settingsLabels.tempReminder.timeSet(this.state.time)}</Text>
-            :
-            <Text>{settingsLabels.tempReminder.noTimeSet}</Text>
-          }
+      <TouchableOpacity
+        style={styles.settingsSegment}
+        onPress={() => this.setState({ isTimePickerVisible: true })}
+      >
+        <Text style={styles.settingsSegmentTitle}>
+          {settingsLabels.tempReminder.title}
+        </Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={{ flex: 1 }}>
+            {this.state.time && this.state.enabled ?
+              <Text>{settingsLabels.tempReminder.timeSet(this.state.time)}</Text>
+              :
+              <Text>{settingsLabels.tempReminder.noTimeSet}</Text>
+            }
+          </View>
+          <Switch
+            value={this.state.enabled}
+            onValueChange={val => {
+              this.setState({ enabled: val })
+              if (val && !this.state.time) this.setState({ isTimePickerVisible: true })
+              if (!val) saveTempReminder({ enabled: false })
+            }}
+            onTintColor={secondaryColor}
+          />
+          <DateTimePicker
+            mode="time"
+            isVisible={this.state.isTimePickerVisible}
+            onConfirm={jsDate => {
+              const time = padWithZeros(`${jsDate.getHours()}:${jsDate.getMinutes()}`)
+              this.setState({
+                time,
+                isTimePickerVisible: false,
+                enabled: true
+              })
+              saveTempReminder({
+                time,
+                enabled: true
+              })
+            }}
+            onCancel={() => {
+              this.setState({ isTimePickerVisible: false })
+              if (!this.state.time) this.setState({enabled: false})
+            }}
+          />
         </View>
-        <Switch
-          value={this.state.enabled}
-          onValueChange={val => {
-            this.setState({ enabled: val })
-            if (val && !this.state.time) this.setState({ isTimePickerVisible: true })
-            if (!val) saveTempReminder({ enabled: false })
-          }}
-          onTintColor={secondaryColor}
-        />
-        <DateTimePicker
-          mode="time"
-          isVisible={this.state.isTimePickerVisible}
-          onConfirm={jsDate => {
-            const time = padWithZeros(`${jsDate.getHours()}:${jsDate.getMinutes()}`)
-            this.setState({
-              time,
-              isTimePickerVisible: false
-            })
-            saveTempReminder({
-              time,
-              enabled: true
-            })
-          }}
-          onCancel={() => {
-            this.setState({ isTimePickerVisible: false })
-            if (!this.state.time) this.setState({enabled: false})
-          }}
-        />
-      </View>
+      </TouchableOpacity>
     )
   }
 }
@@ -156,7 +157,7 @@ class TempSlider extends Component {
 
   render() {
     return (
-      <View style={{alignItems: 'center'}}>
+      <View style={{ alignItems: 'center' }}>
         <Text>{`${settingsLabels.tempScale.min} ${this.state.min}`}</Text>
         <Text>{`${settingsLabels.tempScale.max} ${this.state.max}`}</Text>
         <Slider
@@ -173,7 +174,7 @@ class TempSlider extends Component {
             backgroundColor: 'silver',
           }}
           trackStyle={{
-            height:10,
+            height: 10,
           }}
           markerStyle={{
             backgroundColor: secondaryColor,
