@@ -14,7 +14,7 @@ import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker
 import rnfs from 'react-native-fs'
 import styles, { secondaryColor } from '../styles/index'
 import config from '../config'
-import { settings as settingsLabels, shared as sharedLabels } from './labels'
+import { settings as labels, shared as sharedLabels } from './labels'
 import getDataAsCsvDataUri from '../lib/import-export/export-to-csv'
 import importCsv from '../lib/import-export/import-from-csv'
 import {
@@ -36,34 +36,34 @@ export default class Settings extends Component {
         <TempReminderPicker/>
         <View style={styles.settingsSegment}>
           <Text style={styles.settingsSegmentTitle}>
-            {settingsLabels.tempScale.segmentTitle}
+            {labels.tempScale.segmentTitle}
           </Text>
-          <Text>{settingsLabels.tempScale.segmentExplainer}</Text>
+          <Text>{labels.tempScale.segmentExplainer}</Text>
           <TempSlider/>
         </View>
         <View style={styles.settingsSegment}>
           <Text style={styles.settingsSegmentTitle}>
-            {settingsLabels.export.button}
+            {labels.export.button}
           </Text>
-          <Text>{settingsLabels.export.segmentExplainer}</Text>
+          <Text>{labels.export.segmentExplainer}</Text>
           <TouchableOpacity
             onPress={openShareDialogAndExport}
             style={styles.settingsButton}>
             <Text style={styles.settingsButtonText}>
-              {settingsLabels.export.button}
+              {labels.export.button}
             </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.settingsSegment}>
           <Text style={styles.settingsSegmentTitle}>
-            {settingsLabels.import.button}
+            {labels.import.button}
           </Text>
-          <Text>{settingsLabels.import.segmentExplainer}</Text>
+          <Text>{labels.import.segmentExplainer}</Text>
           <TouchableOpacity
             onPress={openImportDialogAndImport}
             style={styles.settingsButton}>
             <Text style={styles.settingsButtonText}>
-              {settingsLabels.import.button}
+              {labels.import.button}
             </Text>
           </TouchableOpacity>
         </View>
@@ -85,22 +85,24 @@ class TempReminderPicker extends Component {
         onPress={() => this.setState({ isTimePickerVisible: true })}
       >
         <Text style={styles.settingsSegmentTitle}>
-          {settingsLabels.tempReminder.title}
+          {labels.tempReminder.title}
         </Text>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <View style={{ flex: 1 }}>
             {this.state.time && this.state.enabled ?
-              <Text>{settingsLabels.tempReminder.timeSet(this.state.time)}</Text>
+              <Text>{labels.tempReminder.timeSet(this.state.time)}</Text>
               :
-              <Text>{settingsLabels.tempReminder.noTimeSet}</Text>
+              <Text>{labels.tempReminder.noTimeSet}</Text>
             }
           </View>
           <Switch
             value={this.state.enabled}
-            onValueChange={val => {
-              this.setState({ enabled: val })
-              if (val && !this.state.time) this.setState({ isTimePickerVisible: true })
-              if (!val) saveTempReminder({ enabled: false })
+            onValueChange={switchOn => {
+              this.setState({ enabled: switchOn })
+              if (switchOn && !this.state.time) {
+                this.setState({ isTimePickerVisible: true })
+              }
+              if (!switchOn) saveTempReminder({ enabled: false })
             }}
             onTintColor={secondaryColor}
           />
@@ -151,15 +153,15 @@ class TempSlider extends Component {
     try {
       saveTempScale(this.state)
     } catch(err) {
-      alertError(settingsLabels.tempScale.saveError)
+      alertError(labels.tempScale.saveError)
     }
   }
 
   render() {
     return (
       <View style={{ alignItems: 'center' }}>
-        <Text>{`${settingsLabels.tempScale.min} ${this.state.min}`}</Text>
-        <Text>{`${settingsLabels.tempScale.max} ${this.state.max}`}</Text>
+        <Text>{`${labels.tempScale.min} ${this.state.min}`}</Text>
+        <Text>{`${labels.tempScale.max} ${this.state.max}`}</Text>
         <Slider
           values={[this.state.min, this.state.max]}
           min={config.temperatureScale.min}
@@ -194,36 +196,36 @@ async function openShareDialogAndExport() {
   try {
     data = getDataAsCsvDataUri()
     if (!data) {
-      return alertError(settingsLabels.errors.noData)
+      return alertError(labels.errors.noData)
     }
   } catch (err) {
     console.error(err)
-    return alertError(settingsLabels.errors.couldNotConvert)
+    return alertError(labels.errors.couldNotConvert)
   }
 
   try {
     await Share.open({
-      title: settingsLabels.export.title,
+      title: labels.export.title,
       url: data,
-      subject: settingsLabels.export.subject,
+      subject: labels.export.subject,
       type: 'text/csv',
       showAppsToView: true
     })
   } catch (err) {
     console.error(err)
-    return alertError(settingsLabels.export.errors.problemSharing)
+    return alertError(labels.export.errors.problemSharing)
   }
 }
 
 function openImportDialogAndImport() {
   Alert.alert(
-    settingsLabels.import.title,
-    settingsLabels.import.message,
+    labels.import.title,
+    labels.import.message,
     [{
-      text: settingsLabels.import.replaceOption,
+      text: labels.import.replaceOption,
       onPress: () => getFileContentAndImport({ deleteExisting: false })
     }, {
-      text: settingsLabels.import.deleteOption,
+      text: labels.import.deleteOption,
       onPress: () => getFileContentAndImport({ deleteExisting: true })
     }, {
       text: sharedLabels.cancel, style: 'cancel', onPress: () => { }
@@ -251,12 +253,12 @@ async function getFileContentAndImport({ deleteExisting }) {
   try {
     fileContent = await rnfs.readFile(fileInfo.uri, 'utf8')
   } catch (err) {
-    return importError(settingsLabels.import.errors.couldNotOpenFile)
+    return importError(labels.import.errors.couldNotOpenFile)
   }
 
   try {
     await importCsv(fileContent, deleteExisting)
-    Alert.alert(sharedLabels.successTitle, settingsLabels.import.success.message)
+    Alert.alert(sharedLabels.successTitle, labels.import.success.message)
   } catch(err) {
     importError(err.message)
   }
@@ -267,7 +269,7 @@ function alertError(msg) {
 }
 
 function importError(msg) {
-  const postFixed = `${msg}\n\n${settingsLabels.import.errors.postFix}`
+  const postFixed = `${msg}\n\n${labels.import.errors.postFix}`
   alertError(postFixed)
 }
 
