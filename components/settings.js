@@ -119,7 +119,10 @@ class TempReminderPicker extends Component {
               enabled: true
             })
           }}
-          onCancel={() => this.setState({ isTimePickerVisible: false })}
+          onCancel={() => {
+            this.setState({ isTimePickerVisible: false })
+            if (!this.state.time) this.setState({enabled: false})
+          }}
         />
       </View>
     )
