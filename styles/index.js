@@ -92,16 +92,17 @@ export default StyleSheet.create({
   },
   header: {
     backgroundColor: primaryColor,
-    paddingVertical: 18,
     paddingHorizontal: 15,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    height: '10%'
   },
   menu: {
     backgroundColor: primaryColor,
     alignItems: 'center',
     justifyContent: 'space-between',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    height: '12%'
   },
   menuItem: {
     alignItems: 'center',
@@ -116,7 +117,8 @@ export default StyleSheet.create({
   },
   headerCycleDay: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    height: '15%'
   },
   navigationArrow: {
     fontSize: 60,
@@ -129,9 +131,11 @@ export default StyleSheet.create({
     marginBottom: 15
   },
   temperatureTextInput: {
-    width: 80,
-    textAlign: 'center',
-    fontSize: 20
+    fontSize: 20,
+    color: 'black'
+  },
+  temperatureTextInputSuggestion: {
+    color: '#939393'
   },
   actionButtonRow: {
     flexDirection: 'row',
@@ -151,6 +155,23 @@ export default StyleSheet.create({
     margin: 10,
     textAlign: 'left',
     textAlignVertical: 'center'
+  },
+  settingsSegment: {
+    backgroundColor: 'lightgrey',
+    padding: 10,
+    marginBottom: 10,
+  },
+  settingsSegmentTitle: {
+    fontWeight: 'bold'
+  },
+  settingsButton: {
+    backgroundColor: secondaryColor,
+    padding: 10,
+    alignItems: 'center',
+    margin: 10
+  },
+  settingsButtonText: {
+    color: fontOnPrimaryColor
   },
   statsRow: {
     flexDirection: 'row',

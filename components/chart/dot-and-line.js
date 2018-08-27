@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import styles from './styles'
-import config from './config'
+import config from '../../config'
 
 export default class DotAndLine extends Component {
   shouldComponentUpdate(newProps) {

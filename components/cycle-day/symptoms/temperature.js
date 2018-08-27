@@ -5,6 +5,7 @@ import {
   TextInput,
   Switch,
   Keyboard,
+  Alert,
   ScrollView
 } from 'react-native'
 import DateTimePicker from 'react-native-modal-datetime-picker-nevo'
@@ -12,34 +13,83 @@ import DateTimePicker from 'react-native-modal-datetime-picker-nevo'
 import { getPreviousTemperature, saveSymptom } from '../../../db'
 import styles from '../../../styles'
 import { LocalTime, ChronoUnit } from 'js-joda'
+import { temperature as tempLabels } from '../labels/labels'
+import { scaleObservable } from '../../../local-storage'
+import { shared } from '../../labels'
 import ActionButtonFooter from './action-button-footer'
+import config from '../../../config'
 
-const MINUTES = ChronoUnit.MINUTES
+const minutes = ChronoUnit.MINUTES
 
 export default class Temp extends Component {
   constructor(props) {
     super(props)
     this.cycleDay = props.cycleDay
     this.makeActionButtons = props.makeActionButtons
-    let initialValue
 
     const temp = this.cycleDay.temperature
 
-    if (temp) {
-      initialValue = temp.value.toString()
-      this.time = temp.time
-    } else {
-      const prevTemp = getPreviousTemperature(this.cycleDay)
-      initialValue = prevTemp ? prevTemp.toString() : ''
+    this.state = {
+      exclude: temp ? temp.exclude : false,
+      time: temp ? temp.time : LocalTime.now().truncatedTo(minutes).toString(),
+      isTimePickerVisible: false,
+      outOfRange: null
     }
 
-    this.state = {
-      currentValue: initialValue,
-      exclude: temp ? temp.exclude : false,
-      time: this.time || LocalTime.now().truncatedTo(MINUTES).toString(),
-      isTimePickerVisible: false
+    if (temp) {
+      this.state.temperature = temp.value.toString()
+      if (temp.value === Math.floor(temp.value)) {
+        this.state.temperature = `${this.state.temperature}.0`
+      }
+    } else {
+      const prevTemp = getPreviousTemperature(this.cycleDay)
+      if (prevTemp) {
+        this.state.temperature = prevTemp.toString()
+        this.state.isSuggestion = true
+      }
     }
   }
+
+  saveTemperature = () => {
+    const dataToSave = {
+      value: Number(this.state.temperature),
+      exclude: this.state.exclude,
+      time: this.state.time
+    }
+    saveSymptom('temperature', this.cycleDay, dataToSave)
+    this.props.navigate('CycleDay', {cycleDay: this.cycleDay})
+  }
+
+  checkRangeAndSave = () => {
+    const value = Number(this.state.temperature)
+
+    const absolute = {
+      min: config.temperatureScale.min,
+      max: config.temperatureScale.max
+    }
+    const scale = scaleObservable.value
+    let warningMsg
+    if (value < absolute.min || value > absolute.max) {
+      warningMsg = tempLabels.outOfAbsoluteRangeWarning
+    } else if (value < scale.min || value > scale.max) {
+      warningMsg = tempLabels.outOfRangeWarning
+    }
+
+    if (warningMsg) {
+      Alert.alert(
+        shared.warning,
+        warningMsg,
+        [
+          { text: shared.cancel },
+          { text: shared.save, onPress: this.saveTemperature}
+        ]
+      )
+    } else {
+      this.saveTemperature()
+    }
+
+  }
+
 
   render() {
     return (
@@ -48,14 +98,10 @@ export default class Temp extends Component {
           <View>
             <View style={styles.symptomViewRowInline}>
               <Text style={styles.symptomDayView}>Temperature (°C)</Text>
-              <TextInput
-                style={styles.temperatureTextInput}
-                placeholder="Enter"
-                onChangeText={(val) => {
-                  this.setState({ currentValue: val })
-                }}
-                keyboardType='numeric'
-                value={this.state.currentValue}
+              <TempInput
+                value={this.state.temperature}
+                setState={(val) => this.setState(val)}
+                isSuggestion={this.state.isSuggestion}
               />
             </View>
             <View style={styles.symptomViewRowInline}>
@@ -94,18 +140,38 @@ export default class Temp extends Component {
         <ActionButtonFooter
           symptom='temperature'
           cycleDay={this.cycleDay}
-          saveAction={() => {
-            const dataToSave = {
-              value: Number(this.state.currentValue),
-              exclude: this.state.exclude,
-              time: this.state.time
-            }
-            saveSymptom('temperature', this.props.cycleDay, dataToSave)
-          }}
-          saveDisabled={this.state.currentValue === '' || isInvalidTime(this.state.time)}
+          saveAction={() => this.checkRangeAndSave()}
+          saveDisabled={
+            this.state.temperature === '' ||
+            isNaN(Number(this.state.temperature)) ||
+            isInvalidTime(this.state.time)
+          }
           navigate={this.props.navigate}
+          autoShowDayView={false}
         />
       </View>
+    )
+  }
+}
+
+class TempInput extends Component {
+  render() {
+    const style = [styles.temperatureTextInput]
+    if (this.props.isSuggestion) {
+      style.push(styles.temperatureTextInputSuggestion)
+    }
+    return (
+      <TextInput
+        style={style}
+        onChangeText={(val) => {
+          if (isNaN(Number(val))) return
+          this.props.setState({ temperature: val, isSuggestion: false })
+        }}
+        keyboardType='numeric'
+        value={this.props.value}
+        onBlur={this.checkRange}
+        autoFocus={true}
+      />
     )
   }
 }
