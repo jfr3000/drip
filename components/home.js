@@ -9,7 +9,6 @@ import { LocalDate } from 'js-joda'
 import styles from '../styles/index'
 import cycleModule from '../lib/cycle'
 import { getOrCreateCycleDay, bleedingDaysSortedByDate, fillWithDummyData, deleteAll } from '../db'
-import {NotificationsAndroid} from 'react-native-notifications'
 
 const getCycleDayNumber = cycleModule().getCycleDayNumber
 
