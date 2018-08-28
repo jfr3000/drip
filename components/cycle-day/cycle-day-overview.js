@@ -31,7 +31,7 @@ export default class CycleDayOverView extends Component {
     }
   }
 
-  goToCycleDay(target) {
+  goToCycleDay = (target) => {
     const localDate = LocalDate.parse(this.state.cycleDay.date)
     const targetDate = target === 'before' ?
       localDate.minusDays(1).toString() :
@@ -55,7 +55,7 @@ export default class CycleDayOverView extends Component {
           isCycleDayOverView={true}
           cycleDayNumber={cycleDayNumber}
           date={cycleDay.date}
-          goToCycleDay={this.goToCycleDay.bind(this)}
+          goToCycleDay={this.goToCycleDay}
         />
         <ScrollView>
           <View style={styles.symptomBoxesView}>
@@ -134,7 +134,10 @@ function getLabel(symptomName, symptom) {
     cervix: cervix => {
       let cervixLabel = []
       if (cervix.opening > -1 && cervix.firmness > -1) {
-        cervixLabel.push(openingLabels[cervix.opening], firmnessLabels[cervix.firmness])
+        cervixLabel.push(
+          openingLabels[cervix.opening],
+          firmnessLabels[cervix.firmness]
+        )
         if (cervix.position > -1) {
           cervixLabel.push(positionLabels[cervix.position])
         }

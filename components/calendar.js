@@ -25,7 +25,7 @@ export default class CalendarView extends Component {
     bleedingDaysSortedByDate.removeListener(this.setStateWithCalFormattedDays)
   }
 
-  passDateToDayView(result) {
+  passDateToDayView = (result) => {
     const cycleDay = getOrCreateCycleDay(result.dateString)
     const navigate = this.props.navigate
     navigate('CycleDay', { cycleDay })
@@ -34,7 +34,7 @@ export default class CalendarView extends Component {
   render() {
     return (
       <CalendarList
-        onDayPress={this.passDateToDayView.bind(this)}
+        onDayPress={this.passDateToDayView}
         markedDates={this.state.bleedingDaysInCalFormat}
         markingType={'period'}
       />
