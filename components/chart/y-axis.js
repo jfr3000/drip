@@ -1,53 +1,68 @@
 import React from 'react'
 import { Text, View } from 'react-native'
-import config from './config'
+import config from '../../config'
 import styles from './styles'
+import { scaleObservable } from '../../local-storage'
 
-function makeYAxis() {
-  const scale = config.temperatureScale
-  const scaleMin = scale.low
-  const scaleMax = scale.high
-  const numberOfTicks = (scaleMax - scaleMin) * (1 / scale.units)
-  const tickDistance = config.chartHeight / numberOfTicks
+export function makeYAxisLabels(columnHeight) {
+  const units = config.temperatureScale.units
+  const scaleMax = scaleObservable.value.max
+  const style = styles.yAxisLabel
 
-  const tickPositions = []
-  const labels = []
-  // for style reasons, we don't want the first and last tick
-  for (let i = 1; i < numberOfTicks - 1; i++) {
-    const y = tickDistance * i
-    const style = styles.yAxisLabel
+  return getTickPositions(columnHeight).map((y, i) => {
     // this eyeballing is sadly necessary because RN does not
     // support percentage values for transforms, which we'd need
     // to reliably place the label vertically centered to the grid
-    style.top = y - 8
-    labels.push(
+    if (scaleMax - i * units === 37) console.log(y)
+    return (
       <Text
-        style={{...style}}
+        style={[style, {top: y - 8}]}
         key={i}>
-        {scaleMax - i * scale.units}
+        {scaleMax - i * units}
       </Text>
     )
-    tickPositions.push(y)
-  }
-
-  return {labels, tickPositions}
+  })
 }
 
-export const yAxis = makeYAxis()
+export function makeHorizontalGrid(columnHeight, symptomRowHeight) {
+  return getTickPositions(columnHeight).map(tick => {
+    return (
+      <View
+        top={tick + symptomRowHeight}
+        {...styles.horizontalGrid}
+        key={tick}
+      />
+    )
+  })
+}
 
-export const horizontalGrid = yAxis.tickPositions.map(tick => {
-  return (
-    <View
-      top={tick}
-      {...styles.horizontalGrid}
-      key={tick}
-    />
-  )
-})
+function getTickPositions(columnHeight) {
+  const units = config.temperatureScale.units
+  const scaleMin = scaleObservable.value.min
+  const scaleMax = scaleObservable.value.max
+  const numberOfTicks = (scaleMax - scaleMin) * (1 / units) + 1
+  const tickDistance = 1 / (numberOfTicks - 1)
 
-export function normalizeToScale(temp) {
-  const scale = config.temperatureScale
-  const valueRelativeToScale = (scale.high - temp) / (scale.high - scale.low)
-  const scaleHeight = config.chartHeight
-  return scaleHeight * valueRelativeToScale
+  const tickPositions = []
+  for (let i = 0; i < numberOfTicks; i++) {
+    const position = getAbsoluteValue(tickDistance * i, columnHeight)
+    tickPositions.push(position)
+  }
+  return tickPositions
+}
+
+export function normalizeToScale(temp, columnHeight) {
+  const scale = scaleObservable.value
+  const valueRelativeToScale = (scale.max - temp) / (scale.max - scale.min)
+  return getAbsoluteValue(valueRelativeToScale, columnHeight)
+}
+
+function getAbsoluteValue(relative, columnHeight) {
+  // we add some height to have some breathing room
+  const verticalPadding = columnHeight * config.temperatureScale.verticalPadding
+  const scaleHeight = columnHeight - 2 * verticalPadding
+  console.log(scaleHeight)
+  console.log(columnHeight)
+  return scaleHeight * relative + verticalPadding
+
 }

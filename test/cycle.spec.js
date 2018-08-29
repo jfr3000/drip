@@ -584,3 +584,82 @@ describe('getPredictedMenses', () => {
     })
   })
 })
+
+describe('getAllMensesStart', () => {
+  it('works for one cycle start', () => {
+    const cycleDaysSortedByDate = [
+      {
+        date: '2018-05-01',
+        bleeding: { value: 1 }
+      }
+    ]
+
+    const { getAllMensesStarts } = cycleModule({
+      cycleDaysSortedByDate,
+      bleedingDaysSortedByDate: cycleDaysSortedByDate.filter(d => d.bleeding)
+    })
+    const result = getAllMensesStarts()
+    expect(result.length).to.eql(1)
+    expect(result).to.eql(['2018-05-01'])
+  }),
+  it('works for two cycle starts', () => {
+    const cycleDaysSortedByDate = [
+      {
+        date: '2018-06-02',
+        bleeding: { value: 2 }
+      },
+      {
+        date: '2018-06-01',
+        bleeding: { value: 2 }
+      },
+      {
+        date: '2018-05-01',
+        bleeding: { value: 2 }
+      }
+    ]
+
+    const { getAllMensesStarts } = cycleModule({
+      cycleDaysSortedByDate,
+      bleedingDaysSortedByDate: cycleDaysSortedByDate.filter(d => d.bleeding)
+    })
+    const result = getAllMensesStarts()
+    expect(result.length).to.eql(2)
+    expect(result).to.eql(['2018-06-01', '2018-05-01'])
+  }),
+  it('works for two cycle starts with excluded data', () => {
+    const cycleDaysSortedByDate = [
+      {
+        date: '2018-06-01',
+        bleeding: { value: 2 }
+      },
+      {
+        date: '2018-05-01',
+        bleeding: { value: 2 }
+      },
+      {
+        date: '2018-04-31',
+        bleeding: { value: 2 , exclude: true}
+      },
+    ]
+
+    const { getAllMensesStarts } = cycleModule({
+      cycleDaysSortedByDate,
+      bleedingDaysSortedByDate: cycleDaysSortedByDate.filter(d => d.bleeding)
+    })
+    const result = getAllMensesStarts()
+    expect(result.length).to.eql(2)
+    expect(result).to.eql(['2018-06-01', '2018-05-01'])
+  }),
+  it('returns an empty array if no bleeding days are given', () => {
+    const cycleDaysSortedByDate = [ {} ]
+
+    const { getAllMensesStarts } = cycleModule({
+      cycleDaysSortedByDate,
+      bleedingDaysSortedByDate: cycleDaysSortedByDate.filter(d => d.bleeding)
+    })
+    const result = getAllMensesStarts()
+    expect(result.length).to.eql(0)
+    expect(result).to.eql([])
+>>>>>>> test/cycle.spec.js
+  })
+})

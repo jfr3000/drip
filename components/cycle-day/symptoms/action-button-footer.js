@@ -8,7 +8,14 @@ import styles, {iconStyles} from '../../../styles'
 
 export default class ActionButtonFooter extends Component {
   render() {
-    const { symptom, cycleDay, saveAction, saveDisabled, navigate} = this.props
+    const {
+      symptom,
+      cycleDay,
+      saveAction,
+      saveDisabled,
+      navigate,
+      autoShowDayView = true}
+      = this.props
     const navigateToOverView = () => navigate('CycleDay', {cycleDay})
     const buttons = [
       {
@@ -28,7 +35,7 @@ export default class ActionButtonFooter extends Component {
         title: 'Save',
         action: () => {
           saveAction()
-          navigateToOverView()
+          if (autoShowDayView) navigateToOverView()
         },
         disabledCondition: saveDisabled,
         icon: 'content-save-outline'

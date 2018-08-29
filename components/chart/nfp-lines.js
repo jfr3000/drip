@@ -1,7 +1,7 @@
 import { getCycleStatusForDay } from '../../lib/sympto-adapter'
 import { normalizeToScale } from './y-axis'
 
-export default function () {
+export default function (chartHeight) {
   const cycle = {
     status: null
   }
@@ -71,7 +71,7 @@ export default function () {
         dateIsInPeriOrPostPhase(dateString) &&
         isInTempMeasuringPhase(temperature, dateString)
       ) {
-        ret.drawLtlAt = normalizeToScale(tempShift.ltl)
+        ret.drawLtlAt = normalizeToScale(tempShift.ltl, chartHeight)
       }
     }
 

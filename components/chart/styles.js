@@ -1,4 +1,4 @@
-import config from './config'
+import config from '../../config'
 
 const styles = {
   curve: {
@@ -38,10 +38,9 @@ const styles = {
     },
     rect: {
       width: config.columnWidth,
-      height: config.chartHeight,
       borderStyle: 'solid',
-      borderColor: 'grey',
-      borderWidth: 0.5
+      borderLeftWidth: 0.5,
+      borderRightWidth: 0.5,
     }
   },
   bleedingIcon: {
@@ -63,7 +62,6 @@ const styles = {
     '#993299'
   ],
   yAxis: {
-    height: config.chartHeight,
     width: config.columnWidth,
     borderRightWidth: 0.5,
     borderColor: 'lightgrey',
@@ -88,6 +86,10 @@ const styles = {
     borderColor: '#00b159',
     borderWidth: 2,
     borderStyle: 'solid'
+  },
+  symptomRow: {
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 }
 
