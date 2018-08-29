@@ -660,6 +660,5 @@ describe('getAllMensesStart', () => {
     const result = getAllMensesStarts()
     expect(result.length).to.eql(0)
     expect(result).to.eql([])
->>>>>>> test/cycle.spec.js
   })
 })
