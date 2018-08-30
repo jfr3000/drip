@@ -98,6 +98,7 @@ export default class CycleDayOverView extends Component {
             <SymptomBox
               title='Pain'
               onPress={() => this.navigate('PainEditView')}
+              data={getLabel('pain', cycleDay.pain)}
             />
             {/*  this is just to make the last row adhere to the grid
         (and) because there are no pseudo properties in RN */}
@@ -178,7 +179,7 @@ function getLabel(symptomName, symptom) {
           if(pain[key] && key !== 'note') {
             painLabel.push(painLabels[key])
           }
-          if(key === 'note'){
+          if(key === "note" && pain.note) {
             painLabel.push(pain.note)
           }
         })

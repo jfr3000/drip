@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import {
   CheckBox,
+  ScrollView,
   Text,
   TextInput,
-  View,
-  ScrollView
+  View
 } from 'react-native'
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
@@ -27,13 +27,11 @@ export default class Pain extends Component {
   }
 
   render() {
-
     return (
       <View style={{ flex: 1 }}>
         <ScrollView>
           <View>
             <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomDayView}>PAIN</Text>
               <Text style={styles.symptomDayView}>{painLabels.cramps}</Text>
               <CheckBox
                 value={this.state.cramps}

@@ -57,7 +57,8 @@ export const headerTitles = {
   CervixEditView: 'Cervix',
   NoteEditView: 'Note',
   DesireEditView: 'Desire',
-  SexEditView: 'Sex'
+  SexEditView: 'Sex',
+  PainEditView: 'Pain'
 }
 
 export const stats = {
