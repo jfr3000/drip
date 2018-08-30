@@ -10,6 +10,7 @@ import Chart from './chart/chart'
 import Settings from './settings'
 import Stats from './stats'
 import {headerTitles as titles} from './labels'
+import setupNotifications from '../lib/notifications'
 
 const isSymptomView = name => Object.keys(symptomViews).indexOf(name) > -1
 
@@ -20,6 +21,7 @@ export default class App extends Component {
       currentPage: 'Home'
     }
     this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonPress)
+    setupNotifications(this.navigate)
   }
 
   componentWillUnmount() {
