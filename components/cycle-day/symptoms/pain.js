@@ -112,19 +112,17 @@ export default class Pain extends Component {
                 }}
               />
             </View>
-            <View style={styles.symptomViewRowInline}>
-              { this.state.other &&
-                <TextInput
-                  autoFocus={this.state.focusTextArea}
-                  multiline={true}
-                  placeholder="Enter"
-                  value={this.state.note}
-                  onChangeText={(val) => {
-                    this.setState({note: val})
-                  }}
-                />
-              }
-            </View>
+            { this.state.other &&
+              <TextInput
+                autoFocus={this.state.focusTextArea}
+                multiline={true}
+                placeholder="Enter"
+                value={this.state.note}
+                onChangeText={(val) => {
+                  this.setState({note: val})
+                }}
+              />
+            }
           </View>
         </ScrollView>
         <ActionButtonFooter
