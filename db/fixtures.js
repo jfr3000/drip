@@ -1,6 +1,9 @@
 function convertToSymptoFormat(val) {
   const sympto = { date: val.date }
-  if (val.temperature) sympto.temperature = { value: val.temperature, exclude: false }
+  if (val.temperature) sympto.temperature = {
+    value: val.temperature,
+    exclude: false
+  }
   if (val.mucus) sympto.mucus = {
     value: val.mucus,
     exclude: false,
@@ -11,7 +14,7 @@ function convertToSymptoFormat(val) {
   return sympto
 }
 
-export const cycleWithFhm = [
+export const cycleWithFhmMucus = [
   { date: '2018-07-01', bleeding: 2 },
   { date: '2018-07-02', bleeding: 1 },
   { date: '2018-07-06', temperature: 36.2},
@@ -24,6 +27,27 @@ export const cycleWithFhm = [
   { date: '2018-07-16', temperature: 36.95, mucus: 2 },
   { date: '2018-07-17', temperature: 36.9, mucus: 2 },
   { date: '2018-07-18', temperature: 36.9, mucus: 2 }
+].map(convertToSymptoFormat).reverse()
+
+export const cycleWithFhmCervix = [
+  { date: '2018-08-01', bleeding: 2 },
+  { date: '2018-08-02', bleeding: 1 },
+  { date: '2018-08-03', bleeding: 0 },
+  { date: '2018-08-04', bleeding: 0 },
+  { date: '2018-08-05', temperature: 36.07 },
+  { date: '2018-08-06', temperature: 36.2 },
+  { date: '2018-08-07', temperature: 36.35 },
+  { date: '2018-08-08', temperature: 36.4 },
+  { date: '2018-08-09', temperature: 36.3 },
+  { date: '2018-08-10', temperature: 36.45 },
+  { date: '2018-08-11', temperature: 36.45 },
+  { date: '2018-08-12', temperature: 36.7, cervix: { isClosed: false, isHard: false } },
+  { date: '2018-08-13', temperature: 36.8, cervix: { isClosed: true, isHard: true } },
+  { date: '2018-08-14', temperature: 36.75, cervix: { isClosed: true, isHard: true } },
+  { date: '2018-08-15', temperature: 36.9, cervix: { isClosed: true, isHard: true } },
+  { date: '2018-08-16', temperature: 36.95, cervix: { isClosed: true, isHard: true } },
+  { date: '2018-08-17', temperature: 36.9, cervix: { isClosed: true, isHard: true } },
+  { date: '2018-08-18', temperature: 36.9, cervix: { isClosed: false, isHard: true } }
 ].map(convertToSymptoFormat).reverse()
 
 export const longAndComplicatedCycle = [
