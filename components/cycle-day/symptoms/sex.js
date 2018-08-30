@@ -8,10 +8,7 @@ import {
 } from 'react-native'
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
-import {
-  sexActivity as activityLabels,
-  contraceptives as contraceptiveLabels
-} from '../labels/labels'
+import { sex as sexLabels } from '../labels/labels'
 import ActionButtonFooter from './action-button-footer'
 
 export default class Sex extends Component {
@@ -36,7 +33,7 @@ export default class Sex extends Component {
         <ScrollView>
           <View>
             <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomDayView}>{activityLabels.solo}</Text>
+              <Text style={styles.symptomDayView}>{sexLabels.solo}</Text>
               <CheckBox
                 value={this.state.solo}
                 onValueChange={(val) => {
@@ -44,7 +41,7 @@ export default class Sex extends Component {
                 }}
               />
               <Text style={styles.symptomDayView}>
-                {activityLabels.partner}
+                {sexLabels.partner}
               </Text>
               <CheckBox
                 value={this.state.partner}
@@ -56,7 +53,7 @@ export default class Sex extends Component {
             <Text style={styles.symptomDayView}>CONTRACEPTIVES</Text>
             <View style={styles.symptomViewRowInline}>
               <Text style={styles.symptomDayView}>
-                {contraceptiveLabels.condom}
+                {sexLabels.condom}
               </Text>
               <CheckBox
                 value={this.state.condom}
@@ -65,7 +62,7 @@ export default class Sex extends Component {
                 }}
               />
               <Text style={styles.symptomDayView}>
-                {contraceptiveLabels.pill}
+                {sexLabels.pill}
               </Text>
               <CheckBox
                 value={this.state.pill}
@@ -76,7 +73,7 @@ export default class Sex extends Component {
             </View>
             <View style={styles.symptomViewRowInline}>
               <Text style={styles.symptomDayView}>
-                {contraceptiveLabels.iud}
+                {sexLabels.iud}
               </Text>
               <CheckBox
                 value={this.state.iud}
@@ -85,7 +82,7 @@ export default class Sex extends Component {
                 }}
               />
               <Text style={styles.symptomDayView}>
-                {contraceptiveLabels.patch}
+                {sexLabels.patch}
               </Text>
               <CheckBox
                 value={this.state.patch}
@@ -96,7 +93,7 @@ export default class Sex extends Component {
             </View>
             <View style={styles.symptomViewRowInline}>
               <Text style={styles.symptomDayView}>
-                {contraceptiveLabels.ring}
+                {sexLabels.ring}
               </Text>
               <CheckBox
                 value={this.state.ring}
@@ -105,7 +102,7 @@ export default class Sex extends Component {
                 }}
               />
               <Text style={styles.symptomDayView}>
-                {contraceptiveLabels.implant}
+                {sexLabels.implant}
               </Text>
               <CheckBox
                 value={this.state.implant}
@@ -116,7 +113,7 @@ export default class Sex extends Component {
             </View>
             <View style={styles.symptomViewRowInline}>
               <Text style={styles.symptomDayView}>
-                {contraceptiveLabels.other}
+                {sexLabels.other}
               </Text>
               <CheckBox
                 value={this.state.other}

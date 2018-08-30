@@ -21,7 +21,8 @@ import {
   cervixFirmness as firmnessLabels,
   cervixPosition as positionLabels,
   intensity as intensityLabels,
-  pain as painLabels
+  pain as painLabels,
+  sex as sexLabels
 } from './labels/labels'
 
 export default class CycleDayOverView extends Component {
@@ -162,15 +163,20 @@ function getLabel(symptomName, symptom) {
       }
     },
     sex: sex => {
-      const sexLabel = []
-      if ( sex.solo || sex.partner ) {
-        sexLabel.push('activity')
+      let sexLabel = []
+      if (sex && Object.values(sex).some(val => val)){
+        Object.keys(sex).forEach(key => {
+          if(sex[key] && key !== 'note') {
+            sexLabel.push(sexLabels[key])
+          }
+          if(key === "note" && sex.note) {
+            sexLabel.push(sex.note)
+          }
+        })
+        sexLabel = sexLabel.join(', ')
+        if (sex.exclude) sexLabel = `(${sexLabel})`
       }
-      if (sex.condom || sex.pill || sex.iud ||
-        sex.patch || sex.ring || sex.implant || sex.other) {
-        sexLabel.push('contraceptive')
-      }
-      return sexLabel.join(', ')
+      return sexLabel
     },
     pain: pain => {
       let painLabel = []

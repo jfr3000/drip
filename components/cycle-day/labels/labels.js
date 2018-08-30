@@ -6,11 +6,9 @@ export const cervixOpening = ['closed', 'medium', 'open']
 export const cervixFirmness = ['hard', 'soft']
 export const cervixPosition = ['low', 'medium', 'high']
 export const intensity = ['low', 'medium', 'high']
-export const sexActivity = {
+export const sex = {
   solo: 'Solo',
-  partner: 'Partner'
-}
-export const contraceptives = {
+  partner: 'Partner',
   condom: 'Condom',
   pill: 'Pill',
   iud: 'IUD',
@@ -28,7 +26,8 @@ export const pain = {
   nausea: 'Nausea',
   tenderBreasts: 'Tender breasts',
   migraine: 'Migraine',
-  other: 'Other'
+  other: 'Other',
+  note: 'Note'
 }
 
 export const fertilityStatus = {
