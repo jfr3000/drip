@@ -10,6 +10,7 @@ import Chart from './chart/chart'
 import Settings from './settings'
 import Stats from './stats'
 import {headerTitles as titles} from './labels'
+import setupNotifications from '../lib/notifications'
 
 const isSymptomView = name => Object.keys(symptomViews).indexOf(name) > -1
 
@@ -19,26 +20,26 @@ export default class App extends Component {
     this.state = {
       currentPage: 'Home'
     }
-
-    const handleBackButtonPress = function() {
-      if (this.state.currentPage === 'Home') return false
-      if (isSymptomView(this.state.currentPage)) {
-        this.navigate('CycleDay', {cycleDay: this.state.currentProps.cycleDay})
-      } else {
-        this.navigate('Home')
-      }
-      return true
-    }.bind(this)
-
-    this.backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButtonPress)
+    this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonPress)
+    setupNotifications(this.navigate)
   }
 
   componentWillUnmount() {
     this.backHandler.remove()
   }
 
-  navigate(pageName, props) {
+  navigate = (pageName, props) => {
     this.setState({currentPage: pageName, currentProps: props})
+  }
+
+  handleBackButtonPress = () => {
+    if (this.state.currentPage === 'Home') return false
+    if (isSymptomView(this.state.currentPage)) {
+      this.navigate('CycleDay', { cycleDay: this.state.currentProps.cycleDay })
+    } else {
+      this.navigate('Home')
+    }
+    return true
   }
 
   render() {
@@ -51,12 +52,12 @@ export default class App extends Component {
         {this.state.currentPage != 'CycleDay' && <Header title={titles[this.state.currentPage]} />}
 
         {React.createElement(page, {
-          navigate: this.navigate.bind(this),
+          navigate: this.navigate,
           ...this.state.currentProps
         })}
 
         {!isSymptomView(this.state.currentPage) &&
-          <Menu navigate={this.navigate.bind(this)} />
+          <Menu navigate={this.navigate} />
         }
       </View>
     )

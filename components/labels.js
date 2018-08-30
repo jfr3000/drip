@@ -42,6 +42,12 @@ export const settings = {
     max: 'Max',
     loadError: 'Could not load saved temperature scale settings',
     saveError: 'Could not save temperature scale settings'
+  },
+  tempReminder: {
+    title: 'Temperature reminder',
+    noTimeSet: 'Set a time for a daily reminder to take your temperature',
+    timeSet: time => `Daily reminder set for ${time}`,
+    notification: 'Record your morning temperature'
   }
 }
 

@@ -4,57 +4,130 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
-  Text
+  Text,
+  Switch
 } from 'react-native'
+import DateTimePicker from 'react-native-modal-datetime-picker-nevo'
 import Slider from '@ptomasroos/react-native-multi-slider'
 import Share from 'react-native-share'
 import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker'
 import rnfs from 'react-native-fs'
 import styles, { secondaryColor } from '../styles/index'
 import config from '../config'
-import { settings as settingsLabels, shared as sharedLabels } from './labels'
+import { settings as labels, shared as sharedLabels } from './labels'
 import getDataAsCsvDataUri from '../lib/import-export/export-to-csv'
 import importCsv from '../lib/import-export/import-from-csv'
-import { scaleObservable, saveTempScale } from '../local-storage'
+import {
+  scaleObservable,
+  saveTempScale,
+  tempReminderObservable,
+  saveTempReminder
+} from '../local-storage'
 
 export default class Settings extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {}
+  }
+
   render() {
     return (
       <ScrollView>
+        <TempReminderPicker/>
         <View style={styles.settingsSegment}>
           <Text style={styles.settingsSegmentTitle}>
-            {settingsLabels.tempScale.segmentTitle}
+            {labels.tempScale.segmentTitle}
           </Text>
-          <Text>{settingsLabels.tempScale.segmentExplainer}</Text>
+          <Text>{labels.tempScale.segmentExplainer}</Text>
           <TempSlider/>
         </View>
         <View style={styles.settingsSegment}>
           <Text style={styles.settingsSegmentTitle}>
-            {settingsLabels.export.button}
+            {labels.export.button}
           </Text>
-          <Text>{settingsLabels.export.segmentExplainer}</Text>
+          <Text>{labels.export.segmentExplainer}</Text>
           <TouchableOpacity
             onPress={openShareDialogAndExport}
             style={styles.settingsButton}>
             <Text style={styles.settingsButtonText}>
-              {settingsLabels.export.button}
+              {labels.export.button}
             </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.settingsSegment}>
           <Text style={styles.settingsSegmentTitle}>
-            {settingsLabels.import.button}
+            {labels.import.button}
           </Text>
-          <Text>{settingsLabels.import.segmentExplainer}</Text>
+          <Text>{labels.import.segmentExplainer}</Text>
           <TouchableOpacity
             onPress={openImportDialogAndImport}
             style={styles.settingsButton}>
             <Text style={styles.settingsButtonText}>
-              {settingsLabels.import.button}
+              {labels.import.button}
             </Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
+    )
+  }
+}
+
+class TempReminderPicker extends Component {
+  constructor(props) {
+    super(props)
+    this.state = Object.assign({}, tempReminderObservable.value)
+  }
+
+  render() {
+    return (
+      <TouchableOpacity
+        style={styles.settingsSegment}
+        onPress={() => this.setState({ isTimePickerVisible: true })}
+      >
+        <Text style={styles.settingsSegmentTitle}>
+          {labels.tempReminder.title}
+        </Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={{ flex: 1 }}>
+            {this.state.time && this.state.enabled ?
+              <Text>{labels.tempReminder.timeSet(this.state.time)}</Text>
+              :
+              <Text>{labels.tempReminder.noTimeSet}</Text>
+            }
+          </View>
+          <Switch
+            value={this.state.enabled}
+            onValueChange={switchOn => {
+              this.setState({ enabled: switchOn })
+              if (switchOn && !this.state.time) {
+                this.setState({ isTimePickerVisible: true })
+              }
+              if (!switchOn) saveTempReminder({ enabled: false })
+            }}
+            onTintColor={secondaryColor}
+          />
+          <DateTimePicker
+            mode="time"
+            isVisible={this.state.isTimePickerVisible}
+            onConfirm={jsDate => {
+              const time = padWithZeros(`${jsDate.getHours()}:${jsDate.getMinutes()}`)
+              this.setState({
+                time,
+                isTimePickerVisible: false,
+                enabled: true
+              })
+              saveTempReminder({
+                time,
+                enabled: true
+              })
+            }}
+            onCancel={() => {
+              this.setState({ isTimePickerVisible: false })
+              if (!this.state.time) this.setState({enabled: false})
+            }}
+          />
+        </View>
+      </TouchableOpacity>
     )
   }
 }
@@ -80,15 +153,15 @@ class TempSlider extends Component {
     try {
       saveTempScale(this.state)
     } catch(err) {
-      alertError(settingsLabels.tempScale.saveError)
+      alertError(labels.tempScale.saveError)
     }
   }
 
   render() {
     return (
-      <View style={{alignItems: 'center'}}>
-        <Text>{`${settingsLabels.tempScale.min} ${this.state.min}`}</Text>
-        <Text>{`${settingsLabels.tempScale.max} ${this.state.max}`}</Text>
+      <View style={{ alignItems: 'center' }}>
+        <Text>{`${labels.tempScale.min} ${this.state.min}`}</Text>
+        <Text>{`${labels.tempScale.max} ${this.state.max}`}</Text>
         <Slider
           values={[this.state.min, this.state.max]}
           min={config.temperatureScale.min}
@@ -103,7 +176,7 @@ class TempSlider extends Component {
             backgroundColor: 'silver',
           }}
           trackStyle={{
-            height:10,
+            height: 10,
           }}
           markerStyle={{
             backgroundColor: secondaryColor,
@@ -123,36 +196,36 @@ async function openShareDialogAndExport() {
   try {
     data = getDataAsCsvDataUri()
     if (!data) {
-      return alertError(settingsLabels.errors.noData)
+      return alertError(labels.errors.noData)
     }
   } catch (err) {
     console.error(err)
-    return alertError(settingsLabels.errors.couldNotConvert)
+    return alertError(labels.errors.couldNotConvert)
   }
 
   try {
     await Share.open({
-      title: settingsLabels.export.title,
+      title: labels.export.title,
       url: data,
-      subject: settingsLabels.export.subject,
+      subject: labels.export.subject,
       type: 'text/csv',
       showAppsToView: true
     })
   } catch (err) {
     console.error(err)
-    return alertError(settingsLabels.export.errors.problemSharing)
+    return alertError(labels.export.errors.problemSharing)
   }
 }
 
 function openImportDialogAndImport() {
   Alert.alert(
-    settingsLabels.import.title,
-    settingsLabels.import.message,
+    labels.import.title,
+    labels.import.message,
     [{
-      text: settingsLabels.import.replaceOption,
+      text: labels.import.replaceOption,
       onPress: () => getFileContentAndImport({ deleteExisting: false })
     }, {
-      text: settingsLabels.import.deleteOption,
+      text: labels.import.deleteOption,
       onPress: () => getFileContentAndImport({ deleteExisting: true })
     }, {
       text: sharedLabels.cancel, style: 'cancel', onPress: () => { }
@@ -180,12 +253,12 @@ async function getFileContentAndImport({ deleteExisting }) {
   try {
     fileContent = await rnfs.readFile(fileInfo.uri, 'utf8')
   } catch (err) {
-    return importError(settingsLabels.import.errors.couldNotOpenFile)
+    return importError(labels.import.errors.couldNotOpenFile)
   }
 
   try {
     await importCsv(fileContent, deleteExisting)
-    Alert.alert(sharedLabels.successTitle, settingsLabels.import.success.message)
+    Alert.alert(sharedLabels.successTitle, labels.import.success.message)
   } catch(err) {
     importError(err.message)
   }
@@ -196,6 +269,16 @@ function alertError(msg) {
 }
 
 function importError(msg) {
-  const postFixed = `${msg}\n\n${settingsLabels.import.errors.postFix}`
+  const postFixed = `${msg}\n\n${labels.import.errors.postFix}`
   alertError(postFixed)
+}
+
+function padWithZeros(time) {
+  const vals = time.split(':')
+  return vals.map(val => {
+    if (parseInt(val) < 10) {
+      val = `0${val}`
+    }
+    return val
+  }).join(':')
 }

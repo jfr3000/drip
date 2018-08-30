@@ -8,7 +8,7 @@ import styles, { iconStyles } from '../styles'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default class Menu extends Component {
-  makeMenuItem({ title, icon, onPress}, i) {
+  makeMenuItem = ({ title, icon, onPress}, i) => {
     return (
       <TouchableOpacity
         onPress={onPress}
@@ -36,7 +36,7 @@ export default class Menu extends Component {
           { title: 'Chart', icon: 'chart-line', onPress: () => this.goTo('Chart') },
           { title: 'Stats', icon: 'chart-pie', onPress: () => this.goTo('Stats') },
           { title: 'Settings', icon: 'settings', onPress: () => this.goTo('Settings') },
-        ].map(this.makeMenuItem.bind(this))}
+        ].map(this.makeMenuItem)}
       </View >
     )
   }
