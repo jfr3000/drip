@@ -171,6 +171,7 @@ function getLabel(symptomName, symptom) {
           }
           if(key === "note" && sex.note) {
             sexLabel.push(sex.note)
+            sexLabel.shift(sexLabels['other'])
           }
         })
         sexLabel = sexLabel.join(', ')
@@ -187,6 +188,7 @@ function getLabel(symptomName, symptom) {
           }
           if(key === "note" && pain.note) {
             painLabel.push(pain.note)
+            painLabel.shift(painLabels['other'])
           }
         })
         painLabel = painLabel.join(', ')
