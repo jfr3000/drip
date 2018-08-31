@@ -187,24 +187,20 @@ class SymptomBox extends Component {
     const d = this.props.data
     const boxActive = d ? styles.symptomBoxActive : {}
     const iconActive = d ? iconStyles.symptomBoxActive : {}
+    const iconStyle = Object.assign({}, iconStyles.symptomBox, iconActive, disabledStyle)
     const textActive = d ? styles.symptomTextActive : {}
     const disabledStyle = this.props.disabled ? styles.symptomInFuture : {}
 
-    const symptomBoxStyle = Object.assign({}, styles.symptomBox, boxActive, disabledStyle)
-    const iconStyle = Object.assign({}, iconStyles.symptomBox, iconActive, disabledStyle)
-    const symptomDataBoxStyle = Object.assign({}, styles.symptomDataBox, disabledStyle)
-    const textStyle = Object.assign({}, textActive, disabledStyle)
-
     return (
       <TouchableOpacity onPress={this.props.onPress} disabled={this.props.disabled}>
-        <View style={symptomBoxStyle}>
+        <View style={[styles.symptomBox, boxActive, disabledStyle]}>
           <Icon
             name='thermometer'
             {...iconStyle}
           />
-          <Text style={textStyle}>{this.props.title}</Text>
+          <Text style={[textActive, disabledStyle]}>{this.props.title}</Text>
         </View>
-        <View style={symptomDataBoxStyle}>
+        <View style={[styles.symptomDataBox, disabledStyle]}>
           <Text style={styles.symptomDataText}>{this.props.data}</Text>
         </View>
       </TouchableOpacity>
