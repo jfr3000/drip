@@ -80,6 +80,21 @@ const SexSchema = {
   }
 }
 
+const PainSchema = {
+  name: 'Pain',
+  properties: {
+    cramps: { type: 'bool', optional: true },
+    ovulationPain: { type: 'bool', optional: true },
+    headache: { type: 'bool', optional: true },
+    backache: { type: 'bool', optional: true },
+    nausea: { type: 'bool', optional: true },
+    tenderBreasts: { type: 'bool', optional: true },
+    migraine: { type: 'bool', optional: true },
+    other: { type: 'bool', optional: true },
+    note: { type: 'string', optional: true }
+  }
+}
+
 const CycleDaySchema = {
   name: 'CycleDay',
   primaryKey: 'date',
@@ -112,6 +127,10 @@ const CycleDaySchema = {
     sex: {
       type: 'Sex',
       optional: true
+    },
+    pain: {
+      type: 'Pain',
+      optional: true
     }
   }
 }
@@ -125,7 +144,8 @@ const realmConfig = {
     CervixSchema,
     NoteSchema,
     DesireSchema,
-    SexSchema
+    SexSchema,
+    PainSchema
   ],
   // we only want this in dev mode
   deleteRealmIfMigrationNeeded: true
