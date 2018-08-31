@@ -61,6 +61,10 @@ export default StyleSheet.create({
   symptomTextActive: {
     color: fontOnPrimaryColor
   },
+  symptomInFuture: {
+    borderColor: 'lightgrey',
+    color: 'lightgrey'
+  },
   symptomDataBox: {
     borderColor: secondaryColor,
     borderStyle: 'solid',
