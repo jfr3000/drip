@@ -5,7 +5,6 @@ import {
   Switch,
   ScrollView
 } from 'react-native'
-import RadioForm from 'react-native-simple-radio-button'
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
 import {
@@ -14,7 +13,7 @@ import {
 } from '../labels/labels'
 import computeSensiplanValue from '../../../lib/sensiplan-mucus'
 import ActionButtonFooter from './action-button-footer'
-import SelectBox from '../select-box'
+import RadioButtonGroup from '../radio-button-group'
 
 
 export default class Mucus extends Component {
@@ -37,13 +36,13 @@ export default class Mucus extends Component {
   }
 
   render() {
-    const mucusFeelingBoxes = [
-      { label: feelingLabels[0], value: 0 },
+    const mucusFeeling = [
+      { label: feelingLabels[0], stateKey: ''},
       { label: feelingLabels[1], value: 1 },
       { label: feelingLabels[2], value: 2 },
       { label: feelingLabels[3], value: 3 }
     ]
-    const mucusTextureRadioProps = [
+    const mucusTexture = [
       { label: textureLabels[0], value: 0 },
       { label: textureLabels[1], value: 1 },
       { label: textureLabels[2], value: 2 }
@@ -54,11 +53,19 @@ export default class Mucus extends Component {
           <View>
             <Text style={styles.symptomViewHeading}>Feeling</Text>
             <View style={styles.radioButtonRow}>
-              {makeSelectBoxes(mucusFeelingBoxes, 'feeling')}
+              <RadioButtonGroup
+                buttons={mucusFeeling}
+                onSelect={val => this.setState({feeling: val})}
+                active={this.state.feeling}
+              />
             </View>
             <Text style={styles.symptomViewHeading}>Texture</Text>
             <View style={styles.radioButtonRow}>
-              {makeSelectBoxes(mucusTextureRadioProps, 'texture')}
+              <RadioButtonGroup
+                buttons={mucusTexture}
+                onSelect={val => this.setState({texture: val})}
+                active={this.state.texture}
+              />
             </View>
             <View style={styles.symptomViewRowInline}>
               <Text style={styles.symptomViewHeading}>Exclude</Text>
@@ -88,16 +95,4 @@ export default class Mucus extends Component {
       </View>
     )
   }
-}
-
-function makeSelectBoxes(boxes, category) {
-  return boxes.map(({ label, value }) => {
-    return (
-      <SelectBox
-        label={label}
-        onPress={() => this.setState({ [category]: value })}
-        key={value}
-      />
-    )
-  })
 }

@@ -30,12 +30,6 @@ export default StyleSheet.create({
     width: 50,
     height: 50
   },
-  radioButton: {
-    fontSize: 18,
-    margin: 8,
-    textAlign: 'center',
-    textAlignVertical: 'center'
-  },
   symptomBoxesView: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -151,8 +145,6 @@ export default StyleSheet.create({
   },
   radioButtonRow: {
     marginTop: 15,
-    marginLeft: 'auto',
-    marginRight: 'auto'
   },
   statsIntro: {
     fontSize: 18,
@@ -215,6 +207,28 @@ export default StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     marginVertical: 10,
+  },
+  radioButton: {
+    width: 30,
+    height: 30,
+    borderRadius: 100,
+    borderStyle: 'solid',
+    borderWidth: 2,
+    borderColor: secondaryColor,
+    marginBottom: 5
+  },
+  radioButtonActive: {
+    backgroundColor: secondaryColor,
+    color: fontOnPrimaryColor
+  },
+  radioButtonGroup: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginVertical: 10,
+  },
+  radioButtonTextGroup: {
+    alignItems: 'center',
+    marginHorizontal: 10
   },
   page: {
     padding: 10
