@@ -166,16 +166,18 @@ function getLabel(symptomName, symptom) {
       let sexLabel = []
       if (sex && Object.values(sex).some(val => val)){
         Object.keys(sex).forEach(key => {
-          if(sex[key] && key !== 'note') {
+          if(sex[key] && key !== 'other' && key !== 'note') {
             sexLabel.push(sexLabels[key])
           }
-          if(key === "note" && sex.note) {
-            sexLabel.push(sex.note)
-            sexLabel.shift(sexLabels['other'])
+          if(key === 'other' && sex.other) {
+            let label = sexLabels[key]
+            if(sex.note) {
+              label = `${label} (${sex.note})`
+            }
+            sexLabel.push(label)
           }
         })
         sexLabel = sexLabel.join(', ')
-        if (sex.exclude) sexLabel = `(${sexLabel})`
       }
       return sexLabel
     },
@@ -183,16 +185,18 @@ function getLabel(symptomName, symptom) {
       let painLabel = []
       if (pain && Object.values(pain).some(val => val)){
         Object.keys(pain).forEach(key => {
-          if(pain[key] && key !== 'note') {
+          if(pain[key] && key !== 'other' && key !== 'note') {
             painLabel.push(painLabels[key])
           }
-          if(key === "note" && pain.note) {
-            painLabel.push(pain.note)
-            painLabel.shift(painLabels['other'])
+          if(key === 'other' && pain.other) {
+            let label = painLabels[key]
+            if(pain.note) {
+              label = `${label} (${pain.note})`
+            }
+            painLabel.push(label)
           }
         })
         painLabel = painLabel.join(', ')
-        if (pain.exclude) painLabel = `(${painLabel})`
       }
       return painLabel
     }
