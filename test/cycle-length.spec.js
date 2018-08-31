@@ -1,7 +1,7 @@
 import chai from 'chai'
 import { AssertionError } from 'assert'
 
-import cycleInfo from '../lib/cycle-length'
+import {getCycleLengthStats as cycleInfo} from '../lib/cycle-length'
 
 const expect = chai.expect
 

@@ -5,10 +5,11 @@ import {
   Text,
   ScrollView
 } from 'react-native'
-import { LocalDate } from 'js-joda'
+import { LocalDate, ChronoUnit } from 'js-joda'
 import styles from '../styles/index'
 import cycleModule from '../lib/cycle'
 import { getOrCreateCycleDay, bleedingDaysSortedByDate, fillWithDummyData, deleteAll } from '../db'
+import {bleedingPrediction as labels} from './labels'
 
 const getCycleDayNumber = cycleModule().getCycleDayNumber
 
@@ -19,23 +20,25 @@ export default class Home extends Component {
     const cycleDayNumber = getCycleDayNumber(this.todayDateString)
 
     this.state = {
-      welcomeText: determineWelcomeText(cycleDayNumber)
+      welcomeText: determineWelcomeText(cycleDayNumber),
+      predictionText: determinePredictionText()
     }
 
-    this.setStateWithCurrentWelcomeText = (function (HomeComponent) {
+    this.setStateWithCurrentText = (function (HomeComponent) {
       return function () {
         const cycleDayNumber = getCycleDayNumber(HomeComponent.todayDateString)
         HomeComponent.setState({
-          welcomeText: determineWelcomeText(cycleDayNumber)
+          welcomeText: determineWelcomeText(cycleDayNumber),
+          predictionText: determinePredictionText()
         })
       }
     })(this)
 
-    bleedingDaysSortedByDate.addListener(this.setStateWithCurrentWelcomeText)
+    bleedingDaysSortedByDate.addListener(this.setStateWithCurrentText)
   }
 
   componentWillUnmount() {
-    bleedingDaysSortedByDate.removeListener(this.setStateWithCurrentWelcomeText)
+    bleedingDaysSortedByDate.removeListener(this.setStateWithCurrentText)
   }
 
   passTodayToDayView() {
@@ -49,6 +52,7 @@ export default class Home extends Component {
     return (
       <ScrollView>
         <Text style={styles.welcome}>{this.state.welcomeText}</Text>
+        <Text style={styles.welcome}>{this.state.predictionText}</Text>
         <View style={styles.homeButtons}>
           <View style={styles.homeButton}>
             <Button
@@ -80,3 +84,27 @@ function determineWelcomeText(cycleDayNumber) {
   return cycleDayNumber ? welcomeTextWithCycleDay : welcomeText
 }
 
+function determinePredictionText() {
+  const bleedingPrediction = cycleModule().getPredictedMenses()
+  if (!bleedingPrediction.length) return labels.noPrediction
+  const todayDate = LocalDate.now()
+  const bleedingStart = LocalDate.parse(bleedingPrediction[0][0])
+  const bleedingEnd = LocalDate.parse(bleedingPrediction[0][ bleedingPrediction[0].length - 1 ])
+  if (todayDate.isBefore(bleedingStart)) {
+    return labels.predictionInFuture(
+      todayDate.until(bleedingStart, ChronoUnit.DAYS),
+      todayDate.until(bleedingEnd, ChronoUnit.DAYS)
+    )
+  }
+  if (todayDate.isAfter(bleedingEnd)) {
+    return labels.predictionInPast(bleedingStart.toString(), bleedingEnd.toString())
+  }
+  const daysToEnd = todayDate.until(bleedingEnd, ChronoUnit.DAYS)
+  if (daysToEnd === 0) {
+    return labels.predictionStartedNoDaysLeft
+  } else if (daysToEnd === 1) {
+    return labels.predictionStarted1DayLeft
+  } else {
+    return labels.predictionStartedXDaysLeft(daysToEnd)
+  }
+}
