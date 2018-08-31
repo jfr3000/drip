@@ -209,17 +209,21 @@ export default StyleSheet.create({
     marginVertical: 10,
   },
   radioButton: {
-    width: 30,
-    height: 30,
+    width: 20,
+    height: 20,
     borderRadius: 100,
     borderStyle: 'solid',
     borderWidth: 2,
     borderColor: secondaryColor,
-    marginBottom: 5
+    marginBottom: 5,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
-  radioButtonActive: {
-    backgroundColor: secondaryColor,
-    color: fontOnPrimaryColor
+  radioButtonActiveDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 100,
+    backgroundColor: secondaryColor
   },
   radioButtonGroup: {
     flexDirection: 'row',
