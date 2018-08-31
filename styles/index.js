@@ -132,7 +132,8 @@ export default StyleSheet.create({
   },
   temperatureTextInput: {
     fontSize: 20,
-    color: 'black'
+    color: 'black',
+    textAlign: 'right'
   },
   temperatureTextInputSuggestion: {
     color: '#939393'

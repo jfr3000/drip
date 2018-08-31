@@ -33,7 +33,8 @@ export default class Temp extends Component {
       exclude: temp ? temp.exclude : false,
       time: temp ? temp.time : LocalTime.now().truncatedTo(minutes).toString(),
       isTimePickerVisible: false,
-      outOfRange: null
+      outOfRange: null,
+      note: temp ? temp.note : null
     }
 
     if (temp) {
@@ -54,7 +55,8 @@ export default class Temp extends Component {
     const dataToSave = {
       value: Number(this.state.temperature),
       exclude: this.state.exclude,
-      time: this.state.time
+      time: this.state.time,
+      note: this.state.note
     }
     saveSymptom('temperature', this.cycleDay, dataToSave)
     this.props.navigate('CycleDay', {cycleDay: this.cycleDay})
@@ -126,6 +128,20 @@ export default class Temp extends Component {
               }}
               onCancel={() => this.setState({ isTimePickerVisible: false })}
             />
+            <View style={styles.symptomViewRowInline}>
+              <Text style={styles.symptomDayView}>Note (anomaly)</Text>
+              <TextInput
+                style={styles.temperatureTextInput}
+                multiline={false}
+                maxLength={30}
+                autoFocus={this.state.focusTextArea}
+                placeholder="-"
+                value={this.state.note}
+                onChangeText={(val) => {
+                  this.setState({ note: val })
+                }}
+              />
+            </View>
             <View style={styles.symptomViewRowInline}>
               <Text style={styles.symptomDayView}>Exclude</Text>
               <Switch
