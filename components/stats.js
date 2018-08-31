@@ -4,10 +4,10 @@ import {
   View,
   ScrollView
 } from 'react-native'
-import { LocalDate, ChronoUnit } from 'js-joda'
+
 import styles from '../styles/index'
 import cycleModule from '../lib/cycle'
-import getCycleInfo from '../lib/cycle-length'
+import {getCycleLengthStats as getCycleInfo} from '../lib/cycle-length'
 import {stats as labels} from './labels'
 
 export default class Stats extends Component {
@@ -18,7 +18,7 @@ export default class Stats extends Component {
     let numberOfCycles
     let cycleInfo
     if (atLeastOneCycle) {
-      cycleLengths = getCycleLength(allMensesStarts)
+      cycleLengths = cycleModule().getCycleLength(allMensesStarts)
       numberOfCycles = cycleLengths.length
       if (numberOfCycles > 1) {
         cycleInfo = getCycleInfo(cycleLengths)
@@ -31,10 +31,14 @@ export default class Stats extends Component {
             <Text style={styles.statsIntro}>{labels.emptyStats}</Text>
           }
           {atLeastOneCycle && numberOfCycles === 1 &&
-            <Text style={styles.statsIntro}>{labels.oneCycleStats(cycleLengths[0])}</Text>
+            <Text style={styles.statsIntro}>
+              {labels.oneCycleStats(cycleLengths[0])}
+            </Text>
           }
           {atLeastOneCycle && numberOfCycles > 1 && <View>
-            <Text style={styles.statsIntro}>{labels.getBasisOfStats(numberOfCycles)}</Text>
+            <Text style={styles.statsIntro}>
+              {labels.getBasisOfStats(numberOfCycles)}
+            </Text>
             <View style={styles.statsRow}>
               <Text style={styles.statsLabelLeft}>{labels.averageLabel}</Text>
               <Text style={styles.statsLabelRight}>{cycleInfo.mean + ' ' + labels.daysLabel}</Text>
@@ -56,14 +60,4 @@ export default class Stats extends Component {
       </ScrollView>
     )
   }
-}
-
-function getCycleLength(cycleStartDates) {
-  const cycleLengths = []
-  for (let i = 0; i < cycleStartDates.length - 1; i++) {
-    const nextCycleStart = LocalDate.parse(cycleStartDates[i])
-    const cycleStart = LocalDate.parse(cycleStartDates[i + 1])
-    cycleLengths.push(cycleStart.until(nextCycleStart, ChronoUnit.DAYS))
-  }
-  return cycleLengths
 }
