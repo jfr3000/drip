@@ -51,9 +51,9 @@ export default class Cervix extends Component {
     ]
     return (
       <View style={{ flex: 1 }}>
-        <ScrollView>
+        <ScrollView style={styles.page}>
           <View>
-            <Text style={styles.symptomDayView}>Opening</Text>
+            <Text style={styles.symptomViewHeading}>Opening</Text>
             <View style={styles.radioButtonRow}>
               <RadioForm
                 radio_props={cervixOpeningRadioProps}
@@ -66,7 +66,7 @@ export default class Cervix extends Component {
                 }}
               />
             </View>
-            <Text style={styles.symptomDayView}>Firmness</Text>
+            <Text style={styles.symptomViewHeading}>Firmness</Text>
             <View style={styles.radioButtonRow}>
               <RadioForm
                 radio_props={cervixFirmnessRadioProps}
@@ -79,7 +79,7 @@ export default class Cervix extends Component {
                 }}
               />
             </View>
-            <Text style={styles.symptomDayView}>Position</Text>
+            <Text style={styles.symptomViewHeading}>Position</Text>
             <View style={styles.radioButtonRow}>
               <RadioForm
                 radio_props={cervixPositionRadioProps}
@@ -93,7 +93,7 @@ export default class Cervix extends Component {
               />
             </View>
             <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomDayView}>Exclude</Text>
+              <Text style={styles.symptomViewHeading}>Exclude</Text>
               <Switch
                 onValueChange={(val) => {
                   this.setState({ exclude: val })

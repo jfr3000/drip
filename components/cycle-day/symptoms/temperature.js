@@ -96,10 +96,10 @@ export default class Temp extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <ScrollView>
+        <ScrollView style={styles.page}>
           <View>
             <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomDayView}>Temperature (°C)</Text>
+              <Text style={styles.symptomViewHeading}>Temperature (°C)</Text>
               <TempInput
                 value={this.state.temperature}
                 setState={(val) => this.setState(val)}
@@ -107,7 +107,7 @@ export default class Temp extends Component {
               />
             </View>
             <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomDayView}>Time</Text>
+              <Text style={styles.symptomViewHeading}>Time</Text>
               <TextInput
                 style={styles.temperatureTextInput}
                 onFocus={() => {
@@ -129,7 +129,7 @@ export default class Temp extends Component {
               onCancel={() => this.setState({ isTimePickerVisible: false })}
             />
             <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomDayView}>Note</Text>
+              <Text style={styles.symptomViewHeading}>Note</Text>
             </View>
             <View>
               <TextInput
@@ -144,7 +144,7 @@ export default class Temp extends Component {
               />
             </View>
             <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomDayView}>Exclude</Text>
+              <Text style={styles.symptomViewHeading}>Exclude</Text>
               <Switch
                 onValueChange={(val) => {
                   this.setState({ exclude: val })

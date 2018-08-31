@@ -29,7 +29,7 @@ export default class Desire extends Component {
     ]
     return (
       <View style={{ flex: 1 }}>
-        <ScrollView>
+        <ScrollView style={styles.page}>
           <View>
             <View style={styles.radioButtonRow}>
               <RadioForm

@@ -23,9 +23,8 @@ export default StyleSheet.create({
     textAlign: 'center',
     marginLeft: 15
   },
-  symptomDayView: {
+  symptomViewHeading: {
     fontSize: 20,
-    textAlignVertical: 'center'
   },
   symptomBoxImage: {
     width: 50,
@@ -198,6 +197,28 @@ export default StyleSheet.create({
     fontSize: 15,
     color: fontOnPrimaryColor
   },
+  selectBox: {
+    backgroundColor: 'lightgrey',
+    margin: 7,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 10
+  },
+  selectBoxActive: {
+    backgroundColor: secondaryColor,
+    color: fontOnPrimaryColor
+  },
+  selectBoxTextActive: {
+    color: fontOnPrimaryColor
+  },
+  selectBoxSection: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginVertical: 10,
+  },
+  page: {
+    padding: 10
+  }
 })
 
 export const iconStyles = {
@@ -217,5 +238,5 @@ export const iconStyles = {
   },
   menuIconInactive: {
     color: 'lightgrey'
-  }
+  },
 }

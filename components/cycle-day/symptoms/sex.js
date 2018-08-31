@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {
-  CheckBox,
   Text,
   TextInput,
   View,
@@ -13,6 +12,35 @@ import {
   contraceptives as contraceptiveLabels
 } from '../labels/labels'
 import ActionButtonFooter from './action-button-footer'
+import SelectBox from '../select-box'
+
+const sexBoxes = [{
+  label: activityLabels.solo,
+  stateKey: 'solo'
+}, {
+  label: activityLabels.partner,
+  stateKey: 'partner'
+}]
+
+const contraceptiveBoxes = [{
+  label: contraceptiveLabels.condom,
+  stateKey: 'condom'
+}, {
+  label: contraceptiveLabels.pill,
+  stateKey: 'pill'
+}, {
+  label: contraceptiveLabels.iud,
+  stateKey: 'iud'
+}, {
+  label: contraceptiveLabels.patch,
+  stateKey: 'patch'
+}, {
+  label: contraceptiveLabels.ring,
+  stateKey: 'ring'
+}, {
+  label: contraceptiveLabels.implant,
+  stateKey: 'implant'
+}]
 
 export default class Sex extends Component {
   constructor(props) {
@@ -29,115 +57,55 @@ export default class Sex extends Component {
     }
   }
 
-  render() {
+  makeSelectBoxes(boxes) {
+    return boxes.map(({ label, stateKey }) => {
+      return (
+        <SelectBox
+          value={this.state[stateKey]}
+          onPress={() => this.toggleState(stateKey)}
+          label={label}
+          key={stateKey}
+        />
+      )
+    })
+  }
 
+  toggleState(key) {
+    const curr = this.state[key]
+    this.setState({[key]: !curr})
+  }
+
+  render() {
     return (
       <View style={{ flex: 1 }}>
-        <ScrollView>
-          <View>
-            <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomDayView}>{activityLabels.solo}</Text>
-              <CheckBox
-                value={this.state.solo}
-                onValueChange={(val) => {
-                  this.setState({ solo: val })
-                }}
-              />
-              <Text style={styles.symptomDayView}>{activityLabels.partner}</Text>
-              <CheckBox
-                value={this.state.partner}
-                onValueChange={(val) => {
-                  this.setState({ partner: val })
-                }}
-              />
-            </View>
-            <Text style={styles.symptomDayView}>CONTRACEPTIVES</Text>
-            <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomDayView}>
-                {contraceptiveLabels.condom}
-              </Text>
-              <CheckBox
-                value={this.state.condom}
-                onValueChange={(val) => {
-                  this.setState({ condom: val })
-                }}
-              />
-              <Text style={styles.symptomDayView}>
-                {contraceptiveLabels.pill}
-              </Text>
-              <CheckBox
-                value={this.state.pill}
-                onValueChange={(val) => {
-                  this.setState({ pill: val })
-                }}
-              />
-            </View>
-            <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomDayView}>
-                {contraceptiveLabels.iud}
-              </Text>
-              <CheckBox
-                value={this.state.iud}
-                onValueChange={(val) => {
-                  this.setState({ iud: val })
-                }}
-              />
-              <Text style={styles.symptomDayView}>
-                {contraceptiveLabels.patch}
-              </Text>
-              <CheckBox
-                value={this.state.patch}
-                onValueChange={(val) => {
-                  this.setState({ patch: val })
-                }}
-              />
-            </View>
-            <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomDayView}>
-                {contraceptiveLabels.ring}
-              </Text>
-              <CheckBox
-                value={this.state.ring}
-                onValueChange={(val) => {
-                  this.setState({ ring: val })
-                }}
-              />
-              <Text style={styles.symptomDayView}>
-                {contraceptiveLabels.implant}
-              </Text>
-              <CheckBox
-                value={this.state.implant}
-                onValueChange={(val) => {
-                  this.setState({ implant: val })
-                }}
-              />
-            </View>
-            <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomDayView}>
-                {contraceptiveLabels.other}
-              </Text>
-              <CheckBox
-                value={this.state.other}
-                onValueChange={(val) => {
-                  this.setState({
-                    other: val,
-                    focusTextArea: true
-                  })
-                }}
-              />
-            </View>
-            {this.state.other &&
-              <TextInput
-                autoFocus={this.state.focusTextArea}
-                multiline={true}
-                placeholder="Enter"
-                value={this.state.note}
-                onChangeText={(val) => {
-                  this.setState({ note: val })
-                }}
-              />
-            }
+        <ScrollView style={styles.page}>
+          <Text style={styles.symptomViewHeading}>Activity</Text>
+          <View style={styles.selectBoxSection}>
+            {this.makeSelectBoxes(sexBoxes)}
           </View>
+          <Text style={styles.symptomViewHeading}>Contraceptives</Text>
+          <View style={styles.selectBoxSection}>
+            {this.makeSelectBoxes(contraceptiveBoxes)}
+            <SelectBox
+              value={this.state.other}
+              label={contraceptiveLabels.other}
+              onPress={() => {
+                this.toggleState('other')
+                this.setState({ focusTextArea: true })
+              }}
+            />
+          </View>
+          {this.state.other &&
+            <TextInput
+              autoFocus={this.state.focusTextArea}
+              multiline={true}
+              placeholder="Enter"
+              value={this.state.note}
+              onChangeText={(val) => {
+                this.setState({ note: val })
+              }}
+            />
+          }
         </ScrollView>
         <ActionButtonFooter
           symptom='sex'

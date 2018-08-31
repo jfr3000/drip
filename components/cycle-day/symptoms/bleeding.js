@@ -35,7 +35,7 @@ export default class Bleeding extends Component {
     ]
     return (
       <View style={{ flex: 1 }}>
-        <ScrollView>
+        <ScrollView style={styles.page}>
           <View>
             <View style={styles.radioButtonRow}>
               <RadioForm
@@ -50,7 +50,7 @@ export default class Bleeding extends Component {
               />
             </View>
             <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomDayView}>Exclude</Text>
+              <Text style={styles.symptomViewHeading}>Exclude</Text>
               <Switch
                 onValueChange={(val) => {
                   this.setState({ exclude: val })

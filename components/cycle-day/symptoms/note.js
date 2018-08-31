@@ -24,7 +24,7 @@ export default class Temp extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <ScrollView>
+        <ScrollView style={styles.page}>
           <View style={styles.symptomViewRow}>
             <TextInput
               multiline={true}
