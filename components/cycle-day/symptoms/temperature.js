@@ -129,13 +129,14 @@ export default class Temp extends Component {
               onCancel={() => this.setState({ isTimePickerVisible: false })}
             />
             <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomDayView}>Note (anomaly)</Text>
+              <Text style={styles.symptomDayView}>Note</Text>
+            </View>
+            <View>
               <TextInput
                 style={styles.temperatureTextInput}
-                multiline={false}
-                maxLength={30}
+                multiline={true}
                 autoFocus={this.state.focusTextArea}
-                placeholder="-"
+                placeholder="enter"
                 value={this.state.note}
                 onChangeText={(val) => {
                   this.setState({ note: val })
