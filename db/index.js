@@ -15,6 +15,10 @@ const TemperatureSchema = {
       type: 'string',
       optional: true
     },
+    note: {
+      type: 'string',
+      optional: true
+    }
   }
 }
 
