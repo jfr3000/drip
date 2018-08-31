@@ -27,6 +27,7 @@ export default class Note extends Component {
         <ScrollView>
           <View style={styles.symptomViewRow}>
             <TextInput
+              autoFocus={!this.state.currentValue}
               multiline={true}
               placeholder="Enter"
               onChangeText={(val) => {
