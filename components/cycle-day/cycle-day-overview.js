@@ -49,6 +49,7 @@ export default class CycleDayOverView extends Component {
     const cycleDay = this.state.cycleDay
     const getCycleDayNumber = cycleModule().getCycleDayNumber
     const cycleDayNumber = getCycleDayNumber(cycleDay.date)
+    const dateInFuture = LocalDate.now().isBefore(LocalDate.parse(this.state.cycleDay.date))
     return (
       <View style={{ flex: 1 }}>
         <Header
@@ -63,36 +64,42 @@ export default class CycleDayOverView extends Component {
               title='Bleeding'
               onPress={() => this.navigate('BleedingEditView')}
               data={getLabel('bleeding', cycleDay.bleeding)}
+              disabled={dateInFuture}
             />
             <SymptomBox
               title='Temperature'
               onPress={() => this.navigate('TemperatureEditView')}
               data={getLabel('temperature', cycleDay.temperature)}
+              disabled={dateInFuture}
             />
             <SymptomBox
               title='Mucus'
               onPress={() => this.navigate('MucusEditView')}
               data={getLabel('mucus', cycleDay.mucus)}
+              disabled={dateInFuture}
             />
             <SymptomBox
               title='Cervix'
               onPress={() => this.navigate('CervixEditView')}
               data={getLabel('cervix', cycleDay.cervix)}
-            />
-            <SymptomBox
-              title='Note'
-              onPress={() => this.navigate('NoteEditView')}
-              data={getLabel('note', cycleDay.note)}
+              disabled={dateInFuture}
             />
             <SymptomBox
               title='Desire'
               onPress={() => this.navigate('DesireEditView')}
               data={getLabel('desire', cycleDay.desire)}
+              disabled={dateInFuture}
             />
             <SymptomBox
               title='Sex'
               onPress={() => this.navigate('SexEditView')}
               data={getLabel('sex', cycleDay.sex)}
+              disabled={dateInFuture}
+            />
+            <SymptomBox
+              title='Note'
+              onPress={() => this.navigate('NoteEditView')}
+              data={getLabel('note', cycleDay.note)}
             />
             {/*  this is just to make the last row adhere to the grid
         (and) because there are no pseudo properties in RN */}
@@ -174,18 +181,22 @@ function getLabel(symptomName, symptom) {
   return label.slice(0, 42) + '...'
 }
 
+
 class SymptomBox extends Component {
   render() {
     const d = this.props.data
     const boxActive = d ? styles.symptomBoxActive : {}
     const iconActive = d ? iconStyles.symptomBoxActive : {}
-    const textStyle = d ? styles.symptomTextActive : {}
+    const textActive = d ? styles.symptomTextActive : {}
+    const disabledStyle = this.props.disabled ? styles.symptomInFuture : {}
 
-    const symptomBoxStyle = Object.assign({}, styles.symptomBox, boxActive)
-    const iconStyle = Object.assign({}, iconStyles.symptomBox, iconActive)
+    const symptomBoxStyle = Object.assign({}, styles.symptomBox, boxActive, disabledStyle)
+    const iconStyle = Object.assign({}, iconStyles.symptomBox, iconActive, disabledStyle)
+    const symptomDataBoxStyle = Object.assign({}, styles.symptomDataBox, disabledStyle)
+    const textStyle = Object.assign({}, textActive, disabledStyle)
 
     return (
-      <TouchableOpacity onPress={this.props.onPress}>
+      <TouchableOpacity onPress={this.props.onPress} disabled={this.props.disabled}>
         <View style={symptomBoxStyle}>
           <Icon
             name='thermometer'
@@ -193,7 +204,7 @@ class SymptomBox extends Component {
           />
           <Text style={textStyle}>{this.props.title}</Text>
         </View>
-        <View style={styles.symptomDataBox}>
+        <View style={symptomDataBoxStyle}>
           <Text style={styles.symptomDataText}>{this.props.data}</Text>
         </View>
       </TouchableOpacity>
