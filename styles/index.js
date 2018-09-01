@@ -211,7 +211,7 @@ export default StyleSheet.create({
     marginVertical: 10,
   },
   selectTabGroup: {
-    marginTop: 10,
+    marginVertical: 10,
     flexDirection: 'row'
   },
   selectTab: {
