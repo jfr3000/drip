@@ -2,10 +2,23 @@ export const bleeding = ['spotting', 'light', 'medium', 'heavy']
 export const mucusFeeling = ['dry', 'nothing', 'wet', 'slippery']
 export const mucusTexture = ['nothing', 'creamy', 'egg white']
 export const mucusNFP = ['t', 'Ø', 'f', 'S', 'S+']
-export const cervixOpening = ['closed', 'medium', 'open']
-export const cervixFirmness = ['hard', 'soft']
-export const cervixPosition = ['low', 'medium', 'high']
 export const intensity = ['low', 'medium', 'high']
+
+export const cervix = {
+  opening: {
+    categories: ['closed', 'medium', 'open'],
+    explainer: 'Is your cervix open or closed?'
+  },
+  firmness: {
+    categories: ['hard', 'soft'],
+    explainer: "When it's hard it might feel like the tip of your nose"
+  },
+  position: {
+    categories: ['low', 'medium', 'high'],
+    explainer: 'How high up in the vagina is the cervix?'
+  }
+}
+
 export const sex = {
   solo: 'Solo',
   partner: 'Partner',

@@ -6,14 +6,10 @@ import {
 } from 'react-native'
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
-import {
-  cervixOpening as openingLabels,
-  cervixFirmness as firmnessLabels,
-  cervixPosition as positionLabels
-} from '../labels/labels'
+import {cervix as labels} from '../labels/labels'
 import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
-import { SymptomSectionHeader } from '../../app-text'
+import { SymptomSectionHeader, AppText } from '../../app-text'
 
 export default class Cervix extends Component {
   constructor(props) {
@@ -36,36 +32,39 @@ export default class Cervix extends Component {
 
   render() {
     const cervixOpeningRadioProps = [
-      {label: openingLabels[0], value: 0},
-      {label: openingLabels[1], value: 1},
-      {label: openingLabels[2], value: 2}
+      {label: labels.opening.categories[0], value: 0},
+      {label: labels.opening.categories[1], value: 1},
+      {label: labels.opening.categories[2], value: 2}
     ]
     const cervixFirmnessRadioProps = [
-      {label: firmnessLabels[0], value: 0 },
-      {label: firmnessLabels[1], value: 1 }
+      {label: labels.firmness.categories[0], value: 0 },
+      {label: labels.firmness.categories[1], value: 1 }
     ]
     const cervixPositionRadioProps = [
-      {label: positionLabels[0], value: 0 },
-      {label: positionLabels[1], value: 1 },
-      { label: positionLabels[2], value: 2 }
+      {label: labels.position.categories[0], value: 0 },
+      {label: labels.position.categories[1], value: 1 },
+      { label: labels.position.categories[2], value: 2 }
     ]
     return (
       <View style={{ flex: 1 }}>
         <ScrollView style={styles.page}>
           <View>
             <SymptomSectionHeader>Opening</SymptomSectionHeader>
+            <AppText>{labels.opening.explainer}</AppText>
             <SelectTabGroup
               buttons={cervixOpeningRadioProps}
               active={this.state.opening}
               onSelect={val => this.setState({ opening: val })}
             />
             <SymptomSectionHeader>Firmness</SymptomSectionHeader>
+            <AppText>{labels.firmness.explainer}</AppText>
             <SelectTabGroup
               buttons={cervixFirmnessRadioProps}
               active={this.state.firmness}
               onSelect={val => this.setState({ firmness: val })}
             />
             <SymptomSectionHeader>Position</SymptomSectionHeader>
+            <AppText>{labels.position.explainer}</AppText>
             <SelectTabGroup
               buttons={cervixPositionRadioProps}
               active={this.state.position}
