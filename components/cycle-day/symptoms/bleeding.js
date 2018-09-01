@@ -47,7 +47,7 @@ export default class Bleeding extends Component {
             <SymptomSectionHeader>Exclude</SymptomSectionHeader>
             <View flexDirection={'row'}>
               <View flex={1}>
-                <AppText>You can exclude this value if it's not menstrual bleeding</AppText>
+                <AppText>{"You can exclude this value if it's not menstrual bleeding"}</AppText>
               </View>
               <Switch
                 onValueChange={(val) => {
