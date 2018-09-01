@@ -37,7 +37,7 @@ export default class Desire extends Component {
           >
             <SelectTabGroup
               buttons={desireRadioProps}
-              acitve={this.state.currentValue}
+              active={this.state.currentValue}
               onSelect={val => this.setState({ currentValue: val })}
             />
           </SymptomSection>
