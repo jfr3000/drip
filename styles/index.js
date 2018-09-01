@@ -182,7 +182,8 @@ export default StyleSheet.create({
   },
   selectBox: {
     backgroundColor: 'lightgrey',
-    margin: 7,
+    marginRight: 7,
+    marginVertical: 5,
     paddingHorizontal: 15,
     paddingVertical: 10,
     borderRadius: 10

@@ -9,7 +9,7 @@ import { AppText } from '../app-text'
 export default class SelectBoxGroup extends Component {
   render() {
     return (
-      <View flexDirection='row' flexWrap='wrap'>
+      <View style={styles.selectBoxSection}>
         {this.props.data.map(({ label, stateKey }) => {
           const style = [styles.selectBox]
           const textStyle = []

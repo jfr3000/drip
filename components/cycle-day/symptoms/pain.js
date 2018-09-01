@@ -9,6 +9,7 @@ import { pain as labels } from '../labels/labels'
 import ActionButtonFooter from './action-button-footer'
 import SelectBoxGroup from '../select-box-group'
 import SymptomSection from './symptom-section'
+import styles from '../../../styles'
 
 const categories = labels.categories
 const boxes = [{
@@ -61,7 +62,7 @@ export default class Pain extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <ScrollView>
+        <ScrollView style={styles.page}>
           <SymptomSection
             explainer={labels.explainer}
           >
