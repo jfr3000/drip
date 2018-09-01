@@ -9,7 +9,7 @@ import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
 import ActionButtonFooter from './action-button-footer'
 
-export default class Temp extends Component {
+export default class Note extends Component {
   constructor(props) {
     super(props)
     this.cycleDay = props.cycleDay
@@ -27,6 +27,7 @@ export default class Temp extends Component {
         <ScrollView style={styles.page}>
           <View style={styles.symptomViewRow}>
             <TextInput
+              autoFocus={!this.state.currentValue}
               multiline={true}
               placeholder="Enter"
               onChangeText={(val) => {

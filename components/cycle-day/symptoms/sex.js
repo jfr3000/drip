@@ -6,10 +6,7 @@ import {
 } from 'react-native'
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
-import {
-  sexActivity as activityLabels,
-  contraceptives as contraceptiveLabels
-} from '../labels/labels'
+import { sex as sexLabels } from '../labels/labels'
 import ActionButtonFooter from './action-button-footer'
 import SelectBoxGroup from '../select-box-group'
 import { SymptomSectionHeader } from '../../app-text'

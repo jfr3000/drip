@@ -19,7 +19,9 @@ import {
   cervixOpening as openingLabels,
   cervixFirmness as firmnessLabels,
   cervixPosition as positionLabels,
-  intensity as intensityLabels
+  intensity as intensityLabels,
+  pain as painLabels,
+  sex as sexLabels
 } from './labels/labels'
 import { AppText } from '../app-text'
 
@@ -101,6 +103,11 @@ export default class CycleDayOverView extends Component {
               onPress={() => this.navigate('NoteEditView')}
               data={getLabel('note', cycleDay.note)}
             />
+            <SymptomBox
+              title='Pain'
+              onPress={() => this.navigate('PainEditView')}
+              data={getLabel('pain', cycleDay.pain)}
+            />
             {/*  this is just to make the last row adhere to the grid
         (and) because there are no pseudo properties in RN */}
             <FillerBoxes />
@@ -163,15 +170,42 @@ function getLabel(symptomName, symptom) {
       }
     },
     sex: sex => {
-      const sexLabel = []
-      if ( sex.solo || sex.partner ) {
-        sexLabel.push('activity')
+      let sexLabel = []
+      if (sex && Object.values(sex).some(val => val)){
+        Object.keys(sex).forEach(key => {
+          if(sex[key] && key !== 'other' && key !== 'note') {
+            sexLabel.push(sexLabels[key])
+          }
+          if(key === 'other' && sex.other) {
+            let label = sexLabels[key]
+            if(sex.note) {
+              label = `${label} (${sex.note})`
+            }
+            sexLabel.push(label)
+          }
+        })
+        sexLabel = sexLabel.join(', ')
       }
-      if (sex.condom || sex.pill || sex.iud ||
-        sex.patch || sex.ring || sex.implant || sex.other) {
-        sexLabel.push('contraceptive')
+      return sexLabel
+    },
+    pain: pain => {
+      let painLabel = []
+      if (pain && Object.values(pain).some(val => val)){
+        Object.keys(pain).forEach(key => {
+          if(pain[key] && key !== 'other' && key !== 'note') {
+            painLabel.push(painLabels[key])
+          }
+          if(key === 'other' && pain.other) {
+            let label = painLabels[key]
+            if(pain.note) {
+              label = `${label} (${pain.note})`
+            }
+            painLabel.push(label)
+          }
+        })
+        painLabel = painLabel.join(', ')
       }
-      return sexLabel.join(', ')
+      return painLabel
     }
   }
 
