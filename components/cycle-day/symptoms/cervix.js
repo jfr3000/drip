@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
-import {cervix as labels} from '../labels/labels'
+import { cervix as labels } from '../labels/labels'
 import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
 import { SymptomSectionHeader, AppText } from '../../app-text'
@@ -32,53 +32,51 @@ export default class Cervix extends Component {
 
   render() {
     const cervixOpeningRadioProps = [
-      {label: labels.opening.categories[0], value: 0},
-      {label: labels.opening.categories[1], value: 1},
-      {label: labels.opening.categories[2], value: 2}
+      { label: labels.opening.categories[0], value: 0 },
+      { label: labels.opening.categories[1], value: 1 },
+      { label: labels.opening.categories[2], value: 2 }
     ]
     const cervixFirmnessRadioProps = [
-      {label: labels.firmness.categories[0], value: 0 },
-      {label: labels.firmness.categories[1], value: 1 }
+      { label: labels.firmness.categories[0], value: 0 },
+      { label: labels.firmness.categories[1], value: 1 }
     ]
     const cervixPositionRadioProps = [
-      {label: labels.position.categories[0], value: 0 },
-      {label: labels.position.categories[1], value: 1 },
+      { label: labels.position.categories[0], value: 0 },
+      { label: labels.position.categories[1], value: 1 },
       { label: labels.position.categories[2], value: 2 }
     ]
     return (
       <View style={{ flex: 1 }}>
         <ScrollView style={styles.page}>
-          <View>
-            <SymptomSectionHeader>Opening</SymptomSectionHeader>
-            <AppText>{labels.opening.explainer}</AppText>
-            <SelectTabGroup
-              buttons={cervixOpeningRadioProps}
-              active={this.state.opening}
-              onSelect={val => this.setState({ opening: val })}
+          <SymptomSectionHeader>Opening</SymptomSectionHeader>
+          <AppText>{labels.opening.explainer}</AppText>
+          <SelectTabGroup
+            buttons={cervixOpeningRadioProps}
+            active={this.state.opening}
+            onSelect={val => this.setState({ opening: val })}
+          />
+          <SymptomSectionHeader>Firmness</SymptomSectionHeader>
+          <AppText>{labels.firmness.explainer}</AppText>
+          <SelectTabGroup
+            buttons={cervixFirmnessRadioProps}
+            active={this.state.firmness}
+            onSelect={val => this.setState({ firmness: val })}
+          />
+          <SymptomSectionHeader>Position</SymptomSectionHeader>
+          <AppText>{labels.position.explainer}</AppText>
+          <SelectTabGroup
+            buttons={cervixPositionRadioProps}
+            active={this.state.position}
+            onSelect={val => this.setState({ position: val })}
+          />
+          <View style={styles.symptomViewRowInline}>
+            <SymptomSectionHeader>Exclude</SymptomSectionHeader>
+            <Switch
+              onValueChange={(val) => {
+                this.setState({ exclude: val })
+              }}
+              value={this.state.exclude}
             />
-            <SymptomSectionHeader>Firmness</SymptomSectionHeader>
-            <AppText>{labels.firmness.explainer}</AppText>
-            <SelectTabGroup
-              buttons={cervixFirmnessRadioProps}
-              active={this.state.firmness}
-              onSelect={val => this.setState({ firmness: val })}
-            />
-            <SymptomSectionHeader>Position</SymptomSectionHeader>
-            <AppText>{labels.position.explainer}</AppText>
-            <SelectTabGroup
-              buttons={cervixPositionRadioProps}
-              active={this.state.position}
-              onSelect={val => this.setState({ position: val })}
-            />
-            <View style={styles.symptomViewRowInline}>
-              <SymptomSectionHeader>Exclude</SymptomSectionHeader>
-              <Switch
-                onValueChange={(val) => {
-                  this.setState({ exclude: val })
-                }}
-                value={this.state.exclude}
-              />
-            </View>
           </View>
         </ScrollView>
         <ActionButtonFooter
