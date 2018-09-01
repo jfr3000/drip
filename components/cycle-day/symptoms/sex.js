@@ -12,33 +12,33 @@ import SelectBoxGroup from '../select-box-group'
 import { SymptomSectionHeader } from '../../app-text'
 
 const sexBoxes = [{
-  label: activityLabels.solo,
+  label: sexLabels.solo,
   stateKey: 'solo'
 }, {
-  label: activityLabels.partner,
+  label: sexLabels.partner,
   stateKey: 'partner'
 }]
 
 const contraceptiveBoxes = [{
-  label: contraceptiveLabels.condom,
+  label: sexLabels.condom,
   stateKey: 'condom'
 }, {
-  label: contraceptiveLabels.pill,
+  label: sexLabels.pill,
   stateKey: 'pill'
 }, {
-  label: contraceptiveLabels.iud,
+  label: sexLabels.iud,
   stateKey: 'iud'
 }, {
-  label: contraceptiveLabels.patch,
+  label: sexLabels.patch,
   stateKey: 'patch'
 }, {
-  label: contraceptiveLabels.ring,
+  label: sexLabels.ring,
   stateKey: 'ring'
 }, {
-  label: contraceptiveLabels.implant,
+  label: sexLabels.implant,
   stateKey: 'implant'
 }, {
-  label: contraceptiveLabels.other,
+  label: sexLabels.other,
   stateKey: 'other'
 }]
 

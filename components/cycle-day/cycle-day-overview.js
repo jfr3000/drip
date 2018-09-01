@@ -99,14 +99,14 @@ export default class CycleDayOverView extends Component {
               disabled={dateInFuture}
             />
             <SymptomBox
-              title='Note'
-              onPress={() => this.navigate('NoteEditView')}
-              data={getLabel('note', cycleDay.note)}
-            />
-            <SymptomBox
               title='Pain'
               onPress={() => this.navigate('PainEditView')}
               data={getLabel('pain', cycleDay.pain)}
+            />
+            <SymptomBox
+              title='Note'
+              onPress={() => this.navigate('NoteEditView')}
+              data={getLabel('note', cycleDay.note)}
             />
             {/*  this is just to make the last row adhere to the grid
         (and) because there are no pseudo properties in RN */}

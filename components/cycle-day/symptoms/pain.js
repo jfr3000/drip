@@ -1,17 +1,39 @@
 import React, { Component } from 'react'
 import {
-  CheckBox,
   ScrollView,
-  Text,
   TextInput,
   View
 } from 'react-native'
-import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
-import {
-  pain as painLabels
-} from '../labels/labels'
+import { pain as labels } from '../labels/labels'
 import ActionButtonFooter from './action-button-footer'
+import SelectBoxGroup from '../select-box-group'
+
+const boxes = [{
+  label: labels.cramps,
+  stateKey: 'cramps'
+}, {
+  label: labels.ovulationPain,
+  stateKey: 'ovulationPain'
+}, {
+  label: labels.headache,
+  stateKey: 'headache'
+}, {
+  label: labels.backache,
+  stateKey: 'backache'
+}, {
+  label: labels.nausea,
+  stateKey: 'nausea'
+}, {
+  label: labels.tenderBreasts,
+  stateKey: 'tenderBreasts'
+}, {
+  label: labels.migraine,
+  stateKey: 'migraine'
+}, {
+  label: labels.other,
+  stateKey: 'other'
+}]
 
 export default class Pain extends Component {
   constructor(props) {
@@ -26,92 +48,24 @@ export default class Pain extends Component {
     }
   }
 
+  toggleState = (key) => {
+    const curr = this.state[key]
+    this.setState({[key]: !curr})
+    if (key === 'other' && !curr) {
+      this.setState({focusTextArea: true})
+    }
+  }
+
   render() {
     return (
       <View style={{ flex: 1 }}>
         <ScrollView>
           <View>
-            <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomDayView}>{painLabels.cramps}</Text>
-              <CheckBox
-                value={this.state.cramps}
-                onValueChange={(val) => {
-                  this.setState({cramps: val})
-                }}
-              />
-              <Text style={styles.symptomDayView}>
-                {painLabels.ovulationPain}
-              </Text>
-              <CheckBox
-                value={this.state.ovulationPain}
-                onValueChange={(val) => {
-                  this.setState({ovulationPain: val})
-                }}
-              />
-            </View>
-            <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomDayView}>
-                {painLabels.headache}
-              </Text>
-              <CheckBox
-                value={this.state.headache}
-                onValueChange={(val) => {
-                  this.setState({headache: val})
-                }}
-              />
-              <Text style={styles.symptomDayView}>
-                {painLabels.backache}
-              </Text>
-              <CheckBox
-                value={this.state.backache}
-                onValueChange={(val) => {
-                  this.setState({backache: val})
-                }}
-              />
-            </View>
-            <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomDayView}>
-                {painLabels.nausea}
-              </Text>
-              <CheckBox
-                value={this.state.nausea}
-                onValueChange={(val) => {
-                  this.setState({nausea: val})
-                }}
-              />
-              <Text style={styles.symptomDayView}>
-                {painLabels.tenderBreasts}
-              </Text>
-              <CheckBox
-                value={this.state.tenderBreasts}
-                onValueChange={(val) => {
-                  this.setState({tenderBreasts: val})
-                }}
-              />
-            </View>
-            <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomDayView}>
-                {painLabels.migraine}
-              </Text>
-              <CheckBox
-                value={this.state.migraine}
-                onValueChange={(val) => {
-                  this.setState({migraine: val})
-                }}
-              />
-              <Text style={styles.symptomDayView}>
-                {painLabels.other}
-              </Text>
-              <CheckBox
-                value={this.state.other}
-                onValueChange={(val) => {
-                  this.setState({
-                    other: val,
-                    focusTextArea: true
-                  })
-                }}
-              />
-            </View>
+            <SelectBoxGroup
+              data={boxes}
+              onSelect={this.toggleState}
+              optionsState={this.state}
+            />
             { this.state.other &&
               <TextInput
                 autoFocus={this.state.focusTextArea}
