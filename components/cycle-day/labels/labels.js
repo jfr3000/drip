@@ -47,15 +47,18 @@ export const sex = {
 }
 
 export const pain = {
-  cramps: 'Cramps',
-  ovulationPain: 'Ovulation pain',
-  headache: 'Headache',
-  backache: 'Backache',
-  nausea: 'Nausea',
-  tenderBreasts: 'Tender breasts',
-  migraine: 'Migraine',
-  other: 'Other',
-  note: 'Note'
+  categories: {
+    cramps: 'Cramps',
+    ovulationPain: 'Ovulation pain',
+    headache: 'Headache',
+    backache: 'Backache',
+    nausea: 'Nausea',
+    tenderBreasts: 'Tender breasts',
+    migraine: 'Migraine',
+    other: 'Other',
+    note: 'Note',
+  },
+  explainer: 'How did your body feel today?'
 }
 
 export const fertilityStatus = {

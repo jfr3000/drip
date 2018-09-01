@@ -11,19 +11,18 @@ import { getOrCreateCycleDay } from '../../db'
 import cycleModule from '../../lib/cycle'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import styles, { iconStyles } from '../../styles'
-import {
-  bleeding as bleedingLabels,
-  mucusFeeling as feelingLabels,
-  mucusTexture as textureLabels,
-  mucusNFP as computeSensiplanMucusLabels,
-  cervixOpening as openingLabels,
-  cervixFirmness as firmnessLabels,
-  cervixPosition as positionLabels,
-  intensity as intensityLabels,
-  pain as painLabels,
-  sex as sexLabels
-} from './labels/labels'
+import * as labels from './labels/labels'
 import { AppText } from '../app-text'
+
+const bleedingLabels = labels.bleeding
+const feelingLabels = labels.mucus.feeling.categories
+const textureLabels = labels.mucus.texture.categories
+const openingLabels = labels.cervix.opening.categories
+const firmnessLabels = labels.cervix.firmness.categories
+const positionLabels = labels.cervix.position.categories
+const intensityLabels = labels.intensity
+const sexLabels = labels.sex
+const painLabels = labels.pain.categories
 
 export default class CycleDayOverView extends Component {
   constructor(props) {
@@ -51,7 +50,9 @@ export default class CycleDayOverView extends Component {
     const cycleDay = this.state.cycleDay
     const getCycleDayNumber = cycleModule().getCycleDayNumber
     const cycleDayNumber = getCycleDayNumber(cycleDay.date)
-    const dateInFuture = LocalDate.now().isBefore(LocalDate.parse(this.state.cycleDay.date))
+    const dateInFuture = LocalDate
+      .now()
+      .isBefore(LocalDate.parse(this.state.cycleDay.date))
     return (
       <View style={{ flex: 1 }}>
         <Header
@@ -119,7 +120,7 @@ export default class CycleDayOverView extends Component {
 }
 
 function getLabel(symptomName, symptom) {
-  const labels = {
+  const l = {
     bleeding: bleeding => {
       if (typeof bleeding.value === 'number') {
         let bleedingLabel = `${bleedingLabels[bleeding.value]}`
@@ -140,7 +141,7 @@ function getLabel(symptomName, symptom) {
       const categories = ['feeling', 'texture', 'value']
       if (categories.every(c => typeof mucus[c] === 'number')) {
         let mucusLabel = [feelingLabels[mucus.feeling], textureLabels[mucus.texture]].join(', ')
-        mucusLabel += `\n${computeSensiplanMucusLabels[mucus.value]}`
+        mucusLabel += `\n${labels.mucusNFP[mucus.value]}`
         if (mucus.exclude) mucusLabel = `(${mucusLabel})`
         return mucusLabel
       }
@@ -210,7 +211,7 @@ function getLabel(symptomName, symptom) {
   }
 
   if (!symptom) return
-  const label = labels[symptomName](symptom)
+  const label = l[symptomName](symptom)
   if (label.length < 45) return label
   return label.slice(0, 42) + '...'
 }
@@ -221,18 +222,25 @@ class SymptomBox extends Component {
     const d = this.props.data
     const boxActive = d ? styles.symptomBoxActive : {}
     const iconActive = d ? iconStyles.symptomBoxActive : {}
-    const iconStyle = Object.assign({}, iconStyles.symptomBox, iconActive, disabledStyle)
+    const iconStyle = Object.assign(
+      {}, iconStyles.symptomBox, iconActive, disabledStyle
+    )
     const textActive = d ? styles.symptomTextActive : {}
     const disabledStyle = this.props.disabled ? styles.symptomInFuture : {}
 
     return (
-      <TouchableOpacity onPress={this.props.onPress} disabled={this.props.disabled}>
+      <TouchableOpacity
+        onPress={this.props.onPress}
+        disabled={this.props.disabled}
+      >
         <View style={[styles.symptomBox, boxActive, disabledStyle]}>
           <Icon
             name='thermometer'
             {...iconStyle}
           />
-          <AppText style={[textActive, disabledStyle]}>{this.props.title}</AppText>
+          <AppText style={[textActive, disabledStyle]}>
+            {this.props.title}
+          </AppText>
         </View>
         <View style={[styles.symptomDataBox, disabledStyle]}>
           <AppText style={styles.symptomDataText}>{this.props.data}</AppText>
