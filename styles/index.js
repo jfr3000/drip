@@ -148,9 +148,6 @@ export default StyleSheet.create({
   symptomEditButton: {
     width: 130
   },
-  radioButtonRow: {
-    marginTop: 15,
-  },
   statsIntro: {
     fontSize: 18,
     margin: 10,
