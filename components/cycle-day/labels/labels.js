@@ -43,7 +43,9 @@ export const sex = {
   patch: 'Patch',
   ring: 'Ring',
   implant: 'Implant',
-  other: 'Other'
+  other: 'Other',
+  activityExplainer: 'Were you sexually active today?',
+  contraceptiveExplainer: 'Did you use contraceptives?'
 }
 
 export const pain = {

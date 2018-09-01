@@ -6,39 +6,39 @@ import {
 } from 'react-native'
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
-import { sex as sexLabels } from '../labels/labels'
+import { sex as labels } from '../labels/labels'
 import ActionButtonFooter from './action-button-footer'
 import SelectBoxGroup from '../select-box-group'
-import { SymptomSectionHeader } from '../../app-text'
+import SymptomSection from './symptom-section'
 
 const sexBoxes = [{
-  label: sexLabels.solo,
+  label: labels.solo,
   stateKey: 'solo'
 }, {
-  label: sexLabels.partner,
+  label: labels.partner,
   stateKey: 'partner'
 }]
 
 const contraceptiveBoxes = [{
-  label: sexLabels.condom,
+  label: labels.condom,
   stateKey: 'condom'
 }, {
-  label: sexLabels.pill,
+  label: labels.pill,
   stateKey: 'pill'
 }, {
-  label: sexLabels.iud,
+  label: labels.iud,
   stateKey: 'iud'
 }, {
-  label: sexLabels.patch,
+  label: labels.patch,
   stateKey: 'patch'
 }, {
-  label: sexLabels.ring,
+  label: labels.ring,
   stateKey: 'ring'
 }, {
-  label: sexLabels.implant,
+  label: labels.implant,
   stateKey: 'implant'
 }, {
-  label: sexLabels.other,
+  label: labels.other,
   stateKey: 'other'
 }]
 
@@ -69,18 +69,26 @@ export default class Sex extends Component {
     return (
       <View style={{ flex: 1 }}>
         <ScrollView style={styles.page}>
-          <SymptomSectionHeader>Activity</SymptomSectionHeader>
-          <SelectBoxGroup
-            data={sexBoxes}
-            onSelect={this.toggleState}
-            optionsState={this.state}
-          />
-          <SymptomSectionHeader>Contraceptives</SymptomSectionHeader>
-          <SelectBoxGroup
-            data={contraceptiveBoxes}
-            onSelect={this.toggleState}
-            optionsState={this.state}
-          />
+          <SymptomSection
+            header="Activity"
+            explainer={labels.activityExplainer}
+          >
+            <SelectBoxGroup
+              data={sexBoxes}
+              onSelect={this.toggleState}
+              optionsState={this.state}
+            />
+          </SymptomSection>
+          <SymptomSection
+            header="Contraceptives"
+            explainer={labels.contraceptiveExplainer}
+          >
+            <SelectBoxGroup
+              data={contraceptiveBoxes}
+              onSelect={this.toggleState}
+              optionsState={this.state}
+            />
+          </SymptomSection>
 
           {this.state.other &&
             <TextInput
