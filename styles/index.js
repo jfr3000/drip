@@ -213,31 +213,33 @@ export default StyleSheet.create({
     flexWrap: 'wrap',
     marginVertical: 10,
   },
-  radioButtonGroup: {
-    marginTop: 10
+  selectTabGroup: {
+    marginTop: 10,
+    flexDirection: 'row'
   },
-  radioButton: {
-    width: 20,
-    height: 20,
-    borderRadius: 100,
+  selectTab: {
+    backgroundColor: 'lightgrey',
     borderStyle: 'solid',
-    borderWidth: 2,
-    borderColor: secondaryColor,
+    borderLeftWidth: 1,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderColor: 'white',
     marginBottom: 3,
-    marginRight: 10,
     alignItems: 'center',
     justifyContent: 'center'
   },
-  radioButtonActiveDot: {
-    width: 10,
-    height: 10,
-    borderRadius: 100,
-    backgroundColor: secondaryColor
+  selectTabActive: {
+    backgroundColor: secondaryColor,
+    color: fontOnPrimaryColor
   },
-  radioButtonTextGroup: {
-    marginRight: 10,
-    flexDirection: 'row',
-    marginBottom: 10
+  selectTabLast: {
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
+  },
+  selectTabFirst: {
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+    borderLeftWidth: null
   },
   page: {
     marginHorizontal: 10

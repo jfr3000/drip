@@ -7,7 +7,7 @@ import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
 import { intensity as labels } from '../labels/labels'
 import ActionButtonFooter from './action-button-footer'
-import RadioButtonGroup from '../radio-button-group'
+import SelectTabGroup from '../select-tab-group'
 
 export default class Desire extends Component {
   constructor(props) {
@@ -31,7 +31,7 @@ export default class Desire extends Component {
       <View style={{ flex: 1 }}>
         <ScrollView style={styles.page}>
           <View>
-            <RadioButtonGroup
+            <SelectTabGroup
               buttons={desireRadioProps}
               acitve={this.state.currentValue}
               onSelect={val => this.setState({ currentValue: val })}

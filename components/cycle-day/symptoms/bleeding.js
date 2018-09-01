@@ -8,7 +8,7 @@ import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
 import { bleeding as labels } from '../labels/labels'
 import ActionButtonFooter from './action-button-footer'
-import RadioButtonGroup from '../radio-button-group'
+import SelectTabGroup from '../select-tab-group'
 import { SymptomSectionHeader, AppText } from '../../app-text'
 
 export default class Bleeding extends Component {
@@ -39,7 +39,7 @@ export default class Bleeding extends Component {
           <View>
             <SymptomSectionHeader>Heaviness</SymptomSectionHeader>
             <AppText>How heavy is the bleeding?</AppText>
-            <RadioButtonGroup
+            <SelectTabGroup
               buttons={bleedingRadioProps}
               active={this.state.currentValue}
               onSelect={val => this.setState({ currentValue: val })}

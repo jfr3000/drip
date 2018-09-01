@@ -12,7 +12,7 @@ import {
   cervixPosition as positionLabels
 } from '../labels/labels'
 import ActionButtonFooter from './action-button-footer'
-import RadioButtonGroup from '../radio-button-group'
+import SelectTabGroup from '../select-tab-group'
 import { SymptomSectionHeader } from '../../app-text'
 
 export default class Cervix extends Component {
@@ -54,19 +54,19 @@ export default class Cervix extends Component {
         <ScrollView style={styles.page}>
           <View>
             <SymptomSectionHeader>Opening</SymptomSectionHeader>
-            <RadioButtonGroup
+            <SelectTabGroup
               buttons={cervixOpeningRadioProps}
               active={this.state.opening}
               onSelect={val => this.setState({ opening: val })}
             />
             <SymptomSectionHeader>Firmness</SymptomSectionHeader>
-            <RadioButtonGroup
+            <SelectTabGroup
               buttons={cervixFirmnessRadioProps}
               active={this.state.firmness}
               onSelect={val => this.setState({ firmness: val })}
             />
             <SymptomSectionHeader>Position</SymptomSectionHeader>
-            <RadioButtonGroup
+            <SelectTabGroup
               buttons={cervixPositionRadioProps}
               active={this.state.position}
               onSelect={val => this.setState({ position: val })}

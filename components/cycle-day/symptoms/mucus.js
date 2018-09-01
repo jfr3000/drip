@@ -12,7 +12,7 @@ import {
 } from '../labels/labels'
 import computeSensiplanValue from '../../../lib/sensiplan-mucus'
 import ActionButtonFooter from './action-button-footer'
-import RadioButtonGroup from '../radio-button-group'
+import SelectTabGroup from '../select-tab-group'
 import { SymptomSectionHeader } from '../../app-text'
 
 
@@ -52,13 +52,13 @@ export default class Mucus extends Component {
         <ScrollView style={styles.page}>
           <View>
             <SymptomSectionHeader>Feeling</SymptomSectionHeader>
-            <RadioButtonGroup
+            <SelectTabGroup
               buttons={mucusFeeling}
               onSelect={val => this.setState({ feeling: val })}
               active={this.state.feeling}
             />
             <SymptomSectionHeader>Texture</SymptomSectionHeader>
-            <RadioButtonGroup
+            <SelectTabGroup
               buttons={mucusTexture}
               onSelect={val => this.setState({ texture: val })}
               active={this.state.texture}
