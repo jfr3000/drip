@@ -9,7 +9,7 @@ import { saveSymptom } from '../../../db'
 import { bleeding as labels } from '../labels/labels'
 import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
-import { SymptomSectionHeader, AppText } from '../../app-text'
+import SymptomSection from './symptom-section'
 
 export default class Bleeding extends Component {
   constructor(props) {
@@ -36,27 +36,28 @@ export default class Bleeding extends Component {
     return (
       <View style={{ flex: 1 }}>
         <ScrollView style={styles.page}>
-          <View>
-            <SymptomSectionHeader>Heaviness</SymptomSectionHeader>
-            <AppText>How heavy is the bleeding?</AppText>
+          <SymptomSection
+            header="Heaviness"
+            explainer="How heavy is the bleeding?"
+          >
             <SelectTabGroup
               buttons={bleedingRadioProps}
               active={this.state.currentValue}
               onSelect={val => this.setState({ currentValue: val })}
             />
-            <SymptomSectionHeader>Exclude</SymptomSectionHeader>
-            <View flexDirection={'row'}>
-              <View flex={1}>
-                <AppText>{"You can exclude this value if it's not menstrual bleeding"}</AppText>
-              </View>
-              <Switch
-                onValueChange={(val) => {
-                  this.setState({ exclude: val })
-                }}
-                value={this.state.exclude}
-              />
-            </View>
-          </View>
+          </SymptomSection>
+          <SymptomSection
+            header="Exclude"
+            explainer="You can exclude this value if it's not menstrual bleeding"
+            inlineExplainer={true}
+          >
+            <Switch
+              onValueChange={(val) => {
+                this.setState({ exclude: val })
+              }}
+              value={this.state.exclude}
+            />
+          </SymptomSection>
         </ScrollView>
         <ActionButtonFooter
           symptom='bleeding'

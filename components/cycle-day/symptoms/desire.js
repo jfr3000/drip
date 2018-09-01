@@ -8,7 +8,7 @@ import { saveSymptom } from '../../../db'
 import { intensity, desire } from '../labels/labels'
 import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
-import { SymptomSectionHeader, AppText } from '../../app-text';
+import SymptomSection from './symptom-section'
 
 export default class Desire extends Component {
   constructor(props) {
@@ -31,13 +31,16 @@ export default class Desire extends Component {
     return (
       <View style={{ flex: 1 }}>
         <ScrollView style={styles.page}>
-          <SymptomSectionHeader>{desire.header}</SymptomSectionHeader>
-          <AppText>{desire.explainer}</AppText>
-          <SelectTabGroup
-            buttons={desireRadioProps}
-            acitve={this.state.currentValue}
-            onSelect={val => this.setState({ currentValue: val })}
-          />
+          <SymptomSection
+            header={desire.header}
+            explainer={desire.explainer}
+          >
+            <SelectTabGroup
+              buttons={desireRadioProps}
+              acitve={this.state.currentValue}
+              onSelect={val => this.setState({ currentValue: val })}
+            />
+          </SymptomSection>
         </ScrollView>
         <ActionButtonFooter
           symptom='desire'

@@ -9,7 +9,7 @@ import { saveSymptom } from '../../../db'
 import { cervix as labels } from '../labels/labels'
 import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
-import { SymptomSectionHeader, AppText } from '../../app-text'
+import SymptomSection from './symptom-section'
 
 export default class Cervix extends Component {
   constructor(props) {
@@ -48,36 +48,48 @@ export default class Cervix extends Component {
     return (
       <View style={{ flex: 1 }}>
         <ScrollView style={styles.page}>
-          <SymptomSectionHeader>Opening</SymptomSectionHeader>
-          <AppText>{labels.opening.explainer}</AppText>
-          <SelectTabGroup
-            buttons={cervixOpeningRadioProps}
-            active={this.state.opening}
-            onSelect={val => this.setState({ opening: val })}
-          />
-          <SymptomSectionHeader>Firmness</SymptomSectionHeader>
-          <AppText>{labels.firmness.explainer}</AppText>
-          <SelectTabGroup
-            buttons={cervixFirmnessRadioProps}
-            active={this.state.firmness}
-            onSelect={val => this.setState({ firmness: val })}
-          />
-          <SymptomSectionHeader>Position</SymptomSectionHeader>
-          <AppText>{labels.position.explainer}</AppText>
-          <SelectTabGroup
-            buttons={cervixPositionRadioProps}
-            active={this.state.position}
-            onSelect={val => this.setState({ position: val })}
-          />
-          <View style={styles.symptomViewRowInline}>
-            <SymptomSectionHeader>Exclude</SymptomSectionHeader>
+          <SymptomSection
+            header="Opening"
+            explainer={labels.opening.explainer}
+          >
+            <SelectTabGroup
+              buttons={cervixOpeningRadioProps}
+              active={this.state.opening}
+              onSelect={val => this.setState({ opening: val })}
+            />
+          </SymptomSection>
+          <SymptomSection
+            header="Firmness"
+            explainer={labels.firmness.explainer}
+          >
+            <SelectTabGroup
+              buttons={cervixFirmnessRadioProps}
+              active={this.state.firmness}
+              onSelect={val => this.setState({ firmness: val })}
+            />
+          </SymptomSection>
+          <SymptomSection
+            header="Position"
+            explainer={labels.position.explainer}
+          >
+            <SelectTabGroup
+              buttons={cervixPositionRadioProps}
+              active={this.state.position}
+              onSelect={val => this.setState({ position: val })}
+            />
+          </SymptomSection>
+          <SymptomSection
+            header="Exclude"
+            explainer="You can exclude this value if you don't want to use it for fertility detection"
+            inlineExplainer={true}
+          >
             <Switch
               onValueChange={(val) => {
                 this.setState({ exclude: val })
               }}
               value={this.state.exclude}
             />
-          </View>
+          </SymptomSection>
         </ScrollView>
         <ActionButtonFooter
           symptom='cervix'
