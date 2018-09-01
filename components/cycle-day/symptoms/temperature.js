@@ -17,7 +17,6 @@ import { scaleObservable } from '../../../local-storage'
 import { shared } from '../../labels'
 import ActionButtonFooter from './action-button-footer'
 import config from '../../../config'
-import { SymptomSectionHeader } from '../../app-text'
 import SymptomSection from './symptom-section'
 
 const minutes = ChronoUnit.MINUTES
