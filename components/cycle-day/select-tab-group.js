@@ -24,7 +24,7 @@ export default class SelectTabGroup extends Component {
             return (
               <TouchableOpacity
                 onPress={() => this.props.onSelect(value)}
-                key={value}
+                key={i}
                 activeOpacity={1}
               >
                 <View style={styles.radioButtonTextGroup}>
