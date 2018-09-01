@@ -1,8 +1,9 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import config from '../../config'
 import styles from './styles'
 import { scaleObservable } from '../../local-storage'
+import { AppText } from '../app-text'
 
 export function makeYAxisLabels(columnHeight) {
   const units = config.temperatureScale.units
@@ -15,11 +16,11 @@ export function makeYAxisLabels(columnHeight) {
     // to reliably place the label vertically centered to the grid
     if (scaleMax - i * units === 37) console.log(y)
     return (
-      <Text
+      <AppText
         style={[style, {top: y - 8}]}
         key={i}>
         {scaleMax - i * units}
-      </Text>
+      </AppText>
     )
   })
 }

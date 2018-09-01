@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import {
   View,
-  Text,
   TouchableOpacity,
 } from 'react-native'
 import styles from '../../styles'
+import { AppText } from '../app-text'
 
 export default class RadioButton extends Component {
   render() {
@@ -13,7 +13,6 @@ export default class RadioButton extends Component {
         {
           this.props.buttons.map(({ label, value }) => {
             const isActive = value === this.props.active
-            const circleStyle = [styles.radioButton]
             return (
               <TouchableOpacity
                 onPress={() => this.props.onSelect(value)}
@@ -21,11 +20,11 @@ export default class RadioButton extends Component {
                 activeOpacity={1}
               >
                 <View style={styles.radioButtonTextGroup}>
-                  <View style={circleStyle}>
+                  <View style={styles.radioButton}>
                     {isActive ?
                       <View style={styles.radioButtonActiveDot}/> : null}
                   </View>
-                  <Text>{label}</Text>
+                  <AppText>{label}</AppText>
                 </View>
               </TouchableOpacity>
             )

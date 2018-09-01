@@ -3,11 +3,11 @@ import {
   View,
   ScrollView
 } from 'react-native'
-import RadioForm from 'react-native-simple-radio-button'
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
 import { intensity as labels } from '../labels/labels'
 import ActionButtonFooter from './action-button-footer'
+import RadioButtonGroup from '../radio-button-group'
 
 export default class Desire extends Component {
   constructor(props) {
@@ -31,18 +31,11 @@ export default class Desire extends Component {
       <View style={{ flex: 1 }}>
         <ScrollView style={styles.page}>
           <View>
-            <View style={styles.radioButtonRow}>
-              <RadioForm
-                radio_props={desireRadioProps}
-                initial={this.state.currentValue}
-                formHorizontal={true}
-                labelHorizontal={false}
-                labelStyle={styles.radioButton}
-                onPress={(itemValue) => {
-                  this.setState({ currentValue: itemValue })
-                }}
-              />
-            </View>
+            <RadioButtonGroup
+              buttons={desireRadioProps}
+              acitve={this.state.currentValue}
+              onSelect={val => this.setState({ currentValue: val })}
+            />
           </View>
         </ScrollView>
         <ActionButtonFooter

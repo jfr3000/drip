@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {
   View,
-  Text,
   Switch,
   ScrollView
 } from 'react-native'
@@ -14,6 +13,7 @@ import {
 import computeSensiplanValue from '../../../lib/sensiplan-mucus'
 import ActionButtonFooter from './action-button-footer'
 import RadioButtonGroup from '../radio-button-group'
+import { SymptomSectionHeader } from '../../app-text'
 
 
 export default class Mucus extends Component {
@@ -51,24 +51,20 @@ export default class Mucus extends Component {
       <View style={{ flex: 1 }}>
         <ScrollView style={styles.page}>
           <View>
-            <Text style={styles.symptomViewHeading}>Feeling</Text>
-            <View style={styles.radioButtonRow}>
-              <RadioButtonGroup
-                buttons={mucusFeeling}
-                onSelect={val => this.setState({feeling: val})}
-                active={this.state.feeling}
-              />
-            </View>
-            <Text style={styles.symptomViewHeading}>Texture</Text>
-            <View style={styles.radioButtonRow}>
-              <RadioButtonGroup
-                buttons={mucusTexture}
-                onSelect={val => this.setState({texture: val})}
-                active={this.state.texture}
-              />
-            </View>
+            <SymptomSectionHeader>Feeling</SymptomSectionHeader>
+            <RadioButtonGroup
+              buttons={mucusFeeling}
+              onSelect={val => this.setState({ feeling: val })}
+              active={this.state.feeling}
+            />
+            <SymptomSectionHeader>Texture</SymptomSectionHeader>
+            <RadioButtonGroup
+              buttons={mucusTexture}
+              onSelect={val => this.setState({ texture: val })}
+              active={this.state.texture}
+            />
             <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomViewHeading}>Exclude</Text>
+              <SymptomSectionHeader>Exclude</SymptomSectionHeader>
               <Switch
                 onValueChange={(val) => {
                   this.setState({ exclude: val })

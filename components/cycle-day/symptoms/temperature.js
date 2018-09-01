@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {
   View,
-  Text,
   TextInput,
   Switch,
   Keyboard,
@@ -18,6 +17,7 @@ import { scaleObservable } from '../../../local-storage'
 import { shared } from '../../labels'
 import ActionButtonFooter from './action-button-footer'
 import config from '../../../config'
+import { SymptomSectionHeader } from '../../app-text'
 
 const minutes = ChronoUnit.MINUTES
 
@@ -99,7 +99,7 @@ export default class Temp extends Component {
         <ScrollView style={styles.page}>
           <View>
             <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomViewHeading}>Temperature (°C)</Text>
+              <SymptomSectionHeader>Temperature (°C)</SymptomSectionHeader>
               <TempInput
                 value={this.state.temperature}
                 setState={(val) => this.setState(val)}
@@ -107,7 +107,7 @@ export default class Temp extends Component {
               />
             </View>
             <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomViewHeading}>Time</Text>
+              <SymptomSectionHeader>Time</SymptomSectionHeader>
               <TextInput
                 style={styles.temperatureTextInput}
                 onFocus={() => {
@@ -128,9 +128,7 @@ export default class Temp extends Component {
               }}
               onCancel={() => this.setState({ isTimePickerVisible: false })}
             />
-            <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomViewHeading}>Note</Text>
-            </View>
+            <SymptomSectionHeader>Note</SymptomSectionHeader>
             <View>
               <TextInput
                 style={styles.temperatureTextInput}
@@ -144,7 +142,7 @@ export default class Temp extends Component {
               />
             </View>
             <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomViewHeading}>Exclude</Text>
+              <SymptomSectionHeader>Exlude</SymptomSectionHeader>
               <Switch
                 onValueChange={(val) => {
                   this.setState({ exclude: val })

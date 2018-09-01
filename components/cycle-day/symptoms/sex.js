@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {
-  Text,
   TextInput,
   View,
   ScrollView
@@ -13,6 +12,7 @@ import {
 } from '../labels/labels'
 import ActionButtonFooter from './action-button-footer'
 import SelectBox from '../select-box'
+import { SymptomSectionHeader } from '../../app-text'
 
 const sexBoxes = [{
   label: activityLabels.solo,
@@ -79,22 +79,18 @@ export default class Sex extends Component {
     return (
       <View style={{ flex: 1 }}>
         <ScrollView style={styles.page}>
-          <Text style={styles.symptomViewHeading}>Activity</Text>
-          <View style={styles.selectBoxSection}>
-            {this.makeSelectBoxes(sexBoxes)}
-          </View>
-          <Text style={styles.symptomViewHeading}>Contraceptives</Text>
-          <View style={styles.selectBoxSection}>
-            {this.makeSelectBoxes(contraceptiveBoxes)}
-            <SelectBox
-              value={this.state.other}
-              label={contraceptiveLabels.other}
-              onPress={() => {
-                this.toggleState('other')
-                this.setState({ focusTextArea: true })
-              }}
-            />
-          </View>
+          <SymptomSectionHeader>Activity</SymptomSectionHeader>
+          {this.makeSelectBoxes(sexBoxes)}
+          <SymptomSectionHeader>Contraceptives</SymptomSectionHeader>
+          {this.makeSelectBoxes(contraceptiveBoxes)}
+          <SelectBox
+            value={this.state.other}
+            label={contraceptiveLabels.other}
+            onPress={() => {
+              this.toggleState('other')
+              this.setState({ focusTextArea: true })
+            }}
+          />
           {this.state.other &&
             <TextInput
               autoFocus={this.state.focusTextArea}

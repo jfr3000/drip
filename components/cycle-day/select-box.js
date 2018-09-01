@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import {
   View,
-  Text,
   TouchableOpacity,
 } from 'react-native'
 import styles from '../../styles'
+import { AppText } from '../app-text'
 
 export default class SelectBox extends Component {
   render () {
@@ -17,7 +17,7 @@ export default class SelectBox extends Component {
     return (
       <TouchableOpacity onPress={this.props.onPress}>
         <View style={style}>
-          <Text style={textStyle}>{this.props.label}</Text>
+          <AppText style={textStyle}>{this.props.label}</AppText>
         </View>
       </TouchableOpacity>
     )

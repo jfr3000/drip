@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import {
   ScrollView,
   View,
-  Text,
   TouchableOpacity,
   Dimensions
 } from 'react-native'
@@ -22,6 +21,7 @@ import {
   cervixPosition as positionLabels,
   intensity as intensityLabels
 } from './labels/labels'
+import { AppText } from '../app-text'
 
 export default class CycleDayOverView extends Component {
   constructor(props) {
@@ -198,10 +198,10 @@ class SymptomBox extends Component {
             name='thermometer'
             {...iconStyle}
           />
-          <Text style={[textActive, disabledStyle]}>{this.props.title}</Text>
+          <AppText style={[textActive, disabledStyle]}>{this.props.title}</AppText>
         </View>
         <View style={[styles.symptomDataBox, disabledStyle]}>
-          <Text style={styles.symptomDataText}>{this.props.data}</Text>
+          <AppText style={styles.symptomDataText}>{this.props.data}</AppText>
         </View>
       </TouchableOpacity>
     )

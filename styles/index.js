@@ -5,6 +5,9 @@ export const secondaryColor = '#351c4d'
 export const fontOnPrimaryColor = 'white'
 
 export default StyleSheet.create({
+  appText: {
+    color: 'black'
+  },
   welcome: {
     fontSize: 20,
     margin: 30,
@@ -25,6 +28,8 @@ export default StyleSheet.create({
   },
   symptomViewHeading: {
     fontSize: 20,
+    color: 'black',
+    marginBottom: 5
   },
   symptomBoxImage: {
     width: 50,
@@ -208,6 +213,9 @@ export default StyleSheet.create({
     flexWrap: 'wrap',
     marginVertical: 10,
   },
+  radioButtonGroup: {
+    marginTop: 10
+  },
   radioButton: {
     width: 20,
     height: 20,
@@ -215,7 +223,8 @@ export default StyleSheet.create({
     borderStyle: 'solid',
     borderWidth: 2,
     borderColor: secondaryColor,
-    marginBottom: 5,
+    marginBottom: 3,
+    marginRight: 10,
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -225,17 +234,13 @@ export default StyleSheet.create({
     borderRadius: 100,
     backgroundColor: secondaryColor
   },
-  radioButtonGroup: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    marginVertical: 10,
-  },
   radioButtonTextGroup: {
-    alignItems: 'center',
-    marginHorizontal: 10
+    marginRight: 10,
+    flexDirection: 'row',
+    marginBottom: 10
   },
   page: {
-    padding: 10
+    marginHorizontal: 10
   }
 })
 

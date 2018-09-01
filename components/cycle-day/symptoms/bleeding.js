@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import {
   View,
-  Text,
   Switch,
   ScrollView
 } from 'react-native'
-import RadioForm from 'react-native-simple-radio-button'
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
 import { bleeding as labels } from '../labels/labels'
 import ActionButtonFooter from './action-button-footer'
+import RadioButtonGroup from '../radio-button-group'
+import { SymptomSectionHeader, AppText } from '../../app-text'
 
 export default class Bleeding extends Component {
   constructor(props) {
@@ -37,20 +37,18 @@ export default class Bleeding extends Component {
       <View style={{ flex: 1 }}>
         <ScrollView style={styles.page}>
           <View>
-            <View style={styles.radioButtonRow}>
-              <RadioForm
-                radio_props={bleedingRadioProps}
-                initial={this.state.currentValue}
-                formHorizontal={true}
-                labelHorizontal={false}
-                labelStyle={styles.radioButton}
-                onPress={(itemValue) => {
-                  this.setState({ currentValue: itemValue })
-                }}
-              />
-            </View>
-            <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomViewHeading}>Exclude</Text>
+            <SymptomSectionHeader>Heaviness</SymptomSectionHeader>
+            <AppText>How heavy is the bleeding?</AppText>
+            <RadioButtonGroup
+              buttons={bleedingRadioProps}
+              active={this.state.currentValue}
+              onSelect={val => this.setState({ currentValue: val })}
+            />
+            <SymptomSectionHeader>Exclude</SymptomSectionHeader>
+            <View flexDirection={'row'}>
+              <View flex={1}>
+                <AppText>You can exclude this value if it's not menstrual bleeding</AppText>
+              </View>
               <Switch
                 onValueChange={(val) => {
                   this.setState({ exclude: val })
