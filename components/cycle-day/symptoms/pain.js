@@ -8,30 +8,32 @@ import { saveSymptom } from '../../../db'
 import { pain as labels } from '../labels/labels'
 import ActionButtonFooter from './action-button-footer'
 import SelectBoxGroup from '../select-box-group'
+import SymptomSection from './symptom-section'
 
+const categories = labels.categories
 const boxes = [{
-  label: labels.cramps,
+  label: categories.cramps,
   stateKey: 'cramps'
 }, {
-  label: labels.ovulationPain,
+  label: categories.ovulationPain,
   stateKey: 'ovulationPain'
 }, {
-  label: labels.headache,
+  label: categories.headache,
   stateKey: 'headache'
 }, {
-  label: labels.backache,
+  label: categories.backache,
   stateKey: 'backache'
 }, {
-  label: labels.nausea,
+  label: categories.nausea,
   stateKey: 'nausea'
 }, {
-  label: labels.tenderBreasts,
+  label: categories.tenderBreasts,
   stateKey: 'tenderBreasts'
 }, {
-  label: labels.migraine,
+  label: categories.migraine,
   stateKey: 'migraine'
 }, {
-  label: labels.other,
+  label: categories.other,
   stateKey: 'other'
 }]
 
@@ -60,7 +62,9 @@ export default class Pain extends Component {
     return (
       <View style={{ flex: 1 }}>
         <ScrollView>
-          <View>
+          <SymptomSection
+            explainer={labels.explainer}
+          >
             <SelectBoxGroup
               data={boxes}
               onSelect={this.toggleState}
@@ -77,7 +81,7 @@ export default class Pain extends Component {
                 }}
               />
             }
-          </View>
+          </SymptomSection>
         </ScrollView>
         <ActionButtonFooter
           symptom='pain'
