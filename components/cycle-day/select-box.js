@@ -17,7 +17,7 @@ export default class SelectBox extends Component {
     return (
       <TouchableOpacity onPress={this.props.onPress}>
         <View style={style}>
-          <AppText style={textStyle}>{this.props.label}</AppText>
+          <AppText style={textStyle}>{this.props.children}</AppText>
         </View>
       </TouchableOpacity>
     )

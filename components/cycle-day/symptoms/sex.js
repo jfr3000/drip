@@ -63,9 +63,10 @@ export default class Sex extends Component {
         <SelectBox
           value={this.state[stateKey]}
           onPress={() => this.toggleState(stateKey)}
-          label={label}
           key={stateKey}
-        />
+        >
+          {label}
+        </SelectBox>
       )
     })
   }
@@ -85,12 +86,14 @@ export default class Sex extends Component {
           {this.makeSelectBoxes(contraceptiveBoxes)}
           <SelectBox
             value={this.state.other}
-            label={contraceptiveLabels.other}
             onPress={() => {
               this.toggleState('other')
               this.setState({ focusTextArea: true })
             }}
-          />
+          >
+            {contraceptiveLabels.other}
+          </SelectBox>
+
           {this.state.other &&
             <TextInput
               autoFocus={this.state.focusTextArea}
