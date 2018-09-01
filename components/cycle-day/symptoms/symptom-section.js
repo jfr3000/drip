@@ -16,8 +16,9 @@ export default class SymptomSection extends Component {
       <View style={placeHeadingInline}>
         <SymptomSectionHeader flex={1}>{p.header}</SymptomSectionHeader>
         <View
-          flexDirection={p.inline ? 'row' : 'column'}
+          flexDirection={p.inline ? 'row' : null}
           flex={1}
+          alignItems={p.inline ? 'center' : null}
         >
           <View flex={1}>
             <AppText>{p.explainer}</AppText>
