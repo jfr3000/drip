@@ -10,7 +10,7 @@ import { mucus as labels } from '../labels/labels'
 import computeSensiplanValue from '../../../lib/sensiplan-mucus'
 import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
-import SymptomSection from './symptom-section';
+import SymptomSection from './symptom-section'
 
 
 export default class Mucus extends Component {
@@ -84,10 +84,12 @@ export default class Mucus extends Component {
           symptom='mucus'
           cycleDay={this.cycleDay}
           saveAction={() => {
+            const feeling = this.state.feeling
+            const texture = this.state.texture
             saveSymptom('mucus', this.cycleDay, {
-              feeling: this.state.feeling,
-              texture: this.state.texture,
-              value: computeSensiplanValue(this.state.feeling, this.state.texture),
+              feeling,
+              texture,
+              value: computeSensiplanValue(feeling, texture),
               exclude: this.state.exclude
             })
           }}

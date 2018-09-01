@@ -70,3 +70,5 @@ export const temperature = {
   outOfAbsoluteRangeWarning: 'This temperature value is too high or low to be shown on the temperature chart.',
   saveAnyway: 'Save anyway'
 }
+
+export const noteExplainer = "Anything you want to add for the day?"
