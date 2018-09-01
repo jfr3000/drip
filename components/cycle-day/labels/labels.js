@@ -19,6 +19,11 @@ export const cervix = {
   }
 }
 
+export const desire = {
+  header: 'Intensity',
+  explainer: 'How would you rate your sexual desire?'
+}
+
 export const sex = {
   solo: 'Solo',
   partner: 'Partner',

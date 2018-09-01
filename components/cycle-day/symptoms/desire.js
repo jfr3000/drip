@@ -5,9 +5,10 @@ import {
 } from 'react-native'
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
-import { intensity as labels } from '../labels/labels'
+import { intensity, desire } from '../labels/labels'
 import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
+import { SymptomSectionHeader, AppText } from '../../app-text';
 
 export default class Desire extends Component {
   constructor(props) {
@@ -23,20 +24,20 @@ export default class Desire extends Component {
 
   render() {
     const desireRadioProps = [
-      { label: labels[0], value: 0 },
-      { label: labels[1], value: 1 },
-      { label: labels[2], value: 2 }
+      { label: intensity[0], value: 0 },
+      { label: intensity[1], value: 1 },
+      { label: intensity[2], value: 2 }
     ]
     return (
       <View style={{ flex: 1 }}>
         <ScrollView style={styles.page}>
-          <View>
-            <SelectTabGroup
-              buttons={desireRadioProps}
-              acitve={this.state.currentValue}
-              onSelect={val => this.setState({ currentValue: val })}
-            />
-          </View>
+          <SymptomSectionHeader>{desire.header}</SymptomSectionHeader>
+          <AppText>{desire.explainer}</AppText>
+          <SelectTabGroup
+            buttons={desireRadioProps}
+            acitve={this.state.currentValue}
+            onSelect={val => this.setState({ currentValue: val })}
+          />
         </ScrollView>
         <ActionButtonFooter
           symptom='desire'
