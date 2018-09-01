@@ -1,6 +1,4 @@
 export const bleeding = ['spotting', 'light', 'medium', 'heavy']
-export const mucusFeeling = ['dry', 'nothing', 'wet', 'slippery']
-export const mucusTexture = ['nothing', 'creamy', 'egg white']
 export const mucusNFP = ['t', 'Ø', 'f', 'S', 'S+']
 export const intensity = ['low', 'medium', 'high']
 
@@ -17,6 +15,18 @@ export const cervix = {
     categories: ['low', 'medium', 'high'],
     explainer: 'How high up in the vagina is the cervix?'
   }
+}
+
+export const mucus = {
+  feeling: {
+    categories: ['dry', 'nothing', 'wet', 'slippery'],
+    explainer: 'What does your vaginal entrance feel like?'
+  },
+  texture: {
+    categories: ['nothing', 'creamy', 'egg white'],
+    explainer: "Looking at and touching your cervical mucus, which describes it best?"
+  },
+  excludeExplainer: "You can exclude this value if you don't want to use it for fertility detection"
 }
 
 export const desire = {

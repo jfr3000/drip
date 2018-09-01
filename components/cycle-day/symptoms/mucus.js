@@ -6,14 +6,11 @@ import {
 } from 'react-native'
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
-import {
-  mucusFeeling as feelingLabels,
-  mucusTexture as textureLabels
-} from '../labels/labels'
+import { mucus as labels } from '../labels/labels'
 import computeSensiplanValue from '../../../lib/sensiplan-mucus'
 import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
-import { SymptomSectionHeader } from '../../app-text'
+import SymptomSection from './symptom-section';
 
 
 export default class Mucus extends Component {
@@ -37,42 +34,51 @@ export default class Mucus extends Component {
 
   render() {
     const mucusFeeling = [
-      { label: feelingLabels[0], stateKey: ''},
-      { label: feelingLabels[1], value: 1 },
-      { label: feelingLabels[2], value: 2 },
-      { label: feelingLabels[3], value: 3 }
+      { label: labels.feeling.categories[0], stateKey: ''},
+      { label: labels.feeling.categories[1], value: 1 },
+      { label: labels.feeling.categories[2], value: 2 },
+      { label: labels.feeling.categories[3], value: 3 }
     ]
     const mucusTexture = [
-      { label: textureLabels[0], value: 0 },
-      { label: textureLabels[1], value: 1 },
-      { label: textureLabels[2], value: 2 }
+      { label: labels.texture.categories[0], value: 0 },
+      { label: labels.texture.categories[1], value: 1 },
+      { label: labels.texture.categories[2], value: 2 }
     ]
     return (
       <View style={{ flex: 1 }}>
         <ScrollView style={styles.page}>
-          <View>
-            <SymptomSectionHeader>Feeling</SymptomSectionHeader>
+          <SymptomSection
+            header='Feeling'
+            explainer={labels.feeling.explainer}
+          >
             <SelectTabGroup
               buttons={mucusFeeling}
               onSelect={val => this.setState({ feeling: val })}
               active={this.state.feeling}
             />
-            <SymptomSectionHeader>Texture</SymptomSectionHeader>
+          </SymptomSection>
+          <SymptomSection
+            header='Texture'
+            explainer={labels.texture.explainer}
+          >
             <SelectTabGroup
               buttons={mucusTexture}
               onSelect={val => this.setState({ texture: val })}
               active={this.state.texture}
             />
-            <View style={styles.symptomViewRowInline}>
-              <SymptomSectionHeader>Exclude</SymptomSectionHeader>
-              <Switch
-                onValueChange={(val) => {
-                  this.setState({ exclude: val })
-                }}
-                value={this.state.exclude}
-              />
-            </View>
-          </View>
+          </SymptomSection>
+          <SymptomSection
+            header="Exclude"
+            explainer={labels.excludeExplainer}
+            inlineExplainer={true}
+          >
+            <Switch
+              onValueChange={(val) => {
+                this.setState({ exclude: val })
+              }}
+              value={this.state.exclude}
+            />
+          </SymptomSection>
         </ScrollView>
         <ActionButtonFooter
           symptom='mucus'
