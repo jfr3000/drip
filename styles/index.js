@@ -81,17 +81,6 @@ export default StyleSheet.create({
   symptomDataText: {
     fontSize: 12
   },
-  symptomEditRow: {
-    justifyContent: 'space-between',
-    marginBottom: 10,
-  },
-  symptomViewRowInline: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 10,
-    alignItems: 'center',
-    height: 50
-  },
   header: {
     backgroundColor: primaryColor,
     paddingHorizontal: 15,
