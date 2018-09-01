@@ -11,7 +11,7 @@ import {
   contraceptives as contraceptiveLabels
 } from '../labels/labels'
 import ActionButtonFooter from './action-button-footer'
-import SelectBox from '../select-box'
+import SelectBoxGroup from '../select-box-group'
 import { SymptomSectionHeader } from '../../app-text'
 
 const sexBoxes = [{
@@ -40,6 +40,9 @@ const contraceptiveBoxes = [{
 }, {
   label: contraceptiveLabels.implant,
   stateKey: 'implant'
+}, {
+  label: contraceptiveLabels.other,
+  stateKey: 'other'
 }]
 
 export default class Sex extends Component {
@@ -57,23 +60,12 @@ export default class Sex extends Component {
     }
   }
 
-  makeSelectBoxes(boxes) {
-    return boxes.map(({ label, stateKey }) => {
-      return (
-        <SelectBox
-          value={this.state[stateKey]}
-          onPress={() => this.toggleState(stateKey)}
-          key={stateKey}
-        >
-          {label}
-        </SelectBox>
-      )
-    })
-  }
-
-  toggleState(key) {
+  toggleState = (key) => {
     const curr = this.state[key]
     this.setState({[key]: !curr})
+    if (key === 'other' && !curr) {
+      this.setState({focusTextArea: true})
+    }
   }
 
   render() {
@@ -81,18 +73,17 @@ export default class Sex extends Component {
       <View style={{ flex: 1 }}>
         <ScrollView style={styles.page}>
           <SymptomSectionHeader>Activity</SymptomSectionHeader>
-          {this.makeSelectBoxes(sexBoxes)}
+          <SelectBoxGroup
+            data={sexBoxes}
+            onSelect={this.toggleState}
+            optionsState={this.state}
+          />
           <SymptomSectionHeader>Contraceptives</SymptomSectionHeader>
-          {this.makeSelectBoxes(contraceptiveBoxes)}
-          <SelectBox
-            value={this.state.other}
-            onPress={() => {
-              this.toggleState('other')
-              this.setState({ focusTextArea: true })
-            }}
-          >
-            {contraceptiveLabels.other}
-          </SelectBox>
+          <SelectBoxGroup
+            data={contraceptiveBoxes}
+            onSelect={this.toggleState}
+            optionsState={this.state}
+          />
 
           {this.state.other &&
             <TextInput
