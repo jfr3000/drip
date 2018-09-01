@@ -49,7 +49,7 @@ export default class Bleeding extends Component {
           <SymptomSection
             header="Exclude"
             explainer="You can exclude this value if it's not menstrual bleeding"
-            inlineExplainer={true}
+            inline={true}
           >
             <Switch
               onValueChange={(val) => {

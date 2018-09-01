@@ -73,7 +73,14 @@ export const fertilityStatus = {
 export const temperature = {
   outOfRangeWarning: 'This temperature value is out of the current range for the temperature chart. You can change the range in the settings.',
   outOfAbsoluteRangeWarning: 'This temperature value is too high or low to be shown on the temperature chart.',
-  saveAnyway: 'Save anyway'
+  saveAnyway: 'Save anyway',
+  temperature: {
+    explainer: 'Take your temperature right after waking up, before getting out of bed'
+  },
+  note: {
+    explainer: 'Is there anything that could have influenced this value, such as bad sleep or alcohol consumption?'
+  },
+  excludeExplainer: "You can exclude this value if you don't want to use it for fertility detection"
 }
 
 export const noteExplainer = "Anything you want to add for the day?"

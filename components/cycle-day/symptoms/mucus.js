@@ -70,7 +70,7 @@ export default class Mucus extends Component {
           <SymptomSection
             header="Exclude"
             explainer={labels.excludeExplainer}
-            inlineExplainer={true}
+            inline={true}
           >
             <Switch
               onValueChange={(val) => {

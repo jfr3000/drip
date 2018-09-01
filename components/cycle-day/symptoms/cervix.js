@@ -81,7 +81,7 @@ export default class Cervix extends Component {
           <SymptomSection
             header="Exclude"
             explainer="You can exclude this value if you don't want to use it for fertility detection"
-            inlineExplainer={true}
+            inline={true}
           >
             <Switch
               onValueChange={(val) => {

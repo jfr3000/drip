@@ -4,14 +4,25 @@ import { SymptomSectionHeader, AppText } from '../../app-text'
 
 export default class SymptomSection extends Component {
   render() {
+    const p = this.props
+    let placeHeadingInline
+    if (!p.explainer && p.inline) {
+      placeHeadingInline = {
+        flexDirection: 'row',
+        alignItems: "center"
+      }
+    }
     return (
-      <View>
-        <SymptomSectionHeader>{this.props.header}</SymptomSectionHeader>
-        <View flexDirection={this.props.inlineExplainer ? 'row' : 'column'}>
+      <View style={placeHeadingInline}>
+        <SymptomSectionHeader flex={1}>{p.header}</SymptomSectionHeader>
+        <View
+          flexDirection={p.inline ? 'row' : 'column'}
+          flex={1}
+        >
           <View flex={1}>
-            <AppText>{this.props.explainer}</AppText>
+            <AppText>{p.explainer}</AppText>
           </View>
-          {this.props.children}
+          {p.children}
         </View>
       </View>
     )
