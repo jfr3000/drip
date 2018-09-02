@@ -61,8 +61,6 @@ function getAbsoluteValue(relative, columnHeight) {
   // we add some height to have some breathing room
   const verticalPadding = columnHeight * config.temperatureScale.verticalPadding
   const scaleHeight = columnHeight - 2 * verticalPadding
-  console.log(scaleHeight)
-  console.log(columnHeight)
   return scaleHeight * relative + verticalPadding
 
 }
