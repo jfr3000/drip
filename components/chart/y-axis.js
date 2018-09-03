@@ -7,18 +7,35 @@ import { scaleObservable } from '../../local-storage'
 export function makeYAxisLabels(columnHeight) {
   const units = config.temperatureScale.units
   const scaleMax = scaleObservable.value.max
+  const scaleMin = scaleObservable.value.min
   const style = styles.yAxisLabel
 
   return getTickPositions(columnHeight).map((y, i) => {
     // this eyeballing is sadly necessary because RN does not
     // support percentage values for transforms, which we'd need
     // to reliably place the label vertically centered to the grid
-    if (scaleMax - i * units === 37) console.log(y)
+    let tickLabelDistance
+    let tickUnit
+    if (scaleMax - scaleMin <= 3) {
+      tickLabelDistance = 2
+      tickUnit = 1
+    } else if (scaleMax - scaleMin <= 5) {
+      tickLabelDistance = 2
+      tickUnit = 2
+    } else {
+      tickLabelDistance = 5
+      tickUnit = 5
+    }
+    if (scaleMax - i * tickUnit * units === 37) console.log(y)
+    const tick = scaleMax - i * tickUnit * units
+    const tickLabel = tick * 10 % 10 ? tick.toString() : tick.toString() + '.0'
+    const showTick =  tick * 10 % tickLabelDistance ? false : true
+    const tickBold = tick * 10 % 5 ? {} : {fontWeight: 'bold'}
     return (
       <Text
-        style={[style, {top: y - 8}]}
+        style={[style, {top: y - 8}, tickBold]}
         key={i}>
-        {scaleMax - i * units}
+        {showTick && tickLabel}
       </Text>
     )
   })
@@ -41,7 +58,14 @@ function getTickPositions(columnHeight) {
   const scaleMin = scaleObservable.value.min
   const scaleMax = scaleObservable.value.max
   const numberOfTicks = (scaleMax - scaleMin) * (1 / units) + 1
-  const tickDistance = 1 / (numberOfTicks - 1)
+  let tickDistance
+  if (numberOfTicks <= 31) {
+    tickDistance = 1 / (numberOfTicks - 1)
+  } else if (numberOfTicks <= 51) {
+    tickDistance = 2 / (numberOfTicks - 1)
+  } else {
+    tickDistance = 5 / (numberOfTicks - 1)
+  }
 
   const tickPositions = []
   for (let i = 0; i < numberOfTicks; i++) {

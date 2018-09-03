@@ -73,7 +73,7 @@ export default class DayColumn extends Component {
     const shortDate = dateString.split('-').slice(1).join('-')
     const cycleDayLabel = (
       <Text style={label.number}>
-        {cycleDayNumber}
+        {cycleDayNumber ? cycleDayNumber : ' '}
       </Text>)
     const dateLabel = (
       <Text style = {label.date}>
@@ -120,7 +120,7 @@ export default class DayColumn extends Component {
             <Icon
               name='drop'
               size={18}
-              color='#900'
+              color={styles.bleedingIconShades[bleeding]}
               key='bleeding'
             />
           }
