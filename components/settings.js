@@ -4,7 +4,6 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
-  Text,
   Switch
 } from 'react-native'
 import DateTimePicker from 'react-native-modal-datetime-picker-nevo'
@@ -23,6 +22,7 @@ import {
   tempReminderObservable,
   saveTempReminder
 } from '../local-storage'
+import { AppText } from './app-text'
 
 export default class Settings extends Component {
   constructor(props) {
@@ -35,36 +35,36 @@ export default class Settings extends Component {
       <ScrollView>
         <TempReminderPicker/>
         <View style={styles.settingsSegment}>
-          <Text style={styles.settingsSegmentTitle}>
+          <AppText style={styles.settingsSegmentTitle}>
             {labels.tempScale.segmentTitle}
-          </Text>
-          <Text>{labels.tempScale.segmentExplainer}</Text>
+          </AppText>
+          <AppText>{labels.tempScale.segmentExplainer}</AppText>
           <TempSlider/>
         </View>
         <View style={styles.settingsSegment}>
-          <Text style={styles.settingsSegmentTitle}>
+          <AppText style={styles.settingsSegmentTitle}>
             {labels.export.button}
-          </Text>
-          <Text>{labels.export.segmentExplainer}</Text>
+          </AppText>
+          <AppText>{labels.export.segmentExplainer}</AppText>
           <TouchableOpacity
             onPress={openShareDialogAndExport}
             style={styles.settingsButton}>
-            <Text style={styles.settingsButtonText}>
+            <AppText style={styles.settingsButtonText}>
               {labels.export.button}
-            </Text>
+            </AppText>
           </TouchableOpacity>
         </View>
         <View style={styles.settingsSegment}>
-          <Text style={styles.settingsSegmentTitle}>
+          <AppText style={styles.settingsSegmentTitle}>
             {labels.import.button}
-          </Text>
-          <Text>{labels.import.segmentExplainer}</Text>
+          </AppText>
+          <AppText>{labels.import.segmentExplainer}</AppText>
           <TouchableOpacity
             onPress={openImportDialogAndImport}
             style={styles.settingsButton}>
-            <Text style={styles.settingsButtonText}>
+            <AppText style={styles.settingsButtonText}>
               {labels.import.button}
-            </Text>
+            </AppText>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -84,15 +84,15 @@ class TempReminderPicker extends Component {
         style={styles.settingsSegment}
         onPress={() => this.setState({ isTimePickerVisible: true })}
       >
-        <Text style={styles.settingsSegmentTitle}>
+        <AppText style={styles.settingsSegmentTitle}>
           {labels.tempReminder.title}
-        </Text>
+        </AppText>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <View style={{ flex: 1 }}>
             {this.state.time && this.state.enabled ?
-              <Text>{labels.tempReminder.timeSet(this.state.time)}</Text>
+              <AppText>{labels.tempReminder.timeSet(this.state.time)}</AppText>
               :
-              <Text>{labels.tempReminder.noTimeSet}</Text>
+              <AppText>{labels.tempReminder.noTimeSet}</AppText>
             }
           </View>
           <Switch
@@ -160,8 +160,8 @@ class TempSlider extends Component {
   render() {
     return (
       <View style={{ alignItems: 'center' }}>
-        <Text>{`${labels.tempScale.min} ${this.state.min}`}</Text>
-        <Text>{`${labels.tempScale.max} ${this.state.max}`}</Text>
+        <AppText>{`${labels.tempScale.min} ${this.state.min}`}</AppText>
+        <AppText>{`${labels.tempScale.max} ${this.state.max}`}</AppText>
         <Slider
           values={[this.state.min, this.state.max]}
           min={config.temperatureScale.min}

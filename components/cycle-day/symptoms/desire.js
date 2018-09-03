@@ -3,11 +3,12 @@ import {
   View,
   ScrollView
 } from 'react-native'
-import RadioForm from 'react-native-simple-radio-button'
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
-import { intensity as labels } from '../labels/labels'
+import { intensity, desire } from '../labels/labels'
 import ActionButtonFooter from './action-button-footer'
+import SelectTabGroup from '../select-tab-group'
+import SymptomSection from './symptom-section'
 
 export default class Desire extends Component {
   constructor(props) {
@@ -23,27 +24,23 @@ export default class Desire extends Component {
 
   render() {
     const desireRadioProps = [
-      { label: labels[0], value: 0 },
-      { label: labels[1], value: 1 },
-      { label: labels[2], value: 2 }
+      { label: intensity[0], value: 0 },
+      { label: intensity[1], value: 1 },
+      { label: intensity[2], value: 2 }
     ]
     return (
       <View style={{ flex: 1 }}>
-        <ScrollView>
-          <View>
-            <View style={styles.radioButtonRow}>
-              <RadioForm
-                radio_props={desireRadioProps}
-                initial={this.state.currentValue}
-                formHorizontal={true}
-                labelHorizontal={false}
-                labelStyle={styles.radioButton}
-                onPress={(itemValue) => {
-                  this.setState({ currentValue: itemValue })
-                }}
-              />
-            </View>
-          </View>
+        <ScrollView style={styles.page}>
+          <SymptomSection
+            header={desire.header}
+            explainer={desire.explainer}
+          >
+            <SelectTabGroup
+              buttons={desireRadioProps}
+              active={this.state.currentValue}
+              onSelect={val => this.setState({ currentValue: val })}
+            />
+          </SymptomSection>
         </ScrollView>
         <ActionButtonFooter
           symptom='desire'
