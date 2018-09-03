@@ -34,7 +34,7 @@ export default class Mucus extends Component {
 
   render() {
     const mucusFeeling = [
-      { label: labels.feeling.categories[0], stateKey: ''},
+      { label: labels.feeling.categories[0], value: 0 },
       { label: labels.feeling.categories[1], value: 1 },
       { label: labels.feeling.categories[2], value: 2 },
       { label: labels.feeling.categories[3], value: 3 }
