@@ -53,7 +53,7 @@ export default class CalendarView extends Component {
 }
 
 function toCalFormat(bleedingDaysSortedByDate) {
-  const shadesOfRed = ['#ffbaba', '#ff7b7b', '#ff5252', '#ff0000']
+  const shadesOfRed = ['#ffcbbf', '#ffb19f', '#ff977e', '#ff7e5f'] // light to dark
   return bleedingDaysSortedByDate.reduce((acc, day) => {
     acc[day.date] = {
       startingDay: true,
