@@ -35,7 +35,7 @@ describe('sympto', () => {
       const status = getCervixStatus(values)
       expect(status).to.eql({
         detected: true,
-        cervixPeak: {
+        cervixPeakBeforeShift: {
           date: 13,
           cervix: {
             isHard: true,
@@ -58,7 +58,7 @@ describe('sympto', () => {
       const status = getCervixStatus(values)
       expect(status).to.eql({
         detected: true,
-        cervixPeak: {
+        cervixPeakBeforeShift: {
           date: 0,
           cervix: {
             isHard: false,

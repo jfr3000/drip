@@ -142,9 +142,9 @@ describe('sympto', () => {
           start: { date: '2018-06-17', time: '18:00' },
           cycleDays: tempAndCervixEvalEndOnSameDay
             .filter(({date}) => date >= '2018-06-17')
+          expect(status.cervixShift.cervixPeakBeforeShift.date).to.eql('2018-06-14')
         })
         expect(status.cervixShift.detected).to.be.true()
-        expect(status.cervixShift.cervixPeak.date).to.eql('2018-06-14')
         expect(status.cervixShift.evaluationCompleteDay.date).to.eql('2018-06-17')
       })
 
