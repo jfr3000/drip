@@ -104,7 +104,6 @@ class TempReminderPicker extends Component {
               }
               if (!switchOn) saveTempReminder({ enabled: false })
             }}
-            onTintColor={secondaryColor}
           />
           <DateTimePicker
             mode="time"
