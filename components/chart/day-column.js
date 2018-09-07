@@ -29,7 +29,6 @@ export default class DayColumn extends Component {
       temperatureExclude,
       bleeding,
       mucus,
-      cervix,
       drawFhmLine,
       drawLtlAt,
       rightY,
