@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import {
-  Text,
   View,
   ScrollView
 } from 'react-native'
@@ -9,6 +8,7 @@ import styles from '../styles/index'
 import cycleModule from '../lib/cycle'
 import {getCycleLengthStats as getCycleInfo} from '../lib/cycle-length'
 import {stats as labels} from './labels'
+import { AppText } from './app-text'
 
 export default class Stats extends Component {
   render() {
@@ -28,32 +28,32 @@ export default class Stats extends Component {
       <ScrollView>
         <View>
           {!atLeastOneCycle &&
-            <Text style={styles.statsIntro}>{labels.emptyStats}</Text>
+            <AppText style={styles.statsIntro}>{labels.emptyStats}</AppText>
           }
           {atLeastOneCycle && numberOfCycles === 1 &&
-            <Text style={styles.statsIntro}>
+            <AppText style={styles.statsIntro}>
               {labels.oneCycleStats(cycleLengths[0])}
-            </Text>
+            </AppText>
           }
           {atLeastOneCycle && numberOfCycles > 1 && <View>
-            <Text style={styles.statsIntro}>
+            <AppText style={styles.statsIntro}>
               {labels.getBasisOfStats(numberOfCycles)}
-            </Text>
+            </AppText>
             <View style={styles.statsRow}>
-              <Text style={styles.statsLabelLeft}>{labels.averageLabel}</Text>
-              <Text style={styles.statsLabelRight}>{cycleInfo.mean + ' ' + labels.daysLabel}</Text>
+              <AppText style={styles.statsLabelLeft}>{labels.averageLabel}</AppText>
+              <AppText style={styles.statsLabelRight}>{cycleInfo.mean + ' ' + labels.daysLabel}</AppText>
             </View>
             <View style={styles.statsRow}>
-              <Text style={styles.statsLabelLeft}>{labels.minLabel}</Text>
-              <Text style={styles.statsLabelRight}>{cycleInfo.minimum + ' ' + labels.daysLabel}</Text>
+              <AppText style={styles.statsLabelLeft}>{labels.minLabel}</AppText>
+              <AppText style={styles.statsLabelRight}>{cycleInfo.minimum + ' ' + labels.daysLabel}</AppText>
             </View>
             <View style={styles.statsRow}>
-              <Text style={styles.statsLabelLeft}>{labels.maxLabel}</Text>
-              <Text style={styles.statsLabelRight}>{cycleInfo.maximum + ' ' + labels.daysLabel}</Text>
+              <AppText style={styles.statsLabelLeft}>{labels.maxLabel}</AppText>
+              <AppText style={styles.statsLabelRight}>{cycleInfo.maximum + ' ' + labels.daysLabel}</AppText>
             </View>
             <View style={styles.statsRow}>
-              <Text style={styles.statsLabelLeft}>{labels.stdLabel}</Text>
-              <Text style={styles.statsLabelRight}>{cycleInfo.stdDeviation + ' ' + labels.daysLabel}</Text>
+              <AppText style={styles.statsLabelLeft}>{labels.stdLabel}</AppText>
+              <AppText style={styles.statsLabelRight}>{cycleInfo.stdDeviation + ' ' + labels.daysLabel}</AppText>
             </View>
           </View>}
         </View>

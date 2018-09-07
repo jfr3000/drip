@@ -1,19 +1,15 @@
 import React, { Component } from 'react'
 import {
   View,
-  Text,
   Switch,
   ScrollView
 } from 'react-native'
-import RadioForm from 'react-native-simple-radio-button'
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
-import {
-  cervixOpening as openingLabels,
-  cervixFirmness as firmnessLabels,
-  cervixPosition as positionLabels
-} from '../labels/labels'
+import { cervix as labels } from '../labels/labels'
 import ActionButtonFooter from './action-button-footer'
+import SelectTabGroup from '../select-tab-group'
+import SymptomSection from './symptom-section'
 
 export default class Cervix extends Component {
   constructor(props) {
@@ -36,72 +32,64 @@ export default class Cervix extends Component {
 
   render() {
     const cervixOpeningRadioProps = [
-      {label: openingLabels[0], value: 0},
-      {label: openingLabels[1], value: 1},
-      {label: openingLabels[2], value: 2}
+      { label: labels.opening.categories[0], value: 0 },
+      { label: labels.opening.categories[1], value: 1 },
+      { label: labels.opening.categories[2], value: 2 }
     ]
     const cervixFirmnessRadioProps = [
-      {label: firmnessLabels[0], value: 0 },
-      {label: firmnessLabels[1], value: 1 }
+      { label: labels.firmness.categories[0], value: 0 },
+      { label: labels.firmness.categories[1], value: 1 }
     ]
     const cervixPositionRadioProps = [
-      {label: positionLabels[0], value: 0 },
-      {label: positionLabels[1], value: 1 },
-      { label: positionLabels[2], value: 2 }
+      { label: labels.position.categories[0], value: 0 },
+      { label: labels.position.categories[1], value: 1 },
+      { label: labels.position.categories[2], value: 2 }
     ]
     return (
       <View style={{ flex: 1 }}>
-        <ScrollView>
-          <View>
-            <Text style={styles.symptomDayView}>Opening</Text>
-            <View style={styles.radioButtonRow}>
-              <RadioForm
-                radio_props={cervixOpeningRadioProps}
-                initial={this.state.opening}
-                formHorizontal={true}
-                labelHorizontal={false}
-                labelStyle={styles.radioButton}
-                onPress={(itemValue) => {
-                  this.setState({ opening: itemValue })
-                }}
-              />
-            </View>
-            <Text style={styles.symptomDayView}>Firmness</Text>
-            <View style={styles.radioButtonRow}>
-              <RadioForm
-                radio_props={cervixFirmnessRadioProps}
-                initial={this.state.firmness}
-                formHorizontal={true}
-                labelHorizontal={false}
-                labelStyle={styles.radioButton}
-                onPress={(itemValue) => {
-                  this.setState({ firmness: itemValue })
-                }}
-              />
-            </View>
-            <Text style={styles.symptomDayView}>Position</Text>
-            <View style={styles.radioButtonRow}>
-              <RadioForm
-                radio_props={cervixPositionRadioProps}
-                initial={this.state.position}
-                formHorizontal={true}
-                labelHorizontal={false}
-                labelStyle={styles.radioButton}
-                onPress={(itemValue) => {
-                  this.setState({ position: itemValue })
-                }}
-              />
-            </View>
-            <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomDayView}>Exclude</Text>
-              <Switch
-                onValueChange={(val) => {
-                  this.setState({ exclude: val })
-                }}
-                value={this.state.exclude}
-              />
-            </View>
-          </View>
+        <ScrollView style={styles.page}>
+          <SymptomSection
+            header="Opening"
+            explainer={labels.opening.explainer}
+          >
+            <SelectTabGroup
+              buttons={cervixOpeningRadioProps}
+              active={this.state.opening}
+              onSelect={val => this.setState({ opening: val })}
+            />
+          </SymptomSection>
+          <SymptomSection
+            header="Firmness"
+            explainer={labels.firmness.explainer}
+          >
+            <SelectTabGroup
+              buttons={cervixFirmnessRadioProps}
+              active={this.state.firmness}
+              onSelect={val => this.setState({ firmness: val })}
+            />
+          </SymptomSection>
+          <SymptomSection
+            header="Position"
+            explainer={labels.position.explainer}
+          >
+            <SelectTabGroup
+              buttons={cervixPositionRadioProps}
+              active={this.state.position}
+              onSelect={val => this.setState({ position: val })}
+            />
+          </SymptomSection>
+          <SymptomSection
+            header="Exclude"
+            explainer="You can exclude this value if you don't want to use it for fertility detection"
+            inline={true}
+          >
+            <Switch
+              onValueChange={(val) => {
+                this.setState({ exclude: val })
+              }}
+              value={this.state.exclude}
+            />
+          </SymptomSection>
         </ScrollView>
         <ActionButtonFooter
           symptom='cervix'

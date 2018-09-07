@@ -1,19 +1,16 @@
 import React, { Component } from 'react'
 import {
   View,
-  Text,
   Switch,
   ScrollView
 } from 'react-native'
-import RadioForm from 'react-native-simple-radio-button'
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
-import {
-  mucusFeeling as feelingLabels,
-  mucusTexture as textureLabels
-} from '../labels/labels'
+import { mucus as labels } from '../labels/labels'
 import computeSensiplanValue from '../../../lib/sensiplan-mucus'
 import ActionButtonFooter from './action-button-footer'
+import SelectTabGroup from '../select-tab-group'
+import SymptomSection from './symptom-section'
 
 
 export default class Mucus extends Component {
@@ -36,66 +33,63 @@ export default class Mucus extends Component {
   }
 
   render() {
-    const mucusFeelingRadioProps = [
-      { label: feelingLabels[0], value: 0 },
-      { label: feelingLabels[1], value: 1 },
-      { label: feelingLabels[2], value: 2 },
-      { label: feelingLabels[3], value: 3 }
+    const mucusFeeling = [
+      { label: labels.feeling.categories[0], value: 0 },
+      { label: labels.feeling.categories[1], value: 1 },
+      { label: labels.feeling.categories[2], value: 2 },
+      { label: labels.feeling.categories[3], value: 3 }
     ]
-    const mucusTextureRadioProps = [
-      { label: textureLabels[0], value: 0 },
-      { label: textureLabels[1], value: 1 },
-      { label: textureLabels[2], value: 2 }
+    const mucusTexture = [
+      { label: labels.texture.categories[0], value: 0 },
+      { label: labels.texture.categories[1], value: 1 },
+      { label: labels.texture.categories[2], value: 2 }
     ]
     return (
       <View style={{ flex: 1 }}>
-        <ScrollView>
-          <View>
-            <Text style={styles.symptomDayView}>Feeling</Text>
-            <View style={styles.radioButtonRow}>
-              <RadioForm
-                radio_props={mucusFeelingRadioProps}
-                initial={this.state.feeling}
-                formHorizontal={true}
-                labelHorizontal={false}
-                labelStyle={styles.radioButton}
-                onPress={(itemValue) => {
-                  this.setState({ feeling: itemValue })
-                }}
-              />
-            </View>
-            <Text style={styles.symptomDayView}>Texture</Text>
-            <View style={styles.radioButtonRow}>
-              <RadioForm
-                radio_props={mucusTextureRadioProps}
-                initial={this.state.texture}
-                formHorizontal={true}
-                labelHorizontal={false}
-                labelStyle={styles.radioButton}
-                onPress={(itemValue) => {
-                  this.setState({ texture: itemValue })
-                }}
-              />
-            </View>
-            <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomDayView}>Exclude</Text>
-              <Switch
-                onValueChange={(val) => {
-                  this.setState({ exclude: val })
-                }}
-                value={this.state.exclude}
-              />
-            </View>
-          </View>
+        <ScrollView style={styles.page}>
+          <SymptomSection
+            header='Feeling'
+            explainer={labels.feeling.explainer}
+          >
+            <SelectTabGroup
+              buttons={mucusFeeling}
+              onSelect={val => this.setState({ feeling: val })}
+              active={this.state.feeling}
+            />
+          </SymptomSection>
+          <SymptomSection
+            header='Texture'
+            explainer={labels.texture.explainer}
+          >
+            <SelectTabGroup
+              buttons={mucusTexture}
+              onSelect={val => this.setState({ texture: val })}
+              active={this.state.texture}
+            />
+          </SymptomSection>
+          <SymptomSection
+            header="Exclude"
+            explainer={labels.excludeExplainer}
+            inline={true}
+          >
+            <Switch
+              onValueChange={(val) => {
+                this.setState({ exclude: val })
+              }}
+              value={this.state.exclude}
+            />
+          </SymptomSection>
         </ScrollView>
         <ActionButtonFooter
           symptom='mucus'
           cycleDay={this.cycleDay}
           saveAction={() => {
+            const feeling = this.state.feeling
+            const texture = this.state.texture
             saveSymptom('mucus', this.cycleDay, {
-              feeling: this.state.feeling,
-              texture: this.state.texture,
-              value: computeSensiplanValue(this.state.feeling, this.state.texture),
+              feeling,
+              texture,
+              value: computeSensiplanValue(feeling, texture),
               exclude: this.state.exclude
             })
           }}

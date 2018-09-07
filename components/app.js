@@ -29,6 +29,10 @@ export default class App extends Component {
   }
 
   navigate = (pageName, props) => {
+    const curr = this.state.currentPage
+    if (navigatingToCycleDayFromMainMenuEntry(pageName, curr)) {
+      this.cycleDayOrigin = curr
+    }
     this.setState({currentPage: pageName, currentProps: props})
   }
 
@@ -36,6 +40,9 @@ export default class App extends Component {
     if (this.state.currentPage === 'Home') return false
     if (isSymptomView(this.state.currentPage)) {
       this.navigate('CycleDay', { cycleDay: this.state.currentProps.cycleDay })
+    } else if(this.state.currentPage === 'CycleDay') {
+      this.navigate(this.cycleDayOrigin || 'Home')
+      this.cycleDayOrigin = null
     } else {
       this.navigate('Home')
     }
@@ -62,4 +69,8 @@ export default class App extends Component {
       </View>
     )
   }
+}
+
+function navigatingToCycleDayFromMainMenuEntry(target, curr) {
+  return target === 'CycleDay' && ['Home', 'Calendar', 'Chart'].indexOf(curr) > -1
 }

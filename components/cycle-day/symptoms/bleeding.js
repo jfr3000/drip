@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import {
   View,
-  Text,
   Switch,
   ScrollView
 } from 'react-native'
-import RadioForm from 'react-native-simple-radio-button'
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
 import { bleeding as labels } from '../labels/labels'
 import ActionButtonFooter from './action-button-footer'
+import SelectTabGroup from '../select-tab-group'
+import SymptomSection from './symptom-section'
 
 export default class Bleeding extends Component {
   constructor(props) {
@@ -35,30 +35,29 @@ export default class Bleeding extends Component {
     ]
     return (
       <View style={{ flex: 1 }}>
-        <ScrollView>
-          <View>
-            <View style={styles.radioButtonRow}>
-              <RadioForm
-                radio_props={bleedingRadioProps}
-                initial={this.state.currentValue}
-                formHorizontal={true}
-                labelHorizontal={false}
-                labelStyle={styles.radioButton}
-                onPress={(itemValue) => {
-                  this.setState({ currentValue: itemValue })
-                }}
-              />
-            </View>
-            <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomDayView}>Exclude</Text>
-              <Switch
-                onValueChange={(val) => {
-                  this.setState({ exclude: val })
-                }}
-                value={this.state.exclude}
-              />
-            </View>
-          </View>
+        <ScrollView style={styles.page}>
+          <SymptomSection
+            header="Heaviness"
+            explainer="How heavy is the bleeding?"
+          >
+            <SelectTabGroup
+              buttons={bleedingRadioProps}
+              active={this.state.currentValue}
+              onSelect={val => this.setState({ currentValue: val })}
+            />
+          </SymptomSection>
+          <SymptomSection
+            header="Exclude"
+            explainer="You can exclude this value if it's not menstrual bleeding"
+            inline={true}
+          >
+            <Switch
+              onValueChange={(val) => {
+                this.setState({ exclude: val })
+              }}
+              value={this.state.exclude}
+            />
+          </SymptomSection>
         </ScrollView>
         <ActionButtonFooter
           symptom='bleeding'

@@ -5,6 +5,9 @@ export const secondaryColor = '#351c4d'
 export const fontOnPrimaryColor = 'white'
 
 export default StyleSheet.create({
+  appText: {
+    color: 'black'
+  },
   welcome: {
     fontSize: 20,
     margin: 30,
@@ -23,19 +26,14 @@ export default StyleSheet.create({
     textAlign: 'center',
     marginLeft: 15
   },
-  symptomDayView: {
+  symptomViewHeading: {
     fontSize: 20,
-    textAlignVertical: 'center'
+    color: 'black',
+    marginBottom: 5
   },
   symptomBoxImage: {
     width: 50,
     height: 50
-  },
-  radioButton: {
-    fontSize: 18,
-    margin: 8,
-    textAlign: 'center',
-    textAlignVertical: 'center'
   },
   symptomBoxesView: {
     flexDirection: 'row',
@@ -82,17 +80,6 @@ export default StyleSheet.create({
   },
   symptomDataText: {
     fontSize: 12
-  },
-  symptomEditRow: {
-    justifyContent: 'space-between',
-    marginBottom: 10,
-  },
-  symptomViewRowInline: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 10,
-    alignItems: 'center',
-    height: 50
   },
   header: {
     backgroundColor: primaryColor,
@@ -150,11 +137,6 @@ export default StyleSheet.create({
   symptomEditButton: {
     width: 130
   },
-  radioButtonRow: {
-    marginTop: 15,
-    marginLeft: 'auto',
-    marginRight: 'auto'
-  },
   statsIntro: {
     fontSize: 18,
     margin: 10,
@@ -198,6 +180,57 @@ export default StyleSheet.create({
     fontSize: 15,
     color: fontOnPrimaryColor
   },
+  selectBox: {
+    backgroundColor: 'lightgrey',
+    marginRight: 7,
+    marginVertical: 5,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 10
+  },
+  selectBoxActive: {
+    backgroundColor: secondaryColor,
+    color: fontOnPrimaryColor
+  },
+  selectBoxTextActive: {
+    color: fontOnPrimaryColor
+  },
+  selectBoxSection: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginVertical: 10,
+  },
+  selectTabGroup: {
+    marginVertical: 10,
+    flexDirection: 'row'
+  },
+  selectTab: {
+    backgroundColor: 'lightgrey',
+    borderStyle: 'solid',
+    borderLeftWidth: 1,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderColor: 'white',
+    marginBottom: 3,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  selectTabActive: {
+    backgroundColor: secondaryColor,
+    color: fontOnPrimaryColor
+  },
+  selectTabLast: {
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
+  },
+  selectTabFirst: {
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+    borderLeftWidth: null
+  },
+  page: {
+    marginHorizontal: 10
+  }
 })
 
 export const iconStyles = {
@@ -217,5 +250,5 @@ export const iconStyles = {
   },
   menuIconInactive: {
     color: 'lightgrey'
-  }
+  },
 }

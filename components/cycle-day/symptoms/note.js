@@ -8,6 +8,8 @@ import {
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
 import ActionButtonFooter from './action-button-footer'
+import SymptomSection from './symptom-section'
+import { noteExplainer } from '../labels/labels'
 
 export default class Note extends Component {
   constructor(props) {
@@ -24,8 +26,10 @@ export default class Note extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <ScrollView>
-          <View style={styles.symptomViewRow}>
+        <ScrollView style={styles.page}>
+          <SymptomSection
+            explainer={noteExplainer}
+          >
             <TextInput
               autoFocus={!this.state.currentValue}
               multiline={true}
@@ -35,7 +39,7 @@ export default class Note extends Component {
               }}
               value={this.state.currentValue}
             />
-          </View>
+          </SymptomSection>
         </ScrollView>
         <ActionButtonFooter
           symptom='note'

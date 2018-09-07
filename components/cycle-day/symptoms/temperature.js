@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {
   View,
-  Text,
   TextInput,
   Switch,
   Keyboard,
@@ -13,11 +12,12 @@ import DateTimePicker from 'react-native-modal-datetime-picker-nevo'
 import { getPreviousTemperature, saveSymptom } from '../../../db'
 import styles from '../../../styles'
 import { LocalTime, ChronoUnit } from 'js-joda'
-import { temperature as tempLabels } from '../labels/labels'
+import { temperature as labels } from '../labels/labels'
 import { scaleObservable } from '../../../local-storage'
 import { shared } from '../../labels'
 import ActionButtonFooter from './action-button-footer'
 import config from '../../../config'
+import SymptomSection from './symptom-section'
 
 const minutes = ChronoUnit.MINUTES
 
@@ -72,9 +72,9 @@ export default class Temp extends Component {
     const scale = scaleObservable.value
     let warningMsg
     if (value < absolute.min || value > absolute.max) {
-      warningMsg = tempLabels.outOfAbsoluteRangeWarning
+      warningMsg = labels.outOfAbsoluteRangeWarning
     } else if (value < scale.min || value > scale.max) {
-      warningMsg = tempLabels.outOfRangeWarning
+      warningMsg = labels.outOfRangeWarning
     }
 
     if (warningMsg) {
@@ -96,18 +96,23 @@ export default class Temp extends Component {
   render() {
     return (
       <View style={{ flex: 1 }}>
-        <ScrollView>
+        <ScrollView style={styles.page}>
           <View>
-            <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomDayView}>Temperature (°C)</Text>
+            <SymptomSection
+              header="Temperature (°C)"
+              explainer={labels.temperature.explainer}
+              inline={true}
+            >
               <TempInput
                 value={this.state.temperature}
                 setState={(val) => this.setState(val)}
                 isSuggestion={this.state.isSuggestion}
               />
-            </View>
-            <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomDayView}>Time</Text>
+            </SymptomSection>
+            <SymptomSection
+              header="Time"
+              inline={true}
+            >
               <TextInput
                 style={styles.temperatureTextInput}
                 onFocus={() => {
@@ -116,42 +121,44 @@ export default class Temp extends Component {
                 }}
                 value={this.state.time}
               />
-            </View>
-            <DateTimePicker
-              mode="time"
-              isVisible={this.state.isTimePickerVisible}
-              onConfirm={jsDate => {
-                this.setState({
-                  time: `${jsDate.getHours()}:${jsDate.getMinutes()}`,
-                  isTimePickerVisible: false
-                })
-              }}
-              onCancel={() => this.setState({ isTimePickerVisible: false })}
-            />
-            <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomDayView}>Note</Text>
-            </View>
-            <View>
+              <DateTimePicker
+                mode="time"
+                isVisible={this.state.isTimePickerVisible}
+                onConfirm={jsDate => {
+                  this.setState({
+                    time: `${jsDate.getHours()}:${jsDate.getMinutes()}`,
+                    isTimePickerVisible: false
+                  })
+                }}
+                onCancel={() => this.setState({ isTimePickerVisible: false })}
+              />
+            </SymptomSection>
+            <SymptomSection
+              header="Note"
+              explainer={labels.note.explainer}
+            >
               <TextInput
-                style={styles.temperatureTextInput}
                 multiline={true}
                 autoFocus={this.state.focusTextArea}
-                placeholder="enter"
+                placeholder="Enter"
                 value={this.state.note}
                 onChangeText={(val) => {
                   this.setState({ note: val })
                 }}
               />
-            </View>
-            <View style={styles.symptomViewRowInline}>
-              <Text style={styles.symptomDayView}>Exclude</Text>
+            </SymptomSection>
+            <SymptomSection
+              header="Exclude"
+              explainer={labels.excludeExplainer}
+              inline={true}
+            >
               <Switch
                 onValueChange={(val) => {
                   this.setState({ exclude: val })
                 }}
                 value={this.state.exclude}
               />
-            </View>
+            </SymptomSection>
           </View>
         </ScrollView>
         <ActionButtonFooter
