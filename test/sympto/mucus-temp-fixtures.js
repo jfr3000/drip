@@ -1,9 +1,17 @@
-
 function convertToSymptoFormat(val) {
   const sympto = { date: val.date }
-  if (val.temperature) sympto.temperature = { value: val.temperature }
-  if (val.mucus) sympto.mucus = { value: val.mucus }
-  if (val.bleeding) sympto.bleeding = { value: val.bleeding }
+  if (val.temperature) sympto.temperature = {
+    value: val.temperature,
+    exclude: false
+  }
+  if (val.mucus) sympto.mucus = {
+    value: val.mucus,
+    exclude: false
+  }
+  if (val.bleeding) sympto.bleeding = {
+    value: val.bleeding,
+    exclude: false
+  }
   return sympto
 }
 

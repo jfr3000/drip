@@ -22,11 +22,10 @@ import {
 
 const expect = chai.expect
 
-describe('sympto', () => {
+describe.only('sympto', () => {
   describe('combining temperature and mucus tracking', () => {
     describe('with no previous higher temp measurement', () => {
-
-      it('with no shifts detects only peri-ovulatory', function () {
+      it('with no shifts detects only peri-ovulatory', () => {
         const status = getSensiplanStatus({
           cycle: cycleWithoutAnyShifts,
           previousCycle: cycleWithoutFhm
@@ -36,7 +35,6 @@ describe('sympto', () => {
           cycleDays: cycleWithoutAnyShifts
         })
       })
-
       it('with temp and mucus shifts detects only peri-ovulatory and post-ovulatory', () => {
         const status = getSensiplanStatus({
           cycle: longAndComplicatedCycle,
@@ -62,15 +60,13 @@ describe('sympto', () => {
 
       })
     })
-
     describe('with previous higher measurement', () => {
-      describe('with no shifts detects pre-ovulatory phase', function () {
-        it('according to 5-day-rule', function () {
+      describe('with no shifts detects pre-ovulatory phase', () => {
+        it('according to 5-day-rule', () => {
           const status = getSensiplanStatus({
             cycle: fiveDayCycle,
             previousCycle: cycleWithFhm
           })
-
           expect(Object.keys(status.phases).length).to.eql(1)
           expect(status.phases.preOvulatory).to.eql({
             cycleDays: fiveDayCycle,
@@ -80,14 +76,12 @@ describe('sympto', () => {
         })
       })
       describe('with no shifts detects pre- and peri-ovulatory phase', () => {
-        it('according to 5-day-rule', function () {
+        it('according to 5-day-rule', () => {
           const status = getSensiplanStatus({
             cycle: cycleWithTempAndNoMucusShift,
             previousCycle: cycleWithFhm
           })
-
           expect(Object.keys(status.phases).length).to.eql(2)
-
           expect(status.phases.preOvulatory).to.eql({
             cycleDays: cycleWithTempAndNoMucusShift
               .filter(({date}) => date <= '2018-06-05'),
@@ -100,14 +94,12 @@ describe('sympto', () => {
             start: { date: '2018-06-06' }
           })
         })
-        it('according to 5-day-rule with shortened pre-phase', function () {
+        it('according to 5-day-rule with shortened pre-phase', () => {
           const status = getSensiplanStatus({
             cycle: cycleWithEarlyMucus,
             previousCycle: cycleWithFhm
           })
-
           expect(Object.keys(status.phases).length).to.eql(2)
-
           expect(status.phases.preOvulatory).to.eql({
             cycleDays: [cycleWithEarlyMucus[0]],
             start: { date: '2018-06-01' },
@@ -119,15 +111,13 @@ describe('sympto', () => {
           })
         })
       })
-      describe('with shifts detects pre- and peri-ovulatory phase', function () {
-        it('according to 5-day-rule', function () {
+      describe('with shifts detects pre- and peri-ovulatory phase', () => {
+        it('according to 5-day-rule', () => {
           const status = getSensiplanStatus({
             cycle: longAndComplicatedCycle,
             previousCycle: cycleWithFhm
           })
-
           expect(Object.keys(status.phases).length).to.eql(3)
-
           expect(status.phases.preOvulatory).to.eql({
             cycleDays: longAndComplicatedCycle
               .filter(({date}) => date <= '2018-06-05'),
@@ -146,10 +136,8 @@ describe('sympto', () => {
             start: { date: '2018-06-21', time: '18:00'}
           })
         })
-
       })
     })
-
     describe('combining first higher measurment and mucus peak', () => {
       it('with fhM + mucus peak on same day finds start of postovu phase', () => {
         const status = getSensiplanStatus({
@@ -184,7 +172,6 @@ describe('sympto', () => {
             .filter(({date}) => date >= '2018-06-21')
         })
       })
-
       it('with fhM 2 days before mucus peak waits for end of mucus eval', () => {
         const status = getSensiplanStatus({
           cycle: fhmTwoDaysBeforeMucusPeak,
@@ -218,7 +205,6 @@ describe('sympto', () => {
             .filter(({date}) => date >= '2018-06-26')
         })
       })
-
       it('another example for mucus peak before temp shift', () => {
         const status = getSensiplanStatus({
           cycle: mucusPeakSlightlyBeforeTempShift,
@@ -252,16 +238,13 @@ describe('sympto', () => {
             .filter(({date}) => date >= '2018-06-17')
         })
       })
-
       it('with another mucus peak 5 days after fHM ignores it', () => {
         const status = getSensiplanStatus({
           cycle: mucusPeak5DaysAfterFhm,
           previousCycle: cycleWithFhm
         })
-
         expect(status.temperatureShift).to.be.an('object')
         expect(status.mucusShift).to.be.an('object')
-
         expect(Object.keys(status.phases).length).to.eql(3)
         expect(status.phases.preOvulatory).to.eql({
           start: { date: '2018-06-01' },
@@ -286,13 +269,11 @@ describe('sympto', () => {
             .filter(({date}) => date >= '2018-06-22')
         })
       })
-
       it('with mucus peak 2 days before fhM waits for end of temp eval', () => {
         const status = getSensiplanStatus({
           cycle:  mucusPeakTwoDaysBeforeFhm,
           previousCycle: cycleWithFhm
         })
-
         expect(status.temperatureShift).to.be.an('object')
         expect(status.mucusShift).to.be.an('object')
 
@@ -320,7 +301,6 @@ describe('sympto', () => {
             .filter(({date}) => date >= '2018-07-03')
         })
       })
-
       it('with mucus peak 5 days before fhM waits for end of temp eval', () => {
         const status = getSensiplanStatus({
           cycle:  fhm5DaysAfterMucusPeak,
@@ -355,7 +335,6 @@ describe('sympto', () => {
         })
       })
     })
-
     describe('applying the minus-8 rule', () => {
       it('shortens the pre-ovu phase if there is a previous <13 fhm', () => {
         const status = getSensiplanStatus({
@@ -448,7 +427,6 @@ describe('sympto', () => {
             })
         })
       })
-
       it('shortens the pre-ovu phase if mucus occurs even on the first day', () => {
         const status = getSensiplanStatus({
           cycle: cycleWithMucusOnFirstDay,
@@ -464,7 +442,6 @@ describe('sympto', () => {
           cycleDays: cycleWithMucusOnFirstDay
         })
       })
-
       it('lengthens the pre-ovu phase if >= 12 cycles with fhm > 13', () => {
         const status = getSensiplanStatus({
           cycle: longAndComplicatedCycle,
@@ -497,7 +474,6 @@ describe('sympto', () => {
             .filter(({date}) => date >= '2018-06-21')
         })
       })
-
       it('does not lengthen the pre-ovu phase if < 12 cycles', () => {
         const status = getSensiplanStatus({
           cycle: longAndComplicatedCycle,
@@ -530,7 +506,6 @@ describe('sympto', () => {
             .filter(({date}) => date >= '2018-06-21')
         })
       })
-
       it('does not detect any pre-ovu phase if prev cycle had no fhm', () => {
         const status = getSensiplanStatus({
           cycle: longAndComplicatedCycle,
@@ -558,7 +533,6 @@ describe('sympto', () => {
         })
       })
     })
-
     describe('when args are wrong', () => {
       it('throws when arg object is not in right format', () => {
         const wrongObject = { hello: 'world' }
