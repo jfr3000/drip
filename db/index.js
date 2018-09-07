@@ -1,5 +1,7 @@
 import Realm from 'realm'
 import { LocalDate, ChronoUnit } from 'js-joda'
+import fs from 'react-native-fs'
+import restart from 'react-native-restart'
 import {
   cycleWithFhmMucus,
   longAndComplicatedCycleWithMucus,
@@ -154,7 +156,7 @@ const realmConfig = {
   deleteRealmIfMigrationNeeded: true
 }
 
-const db = new Realm(realmConfig)
+let db = new Realm(realmConfig)
 
 const bleedingDaysSortedByDate = db.objects('CycleDay').filtered('bleeding != null').sorted('date', true)
 const temperatureDaysSortedByDate = db.objects('CycleDay').filtered('temperature != null').sorted('date', true)
@@ -289,6 +291,20 @@ function tryToImportWithoutDelete(cycleDays) {
   })
 }
 
+async function encrypt() {
+  const oldPath = db.path
+  const dir = db.path.split('/')
+  dir.pop()
+  dir.push('copied.realm')
+  const copyPath = dir.join('/')
+  db.writeCopyTo(copyPath)
+  db.close()
+  await fs.unlink(oldPath)
+  await fs.moveFile(copyPath, oldPath)
+  db = new Realm(realmConfig)
+  restart.Restart()
+}
+
 export {
   saveSymptom,
   getOrCreateCycleDay,
@@ -303,5 +319,6 @@ export {
   getAmountOfCycleDays,
   schema,
   tryToImportWithDelete,
-  tryToImportWithoutDelete
+  tryToImportWithoutDelete,
+  encrypt
 }

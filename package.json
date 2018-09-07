@@ -32,6 +32,7 @@
     "react-native-fs": "^2.10.14",
     "react-native-modal-datetime-picker-nevo": "^4.11.0",
     "react-native-push-notification": "^3.1.1",
+    "react-native-restart": "0.0.7",
     "react-native-share": "^1.1.0",
     "react-native-vector-icons": "^5.0.0",
     "realm": "^2.7.1"

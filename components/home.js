@@ -8,7 +8,7 @@ import {
 import { LocalDate, ChronoUnit } from 'js-joda'
 import styles from '../styles/index'
 import cycleModule from '../lib/cycle'
-import { getOrCreateCycleDay, bleedingDaysSortedByDate, fillWithMucusDummyData, fillWithCervixDummyData, deleteAll } from '../db'
+import { encrypt, getOrCreateCycleDay, bleedingDaysSortedByDate, fillWithMucusDummyData, fillWithCervixDummyData, deleteAll } from '../db'
 import {bleedingPrediction as labels} from './labels'
 
 const getCycleDayNumber = cycleModule().getCycleDayNumber
@@ -76,6 +76,15 @@ export default class Home extends Component {
             <Button
               onPress={() => deleteAll()}
               title="delete everything">
+            </Button>
+          </View>
+          <View style={styles.homeButton}>
+            <Button
+              onPress={() => {
+                console.log('pressed')
+                encrypt()
+              }}
+              title="encrypt, yo">
             </Button>
           </View>
         </View>
