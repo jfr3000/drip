@@ -1,8 +1,8 @@
 const config = {
   columnWidth: 25,
-  columnHeightPercentage: 0.84,
+  columnHeightPercentage: 0.62,
   xAxisHeightPercentage: 0.08,
-  symptomRowHeightPercentage: 0.08,
+  symptomRowHeightPercentage: 0.30,
   temperatureScale: {
     defaultLow: 35,
     defaultHigh: 38,

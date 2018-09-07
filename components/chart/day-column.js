@@ -27,8 +27,7 @@ export default class DayColumn extends Component {
       dateString,
       y,
       temperatureExclude,
-      bleeding,
-      mucus,
+      symptoms,
       drawFhmLine,
       drawLtlAt,
       rightY,
@@ -108,24 +107,73 @@ export default class DayColumn extends Component {
 
     return (
       <View>
-        <View style={[styles.symptomRow, {height: symptomHeight}]}>
-          {typeof mucus === 'number' &&
-            <View
-              {...styles.mucusIcon}
-              backgroundColor={styles.mucusIconShades[mucus]}
-              key='mucus'
-            />
-          }
-          {typeof bleeding === 'number' &&
-            <Icon
-              name='drop'
-              size={18}
-              color={styles.bleedingIconShades[bleeding]}
-              key='bleeding'
-            />
-          }
+        <View height={symptomHeight}>
+          <View style={styles.symptomRow}>
+            {typeof symptoms.bleeding === 'number' &&
+              <Icon
+                name='drop'
+                size={12}
+                color={styles.bleedingIconShades[symptoms.bleeding]}
+                key='bleeding'
+              />
+            }
+          </View>
+          <View style={styles.symptomRow}>
+            {typeof symptoms.mucus === 'number' &&
+              <View
+                {...styles.mucusIcon}
+                backgroundColor={styles.mucusIconShades[symptoms.mucus]}
+                key='mucus'
+              />
+            }
+          </View>
+          <View style={styles.symptomRow}>
+            {typeof symptoms.cervix === 'number' &&
+              <View
+                {...styles.mucusIcon}
+                // cervix is sum of openess and firmness - fertile only when closed and hard (=0)
+                backgroundColor={symptoms.cervix > 0 ? 'blue' : 'green'}
+                key='cervix'
+              />
+            }
+          </View>
+          <View style={styles.symptomRow}>
+            {typeof symptoms.sex === 'number' &&
+              <View
+                {...styles.mucusIcon}
+                backgroundColor={styles.mucusIconShades[symptoms.mucus]}
+                key='sex'
+              />
+            }
+          </View>
+          <View style={styles.symptomRow}>
+            {typeof symptoms.desire === 'number' &&
+              <View
+                {...styles.mucusIcon}
+                backgroundColor='red'
+                key='desire'
+              />
+            }
+          </View>
+          <View style={styles.symptomRow}>
+            {symptoms.pain &&
+              <View
+                {...styles.mucusIcon}
+                backgroundColor='blue'
+                key='pain'
+              />
+            }
+          </View>
+          <View style={styles.symptomRow}>
+            {symptoms.note &&
+              <View
+                {...styles.mucusIcon}
+                backgroundColor='green'
+                key='note'
+              />
+            }
+          </View>
         </View>
-
         {column}
 
         <View style={{height: xAxisHeight}}>

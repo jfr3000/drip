@@ -46,8 +46,7 @@ const styles = {
     rect: {
       width: config.columnWidth,
       borderStyle: 'solid',
-      borderLeftWidth: 0.5,
-      borderRightWidth: 0.5,
+      borderRightWidth: 0.25,
     }
   },
   bleedingIcon: {
@@ -85,7 +84,7 @@ const styles = {
   horizontalGrid: {
     position:'absolute',
     borderColor: 'lightgrey',
-    borderWidth: 0.5,
+    borderTopWidth: 0.25,
     width: '100%',
     borderStyle: 'solid',
     left: config.columnWidth
@@ -97,7 +96,9 @@ const styles = {
   },
   symptomRow: {
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    width: '100%',
+    flex: 1
   }
 }
 
