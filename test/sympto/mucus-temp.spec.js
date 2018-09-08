@@ -22,7 +22,7 @@ import {
 
 const expect = chai.expect
 
-describe.only('sympto', () => {
+describe('sympto', () => {
   describe('combining temperature and mucus tracking', () => {
     describe('with no previous higher temp measurement', () => {
       it('with no shifts detects only peri-ovulatory', () => {
