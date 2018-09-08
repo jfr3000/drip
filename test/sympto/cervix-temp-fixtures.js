@@ -15,7 +15,7 @@ function convertToSymptoFormat(val) {
   return sympto
 }
 
-export const idealCycle = [
+export const cervixShiftAndFhmOnSameDay = [
   { date: '2018-08-01', bleeding: 1, cervix: { opening: 1, firmness: 1 } },
   { date: '2018-08-02', bleeding: 2, cervix: { opening: 1, firmness: 1 } },
   { date: '2018-08-03', temperature: 36.6, bleeding: 2, cervix: { opening: 2, firmness: 1 } },
@@ -189,7 +189,7 @@ export const cervixShift2DaysAfterTempShift = [
   { date: '2018-04-24', temperature: 36.75, cervix: { opening: 0, firmness: 0 } }
 ].map(convertToSymptoFormat)
 
-export const noInfertilePhaseDetected = [
+export const noOvulationDetected = [
   { date: '2018-03-08', bleeding: 3 },
   { date: '2018-03-09', bleeding: 3 },
   { date: '2018-03-10', bleeding: 3 },

@@ -1,14 +1,14 @@
 import chai from 'chai'
 import getSensiplanStatus from '../../lib/sympto'
 import {
-  idealCycle,
+  cervixShiftAndFhmOnSameDay,
   cycleWithFhmNoCervixShift,
   cycleWithoutFhm,
   cycleWithoutAnyShifts,
   tempAndCervixEvalEndOnSameDay,
   tempShift3DaysAfterCervixShift,
   cervixShift2DaysAfterTempShift,
-  noInfertilePhaseDetected,
+  noOvulationDetected,
   fiveDayCycle
 } from './cervix-temp-fixtures'
 
@@ -51,7 +51,7 @@ describe('sympto', () => {
       })
       it('with temp and cervix shifts detects only peri- and post-ovulatory phases', () => {
         const status = getSensiplanStatus({
-          cycle: idealCycle,
+          cycle: cervixShiftAndFhmOnSameDay,
           previousCycle: cycleWithoutFhm,
           secondarySymptom: 'cervix'
         })
@@ -62,12 +62,12 @@ describe('sympto', () => {
         expect(status.phases.periOvulatory).to.eql({
           start: { date: '2018-08-01' },
           end: { date: '2018-08-15', time: '18:00' },
-          cycleDays: idealCycle
+          cycleDays: cervixShiftAndFhmOnSameDay
             .filter(({date}) => date <= '2018-08-15')
         })
         expect(status.phases.postOvulatory).to.eql({
           start: { date: '2018-08-15', time: '18:00' },
-          cycleDays: idealCycle
+          cycleDays: cervixShiftAndFhmOnSameDay
             .filter(({date}) => date >= '2018-08-15')
         })
       })
@@ -76,7 +76,7 @@ describe('sympto', () => {
       it('with no shifts detects only peri-ovulatory in 3-day long cycle according to 5-day rule', () => {
         const status = getSensiplanStatus({
           cycle: fiveDayCycle,
-          previousCycle: idealCycle,
+          previousCycle: cervixShiftAndFhmOnSameDay,
           secondarySymptom: 'cervix'
         })
         expect(Object.keys(status.phases).length).to.eql(1)
@@ -89,7 +89,7 @@ describe('sympto', () => {
       it('with no shifts detects pre- and peri-ovulatory phase according to 5-day-rule', () => {
         const status = getSensiplanStatus({
           cycle: cycleWithoutAnyShifts,
-          previousCycle: idealCycle,
+          previousCycle: cervixShiftAndFhmOnSameDay,
           secondarySymptom: 'cervix'
         })
 
@@ -109,7 +109,7 @@ describe('sympto', () => {
       it('with evaluation of temperature and cervix end on same day', () => {
         const status = getSensiplanStatus({
           cycle: tempAndCervixEvalEndOnSameDay,
-          previousCycle: idealCycle,
+          previousCycle: cervixShiftAndFhmOnSameDay,
           secondarySymptom: 'cervix'
         })
         expect(Object.keys(status.phases).length).to.eql(3)
@@ -139,7 +139,7 @@ describe('sympto', () => {
       it('when temperature shift happens 3 days after cervix shift', () => {
         const status = getSensiplanStatus({
           cycle: tempShift3DaysAfterCervixShift,
-          previousCycle: idealCycle,
+          previousCycle: cervixShiftAndFhmOnSameDay,
           secondarySymptom: 'cervix'
         })
         expect(Object.keys(status.phases).length).to.eql(3)
@@ -171,7 +171,7 @@ describe('sympto', () => {
       it('when cervix shift happens 2 days after temperature shift', () => {
         const status = getSensiplanStatus({
           cycle: cervixShift2DaysAfterTempShift,
-          previousCycle: idealCycle,
+          previousCycle: cervixShiftAndFhmOnSameDay,
           secondarySymptom: 'cervix'
         })
         expect(Object.keys(status.phases).length).to.eql(3)
@@ -201,19 +201,19 @@ describe('sympto', () => {
       })
       it('when no infertile phase can be detected', () => {
         const status = getSensiplanStatus({
-          cycle: noInfertilePhaseDetected,
-          previousCycle: idealCycle,
+          cycle: noOvulationDetected,
+          previousCycle: cervixShiftAndFhmOnSameDay,
           secondarySymptom: 'cervix'
         })
         expect(Object.keys(status.phases).length).to.eql(2)
         expect(status.phases.preOvulatory).to.eql({
-          cycleDays: noInfertilePhaseDetected
+          cycleDays: noOvulationDetected
             .filter(({date}) => date <= '2018-03-12'),
           start: { date: '2018-03-08' },
           end: { date: '2018-03-12' }
         })
         expect(status.phases.periOvulatory).to.eql({
-          cycleDays: noInfertilePhaseDetected
+          cycleDays: noOvulationDetected
             .filter(({date}) => date > '2018-03-12'),
           start: { date: '2018-03-13' }
         })
