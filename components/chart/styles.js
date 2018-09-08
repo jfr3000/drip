@@ -61,11 +61,6 @@ const styles = {
     '#a64ca6',
     '#993299'
   ],
-  cervixIcon: {
-    width: 12,
-    height: 12,
-    borderRadius: 50
-  },
   yAxis: {
     width: config.columnWidth,
     borderRightWidth: 0.5,
