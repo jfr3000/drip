@@ -1,5 +1,6 @@
 import Realm from 'realm'
 import { LocalDate, ChronoUnit } from 'js-joda'
+import nodejs from 'nodejs-mobile-react-native'
 import fs from 'react-native-fs'
 import restart from 'react-native-restart'
 import {
@@ -291,7 +292,14 @@ function tryToImportWithoutDelete(cycleDays) {
   })
 }
 
-async function encrypt() {
+function requestHash() {
+  nodejs.channel.send(JSON.stringify({
+    type: 'request-hash',
+    message: 'mypassword'
+  }))
+}
+
+async function encrypt(hash) {
   const oldPath = db.path
   const dir = db.path.split('/')
   dir.pop()
@@ -300,7 +308,12 @@ async function encrypt() {
   db.writeCopyTo(copyPath)
   db.close()
   await fs.unlink(oldPath)
-  await fs.moveFile(copyPath, oldPath)
+  const key = new Array(64).map((_, i) => {
+    let code = hash.charCodeAt(i)
+    if (isNaN(code)) code = 0
+    return code
+  })
+  realmConfig.enryptionKey = key
   db = new Realm(realmConfig)
   restart.Restart()
 }
@@ -320,5 +333,6 @@ export {
   schema,
   tryToImportWithDelete,
   tryToImportWithoutDelete,
+  requestHash,
   encrypt
 }

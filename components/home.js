@@ -8,7 +8,7 @@ import {
 import { LocalDate, ChronoUnit } from 'js-joda'
 import styles from '../styles/index'
 import cycleModule from '../lib/cycle'
-import { encrypt, getOrCreateCycleDay, bleedingDaysSortedByDate, fillWithMucusDummyData, fillWithCervixDummyData, deleteAll } from '../db'
+import { requestHash, getOrCreateCycleDay, bleedingDaysSortedByDate, fillWithMucusDummyData, fillWithCervixDummyData, deleteAll } from '../db'
 import {bleedingPrediction as labels} from './labels'
 
 const getCycleDayNumber = cycleModule().getCycleDayNumber
@@ -81,8 +81,7 @@ export default class Home extends Component {
           <View style={styles.homeButton}>
             <Button
               onPress={() => {
-                console.log('pressed')
-                encrypt()
+                requestHash()
               }}
               title="encrypt, yo">
             </Button>
