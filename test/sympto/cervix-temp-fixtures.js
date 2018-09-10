@@ -15,7 +15,7 @@ function convertToSymptoFormat(val) {
   return sympto
 }
 
-export const idealCycle = [
+export const cervixShiftAndFhmOnSameDay = [
   { date: '2018-08-01', bleeding: 1, cervix: { opening: 1, firmness: 1 } },
   { date: '2018-08-02', bleeding: 2, cervix: { opening: 1, firmness: 1 } },
   { date: '2018-08-03', temperature: 36.6, bleeding: 2, cervix: { opening: 2, firmness: 1 } },
@@ -62,7 +62,7 @@ export const cycleWithoutFhmNoCervixShift = [
   { date: '2018-06-13', temperature: 36.9, cervix: { opening: 1, firmness: 1 } }
 ].map(convertToSymptoFormat)
 
-export const cycleWithoutAnyShifts = [
+export const longCycleWithoutAnyShifts = [
   { date: '2018-07-01', temperature: 36.65, bleeding: 1 },
   { date: '2018-07-02', temperature: 36.45 },
   { date: '2018-07-03', temperature: 36.65 },
@@ -114,34 +114,6 @@ export const longAndComplicatedCycle = [
   { date: '2018-06-27', temperature: 36.9, cervix: { opening: 0, firmness: 0 } }
 ].map(convertToSymptoFormat)
 
-export const tempAndCervixEvalEndOnSameDay = [
-  { date: '2018-06-01', bleeding: 2 },
-  { date: '2018-06-02', bleeding: 1 },
-  { date: '2018-06-03', bleeding: 1 },
-  { date: '2018-06-04', bleeding: 2 },
-  { date: '2018-06-05', bleeding: 1 },
-  { date: '2018-06-06', bleeding: 1 },
-  { date: '2018-06-07', cervix: { opening: 2, firmness: 0 } },
-  { date: '2018-06-08', temperature: 36.45, cervix: { opening: 0, firmness: 1 } },
-  { date: '2018-06-09', temperature: 36.5, cervix: { opening: 0, firmness: 0 } },
-  { date: '2018-06-10', temperature: 36.30, cervix: { opening: 0, firmness: 1 } },
-  { date: '2018-06-11', temperature: 36.30, cervix: { opening: 1, firmness: 0 } },
-  { date: '2018-06-12', temperature: 36.4, cervix: { opening: 2, firmness: 1 } },
-  { date: '2018-06-13', temperature: 36.3, cervix: { opening: 1, firmness: 1 } },
-  { date: '2018-06-14', temperature: 36.4, cervix: { opening: 1, firmness: 1 } },
-  { date: '2018-06-15', temperature: 36.8, cervix: { opening: 0, firmness: 0 } },
-  { date: '2018-06-16', temperature: 36.8, cervix: { opening: 0, firmness: 0 } },
-  { date: '2018-06-17', temperature: 36.9, cervix: { opening: 0, firmness: 0 } },
-  { date: '2018-06-18', temperature: 36.9, cervix: { opening: 0, firmness: 0 } },
-  { date: '2018-06-19', temperature: 36.95, cervix: { opening: 0, firmness: 0 } },
-  { date: '2018-06-20', temperature: 37.0, cervix: { opening: 0, firmness: 0 } },
-  { date: '2018-06-21', temperature: 37.0, cervix: { opening: 0, firmness: 0 } },
-  { date: '2018-06-22', temperature: 37.0, cervix: { opening: 0, firmness: 0 } },
-  { date: '2018-06-23', cervix: { opening: 0, firmness: 0 } },
-  { date: '2018-06-24', cervix: { opening: 0, firmness: 0 }},
-  { date: '2018-06-25', cervix: { opening: 1, firmness: 1 } }
-].map(convertToSymptoFormat)
-
 export const tempShift3DaysAfterCervixShift = [
   { date: '2018-05-08', bleeding: 3 },
   { date: '2018-05-09', bleeding: 2 },
@@ -189,7 +161,7 @@ export const cervixShift2DaysAfterTempShift = [
   { date: '2018-04-24', temperature: 36.75, cervix: { opening: 0, firmness: 0 } }
 ].map(convertToSymptoFormat)
 
-export const noInfertilePhaseDetected = [
+export const noOvulationDetected = [
   { date: '2018-03-08', bleeding: 3 },
   { date: '2018-03-09', bleeding: 3 },
   { date: '2018-03-10', bleeding: 3 },
