@@ -19,11 +19,23 @@ scaleObservable((scale) => {
   }
 })
 
+export async function saveTempScale(scale) {
+  await AsyncStorage.setItem('tempScale', JSON.stringify(scale))
+  scaleObservable.set(scale)
+}
 
 export const tempReminderObservable = Observable()
 setObvWithInitValue('tempReminder', tempReminderObservable, {
   enabled: false
 })
+
+export async function saveTempReminder(reminder) {
+  await AsyncStorage.setItem('tempReminder', JSON.stringify(reminder))
+  tempReminderObservable.set(reminder)
+}
+
+export const hasEncryptionObservable = Observable()
+setObvWithInitValue('hasEncryption', hasEncryptionObservable, false)
 
 async function setObvWithInitValue(key, obv, defaultValue) {
   const result = await AsyncStorage.getItem(key)
@@ -34,14 +46,4 @@ async function setObvWithInitValue(key, obv, defaultValue) {
     value = defaultValue
   }
   obv.set(value)
-}
-
-export async function saveTempScale(scale) {
-  await AsyncStorage.setItem('tempScale', JSON.stringify(scale))
-  scaleObservable.set(scale)
-}
-
-export async function saveTempReminder(reminder) {
-  await AsyncStorage.setItem('tempReminder', JSON.stringify(reminder))
-  tempReminderObservable.set(reminder)
 }
