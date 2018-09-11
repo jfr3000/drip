@@ -9,10 +9,13 @@ import { getOrCreateCycleDay } from '../../db'
 import cycleModule from '../../lib/cycle'
 import DotAndLine from './dot-and-line'
 
-const getCycleDayNumber = cycleModule().getCycleDayNumber
 const label = styles.column.label
 
 export default class DayColumn extends Component {
+  constructor() {
+    super()
+    this.getCycleDayNumber = cycleModule().getCycleDayNumber
+  }
   passDateToDayView(dateString) {
     const cycleDay = getOrCreateCycleDay(dateString)
     this.props.navigate('CycleDay', { cycleDay })
@@ -68,7 +71,7 @@ export default class DayColumn extends Component {
       )
     }
 
-    const cycleDayNumber = getCycleDayNumber(dateString)
+    const cycleDayNumber = this.getCycleDayNumber(dateString)
     const shortDate = dateString.split('-').slice(1).join('-')
     const cycleDayLabel = (
       <Text style = {label.number}>

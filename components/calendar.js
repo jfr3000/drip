@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import { CalendarList } from 'react-native-calendars'
 import {LocalDate} from 'js-joda'
-import { getOrCreateCycleDay, bleedingDaysSortedByDate } from '../db'
+import { getOrCreateCycleDay, getBleedingDaysSortedByDate } from '../db'
 import cycleModule from '../lib/cycle'
 import {shadesOfRed} from '../styles/index'
 import styles from '../styles/index'
 
+
 export default class CalendarView extends Component {
   constructor(props) {
+    const bleedingDaysSortedByDate = getBleedingDaysSortedByDate()
     super(props)
     const predictedMenses = cycleModule().getPredictedMenses()
     this.state = {
@@ -31,7 +33,7 @@ export default class CalendarView extends Component {
   }
 
   componentWillUnmount() {
-    bleedingDaysSortedByDate.removeListener(this.setStateWithCalFormattedDays)
+    getBleedingDaysSortedByDate().removeListener(this.setStateWithCalFormattedDays)
   }
 
   passDateToDayView = (result) => {

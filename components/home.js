@@ -8,14 +8,13 @@ import {
 import { LocalDate, ChronoUnit } from 'js-joda'
 import styles from '../styles/index'
 import cycleModule from '../lib/cycle'
-import { requestHash, getOrCreateCycleDay, bleedingDaysSortedByDate, fillWithMucusDummyData, fillWithCervixDummyData, deleteAll } from '../db'
+import { requestHash, getOrCreateCycleDay, getBleedingDaysSortedByDate, fillWithMucusDummyData, fillWithCervixDummyData, deleteAll } from '../db'
 import {bleedingPrediction as labels} from './labels'
-
-const getCycleDayNumber = cycleModule().getCycleDayNumber
 
 export default class Home extends Component {
   constructor(props) {
     super(props)
+    const getCycleDayNumber = cycleModule().getCycleDayNumber
     this.todayDateString = LocalDate.now().toString()
     const cycleDayNumber = getCycleDayNumber(this.todayDateString)
 
@@ -34,11 +33,11 @@ export default class Home extends Component {
       }
     })(this)
 
-    bleedingDaysSortedByDate.addListener(this.setStateWithCurrentText)
+    getBleedingDaysSortedByDate().addListener(this.setStateWithCurrentText)
   }
 
   componentWillUnmount() {
-    bleedingDaysSortedByDate.removeListener(this.setStateWithCurrentText)
+    getBleedingDaysSortedByDate().removeListener(this.setStateWithCurrentText)
   }
 
   passTodayToDayView() {
