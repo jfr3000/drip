@@ -11,157 +11,28 @@ import {
   longAndComplicatedCycleWithCervix,
   cycleWithTempAndNoCervixShift
 } from './fixtures'
+import { hasEncryptionObservable } from '../local-storage'
+import dbSchema from './schema'
 
-const TemperatureSchema = {
-  name: 'Temperature',
-  properties: {
-    value: 'double',
-    exclude: 'bool',
-    time: {
-      type: 'string',
-      optional: true
-    },
-    note: {
-      type: 'string',
-      optional: true
-    }
-  }
-}
-
-const BleedingSchema = {
-  name: 'Bleeding',
-  properties: {
-    value: 'int',
-    exclude: 'bool'
-  }
-}
-
-const MucusSchema = {
-  name: 'Mucus',
-  properties: {
-    feeling: 'int',
-    texture: 'int',
-    value: 'int',
-    exclude: 'bool'
-  }
-}
-
-const CervixSchema = {
-  name: 'Cervix',
-  properties: {
-    opening: 'int',
-    firmness: 'int',
-    position: {type: 'int', optional: true },
-    exclude: 'bool'
-  }
-}
-
-const NoteSchema = {
-  name: 'Note',
-  properties: {
-    value: 'string'
-  }
-}
-
-const DesireSchema = {
-  name: 'Desire',
-  properties: {
-    value: 'int'
-  }
-}
-
-const SexSchema = {
-  name: 'Sex',
-  properties: {
-    solo: { type: 'bool', optional: true },
-    partner: { type: 'bool', optional: true },
-    condom: { type: 'bool', optional: true },
-    pill: { type: 'bool', optional: true },
-    iud: { type: 'bool', optional: true },
-    patch: { type: 'bool', optional: true },
-    ring: { type: 'bool', optional: true },
-    implant: { type: 'bool', optional: true },
-    other: { type: 'bool', optional: true },
-    note: { type: 'string', optional: true }
-  }
-}
-
-const PainSchema = {
-  name: 'Pain',
-  properties: {
-    cramps: { type: 'bool', optional: true },
-    ovulationPain: { type: 'bool', optional: true },
-    headache: { type: 'bool', optional: true },
-    backache: { type: 'bool', optional: true },
-    nausea: { type: 'bool', optional: true },
-    tenderBreasts: { type: 'bool', optional: true },
-    migraine: { type: 'bool', optional: true },
-    other: { type: 'bool', optional: true },
-    note: { type: 'string', optional: true }
-  }
-}
-
-const CycleDaySchema = {
-  name: 'CycleDay',
-  primaryKey: 'date',
-  properties: {
-    date: 'string',
-    temperature: {
-      type: 'Temperature',
-      optional: true
-    },
-    bleeding: {
-      type: 'Bleeding',
-      optional: true
-    },
-    mucus: {
-      type: 'Mucus',
-      optional: true
-    },
-    cervix: {
-      type: 'Cervix',
-      optional: true
-    },
-    note: {
-      type: 'Note',
-      optional: true
-    },
-    desire: {
-      type: 'Desire',
-      optional: true
-    },
-    sex: {
-      type: 'Sex',
-      optional: true
-    },
-    pain: {
-      type: 'Pain',
-      optional: true
-    }
-  }
-}
-
+let db
 const realmConfig = {
-  schema: [
-    CycleDaySchema,
-    TemperatureSchema,
-    BleedingSchema,
-    MucusSchema,
-    CervixSchema,
-    NoteSchema,
-    DesireSchema,
-    SexSchema,
-    PainSchema
-  ],
-  // we only want this in dev mode
-  deleteRealmIfMigrationNeeded: true
+  dbSchema
 }
 
-let db = new Realm(realmConfig)
+export function openDbConnection(key) {
+  realmConfig.encyptionKey = key
+  db = new Realm(realmConfig)
+}
 
-const bleedingDaysSortedByDate = db.objects('CycleDay').filtered('bleeding != null').sorted('date', true)
-const temperatureDaysSortedByDate = db.objects('CycleDay').filtered('temperature != null').sorted('date', true)
-const cycleDaysSortedByDate = db.objects('CycleDay').sorted('date', true)
+function getBleedingDaysSortedByDate() {
+  return db.objects('CycleDay').filtered('bleeding != null').sorted('date', true)
+}
+function getTemperatureDaysSortedByDate() {
+  return db.objects('CycleDay').filtered('temperature != null').sorted('date', true)
+}
+function getCycleDaysSortedByDate() {
+  return db.objects('CycleDay').sorted('date', true)
+}
 
 function saveSymptom(symptom, cycleDay, val) {
   db.write(() => {
@@ -244,18 +115,13 @@ function deleteAll() {
 
 function getPreviousTemperature(cycleDay) {
   cycleDay.wrappedDate = LocalDate.parse(cycleDay.date)
-  const winner = temperatureDaysSortedByDate.find(day => {
+  const winner = getTemperatureDaysSortedByDate().find(day => {
     const wrappedDate = LocalDate.parse(day.date)
     return wrappedDate.isBefore(cycleDay.wrappedDate)
   })
   if (!winner) return null
   return winner.temperature.value
 }
-
-const schema = db.schema.reduce((acc, curr) => {
-  acc[curr.name] = curr.properties
-  return acc
-}, {})
 
 function tryToCreateCycleDay(day, i) {
   try {
@@ -267,12 +133,20 @@ function tryToCreateCycleDay(day, i) {
 }
 
 function getAmountOfCycleDays() {
+  const cycleDaysSortedByDate = getCycleDaysSortedByDate()
   const amountOfCycleDays = cycleDaysSortedByDate.length
   if (!amountOfCycleDays) return 0
   const earliest = cycleDaysSortedByDate[amountOfCycleDays - 1]
   const today = LocalDate.now()
   const earliestAsLocalDate = LocalDate.parse(earliest.date)
   return earliestAsLocalDate.until(today, ChronoUnit.DAYS)
+}
+
+function getSchema() {
+  return db.schema.reduce((acc, curr) => {
+    acc[curr.name] = curr.properties
+    return acc
+  }, {})
 }
 
 function tryToImportWithDelete(cycleDays) {
@@ -292,10 +166,10 @@ function tryToImportWithoutDelete(cycleDays) {
   })
 }
 
-function requestHash() {
+function requestHash(pw) {
   nodejs.channel.send(JSON.stringify({
     type: 'request-hash',
-    message: 'mypassword'
+    message: pw || 'mypassword'
   }))
 }
 
@@ -315,22 +189,23 @@ async function encrypt(hash) {
   })
   realmConfig.enryptionKey = key
   db = new Realm(realmConfig)
+  await hasEncryptionObservable.set(true)
   restart.Restart()
 }
 
 export {
   saveSymptom,
   getOrCreateCycleDay,
-  bleedingDaysSortedByDate,
-  temperatureDaysSortedByDate,
-  cycleDaysSortedByDate,
   fillWithMucusDummyData,
   fillWithCervixDummyData,
+  getBleedingDaysSortedByDate,
+  getTemperatureDaysSortedByDate,
+  getCycleDaysSortedByDate,
   deleteAll,
   getPreviousTemperature,
   getCycleDay,
   getAmountOfCycleDays,
-  schema,
+  getSchema,
   tryToImportWithDelete,
   tryToImportWithoutDelete,
   requestHash,
