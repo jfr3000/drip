@@ -11,17 +11,17 @@ import {
   longAndComplicatedCycleWithCervix,
   cycleWithTempAndNoCervixShift
 } from './fixtures'
-import { hasEncryptionObservable } from '../local-storage'
+import { saveEncryptionFlag } from '../local-storage'
 import dbSchema from './schema'
 
 let db
 const realmConfig = {
-  dbSchema
+  schema: dbSchema
 }
 
-export function openDbConnection(key) {
-  realmConfig.encyptionKey = key
-  db = new Realm(realmConfig)
+export async function openDbConnection(key) {
+  realmConfig.encryptionKey = key
+  db = await Realm.open(realmConfig)
 }
 
 function getBleedingDaysSortedByDate() {
@@ -167,8 +167,9 @@ function tryToImportWithoutDelete(cycleDays) {
 }
 
 function requestHash(pw) {
+  console.log('requesting hash')
   nodejs.channel.send(JSON.stringify({
-    type: 'request-hash',
+    type: 'request-SHA512',
     message: pw || 'mypassword'
   }))
 }
@@ -179,6 +180,8 @@ async function encrypt(hash) {
   dir.pop()
   dir.push('copied.realm')
   const copyPath = dir.join('/')
+  const exists = await fs.exists(copyPath)
+  if (exists) await fs.unlink(copyPath)
   db.writeCopyTo(copyPath)
   db.close()
   await fs.unlink(oldPath)
@@ -187,9 +190,9 @@ async function encrypt(hash) {
     if (isNaN(code)) code = 0
     return code
   })
-  realmConfig.enryptionKey = key
+  realmConfig.encryptionKey = key
   db = new Realm(realmConfig)
-  await hasEncryptionObservable.set(true)
+  await saveEncryptionFlag(true)
   restart.Restart()
 }
 

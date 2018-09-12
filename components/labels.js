@@ -91,3 +91,7 @@ export const bleedingPrediction = {
   predictionStartedNoDaysLeft: 'Your period is likely to start today.',
   predictionInPast: (startDate, endDate) => `Based on your documented data, your period was likely to start between ${startDate} and ${endDate}.`
 }
+
+export const passwordPrompt = {
+  title: 'Log in'
+}

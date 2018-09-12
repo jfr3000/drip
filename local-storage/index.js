@@ -37,6 +37,11 @@ export async function saveTempReminder(reminder) {
 export const hasEncryptionObservable = Observable()
 setObvWithInitValue('hasEncryption', hasEncryptionObservable, false)
 
+export async function saveEncryptionFlag(bool) {
+  await AsyncStorage.setItem('hasEncryption', JSON.stringify(bool))
+  hasEncryptionObservable.set(bool)
+}
+
 async function setObvWithInitValue(key, obv, defaultValue) {
   const result = await AsyncStorage.getItem(key)
   let value

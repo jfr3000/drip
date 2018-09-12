@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { View, TextInput, TouchableOpacity } from 'react-native'
 import nodejs from 'nodejs-mobile-react-native'
-import AppText from './app-text'
+import { AppText } from './app-text'
 import { hasEncryptionObservable } from '../local-storage'
 import styles from '../styles'
-import labels from './labels'
-import { openDbConnection } from '../db'
+import { passwordPrompt } from './labels'
+import { openDbConnection, requestHash } from '../db'
 import App from './app'
 
 export default class PasswordPrompt extends Component {
@@ -16,18 +16,24 @@ export default class PasswordPrompt extends Component {
       if (hasEncryption) {
         this.setState({showPasswordPrompt: true})
       } else {
-        openDbConnection()
+        openDbConnection('something-wrong')
         this.setState({showApp: true})
       }
     })
+    nodejs.start('main.js')
     nodejs.channel.addListener(
       'message',
-      msg => {
+      async msg => {
         msg = JSON.parse(msg)
-        if (msg.type === 'password-check-result') {
-          if (msg.message) {
-            this.setState({showApp: true})
-          } else {
+        if (msg.type === 'sha512') {
+          const key = new Int8Array(64)
+          for (let i = 0; i < msg.message.length; i++) {
+            key[i] = msg.message.charCodeAt(i)
+          }
+          try {
+            await openDbConnection(key)
+          } catch(err) {
+            console.log(err)
             this.setState({wrongPassword: true})
           }
         }
@@ -47,14 +53,20 @@ export default class PasswordPrompt extends Component {
               <View>
                 <TextInput
                   onChangeText={val => this.setState({password: val})}
+                  style={{
+                    borderWidth: 1,
+                    borderColor: 'grey',
+                    margin: 5
+                  }}
                 />
                 <TouchableOpacity
+                  style={styles.settingsButton}
                   onPress={async () => {
-
+                    requestHash(this.state.password)
                   }}
-                  style={styles.settingsButton}>
+                >
                   <AppText style={styles.settingsButtonText}>
-                    {labels.export.button}
+                    { passwordPrompt.title }
                   </AppText>
                 </TouchableOpacity>
                 {this.state.wrongPassword && <AppText>Wrong PAssword!</AppText>}

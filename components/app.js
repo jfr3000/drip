@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { View, BackHandler } from 'react-native'
-import nodejs from 'nodejs-mobile-react-native'
 import Header from './header'
 import Menu from './menu'
 import Home from './home'
@@ -12,7 +11,6 @@ import Settings from './settings'
 import Stats from './stats'
 import {headerTitles as titles} from './labels'
 import setupNotifications from '../lib/notifications'
-import { encrypt } from '../db'
 
 const isSymptomView = name => Object.keys(symptomViews).indexOf(name) > -1
 
@@ -24,15 +22,6 @@ export default class App extends Component {
     }
     this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonPress)
     setupNotifications(this.navigate)
-    nodejs.start('main.js')
-    nodejs.channel.addListener(
-      'message',
-      msg => {
-        msg = JSON.parse(msg)
-        encrypt(msg.message)
-      },
-      this
-    )
   }
 
   componentWillUnmount() {
