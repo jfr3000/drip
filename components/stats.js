@@ -26,7 +26,7 @@ export default class Stats extends Component {
     }
     return (
       <ScrollView>
-        <View style={styles.appHorizontalMargin}>
+        <View style={[styles.appHorizontalMargin, styles.appVerticalMargin]}>
           <AppText style={styles.appTextTitle}>{labels.cycleLengthTitle}</AppText>
           <AppText style={styles.appBottomMargin}>{labels.cycleLengthExplainer}</AppText>
           {!atLeastOneCycle &&

@@ -16,6 +16,9 @@ export default StyleSheet.create({
     color: 'black',
     marginBottom: 5,
   },
+  appVerticalMargin: {
+    marginTop: 10,
+  },
   appHorizontalMargin: {
     marginHorizontal: 10,
   },
@@ -29,7 +32,7 @@ export default StyleSheet.create({
     textAlignVertical: 'center'
   },
   dateHeader: {
-    fontSize: 18,
+    fontSize: 22,
     fontWeight: 'bold',
     color: fontOnPrimaryColor,
     textAlign: 'center',
