@@ -46,7 +46,7 @@ const styles = {
     rect: {
       width: config.columnWidth,
       borderStyle: 'solid',
-      borderRightWidth: 0.25,
+      borderLeftWidth: 0.5,
     }
   },
   bleedingIcon: {
@@ -69,7 +69,7 @@ const styles = {
     '#feb47b'
   ],
   yAxis: {
-    width: config.columnWidth,
+    width: 27,//config.columnWidth,
     borderRightWidth: 0.5,
     borderColor: 'lightgrey',
     borderStyle: 'solid'
@@ -84,7 +84,7 @@ const styles = {
   horizontalGrid: {
     position:'absolute',
     borderColor: 'lightgrey',
-    borderTopWidth: 0.25,
+    borderWidth: 0.5,
     width: '100%',
     borderStyle: 'solid',
     left: config.columnWidth

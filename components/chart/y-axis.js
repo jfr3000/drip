@@ -15,8 +15,15 @@ export function makeYAxisLabels(columnHeight) {
     // to reliably place the label vertically centered to the grid
     const tick = scaleMax - i * units
     const tickLabel = tick * 10 % 10 ? tick.toString() : tick.toString() + '.0'
-    const showTick =  (tick * 10 % 2) ? false : true
-    const tickBold = tick * 10 % 5 ? {} : {fontWeight: 'bold'}
+    let showTick
+    let tickBold
+    if (units === 0.1) {
+      showTick =  (tick * 10 % 2) ? false : true
+      tickBold = tick * 10 % 5 ? {} : {fontWeight: 'bold'}
+    } else {
+      showTick =  (tick * 10 % 5) ? false : true
+      tickBold = tick * 10 % 10 ? {} : {fontWeight: 'bold'}
+    }
     return (
       <Text
         style={[style, {top: y - 8}, tickBold]}

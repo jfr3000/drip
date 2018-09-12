@@ -82,20 +82,19 @@ export default class DayColumn extends Component {
 
     // we merge the colors here instead of from the stylesheet because of a RN
     // bug that doesn't apply borderLeftColor otherwise
-    const customStyle = {
+    const potentialCustomStyle = {
       height: columnHeight,
       borderLeftColor: 'grey',
-      borderRightColor: 'grey'
     }
 
     if (drawFhmLine) {
-      customStyle.borderLeftColor = styles.nfpLine.borderColor
-      customStyle.borderLeftWidth = 3
+      potentialCustomStyle.borderLeftColor = styles.nfpLine.borderColor
+      potentialCustomStyle.borderLeftWidth = 3
     }
     const column = React.createElement(
       TouchableOpacity,
       {
-        style: [styles.column.rect, customStyle],
+        style: [styles.column.rect, potentialCustomStyle],
         key: this.props.index.toString(),
         onPress: () => {
           this.passDateToDayView(dateString)

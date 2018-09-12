@@ -14,8 +14,6 @@ scaleObservable((scale) => {
   const scaleRange = scale.max - scale.min
   if (scaleRange <= 3) {
     unitObservable.set(0.1)
-  } else if (scaleRange <= 5) {
-    unitObservable.set(0.2)
   } else {
     unitObservable.set(0.5)
   }
