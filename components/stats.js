@@ -26,22 +26,23 @@ export default class Stats extends Component {
     }
     return (
       <ScrollView>
-        <View>
+        <View style={styles.appHorizontalMargin}>
+          <AppText style={styles.appTextTitle}>{labels.cycleLengthTitle}</AppText>
+          <AppText style={styles.appBottomMargin}>{labels.cycleLengthExplainer}</AppText>
           {!atLeastOneCycle &&
-            <AppText style={styles.statsIntro}>{labels.emptyStats}</AppText>
+            <AppText>{labels.emptyStats}</AppText>
           }
           {atLeastOneCycle && numberOfCycles === 1 &&
-            <AppText style={styles.statsIntro}>
-              {labels.oneCycleStats(cycleLengths[0])}
+            <AppText>
+              {labels.oneCycleStats}
+              <AppText style={styles.appTextEmphasis}> {cycleLengths[0]} </AppText>
+              {labels.daysLabel + '.'}
             </AppText>
           }
           {atLeastOneCycle && numberOfCycles > 1 && <View>
-            <AppText style={styles.statsIntro}>
-              {labels.getBasisOfStats(numberOfCycles)}
-            </AppText>
             <View style={styles.statsRow}>
-              <AppText style={styles.statsLabelLeft}>{labels.averageLabel}</AppText>
-              <AppText style={styles.statsLabelRight}>{cycleInfo.mean + ' ' + labels.daysLabel}</AppText>
+              <AppText style={[styles.statsLabelLeft, styles.appTextEmphasis]}>{labels.averageLabel}</AppText>
+              <AppText style={[styles.statsLabelRight, styles.appTextEmphasis]}>{cycleInfo.mean + ' ' + labels.daysLabel}</AppText>
             </View>
             <View style={styles.statsRow}>
               <AppText style={styles.statsLabelLeft}>{labels.minLabel}</AppText>
@@ -51,10 +52,15 @@ export default class Stats extends Component {
               <AppText style={styles.statsLabelLeft}>{labels.maxLabel}</AppText>
               <AppText style={styles.statsLabelRight}>{cycleInfo.maximum + ' ' + labels.daysLabel}</AppText>
             </View>
-            <View style={styles.statsRow}>
+            <View style={[styles.statsRow, styles.appBottomMargin]}>
               <AppText style={styles.statsLabelLeft}>{labels.stdLabel}</AppText>
               <AppText style={styles.statsLabelRight}>{cycleInfo.stdDeviation + ' ' + labels.daysLabel}</AppText>
             </View>
+            <AppText>
+              {labels.basisOfStatsBeginning}
+              <AppText style={styles.appTextEmphasis}> {numberOfCycles} </AppText>
+              {labels.basisOfStatsEnd}
+            </AppText>
           </View>}
         </View>
       </ScrollView>

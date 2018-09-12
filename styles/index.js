@@ -8,6 +8,20 @@ export default StyleSheet.create({
   appText: {
     color: 'black'
   },
+  appTextEmphasis: {
+    fontWeight: 'bold',
+  },
+  appTextTitle: {
+    fontSize: 18,
+    color: 'black',
+    marginBottom: 5,
+  },
+  appHorizontalMargin: {
+    marginHorizontal: 10,
+  },
+  appBottomMargin: {
+    marginBottom: 5
+  },
   welcome: {
     fontSize: 20,
     margin: 30,
@@ -137,12 +151,12 @@ export default StyleSheet.create({
   symptomEditButton: {
     width: 130
   },
-  statsIntro: {
+  /*statsIntro: {
     fontSize: 18,
     margin: 10,
     textAlign: 'left',
     textAlignVertical: 'center'
-  },
+  },*/
   settingsSegment: {
     backgroundColor: 'lightgrey',
     padding: 10,
@@ -165,14 +179,12 @@ export default StyleSheet.create({
     width: '100%'
   },
   statsLabelLeft: {
-    fontSize: 18,
     width: '60%',
     textAlign: 'left',
     textAlignVertical: 'center',
     marginLeft: 10
   },
   statsLabelRight: {
-    fontSize: 18,
     textAlign: 'left',
     textAlignVertical: 'center'
   },
