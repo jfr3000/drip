@@ -1,10 +1,12 @@
 import Realm from 'realm'
 import { LocalDate, ChronoUnit } from 'js-joda'
 import {
-  cycleWithTempAndNoMucusShift,
   cycleWithFhmMucus,
+  longAndComplicatedCycleWithMucus,
+  cycleWithTempAndNoMucusShift,
   cycleWithFhmCervix,
-  longAndComplicatedCycle
+  longAndComplicatedCycleWithCervix,
+  cycleWithTempAndNoCervixShift
 } from './fixtures'
 
 const TemperatureSchema = {
@@ -183,7 +185,7 @@ function getCycleDay(localDate) {
 function fillWithMucusDummyData() {
   const dummyCycles = [
     cycleWithFhmMucus,
-    longAndComplicatedCycle,
+    longAndComplicatedCycleWithMucus,
     cycleWithTempAndNoMucusShift
   ]
 
@@ -207,7 +209,9 @@ function fillWithMucusDummyData() {
 
 function fillWithCervixDummyData() {
   const dummyCycles = [
-    cycleWithFhmCervix
+    cycleWithFhmCervix,
+    longAndComplicatedCycleWithCervix,
+    cycleWithTempAndNoCervixShift
   ]
 
   db.write(() => {
