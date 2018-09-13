@@ -20,7 +20,7 @@ const realmConfig = {
 }
 
 export async function openDbConnection(key) {
-  realmConfig.encryptionKey = key
+  if(key) realmConfig.encryptionKey = key
   db = await Realm.open(realmConfig)
 }
 
@@ -167,7 +167,6 @@ function tryToImportWithoutDelete(cycleDays) {
 }
 
 function requestHash(pw) {
-  console.log('requesting hash')
   nodejs.channel.send(JSON.stringify({
     type: 'request-SHA512',
     message: pw || 'mypassword'
@@ -191,6 +190,12 @@ async function encryptAndRestartApp(key) {
   restart.Restart()
 }
 
+async function deleteDbAndOpenNew() {
+  const exists = await fs.exists(Realm.defaultPath)
+  if (exists) await fs.unlink(Realm.defaultPath)
+  await openDbConnection()
+}
+
 export {
   saveSymptom,
   getOrCreateCycleDay,
@@ -207,5 +212,6 @@ export {
   tryToImportWithDelete,
   tryToImportWithoutDelete,
   requestHash,
-  encryptAndRestartApp
+  encryptAndRestartApp,
+  deleteDbAndOpenNew
 }

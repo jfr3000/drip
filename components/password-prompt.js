@@ -5,7 +5,7 @@ import { AppText } from './app-text'
 import { hasEncryptionObservable } from '../local-storage'
 import styles from '../styles'
 import { passwordPrompt } from './labels'
-import { openDbConnection, requestHash } from '../db'
+import { openDbConnection, requestHash, deleteDbAndOpenNew } from '../db'
 import App from './app'
 
 export default class PasswordPrompt extends Component {
@@ -32,6 +32,7 @@ export default class PasswordPrompt extends Component {
         }
         try {
           await openDbConnection(key)
+          this.setState({showApp: true})
         } catch (err) {
           console.log(err)
           this.setState({ wrongPassword: true })
@@ -79,6 +80,17 @@ export default class PasswordPrompt extends Component {
                   </AppText>
                 </TouchableOpacity>
                 {this.state.wrongPassword && <AppText>Wrong PAssword!</AppText>}
+                <TouchableOpacity
+                  style={styles.settingsButton}
+                  onPress={async () => {
+                    await deleteDbAndOpenNew()
+                    this.setState({showApp: true})
+                  }}
+                >
+                  <AppText style={styles.settingsButtonText}>
+                    {'Delete old db and make unencrypted new'}
+                  </AppText>
+                </TouchableOpacity>
               </View>
             }
           </View>
