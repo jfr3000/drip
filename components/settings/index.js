@@ -11,6 +11,7 @@ import TempReminderPicker from './temp-reminder-picker'
 import TempSlider from './temp-slider'
 import openImportDialogAndImport from './import-dialog'
 import openShareDialogAndExport from './export-dialog'
+import PasswordSetting from './password-setting'
 
 export default class Settings extends Component {
   constructor(props) {
@@ -28,6 +29,9 @@ export default class Settings extends Component {
           </AppText>
           <AppText>{labels.tempScale.segmentExplainer}</AppText>
           <TempSlider/>
+        </View>
+        <View style={styles.settingsSegment}>
+          <PasswordSetting/>
         </View>
         <View style={styles.settingsSegment}>
           <AppText style={styles.settingsSegmentTitle}>

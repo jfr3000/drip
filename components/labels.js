@@ -48,6 +48,12 @@ export const settings = {
     noTimeSet: 'Set a time for a daily reminder to take your temperature',
     timeSet: time => `Daily reminder set for ${time}`,
     notification: 'Record your morning temperature'
+  },
+  passwordSettings: {
+    title: 'App password',
+    explainerDisabled: "Encrypt the app's database with a password. You have to enter the password every time the app is started.",
+    explainerEnabled: "Your app's data is encrypted with your password.",
+    deletePassword: "Delete password"
   }
 }
 

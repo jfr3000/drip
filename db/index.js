@@ -19,11 +19,6 @@ const realmConfig = {
   schema: dbSchema
 }
 
-export async function openDbConnection(key) {
-  if(key) realmConfig.encryptionKey = key
-  db = await Realm.open(realmConfig)
-}
-
 function getBleedingDaysSortedByDate() {
   return db.objects('CycleDay').filtered('bleeding != null').sorted('date', true)
 }
@@ -173,7 +168,40 @@ function requestHash(pw) {
   }))
 }
 
+export async function openDb ({ hash, persistConnection }) {
+  if (hash) {
+    const key = new Uint8Array(64)
+    for (let i = 0; i < key.length; i++) {
+      const twoDigitHex = hash.slice(i * 2, i * 2 + 2)
+      key[i] = parseInt(twoDigitHex, 16)
+    }
+
+    realmConfig.encryptionKey = key
+  }
+
+  const connection = await Realm.open(realmConfig)
+
+  if (persistConnection) db = connection
+}
+
 async function encryptAndRestartApp(key) {
+  const oldPath = db.path
+  const dir = db.path.split('/')
+  dir.pop()
+  dir.push('copied.realm')
+  const copyPath = dir.join('/')
+  const exists = await fs.exists(copyPath)
+  if (exists) await fs.unlink(copyPath)
+  db.writeCopyTo(copyPath)
+  db.close()
+  await fs.unlink(oldPath)
+  realmConfig.encryptionKey = key
+  db = new Realm(realmConfig)
+  await saveEncryptionFlag(true)
+  restart.Restart()
+}
+
+export async function removeDbEncryptionAndRestartApp(key) {
   const oldPath = db.path
   const dir = db.path.split('/')
   dir.pop()
@@ -193,7 +221,7 @@ async function encryptAndRestartApp(key) {
 async function deleteDbAndOpenNew() {
   const exists = await fs.exists(Realm.defaultPath)
   if (exists) await fs.unlink(Realm.defaultPath)
-  await openDbConnection()
+  await openDb({ persistConnection: true })
 }
 
 export {
