@@ -174,7 +174,7 @@ function requestHash(pw) {
   }))
 }
 
-async function encrypt(hash) {
+async function encryptAndRestartApp(key) {
   const oldPath = db.path
   const dir = db.path.split('/')
   dir.pop()
@@ -185,11 +185,6 @@ async function encrypt(hash) {
   db.writeCopyTo(copyPath)
   db.close()
   await fs.unlink(oldPath)
-  const key = new Array(64).map((_, i) => {
-    let code = hash.charCodeAt(i)
-    if (isNaN(code)) code = 0
-    return code
-  })
   realmConfig.encryptionKey = key
   db = new Realm(realmConfig)
   await saveEncryptionFlag(true)
@@ -212,5 +207,5 @@ export {
   tryToImportWithDelete,
   tryToImportWithoutDelete,
   requestHash,
-  encrypt
+  encryptAndRestartApp
 }

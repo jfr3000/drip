@@ -6,9 +6,10 @@ import {
   ScrollView
 } from 'react-native'
 import { LocalDate, ChronoUnit } from 'js-joda'
+import nodejs from 'nodejs-mobile-react-native'
 import styles from '../styles/index'
 import cycleModule from '../lib/cycle'
-import { requestHash, getOrCreateCycleDay, getBleedingDaysSortedByDate, fillWithMucusDummyData, fillWithCervixDummyData, deleteAll } from '../db'
+import { requestHash, getOrCreateCycleDay, getBleedingDaysSortedByDate, fillWithMucusDummyData, fillWithCervixDummyData, deleteAll, encryptAndRestartApp } from '../db'
 import {bleedingPrediction as labels} from './labels'
 
 export default class Home extends Component {
@@ -34,10 +35,31 @@ export default class Home extends Component {
     })(this)
 
     getBleedingDaysSortedByDate().addListener(this.setStateWithCurrentText)
+
+    this.startEncryption = async (msg) => {
+      msg = JSON.parse(msg)
+      if (msg.type === 'sha512') {
+        const hash = msg.message
+        const key = new Uint8Array(64)
+        for (let i = 0; i < key.length; i++) {
+          const twoDigitHex = hash.slice(i * 2, i * 2 + 2)
+          key[i] = parseInt(twoDigitHex, 16)
+        }
+        encryptAndRestartApp(key)
+      }
+    }
+
+    nodejs.start('main.js')
+    nodejs.channel.addListener(
+      'message',
+      this.startEncryption,
+      this
+    )
   }
 
   componentWillUnmount() {
     getBleedingDaysSortedByDate().removeListener(this.setStateWithCurrentText)
+    nodejs.channel.removeListener('message', this.startEncryption)
   }
 
   passTodayToDayView() {

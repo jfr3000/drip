@@ -20,28 +20,35 @@ export default class PasswordPrompt extends Component {
         this.setState({showApp: true})
       }
     })
+
+    this.tryToOpenDb = async (msg) => {
+      msg = JSON.parse(msg)
+      if (msg.type === 'sha512') {
+        const hash = msg.message
+        const key = new Uint8Array(64)
+        for (let i = 0; i < key.length; i++) {
+          const twoDigitHex = hash.slice(i * 2, i * 2 + 2)
+          key[i] = parseInt(twoDigitHex, 16)
+        }
+        try {
+          await openDbConnection(key)
+        } catch (err) {
+          console.log(err)
+          this.setState({ wrongPassword: true })
+        }
+      }
+    }
+
     nodejs.start('main.js')
     nodejs.channel.addListener(
       'message',
-      async msg => {
-        msg = JSON.parse(msg)
-        if (msg.type === 'sha512') {
-          const hash = msg.message
-          const key = new Uint8Array(64)
-          for (let i = 0; i < key.length; i++) {
-            const twoDigitHex = hash.slice(i * 2, i * 2 + 2)
-            key[i] = parseInt(twoDigitHex, 16)
-          }
-          try {
-            await openDbConnection(key)
-          } catch(err) {
-            console.log(err)
-            this.setState({wrongPassword: true})
-          }
-        }
-      },
+      this.tryToOpenDb,
       this
     )
+  }
+
+  componentWillUnmount() {
+    nodejs.channel.removeListener('message', this.tryToOpenDb)
   }
 
   render() {
