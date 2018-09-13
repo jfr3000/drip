@@ -4,8 +4,10 @@ function convertToSymptoFormat(val) {
     value: val.temperature,
     exclude: false
   }
-  if (val.cervix) sympto.cervix = {
-    value: val.cervix,
+
+  if (val.cervix && typeof val.cervix.opening === 'number' && typeof val.cervix.firmness === 'number') sympto.cervix = {
+    opening: val.cervix.opening,
+    firmness: val.cervix.firmness,
     exclude: false
   }
   if (val.bleeding) sympto.bleeding = {
@@ -130,7 +132,7 @@ export const tempShift3DaysAfterCervixShift = [
   { date: '2018-05-20', temperature: 36.7, cervix: { opening: 0, firmness: 0 } },
   { date: '2018-05-21', temperature: 36.6, cervix: { opening: 0, firmness: 0 } },
   { date: '2018-05-22', temperature: 36.85, cervix: { opening: 0, firmness: 0 } },
-  { date: '2018-05-23', temperature: 36.8, cervix: { opening: 0, firmness: 0 } },
+  { date: '2018-05-23', temperature: 36.8, cervix: { opening: 1, firmness: 0 } },
   { date: '2018-05-24', temperature: 36.85, cervix: { opening: 0, firmness: 0 } },
   { date: '2018-05-25', temperature: 36.95, cervix: { opening: 0, firmness: 0 } },
   { date: '2018-05-26', temperature: 36.85, cervix: { opening: 0, firmness: 1 } },

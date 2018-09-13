@@ -48,10 +48,9 @@ describe('sympto', () => {
           }
         })
       })
-      it('with temp and cervix shifts detects only peri- and post-ovulatory phases', () => {
+      it('with temp and cervix shifts at the same day an no previous cycle detects only peri- and post-ovulatory phases', () => {
         const status = getSensiplanStatus({
           cycle: cervixShiftAndFhmOnSameDay,
-          previousCycle: cycleWithoutFhm,
           secondarySymptom: 'cervix'
         })
         expect(Object.keys(status.phases).length).to.eql(2)
@@ -72,7 +71,7 @@ describe('sympto', () => {
       })
     })
     describe('with previous higher temp measurement', () => {
-      it('with no shifts detects only peri-ovulatory in 5-day long cycle according to 5-day rule', () => {
+      it('with no shifts in 5-day long cycle detects only peri-ovulatory according to 5-day rule', () => {
         const status = getSensiplanStatus({
           cycle: fiveDayCycle,
           previousCycle: cervixShiftAndFhmOnSameDay,
@@ -85,7 +84,7 @@ describe('sympto', () => {
           end: { date: '2018-08-05' }
         })
       })
-      it('with no shifts detects pre- and peri-ovulatory phase according to 5-day-rule', () => {
+      it('with no shifts in long cycle detects pre- and peri-ovulatory phase according to 5-day-rule', () => {
         const status = getSensiplanStatus({
           cycle: longCycleWithoutAnyShifts,
           previousCycle: cervixShiftAndFhmOnSameDay,
@@ -105,7 +104,7 @@ describe('sympto', () => {
           start: { date: '2018-07-06' }
         })
       })
-      it('with evaluation of temperature and cervix end on same day', () => {
+      it('with temperature and cervix evaluation end on same day detects all 3 phases', () => {
         const status = getSensiplanStatus({
           cycle: cervixShiftAndFhmOnSameDay,
           previousCycle: cervixShiftAndFhmOnSameDay,
@@ -135,7 +134,7 @@ describe('sympto', () => {
             .filter(({date}) => date >= '2018-08-15')
         })
       })
-      it('when temperature shift happens 3 days after cervix shift', () => {
+      it('with temperature shift 3 days after cervix shift detects all 3 phases', () => {
         const status = getSensiplanStatus({
           cycle: tempShift3DaysAfterCervixShift,
           previousCycle: cervixShiftAndFhmOnSameDay,
@@ -167,7 +166,7 @@ describe('sympto', () => {
             .filter(({date}) => date >= '2018-05-21')
         })
       })
-      it('when cervix shift happens 2 days after temperature shift', () => {
+      it('with cervix shift 2 days after temperature shift detects all 3 phases', () => {
         const status = getSensiplanStatus({
           cycle: cervixShift2DaysAfterTempShift,
           previousCycle: cervixShiftAndFhmOnSameDay,
@@ -198,7 +197,7 @@ describe('sympto', () => {
           start: { date: '2018-04-19', time: '18:00' }
         })
       })
-      it('when no infertile phase can be detected', () => {
+      it('with no shifts no ovulation is found detects only pre and peri-ovulatory phase', () => {
         const status = getSensiplanStatus({
           cycle: noOvulationDetected,
           previousCycle: cervixShiftAndFhmOnSameDay,
