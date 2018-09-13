@@ -26,9 +26,11 @@ export default class PasswordPrompt extends Component {
       async msg => {
         msg = JSON.parse(msg)
         if (msg.type === 'sha512') {
-          const key = new Int8Array(64)
-          for (let i = 0; i < msg.message.length; i++) {
-            key[i] = msg.message.charCodeAt(i)
+          const hash = msg.message
+          const key = new Uint8Array(64)
+          for (let i = 0; i < key.length; i++) {
+            const twoDigitHex = hash.slice(i * 2, i * 2 + 2)
+            key[i] = parseInt(twoDigitHex, 16)
           }
           try {
             await openDbConnection(key)
