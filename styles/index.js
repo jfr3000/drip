@@ -170,7 +170,7 @@ export default StyleSheet.create({
     backgroundColor: secondaryColor,
     padding: 10,
     alignItems: 'center',
-    margin: 10
+    margin: 10,
   },
   settingsButtonText: {
     color: fontOnPrimaryColor
@@ -251,16 +251,37 @@ export default StyleSheet.create({
     marginTop: 1
   },
   passwordField: {
-    backgroundColor: 'white',
     padding: 10,
     marginTop: 10,
-    marginHorizontal: 10
+    marginHorizontal: 10,
+    backgroundColor: 'white'
   },
-  passwordPrompt: {
-    backgroundColor: 'lightgrey',
-    flex: 1,
-    padding: 30
-  }
+  passwordPromptPage: {
+    padding: 30,
+    alignItems: 'center'
+  },
+  passwordPromptField: {
+    padding: 10,
+    marginTop: 10,
+    marginHorizontal: 10,
+    borderBottomWidth: 3,
+    borderBottomColor: primaryColor,
+    width: '100%',
+    fontSize: 20,
+    marginVertical: 20
+  },
+  passwordPromptButton: {
+    backgroundColor: secondaryColor,
+    padding: 10,
+    alignItems: 'center',
+    margin: 10,
+    width: '100%',
+    borderRadius: 10
+  },
+  passwordPromptButtonText: {
+    color: fontOnPrimaryColor,
+    fontSize: 20
+  },
 })
 
 export const iconStyles = {

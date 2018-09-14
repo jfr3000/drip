@@ -106,6 +106,6 @@ export const bleedingPrediction = {
 }
 
 export const passwordPrompt = {
-  title: 'Log in',
+  title: 'Unlock app',
   enterPassword: 'Enter password here'
 }

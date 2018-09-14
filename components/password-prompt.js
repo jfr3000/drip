@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, TextInput, TouchableOpacity, Alert } from 'react-native'
+import { View, TextInput, TouchableOpacity, Alert, Image } from 'react-native'
 import nodejs from 'nodejs-mobile-react-native'
 import { AppText } from './app-text'
 import { hasEncryptionObservable } from '../local-storage'
@@ -55,33 +55,37 @@ export default class PasswordPrompt extends Component {
 
   render() {
     return (
-      <View style={styles.passwordPrompt}>
+      <View flex={1}>
         {this.state.showPasswordPrompt &&
-          <View>
+          <View style={styles.passwordPromptPage}>
+            <Image
+              source={require('../assets/drip_small.png')}
+              style={styles.passwordPromptImage}
+            />
             <TextInput
               onChangeText={val => this.setState({ password: val })}
-              style={styles.passwordField}
+              style={styles.passwordPromptField}
               secureTextEntry={true}
               placeholder={passwordPrompt.enterPassword}
             />
             <TouchableOpacity
-              style={styles.settingsButton}
+              style={styles.passwordPromptButton}
               onPress={() => {
                 requestHash(this.state.password)
               }}
             >
-              <AppText style={styles.settingsButtonText}>
+              <AppText style={styles.passwordPromptButtonText}>
                 {passwordPrompt.title}
               </AppText>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.settingsButton}
+              style={styles.passwordPromptButton}
               onPress={async () => {
                 await deleteDbAndOpenNew()
                 this.setState({ showApp: true })
               }}
             >
-              <AppText style={styles.settingsButtonText}>
+              <AppText style={styles.passwordPromptButtonText}>
                 {'Delete old db and make unencrypted new'}
               </AppText>
             </TouchableOpacity>
