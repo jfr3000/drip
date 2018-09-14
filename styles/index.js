@@ -282,6 +282,10 @@ export default StyleSheet.create({
     color: fontOnPrimaryColor,
     fontSize: 20
   },
+  passwordPromptForgotPasswordText: {
+    marginTop: 20,
+    color: 'grey'
+  }
 })
 
 export const iconStyles = {

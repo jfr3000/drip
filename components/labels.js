@@ -107,5 +107,12 @@ export const bleedingPrediction = {
 
 export const passwordPrompt = {
   title: 'Unlock app',
-  enterPassword: 'Enter password here'
+  enterPassword: 'Enter password here',
+  deleteDatabaseExplainer: "If you've forgotten your password, unfortunately, there is nothing we can do to recover your data, because it is encrypted with the password only you know. You can, however, delete all your encrypted data and start fresh. Once all data has been erased, you can set a new password in the settings, if you like.",
+  forgotPassword: 'Forgot your password?',
+  deleteDatabaseTitle: 'Forgot your password?',
+  deleteData: 'Yes, delete all my data',
+  areYouSureTitle: 'Are you sure?',
+  areYouSure: 'Are you absolutely sure you want to permanently delete all your data?',
+  reallyDeleteData: 'Yes, I am sure'
 }

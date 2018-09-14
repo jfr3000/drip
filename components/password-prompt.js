@@ -4,7 +4,7 @@ import nodejs from 'nodejs-mobile-react-native'
 import { AppText } from './app-text'
 import { hasEncryptionObservable } from '../local-storage'
 import styles from '../styles'
-import { passwordPrompt, shared } from './labels'
+import { passwordPrompt as labels, shared } from './labels'
 import { requestHash, deleteDbAndOpenNew, openDb } from '../db'
 
 export default class PasswordPrompt extends Component {
@@ -66,7 +66,7 @@ export default class PasswordPrompt extends Component {
               onChangeText={val => this.setState({ password: val })}
               style={styles.passwordPromptField}
               secureTextEntry={true}
-              placeholder={passwordPrompt.enterPassword}
+              placeholder={labels.enterPassword}
             />
             <TouchableOpacity
               style={styles.passwordPromptButton}
@@ -75,18 +75,41 @@ export default class PasswordPrompt extends Component {
               }}
             >
               <AppText style={styles.passwordPromptButtonText}>
-                {passwordPrompt.title}
+                {labels.title}
               </AppText>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.passwordPromptButton}
               onPress={async () => {
-                await deleteDbAndOpenNew()
-                this.setState({ showApp: true })
+                Alert.alert(
+                  labels.deleteDatabaseTitle,
+                  labels.deleteDatabaseExplainer,
+                  [{
+                    text: shared.cancel,
+                    style: 'cancel'
+                  }, {
+                    text: labels.deleteData,
+                    onPress: () => {
+                      Alert.alert(
+                        labels.areYouSureTitle,
+                        labels.areYouSure,
+                        [{
+                          text: shared.cancel,
+                          style: 'cancel'
+                        }, {
+                          text: labels.reallyDeleteData,
+                          onPress: async () => {
+                            await deleteDbAndOpenNew()
+                            this.props.showApp()
+                          }
+                        }]
+                      )
+                    }
+                  }]
+                )
               }}
             >
-              <AppText style={styles.passwordPromptButtonText}>
-                {'Delete old db and make unencrypted new'}
+              <AppText style={styles.passwordPromptForgotPasswordText}>
+                {labels.forgotPassword}
               </AppText>
             </TouchableOpacity>
           </View>
