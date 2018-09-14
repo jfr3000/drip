@@ -18,7 +18,7 @@ export default class PasswordPrompt extends Component {
       if (hasEncryption) {
         this.setState({showPasswordPrompt: true})
       } else {
-        await openDb({persistConnection: true})
+        await openDb()
         this.props.showApp()
       }
     })
@@ -34,7 +34,7 @@ export default class PasswordPrompt extends Component {
     msg = JSON.parse(msg)
     if (msg.type != 'sha512') return
     try {
-      await openDb({hash: msg.message, persistConnection: true })
+      await openDb(msg.message)
     } catch (err) {
       Alert.alert(
         shared.incorrectPassword,

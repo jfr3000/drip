@@ -161,14 +161,12 @@ export function requestHash(pw) {
   }))
 }
 
-export async function openDb ({ hash, persistConnection }) {
+export async function openDb (hash) {
   if (hash) {
     realmConfig.encryptionKey = hashToInt8Array(hash)
   }
 
-  const connection = await Realm.open(realmConfig)
-
-  if (persistConnection) db = connection
+  db = await Realm.open(realmConfig)
 }
 
 export async function changeEncryptionAndRestartApp(hash) {
@@ -197,7 +195,7 @@ export async function changeEncryptionAndRestartApp(hash) {
 export async function deleteDbAndOpenNew() {
   const exists = await fs.exists(Realm.defaultPath)
   if (exists) await fs.unlink(Realm.defaultPath)
-  await openDb({ persistConnection: true })
+  await openDb()
   await saveEncryptionFlag(false)
 }
 
