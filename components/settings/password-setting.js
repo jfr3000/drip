@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import {
   View,
   TouchableOpacity,
-  TextInput
+  TextInput,
+  Alert
 } from 'react-native'
 import nodejs from 'nodejs-mobile-react-native'
 import { AppText } from '../app-text'
@@ -10,14 +11,16 @@ import {
   hasEncryptionObservable
 } from '../../local-storage'
 import styles from '../../styles/index'
-import { settings as labels } from '../labels'
+import { settings as labels, shared } from '../labels'
 import { requestHash, openDb } from '../../db'
 
 export default class PasswordSetting extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      enabled: hasEncryptionObservable.value
+      enabled: hasEncryptionObservable.value,
+      currentPassword: null,
+      enteringCurrentPassword: false
     }
 
     nodejs.start('main.js')
@@ -38,11 +41,25 @@ export default class PasswordSetting extends Component {
     try {
       await openDb({ hash: msg.message, persistConnection: false })
       this.setState({
-        wrongPassword: false,
-        enterOldPassword: false
+        enteringCurrentPassword: false
       })
     } catch (err) {
-      this.setState({wrongPassword: true})
+      Alert.alert(
+        shared.incorrectPassword,
+        shared.incorrectPasswordMessage,
+        [{
+          text: shared.cancel,
+          onPress: () => {
+            this.setState({
+              enteringCurrentPassword: false,
+              currentPassword: null
+            })
+          }
+        }, {
+          text: shared.tryAgain,
+          onPress: () => this.setState({currentPassword: null})
+        }]
+      )
     }
   }
 
@@ -57,21 +74,27 @@ export default class PasswordSetting extends Component {
           :
           <AppText>{labels.passwordSettings.explainerDisabled}</AppText>
         }
-        {this.state.enterOldPassword &&
-          <TextInput
-            style={{
-              backgroundColor: 'white',
-            }}
-            onChangeText={val => this.setState({ oldPassword: val })}
-          />
+        {this.state.enteringCurrentPassword &&
+          <View>
+            <TextInput
+              style={styles.passwordField}
+              onChangeText={val => {
+                this.setState({
+                  currentPassword: val,
+                  wrongPassword: false
+                })
+              }}
+              value={this.state.currentPassword}
+              placeholder={labels.passwordSettings.enterCurrent}
+            />
+          </View>
         }
-        {this.state.wrongPassword && <AppText>Wrong PAssword!</AppText>}
         <TouchableOpacity
           onPress={() => {
-            if (!this.state.enterOldPassword) {
-              this.setState({ enterOldPassword: true })
+            if (!this.state.enteringCurrentPassword) {
+              this.setState({ enteringCurrentPassword: true })
             } else {
-              requestHash(this.state.oldPassword)
+              requestHash(this.state.currentPassword)
             }
           }}
           style={styles.settingsButton}>

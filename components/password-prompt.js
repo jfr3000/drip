@@ -1,17 +1,19 @@
 import React, { Component } from 'react'
-import { View, TextInput, TouchableOpacity } from 'react-native'
+import { View, TextInput, TouchableOpacity, Alert } from 'react-native'
 import nodejs from 'nodejs-mobile-react-native'
 import { AppText } from './app-text'
 import { hasEncryptionObservable } from '../local-storage'
 import styles from '../styles'
-import { passwordPrompt } from './labels'
+import { passwordPrompt, shared } from './labels'
 import { openDbConnection, requestHash, deleteDbAndOpenNew, openDb } from '../db'
 import App from './app'
 
 export default class PasswordPrompt extends Component {
   constructor() {
     super()
-    this.state = {}
+    this.state = {
+      password: null
+    }
     hasEncryptionObservable.once((hasEncryption) => {
       if (hasEncryption) {
         this.setState({showPasswordPrompt: true})
@@ -36,7 +38,14 @@ export default class PasswordPrompt extends Component {
       await openDb({hash: msg.message, persistConnection: true })
       this.setState({ showApp: true })
     } catch (err) {
-      this.setState({ wrongPassword: true })
+      Alert.alert(
+        shared.incorrectPassword,
+        shared.incorrectPasswordMessage,
+        [{
+          text: shared.tryAgain,
+          onPress: () => this.setState({password: null})
+        }]
+      )
     }
   }
 
@@ -50,16 +59,12 @@ export default class PasswordPrompt extends Component {
         {this.state.showApp ?
           <App password={this.state.password}/>
           :
-          <View>
+          <View style={styles.passwordPrompt}>
             {this.state.showPasswordPrompt &&
               <View>
                 <TextInput
                   onChangeText={val => this.setState({password: val})}
-                  style={{
-                    borderWidth: 1,
-                    borderColor: 'grey',
-                    margin: 5
-                  }}
+                  style={styles.passwordField}
                 />
                 <TouchableOpacity
                   style={styles.settingsButton}
@@ -71,7 +76,6 @@ export default class PasswordPrompt extends Component {
                     { passwordPrompt.title }
                   </AppText>
                 </TouchableOpacity>
-                {this.state.wrongPassword && <AppText>Wrong PAssword!</AppText>}
                 <TouchableOpacity
                   style={styles.settingsButton}
                   onPress={async () => {

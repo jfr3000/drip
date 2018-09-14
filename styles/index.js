@@ -249,6 +249,17 @@ export default StyleSheet.create({
     fontSize: 20,
     color: secondaryColor,
     marginTop: 1
+  },
+  passwordField: {
+    backgroundColor: 'white',
+    padding: 10,
+    marginTop: 10,
+    marginHorizontal: 10
+  },
+  passwordPrompt: {
+    backgroundColor: 'lightgrey',
+    flex: 1,
+    padding: 30
   }
 })
 
@@ -268,6 +279,6 @@ export const iconStyles = {
     color: fontOnPrimaryColor
   },
   menuIconInactive: {
-    color: 'lightgrey'
+    color: 'lightgrey',
   },
 }
