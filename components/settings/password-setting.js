@@ -59,6 +59,7 @@ export default class PasswordSetting extends Component {
               <View>
                 <TextInput
                   style={styles.passwordField}
+                  autoFocus={true}
                   onChangeText={val => {
                     this.setState({
                       changedPassword: val
@@ -102,6 +103,7 @@ export default class PasswordSetting extends Component {
           <View>
             <TextInput
               style={styles.passwordField}
+              autoFocus={true}
               onChangeText={val => {
                 this.setState({
                   newPassword: val
