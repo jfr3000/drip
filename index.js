@@ -1,4 +1,4 @@
 import { AppRegistry } from 'react-native'
-import PasswordPrompt from './components/password-prompt'
+import AppWrapper from './components/app-wrapper'
 
-AppRegistry.registerComponent('home', () => PasswordPrompt)
+AppRegistry.registerComponent('home', () => AppWrapper)

@@ -5,25 +5,25 @@ import { AppText } from './app-text'
 import { hasEncryptionObservable } from '../local-storage'
 import styles from '../styles'
 import { passwordPrompt, shared } from './labels'
-import { openDbConnection, requestHash, deleteDbAndOpenNew, openDb } from '../db'
-import App from './app'
+import { requestHash, deleteDbAndOpenNew, openDb } from '../db'
 
 export default class PasswordPrompt extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       password: null
     }
-    hasEncryptionObservable.once((hasEncryption) => {
+    hasEncryptionObservable.once(async hasEncryption => {
+      hasEncryption = JSON.parse(hasEncryption)
       if (hasEncryption) {
         this.setState({showPasswordPrompt: true})
       } else {
-        openDbConnection('something-wrong')
-        this.setState({showApp: true})
+        await openDb({persistConnection: true})
+        console.log(this.props)
+        this.props.onCorrectPassword()
       }
     })
 
-    nodejs.start('main.js')
     nodejs.channel.addListener(
       'message',
       this.passHashToDb,
@@ -35,8 +35,8 @@ export default class PasswordPrompt extends Component {
     msg = JSON.parse(msg)
     if (msg.type != 'sha512') return
     try {
+      console.log('password prompt opening db')
       await openDb({hash: msg.message, persistConnection: true })
-      this.setState({ showApp: true })
     } catch (err) {
       Alert.alert(
         shared.incorrectPassword,
@@ -46,7 +46,9 @@ export default class PasswordPrompt extends Component {
           onPress: () => this.setState({password: null})
         }]
       )
+      return
     }
+    this.setState({ showApp: true })
   }
 
   componentWillUnmount() {
@@ -55,40 +57,34 @@ export default class PasswordPrompt extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
-        {this.state.showApp ?
-          <App password={this.state.password}/>
-          :
-          <View style={styles.passwordPrompt}>
-            {this.state.showPasswordPrompt &&
-              <View>
-                <TextInput
-                  onChangeText={val => this.setState({password: val})}
-                  style={styles.passwordField}
-                />
-                <TouchableOpacity
-                  style={styles.settingsButton}
-                  onPress={() => {
-                    requestHash(this.state.password)
-                  }}
-                >
-                  <AppText style={styles.settingsButtonText}>
-                    { passwordPrompt.title }
-                  </AppText>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.settingsButton}
-                  onPress={async () => {
-                    await deleteDbAndOpenNew()
-                    this.setState({showApp: true})
-                  }}
-                >
-                  <AppText style={styles.settingsButtonText}>
-                    {'Delete old db and make unencrypted new'}
-                  </AppText>
-                </TouchableOpacity>
-              </View>
-            }
+      <View style={styles.passwordPrompt}>
+        {this.state.showPasswordPrompt &&
+          <View>
+            <TextInput
+              onChangeText={val => this.setState({ password: val })}
+              style={styles.passwordField}
+            />
+            <TouchableOpacity
+              style={styles.settingsButton}
+              onPress={() => {
+                requestHash(this.state.password)
+              }}
+            >
+              <AppText style={styles.settingsButtonText}>
+                {passwordPrompt.title}
+              </AppText>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.settingsButton}
+              onPress={async () => {
+                await deleteDbAndOpenNew()
+                this.setState({ showApp: true })
+              }}
+            >
+              <AppText style={styles.settingsButtonText}>
+                {'Delete old db and make unencrypted new'}
+              </AppText>
+            </TouchableOpacity>
           </View>
         }
       </View>
