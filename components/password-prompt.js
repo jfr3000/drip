@@ -102,6 +102,7 @@ export default class PasswordPrompt extends Component {
               onPress={() => {
                 requestHash(this.state.password)
               }}
+              disabled={!this.state.password}
             >
               <AppText style={styles.passwordPromptButtonText}>
                 {labels.title}

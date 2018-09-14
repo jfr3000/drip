@@ -80,6 +80,7 @@ export default class PasswordSetting extends Component {
                   requestHash(this.state.changedPassword)
                 }
               }}
+              disabled={this.state.changingPassword && !this.state.changedPassword}
               style={styles.settingsButton}>
               <AppText style={styles.settingsButtonText}>
                 {labels.passwordSettings.changePassword}
@@ -123,6 +124,7 @@ export default class PasswordSetting extends Component {
                 requestHash(this.state.newPassword)
               }
             }}
+            disabled={this.state.enteringNewPassword && !this.state.newPassword}
             style={styles.settingsButton}>
             <AppText style={styles.settingsButtonText}>
               {labels.passwordSettings.setPassword}
