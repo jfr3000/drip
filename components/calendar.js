@@ -54,7 +54,6 @@ export default class CalendarView extends Component {
 }
 
 function toCalFormat(bleedingDaysSortedByDate) {
-  //const shadesOfRed = ['#ffbaba', '#ff7b7b', '#ff5252', '#ff0000']
   return bleedingDaysSortedByDate.reduce((acc, day) => {
     acc[day.date] = {
       startingDay: true,
@@ -67,7 +66,6 @@ function toCalFormat(bleedingDaysSortedByDate) {
 
 function predictionToCalFormat(predictedDays) {
   if (!predictedDays.length) return {}
-  //const shadesOfGrey = ['#e5e5e5', '#cccccc'] // [lighter, darker]
   const middleIndex = (predictedDays[0].length - 1) / 2
   return predictedDays.reduce((acc, setOfDays) => {
     setOfDays.reduce((accSet, day, i) => {

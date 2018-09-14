@@ -1,8 +1,8 @@
 import config from '../../config'
 import {primaryColor, shadesOfRed} from '../../styles/index'
 
-const colorTemperatur = '#765285'
-const colorTemperaturLight = '#a67fb5'
+const colorTemperature = '#765285'
+const colorTemperatureLight = '#a67fb5'
 const dotWidth = 10
 const lineWidth = 2
 const colorLtl = '#feb47b'
@@ -10,22 +10,22 @@ const colorLtl = '#feb47b'
 const styles = {
   curve: {
     borderStyle: 'solid',
-    borderColor: colorTemperatur,
+    borderColor: colorTemperature,
     borderWidth: lineWidth,
   },
   curveExcluded: {
-    borderColor: colorTemperaturLight,
+    borderColor: colorTemperatureLight,
     borderWidth: lineWidth,
     borderStyle: 'dotted'
   },
   curveDots: {
-    backgroundColor: colorTemperatur,
+    backgroundColor: colorTemperature,
     width: dotWidth,
     height: dotWidth,
     borderRadius: 50
   },
   curveDotsExcluded: {
-    backgroundColor: colorTemperaturLight,
+    backgroundColor: colorTemperatureLight,
     width: dotWidth,
     height: dotWidth,
     borderRadius: 50
@@ -35,12 +35,12 @@ const styles = {
       date: {
         color: 'grey',
         fontSize: 9,
-        fontWeight: '100'
+        fontWeight: '100',
       },
       number: {
         color: primaryColor,
         fontSize: 13,
-        textAlign: 'center'
+        textAlign: 'center',
       }
     },
     rect: {
@@ -69,7 +69,7 @@ const styles = {
     '#feb47b'
   ],
   yAxis: {
-    width: 27,//config.columnWidth,
+    width: 27,
     borderRightWidth: 0.5,
     borderColor: 'lightgrey',
     borderStyle: 'solid'

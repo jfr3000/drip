@@ -71,7 +71,7 @@ export default class DayColumn extends Component {
     const cycleDayNumber = getCycleDayNumber(dateString)
     const shortDate = dateString.split('-').slice(1).join('-')
     const cycleDayLabel = (
-      <Text style={label.number}>
+      <Text style = {label.number}>
         {cycleDayNumber ? cycleDayNumber : ' '}
       </Text>)
     const dateLabel = (
@@ -140,7 +140,7 @@ export default class DayColumn extends Component {
             {typeof symptoms.sex === 'number' &&
               <View
                 {...styles.mucusIcon}
-                backgroundColor={styles.mucusIconShades[symptoms.mucus]}
+                backgroundColor='orange'
                 key='sex'
               />
             }

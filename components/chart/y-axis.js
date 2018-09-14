@@ -10,9 +10,6 @@ export function makeYAxisLabels(columnHeight) {
   const style = styles.yAxisLabel
 
   return getTickPositions(columnHeight).map((y, i) => {
-    // this eyeballing is sadly necessary because RN does not
-    // support percentage values for transforms, which we'd need
-    // to reliably place the label vertically centered to the grid
     const tick = scaleMax - i * units
     const tickLabel = tick * 10 % 10 ? tick.toString() : tick.toString() + '.0'
     let showTick
@@ -24,6 +21,9 @@ export function makeYAxisLabels(columnHeight) {
       showTick =  (tick * 10 % 5) ? false : true
       tickBold = tick * 10 % 10 ? {} : {fontWeight: 'bold'}
     }
+    // this eyeballing is sadly necessary because RN does not
+    // support percentage values for transforms, which we'd need
+    // to reliably place the label vertically centered to the grid
     return (
       <Text
         style={[style, {top: y - 8}, tickBold]}
