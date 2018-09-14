@@ -1,8 +1,9 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import config from '../../config'
 import styles from './styles'
 import { scaleObservable, unitObservable } from '../../local-storage'
+import { AppText } from '../app-text'
 
 export function makeYAxisLabels(columnHeight) {
   const units = unitObservable.value
@@ -25,11 +26,11 @@ export function makeYAxisLabels(columnHeight) {
     // support percentage values for transforms, which we'd need
     // to reliably place the label vertically centered to the grid
     return (
-      <Text
+      <AppText
         style={[style, {top: y - 8}, tickBold]}
         key={i}>
         {showTick && tickLabel}
-      </Text>
+      </AppText>
     )
   })
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, FlatList, Text } from 'react-native'
+import { View, FlatList } from 'react-native'
 import range from 'date-range'
 import { LocalDate } from 'js-joda'
 import { makeYAxisLabels, normalizeToScale, makeHorizontalGrid } from './y-axis'
@@ -9,6 +9,7 @@ import { getCycleDay, cycleDaysSortedByDate, getAmountOfCycleDays } from '../../
 import styles from './styles'
 import { scaleObservable } from '../../local-storage'
 import config from '../../config'
+import { AppText } from '../app-text'
 
 export default class CycleChart extends Component {
   constructor(props) {
@@ -126,7 +127,7 @@ export default class CycleChart extends Component {
       >
         {!this.state.chartLoaded &&
           <View style={{width: '100%', justifyContent: 'center', alignItems: 'center'}}>
-            <Text>Loading...</Text>
+            <AppText>Loading...</AppText>
           </View>
         }
 

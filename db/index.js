@@ -1,9 +1,12 @@
 import Realm from 'realm'
 import { LocalDate, ChronoUnit } from 'js-joda'
 import {
+  cycleWithFhmMucus,
+  longAndComplicatedCycleWithMucus,
   cycleWithTempAndNoMucusShift,
-  cycleWithFhm,
-  longAndComplicatedCycle
+  cycleWithFhmCervix,
+  longAndComplicatedCycleWithCervix,
+  cycleWithTempAndNoCervixShift
 } from './fixtures'
 
 const TemperatureSchema = {
@@ -179,10 +182,10 @@ function getCycleDay(localDate) {
   return db.objectForPrimaryKey('CycleDay', localDate)
 }
 
-function fillWithDummyData() {
+function fillWithMucusDummyData() {
   const dummyCycles = [
-    cycleWithFhm,
-    longAndComplicatedCycle,
+    cycleWithFhmMucus,
+    longAndComplicatedCycleWithMucus,
     cycleWithTempAndNoMucusShift
   ]
 
@@ -203,6 +206,32 @@ function fillWithDummyData() {
     })
   })
 }
+
+function fillWithCervixDummyData() {
+  const dummyCycles = [
+    cycleWithFhmCervix,
+    longAndComplicatedCycleWithCervix,
+    cycleWithTempAndNoCervixShift
+  ]
+
+  db.write(() => {
+    db.deleteAll()
+    dummyCycles.forEach(cycle => {
+      cycle.forEach(day => {
+        const existing = getCycleDay(day.date)
+        if (existing) {
+          Object.keys(day).forEach(key => {
+            if (key === 'date') return
+            existing[key] = day[key]
+          })
+        } else {
+          db.create('CycleDay', day)
+        }
+      })
+    })
+  })
+}
+
 
 function deleteAll() {
   db.write(() => {
@@ -266,7 +295,8 @@ export {
   bleedingDaysSortedByDate,
   temperatureDaysSortedByDate,
   cycleDaysSortedByDate,
-  fillWithDummyData,
+  fillWithMucusDummyData,
+  fillWithCervixDummyData,
   deleteAll,
   getPreviousTemperature,
   getCycleDay,

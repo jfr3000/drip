@@ -8,7 +8,7 @@ import {
 import { LocalDate, ChronoUnit } from 'js-joda'
 import styles from '../styles/index'
 import cycleModule from '../lib/cycle'
-import { getOrCreateCycleDay, bleedingDaysSortedByDate, fillWithDummyData, deleteAll } from '../db'
+import { getOrCreateCycleDay, bleedingDaysSortedByDate, fillWithMucusDummyData, fillWithCervixDummyData, deleteAll } from '../db'
 import {bleedingPrediction as labels} from './labels'
 
 const getCycleDayNumber = cycleModule().getCycleDayNumber
@@ -62,8 +62,14 @@ export default class Home extends Component {
           </View>
           <View style={styles.homeButton}>
             <Button
-              onPress={() => fillWithDummyData()}
-              title="fill with example data">
+              onPress={() => fillWithMucusDummyData()}
+              title="fill with example data for mucus&temp">
+            </Button>
+          </View>
+          <View style={styles.homeButton}>
+            <Button
+              onPress={() => fillWithCervixDummyData()}
+              title="fill with example data for cervix&temp">
             </Button>
           </View>
           <View style={styles.homeButton}>

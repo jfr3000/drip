@@ -25,3 +25,6 @@ You can run the tests with `npm test`.
 ## Debugging
 When running into an old version of the app try to run the following command first:
 `react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res`
+
+## NFP rules
+More information about how the app calculates fertility status and bleeding predictions in the [wiki on Gitlab](https://gitlab.com/bloodyhealth/drip/wikis/home)
