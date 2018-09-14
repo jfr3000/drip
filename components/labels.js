@@ -6,7 +6,8 @@ export const shared = {
   warning: 'Warning',
   incorrectPassword: 'Password incorrect',
   incorrectPasswordMessage: 'That password is incorrect.',
-  tryAgain: 'Try again'
+  tryAgain: 'Try again',
+  ok: 'OK'
 }
 
 export const settings = {
@@ -58,6 +59,8 @@ export const settings = {
     explainerEnabled: "Password protection and database encryption is currently enabled",
     deletePassword: "Delete password",
     enterCurrent: "Please enter your current password",
+    backupReminderTitle: 'Have you made a backup of your data?',
+    backupReminder: 'When you make changes to your password, we delete your old data and store it in a new version. To be safe, please backup your data using the export function before making changes to your password. Making any changes to your password setting will also restart the app immediately.',
   }
 }
 

@@ -92,7 +92,17 @@ export default class PasswordSetting extends Component {
         <TouchableOpacity
           onPress={() => {
             if (!this.state.enteringCurrentPassword) {
-              this.setState({ enteringCurrentPassword: true })
+              Alert.alert(
+                labels.passwordSettings.backupReminderTitle,
+                labels.passwordSettings.backupReminder,
+                [{
+                  text: shared.cancel,
+                  style: 'cancel'
+                }, {
+                  text: shared.ok,
+                  onPress: () => this.setState({enteringCurrentPassword: true})
+                }]
+              )
             } else {
               requestHash(this.state.currentPassword)
             }
