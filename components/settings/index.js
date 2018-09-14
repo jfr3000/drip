@@ -30,9 +30,7 @@ export default class Settings extends Component {
           <AppText>{labels.tempScale.segmentExplainer}</AppText>
           <TempSlider/>
         </View>
-        <View style={styles.settingsSegment}>
-          <PasswordSetting/>
-        </View>
+        <PasswordSetting />
         <View style={styles.settingsSegment}>
           <AppText style={styles.settingsSegmentTitle}>
             {labels.export.button}
