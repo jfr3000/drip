@@ -6,10 +6,9 @@ import {
   ScrollView
 } from 'react-native'
 import { LocalDate, ChronoUnit } from 'js-joda'
-import nodejs from 'nodejs-mobile-react-native'
 import styles from '../styles/index'
 import cycleModule from '../lib/cycle'
-import { requestHash, getOrCreateCycleDay, getBleedingDaysSortedByDate, fillWithMucusDummyData, fillWithCervixDummyData, changeEncryptionAndRestartApp } from '../db'
+import { getOrCreateCycleDay, getBleedingDaysSortedByDate, fillWithMucusDummyData, fillWithCervixDummyData } from '../db'
 import {bleedingPrediction as labels} from './labels'
 
 export default class Home extends Component {
@@ -35,22 +34,10 @@ export default class Home extends Component {
     })(this)
 
     getBleedingDaysSortedByDate().addListener(this.setStateWithCurrentText)
-
-    this.startEncryption = async (msg) => {
-      msg = JSON.parse(msg)
-      changeEncryptionAndRestartApp(msg.message)
-    }
-
-    nodejs.channel.addListener(
-      'message',
-      this.startEncryption,
-      this
-    )
   }
 
   componentWillUnmount() {
     getBleedingDaysSortedByDate().removeListener(this.setStateWithCurrentText)
-    nodejs.channel.removeListener('message', this.startEncryption)
   }
 
   passTodayToDayView() {
@@ -82,14 +69,6 @@ export default class Home extends Component {
             <Button
               onPress={() => fillWithCervixDummyData()}
               title="fill with example data for cervix&temp">
-            </Button>
-          </View>
-          <View style={styles.homeButton}>
-            <Button
-              onPress={() => {
-                requestHash()
-              }}
-              title="encrypt, yo">
             </Button>
           </View>
         </View>

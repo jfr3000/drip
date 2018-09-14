@@ -18,7 +18,7 @@ export default class PasswordSetting extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      enabled: hasEncryptionObservable.value,
+      encryptionEnabled: hasEncryptionObservable.value,
       currentPassword: null,
       enteringCurrentPassword: false
     }
@@ -38,8 +38,20 @@ export default class PasswordSetting extends Component {
   passHashToDb = async (msg) => {
     msg = JSON.parse(msg)
     if (msg.type != 'sha512') return
+    if (this.state.encryptionEnabled) {
+      await this.removeEncryption(msg.message)
+    } else if (!this.state.encryptionEnabled) {
+      await changeEncryptionAndRestartApp(msg.message)
+    }
+  }
+
+  addEncryption = async hash => {
+    changeEncryptionAndRestartApp(hash)
+  }
+
+  removeEncryption = async hash => {
     try {
-      await openDb({ hash: msg.message, persistConnection: false })
+      await openDb({ hash, persistConnection: false })
     } catch (err) {
       console.log(err)
       Alert.alert(
@@ -69,7 +81,7 @@ export default class PasswordSetting extends Component {
         <AppText style={styles.settingsSegmentTitle}>
           {labels.passwordSettings.title}
         </AppText>
-        {this.state.enabled ?
+        {this.state.encryptionEnabled ?
           <AppText>{labels.passwordSettings.explainerEnabled}</AppText>
           :
           <AppText>{labels.passwordSettings.explainerDisabled}</AppText>
@@ -90,30 +102,71 @@ export default class PasswordSetting extends Component {
             />
           </View>
         }
-        <TouchableOpacity
-          onPress={() => {
-            if (!this.state.enteringCurrentPassword) {
-              Alert.alert(
-                labels.passwordSettings.backupReminderTitle,
-                labels.passwordSettings.backupReminder,
-                [{
-                  text: shared.cancel,
-                  style: 'cancel'
-                }, {
-                  text: shared.ok,
-                  onPress: () => this.setState({enteringCurrentPassword: true})
-                }]
-              )
-            } else {
-              requestHash(this.state.currentPassword)
-            }
-          }}
-          style={styles.settingsButton}>
-          <AppText style={styles.settingsButtonText}>
-            {labels.passwordSettings.deletePassword}
-          </AppText>
-        </TouchableOpacity>
+        {this.state.encryptionEnabled &&
+          <TouchableOpacity
+            onPress={() => {
+              if (!this.state.enteringCurrentPassword) {
+                showBackUpReminder(() => {
+                  this.setState({ enteringCurrentPassword: true })
+                })
+              } else {
+                requestHash(this.state.currentPassword)
+              }
+            }}
+            style={styles.settingsButton}>
+            <AppText style={styles.settingsButtonText}>
+              {labels.passwordSettings.deletePassword}
+            </AppText>
+          </TouchableOpacity>
+        }
+
+        {this.state.enteringNewPassword &&
+          <View>
+            <TextInput
+              style={styles.passwordField}
+              onChangeText={val => {
+                this.setState({
+                  newPassword: val
+                })
+              }}
+              value={this.state.newPassword}
+              placeholder={labels.passwordSettings.enterNew}
+              secureTextEntry={true}
+            />
+          </View>
+        }
+        {!this.state.encryptionEnabled &&
+          <TouchableOpacity
+            onPress={() => {
+              if (!this.state.enteringNewPassword) {
+                showBackUpReminder(() => {
+                  this.setState({ enteringNewPassword: true })
+                })
+              } else {
+                requestHash(this.state.newPassword)
+              }
+            }}
+            style={styles.settingsButton}>
+            <AppText style={styles.settingsButtonText}>
+              {labels.passwordSettings.setPassword}
+            </AppText>
+          </TouchableOpacity>
+        }
       </View>
     )
   }
+}
+
+function showBackUpReminder(okHandler) {
+  Alert.alert(
+    labels.passwordSettings.backupReminderTitle,
+    labels.passwordSettings.backupReminder,
+    [{
+      text: shared.cancel,
+      style: 'cancel'
+    }, {
+      text: shared.ok,
+      onPress: okHandler
+    }]
+  )
 }

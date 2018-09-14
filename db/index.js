@@ -157,7 +157,7 @@ export function tryToImportWithoutDelete(cycleDays) {
 export function requestHash(pw) {
   nodejs.channel.send(JSON.stringify({
     type: 'request-SHA512',
-    message: pw || 'mypassword'
+    message: pw
   }))
 }
 
