@@ -4,26 +4,28 @@ export const primaryColor = '#ff7e5f'
 export const secondaryColor = '#351c4d'
 export const fontOnPrimaryColor = 'white'
 
+const defaultBottomMargin = 5
+const defaultIndentation = 10
+const defaultTopMargin = 10
+
 export default StyleSheet.create({
   appText: {
     color: 'black'
   },
-  appTextEmphasis: {
+  paragraph: {
+    marginBottom: defaultBottomMargin
+  },
+  emphasis: {
     fontWeight: 'bold',
   },
-  appTextTitle: {
+  title: {
     fontSize: 18,
     color: 'black',
-    marginBottom: 5,
+    marginBottom: defaultBottomMargin,
   },
-  appVerticalMargin: {
-    marginTop: 10,
-  },
-  appHorizontalMargin: {
-    marginHorizontal: 10,
-  },
-  appBottomMargin: {
-    marginBottom: 5
+  textWrappingView: {
+    marginHorizontal: defaultIndentation,
+    marginTop: defaultTopMargin
   },
   welcome: {
     fontSize: 20,
@@ -154,12 +156,6 @@ export default StyleSheet.create({
   symptomEditButton: {
     width: 130
   },
-  /*statsIntro: {
-    fontSize: 18,
-    margin: 10,
-    textAlign: 'left',
-    textAlignVertical: 'center'
-  },*/
   settingsSegment: {
     backgroundColor: 'lightgrey',
     padding: 10,
