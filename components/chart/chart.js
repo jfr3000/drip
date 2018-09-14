@@ -72,7 +72,7 @@ export default class CycleChart extends Component {
       'pain',
       'note'
     ].filter((symptomName) => {
-      return cycleDaysSortedByDate.some(cycleDay => cycleDay[symptomName])
+      return this.cycleDaysSortedByDate.some(cycleDay => cycleDay[symptomName])
     })
 
     const columns = xAxisDates.map(dateString => {

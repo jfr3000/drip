@@ -41,6 +41,7 @@ export default class PasswordSetting extends Component {
     try {
       await openDb({ hash: msg.message, persistConnection: false })
     } catch (err) {
+      console.log(err)
       Alert.alert(
         shared.incorrectPassword,
         shared.incorrectPasswordMessage,

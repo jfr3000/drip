@@ -36,6 +36,7 @@ export default class PasswordPrompt extends Component {
     try {
       await openDb({hash: msg.message, persistConnection: true })
     } catch (err) {
+      console.log(err)
       Alert.alert(
         shared.incorrectPassword,
         shared.incorrectPasswordMessage,
@@ -47,6 +48,35 @@ export default class PasswordPrompt extends Component {
       return
     }
     this.props.showApp()
+  }
+
+  confirmDeletion = async () => {
+    Alert.alert(
+      labels.deleteDatabaseTitle,
+      labels.deleteDatabaseExplainer,
+      [{
+        text: shared.cancel,
+        style: 'cancel'
+      }, {
+        text: labels.deleteData,
+        onPress: () => {
+          Alert.alert(
+            labels.areYouSureTitle,
+            labels.areYouSure,
+            [{
+              text: shared.cancel,
+              style: 'cancel'
+            }, {
+              text: labels.reallyDeleteData,
+              onPress: async () => {
+                await deleteDbAndOpenNew()
+                this.props.showApp()
+              }
+            }]
+          )
+        }
+      }]
+    )
   }
 
   componentWillUnmount() {
@@ -79,34 +109,7 @@ export default class PasswordPrompt extends Component {
               </AppText>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={async () => {
-                Alert.alert(
-                  labels.deleteDatabaseTitle,
-                  labels.deleteDatabaseExplainer,
-                  [{
-                    text: shared.cancel,
-                    style: 'cancel'
-                  }, {
-                    text: labels.deleteData,
-                    onPress: () => {
-                      Alert.alert(
-                        labels.areYouSureTitle,
-                        labels.areYouSure,
-                        [{
-                          text: shared.cancel,
-                          style: 'cancel'
-                        }, {
-                          text: labels.reallyDeleteData,
-                          onPress: async () => {
-                            await deleteDbAndOpenNew()
-                            this.props.showApp()
-                          }
-                        }]
-                      )
-                    }
-                  }]
-                )
-              }}
+              onPress={this.confirmDeletion}
             >
               <AppText style={styles.passwordPromptForgotPasswordText}>
                 {labels.forgotPassword}

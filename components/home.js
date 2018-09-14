@@ -9,7 +9,7 @@ import { LocalDate, ChronoUnit } from 'js-joda'
 import nodejs from 'nodejs-mobile-react-native'
 import styles from '../styles/index'
 import cycleModule from '../lib/cycle'
-import { requestHash, getOrCreateCycleDay, getBleedingDaysSortedByDate, fillWithMucusDummyData, fillWithCervixDummyData, deleteAll, changeEncryptionAndRestartApp } from '../db'
+import { requestHash, getOrCreateCycleDay, getBleedingDaysSortedByDate, fillWithMucusDummyData, fillWithCervixDummyData, changeEncryptionAndRestartApp } from '../db'
 import {bleedingPrediction as labels} from './labels'
 
 export default class Home extends Component {
@@ -82,12 +82,6 @@ export default class Home extends Component {
             <Button
               onPress={() => fillWithCervixDummyData()}
               title="fill with example data for cervix&temp">
-            </Button>
-          </View>
-          <View style={styles.homeButton}>
-            <Button
-              onPress={() => deleteAll()}
-              title="delete everything">
             </Button>
           </View>
           <View style={styles.homeButton}>

@@ -19,23 +19,23 @@ const realmConfig = {
   schema: dbSchema
 }
 
-function getBleedingDaysSortedByDate() {
+export function getBleedingDaysSortedByDate() {
   return db.objects('CycleDay').filtered('bleeding != null').sorted('date', true)
 }
-function getTemperatureDaysSortedByDate() {
+export function getTemperatureDaysSortedByDate() {
   return db.objects('CycleDay').filtered('temperature != null').sorted('date', true)
 }
-function getCycleDaysSortedByDate() {
+export function getCycleDaysSortedByDate() {
   return db.objects('CycleDay').sorted('date', true)
 }
 
-function saveSymptom(symptom, cycleDay, val) {
+export function saveSymptom(symptom, cycleDay, val) {
   db.write(() => {
     cycleDay[symptom] = val
   })
 }
 
-function getOrCreateCycleDay(localDate) {
+export function getOrCreateCycleDay(localDate) {
   let result = db.objectForPrimaryKey('CycleDay', localDate)
   if (!result) {
     db.write(() => {
@@ -47,11 +47,11 @@ function getOrCreateCycleDay(localDate) {
   return result
 }
 
-function getCycleDay(localDate) {
+export function getCycleDay(localDate) {
   return db.objectForPrimaryKey('CycleDay', localDate)
 }
 
-function fillWithMucusDummyData() {
+export function fillWithMucusDummyData() {
   const dummyCycles = [
     cycleWithFhmMucus,
     longAndComplicatedCycleWithMucus,
@@ -76,7 +76,7 @@ function fillWithMucusDummyData() {
   })
 }
 
-function fillWithCervixDummyData() {
+export function fillWithCervixDummyData() {
   const dummyCycles = [
     cycleWithFhmCervix,
     longAndComplicatedCycleWithCervix,
@@ -101,14 +101,7 @@ function fillWithCervixDummyData() {
   })
 }
 
-
-function deleteAll() {
-  db.write(() => {
-    db.deleteAll()
-  })
-}
-
-function getPreviousTemperature(cycleDay) {
+export function getPreviousTemperature(cycleDay) {
   cycleDay.wrappedDate = LocalDate.parse(cycleDay.date)
   const winner = getTemperatureDaysSortedByDate().find(day => {
     const wrappedDate = LocalDate.parse(day.date)
@@ -118,7 +111,7 @@ function getPreviousTemperature(cycleDay) {
   return winner.temperature.value
 }
 
-function tryToCreateCycleDay(day, i) {
+export function tryToCreateCycleDay(day, i) {
   try {
     db.create('CycleDay', day)
   } catch (err) {
@@ -127,7 +120,7 @@ function tryToCreateCycleDay(day, i) {
   }
 }
 
-function getAmountOfCycleDays() {
+export function getAmountOfCycleDays() {
   const cycleDaysSortedByDate = getCycleDaysSortedByDate()
   const amountOfCycleDays = cycleDaysSortedByDate.length
   if (!amountOfCycleDays) return 0
@@ -137,21 +130,21 @@ function getAmountOfCycleDays() {
   return earliestAsLocalDate.until(today, ChronoUnit.DAYS)
 }
 
-function getSchema() {
+export function getSchema() {
   return db.schema.reduce((acc, curr) => {
     acc[curr.name] = curr.properties
     return acc
   }, {})
 }
 
-function tryToImportWithDelete(cycleDays) {
+export function tryToImportWithDelete(cycleDays) {
   db.write(() => {
     db.delete(db.objects('CycleDay'))
     cycleDays.forEach(tryToCreateCycleDay)
   })
 }
 
-function tryToImportWithoutDelete(cycleDays) {
+export function tryToImportWithoutDelete(cycleDays) {
   db.write(() => {
     cycleDays.forEach((day, i) => {
       const existing = getCycleDay(day.date)
@@ -161,7 +154,7 @@ function tryToImportWithoutDelete(cycleDays) {
   })
 }
 
-function requestHash(pw) {
+export function requestHash(pw) {
   nodejs.channel.send(JSON.stringify({
     type: 'request-SHA512',
     message: pw || 'mypassword'
@@ -201,7 +194,7 @@ export async function changeEncryptionAndRestartApp(hash) {
   restart.Restart()
 }
 
-async function deleteDbAndOpenNew() {
+export async function deleteDbAndOpenNew() {
   const exists = await fs.exists(Realm.defaultPath)
   if (exists) await fs.unlink(Realm.defaultPath)
   await openDb({ persistConnection: true })
@@ -215,23 +208,4 @@ function hashToInt8Array(hash) {
     key[i] = parseInt(twoDigitHex, 16)
   }
   return key
-}
-
-export {
-  saveSymptom,
-  getOrCreateCycleDay,
-  fillWithMucusDummyData,
-  fillWithCervixDummyData,
-  getBleedingDaysSortedByDate,
-  getTemperatureDaysSortedByDate,
-  getCycleDaysSortedByDate,
-  deleteAll,
-  getPreviousTemperature,
-  getCycleDay,
-  getAmountOfCycleDays,
-  getSchema,
-  tryToImportWithDelete,
-  tryToImportWithoutDelete,
-  requestHash,
-  deleteDbAndOpenNew
 }
