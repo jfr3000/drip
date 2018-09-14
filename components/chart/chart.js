@@ -29,7 +29,6 @@ export default class CycleChart extends Component {
 
   onLayout = ({ nativeEvent }) => {
     if (this.state.chartHeight) return
-
     const height = nativeEvent.layout.height
     this.setState({ chartHeight: height })
     this.reCalculateChartInfo = () => {
@@ -62,11 +61,38 @@ export default class CycleChart extends Component {
         jsDate.getDate()
       ).toString()
     })
+    const chartSymptoms = [
+      'bleeding',
+      'temperature',
+      'mucus',
+      'cervix',
+      'sex',
+      'desire',
+      'pain',
+      'note'
+    ].filter((symptomName) => {
+      return cycleDaysSortedByDate.some(cycleDay => cycleDay[symptomName])
+    })
 
     const columns = xAxisDates.map(dateString => {
       const cycleDay = getCycleDay(dateString)
-      const symptoms = ['temperature', 'mucus', 'bleeding'].reduce((acc, symptom) => {
-        acc[symptom] = cycleDay && cycleDay[symptom] && cycleDay[symptom].value
+      const symptoms = chartSymptoms.reduce((acc, symptom) => {
+        if (symptom === 'bleeding' ||
+          symptom === 'temperature' ||
+          symptom === 'mucus' ||
+          symptom === 'desire' ||
+          symptom === 'note'
+        ) {
+          acc[symptom] = cycleDay && cycleDay[symptom] && cycleDay[symptom].value
+        } else if (symptom === 'cervix') {
+          acc[symptom] = cycleDay && cycleDay['cervix'] && (cycleDay['cervix'].opening + cycleDay['cervix'].firmness)
+        } else if (symptom === 'sex') {
+          // solo = 1 + partner = 2
+          acc[symptom] = cycleDay && cycleDay['sex'] && (cycleDay['sex'].solo + cycleDay['sex'].partner)
+        } else if (symptom === 'pain') {
+          // is any pain documented?
+          acc[symptom] = cycleDay && cycleDay['pain'] && Object.values(cycleDay['pain']).some(x => x === true)
+        }
         acc[`${symptom}Exclude`] = cycleDay && cycleDay[symptom] && cycleDay[symptom].exclude
         return acc
       }, {})
@@ -76,7 +102,7 @@ export default class CycleChart extends Component {
       return {
         dateString,
         y: temp ? normalizeToScale(temp, columnHeight) : null,
-        ...symptoms,
+        symptoms,
         ...getFhmAndLtlInfo(dateString, temp)
       }
     })

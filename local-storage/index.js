@@ -8,6 +8,18 @@ setObvWithInitValue('tempScale', scaleObservable, {
   max: config.temperatureScale.defaultHigh
 })
 
+export const unitObservable = Observable()
+unitObservable.set(config.temperatureScale.units)
+scaleObservable((scale) => {
+  const scaleRange = scale.max - scale.min
+  if (scaleRange <= 3) {
+    unitObservable.set(0.1)
+  } else {
+    unitObservable.set(0.5)
+  }
+})
+
+
 export const tempReminderObservable = Observable()
 setObvWithInitValue('tempReminder', tempReminderObservable, {
   enabled: false

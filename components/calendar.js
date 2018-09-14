@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { CalendarList } from 'react-native-calendars'
 import { getOrCreateCycleDay, bleedingDaysSortedByDate } from '../db'
 import cycleModule from '../lib/cycle'
+import {shadesOfRed, shadesOfGrey} from '../styles/index'
 
 export default class CalendarView extends Component {
   constructor(props) {
@@ -53,7 +54,6 @@ export default class CalendarView extends Component {
 }
 
 function toCalFormat(bleedingDaysSortedByDate) {
-  const shadesOfRed = ['#ffcbbf', '#ffb19f', '#ff977e', '#ff7e5f'] // light to dark
   return bleedingDaysSortedByDate.reduce((acc, day) => {
     acc[day.date] = {
       startingDay: true,
@@ -66,7 +66,6 @@ function toCalFormat(bleedingDaysSortedByDate) {
 
 function predictionToCalFormat(predictedDays) {
   if (!predictedDays.length) return {}
-  const shadesOfGrey = ['#e5e5e5', '#cccccc'] // [lighter, darker]
   const middleIndex = (predictedDays[0].length - 1) / 2
   return predictedDays.reduce((acc, setOfDays) => {
     setOfDays.reduce((accSet, day, i) => {

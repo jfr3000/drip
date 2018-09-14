@@ -41,7 +41,7 @@ export default class DotAndLine extends Component {
 
 function makeLine(leftY, rightY, direction, excludeLine) {
   const colWidth = config.columnWidth
-  const heightDiff = -leftY - -rightY
+  const heightDiff = -(leftY - rightY)
   const angle = Math.atan2(heightDiff, colWidth / 2)
   const lineStyle = excludeLine ? styles.curveExcluded : styles.curve
   // hypotenuse, we add 3px for good measure, because otherwise the lines

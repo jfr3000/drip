@@ -1,26 +1,33 @@
 import config from '../../config'
+import {primaryColor, shadesOfRed} from '../../styles/index'
+
+const colorTemperature = '#765285'
+const colorTemperatureLight = '#a67fb5'
+const dotWidth = 10
+const lineWidth = 2
+const colorLtl = '#feb47b'
 
 const styles = {
   curve: {
     borderStyle: 'solid',
-    borderColor: '#ffc425',
-    borderWidth: 2,
+    borderColor: colorTemperature,
+    borderWidth: lineWidth,
   },
   curveExcluded: {
-    borderColor: 'lightgrey',
-    borderWidth: 2,
-    borderStyle: 'solid'
+    borderColor: colorTemperatureLight,
+    borderWidth: lineWidth,
+    borderStyle: 'dotted'
   },
   curveDots: {
-    backgroundColor: '#00aedb',
-    width: 12,
-    height: 12,
+    backgroundColor: colorTemperature,
+    width: dotWidth,
+    height: dotWidth,
     borderRadius: 50
   },
   curveDotsExcluded: {
-    backgroundColor: 'lightgrey',
-    width: 12,
-    height: 12,
+    backgroundColor: colorTemperatureLight,
+    width: dotWidth,
+    height: dotWidth,
     borderRadius: 50
   },
   column: {
@@ -28,19 +35,18 @@ const styles = {
       date: {
         color: 'grey',
         fontSize: 9,
-        fontWeight: '100'
+        fontWeight: '100',
       },
       number: {
-        color: '#00b159',
+        color: primaryColor,
         fontSize: 13,
-        textAlign: 'center'
+        textAlign: 'center',
       }
     },
     rect: {
       width: config.columnWidth,
       borderStyle: 'solid',
       borderLeftWidth: 0.5,
-      borderRightWidth: 0.5,
     }
   },
   bleedingIcon: {
@@ -49,20 +55,21 @@ const styles = {
     x: 6,
     y: 3
   },
+  bleedingIconShades: shadesOfRed,
   mucusIcon: {
     width: 12,
     height: 12,
     borderRadius: 50,
   },
   mucusIconShades: [
-    '#cc99cc',
-    '#bf7fbf',
-    '#b266b2',
-    '#a64ca6',
-    '#993299'
+    '#fef0e4',
+    '#fee1ca',
+    '#fed2af',
+    '#fec395',
+    '#feb47b'
   ],
   yAxis: {
-    width: config.columnWidth,
+    width: 27,
     borderRightWidth: 0.5,
     borderColor: 'lightgrey',
     borderStyle: 'solid'
@@ -83,13 +90,15 @@ const styles = {
     left: config.columnWidth
   },
   nfpLine: {
-    borderColor: '#00b159',
-    borderWidth: 2,
+    borderColor: colorLtl,
+    borderWidth: lineWidth,
     borderStyle: 'solid'
   },
   symptomRow: {
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    width: '100%',
+    flex: 1
   }
 }
 
