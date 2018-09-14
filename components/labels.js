@@ -68,10 +68,15 @@ export const headerTitles = {
 }
 
 export const stats = {
+  cycleLengthTitle: 'Cycle length',
+  cycleLengthExplainer: 'Basic statistics about the length of your cycles.',
   emptyStats: 'At least one completed cycle is needed to present you with stats here.',
-  oneCycleStats: (number) => `You have documented one cycle of ${number} days.`,
-  getBasisOfStats: (numberOfCycles) => `Stats are based on ${numberOfCycles} completed cycles.`,
+  //oneCycleStats: (number) => `You have documented one cycle of ${number} days.`,
+  oneCycleStats: 'You have documented one cycle of',
   daysLabel: 'days',
+  //getBasisOfStats: (numberOfCycles) => `Stats are based on ${numberOfCycles} completed cycles.`,
+  basisOfStatsBeginning: 'Stats are based on',
+  basisOfStatsEnd: 'completed cycles.',
   averageLabel: 'Average cycle length',
   minLabel: 'Shortest cycle',
   maxLabel: 'Longest cycle',
