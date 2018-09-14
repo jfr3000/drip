@@ -62,7 +62,7 @@ export const settings = {
     changePassword: 'Change password',
     enterNew: "Please enter a new password",
     backupReminderTitle: 'Have you made a backup of your data?',
-    backupReminder: 'When you make changes to your password, we delete your old data and store it in a new version. To be safe, please backup your data using the export function before making changes to your password. Making any changes to your password setting will also restart the app immediately.',
+    backupReminder: 'Just to be safe, please backup your data using the export function before making changes to your password.\n\nPlease also make sure you do not lose your password. There is no way to recover your data if you do.\n\nMaking any changes to your password setting will restart the app.',
   }
 }
 

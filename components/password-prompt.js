@@ -36,7 +36,6 @@ export default class PasswordPrompt extends Component {
     try {
       await openDb({hash: msg.message, persistConnection: true })
     } catch (err) {
-      console.log(err)
       Alert.alert(
         shared.incorrectPassword,
         shared.incorrectPasswordMessage,
