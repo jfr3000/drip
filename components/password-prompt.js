@@ -61,6 +61,8 @@ export default class PasswordPrompt extends Component {
             <TextInput
               onChangeText={val => this.setState({ password: val })}
               style={styles.passwordField}
+              secureTextEntry={true}
+              placeholder={passwordPrompt.enterPassword}
             />
             <TouchableOpacity
               style={styles.settingsButton}

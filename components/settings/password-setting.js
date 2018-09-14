@@ -85,6 +85,7 @@ export default class PasswordSetting extends Component {
               }}
               value={this.state.currentPassword}
               placeholder={labels.passwordSettings.enterCurrent}
+              secureTextEntry={true}
             />
           </View>
         }
