@@ -12,18 +12,18 @@ import {
 } from '../../local-storage'
 import styles from '../../styles/index'
 import { settings as labels, shared } from '../labels'
-import { requestHash, openDb, changeEncryptionAndRestartApp } from '../../db'
+import { requestHash, changeEncryptionAndRestartApp } from '../../db'
 
 export default class PasswordSetting extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      encryptionEnabled: hasEncryptionObservable.value,
-      currentPassword: null,
-      enteringCurrentPassword: false
+      showUpdateAndDelete: hasEncryptionObservable.value,
+      showSetPassword: !hasEncryptionObservable.value,
+      settingNewPassword: false,
+      changingPassword: false
     }
 
-    nodejs.start('main.js')
     nodejs.channel.addListener(
       'message',
       this.passHashToDb,
@@ -38,41 +38,7 @@ export default class PasswordSetting extends Component {
   passHashToDb = async (msg) => {
     msg = JSON.parse(msg)
     if (msg.type != 'sha512') return
-    if (this.state.encryptionEnabled) {
-      await this.removeEncryption(msg.message)
-    } else if (!this.state.encryptionEnabled) {
-      await changeEncryptionAndRestartApp(msg.message)
-    }
-  }
-
-  addEncryption = async hash => {
-    changeEncryptionAndRestartApp(hash)
-  }
-
-  removeEncryption = async hash => {
-    try {
-      await openDb({ hash, persistConnection: false })
-    } catch (err) {
-      console.log(err)
-      Alert.alert(
-        shared.incorrectPassword,
-        shared.incorrectPasswordMessage,
-        [{
-          text: shared.cancel,
-          onPress: () => {
-            this.setState({
-              enteringCurrentPassword: false,
-              currentPassword: null
-            })
-          }
-        }, {
-          text: shared.tryAgain,
-          onPress: () => this.setState({currentPassword: null})
-        }]
-      )
-      return
-    }
-    await changeEncryptionAndRestartApp()
+    await changeEncryptionAndRestartApp(msg.message)
   }
 
   render() {
@@ -81,43 +47,54 @@ export default class PasswordSetting extends Component {
         <AppText style={styles.settingsSegmentTitle}>
           {labels.passwordSettings.title}
         </AppText>
-        {this.state.encryptionEnabled ?
+        {this.state.showUpdateAndDelete ?
           <AppText>{labels.passwordSettings.explainerEnabled}</AppText>
           :
           <AppText>{labels.passwordSettings.explainerDisabled}</AppText>
         }
-        {this.state.enteringCurrentPassword &&
+
+        {this.state.showUpdateAndDelete &&
           <View>
-            <TextInput
-              style={styles.passwordField}
-              onChangeText={val => {
-                this.setState({
-                  currentPassword: val,
-                  wrongPassword: false
-                })
+            {this.state.changingPassword &&
+              <View>
+                <TextInput
+                  style={styles.passwordField}
+                  onChangeText={val => {
+                    this.setState({
+                      changedPassword: val
+                    })
+                  }}
+                  value={this.state.changedPassword}
+                  placeholder={labels.passwordSettings.enterNew}
+                  secureTextEntry={true}
+                />
+              </View>
+            }
+            <TouchableOpacity
+              onPress={() => {
+                if (!this.state.changingPassword) {
+                  showBackUpReminder(() => {
+                    this.setState({ changingPassword: true })
+                  })
+                } else {
+                  requestHash(this.state.changedPassword)
+                }
               }}
-              value={this.state.currentPassword}
-              placeholder={labels.passwordSettings.enterCurrent}
-              secureTextEntry={true}
-            />
+              style={styles.settingsButton}>
+              <AppText style={styles.settingsButtonText}>
+                {labels.passwordSettings.changePassword}
+              </AppText>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                showBackUpReminder(() => changeEncryptionAndRestartApp())
+              }}
+              style={styles.settingsButton}>
+              <AppText style={styles.settingsButtonText}>
+                {labels.passwordSettings.deletePassword}
+              </AppText>
+            </TouchableOpacity>
           </View>
-        }
-        {this.state.encryptionEnabled &&
-          <TouchableOpacity
-            onPress={() => {
-              if (!this.state.enteringCurrentPassword) {
-                showBackUpReminder(() => {
-                  this.setState({ enteringCurrentPassword: true })
-                })
-              } else {
-                requestHash(this.state.currentPassword)
-              }
-            }}
-            style={styles.settingsButton}>
-            <AppText style={styles.settingsButtonText}>
-              {labels.passwordSettings.deletePassword}
-            </AppText>
-          </TouchableOpacity>
         }
 
         {this.state.enteringNewPassword &&
@@ -135,7 +112,7 @@ export default class PasswordSetting extends Component {
             />
           </View>
         }
-        {!this.state.encryptionEnabled &&
+        {this.state.showSetPassword &&
           <TouchableOpacity
             onPress={() => {
               if (!this.state.enteringNewPassword) {
