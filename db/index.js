@@ -170,13 +170,7 @@ function requestHash(pw) {
 
 export async function openDb ({ hash, persistConnection }) {
   if (hash) {
-    const key = new Uint8Array(64)
-    for (let i = 0; i < key.length; i++) {
-      const twoDigitHex = hash.slice(i * 2, i * 2 + 2)
-      key[i] = parseInt(twoDigitHex, 16)
-    }
-
-    realmConfig.encryptionKey = key
+    realmConfig.encryptionKey = hashToInt8Array(hash)
   }
 
   const connection = await Realm.open(realmConfig)
@@ -184,37 +178,26 @@ export async function openDb ({ hash, persistConnection }) {
   if (persistConnection) db = connection
 }
 
-async function encryptAndRestartApp(key) {
-  const oldPath = db.path
+export async function changeEncryptionAndRestartApp(hash) {
+  let key
+  if (hash) key = hashToInt8Array(hash)
+  const defaultPath = db.path
   const dir = db.path.split('/')
   dir.pop()
   dir.push('copied.realm')
   const copyPath = dir.join('/')
   const exists = await fs.exists(copyPath)
   if (exists) await fs.unlink(copyPath)
-  db.writeCopyTo(copyPath)
+  // for some reason, realm complains if we give it a key with value undefined
+  if (key) {
+    db.writeCopyTo(copyPath, key)
+  } else {
+    db.writeCopyTo(copyPath)
+  }
   db.close()
-  await fs.unlink(oldPath)
-  realmConfig.encryptionKey = key
-  db = new Realm(realmConfig)
-  await saveEncryptionFlag(true)
-  restart.Restart()
-}
-
-export async function removeDbEncryptionAndRestartApp(key) {
-  const oldPath = db.path
-  const dir = db.path.split('/')
-  dir.pop()
-  dir.push('copied.realm')
-  const copyPath = dir.join('/')
-  const exists = await fs.exists(copyPath)
-  if (exists) await fs.unlink(copyPath)
-  db.writeCopyTo(copyPath)
-  db.close()
-  await fs.unlink(oldPath)
-  realmConfig.encryptionKey = key
-  db = new Realm(realmConfig)
-  await saveEncryptionFlag(true)
+  await fs.unlink(defaultPath)
+  await fs.moveFile(copyPath, defaultPath)
+  await saveEncryptionFlag(key ? true : false)
   restart.Restart()
 }
 
@@ -222,6 +205,16 @@ async function deleteDbAndOpenNew() {
   const exists = await fs.exists(Realm.defaultPath)
   if (exists) await fs.unlink(Realm.defaultPath)
   await openDb({ persistConnection: true })
+  await saveEncryptionFlag(false)
+}
+
+function hashToInt8Array(hash) {
+  const key = new Uint8Array(64)
+  for (let i = 0; i < key.length; i++) {
+    const twoDigitHex = hash.slice(i * 2, i * 2 + 2)
+    key[i] = parseInt(twoDigitHex, 16)
+  }
+  return key
 }
 
 export {
@@ -240,6 +233,5 @@ export {
   tryToImportWithDelete,
   tryToImportWithoutDelete,
   requestHash,
-  encryptAndRestartApp,
   deleteDbAndOpenNew
 }

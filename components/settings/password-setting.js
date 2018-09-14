@@ -12,7 +12,7 @@ import {
 } from '../../local-storage'
 import styles from '../../styles/index'
 import { settings as labels, shared } from '../labels'
-import { requestHash, openDb } from '../../db'
+import { requestHash, openDb, changeEncryptionAndRestartApp } from '../../db'
 
 export default class PasswordSetting extends Component {
   constructor(props) {
@@ -40,9 +40,6 @@ export default class PasswordSetting extends Component {
     if (msg.type != 'sha512') return
     try {
       await openDb({ hash: msg.message, persistConnection: false })
-      this.setState({
-        enteringCurrentPassword: false
-      })
     } catch (err) {
       Alert.alert(
         shared.incorrectPassword,
@@ -60,7 +57,9 @@ export default class PasswordSetting extends Component {
           onPress: () => this.setState({currentPassword: null})
         }]
       )
+      return
     }
+    await changeEncryptionAndRestartApp()
   }
 
   render() {

@@ -17,7 +17,9 @@ export default class AppWrapper extends Component {
           <App/>
           :
           <PasswordPrompt
-            onCorrectPassword={() => this.setState({showApp: true})}
+            showApp={() => {
+              this.setState({showApp: true})
+            }}
           />
         }
       </View>
