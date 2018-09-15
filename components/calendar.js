@@ -58,6 +58,7 @@ export default class CalendarView extends Component {
 }
 
 function toCalFormat(bleedingDaysSortedByDate) {
+  const todayDateString = LocalDate.now().toString()
   return bleedingDaysSortedByDate.reduce((acc, day) => {
     acc[day.date] = {
       customStyles: {
@@ -66,7 +67,7 @@ function toCalFormat(bleedingDaysSortedByDate) {
         }
       }
     }
-    if (day.date === LocalDate.now().toString()) {
+    if (day.date === todayDateString) {
       acc[day.date].customStyles.text = styles.calendarToday
     }
     return acc
@@ -75,6 +76,7 @@ function toCalFormat(bleedingDaysSortedByDate) {
 
 function predictionToCalFormat(predictedDays) {
   if (!predictedDays.length) return {}
+  const todayDateString = LocalDate.now().toString()
   const middleIndex = (predictedDays[0].length - 1) / 2
   return predictedDays.reduce((acc, setOfDays) => {
     setOfDays.reduce((accSet, day, i) => {
@@ -89,7 +91,7 @@ function predictionToCalFormat(predictedDays) {
           }
         }
       }
-      if (day === LocalDate.now().toString()) {
+      if (day === todayDateString) {
         accSet[day].customStyles.text = Object.assign(
           {},
           styles.calendarToday,
