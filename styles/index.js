@@ -2,9 +2,9 @@ import { StyleSheet } from 'react-native'
 
 export const primaryColor = '#ff7e5f'
 export const secondaryColor = '#351c4d'
+export const secondaryColorLight = '#91749d'
 export const fontOnPrimaryColor = 'white'
 export const shadesOfRed = ['#ffcbbf', '#ffb19f', '#ff977e', '#ff7e5f'] // light to dark
-export const shadesOfGrey = ['#e5e5e5', '#cccccc'] // [lighter, darker]
 
 const defaultBottomMargin = 5
 const defaultIndentation = 10
@@ -243,6 +243,12 @@ export default StyleSheet.create({
   },
   page: {
     marginHorizontal: 10
+  },
+  calendarToday: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: secondaryColor,
+    marginTop: 1
   }
 })
 

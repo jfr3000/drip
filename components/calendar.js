@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { CalendarList } from 'react-native-calendars'
+import {LocalDate} from 'js-joda'
 import { getOrCreateCycleDay, bleedingDaysSortedByDate } from '../db'
 import cycleModule from '../lib/cycle'
-import {shadesOfRed, shadesOfGrey} from '../styles/index'
+import {shadesOfRed} from '../styles/index'
+import styles from '../styles/index'
 
 export default class CalendarView extends Component {
   constructor(props) {
@@ -10,7 +12,8 @@ export default class CalendarView extends Component {
     const predictedMenses = cycleModule().getPredictedMenses()
     this.state = {
       bleedingDaysInCalFormat: toCalFormat(bleedingDaysSortedByDate),
-      predictedBleedingDaysInCalFormat: predictionToCalFormat(predictedMenses)
+      predictedBleedingDaysInCalFormat: predictionToCalFormat(predictedMenses),
+      todayInCalFormat: todayToCalFormat()
     }
 
     this.setStateWithCalFormattedDays = (function (CalendarComponent) {
@@ -18,7 +21,8 @@ export default class CalendarView extends Component {
         const predictedMenses = cycleModule().getPredictedMenses()
         CalendarComponent.setState({
           bleedingDaysInCalFormat: toCalFormat(bleedingDaysSortedByDate),
-          predictedBleedingDaysInCalFormat: predictionToCalFormat(predictedMenses)
+          predictedBleedingDaysInCalFormat: predictionToCalFormat(predictedMenses),
+          todayInCalFormat: todayToCalFormat()
         })
       }
     })(this)
@@ -35,7 +39,6 @@ export default class CalendarView extends Component {
     const navigate = this.props.navigate
     navigate('CycleDay', { cycleDay })
   }
-
   render() {
     return (
       <CalendarList
@@ -43,22 +46,29 @@ export default class CalendarView extends Component {
         markedDates={
           Object.assign(
             {},
+            this.state.todayInCalFormat,
             this.state.bleedingDaysInCalFormat,
             this.state.predictedBleedingDaysInCalFormat
           )
         }
-        markingType={'period'}
+        markingType={'custom'}
       />
     )
   }
 }
 
 function toCalFormat(bleedingDaysSortedByDate) {
+  const todayDateString = LocalDate.now().toString()
   return bleedingDaysSortedByDate.reduce((acc, day) => {
     acc[day.date] = {
-      startingDay: true,
-      endingDay: true,
-      color: shadesOfRed[day.bleeding.value]
+      customStyles: {
+        container: {
+          backgroundColor: shadesOfRed[day.bleeding.value],
+        }
+      }
+    }
+    if (day.date === todayDateString) {
+      acc[day.date].customStyles.text = styles.calendarToday
     }
     return acc
   }, {})
@@ -66,16 +76,41 @@ function toCalFormat(bleedingDaysSortedByDate) {
 
 function predictionToCalFormat(predictedDays) {
   if (!predictedDays.length) return {}
+  const todayDateString = LocalDate.now().toString()
   const middleIndex = (predictedDays[0].length - 1) / 2
   return predictedDays.reduce((acc, setOfDays) => {
     setOfDays.reduce((accSet, day, i) => {
       accSet[day] = {
-        startingDay: true,
-        endingDay: true,
-        color: (i === middleIndex) ? shadesOfGrey[1] : shadesOfGrey[0]
+        customStyles: {
+          container: {
+            borderColor: (i === middleIndex) ? shadesOfRed[3] : shadesOfRed[2],
+            borderWidth: 3,
+          },
+          text: {
+            marginTop: 1,
+          }
+        }
+      }
+      if (day === todayDateString) {
+        accSet[day].customStyles.text = Object.assign(
+          {},
+          styles.calendarToday,
+          {marginTop: -2}
+        )
       }
       return accSet
     }, acc)
     return acc
   }, {})
+}
+
+function todayToCalFormat() {
+  const todayDateString = LocalDate.now().toString()
+  const todayFormated = {}
+  todayFormated[todayDateString] = {
+    customStyles: {
+      text: styles.calendarToday
+    }
+  }
+  return todayFormated
 }
