@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { View, TextInput, TouchableOpacity, Alert, Image } from 'react-native'
 import nodejs from 'nodejs-mobile-react-native'
+import { saveEncryptionFlag } from '../local-storage'
 import { AppText } from './app-text'
-import { hasEncryptionObservable } from '../local-storage'
 import styles from '../styles'
 import { passwordPrompt as labels, shared } from './labels'
 import { requestHash, deleteDbAndOpenNew, openDb } from '../db'
@@ -13,21 +13,25 @@ export default class PasswordPrompt extends Component {
     this.state = {
       password: null
     }
-    hasEncryptionObservable.once(async hasEncryption => {
-      hasEncryption = JSON.parse(hasEncryption)
-      if (hasEncryption) {
-        this.setState({showPasswordPrompt: true})
-      } else {
-        await openDb({persistConnection: true})
-        this.props.showApp()
-      }
-    })
 
     nodejs.channel.addListener(
       'message',
       this.passHashToDb,
       this
     )
+
+    this.tryToOpenDb()
+  }
+
+  async tryToOpenDb() {
+    try {
+      await openDb({ persistConnection: true })
+      await saveEncryptionFlag(false)
+    } catch (err) {
+      this.setState({ showPasswordPrompt: true })
+      await saveEncryptionFlag(true)
+      return
+    }
   }
 
   passHashToDb = async msg => {
