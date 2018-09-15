@@ -3,15 +3,10 @@
 const rnBridge = require('rn-bridge')
 const crypto = require('crypto')
 
-rnBridge.channel.on('message', (msg) => {
+rnBridge.channel.on('request-SHA512', (msg) => {
   msg = JSON.parse(msg)
-  if (msg.type === 'request-SHA512') {
-    const hash = crypto.createHash('sha512')
-    hash.update(msg.message)
-    const result = hash.digest('hex')
-    rnBridge.channel.send(JSON.stringify({
-      type: 'sha512',
-      message: result
-    }))
-  }
+  const hash = crypto.createHash('sha512')
+  hash.update(msg.message)
+  const result = hash.digest('hex')
+  rnBridge.channel.post(msg.type, result)
 })

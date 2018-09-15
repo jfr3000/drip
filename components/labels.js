@@ -7,7 +7,8 @@ export const shared = {
   incorrectPassword: 'Password incorrect',
   incorrectPasswordMessage: 'That password is incorrect.',
   tryAgain: 'Try again',
-  ok: 'OK'
+  ok: 'OK',
+  unlock: 'Unlock'
 }
 
 export const settings = {
@@ -58,7 +59,8 @@ export const settings = {
     explainerDisabled: "Encrypt the app's database with a password. You need to enter the password every time the app is started.",
     explainerEnabled: "Password protection and database encryption is currently enabled",
     setPassword: 'Set password',
-    deletePassword: "Delete password",
+    changePassword: 'Change password',
+    deletePassword: 'Delete password',
     enterCurrent: "Please enter your current password",
     enterNew: "Please enter a new password",
     backupReminderTitle: 'Read this before making changes to your password',

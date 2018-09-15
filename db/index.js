@@ -11,7 +11,6 @@ import {
   longAndComplicatedCycleWithCervix,
   cycleWithTempAndNoCervixShift
 } from './fixtures'
-import { saveEncryptionFlag } from '../local-storage'
 import dbSchema from './schema'
 
 let db
@@ -154,9 +153,9 @@ export function tryToImportWithoutDelete(cycleDays) {
   })
 }
 
-export function requestHash(pw) {
-  nodejs.channel.send(JSON.stringify({
-    type: 'request-SHA512',
+export function requestHash(type, pw) {
+  nodejs.channel.post('request-SHA512', JSON.stringify({
+    type: type,
     message: pw
   }))
 }
@@ -190,7 +189,6 @@ export async function changeEncryptionAndRestartApp(hash) {
   db.close()
   await fs.unlink(defaultPath)
   await fs.moveFile(copyPath, defaultPath)
-  await saveEncryptionFlag(key ? true : false)
   restart.Restart()
 }
 
@@ -198,7 +196,6 @@ export async function deleteDbAndOpenNew() {
   const exists = await fs.exists(Realm.defaultPath)
   if (exists) await fs.unlink(Realm.defaultPath)
   await openDb({ persistConnection: true })
-  await saveEncryptionFlag(false)
 }
 
 function hashToInt8Array(hash) {

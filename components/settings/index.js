@@ -11,7 +11,7 @@ import TempReminderPicker from './temp-reminder-picker'
 import TempSlider from './temp-slider'
 import openImportDialogAndImport from './import-dialog'
 import openShareDialogAndExport from './export-dialog'
-import PasswordSetting from './password-setting'
+import PasswordSetting from './password'
 
 export default class Settings extends Component {
   constructor(props) {

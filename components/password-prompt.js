@@ -15,7 +15,7 @@ export default class PasswordPrompt extends Component {
     }
 
     nodejs.channel.addListener(
-      'message',
+      'check-pw',
       this.passHashToDb,
       this
     )
@@ -27,6 +27,7 @@ export default class PasswordPrompt extends Component {
     try {
       await openDb({ persistConnection: true })
       await saveEncryptionFlag(false)
+      this.props.showApp()
     } catch (err) {
       this.setState({ showPasswordPrompt: true })
       await saveEncryptionFlag(true)
@@ -34,18 +35,16 @@ export default class PasswordPrompt extends Component {
     }
   }
 
-  passHashToDb = async msg => {
-    msg = JSON.parse(msg)
-    if (msg.type != 'sha512') return
+  passHashToDb = async hash => {
     try {
-      await openDb({hash: msg.message, persistConnection: true })
+      await openDb({ hash, persistConnection: true })
     } catch (err) {
       Alert.alert(
         shared.incorrectPassword,
         shared.incorrectPasswordMessage,
         [{
           text: shared.tryAgain,
-          onPress: () => this.setState({password: null})
+          onPress: () => this.setState({ password: null })
         }]
       )
       return
@@ -73,6 +72,7 @@ export default class PasswordPrompt extends Component {
               text: labels.reallyDeleteData,
               onPress: async () => {
                 await deleteDbAndOpenNew()
+                await saveEncryptionFlag(false)
                 this.props.showApp()
               }
             }]
@@ -83,7 +83,7 @@ export default class PasswordPrompt extends Component {
   }
 
   componentWillUnmount() {
-    nodejs.channel.removeListener('message', this.passHashToDb)
+    nodejs.channel.removeListener('check-pw', this.passHashToDb)
   }
 
   render() {
@@ -104,7 +104,7 @@ export default class PasswordPrompt extends Component {
             <TouchableOpacity
               style={styles.passwordPromptButton}
               onPress={() => {
-                requestHash(this.state.password)
+                requestHash('check-pw', this.state.password)
               }}
               disabled={!this.state.password}
             >
