@@ -64,6 +64,10 @@ export default class DeletePassword extends Component {
               requestHash('pre-delete-pw-check', this.state.currentPassword)
             }
           }}
+          disabled={
+            this.state.enteringCurrentPassword &&
+            !this.state.currentPassword
+          }
           style={styles.settingsButton}
         >
           <AppText style={styles.settingsButtonText}>
