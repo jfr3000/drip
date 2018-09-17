@@ -62,6 +62,7 @@ export default class CycleChart extends Component {
         jsDate.getDate()
       ).toString()
     })
+
     const chartSymptoms = [
       'bleeding',
       'temperature',
@@ -103,7 +104,7 @@ export default class CycleChart extends Component {
       return {
         dateString,
         y: temp ? normalizeToScale(temp, columnHeight) : null,
-        symptoms,
+        ...symptoms,
         ...getFhmAndLtlInfo(dateString, temp, columnHeight)
       }
     })

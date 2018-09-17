@@ -31,7 +31,6 @@ export default class DayColumn extends Component {
       dateString,
       y,
       temperatureExclude,
-      symptoms,
       drawFhmLine,
       drawLtlAt,
       rightY,
@@ -116,36 +115,36 @@ export default class DayColumn extends Component {
       >
         <View height={symptomHeight}>
           <View style={styles.symptomRow}>
-            {typeof symptoms.bleeding === 'number' &&
+            {typeof this.props.bleeding === 'number' &&
               <Icon
                 name='drop'
                 size={12}
-                color={styles.bleedingIconShades[symptoms.bleeding]}
+                color={styles.bleedingIconShades[this.props.bleeding]}
                 key='bleeding'
               />
             }
           </View>
           <View style={styles.symptomRow}>
-            {typeof symptoms.mucus === 'number' &&
+            {typeof this.props.mucus === 'number' &&
               <View
                 {...styles.mucusIcon}
-                backgroundColor={styles.mucusIconShades[symptoms.mucus]}
+                backgroundColor={styles.mucusIconShades[this.props.mucus]}
                 key='mucus'
               />
             }
           </View>
           <View style={styles.symptomRow}>
-            {typeof symptoms.cervix === 'number' &&
+            {typeof this.props.cervix === 'number' &&
               <View
                 {...styles.mucusIcon}
                 // cervix is sum of openess and firmness - fertile only when closed and hard (=0)
-                backgroundColor={symptoms.cervix > 0 ? 'blue' : 'green'}
+                backgroundColor={this.props.cervix > 0 ? 'blue' : 'green'}
                 key='cervix'
               />
             }
           </View>
           <View style={styles.symptomRow}>
-            {typeof symptoms.sex === 'number' &&
+            {typeof this.props.sex === 'number' &&
               <View
                 {...styles.mucusIcon}
                 backgroundColor='orange'
@@ -154,7 +153,7 @@ export default class DayColumn extends Component {
             }
           </View>
           <View style={styles.symptomRow}>
-            {typeof symptoms.desire === 'number' &&
+            {typeof this.props.desire === 'number' &&
               <View
                 {...styles.mucusIcon}
                 backgroundColor='red'
@@ -163,7 +162,7 @@ export default class DayColumn extends Component {
             }
           </View>
           <View style={styles.symptomRow}>
-            {symptoms.pain &&
+            {this.props.pain &&
               <View
                 {...styles.mucusIcon}
                 backgroundColor='blue'
@@ -172,7 +171,7 @@ export default class DayColumn extends Component {
             }
           </View>
           <View style={styles.symptomRow}>
-            {symptoms.note &&
+            {this.props.note &&
               <View
                 {...styles.mucusIcon}
                 backgroundColor='green'
