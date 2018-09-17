@@ -18,18 +18,16 @@ export default class CalendarView extends Component {
       todayInCalFormat: todayToCalFormat()
     }
 
-    this.setStateWithCalFormattedDays = (function (CalendarComponent) {
-      return function() {
-        const predictedMenses = cycleModule().getPredictedMenses()
-        CalendarComponent.setState({
-          bleedingDaysInCalFormat: toCalFormat(this.bleedingDays),
-          predictedBleedingDaysInCalFormat: predictionToCalFormat(predictedMenses),
-          todayInCalFormat: todayToCalFormat()
-        })
-      }
-    })(this)
-
     this.bleedingDays.addListener(this.setStateWithCalFormattedDays)
+  }
+
+  setStateWithCalFormattedDays = () => {
+    const predictedMenses = cycleModule().getPredictedMenses()
+    this.setState({
+      bleedingDaysInCalFormat: toCalFormat(this.bleedingDays),
+      predictedBleedingDaysInCalFormat: predictionToCalFormat(predictedMenses),
+      todayInCalFormat: todayToCalFormat()
+    })
   }
 
   componentWillUnmount() {
