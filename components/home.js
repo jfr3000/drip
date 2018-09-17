@@ -14,30 +14,29 @@ import {bleedingPrediction as labels} from './labels'
 export default class Home extends Component {
   constructor(props) {
     super(props)
-    const getCycleDayNumber = cycleModule().getCycleDayNumber
+    this.getCycleDayNumber = cycleModule().getCycleDayNumber
     this.todayDateString = LocalDate.now().toString()
-    const cycleDayNumber = getCycleDayNumber(this.todayDateString)
+    const cycleDayNumber = this.getCycleDayNumber(this.todayDateString)
 
     this.state = {
       welcomeText: determineWelcomeText(cycleDayNumber),
       predictionText: determinePredictionText()
     }
 
-    this.setStateWithCurrentText = (function (HomeComponent) {
-      return function () {
-        const cycleDayNumber = getCycleDayNumber(HomeComponent.todayDateString)
-        HomeComponent.setState({
-          welcomeText: determineWelcomeText(cycleDayNumber),
-          predictionText: determinePredictionText()
-        })
-      }
-    })(this)
+    this.bleedingDays = getBleedingDaysSortedByDate()
+    this.bleedingDays.addListener(this.setStateWithCurrentText)
+  }
 
-    getBleedingDaysSortedByDate().addListener(this.setStateWithCurrentText)
+  setStateWithCurrentText = () => {
+    const cycleDayNumber = this.getCycleDayNumber(this.todayDateString)
+    this.setState({
+      welcomeText: determineWelcomeText(cycleDayNumber),
+      predictionText: determinePredictionText()
+    })
   }
 
   componentWillUnmount() {
-    getBleedingDaysSortedByDate().removeListener(this.setStateWithCurrentText)
+    this.bleedingDays.removeListener(this.setStateWithCurrentText)
   }
 
   passTodayToDayView() {

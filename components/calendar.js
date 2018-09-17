@@ -9,11 +9,11 @@ import styles from '../styles/index'
 
 export default class CalendarView extends Component {
   constructor(props) {
-    const bleedingDaysSortedByDate = getBleedingDaysSortedByDate()
     super(props)
+    this.bleedingDays = getBleedingDaysSortedByDate()
     const predictedMenses = cycleModule().getPredictedMenses()
     this.state = {
-      bleedingDaysInCalFormat: toCalFormat(bleedingDaysSortedByDate),
+      bleedingDaysInCalFormat: toCalFormat(this.bleedingDays),
       predictedBleedingDaysInCalFormat: predictionToCalFormat(predictedMenses),
       todayInCalFormat: todayToCalFormat()
     }
@@ -22,18 +22,18 @@ export default class CalendarView extends Component {
       return function() {
         const predictedMenses = cycleModule().getPredictedMenses()
         CalendarComponent.setState({
-          bleedingDaysInCalFormat: toCalFormat(bleedingDaysSortedByDate),
+          bleedingDaysInCalFormat: toCalFormat(this.bleedingDays),
           predictedBleedingDaysInCalFormat: predictionToCalFormat(predictedMenses),
           todayInCalFormat: todayToCalFormat()
         })
       }
     })(this)
 
-    bleedingDaysSortedByDate.addListener(this.setStateWithCalFormattedDays)
+    this.bleedingDays.addListener(this.setStateWithCalFormattedDays)
   }
 
   componentWillUnmount() {
-    getBleedingDaysSortedByDate().removeListener(this.setStateWithCalFormattedDays)
+    this.bleedingDays.removeListener(this.setStateWithCalFormattedDays)
   }
 
   passDateToDayView = (result) => {
