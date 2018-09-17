@@ -14,6 +14,7 @@ A menstrual cycle tracking app that's open-source and leaves your data on your p
     ```
 
 4. Run `npm install`
+5. You may need to open your app's /android folder in Android Studio, so that it detects, downloads and cofigures requirements that might be missing, like the NDK and CMake to build the native code part of the project. Also check out nodejs-mobile repository for the necessary prerequisites for your system.
 5. Run `npm run android`
 7. In another tab, run `npm run log` to see logging output
 8. Run `adb shell input keyevent 82` and select enable hot reloading (see https://facebook.github.io/react-native/docs/debugging.html)
