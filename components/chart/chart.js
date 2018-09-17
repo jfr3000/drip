@@ -33,7 +33,7 @@ export default class CycleChart extends Component {
     const height = nativeEvent.layout.height
     this.setState({ chartHeight: height })
     this.reCalculateChartInfo = () => {
-      this.setState({ columns: this.makeColumnInfo(nfpLines(height)) })
+      this.setState({ columns: this.makeColumnInfo(nfpLines()) })
     }
 
     this.cycleDaysSortedByDate.addListener(this.reCalculateChartInfo)
@@ -104,7 +104,7 @@ export default class CycleChart extends Component {
         dateString,
         y: temp ? normalizeToScale(temp, columnHeight) : null,
         symptoms,
-        ...getFhmAndLtlInfo(dateString, temp)
+        ...getFhmAndLtlInfo(dateString, temp, columnHeight)
       }
     })
 

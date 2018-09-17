@@ -67,7 +67,7 @@ export default class DayColumn extends Component {
         x2={x}
         y2={columnHeight}
         {...styles.nfpLine}
-        key='ltl'
+        key='fhm'
       />)
       columnElements.push(fhmLine)
     }
