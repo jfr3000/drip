@@ -2,10 +2,7 @@ import React, { Component } from 'react'
 import {
   Text, View, TouchableOpacity
 } from 'react-native'
-import Svg,{
-  G,
-  Rect
-} from 'react-native-svg'
+import Svg,{ G, Rect, Line } from 'react-native-svg'
 import Icon from 'react-native-vector-icons/Entypo'
 import styles from './styles'
 import config from '../../config'
@@ -51,15 +48,30 @@ export default class DayColumn extends Component {
     const columnElements = []
 
     if(drawLtlAt) {
-      const ltlLine = (<View
-        position = 'absolute'
-        width={'100%'}
-        top={drawLtlAt}
+      const ltlLine = (<Line
+        x1={0}
+        y1={drawLtlAt}
+        x2={config.columnWidth}
+        y2={drawLtlAt}
         {...styles.nfpLine}
         key='ltl'
       />)
       columnElements.push(ltlLine)
     }
+
+    if (drawFhmLine) {
+      const x = styles.nfpLine.strokeWidth / 2
+      const fhmLine = (<Line
+        x1={x}
+        y1={x}
+        x2={x}
+        y2={columnHeight}
+        {...styles.nfpLine}
+        key='ltl'
+      />)
+      columnElements.push(fhmLine)
+    }
+
 
     if (y) {
       columnElements.push(
@@ -86,30 +98,6 @@ export default class DayColumn extends Component {
         {shortDate}
       </Text>
     )
-
-    // we merge the colors here instead of from the stylesheet because of a RN
-    // bug that doesn't apply borderLeftColor otherwise
-    const potentialCustomStyle = {
-      height: columnHeight,
-      borderLeftColor: 'grey',
-    }
-
-    if (drawFhmLine) {
-      potentialCustomStyle.borderLeftColor = styles.nfpLine.borderColor
-      potentialCustomStyle.borderLeftWidth = 3
-    }
-    // const column = React.createElement(
-    //   TouchableOpacity,
-    //   {
-    //     style: [styles.column.rect, potentialCustomStyle],
-    //     key: this.props.index.toString(),
-    //     onPress: () => {
-    //       this.passDateToDayView(dateString)
-    //     },
-    //     activeOpacity: 1
-    //   },
-    //   columnElements
-    // )
 
     const column = (
       <G>

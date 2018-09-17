@@ -6,6 +6,8 @@ const colorTemperatureLight = '#a67fb5'
 const dotRadius = 5
 const lineWidth = 1.5
 const colorLtl = '#feb47b'
+const gridColor = 'lightgrey'
+const gridLineWidth = 0.5
 
 const styles = {
   curve: {
@@ -41,8 +43,8 @@ const styles = {
       x:'0',
       y:'0',
       width: config.columnWidth,
-      stroke: "red",
-      strokeWidth: 0.25,
+      stroke: gridColor,
+      strokeWidth: gridLineWidth,
       fill: 'transparent'
     }
   },
@@ -80,16 +82,15 @@ const styles = {
   },
   horizontalGrid: {
     position:'absolute',
-    borderColor: 'lightgrey',
-    borderWidth: 0.5,
+    borderColor: gridColor,
+    borderWidth: gridLineWidth,
     width: '100%',
     borderStyle: 'solid',
     left: config.columnWidth
   },
   nfpLine: {
-    borderColor: colorLtl,
-    borderWidth: lineWidth,
-    borderStyle: 'solid'
+    stroke: colorLtl,
+    strokeWidth: lineWidth,
   },
   symptomRow: {
     alignItems: 'center',
