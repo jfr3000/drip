@@ -26,13 +26,14 @@ export default class PasswordPrompt extends Component {
   async tryToOpenDb() {
     try {
       await openDb({ persistConnection: true })
-      await saveEncryptionFlag(false)
-      this.props.showApp()
     } catch (err) {
       this.setState({ showPasswordPrompt: true })
       await saveEncryptionFlag(true)
       return
     }
+
+    await saveEncryptionFlag(false)
+    this.props.showApp()
   }
 
   passHashToDb = async hash => {
