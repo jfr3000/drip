@@ -191,7 +191,7 @@ export default class DayColumn extends Component {
           </View>
         </View>
 
-        <Svg width={config.columnWidth} height={chartHeight}>
+        <Svg width={config.columnWidth} height={columnHeight}>
           {column}
         </Svg>
 

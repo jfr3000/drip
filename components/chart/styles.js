@@ -3,32 +3,26 @@ import {primaryColor, shadesOfRed} from '../../styles/index'
 
 const colorTemperature = '#765285'
 const colorTemperatureLight = '#a67fb5'
-const dotWidth = 10
-const lineWidth = 2
+const dotRadius = 5
+const lineWidth = 1.5
 const colorLtl = '#feb47b'
 
 const styles = {
   curve: {
-    borderStyle: 'solid',
-    borderColor: colorTemperature,
-    borderWidth: lineWidth,
+    stroke: colorTemperature,
+    strokeWidth: lineWidth,
   },
   curveExcluded: {
-    borderColor: colorTemperatureLight,
-    borderWidth: lineWidth,
-    borderStyle: 'dotted'
+    stroke: colorTemperatureLight,
+    strokeWidth: lineWidth
   },
   curveDots: {
-    backgroundColor: colorTemperature,
-    width: dotWidth,
-    height: dotWidth,
-    borderRadius: 50
+    fill: colorTemperature,
+    r: dotRadius
   },
   curveDotsExcluded: {
-    backgroundColor: colorTemperatureLight,
-    width: dotWidth,
-    height: dotWidth,
-    borderRadius: 50
+    fill: colorTemperatureLight,
+    r: dotRadius
   },
   column: {
     label: {
