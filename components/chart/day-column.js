@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
 import {
-  Text, View, TouchableOpacity
+  Text, View
 } from 'react-native'
+import Svg,{
+  G,
+  Rect
+} from 'react-native-svg'
 import Icon from 'react-native-vector-icons/Entypo'
 import styles from './styles'
 import config from '../../config'
@@ -94,17 +98,27 @@ export default class DayColumn extends Component {
       potentialCustomStyle.borderLeftColor = styles.nfpLine.borderColor
       potentialCustomStyle.borderLeftWidth = 3
     }
-    const column = React.createElement(
-      TouchableOpacity,
-      {
-        style: [styles.column.rect, potentialCustomStyle],
-        key: this.props.index.toString(),
-        onPress: () => {
-          this.passDateToDayView(dateString)
-        },
-        activeOpacity: 1
-      },
-      columnElements
+    // const column = React.createElement(
+    //   TouchableOpacity,
+    //   {
+    //     style: [styles.column.rect, potentialCustomStyle],
+    //     key: this.props.index.toString(),
+    //     onPress: () => {
+    //       this.passDateToDayView(dateString)
+    //     },
+    //     activeOpacity: 1
+    //   },
+    //   columnElements
+    // )
+
+    const column = (
+      <G onPress={() => this.passDateToDayView(dateString)}>
+        <Rect
+          height={chartHeight}
+          {...styles.column.rect}
+        />
+        { columnElements }
+      </G>
     )
 
     return (
@@ -176,7 +190,10 @@ export default class DayColumn extends Component {
             }
           </View>
         </View>
-        {column}
+
+        <Svg width={config.columnWidth} height={chartHeight}>
+          {column}
+        </Svg>
 
         <View style={{height: xAxisHeight}}>
           {cycleDayLabel}

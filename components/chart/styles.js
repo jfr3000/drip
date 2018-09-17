@@ -44,9 +44,12 @@ const styles = {
       }
     },
     rect: {
+      x:'0',
+      y:'0',
       width: config.columnWidth,
-      borderStyle: 'solid',
-      borderLeftWidth: 0.5,
+      stroke: "red",
+      strokeWidth: 0.25,
+      fill: 'transparent'
     }
   },
   bleedingIcon: {
