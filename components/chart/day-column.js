@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {
-  Text, View
+  Text, View, TouchableOpacity
 } from 'react-native'
 import Svg,{
   G,
@@ -112,7 +112,7 @@ export default class DayColumn extends Component {
     // )
 
     const column = (
-      <G onPress={() => this.passDateToDayView(dateString)}>
+      <G>
         <Rect
           height={chartHeight}
           {...styles.column.rect}
@@ -122,7 +122,10 @@ export default class DayColumn extends Component {
     )
 
     return (
-      <View>
+      <TouchableOpacity
+        onPress={() => this.passDateToDayView(dateString)}
+        activeOpacity={1}
+      >
         <View height={symptomHeight}>
           <View style={styles.symptomRow}>
             {typeof symptoms.bleeding === 'number' &&
@@ -199,7 +202,7 @@ export default class DayColumn extends Component {
           {cycleDayLabel}
           {dateLabel}
         </View>
-      </View>
+      </TouchableOpacity>
     )
   }
 }
