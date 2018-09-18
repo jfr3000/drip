@@ -7,7 +7,7 @@ import {
   cycleWithFhmMucus,
   longAndComplicatedCycleWithMucus,
   cycleWithTempAndNoMucusShift,
-  cycleWithFhmCervix,
+  cervixShiftAndFhmOnSameDay,
   longAndComplicatedCycleWithCervix,
   cycleWithTempAndNoCervixShift
 } from './fixtures'
@@ -77,7 +77,7 @@ export function fillWithMucusDummyData() {
 
 export function fillWithCervixDummyData() {
   const dummyCycles = [
-    cycleWithFhmCervix,
+    cervixShiftAndFhmOnSameDay,
     longAndComplicatedCycleWithCervix,
     cycleWithTempAndNoCervixShift
   ]
