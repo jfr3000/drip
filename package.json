@@ -23,6 +23,7 @@
     "js-base64": "^2.4.8",
     "js-joda": "^1.8.2",
     "moment": "^2.22.2",
+    "nodejs-mobile-react-native": "^0.3.0",
     "object-path": "^0.11.4",
     "obv": "0.0.1",
     "react": "16.4.1",
@@ -32,6 +33,7 @@
     "react-native-fs": "^2.10.14",
     "react-native-modal-datetime-picker-nevo": "^4.11.0",
     "react-native-push-notification": "^3.1.1",
+    "react-native-restart": "0.0.7",
     "react-native-share": "^1.1.0",
     "react-native-vector-icons": "^5.0.0",
     "realm": "^2.7.1"

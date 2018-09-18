@@ -170,7 +170,7 @@ export default StyleSheet.create({
     backgroundColor: secondaryColor,
     padding: 10,
     alignItems: 'center',
-    margin: 10
+    margin: 10,
   },
   settingsButtonText: {
     color: fontOnPrimaryColor
@@ -249,6 +249,42 @@ export default StyleSheet.create({
     fontSize: 20,
     color: secondaryColor,
     marginTop: 1
+  },
+  passwordField: {
+    padding: 10,
+    marginTop: 10,
+    marginHorizontal: 10,
+    backgroundColor: 'white'
+  },
+  passwordPromptPage: {
+    padding: 30,
+    alignItems: 'center'
+  },
+  passwordPromptField: {
+    padding: 10,
+    marginTop: 10,
+    marginHorizontal: 10,
+    borderBottomWidth: 3,
+    borderBottomColor: primaryColor,
+    width: '100%',
+    fontSize: 20,
+    marginVertical: 20
+  },
+  passwordPromptButton: {
+    backgroundColor: secondaryColor,
+    padding: 10,
+    alignItems: 'center',
+    margin: 10,
+    width: '100%',
+    borderRadius: 10
+  },
+  passwordPromptButtonText: {
+    color: fontOnPrimaryColor,
+    fontSize: 20
+  },
+  passwordPromptForgotPasswordText: {
+    marginTop: 20,
+    color: 'grey'
   }
 })
 
@@ -268,6 +304,6 @@ export const iconStyles = {
     color: fontOnPrimaryColor
   },
   menuIconInactive: {
-    color: 'lightgrey'
+    color: 'lightgrey',
   },
 }

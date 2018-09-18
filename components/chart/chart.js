@@ -5,7 +5,7 @@ import { LocalDate } from 'js-joda'
 import { makeYAxisLabels, normalizeToScale, makeHorizontalGrid } from './y-axis'
 import nfpLines from './nfp-lines'
 import DayColumn from './day-column'
-import { getCycleDay, cycleDaysSortedByDate, getAmountOfCycleDays } from '../../db'
+import { getCycleDay, getCycleDaysSortedByDate, getAmountOfCycleDays } from '../../db'
 import styles from './styles'
 import { scaleObservable } from '../../local-storage'
 import config from '../../config'
@@ -25,6 +25,7 @@ export default class CycleChart extends Component {
         />
       )
     }
+    this.cycleDaysSortedByDate = getCycleDaysSortedByDate()
   }
 
   onLayout = ({ nativeEvent }) => {
@@ -35,12 +36,12 @@ export default class CycleChart extends Component {
       this.setState({ columns: this.makeColumnInfo(nfpLines(height)) })
     }
 
-    cycleDaysSortedByDate.addListener(this.reCalculateChartInfo)
+    this.cycleDaysSortedByDate.addListener(this.reCalculateChartInfo)
     this.removeObvListener = scaleObservable(this.reCalculateChartInfo, false)
   }
 
   componentWillUnmount() {
-    cycleDaysSortedByDate.removeListener(this.reCalculateChartInfo)
+    this.cycleDaysSortedByDate.removeListener(this.reCalculateChartInfo)
     this.removeObvListener()
   }
 
@@ -71,7 +72,7 @@ export default class CycleChart extends Component {
       'pain',
       'note'
     ].filter((symptomName) => {
-      return cycleDaysSortedByDate.some(cycleDay => cycleDay[symptomName])
+      return this.cycleDaysSortedByDate.some(cycleDay => cycleDay[symptomName])
     })
 
     const columns = xAxisDates.map(dateString => {

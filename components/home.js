@@ -8,37 +8,35 @@ import {
 import { LocalDate, ChronoUnit } from 'js-joda'
 import styles from '../styles/index'
 import cycleModule from '../lib/cycle'
-import { getOrCreateCycleDay, bleedingDaysSortedByDate, fillWithMucusDummyData, fillWithCervixDummyData, deleteAll } from '../db'
+import { getOrCreateCycleDay, getBleedingDaysSortedByDate, fillWithMucusDummyData, fillWithCervixDummyData } from '../db'
 import {bleedingPrediction as labels} from './labels'
-
-const getCycleDayNumber = cycleModule().getCycleDayNumber
 
 export default class Home extends Component {
   constructor(props) {
     super(props)
+    this.getCycleDayNumber = cycleModule().getCycleDayNumber
     this.todayDateString = LocalDate.now().toString()
-    const cycleDayNumber = getCycleDayNumber(this.todayDateString)
+    const cycleDayNumber = this.getCycleDayNumber(this.todayDateString)
 
     this.state = {
       welcomeText: determineWelcomeText(cycleDayNumber),
       predictionText: determinePredictionText()
     }
 
-    this.setStateWithCurrentText = (function (HomeComponent) {
-      return function () {
-        const cycleDayNumber = getCycleDayNumber(HomeComponent.todayDateString)
-        HomeComponent.setState({
-          welcomeText: determineWelcomeText(cycleDayNumber),
-          predictionText: determinePredictionText()
-        })
-      }
-    })(this)
+    this.bleedingDays = getBleedingDaysSortedByDate()
+    this.bleedingDays.addListener(this.setStateWithCurrentText)
+  }
 
-    bleedingDaysSortedByDate.addListener(this.setStateWithCurrentText)
+  setStateWithCurrentText = () => {
+    const cycleDayNumber = this.getCycleDayNumber(this.todayDateString)
+    this.setState({
+      welcomeText: determineWelcomeText(cycleDayNumber),
+      predictionText: determinePredictionText()
+    })
   }
 
   componentWillUnmount() {
-    bleedingDaysSortedByDate.removeListener(this.setStateWithCurrentText)
+    this.bleedingDays.removeListener(this.setStateWithCurrentText)
   }
 
   passTodayToDayView() {
@@ -70,12 +68,6 @@ export default class Home extends Component {
             <Button
               onPress={() => fillWithCervixDummyData()}
               title="fill with example data for cervix&temp">
-            </Button>
-          </View>
-          <View style={styles.homeButton}>
-            <Button
-              onPress={() => deleteAll()}
-              title="delete everything">
             </Button>
           </View>
         </View>

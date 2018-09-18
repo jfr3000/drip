@@ -1,5 +1,8 @@
 import Realm from 'realm'
 import { LocalDate, ChronoUnit } from 'js-joda'
+import nodejs from 'nodejs-mobile-react-native'
+import fs from 'react-native-fs'
+import restart from 'react-native-restart'
 import {
   cycleWithFhmMucus,
   longAndComplicatedCycleWithMucus,
@@ -8,165 +11,30 @@ import {
   longAndComplicatedCycleWithCervix,
   cycleWithTempAndNoCervixShift
 } from './fixtures'
+import dbSchema from './schema'
 
-const TemperatureSchema = {
-  name: 'Temperature',
-  properties: {
-    value: 'double',
-    exclude: 'bool',
-    time: {
-      type: 'string',
-      optional: true
-    },
-    note: {
-      type: 'string',
-      optional: true
-    }
-  }
-}
-
-const BleedingSchema = {
-  name: 'Bleeding',
-  properties: {
-    value: 'int',
-    exclude: 'bool'
-  }
-}
-
-const MucusSchema = {
-  name: 'Mucus',
-  properties: {
-    feeling: 'int',
-    texture: 'int',
-    value: 'int',
-    exclude: 'bool'
-  }
-}
-
-const CervixSchema = {
-  name: 'Cervix',
-  properties: {
-    opening: 'int',
-    firmness: 'int',
-    position: {type: 'int', optional: true },
-    exclude: 'bool'
-  }
-}
-
-const NoteSchema = {
-  name: 'Note',
-  properties: {
-    value: 'string'
-  }
-}
-
-const DesireSchema = {
-  name: 'Desire',
-  properties: {
-    value: 'int'
-  }
-}
-
-const SexSchema = {
-  name: 'Sex',
-  properties: {
-    solo: { type: 'bool', optional: true },
-    partner: { type: 'bool', optional: true },
-    condom: { type: 'bool', optional: true },
-    pill: { type: 'bool', optional: true },
-    iud: { type: 'bool', optional: true },
-    patch: { type: 'bool', optional: true },
-    ring: { type: 'bool', optional: true },
-    implant: { type: 'bool', optional: true },
-    other: { type: 'bool', optional: true },
-    note: { type: 'string', optional: true }
-  }
-}
-
-const PainSchema = {
-  name: 'Pain',
-  properties: {
-    cramps: { type: 'bool', optional: true },
-    ovulationPain: { type: 'bool', optional: true },
-    headache: { type: 'bool', optional: true },
-    backache: { type: 'bool', optional: true },
-    nausea: { type: 'bool', optional: true },
-    tenderBreasts: { type: 'bool', optional: true },
-    migraine: { type: 'bool', optional: true },
-    other: { type: 'bool', optional: true },
-    note: { type: 'string', optional: true }
-  }
-}
-
-const CycleDaySchema = {
-  name: 'CycleDay',
-  primaryKey: 'date',
-  properties: {
-    date: 'string',
-    temperature: {
-      type: 'Temperature',
-      optional: true
-    },
-    bleeding: {
-      type: 'Bleeding',
-      optional: true
-    },
-    mucus: {
-      type: 'Mucus',
-      optional: true
-    },
-    cervix: {
-      type: 'Cervix',
-      optional: true
-    },
-    note: {
-      type: 'Note',
-      optional: true
-    },
-    desire: {
-      type: 'Desire',
-      optional: true
-    },
-    sex: {
-      type: 'Sex',
-      optional: true
-    },
-    pain: {
-      type: 'Pain',
-      optional: true
-    }
-  }
-}
-
+let db
 const realmConfig = {
-  schema: [
-    CycleDaySchema,
-    TemperatureSchema,
-    BleedingSchema,
-    MucusSchema,
-    CervixSchema,
-    NoteSchema,
-    DesireSchema,
-    SexSchema,
-    PainSchema
-  ],
-  // we only want this in dev mode
-  deleteRealmIfMigrationNeeded: true
+  schema: dbSchema
 }
 
-const db = new Realm(realmConfig)
+export function getBleedingDaysSortedByDate() {
+  return db.objects('CycleDay').filtered('bleeding != null').sorted('date', true)
+}
+export function getTemperatureDaysSortedByDate() {
+  return db.objects('CycleDay').filtered('temperature != null').sorted('date', true)
+}
+export function getCycleDaysSortedByDate() {
+  return db.objects('CycleDay').sorted('date', true)
+}
 
-const bleedingDaysSortedByDate = db.objects('CycleDay').filtered('bleeding != null').sorted('date', true)
-const temperatureDaysSortedByDate = db.objects('CycleDay').filtered('temperature != null').sorted('date', true)
-const cycleDaysSortedByDate = db.objects('CycleDay').sorted('date', true)
-
-function saveSymptom(symptom, cycleDay, val) {
+export function saveSymptom(symptom, cycleDay, val) {
   db.write(() => {
     cycleDay[symptom] = val
   })
 }
 
-function getOrCreateCycleDay(localDate) {
+export function getOrCreateCycleDay(localDate) {
   let result = db.objectForPrimaryKey('CycleDay', localDate)
   if (!result) {
     db.write(() => {
@@ -178,11 +46,11 @@ function getOrCreateCycleDay(localDate) {
   return result
 }
 
-function getCycleDay(localDate) {
+export function getCycleDay(localDate) {
   return db.objectForPrimaryKey('CycleDay', localDate)
 }
 
-function fillWithMucusDummyData() {
+export function fillWithMucusDummyData() {
   const dummyCycles = [
     cycleWithFhmMucus,
     longAndComplicatedCycleWithMucus,
@@ -207,7 +75,7 @@ function fillWithMucusDummyData() {
   })
 }
 
-function fillWithCervixDummyData() {
+export function fillWithCervixDummyData() {
   const dummyCycles = [
     cycleWithFhmCervix,
     longAndComplicatedCycleWithCervix,
@@ -232,16 +100,9 @@ function fillWithCervixDummyData() {
   })
 }
 
-
-function deleteAll() {
-  db.write(() => {
-    db.deleteAll()
-  })
-}
-
-function getPreviousTemperature(cycleDay) {
+export function getPreviousTemperature(cycleDay) {
   cycleDay.wrappedDate = LocalDate.parse(cycleDay.date)
-  const winner = temperatureDaysSortedByDate.find(day => {
+  const winner = getTemperatureDaysSortedByDate().find(day => {
     const wrappedDate = LocalDate.parse(day.date)
     return wrappedDate.isBefore(cycleDay.wrappedDate)
   })
@@ -249,12 +110,7 @@ function getPreviousTemperature(cycleDay) {
   return winner.temperature.value
 }
 
-const schema = db.schema.reduce((acc, curr) => {
-  acc[curr.name] = curr.properties
-  return acc
-}, {})
-
-function tryToCreateCycleDay(day, i) {
+export function tryToCreateCycleDay(day, i) {
   try {
     db.create('CycleDay', day)
   } catch (err) {
@@ -263,7 +119,8 @@ function tryToCreateCycleDay(day, i) {
   }
 }
 
-function getAmountOfCycleDays() {
+export function getAmountOfCycleDays() {
+  const cycleDaysSortedByDate = getCycleDaysSortedByDate()
   const amountOfCycleDays = cycleDaysSortedByDate.length
   if (!amountOfCycleDays) return 0
   const earliest = cycleDaysSortedByDate[amountOfCycleDays - 1]
@@ -272,14 +129,21 @@ function getAmountOfCycleDays() {
   return earliestAsLocalDate.until(today, ChronoUnit.DAYS)
 }
 
-function tryToImportWithDelete(cycleDays) {
+export function getSchema() {
+  return db.schema.reduce((acc, curr) => {
+    acc[curr.name] = curr.properties
+    return acc
+  }, {})
+}
+
+export function tryToImportWithDelete(cycleDays) {
   db.write(() => {
     db.delete(db.objects('CycleDay'))
     cycleDays.forEach(tryToCreateCycleDay)
   })
 }
 
-function tryToImportWithoutDelete(cycleDays) {
+export function tryToImportWithoutDelete(cycleDays) {
   db.write(() => {
     cycleDays.forEach((day, i) => {
       const existing = getCycleDay(day.date)
@@ -289,19 +153,56 @@ function tryToImportWithoutDelete(cycleDays) {
   })
 }
 
-export {
-  saveSymptom,
-  getOrCreateCycleDay,
-  bleedingDaysSortedByDate,
-  temperatureDaysSortedByDate,
-  cycleDaysSortedByDate,
-  fillWithMucusDummyData,
-  fillWithCervixDummyData,
-  deleteAll,
-  getPreviousTemperature,
-  getCycleDay,
-  getAmountOfCycleDays,
-  schema,
-  tryToImportWithDelete,
-  tryToImportWithoutDelete
+export function requestHash(type, pw) {
+  nodejs.channel.post('request-SHA512', JSON.stringify({
+    type: type,
+    message: pw
+  }))
+}
+
+export async function openDb ({ hash, persistConnection }) {
+  if (hash) {
+    realmConfig.encryptionKey = hashToInt8Array(hash)
+  }
+
+  const connection = await Realm.open(realmConfig)
+
+  if (persistConnection) db = connection
+}
+
+export async function changeEncryptionAndRestartApp(hash) {
+  let key
+  if (hash) key = hashToInt8Array(hash)
+  const defaultPath = db.path
+  const dir = db.path.split('/')
+  dir.pop()
+  dir.push('copied.realm')
+  const copyPath = dir.join('/')
+  const exists = await fs.exists(copyPath)
+  if (exists) await fs.unlink(copyPath)
+  // for some reason, realm complains if we give it a key with value undefined
+  if (key) {
+    db.writeCopyTo(copyPath, key)
+  } else {
+    db.writeCopyTo(copyPath)
+  }
+  db.close()
+  await fs.unlink(defaultPath)
+  await fs.moveFile(copyPath, defaultPath)
+  restart.Restart()
+}
+
+export async function deleteDbAndOpenNew() {
+  const exists = await fs.exists(Realm.defaultPath)
+  if (exists) await fs.unlink(Realm.defaultPath)
+  await openDb({ persistConnection: true })
+}
+
+function hashToInt8Array(hash) {
+  const key = new Uint8Array(64)
+  for (let i = 0; i < key.length; i++) {
+    const twoDigitHex = hash.slice(i * 2, i * 2 + 2)
+    key[i] = parseInt(twoDigitHex, 16)
+  }
+  return key
 }

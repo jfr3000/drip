@@ -3,7 +3,12 @@ export const shared = {
   save: 'Save',
   errorTitle: 'Error',
   successTitle: 'Success',
-  warning: 'Warning'
+  warning: 'Warning',
+  incorrectPassword: 'Password incorrect',
+  incorrectPasswordMessage: 'That password is incorrect.',
+  tryAgain: 'Try again',
+  ok: 'OK',
+  unlock: 'Unlock'
 }
 
 export const settings = {
@@ -48,6 +53,20 @@ export const settings = {
     noTimeSet: 'Set a time for a daily reminder to take your temperature',
     timeSet: time => `Daily reminder set for ${time}`,
     notification: 'Record your morning temperature'
+  },
+  passwordSettings: {
+    title: 'App password',
+    explainerDisabled: "Encrypt the app's database with a password. You need to enter the password every time the app is started.",
+    explainerEnabled: "Password protection and database encryption is currently enabled",
+    setPassword: 'Set password',
+    changePassword: 'Change password',
+    deletePassword: 'Delete password',
+    enterCurrent: "Please enter your current password",
+    enterNew: "Please enter a new password",
+    backupReminderTitle: 'Read this before making changes to your password',
+    backupReminder: 'Just to be safe, please backup your data using the export function before making changes to your password.\n\nLonger passwords are better! Consider using a passphrase.\n\nPlease also make sure you do not lose your password. There is no way to recover your data if you do.\n\nMaking any changes to your password setting will keep your data as it was before and restart the app.',
+    deleteBackupReminderTitle: 'Read this before deleting your password',
+    deleteBackupReminder: 'Deleting your password means your data will no longer be encrypted.\n\nJust to be safe, please backup your data using the export function before deleting your password.\n\nMaking any changes to your password setting will keep your data as it was before and restart the app.',
   }
 }
 
@@ -90,4 +109,16 @@ export const bleedingPrediction = {
   predictionStarted1DayLeft: 'Your period is likely to start today or tomorrow.',
   predictionStartedNoDaysLeft: 'Your period is likely to start today.',
   predictionInPast: (startDate, endDate) => `Based on your documented data, your period was likely to start between ${startDate} and ${endDate}.`
+}
+
+export const passwordPrompt = {
+  title: 'Unlock app',
+  enterPassword: 'Enter password here',
+  deleteDatabaseExplainer: "If you've forgotten your password, unfortunately, there is nothing we can do to recover your data, because it is encrypted with the password only you know. You can, however, delete all your encrypted data and start fresh. Once all data has been erased, you can set a new password in the settings, if you like.",
+  forgotPassword: 'Forgot your password?',
+  deleteDatabaseTitle: 'Forgot your password?',
+  deleteData: 'Yes, delete all my data',
+  areYouSureTitle: 'Are you sure?',
+  areYouSure: 'Are you absolutely sure you want to permanently delete all your data?',
+  reallyDeleteData: 'Yes, I am sure'
 }

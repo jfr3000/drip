@@ -1,37 +1,37 @@
 import React, { Component } from 'react'
 import { CalendarList } from 'react-native-calendars'
 import {LocalDate} from 'js-joda'
-import { getOrCreateCycleDay, bleedingDaysSortedByDate } from '../db'
+import { getOrCreateCycleDay, getBleedingDaysSortedByDate } from '../db'
 import cycleModule from '../lib/cycle'
 import {shadesOfRed} from '../styles/index'
 import styles from '../styles/index'
 
+
 export default class CalendarView extends Component {
   constructor(props) {
     super(props)
+    this.bleedingDays = getBleedingDaysSortedByDate()
     const predictedMenses = cycleModule().getPredictedMenses()
     this.state = {
-      bleedingDaysInCalFormat: toCalFormat(bleedingDaysSortedByDate),
+      bleedingDaysInCalFormat: toCalFormat(this.bleedingDays),
       predictedBleedingDaysInCalFormat: predictionToCalFormat(predictedMenses),
       todayInCalFormat: todayToCalFormat()
     }
 
-    this.setStateWithCalFormattedDays = (function (CalendarComponent) {
-      return function() {
-        const predictedMenses = cycleModule().getPredictedMenses()
-        CalendarComponent.setState({
-          bleedingDaysInCalFormat: toCalFormat(bleedingDaysSortedByDate),
-          predictedBleedingDaysInCalFormat: predictionToCalFormat(predictedMenses),
-          todayInCalFormat: todayToCalFormat()
-        })
-      }
-    })(this)
+    this.bleedingDays.addListener(this.setStateWithCalFormattedDays)
+  }
 
-    bleedingDaysSortedByDate.addListener(this.setStateWithCalFormattedDays)
+  setStateWithCalFormattedDays = () => {
+    const predictedMenses = cycleModule().getPredictedMenses()
+    this.setState({
+      bleedingDaysInCalFormat: toCalFormat(this.bleedingDays),
+      predictedBleedingDaysInCalFormat: predictionToCalFormat(predictedMenses),
+      todayInCalFormat: todayToCalFormat()
+    })
   }
 
   componentWillUnmount() {
-    bleedingDaysSortedByDate.removeListener(this.setStateWithCalFormattedDays)
+    this.bleedingDays.removeListener(this.setStateWithCalFormattedDays)
   }
 
   passDateToDayView = (result) => {

@@ -1,4 +1,4 @@
 import { AppRegistry } from 'react-native'
-import App from './components/app'
+import AppWrapper from './components/app-wrapper'
 
-AppRegistry.registerComponent('home', () => App)
+AppRegistry.registerComponent('home', () => AppWrapper)
