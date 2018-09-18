@@ -61,3 +61,6 @@ android/app/release/
 android/app/src/main/assets/index.android.bundle
 android/.project
 android/app/.project
+
+# nodejs-mobile creates these with every npm install
+nodejs-assets/nodejs-project/sample-*
