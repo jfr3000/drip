@@ -59,7 +59,7 @@ export default class DeletePassword extends Component {
             if (!this.state.enteringCurrentPassword) {
               showBackUpReminder(() => {
                 this.setState({ enteringCurrentPassword: true })
-              })
+              }, true)
             } else {
               requestHash('pre-delete-pw-check', this.state.currentPassword)
             }

@@ -64,7 +64,9 @@ export const settings = {
     enterCurrent: "Please enter your current password",
     enterNew: "Please enter a new password",
     backupReminderTitle: 'Read this before making changes to your password',
-    backupReminder: 'Just to be safe, please backup your data using the export function before making changes to your password.\n\nLonger passwords are better! Consider using a passphrase.\n\nPlease also make sure you do not lose your password. There is no way to recover your data if you do.\n\nMaking any changes to your password setting will restart the app.',
+    backupReminder: 'Just to be safe, please backup your data using the export function before making changes to your password.\n\nLonger passwords are better! Consider using a passphrase.\n\nPlease also make sure you do not lose your password. There is no way to recover your data if you do.\n\nMaking any changes to your password setting will keep your data as it was before and restart the app.',
+    deleteBackupReminderTitle: 'Read this before deleting your password',
+    deleteBackupReminder: 'Deleting your password means your data will no longer be encrypted.\n\nJust to be safe, please backup your data using the export function before deleting your password.\n\nMaking any changes to your password setting will keep your data as it was before and restart the app.',
   }
 }
 
