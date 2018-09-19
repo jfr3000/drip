@@ -17,17 +17,11 @@ export default class Cervix extends Component {
     this.cycleDay = props.cycleDay
     this.makeActionButtons = props.makeActionButtons
     this.state = {
-      exclude: this.cycleDay.cervix ? this.cycleDay.cervix.exclude : false
-    };
-
-    /* eslint-disable react/no-direct-mutation-state */
-    ['opening', 'firmness', 'position'].forEach(label => {
-      this.state[label] = this.cycleDay.cervix && this.cycleDay.cervix[label]
-      if (typeof this.state[label] !== 'number') {
-        this.state[label] = -1
-      }
-    })
-    /* eslint-enable react/no-direct-mutation-state */
+      exclude: this.cycleDay.cervix ? this.cycleDay.cervix.exclude : false,
+      opening: this.cycleDay.cervix ? this.cycleDay.cervix.opening : null,
+      firmness: this.cycleDay.cervix ? this.cycleDay.cervix.firmness : null,
+      position: this.cycleDay.cervix ? this.cycleDay.cervix.position : null
+    }
   }
 
   render() {
@@ -102,7 +96,7 @@ export default class Cervix extends Component {
               exclude: this.state.exclude
             })
           }}
-          saveDisabled={this.state.opening === -1 || this.state.firmness === -1}
+          saveDisabled={typeof this.state.opening != 'number' || typeof this.state.firmness != 'number'}
           navigate={this.props.navigate}
         />
       </View>
