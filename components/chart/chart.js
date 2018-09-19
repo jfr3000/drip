@@ -21,7 +21,10 @@ export default class CycleChart extends Component {
           {...item}
           index={index}
           navigate={this.props.navigate}
+          symptomHeight={this.symptomHeight}
+          columnHeight={this.columnHeight}
           chartHeight={this.state.chartHeight}
+          symptomRowSymptoms={this.symptomRowSymptoms}
         />
       )
     }
@@ -33,7 +36,34 @@ export default class CycleChart extends Component {
     const height = nativeEvent.layout.height
     this.setState({ chartHeight: height })
     this.reCalculateChartInfo = () => {
-      this.setState({ columns: this.makeColumnInfo(nfpLines()) })
+      // how many symptoms need to be displayed on the chart's upper symptom row?
+      this.symptomRowSymptoms = [
+        'bleeding',
+        'mucus',
+        'cervix',
+        'sex',
+        'desire',
+        'pain',
+        'note'
+      ].filter((symptomName) => {
+        return this.cycleDaysSortedByDate.some(cycleDay => {
+          return cycleDay[symptomName]
+        })
+      })
+
+      this.xAxisHeight = this.state.chartHeight * config.xAxisHeightPercentage
+      const remainingHeight = this.state.chartHeight - this.xAxisHeight
+      this.symptomHeight = config.symptomHeightPercentage * remainingHeight
+      this.symptomRowHeight = this.symptomRowSymptoms.length * this.symptomHeight
+      this.columnHeight = remainingHeight - this.symptomRowHeight
+
+      const chartSymptoms = [...this.symptomRowSymptoms]
+      if (this.cycleDaysSortedByDate.some(day => day.temperature)) {
+        chartSymptoms.push('temperature')
+      }
+
+      const columnData = this.makeColumnInfo(nfpLines(), chartSymptoms)
+      this.setState({ columns: columnData })
     }
 
     this.cycleDaysSortedByDate.addListener(this.reCalculateChartInfo)
@@ -45,7 +75,7 @@ export default class CycleChart extends Component {
     this.removeObvListener()
   }
 
-  makeColumnInfo(getFhmAndLtlInfo) {
+  makeColumnInfo(getFhmAndLtlInfo, chartSymptoms) {
     let amountOfCycleDays = getAmountOfCycleDays()
     // if there's not much data yet, we want to show at least 30 days on the chart
     if (amountOfCycleDays < 30) {
@@ -63,21 +93,11 @@ export default class CycleChart extends Component {
       ).toString()
     })
 
-    const chartSymptoms = [
-      'bleeding',
-      'temperature',
-      'mucus',
-      'cervix',
-      'sex',
-      'desire',
-      'pain',
-      'note'
-    ].filter((symptomName) => {
-      return this.cycleDaysSortedByDate.some(cycleDay => cycleDay[symptomName])
-    })
-
     const columns = xAxisDates.map(dateString => {
+      const column = { dateString }
       const cycleDay = getCycleDay(dateString)
+      if (!cycleDay) return column
+
       const symptoms = chartSymptoms.reduce((acc, symptom) => {
         if (symptom === 'bleeding' ||
           symptom === 'temperature' ||
@@ -85,28 +105,29 @@ export default class CycleChart extends Component {
           symptom === 'desire' ||
           symptom === 'note'
         ) {
-          acc[symptom] = cycleDay && cycleDay[symptom] && cycleDay[symptom].value
+          acc[symptom] = cycleDay[symptom] && cycleDay[symptom].value
         } else if (symptom === 'cervix') {
-          acc[symptom] = cycleDay && cycleDay['cervix'] && (cycleDay['cervix'].opening + cycleDay['cervix'].firmness)
+          acc.cervix = cycleDay.cervix &&
+            (cycleDay.cervix.opening + cycleDay.cervix.firmness)
         } else if (symptom === 'sex') {
           // solo = 1 + partner = 2
-          acc[symptom] = cycleDay && cycleDay['sex'] && (cycleDay['sex'].solo + cycleDay['sex'].partner)
+          acc.sex = cycleDay.sex && (cycleDay.sex.solo + cycleDay.sex.partner)
         } else if (symptom === 'pain') {
           // is any pain documented?
-          acc[symptom] = cycleDay && cycleDay['pain'] && Object.values(cycleDay['pain']).some(x => x === true)
+          acc.pain = cycleDay.pain &&
+            Object.values(cycleDay.pain).some(x => x === true)
         }
-        acc[`${symptom}Exclude`] = cycleDay && cycleDay[symptom] && cycleDay[symptom].exclude
+        acc[`${symptom}Exclude`] = cycleDay[symptom] && cycleDay[symptom].exclude
         return acc
       }, {})
 
       const temp = symptoms.temperature
-      const columnHeight = this.state.chartHeight * config.columnHeightPercentage
-      return {
-        dateString,
-        y: temp ? normalizeToScale(temp, columnHeight) : null,
-        ...symptoms,
-        ...getFhmAndLtlInfo(dateString, temp, columnHeight)
+      if (temp) {
+        column.y = normalizeToScale(temp, this.columnHeight)
       }
+
+      const fhmAndLtl = getFhmAndLtlInfo(dateString, temp, this.columnHeight)
+      return Object.assign(column, symptoms, fhmAndLtl)
     })
 
     return columns.map((col, i) => {
@@ -116,12 +137,6 @@ export default class CycleChart extends Component {
   }
 
   render() {
-    let columnHeight
-    let symptomRowHeight
-    if (this.state.chartHeight) {
-      columnHeight = this.state.chartHeight * config.columnHeightPercentage
-      symptomRowHeight = this.state.chartHeight * config.symptomRowHeightPercentage
-    }
     return (
       <View
         onLayout={this.onLayout}
@@ -136,14 +151,16 @@ export default class CycleChart extends Component {
         {this.state.chartHeight && this.state.chartLoaded &&
           <View
             style={[styles.yAxis, {
-              height: columnHeight,
-              marginTop: symptomRowHeight
+              height: this.columnHeight,
+              marginTop: this.symptomRowHeight
             }]}
           >
-            {makeYAxisLabels(columnHeight)}
+            {makeYAxisLabels(this.columnHeight)}
           </View>}
 
-        {this.state.chartHeight && this.state.chartLoaded && makeHorizontalGrid(columnHeight, symptomRowHeight)}
+        {this.state.chartHeight && this.state.chartLoaded &&
+          makeHorizontalGrid(this.columnHeight, this.symptomRowHeight)
+        }
 
         {this.state.chartHeight &&
           <FlatList

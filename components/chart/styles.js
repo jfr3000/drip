@@ -95,8 +95,6 @@ const styles = {
   symptomRow: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: '100%',
-    flex: 1
   }
 }
 

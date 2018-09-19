@@ -37,12 +37,13 @@ export default class DayColumn extends Component {
       rightTemperatureExclude,
       leftY,
       leftTemperatureExclude,
-      chartHeight
+      columnHeight,
+      symptomHeight,
+      chartHeight,
+      symptomRowSymptoms,
+      xAxisHeight
     } = this.props
 
-    const columnHeight = chartHeight * config.columnHeightPercentage
-    const xAxisHeight = chartHeight * config.xAxisHeightPercentage
-    const symptomHeight = chartHeight * config.symptomRowHeightPercentage
 
     const columnElements = []
 
@@ -108,77 +109,102 @@ export default class DayColumn extends Component {
       </G>
     )
 
+    const symptomIconViews = {
+      bleeding: (
+        <SymptomIconView
+          value={this.props.bleeding}
+          symptomHeight={symptomHeight}
+          key='bleeding'
+        >
+          <Icon
+            name='drop'
+            size={12}
+            color={styles.bleedingIconShades[this.props.bleeding]}
+          />
+        </SymptomIconView>
+      ),
+      mucus: (
+        <SymptomIconView
+          value={this.props.mucus}
+          symptomHeight={symptomHeight}
+          key='mucus'
+        >
+          <View
+            {...styles.mucusIcon}
+            backgroundColor={styles.mucusIconShades[this.props.mucus]}
+          />
+        </SymptomIconView>
+      ),
+      cervix: (
+        <SymptomIconView
+          value={this.props.cervix}
+          symptomHeight={symptomHeight}
+          key='cervix'
+        >
+          <View
+            {...styles.mucusIcon}
+            // cervix is sum of openess and firmness - fertile only when closed and hard (=0)
+            backgroundColor={this.props.cervix > 0 ? 'blue' : 'green'}
+          />
+        </SymptomIconView>
+      ),
+      sex: (
+        <SymptomIconView
+          value={this.props.sex}
+          symptomHeight={symptomHeight}
+          key='sex'
+        >
+          <View
+            {...styles.mucusIcon}
+            backgroundColor='orange'
+          />
+        </SymptomIconView>
+      ),
+      desire: (
+        <SymptomIconView
+          value={this.props.desire}
+          symptomHeight={symptomHeight}
+          key='desire'
+        >
+          <View
+            {...styles.mucusIcon}
+            backgroundColor='red'
+          />
+        </SymptomIconView>
+      ),
+      pain: (
+        <SymptomIconView
+          value={this.props.pain}
+          symptomHeight={symptomHeight}
+          key='pain'
+        >
+          <View
+            {...styles.mucusIcon}
+            backgroundColor='blue'
+          />
+        </SymptomIconView>
+      ),
+      note: (
+        <SymptomIconView
+          value={this.props.note}
+          symptomHeight={symptomHeight}
+          key='note'
+        >
+          <View
+            {...styles.mucusIcon}
+            backgroundColor='green'
+          />
+        </SymptomIconView>
+      )
+    }
+
     return (
       <TouchableOpacity
         onPress={() => this.passDateToDayView(dateString)}
         activeOpacity={1}
       >
-        <View height={symptomHeight}>
-          <View style={styles.symptomRow}>
-            {typeof this.props.bleeding === 'number' &&
-              <Icon
-                name='drop'
-                size={12}
-                color={styles.bleedingIconShades[this.props.bleeding]}
-                key='bleeding'
-              />
-            }
-          </View>
-          <View style={styles.symptomRow}>
-            {typeof this.props.mucus === 'number' &&
-              <View
-                {...styles.mucusIcon}
-                backgroundColor={styles.mucusIconShades[this.props.mucus]}
-                key='mucus'
-              />
-            }
-          </View>
-          <View style={styles.symptomRow}>
-            {typeof this.props.cervix === 'number' &&
-              <View
-                {...styles.mucusIcon}
-                // cervix is sum of openess and firmness - fertile only when closed and hard (=0)
-                backgroundColor={this.props.cervix > 0 ? 'blue' : 'green'}
-                key='cervix'
-              />
-            }
-          </View>
-          <View style={styles.symptomRow}>
-            {typeof this.props.sex === 'number' &&
-              <View
-                {...styles.mucusIcon}
-                backgroundColor='orange'
-                key='sex'
-              />
-            }
-          </View>
-          <View style={styles.symptomRow}>
-            {typeof this.props.desire === 'number' &&
-              <View
-                {...styles.mucusIcon}
-                backgroundColor='red'
-                key='desire'
-              />
-            }
-          </View>
-          <View style={styles.symptomRow}>
-            {this.props.pain &&
-              <View
-                {...styles.mucusIcon}
-                backgroundColor='blue'
-                key='pain'
-              />
-            }
-          </View>
-          <View style={styles.symptomRow}>
-            {this.props.note &&
-              <View
-                {...styles.mucusIcon}
-                backgroundColor='green'
-                key='note'
-              />
-            }
-          </View>
+        <View>
+          {symptomRowSymptoms.map(symptomName => symptomIconViews[symptomName])}
         </View>
 
         <Svg width={config.columnWidth} height={columnHeight}>
@@ -193,3 +219,16 @@ export default class DayColumn extends Component {
     )
   }
 }
+
+
+function SymptomIconView(props) {
+  const style = [styles.symptomRow, {height: props.symptomHeight}]
+  return (
+    <View style={style}>
+      {(typeof props.value === 'number' || props.value === true || typeof props.value === 'string') &&
+        props.children
+      }
+    </View>
+  )
+}
+
