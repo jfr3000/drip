@@ -64,6 +64,8 @@
 		8EA186B6112C41D1B206762D /* NodeMobile.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C225FC4966694B9FBD32E946 /* NodeMobile.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E4584E55EEC24302A3E84A23 /* nodejs-project in Resources */ = {isa = PBXBuildFile; fileRef = 6466AE2461BE4FA88B8372F0 /* nodejs-project */; };
 		A16B351C3F3644CF95F104D2 /* builtin_modules in Resources */ = {isa = PBXBuildFile; fileRef = 36F1B55D0DEE47AA9AF4BBDD /* builtin_modules */; };
+		45794BEC42E34672A759220F /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93C745A8EE95400C96FD5CF7 /* libRNSVG.a */; };
+		3E63FB3C405F4AF39969C7E3 /* libRNSVG-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AD4FC2FD95A84EFCBB59195F /* libRNSVG-tvOS.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -402,6 +404,9 @@
 		C225FC4966694B9FBD32E946 /* NodeMobile.framework */ = {isa = PBXFileReference; name = "NodeMobile.framework"; path = "../node_modules/nodejs-mobile-react-native/ios/NodeMobile.framework"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 		6466AE2461BE4FA88B8372F0 /* nodejs-project */ = {isa = PBXFileReference; name = "nodejs-project"; path = "../nodejs-assets/nodejs-project"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		36F1B55D0DEE47AA9AF4BBDD /* builtin_modules */ = {isa = PBXFileReference; name = "builtin_modules"; path = "../node_modules/nodejs-mobile-react-native/install/resources/nodejs-modules/builtin_modules"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DEB488BF9A9642508320FB42 /* RNSVG.xcodeproj */ = {isa = PBXFileReference; name = "RNSVG.xcodeproj"; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		93C745A8EE95400C96FD5CF7 /* libRNSVG.a */ = {isa = PBXFileReference; name = "libRNSVG.a"; path = "libRNSVG.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		AD4FC2FD95A84EFCBB59195F /* libRNSVG-tvOS.a */ = {isa = PBXFileReference; name = "libRNSVG-tvOS.a"; path = "libRNSVG-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -440,6 +445,7 @@
 				72DA6B4241504DB096AFAD40 /* libRCTRestart.a in Frameworks */,
 				E09F3B05A4F84E9883101CC7 /* libRNNodeJsMobile.a in Frameworks */,
 				E43EF009AC8C4698AB322190 /* NodeMobile.framework in Frameworks */,
+				45794BEC42E34672A759220F /* libRNSVG.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,6 +462,7 @@
 				2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */,
 				2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */,
 				934282049FA3497D9062CEC1 /* libRNSVG-tvOS.a in Frameworks */,
+				3E63FB3C405F4AF39969C7E3 /* libRNSVG-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -637,6 +644,7 @@
 				49089E09BFCF4F3DB209B6E9 /* RNFS.xcodeproj */,
 				50DBC4BCDDF74A10AEDC99D5 /* RCTRestart.xcodeproj */,
 				65F706FAFA1444AE9937D472 /* RNNodeJsMobile.xcodeproj */,
+				DEB488BF9A9642508320FB42 /* RNSVG.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1482,6 +1490,7 @@ fi
 					"$(inherited)",
 					"\"../node_modules/nodejs-mobile-react-native/ios\"",
 					"\"../node_modules/nodejs-mobile-react-native/ios\"",
+					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
 				ENABLE_BITCODE = NO;
 			};
@@ -1523,6 +1532,7 @@ fi
 					"$(inherited)",
 					"\"../node_modules/nodejs-mobile-react-native/ios\"",
 					"\"../node_modules/nodejs-mobile-react-native/ios\"",
+					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
 				ENABLE_BITCODE = NO;
 			};
@@ -1552,6 +1562,7 @@ fi
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-restart/ios/RCTRestart/**",
 					"$(SRCROOT)/../node_modules/nodejs-mobile-react-native/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1584,6 +1595,7 @@ fi
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-restart/ios/RCTRestart/**",
 					"$(SRCROOT)/../node_modules/nodejs-mobile-react-native/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1638,6 +1650,7 @@ fi
 					"$(inherited)",
 					"\"../node_modules/nodejs-mobile-react-native/ios\"",
 					"\"../node_modules/nodejs-mobile-react-native/ios\"",
+					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
 				ENABLE_BITCODE = NO;
 			};
@@ -1688,6 +1701,7 @@ fi
 					"$(inherited)",
 					"\"../node_modules/nodejs-mobile-react-native/ios\"",
 					"\"../node_modules/nodejs-mobile-react-native/ios\"",
+					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
 				ENABLE_BITCODE = NO;
 			};
@@ -1732,6 +1746,7 @@ fi
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-restart/ios/RCTRestart/**",
 					"$(SRCROOT)/../node_modules/nodejs-mobile-react-native/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1781,6 +1796,7 @@ fi
 					"$(SRCROOT)/../node_modules/react-native-fs/**",
 					"$(SRCROOT)/../node_modules/react-native-restart/ios/RCTRestart/**",
 					"$(SRCROOT)/../node_modules/nodejs-mobile-react-native/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-svg/ios/**",
 				);
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
