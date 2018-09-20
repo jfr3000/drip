@@ -8,7 +8,6 @@ function convertToSymptoFormat(val) {
   if (val.cervix && typeof val.cervix.opening === 'number' && typeof val.cervix.firmness === 'number') sympto.cervix = {
     opening: val.cervix.opening,
     firmness: val.cervix.firmness,
-    position: -1,
     exclude: false
   }
   if (val.bleeding) sympto.bleeding = {
