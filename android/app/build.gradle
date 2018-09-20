@@ -151,6 +151,7 @@ android {
 dependencies {
     compile project(':nodejs-mobile-react-native')
     compile project(':react-native-restart')
+    compile project(':react-native-svg')
     compile project(':react-native-push-notification')
     compile project(':react-native-vector-icons')
     compile project(':react-native-fs')

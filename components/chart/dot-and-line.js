@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { Circle, Line } from 'react-native-svg'
+
 import styles from './styles'
 import config from '../../config'
 
@@ -17,21 +18,20 @@ export default class DotAndLine extends Component {
     if (this.props.leftY) {
       const middleY = ((this.props.leftY - y) / 2) + y
       const excludedLine = this.props.leftTemperatureExclude || exclude
-      lineToLeft = makeLine(middleY, y, 'left', excludedLine)
+      lineToLeft = makeLine(y, middleY, 0, excludedLine)
     }
     if (this.props.rightY) {
       const middleY = ((y - this.props.rightY) / 2) + this.props.rightY
       const excludedLine = this.props.rightTemperatureExclude || exclude
-      lineToRight = makeLine(y, middleY, 'right', excludedLine)
+      lineToRight = makeLine(y, middleY, config.columnWidth, excludedLine)
     }
 
     const dotStyle = exclude ? styles.curveDotsExcluded : styles.curveDots
     const dot = (
-      <View
-        position='absolute'
-        top={y - (dotStyle.height / 2)}
-        left={config.columnMiddle - (dotStyle.width / 2)}
-        style={dotStyle}
+      <Circle
+        cx={config.columnMiddle}
+        cy={y}
+        {...dotStyle}
         key='dot'
       />
     )
@@ -39,33 +39,15 @@ export default class DotAndLine extends Component {
   }
 }
 
-function makeLine(leftY, rightY, direction, excludeLine) {
-  const colWidth = config.columnWidth
-  const heightDiff = -(leftY - rightY)
-  const angle = Math.atan2(heightDiff, colWidth / 2)
+function makeLine(currY, middleY, x, excludeLine) {
   const lineStyle = excludeLine ? styles.curveExcluded : styles.curve
-  // hypotenuse, we add 3px for good measure, because otherwise the lines
-  // don't quite touch at the day border
-  const h = (colWidth / 2) / Math.cos(angle) + 10
-  // the rotation by default rotates from the middle of the line,
-  // but we want the transform origin to be at its beginning
-  // react native doesn't have transformOrigin, so we do this manually
-  // if it's the right line, we put the pivot at 3/4 of the column
-  // if it's to the left, at 1/4
-  const pivot = direction === 'right' ? colWidth / 4 : -(colWidth / 4)
-  const projectedX = -(h - colWidth) / 2 + pivot
 
-  return (<View
-    width={h}
-    position='absolute'
-    top={((leftY + rightY) / 2) - lineStyle.borderWidth / 2}
-    left={projectedX}
-    style={{
-      transform: [
-        { rotateZ: `${angle}rad` }
-      ],
-    }}
+  return <Line
+    x1={config.columnMiddle}
+    y1={currY}
+    x2={x}
+    y2={middleY}
     {...lineStyle}
-    key ={direction}
-  />)
+    key={x.toString()}
+  />
 }

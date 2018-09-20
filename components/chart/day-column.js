@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {
   Text, View, TouchableOpacity
 } from 'react-native'
+import Svg,{ G, Rect, Line } from 'react-native-svg'
 import Icon from 'react-native-vector-icons/Entypo'
 import styles from './styles'
 import config from '../../config'
@@ -30,7 +31,6 @@ export default class DayColumn extends Component {
       dateString,
       y,
       temperatureExclude,
-      symptoms,
       drawFhmLine,
       drawLtlAt,
       rightY,
@@ -47,15 +47,30 @@ export default class DayColumn extends Component {
     const columnElements = []
 
     if(drawLtlAt) {
-      const ltlLine = (<View
-        position = 'absolute'
-        width={'100%'}
-        top={drawLtlAt}
+      const ltlLine = (<Line
+        x1={0}
+        y1={drawLtlAt}
+        x2={config.columnWidth}
+        y2={drawLtlAt}
         {...styles.nfpLine}
         key='ltl'
       />)
       columnElements.push(ltlLine)
     }
+
+    if (drawFhmLine) {
+      const x = styles.nfpLine.strokeWidth / 2
+      const fhmLine = (<Line
+        x1={x}
+        y1={x}
+        x2={x}
+        y2={columnHeight}
+        {...styles.nfpLine}
+        key='fhm'
+      />)
+      columnElements.push(fhmLine)
+    }
+
 
     if (y) {
       columnElements.push(
@@ -83,64 +98,53 @@ export default class DayColumn extends Component {
       </Text>
     )
 
-    // we merge the colors here instead of from the stylesheet because of a RN
-    // bug that doesn't apply borderLeftColor otherwise
-    const potentialCustomStyle = {
-      height: columnHeight,
-      borderLeftColor: 'grey',
-    }
-
-    if (drawFhmLine) {
-      potentialCustomStyle.borderLeftColor = styles.nfpLine.borderColor
-      potentialCustomStyle.borderLeftWidth = 3
-    }
-    const column = React.createElement(
-      TouchableOpacity,
-      {
-        style: [styles.column.rect, potentialCustomStyle],
-        key: this.props.index.toString(),
-        onPress: () => {
-          this.passDateToDayView(dateString)
-        },
-        activeOpacity: 1
-      },
-      columnElements
+    const column = (
+      <G>
+        <Rect
+          height={chartHeight}
+          {...styles.column.rect}
+        />
+        { columnElements }
+      </G>
     )
 
     return (
-      <View>
+      <TouchableOpacity
+        onPress={() => this.passDateToDayView(dateString)}
+        activeOpacity={1}
+      >
         <View height={symptomHeight}>
           <View style={styles.symptomRow}>
-            {typeof symptoms.bleeding === 'number' &&
+            {typeof this.props.bleeding === 'number' &&
               <Icon
                 name='drop'
                 size={12}
-                color={styles.bleedingIconShades[symptoms.bleeding]}
+                color={styles.bleedingIconShades[this.props.bleeding]}
                 key='bleeding'
               />
             }
           </View>
           <View style={styles.symptomRow}>
-            {typeof symptoms.mucus === 'number' &&
+            {typeof this.props.mucus === 'number' &&
               <View
                 {...styles.mucusIcon}
-                backgroundColor={styles.mucusIconShades[symptoms.mucus]}
+                backgroundColor={styles.mucusIconShades[this.props.mucus]}
                 key='mucus'
               />
             }
           </View>
           <View style={styles.symptomRow}>
-            {typeof symptoms.cervix === 'number' &&
+            {typeof this.props.cervix === 'number' &&
               <View
                 {...styles.mucusIcon}
                 // cervix is sum of openess and firmness - fertile only when closed and hard (=0)
-                backgroundColor={symptoms.cervix > 0 ? 'blue' : 'green'}
+                backgroundColor={this.props.cervix > 0 ? 'blue' : 'green'}
                 key='cervix'
               />
             }
           </View>
           <View style={styles.symptomRow}>
-            {typeof symptoms.sex === 'number' &&
+            {typeof this.props.sex === 'number' &&
               <View
                 {...styles.mucusIcon}
                 backgroundColor='orange'
@@ -149,7 +153,7 @@ export default class DayColumn extends Component {
             }
           </View>
           <View style={styles.symptomRow}>
-            {typeof symptoms.desire === 'number' &&
+            {typeof this.props.desire === 'number' &&
               <View
                 {...styles.mucusIcon}
                 backgroundColor='red'
@@ -158,7 +162,7 @@ export default class DayColumn extends Component {
             }
           </View>
           <View style={styles.symptomRow}>
-            {symptoms.pain &&
+            {this.props.pain &&
               <View
                 {...styles.mucusIcon}
                 backgroundColor='blue'
@@ -167,7 +171,7 @@ export default class DayColumn extends Component {
             }
           </View>
           <View style={styles.symptomRow}>
-            {symptoms.note &&
+            {this.props.note &&
               <View
                 {...styles.mucusIcon}
                 backgroundColor='green'
@@ -176,13 +180,16 @@ export default class DayColumn extends Component {
             }
           </View>
         </View>
-        {column}
+
+        <Svg width={config.columnWidth} height={columnHeight}>
+          {column}
+        </Svg>
 
         <View style={{height: xAxisHeight}}>
           {cycleDayLabel}
           {dateLabel}
         </View>
-      </View>
+      </TouchableOpacity>
     )
   }
 }

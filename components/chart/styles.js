@@ -3,32 +3,28 @@ import {primaryColor, shadesOfRed} from '../../styles/index'
 
 const colorTemperature = '#765285'
 const colorTemperatureLight = '#a67fb5'
-const dotWidth = 10
-const lineWidth = 2
+const dotRadius = 5
+const lineWidth = 1.5
 const colorLtl = '#feb47b'
+const gridColor = 'lightgrey'
+const gridLineWidth = 0.5
 
 const styles = {
   curve: {
-    borderStyle: 'solid',
-    borderColor: colorTemperature,
-    borderWidth: lineWidth,
+    stroke: colorTemperature,
+    strokeWidth: lineWidth,
   },
   curveExcluded: {
-    borderColor: colorTemperatureLight,
-    borderWidth: lineWidth,
-    borderStyle: 'dotted'
+    stroke: colorTemperatureLight,
+    strokeWidth: lineWidth
   },
   curveDots: {
-    backgroundColor: colorTemperature,
-    width: dotWidth,
-    height: dotWidth,
-    borderRadius: 50
+    fill: colorTemperature,
+    r: dotRadius
   },
   curveDotsExcluded: {
-    backgroundColor: colorTemperatureLight,
-    width: dotWidth,
-    height: dotWidth,
-    borderRadius: 50
+    fill: colorTemperatureLight,
+    r: dotRadius
   },
   column: {
     label: {
@@ -44,9 +40,12 @@ const styles = {
       }
     },
     rect: {
+      x:'0',
+      y:'0',
       width: config.columnWidth,
-      borderStyle: 'solid',
-      borderLeftWidth: 0.5,
+      stroke: gridColor,
+      strokeWidth: gridLineWidth,
+      fill: 'transparent'
     }
   },
   bleedingIcon: {
@@ -83,16 +82,15 @@ const styles = {
   },
   horizontalGrid: {
     position:'absolute',
-    borderColor: 'lightgrey',
-    borderWidth: 0.5,
+    borderColor: gridColor,
+    borderWidth: gridLineWidth,
     width: '100%',
     borderStyle: 'solid',
     left: config.columnWidth
   },
   nfpLine: {
-    borderColor: colorLtl,
-    borderWidth: lineWidth,
-    borderStyle: 'solid'
+    stroke: colorLtl,
+    strokeWidth: lineWidth,
   },
   symptomRow: {
     alignItems: 'center',
