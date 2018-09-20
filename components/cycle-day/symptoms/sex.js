@@ -38,6 +38,12 @@ const contraceptiveBoxes = [{
   label: labels.implant,
   stateKey: 'implant'
 }, {
+  label: labels.diaphragm,
+  stateKey: 'diaphragm'
+}, {
+  label: labels.unprotected,
+  stateKey: 'unprotected'
+}, {
   label: labels.other,
   stateKey: 'other'
 }]

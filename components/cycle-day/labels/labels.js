@@ -43,6 +43,8 @@ export const sex = {
   patch: 'Patch',
   ring: 'Ring',
   implant: 'Implant',
+  diaphragm: 'Diaphragm',
+  unprotected: 'Unprotected',
   other: 'Other',
   activityExplainer: 'Were you sexually active today?',
   contraceptiveExplainer: 'Did you use contraceptives?'
