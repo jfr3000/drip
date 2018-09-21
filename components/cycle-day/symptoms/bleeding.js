@@ -56,7 +56,6 @@ export default class Bleeding extends Component {
           </SymptomSection>
         </ScrollView>
         <ActionButtonFooter
-          symptom='bleeding'
           cycleDay={this.props.cycleDay}
           saveAction={() => {
             saveSymptom('bleeding', this.props.cycleDay, {
