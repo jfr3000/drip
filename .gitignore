@@ -64,3 +64,5 @@ android/app/.project
 
 # nodejs-mobile creates these with every npm install
 nodejs-assets/nodejs-project/sample-*
+nodejs-assets/build-native-modules-MacOS-helper-script-node.sh
+nodejs-assets/build-native-modules-MacOS-helper-script-npm.sh
