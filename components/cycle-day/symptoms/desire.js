@@ -15,10 +15,7 @@ export default class Desire extends Component {
     super(props)
     this.cycleDay = props.cycleDay
     this.makeActionButtons = props.makeActionButtons
-    let desireValue = this.cycleDay.desire && this.cycleDay.desire.value
-    if (!(typeof desireValue === 'number')) {
-      desireValue = -1
-    }
+    const desireValue = this.cycleDay.desire && this.cycleDay.desire.value
     this.state = { currentValue: desireValue }
   }
 
@@ -48,7 +45,7 @@ export default class Desire extends Component {
           saveAction={() => {
             saveSymptom('desire', this.cycleDay, { value: this.state.currentValue })
           }}
-          saveDisabled={this.state.currentValue === -1}
+          saveDisabled={typeof this.state.currentValue != 'number'}
           navigate={this.props.navigate}
         />
       </View>

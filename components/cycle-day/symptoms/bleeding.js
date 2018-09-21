@@ -16,12 +16,8 @@ export default class Bleeding extends Component {
     super(props)
     this.cycleDay = props.cycleDay
     this.makeActionButtons = props.makeActionButtons
-    let bleedingValue = this.cycleDay.bleeding && this.cycleDay.bleeding.value
-    if (!(typeof bleedingValue === 'number')) {
-      bleedingValue = -1
-    }
     this.state = {
-      currentValue: bleedingValue,
+      currentValue: this.cycleDay.bleeding && this.cycleDay.bleeding.value,
       exclude: this.cycleDay.bleeding ? this.cycleDay.bleeding.exclude : false
     }
   }
@@ -68,7 +64,7 @@ export default class Bleeding extends Component {
               exclude: this.state.exclude
             })
           }}
-          saveDisabled={this.state.currentValue === -1}
+          saveDisabled={typeof this.state.currentValue != 'number'}
           navigate={this.props.navigate}
         />
       </View>

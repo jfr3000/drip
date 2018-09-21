@@ -122,14 +122,14 @@ export default class CycleDayOverView extends Component {
 function getLabel(symptomName, symptom) {
   const l = {
     bleeding: bleeding => {
-      if (typeof bleeding.value === 'number') {
+      if (isNumber(bleeding.value)) {
         let bleedingLabel = `${bleedingLabels[bleeding.value]}`
         if (bleeding.exclude) bleedingLabel = "( " + bleedingLabel + " )"
         return bleedingLabel
       }
     },
     temperature: temperature => {
-      if (typeof temperature.value === 'number') {
+      if (isNumber(temperature.value)) {
         let temperatureLabel = `${temperature.value} °C - ${temperature.time}`
         if (temperature.exclude) {
           temperatureLabel = "( " + temperatureLabel + " )"
@@ -139,7 +139,7 @@ function getLabel(symptomName, symptom) {
     },
     mucus: mucus => {
       const categories = ['feeling', 'texture', 'value']
-      if (categories.every(c => typeof mucus[c] === 'number')) {
+      if (categories.every(c => isNumber(mucus[c]))) {
         let mucusLabel = [feelingLabels[mucus.feeling], textureLabels[mucus.texture]].join(', ')
         mucusLabel += `\n${labels.mucusNFP[mucus.value]}`
         if (mucus.exclude) mucusLabel = `(${mucusLabel})`
@@ -148,12 +148,12 @@ function getLabel(symptomName, symptom) {
     },
     cervix: cervix => {
       let cervixLabel = []
-      if (cervix.opening > -1 && cervix.firmness > -1) {
+      if (isNumber(cervix.opening) && isNumber(cervix.firmness)) {
         cervixLabel.push(
           openingLabels[cervix.opening],
           firmnessLabels[cervix.firmness]
         )
-        if (cervix.position > -1) {
+        if (isNumber(cervix.position)) {
           cervixLabel.push(positionLabels[cervix.position])
         }
         cervixLabel = cervixLabel.join(', ')
@@ -165,7 +165,7 @@ function getLabel(symptomName, symptom) {
       return note.value
     },
     desire: desire => {
-      if (typeof desire.value === 'number') {
+      if (isNumber(desire.value)) {
         const desireLabel = `${intensityLabels[desire.value]}`
         return desireLabel
       }
@@ -265,4 +265,8 @@ class FillerBoxes extends Component {
     }
     return fillerBoxes
   }
+}
+
+function isNumber(val) {
+  return typeof val === 'number'
 }

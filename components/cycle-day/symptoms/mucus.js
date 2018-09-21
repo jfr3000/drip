@@ -19,17 +19,10 @@ export default class Mucus extends Component {
     this.cycleDay = props.cycleDay
     this.makeActionButtons = props.makeActionButtons
     this.state = {
-      exclude: this.cycleDay.mucus ? this.cycleDay.mucus.exclude : false
-    };
-
-    /* eslint-disable react/no-direct-mutation-state */
-    ['feeling', 'texture'].forEach(label => {
-      this.state[label] = this.cycleDay.mucus && this.cycleDay.mucus[label]
-      if (typeof this.state[label] !== 'number') {
-        this.state[label] = -1
-      }
-    })
-    /* eslint-enable react/no-direct-mutation-state */
+      exclude: this.cycleDay.mucus ? this.cycleDay.mucus.exclude : false,
+      feeling: this.cycleDay.mucus ? this.cycleDay.mucus.feeling : null,
+      texture: this.cycleDay.mucus ? this.cycleDay.mucus.texture : null
+    }
   }
 
   render() {
@@ -93,7 +86,7 @@ export default class Mucus extends Component {
               exclude: this.state.exclude
             })
           }}
-          saveDisabled={this.state.feeling === -1 || this.state.texture === -1}
+          saveDisabled={typeof this.state.feeling != 'number' || typeof this.state.texture != 'number'}
           navigate={this.props.navigate}
         />
       </View>
