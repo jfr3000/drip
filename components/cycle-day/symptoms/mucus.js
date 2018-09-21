@@ -46,7 +46,7 @@ export default class Mucus extends Component {
           >
             <SelectTabGroup
               buttons={mucusFeeling}
-              onSelect={val => this.setState({ feeling: val })}
+              onSelect={val => val === this.state.feeling ? this.setState({ feeling: null }) : this.setState({ feeling: val })}
               active={this.state.feeling}
             />
           </SymptomSection>
@@ -56,7 +56,7 @@ export default class Mucus extends Component {
           >
             <SelectTabGroup
               buttons={mucusTexture}
-              onSelect={val => this.setState({ texture: val })}
+              onSelect={val => val === this.state.texture ? this.setState({ texture: null }) : this.setState({ texture: val })}
               active={this.state.texture}
             />
           </SymptomSection>
