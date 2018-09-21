@@ -23,7 +23,7 @@ export default class SelectTabGroup extends Component {
             if (isActive) activeStyle = styles.selectTabActive
             return (
               <TouchableOpacity
-                onPress={() => this.props.onSelect(value)}
+                onPress={() => isActive ? this.props.onSelect(null) : this.props.onSelect(value)}
                 key={i}
                 activeOpacity={1}
               >

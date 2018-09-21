@@ -39,7 +39,7 @@ export default class Bleeding extends Component {
             <SelectTabGroup
               buttons={bleedingRadioProps}
               active={this.state.currentValue}
-              onSelect={val => val === this.state.currentValue ? this.setState({ currentValue: null }) : this.setState({ currentValue: val })}
+              onSelect={val => this.setState({ currentValue: val })}
             />
           </SymptomSection>
           <SymptomSection
