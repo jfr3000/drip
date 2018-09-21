@@ -103,6 +103,7 @@ export default class CycleDayOverView extends Component {
               title='Pain'
               onPress={() => this.navigate('PainEditView')}
               data={getLabel('pain', cycleDay.pain)}
+              disabled={dateInFuture}
             />
             <SymptomBox
               title='Note'
