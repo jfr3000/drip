@@ -40,6 +40,7 @@ export default class Bleeding extends Component {
               buttons={bleedingRadioProps}
               active={this.state.currentValue}
               onSelect={val => this.setState({ currentValue: val })}
+              isRadioButton={true}
             />
           </SymptomSection>
           <SymptomSection
@@ -56,6 +57,7 @@ export default class Bleeding extends Component {
           </SymptomSection>
         </ScrollView>
         <ActionButtonFooter
+          symptom='bleeding'
           cycleDay={this.props.cycleDay}
           saveAction={() => {
             saveSymptom('bleeding', this.props.cycleDay, {

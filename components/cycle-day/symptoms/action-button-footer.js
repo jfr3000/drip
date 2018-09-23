@@ -3,11 +3,13 @@ import {
   View, TouchableOpacity, Text
 } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { saveSymptom } from '../../../db'
 import styles, {iconStyles} from '../../../styles'
 
 export default class ActionButtonFooter extends Component {
   render() {
     const {
+      symptom,
       cycleDay,
       saveAction,
       saveDisabled,
@@ -15,33 +17,65 @@ export default class ActionButtonFooter extends Component {
       autoShowDayView = true}
       = this.props
     const navigateToOverView = () => navigate('CycleDay', {cycleDay})
-    const saveButton = {
-      title: 'Save',
-      action: () => {
-        saveAction()
-        if (autoShowDayView) navigateToOverView()
+    const buttonsNewEntry = [
+      {
+        title: 'Cancel',
+        action: () => navigateToOverView(),
+        icon: 'cancel'
       },
-      disabledCondition: saveDisabled,
-      icon: 'content-save-outline'
-    }
-    const textStyle = saveButton.disabledCondition ? styles.menuTextInActive : styles.menuText
-    const iconStyle = saveButton.disabledCondition ?
-      Object.assign({}, iconStyles.menuIcon, iconStyles.menuIconInactive) :
-      iconStyles.menuIcon
+      {
+        title: 'Add',
+        action: () => {
+          saveAction()
+          if (autoShowDayView) navigateToOverView()
+        },
+        disabledCondition: saveDisabled,
+        icon: 'content-save-outline'
+      }
+    ]
+    const buttonsEdit = [
+      {
+        title: 'Delete',
+        action: () => {
+          saveSymptom(symptom, cycleDay)
+          navigateToOverView()
+        },
+        disabledCondition: !cycleDay[symptom],
+        icon: 'delete-outline'
+      }, {
+        title: 'Save',
+        action: () => {
+          saveAction()
+          if (autoShowDayView) navigateToOverView()
+        },
+        disabledCondition: saveDisabled,
+        icon: 'content-save-outline'
+      }
+    ]
+    const buttons = !cycleDay[symptom] ? buttonsNewEntry : buttonsEdit
 
     return (
       <View style={styles.menu}>
-        <TouchableOpacity
-          onPress={saveButton.action}
-          style={styles.menuItem}
-          disabled={saveButton.disabledCondition}
-          key={'save'}
-        >
-          <Icon name={saveButton.icon} {...iconStyle} />
-          <Text style={textStyle}>
-            {saveButton.title}
-          </Text>
-        </TouchableOpacity>
+        {buttons.map(({ title, action, disabledCondition, icon }, i) => {
+          const textStyle = disabledCondition ? styles.menuTextInActive : styles.menuText
+          const iconStyle = disabledCondition ?
+            Object.assign({}, iconStyles.menuIcon, iconStyles.menuIconInactive) :
+            iconStyles.menuIcon
+
+          return (
+            <TouchableOpacity
+              onPress={action}
+              style={styles.menuItem}
+              disabled={disabledCondition}
+              key={i.toString()}
+            >
+              <Icon name={icon} {...iconStyle} />
+              <Text style={textStyle}>
+                {title}
+              </Text>
+            </TouchableOpacity>
+          )
+        })}
       </View>
     )
   }

@@ -50,6 +50,7 @@ export default class Cervix extends Component {
               buttons={cervixOpeningRadioProps}
               active={this.state.opening}
               onSelect={val => this.setState({ opening: val })}
+              isRadioButton={true}
             />
           </SymptomSection>
           <SymptomSection
@@ -60,6 +61,7 @@ export default class Cervix extends Component {
               buttons={cervixFirmnessRadioProps}
               active={this.state.firmness}
               onSelect={val => this.setState({ firmness: val })}
+              isRadioButton={true}
             />
           </SymptomSection>
           <SymptomSection
@@ -70,6 +72,7 @@ export default class Cervix extends Component {
               buttons={cervixPositionRadioProps}
               active={this.state.position}
               onSelect={val => this.setState({ position: val })}
+              isRadioButton={false}
             />
           </SymptomSection>
           <SymptomSection
