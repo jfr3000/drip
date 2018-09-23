@@ -3,7 +3,6 @@ import {
   Text, View, TouchableOpacity
 } from 'react-native'
 import Svg,{ G, Rect, Line } from 'react-native-svg'
-import Icon from 'react-native-vector-icons/Entypo'
 import styles from './styles'
 import config from '../../config'
 import { getOrCreateCycleDay } from '../../db'
@@ -116,10 +115,9 @@ export default class DayColumn extends Component {
           symptomHeight={symptomHeight}
           key='bleeding'
         >
-          <Icon
-            name='drop'
-            size={12}
-            color={styles.bleedingIconShades[this.props.bleeding]}
+          <View
+            {...styles.symptomIcon}
+            backgroundColor={styles.iconShades.bleeding[this.props.bleeding]}
           />
         </SymptomIconView>
       ),
@@ -130,8 +128,8 @@ export default class DayColumn extends Component {
           key='mucus'
         >
           <View
-            {...styles.mucusIcon}
-            backgroundColor={styles.mucusIconShades[this.props.mucus]}
+            {...styles.symptomIcon}
+            backgroundColor={styles.iconShades.mucus[this.props.mucus]}
           />
         </SymptomIconView>
       ),
@@ -142,9 +140,9 @@ export default class DayColumn extends Component {
           key='cervix'
         >
           <View
-            {...styles.mucusIcon}
+            {...styles.symptomIcon}
             // cervix is sum of openess and firmness - fertile only when closed and hard (=0)
-            backgroundColor={this.props.cervix > 0 ? 'blue' : 'green'}
+            backgroundColor={this.props.cervix > 0 ? styles.iconShades.cervix[1] : styles.iconShades.cervix[0]}
           />
         </SymptomIconView>
       ),
@@ -155,8 +153,8 @@ export default class DayColumn extends Component {
           key='sex'
         >
           <View
-            {...styles.mucusIcon}
-            backgroundColor='orange'
+            {...styles.symptomIcon}
+            backgroundColor={styles.iconShades.sex[this.props.sex - 1]}
           />
         </SymptomIconView>
       ),
@@ -167,8 +165,8 @@ export default class DayColumn extends Component {
           key='desire'
         >
           <View
-            {...styles.mucusIcon}
-            backgroundColor='red'
+            {...styles.symptomIcon}
+            backgroundColor={styles.iconShades.desire[this.props.desire]}
           />
         </SymptomIconView>
       ),
@@ -179,8 +177,8 @@ export default class DayColumn extends Component {
           key='pain'
         >
           <View
-            {...styles.mucusIcon}
-            backgroundColor='blue'
+            {...styles.symptomIcon}
+            backgroundColor={styles.iconShades.pain}
           />
         </SymptomIconView>
       ),
@@ -191,8 +189,8 @@ export default class DayColumn extends Component {
           key='note'
         >
           <View
-            {...styles.mucusIcon}
-            backgroundColor='green'
+            {...styles.symptomIcon}
+            backgroundColor={styles.iconShades.note}
           />
         </SymptomIconView>
       )

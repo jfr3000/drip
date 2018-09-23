@@ -111,7 +111,7 @@ export default class CycleChart extends Component {
             (cycleDay.cervix.opening + cycleDay.cervix.firmness)
         } else if (symptom === 'sex') {
           // solo = 1 + partner = 2
-          acc.sex = cycleDay.sex && (cycleDay.sex.solo + cycleDay.sex.partner)
+          acc.sex = cycleDay.sex && (cycleDay.sex.solo + 2 * cycleDay.sex.partner)
         } else if (symptom === 'pain') {
           // is any pain documented?
           acc.pain = cycleDay.pain &&

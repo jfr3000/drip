@@ -48,25 +48,39 @@ const styles = {
       fill: 'transparent'
     }
   },
-  bleedingIcon: {
-    fill: '#fb2e01',
-    scale: 0.6,
-    x: 6,
-    y: 3
-  },
-  bleedingIconShades: shadesOfRed,
-  mucusIcon: {
+  symptomIcon: {
     width: 12,
     height: 12,
     borderRadius: 50,
   },
-  mucusIconShades: [
-    '#fef0e4',
-    '#fee1ca',
-    '#fed2af',
-    '#fec395',
-    '#feb47b'
-  ],
+  iconShades: {
+    'bleeding': shadesOfRed,
+    'mucus': [
+      '#e8f6a4',
+      '#bccd67',
+      '#91a437',
+      '#6a7b15',
+      '#445200',
+    ],
+    'cervix': [
+      '#f0e19d',
+      '#e9d26d',
+      '#e2c33c',
+      '#dbb40c',
+    ],
+    'sex': [
+      '#A66FA6',
+      '#8A458A',
+      '#6f2565',
+    ],
+    'desire': [
+      '#68113f',
+      '#8b2e5f',
+      '#ad5784',
+    ],
+    'pain': ['#7689A9'],
+    'note': ['#6CA299']
+  },
   yAxis: {
     width: 27,
     borderRightWidth: 1,
