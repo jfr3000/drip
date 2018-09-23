@@ -17,10 +17,10 @@ export function makeYAxisLabels(columnHeight) {
     let tickBold
     if (units === 0.1) {
       showTick =  (tick * 10 % 2) ? false : true
-      tickBold = tick * 10 % 5 ? {} : {fontWeight: 'bold'}
+      tickBold = tick * 10 % 5 ? {} : {fontWeight: 'bold', fontSize: 11}
     } else {
       showTick =  (tick * 10 % 5) ? false : true
-      tickBold = tick * 10 % 10 ? {} : {fontWeight: 'bold'}
+      tickBold = tick * 10 % 10 ? {} : {fontWeight: 'bold', fontSize: 11}
     }
     // this eyeballing is sadly necessary because RN does not
     // support percentage values for transforms, which we'd need

@@ -69,15 +69,15 @@ const styles = {
   ],
   yAxis: {
     width: 27,
-    borderRightWidth: 0.5,
+    borderRightWidth: 1,
     borderColor: 'lightgrey',
     borderStyle: 'solid'
   },
   yAxisLabel: {
     position: 'absolute',
-    left: 3,
+    right: 2,
     color: 'grey',
-    fontSize: 11,
+    fontSize: 9,
     textAlign: 'left'
   },
   horizontalGrid: {

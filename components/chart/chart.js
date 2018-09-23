@@ -137,6 +137,7 @@ export default class CycleChart extends Component {
   }
 
   render() {
+    console.log(this.symptomRowSymptoms)
     return (
       <View
         onLayout={this.onLayout}
@@ -149,14 +150,53 @@ export default class CycleChart extends Component {
         }
 
         {this.state.chartHeight && this.state.chartLoaded &&
-          <View
-            style={[styles.yAxis, {
-              height: this.columnHeight,
-              marginTop: this.symptomRowHeight
-            }]}
-          >
-            {makeYAxisLabels(this.columnHeight)}
+          <View>
+            <View
+              style={[
+                styles.yAxis,
+                {
+                  height: this.symptomRowHeight,
+                }
+              ]}
+            >
+              {this.symptomRowSymptoms.map(symptomName => {
+                return <View key={symptomName} style={{flex: 1}}>
+                  <AppText>{symptomName[0]}</AppText>
+                </View>
+              })
+              }
+            </View>
+            <View
+              style={[styles.yAxis, {
+                height: this.columnHeight,
+              }]}
+            >
+              {makeYAxisLabels(this.columnHeight)}
+            </View>
+            <View style={[
+              styles.yAxis,
+              {
+                height: this.xAxisHeight
+              }
+            ]}>
+              <AppText style = {[
+                styles.column.label.number,
+                {
+                  textAlign: 'center',
+                  justifyContent: 'center',
+                  fontSize: Math.ceil(styles.column.label.number.fontSize / 2)
+                }
+              ]}>{'Cycle\nday'}</AppText>
+              <AppText style={[
+                styles.column.label.date,
+                {
+                  textAlign: 'center',
+                  justifyContent: 'center'
+                }
+              ]}>{'Date'}</AppText>
+            </View>
           </View>}
+
 
         {this.state.chartHeight && this.state.chartLoaded &&
           makeHorizontalGrid(this.columnHeight, this.symptomRowHeight)
