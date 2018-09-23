@@ -32,6 +32,7 @@ const styles = {
         color: 'grey',
         fontSize: 9,
         fontWeight: '100',
+        textAlign: 'center',
       },
       number: {
         color: primaryColor,

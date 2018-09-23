@@ -3,6 +3,8 @@ import {
   Text, View, TouchableOpacity
 } from 'react-native'
 import Svg,{ G, Rect, Line } from 'react-native-svg'
+import { LocalDate } from 'js-joda'
+import moment from 'moment'
 import styles from './styles'
 import config from '../../config'
 import { getOrCreateCycleDay } from '../../db'
@@ -87,13 +89,18 @@ export default class DayColumn extends Component {
     }
 
     const cycleDayNumber = this.getCycleDayNumber(dateString)
-    const shortDate = dateString.split('-').slice(1).join('-')
+    const dayDate = LocalDate.parse(dateString)
+    const shortDate = dayDate.dayOfMonth() === 1 ?
+      moment(dateString, "YYYY-MM-DD").format('MMM')
+      :
+      moment(dateString, "YYYY-MM-DD").format('Do')
+    const boldDateLabel = dayDate.dayOfMonth() === 1 ? {fontWeight: 'bold'} : {}
     const cycleDayLabel = (
       <Text style = {label.number}>
         {cycleDayNumber ? cycleDayNumber : ' '}
       </Text>)
     const dateLabel = (
-      <Text style = {label.date}>
+      <Text style = {[label.date, boldDateLabel]}>
         {shortDate}
       </Text>
     )
