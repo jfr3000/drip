@@ -14,7 +14,7 @@ import { settings as labels } from '../labels'
 export default class PeriodReminderPicker extends Component {
   constructor(props) {
     super(props)
-    this.state = Object.assign({}, periodReminderObservable.value)
+    this.state = periodReminderObservable.value
   }
 
   render() {
@@ -31,7 +31,7 @@ export default class PeriodReminderPicker extends Component {
             value={this.state.enabled}
             onValueChange={switchOn => {
               this.setState({ enabled: switchOn })
-              savePeriodReminder({enabled: true})
+              savePeriodReminder({enabled: switchOn})
             }}
           />
         </View>

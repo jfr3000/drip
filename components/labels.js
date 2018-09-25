@@ -57,7 +57,7 @@ export const settings = {
   periodReminder: {
     title: 'Next period reminder',
     reminderText: 'Get a notification 3 days before your next period is likely to start.',
-    notification: 'your next period is likely to start in x days.'
+    notification: daysToEndOfPrediction => `Your next period is likely to start in 3 to ${daysToEndOfPrediction} days.`
   },
   passwordSettings: {
     title: 'App password',
