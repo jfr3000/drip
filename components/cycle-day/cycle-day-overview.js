@@ -6,13 +6,14 @@ import {
   Dimensions
 } from 'react-native'
 import { LocalDate } from 'js-joda'
+import Svg from 'react-native-svg'
 import Header from '../header'
 import { getOrCreateCycleDay } from '../../db'
 import cycleModule from '../../lib/cycle'
-import Icon from 'react-native-vector-icons/FontAwesome'
-import styles, { iconStyles } from '../../styles'
+import styles from '../../styles'
 import * as labels from './labels/labels'
 import { AppText } from '../app-text'
+import MucusIcon from '../../assets/mucus'
 
 const bleedingLabels = labels.bleeding
 const feelingLabels = labels.mucus.feeling.categories
@@ -80,7 +81,11 @@ export default class CycleDayOverView extends Component {
               onPress={() => this.navigate('MucusEditView')}
               data={getLabel('mucus', cycleDay.mucus)}
               disabled={dateInFuture}
-            />
+            >
+              <Svg width={100} height={50} viewBox='0 0 450 450'>
+                <MucusIcon />
+              </Svg>
+            </SymptomBox>
             <SymptomBox
               title='Cervix'
               onPress={() => this.navigate('CervixEditView')}
@@ -222,10 +227,6 @@ class SymptomBox extends Component {
   render() {
     const d = this.props.data
     const boxActive = d ? styles.symptomBoxActive : {}
-    const iconActive = d ? iconStyles.symptomBoxActive : {}
-    const iconStyle = Object.assign(
-      {}, iconStyles.symptomBox, iconActive, disabledStyle
-    )
     const textActive = d ? styles.symptomTextActive : {}
     const disabledStyle = this.props.disabled ? styles.symptomInFuture : {}
 
@@ -235,10 +236,12 @@ class SymptomBox extends Component {
         disabled={this.props.disabled}
       >
         <View style={[styles.symptomBox, boxActive, disabledStyle]}>
-          <Icon
-            name='thermometer'
-            {...iconStyle}
-          />
+
+          {this.props.children ?
+            React.cloneElement(this.props.children, {active: true})
+            : null
+          }
+
           <AppText style={[textActive, disabledStyle]}>
             {this.props.title}
           </AppText>
