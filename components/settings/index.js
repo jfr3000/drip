@@ -8,6 +8,7 @@ import styles from '../../styles/index'
 import { settings as labels } from '../labels'
 import { AppText } from '../app-text'
 import TempReminderPicker from './temp-reminder-picker'
+import PeriodReminderPicker from './period-reminder'
 import TempSlider from './temp-slider'
 import openImportDialogAndImport from './import-dialog'
 import openShareDialogAndExport from './export-dialog'
@@ -30,6 +31,7 @@ export default class Settings extends Component {
           <AppText>{labels.tempScale.segmentExplainer}</AppText>
           <TempSlider/>
         </View>
+        <PeriodReminderPicker/>
         <PasswordSetting />
         <View style={styles.settingsSegment}>
           <AppText style={styles.settingsSegmentTitle}>
