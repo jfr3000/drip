@@ -8,6 +8,7 @@ const lineWidth = 1.5
 const colorLtl = '#feb47b'
 const gridColor = 'lightgrey'
 const gridLineWidth = 0.5
+const numberLabelFontSize = 13
 
 const styles = {
   curve: {
@@ -36,7 +37,7 @@ const styles = {
       },
       number: {
         color: primaryColor,
-        fontSize: 13,
+        fontSize: numberLabelFontSize,
         textAlign: 'center',
       }
     },
@@ -57,11 +58,11 @@ const styles = {
   iconShades: {
     'bleeding': shadesOfRed,
     'mucus': [
-      '#e8f6a4',
-      '#bccd67',
-      '#91a437',
-      '#6a7b15',
-      '#445200',
+      '#e3e7ed',
+      '#c8cfdc',
+      '#acb8cb',
+      '#91a0ba',
+      '#7689a9'
     ],
     'cervix': [
       '#f0e19d',
@@ -70,16 +71,16 @@ const styles = {
       '#dbb40c',
     ],
     'sex': [
-      '#A66FA6',
-      '#8A458A',
+      '#a87ca2',
+      '#8b5083',
       '#6f2565',
     ],
     'desire': [
-      '#68113f',
-      '#8b2e5f',
-      '#ad5784',
+      '#c485a6',
+      '#b15c89',
+      '#9e346c',
     ],
-    'pain': ['#7689A9'],
+    'pain': ['#bccd67'],
     'note': ['#6CA299']
   },
   yAxis: {
@@ -88,12 +89,23 @@ const styles = {
     borderColor: 'lightgrey',
     borderStyle: 'solid'
   },
-  yAxisLabel: {
-    position: 'absolute',
-    right: 2,
-    color: 'grey',
-    fontSize: 9,
-    textAlign: 'left'
+  yAxisLabels: {
+    tempScale: {
+      position: 'absolute',
+      right: 2,
+      color: 'grey',
+      fontSize: 9,
+      textAlign: 'left'
+    },
+    cycleDayLabel: {
+      textAlign: 'center',
+      justifyContent: 'center',
+      fontSize: Math.ceil(numberLabelFontSize / 2)
+    },
+    dateLabel: {
+      textAlign: 'center',
+      justifyContent: 'center'
+    }
   },
   horizontalGrid: {
     position:'absolute',

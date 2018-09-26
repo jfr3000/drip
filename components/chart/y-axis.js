@@ -8,7 +8,7 @@ import { AppText } from '../app-text'
 export function makeYAxisLabels(columnHeight) {
   const units = unitObservable.value
   const scaleMax = scaleObservable.value.max
-  const style = styles.yAxisLabel
+  const style = styles.yAxisLabels.tempScale
 
   return getTickPositions(columnHeight).map((y, i) => {
     const tick = scaleMax - i * units

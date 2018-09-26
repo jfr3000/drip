@@ -10,6 +10,7 @@ import styles from './styles'
 import { scaleObservable } from '../../local-storage'
 import config from '../../config'
 import { AppText } from '../app-text'
+import { shared as labels } from '../labels'
 
 export default class CycleChart extends Component {
   constructor(props) {
@@ -137,7 +138,6 @@ export default class CycleChart extends Component {
   }
 
   render() {
-    console.log(this.symptomRowSymptoms)
     return (
       <View
         onLayout={this.onLayout}
@@ -145,55 +145,29 @@ export default class CycleChart extends Component {
       >
         {!this.state.chartLoaded &&
           <View style={{width: '100%', justifyContent: 'center', alignItems: 'center'}}>
-            <AppText>Loading...</AppText>
+            <AppText>{labels.loading}</AppText>
           </View>
         }
 
         {this.state.chartHeight && this.state.chartLoaded &&
           <View>
-            <View
-              style={[
-                styles.yAxis,
-                {
-                  height: this.symptomRowHeight,
-                }
-              ]}
-            >
+            <View style={[styles.yAxis, {height: this.symptomRowHeight}]}>
               {this.symptomRowSymptoms.map(symptomName => {
                 return <View key={symptomName} style={{flex: 1}}>
                   <AppText>{symptomName[0]}</AppText>
                 </View>
-              })
-              }
+              })}
             </View>
-            <View
-              style={[styles.yAxis, {
-                height: this.columnHeight,
-              }]}
-            >
+            <View style={[styles.yAxis, {height: this.columnHeight}]}>
               {makeYAxisLabels(this.columnHeight)}
             </View>
-            <View style={[
-              styles.yAxis,
-              {
-                height: this.xAxisHeight
-              }
-            ]}>
-              <AppText style = {[
-                styles.column.label.number,
-                {
-                  textAlign: 'center',
-                  justifyContent: 'center',
-                  fontSize: Math.ceil(styles.column.label.number.fontSize / 2)
-                }
-              ]}>{'Cycle\nday'}</AppText>
-              <AppText style={[
-                styles.column.label.date,
-                {
-                  textAlign: 'center',
-                  justifyContent: 'center'
-                }
-              ]}>{'Date'}</AppText>
+            <View style={[styles.yAxis, {height: this.xAxisHeight}]}>
+              <AppText style = {[styles.column.label.number, styles.yAxisLabels.cycleDayLabel]}>
+                {labels.cycleDayWithLinebreak}
+              </AppText>
+              <AppText style={[styles.column.label.date,styles.yAxisLabels.dateLabel]}>
+                {labels.date}
+              </AppText>
             </View>
           </View>}
 

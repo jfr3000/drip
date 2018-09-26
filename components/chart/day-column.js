@@ -149,7 +149,7 @@ export default class DayColumn extends Component {
           <View
             {...styles.symptomIcon}
             // cervix is sum of openess and firmness - fertile only when closed and hard (=0)
-            backgroundColor={this.props.cervix > 0 ? styles.iconShades.cervix[1] : styles.iconShades.cervix[0]}
+            backgroundColor={this.props.cervix > 0 ? styles.iconShades.cervix[2] : styles.iconShades.cervix[0]}
           />
         </SymptomIconView>
       ),
