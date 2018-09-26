@@ -77,7 +77,7 @@ export default class CycleDayOverView extends Component {
               data={getLabel('bleeding', cycleDay.bleeding)}
               disabled={dateInFuture}
             >
-              <BleedingIcon viewBox='0 0 450 450' />
+              <BleedingIcon viewBox='10 10 320 400' />
             </SymptomBox>
             <SymptomBox
               title='Temperature'
@@ -85,7 +85,7 @@ export default class CycleDayOverView extends Component {
               data={getLabel('temperature', cycleDay.temperature)}
               disabled={dateInFuture}
             >
-              <TemperatureIcon viewBox='0 0 450 450' />
+              <TemperatureIcon viewBox='10 10 320 400' />
             </SymptomBox>
             <SymptomBox
               title='Mucus'
@@ -93,7 +93,7 @@ export default class CycleDayOverView extends Component {
               data={getLabel('mucus', cycleDay.mucus)}
               disabled={dateInFuture}
             >
-              <MucusIcon viewBox='0 0 450 450' />
+              <MucusIcon viewBox='10 10 320 400' />
             </SymptomBox>
             <SymptomBox
               title='Cervix'
@@ -101,7 +101,7 @@ export default class CycleDayOverView extends Component {
               data={getLabel('cervix', cycleDay.cervix)}
               disabled={dateInFuture}
             >
-              <CervixIcon viewBox='0 0 450 450' />
+              <CervixIcon viewBox='10 10 320 440' />
             </SymptomBox>
             <SymptomBox
               title='Desire'
@@ -109,7 +109,7 @@ export default class CycleDayOverView extends Component {
               data={getLabel('desire', cycleDay.desire)}
               disabled={dateInFuture}
             >
-              <DesireIcon viewBox='0 0 450 450' />
+              <DesireIcon viewBox='10 10 320 380' />
             </SymptomBox>
             <SymptomBox
               title='Sex'
@@ -117,7 +117,7 @@ export default class CycleDayOverView extends Component {
               data={getLabel('sex', cycleDay.sex)}
               disabled={dateInFuture}
             >
-              <SexIcon viewBox='0 0 450 450' />
+              <SexIcon viewBox='10 10 320 400' />
             </SymptomBox>
             <SymptomBox
               title='Pain'
@@ -125,14 +125,14 @@ export default class CycleDayOverView extends Component {
               data={getLabel('pain', cycleDay.pain)}
               disabled={dateInFuture}
             >
-              <PainIcon viewBox='0 0 450 450' />
+              <PainIcon viewBox='10 10 300 400' />
             </SymptomBox>
             <SymptomBox
               title='Note'
               onPress={() => this.navigate('NoteEditView')}
               data={getLabel('note', cycleDay.note)}
             >
-              <NoteIcon viewBox='0 0 450 450' />
+              <NoteIcon viewBox='10 10 270 400' />
             </SymptomBox>
             {/*  this is just to make the last row adhere to the grid
         (and) because there are no pseudo properties in RN */}
