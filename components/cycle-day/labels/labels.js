@@ -44,7 +44,7 @@ export const sex = {
   ring: 'Ring',
   implant: 'Implant',
   diaphragm: 'Diaphragm',
-  unprotected: 'Unprotected',
+  none: 'None',
   other: 'Other',
   activityExplainer: 'Were you sexually active today?',
   contraceptiveExplainer: 'Did you use contraceptives?'

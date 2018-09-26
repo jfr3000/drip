@@ -68,7 +68,7 @@ const SexSchema = {
     ring: { type: 'bool', optional: true },
     implant: { type: 'bool', optional: true },
     diaphragm: { type: 'bool', optional: true },
-    unprotected: { type: 'bool', optional: true },
+    none: { type: 'bool', optional: true },
     other: { type: 'bool', optional: true },
     note: { type: 'string', optional: true }
   }
