@@ -56,7 +56,10 @@ export default class App extends Component {
     return (
       <View style={{flex: 1}}>
 
-        {this.state.currentPage != 'CycleDay' && <Header title={titles[this.state.currentPage]} />}
+        {this.state.currentPage != 'CycleDay' && !isSymptomView(this.state.currentPage) &&
+          <Header
+            title={titles[this.state.currentPage]}
+          />}
 
         {React.createElement(page, {
           navigate: this.navigate,

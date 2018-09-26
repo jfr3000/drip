@@ -132,6 +132,9 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     height: '15%'
   },
+  headerSymptom: {
+    height: '15%'
+  },
   navigationArrow: {
     fontSize: 60,
     color: fontOnPrimaryColor

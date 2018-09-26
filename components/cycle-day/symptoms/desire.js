@@ -36,7 +36,6 @@ export default class Desire extends Component {
               buttons={desireRadioProps}
               active={this.state.currentValue}
               onSelect={val => this.setState({ currentValue: val })}
-              isRadioButton={true}
             />
           </SymptomSection>
         </ScrollView>

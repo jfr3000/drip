@@ -84,3 +84,12 @@ export const temperature = {
 }
 
 export const noteExplainer = "Anything you want to add for the day?"
+
+export const sharedDialogs = {
+  cancel: 'Cancel',
+  areYouSureTitle: 'Are you sure?',
+  areYouSureToUnset: 'Are you sure you want to unset all entered data?',
+  reallyUnsetData: 'Yes, I am sure',
+  save: 'Save',
+  unset: 'Unset'
+}
