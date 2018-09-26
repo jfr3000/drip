@@ -4,7 +4,12 @@ export const primaryColor = '#ff7e5f'
 export const secondaryColor = '#351c4d'
 export const secondaryColorLight = '#91749d'
 export const fontOnPrimaryColor = 'white'
-export const shadesOfRed = ['#ffcbbf', '#ffb19f', '#ff977e', '#ff7e5f'] // light to dark
+export const shadesOfRed = [
+  '#e7999e',
+  '#db666d',
+  '#cf323d',
+  '#c3000d'
+] // light to dark
 
 const defaultBottomMargin = 5
 const defaultIndentation = 10

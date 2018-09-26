@@ -8,7 +8,7 @@ import { AppText } from '../app-text'
 export function makeYAxisLabels(columnHeight) {
   const units = unitObservable.value
   const scaleMax = scaleObservable.value.max
-  const style = styles.yAxisLabel
+  const style = styles.yAxisLabels.tempScale
 
   return getTickPositions(columnHeight).map((y, i) => {
     const tick = scaleMax - i * units
@@ -17,10 +17,10 @@ export function makeYAxisLabels(columnHeight) {
     let tickBold
     if (units === 0.1) {
       showTick =  (tick * 10 % 2) ? false : true
-      tickBold = tick * 10 % 5 ? {} : {fontWeight: 'bold'}
+      tickBold = tick * 10 % 5 ? {} : {fontWeight: 'bold', fontSize: 11}
     } else {
       showTick =  (tick * 10 % 5) ? false : true
-      tickBold = tick * 10 % 10 ? {} : {fontWeight: 'bold'}
+      tickBold = tick * 10 % 10 ? {} : {fontWeight: 'bold', fontSize: 11}
     }
     // this eyeballing is sadly necessary because RN does not
     // support percentage values for transforms, which we'd need

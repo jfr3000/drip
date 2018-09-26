@@ -8,7 +8,10 @@ export const shared = {
   incorrectPasswordMessage: 'That password is incorrect.',
   tryAgain: 'Try again',
   ok: 'OK',
-  unlock: 'Unlock'
+  unlock: 'Unlock',
+  date: 'Date',
+  cycleDayWithLinebreak: 'Cycle\nday',
+  loading: 'Loading ...'
 }
 
 export const settings = {
