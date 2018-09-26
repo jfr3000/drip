@@ -60,6 +60,12 @@ export default class App extends Component {
           <Header
             title={titles[this.state.currentPage]}
           />}
+        {isSymptomView(this.state.currentPage) &&
+          <Header
+            title={titles[this.state.currentPage]}
+            isSymptomView={true}
+            goBack={this.handleBackButtonPress}
+          />}
 
         {React.createElement(page, {
           navigate: this.navigate,

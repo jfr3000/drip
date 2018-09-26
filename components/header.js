@@ -10,7 +10,6 @@ import { formatDateForViewHeader } from '../components/cycle-day/labels/format'
 
 export default class Header extends Component {
   render() {
-    console.log(this.props)
     return (
       this.props.isCycleDayOverView ?
         <View style={[styles.header, styles.headerCycleDay]}>
@@ -44,9 +43,6 @@ export default class Header extends Component {
             <View>
               <Text style={styles.dateHeader}>
                 {this.props.title}
-              </Text>
-              <Text style={styles.cycleDayNumber} >
-                {formatDateForViewHeader(this.props.date)}
               </Text>
             </View >
             <Icon
