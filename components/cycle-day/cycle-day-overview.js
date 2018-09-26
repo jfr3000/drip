@@ -13,7 +13,14 @@ import cycleModule from '../../lib/cycle'
 import styles from '../../styles'
 import * as labels from './labels/labels'
 import { AppText } from '../app-text'
+import BleedingIcon from '../../assets/bleeding'
+import CervixIcon from '../../assets/cervix'
+import DesireIcon from '../../assets/desire'
 import MucusIcon from '../../assets/mucus'
+import NoteIcon from '../../assets/note'
+import PainIcon from '../../assets/pain'
+import SexIcon from '../../assets/sex'
+import TemperatureIcon from '../../assets/temperature'
 
 const bleedingLabels = labels.bleeding
 const feelingLabels = labels.mucus.feeling.categories
@@ -69,13 +76,17 @@ export default class CycleDayOverView extends Component {
               onPress={() => this.navigate('BleedingEditView')}
               data={getLabel('bleeding', cycleDay.bleeding)}
               disabled={dateInFuture}
-            />
+            >
+              <BleedingIcon viewBox='0 0 450 450' />
+            </SymptomBox>
             <SymptomBox
               title='Temperature'
               onPress={() => this.navigate('TemperatureEditView')}
               data={getLabel('temperature', cycleDay.temperature)}
               disabled={dateInFuture}
-            />
+            >
+              <TemperatureIcon viewBox='0 0 450 450' />
+            </SymptomBox>
             <SymptomBox
               title='Mucus'
               onPress={() => this.navigate('MucusEditView')}
@@ -89,30 +100,40 @@ export default class CycleDayOverView extends Component {
               onPress={() => this.navigate('CervixEditView')}
               data={getLabel('cervix', cycleDay.cervix)}
               disabled={dateInFuture}
-            />
+            >
+              <CervixIcon viewBox='0 0 450 450' />
+            </SymptomBox>
             <SymptomBox
               title='Desire'
               onPress={() => this.navigate('DesireEditView')}
               data={getLabel('desire', cycleDay.desire)}
               disabled={dateInFuture}
-            />
+            >
+              <DesireIcon viewBox='0 0 450 450' />
+            </SymptomBox>
             <SymptomBox
               title='Sex'
               onPress={() => this.navigate('SexEditView')}
               data={getLabel('sex', cycleDay.sex)}
               disabled={dateInFuture}
-            />
+            >
+              <SexIcon viewBox='0 0 450 450' />
+            </SymptomBox>
             <SymptomBox
               title='Pain'
               onPress={() => this.navigate('PainEditView')}
               data={getLabel('pain', cycleDay.pain)}
               disabled={dateInFuture}
-            />
+            >
+              <PainIcon viewBox='0 0 450 450' />
+            </SymptomBox>
             <SymptomBox
               title='Note'
               onPress={() => this.navigate('NoteEditView')}
               data={getLabel('note', cycleDay.note)}
-            />
+            >
+              <NoteIcon viewBox='0 0 450 450' />
+            </SymptomBox>
             {/*  this is just to make the last row adhere to the grid
         (and) because there are no pseudo properties in RN */}
             <FillerBoxes />
