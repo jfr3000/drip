@@ -82,9 +82,7 @@ export default class CycleDayOverView extends Component {
               data={getLabel('mucus', cycleDay.mucus)}
               disabled={dateInFuture}
             >
-              <Svg width={100} height={50} viewBox='0 0 450 450'>
-                <MucusIcon />
-              </Svg>
+              <MucusIcon viewBox='0 0 450 450' />
             </SymptomBox>
             <SymptomBox
               title='Cervix'
@@ -238,7 +236,13 @@ class SymptomBox extends Component {
         <View style={[styles.symptomBox, boxActive, disabledStyle]}>
 
           {this.props.children ?
-            React.cloneElement(this.props.children, {active: true})
+            React.Children.map(this.props.children, child => {
+              return (
+                <Svg width={100} height={50} viewBox={child.props.viewBox}>
+                  {React.cloneElement(child, { active: !!d })}
+                </Svg>
+              )
+            })
             : null
           }
 
