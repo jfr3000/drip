@@ -6,13 +6,21 @@ import {
   Dimensions
 } from 'react-native'
 import { LocalDate } from 'js-joda'
+import Svg, { G } from 'react-native-svg'
 import Header from '../header'
 import { getOrCreateCycleDay } from '../../db'
 import cycleModule from '../../lib/cycle'
-import Icon from 'react-native-vector-icons/FontAwesome'
-import styles, { iconStyles } from '../../styles'
+import styles from '../../styles'
 import * as labels from './labels/labels'
 import { AppText } from '../app-text'
+import BleedingIcon from '../../assets/bleeding'
+import CervixIcon from '../../assets/cervix'
+import DesireIcon from '../../assets/desire'
+import MucusIcon from '../../assets/mucus'
+import NoteIcon from '../../assets/note'
+import PainIcon from '../../assets/pain'
+import SexIcon from '../../assets/sex'
+import TemperatureIcon from '../../assets/temperature'
 
 const bleedingLabels = labels.bleeding
 const feelingLabels = labels.mucus.feeling.categories
@@ -68,48 +76,64 @@ export default class CycleDayOverView extends Component {
               onPress={() => this.navigate('BleedingEditView')}
               data={getLabel('bleeding', cycleDay.bleeding)}
               disabled={dateInFuture}
-            />
+            >
+              <BleedingIcon viewBox='10 10 320 400' />
+            </SymptomBox>
             <SymptomBox
               title='Temperature'
               onPress={() => this.navigate('TemperatureEditView')}
               data={getLabel('temperature', cycleDay.temperature)}
               disabled={dateInFuture}
-            />
+            >
+              <TemperatureIcon viewBox='10 10 320 400' />
+            </SymptomBox>
             <SymptomBox
               title='Mucus'
               onPress={() => this.navigate('MucusEditView')}
               data={getLabel('mucus', cycleDay.mucus)}
               disabled={dateInFuture}
-            />
+            >
+              <MucusIcon viewBox='10 10 320 400' />
+            </SymptomBox>
             <SymptomBox
               title='Cervix'
               onPress={() => this.navigate('CervixEditView')}
               data={getLabel('cervix', cycleDay.cervix)}
               disabled={dateInFuture}
-            />
+            >
+              <CervixIcon viewBox='10 10 320 440' />
+            </SymptomBox>
             <SymptomBox
               title='Desire'
               onPress={() => this.navigate('DesireEditView')}
               data={getLabel('desire', cycleDay.desire)}
               disabled={dateInFuture}
-            />
+            >
+              <DesireIcon viewBox='10 10 320 380' />
+            </SymptomBox>
             <SymptomBox
               title='Sex'
               onPress={() => this.navigate('SexEditView')}
               data={getLabel('sex', cycleDay.sex)}
               disabled={dateInFuture}
-            />
+            >
+              <SexIcon viewBox='10 10 320 400' />
+            </SymptomBox>
             <SymptomBox
               title='Pain'
               onPress={() => this.navigate('PainEditView')}
               data={getLabel('pain', cycleDay.pain)}
               disabled={dateInFuture}
-            />
+            >
+              <PainIcon viewBox='10 10 300 400' />
+            </SymptomBox>
             <SymptomBox
               title='Note'
               onPress={() => this.navigate('NoteEditView')}
               data={getLabel('note', cycleDay.note)}
-            />
+            >
+              <NoteIcon viewBox='10 10 270 400' />
+            </SymptomBox>
             {/*  this is just to make the last row adhere to the grid
         (and) because there are no pseudo properties in RN */}
             <FillerBoxes />
@@ -222,10 +246,6 @@ class SymptomBox extends Component {
   render() {
     const d = this.props.data
     const boxActive = d ? styles.symptomBoxActive : {}
-    const iconActive = d ? iconStyles.symptomBoxActive : {}
-    const iconStyle = Object.assign(
-      {}, iconStyles.symptomBox, iconActive, disabledStyle
-    )
     const textActive = d ? styles.symptomTextActive : {}
     const disabledStyle = this.props.disabled ? styles.symptomInFuture : {}
 
@@ -235,10 +255,20 @@ class SymptomBox extends Component {
         disabled={this.props.disabled}
       >
         <View style={[styles.symptomBox, boxActive, disabledStyle]}>
-          <Icon
-            name='thermometer'
-            {...iconStyle}
-          />
+
+          {this.props.children ?
+            React.Children.map(this.props.children, child => {
+              return (
+                <Svg width={100} height={50} viewBox={child.props.viewBox}>
+                  <G fill={d ? 'white' : 'black'}>
+                    {child}
+                  </G>
+                </Svg>
+              )
+            })
+            : null
+          }
+
           <AppText style={[textActive, disabledStyle]}>
             {this.props.title}
           </AppText>
