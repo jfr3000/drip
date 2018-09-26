@@ -1,9 +1,9 @@
 import React from 'react'
 import { G, Path } from 'react-native-svg'
 
-export default function PainIcon(props) {
+export default function PainIcon() {
   return (
-    <G fill={props.active ? "white" : "black"}>
+    <G>
       <G>
         <G>
           <Path d="M213.298,12.215c-22.873,41.561-45.747,83.121-68.62,124.682c-13.959,25.363-27.918,50.726-41.877,76.09

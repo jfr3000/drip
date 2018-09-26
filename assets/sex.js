@@ -1,9 +1,9 @@
 import React from 'react'
 import { G, Path } from 'react-native-svg'
 
-export default function SexIcon(props) {
+export default function SexIcon() {
   return (
-    <G fill={props.active ? "white" : "black"}>
+    <G>
       <G>
         <G>
           <Path d="M223.866,273.491c-9.27,7.609-18.641,15.09-28.046,22.531c3.03-0.391,6.059-0.782,9.089-1.173

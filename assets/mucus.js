@@ -1,9 +1,9 @@
 import React from 'react'
 import { G, Path } from 'react-native-svg'
 
-export default function MucusIcon(props) {
+export default function MucusIcon() {
   return (
-    <G fill={props.active ? "white" : "black"}>
+    <G>
       <G>
         <G>
           <Path d="M207.504,377.768c-16.918-6.602-30.629-12.56-47.482-20.145c-29.7-13.368-59.341-27.672-86.712-45.414

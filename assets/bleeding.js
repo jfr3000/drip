@@ -1,9 +1,9 @@
 import React from 'react'
 import { G, Path } from 'react-native-svg'
 
-export default function BleedingIcon(props) {
+export default function BleedingIcon() {
   return (
-    <G fill={props.active ? "white" : "black"}>
+    <G>
       <G>
         <G>
           <Path d="M339.933,239.523c-0.208,44.132-21.328,86.257-57.085,112.321c-36.515,26.616-84.173,33.427-126.899,19.16

@@ -1,9 +1,9 @@
 import React from 'react'
 import { G, Path } from 'react-native-svg'
 
-export default function DesireIcon(props) {
+export default function DesireIcon() {
   return (
-    <G fill={props.active ? "white" : "black"}>
+    <G>
       <G>
         <G>
           <Path d="M203.217,178.64c9.173-15.347,24.414-28.187,41.641-33.383c6.98-2.105,15.02-2.824,21.802,0.123

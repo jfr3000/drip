@@ -1,9 +1,9 @@
 import React from 'react'
 import { G, Path } from 'react-native-svg'
 
-export default function CervixIcon(props) {
+export default function CervixIcon() {
   return (
-    <G fill={props.active ? "white" : "black"}>
+    <G>
       <G>
         <G>
           <Path d="M308.051,59.094c39.578,30.329,64.919,77.001,68.909,126.668c3.615,44.995-10.341,90.543-38.73,125.662

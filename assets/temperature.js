@@ -1,9 +1,9 @@
 import React from 'react'
 import { G, Path } from 'react-native-svg'
 
-export default function TemperatureIcon(props) {
+export default function TemperatureIcon() {
   return (
-    <G fill={props.active ? "white" : "black"}>
+    <G>
       <G>
         <G>
           <Path d="M191.099,160.115c10.413,0,20.827,0,31.24,0c9.673,0,9.673-15,0-15c-10.413,0-20.827,0-31.24,0

@@ -1,9 +1,9 @@
 import React from 'react'
 import { G, Path } from 'react-native-svg'
 
-export default function NoteIcon(props) {
+export default function NoteIcon() {
   return (
-    <G fill={props.active ? "white" : "black"}>
+    <G>
       <G>
         <G>
           <Path d="M293.542,218.325c0,48.787,0,97.574,0,146.361c0,4.704,1.495,12.814-5.511,12.814c-5.347,0-10.694,0-16.041,0
