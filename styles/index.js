@@ -141,7 +141,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
-    height: 80
+    height: 60
   },
   menuItem: {
     alignItems: 'center',
