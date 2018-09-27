@@ -54,6 +54,14 @@ export default StyleSheet.create({
     color: fontOnPrimaryColor,
     textAlign: 'center',
   },
+  accentCircle: {
+    borderColor: secondaryColor,
+    borderWidth: 2,
+    width: 50,
+    height: 50,
+    borderRadius: 100,
+    position: 'absolute'
+  },
   cycleDayNumber: {
     fontSize: 15,
     color: fontOnPrimaryColor,
