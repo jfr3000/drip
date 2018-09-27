@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-export const primaryColor = '#ff7e5f'
+export const primaryColor = '#000D19'
 export const secondaryColor = '#351c4d'
 export const secondaryColorLight = '#91749d'
 export const fontOnPrimaryColor = 'white'
@@ -36,13 +36,14 @@ export default StyleSheet.create({
   },
   welcome: {
     fontSize: 20,
+    fontFamily: 'serif',
     margin: 30,
     textAlign: 'center',
     textAlignVertical: 'center'
   },
   dateHeader: {
-    fontSize: 22,
-    fontWeight: 'bold',
+    fontSize: 30,
+    fontFamily: 'Prompt-Thin',
     color: fontOnPrimaryColor,
     textAlign: 'center',
   },
@@ -112,7 +113,7 @@ export default StyleSheet.create({
     paddingHorizontal: 15,
     alignItems: 'center',
     justifyContent: 'center',
-    height: '10%'
+    height: '10%',
   },
   menu: {
     backgroundColor: primaryColor,
