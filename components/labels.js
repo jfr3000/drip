@@ -94,6 +94,14 @@ export const headerTitles = {
   PainEditView: 'Pain'
 }
 
+export const menuTitles = {
+  Home: 'Home',
+  Calendar: 'Calendar',
+  Chart: 'Chart',
+  Stats: 'Stats',
+  Settings: 'Settings',
+}
+
 export const stats = {
   cycleLengthTitle: 'Cycle length',
   cycleLengthExplainer: 'Basic statistics about the length of your cycles.',

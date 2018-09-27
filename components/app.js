@@ -9,8 +9,19 @@ import symptomViews from './cycle-day/symptoms'
 import Chart from './chart/chart'
 import Settings from './settings'
 import Stats from './stats'
-import {headerTitles as titles} from './labels'
+import {headerTitles, menuTitles} from './labels'
 import setupNotifications from '../lib/notifications'
+
+// design wants everyhting lowercased, but we don't
+// have CSS pseudo properties
+const headerTitlesLowerCase = Object.keys(headerTitles).reduce((acc, curr) => {
+  acc[curr] = headerTitles[curr].toLowerCase()
+  return acc
+}, {})
+const menuTitlesLowerCase = Object.keys(menuTitles).reduce((acc, curr) => {
+  acc[curr] = menuTitles[curr].toLowerCase()
+  return acc
+}, {})
 
 const isSymptomView = name => Object.keys(symptomViews).indexOf(name) > -1
 
@@ -56,7 +67,8 @@ export default class App extends Component {
     return (
       <View style={{flex: 1}}>
 
-        {this.state.currentPage != 'CycleDay' && <Header title={titles[this.state.currentPage]} />}
+        {this.state.currentPage != 'CycleDay' &&
+          <Header title={headerTitlesLowerCase[this.state.currentPage]}/>}
 
         {React.createElement(page, {
           navigate: this.navigate,
@@ -64,7 +76,10 @@ export default class App extends Component {
         })}
 
         {!isSymptomView(this.state.currentPage) &&
-          <Menu navigate={this.navigate} />
+          <Menu
+            navigate={this.navigate}
+            titles={menuTitlesLowerCase}
+          />
         }
       </View>
     )
