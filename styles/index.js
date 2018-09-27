@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native'
 
 export const primaryColor = '#000D19'
-export const secondaryColor = '#351c4d'
+export const secondaryColor = '#4FAFA7'
 export const secondaryColorLight = '#91749d'
 export const fontOnPrimaryColor = 'white'
 export const shadesOfRed = [
@@ -11,13 +11,20 @@ export const shadesOfRed = [
   '#c3000d'
 ] // light to dark
 
+const fontRegular = 'Prompt-Light'
+const fontLight = 'Prompt-Thin'
+
+const regularSize = 16
+
 const defaultBottomMargin = 5
 const defaultIndentation = 10
 const defaultTopMargin = 10
 
 export default StyleSheet.create({
   appText: {
-    color: 'black'
+    color: 'black',
+    fontFamily: fontRegular,
+    fontSize: regularSize
   },
   paragraph: {
     marginBottom: defaultBottomMargin
@@ -43,7 +50,7 @@ export default StyleSheet.create({
   },
   dateHeader: {
     fontSize: 30,
-    fontFamily: 'Prompt-Thin',
+    fontFamily: fontLight,
     color: fontOnPrimaryColor,
     textAlign: 'center',
   },
@@ -128,7 +135,8 @@ export default StyleSheet.create({
     paddingVertical: 15
   },
   menuText: {
-    color: fontOnPrimaryColor
+    color: fontOnPrimaryColor,
+    fontFamily: fontLight
   },
   menuTextInActive: {
     color: 'lightgrey'
