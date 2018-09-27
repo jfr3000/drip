@@ -106,31 +106,34 @@ export default class CycleChart extends Component {
     const columns = xAxisDates.map(dateString => {
       const column = { dateString }
       const cycleDay = getCycleDay(dateString)
-      if (!cycleDay) return column
+      let symptoms = {}
 
-      const symptoms = chartSymptoms.reduce((acc, symptom) => {
-        if (symptom === 'bleeding' ||
+      if (cycleDay) {
+        symptoms = chartSymptoms.reduce((acc, symptom) => {
+          if (symptom === 'bleeding' ||
           symptom === 'temperature' ||
           symptom === 'mucus' ||
           symptom === 'desire' ||
           symptom === 'note'
-        ) {
-          acc[symptom] = cycleDay[symptom] && cycleDay[symptom].value
-        } else if (symptom === 'cervix') {
-          acc.cervix = cycleDay.cervix &&
+          ) {
+            acc[symptom] = cycleDay[symptom] && cycleDay[symptom].value
+          } else if (symptom === 'cervix') {
+            acc.cervix = cycleDay.cervix &&
             (cycleDay.cervix.opening + cycleDay.cervix.firmness)
-        } else if (symptom === 'sex') {
+          } else if (symptom === 'sex') {
           // solo = 1 + partner = 2
           acc.sex = cycleDay.sex &&
             (cycleDay.sex.solo + 2 * cycleDay.sex.partner)
         } else if (symptom === 'pain') {
           // is any pain documented?
-          acc.pain = cycleDay.pain &&
+            acc.pain = cycleDay.pain &&
             Object.values(cycleDay.pain).some(x => x === true)
-        }
-        acc[`${symptom}Exclude`] = cycleDay[symptom] && cycleDay[symptom].exclude
-        return acc
-      }, {})
+          }
+          acc[`${symptom}Exclude`] = cycleDay[symptom] && cycleDay[symptom].exclude
+          return acc
+        }, {})
+
+      }
 
       const temp = symptoms.temperature
       if (temp) {
