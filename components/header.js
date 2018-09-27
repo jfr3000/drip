@@ -35,7 +35,7 @@ export default class Header extends Component {
         :
         <View style={styles.header}>
           <View style={styles.accentCircle} />
-          <Text style={styles.dateHeader}>
+          <Text style={styles.headerText}>
             {this.props.title}
           </Text>
         </View >

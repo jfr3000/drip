@@ -49,6 +49,12 @@ export default StyleSheet.create({
     textAlignVertical: 'center'
   },
   dateHeader: {
+    fontSize: 20,
+    fontFamily: fontLight,
+    color: fontOnPrimaryColor,
+    textAlign: 'center',
+  },
+  headerText: {
     fontSize: 30,
     fontFamily: fontLight,
     color: fontOnPrimaryColor,
@@ -56,9 +62,9 @@ export default StyleSheet.create({
   },
   accentCircle: {
     borderColor: secondaryColor,
-    borderWidth: 2,
-    width: 50,
-    height: 50,
+    borderWidth: 0.5,
+    width: 40,
+    height: 40,
     borderRadius: 100,
     position: 'absolute'
   },
@@ -66,7 +72,7 @@ export default StyleSheet.create({
     fontSize: 15,
     color: fontOnPrimaryColor,
     textAlign: 'center',
-    marginLeft: 15
+    fontFamily: fontLight
   },
   symptomViewHeading: {
     fontSize: 20,
@@ -128,14 +134,14 @@ export default StyleSheet.create({
     paddingHorizontal: 15,
     alignItems: 'center',
     justifyContent: 'center',
-    height: '10%',
+    height: 80
   },
   menu: {
     backgroundColor: primaryColor,
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
-    height: '12%'
+    height: 80
   },
   menuItem: {
     alignItems: 'center',
@@ -152,7 +158,6 @@ export default StyleSheet.create({
   headerCycleDay: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    height: '15%'
   },
   navigationArrow: {
     fontSize: 60,
