@@ -14,7 +14,8 @@ import {
   fhmOnDay12,
   fhmOnDay15,
   cycleWithEarlyCervix,
-  cycleWithCervixOnFirstDay
+  cycleWithCervixOnFirstDay,
+  fertileCervixOnlyAfterEndOfTempEval
 } from './cervix-temp-fixtures'
 
 const expect = chai.expect
@@ -222,7 +223,34 @@ describe('sympto', () => {
           start: { date: '2018-03-13' }
         })
       })
+
+      it('with fertile cervix only occurring after end of temperature evaluation ignores it', () => {
+        const status = getSensiplanStatus({
+          cycle: fertileCervixOnlyAfterEndOfTempEval,
+          previousCycle: cervixShiftAndFhmOnSameDay,
+          secondarySymptom: 'cervix'
+        })
+
+        expect(status.temperatureShift).to.be.undefined()
+        expect(status.mucusShift).to.be.undefined()
+
+        expect(Object.keys(status.phases).length).to.eql(2)
+        expect(status.phases.preOvulatory).to.eql({
+          start: { date: '2018-06-01' },
+          end: { date: '2018-06-05' },
+          cycleDays: fertileCervixOnlyAfterEndOfTempEval
+            .filter(({date}) => date <= '2018-06-05')
+        })
+        expect(status.phases.periOvulatory).to.eql({
+          start: { date: '2018-06-06' },
+          cycleDays: fertileCervixOnlyAfterEndOfTempEval
+            .filter(({date}) => {
+              return date > '2018-06-05'
+            })
+        })
+      })
     })
+
     describe('applying the minus-8 rule', () => {
       it('shortens the pre-ovu phase if there is a previous < 13 fhm', () => {
         const status = getSensiplanStatus({

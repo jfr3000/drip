@@ -11,13 +11,14 @@ import {
   cycleWithEarlyMucus,
   cycleWithMucusOnFirstDay,
   mucusPeakAndFhmOnSameDay,
-  fhmTwoDaysBeforeMucusPeak,
+  mucusPeakOnLastDayOfTempEval,
   fhm5DaysAfterMucusPeak,
   mucusPeak5DaysAfterFhm,
   mucusPeakTwoDaysBeforeFhm,
   fhmOnDay12,
   fhmOnDay15,
-  mucusPeakSlightlyBeforeTempShift
+  mucusPeakSlightlyBeforeTempShift,
+  mucusOnlyAfterEndOfTempEval
 } from './mucus-temp-fixtures'
 
 const expect = chai.expect
@@ -172,9 +173,10 @@ describe('sympto', () => {
             .filter(({date}) => date >= '2018-06-21')
         })
       })
+
       it('with fhM 2 days before mucus peak waits for end of mucus eval', () => {
         const status = getSensiplanStatus({
-          cycle: fhmTwoDaysBeforeMucusPeak,
+          cycle: mucusPeakOnLastDayOfTempEval,
           previousCycle: cycleWithFhm
         })
 
@@ -185,24 +187,24 @@ describe('sympto', () => {
         expect(status.phases.preOvulatory).to.eql({
           start: { date: '2018-06-01' },
           end: { date: '2018-06-05' },
-          cycleDays: fhmTwoDaysBeforeMucusPeak
+          cycleDays: mucusPeakOnLastDayOfTempEval
             .filter(({date}) => date <= '2018-06-05')
         })
         expect(status.phases.periOvulatory).to.eql({
           start: { date: '2018-06-06' },
-          end: { date: '2018-06-26', time: '18:00' },
-          cycleDays: fhmTwoDaysBeforeMucusPeak
+          end: { date: '2018-06-25', time: '18:00' },
+          cycleDays: mucusPeakOnLastDayOfTempEval
             .filter(({date}) => {
-              return date > '2018-06-05' && date <= '2018-06-26'
+              return date > '2018-06-05' && date <= '2018-06-25'
             })
         })
         expect(status.phases.postOvulatory).to.eql({
           start: {
-            date: '2018-06-26',
+            date: '2018-06-25',
             time: '18:00'
           },
-          cycleDays: fhmTwoDaysBeforeMucusPeak
-            .filter(({date}) => date >= '2018-06-26')
+          cycleDays: mucusPeakOnLastDayOfTempEval
+            .filter(({date}) => date >= '2018-06-25')
         })
       })
       it('another example for mucus peak before temp shift', () => {
@@ -332,6 +334,31 @@ describe('sympto', () => {
           },
           cycleDays: fhm5DaysAfterMucusPeak
             .filter(({date}) => date >= '2018-06-21')
+        })
+      })
+
+      it('with mucus only occurring after end of temperature evaluation ignores it', () => {
+        const status = getSensiplanStatus({
+          cycle:  mucusOnlyAfterEndOfTempEval,
+          previousCycle: cycleWithFhm
+        })
+
+        expect(status.temperatureShift).to.be.undefined()
+        expect(status.mucusShift).to.be.undefined()
+
+        expect(Object.keys(status.phases).length).to.eql(2)
+        expect(status.phases.preOvulatory).to.eql({
+          start: { date: '2018-06-01' },
+          end: { date: '2018-06-05' },
+          cycleDays: fhm5DaysAfterMucusPeak
+            .filter(({date}) => date <= '2018-06-05')
+        })
+        expect(status.phases.periOvulatory).to.eql({
+          start: { date: '2018-06-06' },
+          cycleDays: mucusOnlyAfterEndOfTempEval
+            .filter(({date}) => {
+              return date > '2018-06-05'
+            })
         })
       })
     })
