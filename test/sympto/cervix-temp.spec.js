@@ -232,7 +232,7 @@ describe('sympto', () => {
         })
 
         expect(status.temperatureShift).to.be.undefined()
-        expect(status.mucusShift).to.be.undefined()
+        expect(status.cervixShift).to.be.undefined()
 
         expect(Object.keys(status.phases).length).to.eql(2)
         expect(status.phases.preOvulatory).to.eql({
