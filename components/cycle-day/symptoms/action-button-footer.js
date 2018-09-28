@@ -45,7 +45,8 @@ export default class ActionButtonFooter extends Component {
     return (
       <View style={styles.menu}>
         {buttons.map(({ title, action, disabledCondition, icon }, i) => {
-          const textStyle = disabledCondition ? styles.menuTextInActive : styles.menuText
+          const textStyle = [styles.menuText]
+          if (disabledCondition) textStyle.push(styles.menuTextInActive)
           const iconStyle = disabledCondition ?
             Object.assign({}, iconStyles.menuIcon, iconStyles.menuIconInactive) :
             iconStyles.menuIcon

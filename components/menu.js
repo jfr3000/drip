@@ -28,14 +28,15 @@ export default class Menu extends Component {
   }
 
   render() {
+    const t = this.props.titles
     return (
       <View style={styles.menu}>
         {[
-          { title: 'Home', icon: 'home', onPress: () => this.goTo('Home') },
-          { title: 'Calendar', icon: 'calendar-range', onPress: () => this.goTo('Calendar') },
-          { title: 'Chart', icon: 'chart-line', onPress: () => this.goTo('Chart') },
-          { title: 'Stats', icon: 'chart-pie', onPress: () => this.goTo('Stats') },
-          { title: 'Settings', icon: 'settings', onPress: () => this.goTo('Settings') },
+          { title: t.Home, icon: 'home', onPress: () => this.goTo('Home') },
+          { title: t.Calendar, icon: 'calendar-range', onPress: () => this.goTo('Calendar') },
+          { title: t.Chart, icon: 'chart-line', onPress: () => this.goTo('Chart') },
+          { title: t.Stats, icon: 'chart-pie', onPress: () => this.goTo('Stats') },
+          { title: t.Settings, icon: 'settings', onPress: () => this.goTo('Settings') },
         ].map(this.makeMenuItem)}
       </View >
     )
