@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import {
-  View, TouchableOpacity, Text
+  View, TouchableOpacity, Text, Alert
 } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { saveSymptom } from '../../../db'
 import styles, {iconStyles} from '../../../styles'
+import {sharedDialogs as labels} from '../labels/labels'
 
 export default class ActionButtonFooter extends Component {
   render() {
@@ -19,20 +20,27 @@ export default class ActionButtonFooter extends Component {
     const navigateToOverView = () => navigate('CycleDay', {cycleDay})
     const buttons = [
       {
-        title: 'Cancel',
-        action: () => navigateToOverView(),
-        icon: 'cancel'
-      },
-      {
-        title: 'Delete',
+        title: labels.unset,
         action: () => {
-          saveSymptom(symptom, cycleDay)
-          navigateToOverView()
+          Alert.alert(
+            labels.areYouSureTitle,
+            labels.areYouSureToUnset,
+            [{
+              text: labels.cancel,
+              style: 'cancel'
+            }, {
+              text: labels.reallyUnsetData,
+              onPress: () => {
+                saveSymptom(symptom, cycleDay)
+                navigateToOverView()
+              }
+            }]
+          )
         },
         disabledCondition: !cycleDay[symptom],
         icon: 'delete-outline'
       }, {
-        title: 'Save',
+        title: labels.save,
         action: () => {
           saveAction()
           if (autoShowDayView) navigateToOverView()

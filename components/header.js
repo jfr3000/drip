@@ -5,8 +5,10 @@ import {
   Dimensions
 } from 'react-native'
 import styles, { iconStyles } from '../styles'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import Icon from 'react-native-vector-icons/Entypo'
+import FeatherIcon from 'react-native-vector-icons/Feather'
 import { formatDateForViewHeader } from '../components/cycle-day/labels/format'
+
 
 export default class Header extends Component {
   render() {
@@ -16,7 +18,7 @@ export default class Header extends Component {
         <View style={[styles.header, styles.headerCycleDay]}>
           <View style={styles.accentCircle} left={middle - styles.accentCircle.width / 2}/>
           <Icon
-            name='arrow-left-drop-circle'
+            name='chevron-thin-left'
             {...iconStyles.navigationArrow}
             onPress={() => this.props.goToCycleDay('before')}
           />
@@ -30,18 +32,37 @@ export default class Header extends Component {
               </Text>}
           </View >
           <Icon
-            name='arrow-right-drop-circle'
+            name='chevron-thin-right'
             {...iconStyles.navigationArrow}
             onPress={() => this.props.goToCycleDay('after')}
           />
         </View >
-        :
-        <View style={styles.header}>
-          <View style={styles.accentCircle} />
-          <Text style={styles.headerText}>
-            {this.props.title}
-          </Text>
-        </View >
+        : this.props.isSymptomView ?
+          <View style={[styles.header, styles.headerSymptom]}>
+            <View style={styles.accentCircle} left={middle - styles.accentCircle.width / 2}/>
+            <Icon
+              name='chevron-thin-left'
+              {...iconStyles.navigationArrow}
+              onPress={() => this.props.goBack()}
+
+            />
+            <View>
+              <Text style={styles.dateHeader}>
+                {this.props.title}
+              </Text>
+            </View >
+            <FeatherIcon
+              name='info'
+              {...iconStyles.symptomHeaderIcons}
+            />
+          </View>
+          :
+          <View style={styles.header}>
+            <View style={styles.accentCircle} />
+            <Text style={styles.headerText}>
+              {this.props.title}
+            </Text>
+          </View >
     )
   }
 }

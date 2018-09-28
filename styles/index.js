@@ -19,6 +19,7 @@ const regularSize = 16
 const defaultBottomMargin = 5
 const defaultIndentation = 10
 const defaultTopMargin = 10
+const colorInActive = '#666666'
 
 export default StyleSheet.create({
   appText: {
@@ -153,9 +154,13 @@ export default StyleSheet.create({
     fontFamily: fontLight
   },
   menuTextInActive: {
-    color: 'lightgrey'
+    color: colorInActive
   },
   headerCycleDay: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  headerSymptom: {
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -317,7 +322,11 @@ export default StyleSheet.create({
 
 export const iconStyles = {
   navigationArrow: {
-    size: 45,
+    size: 20,
+    color: fontOnPrimaryColor
+  },
+  symptomHeaderIcons: {
+    size: 20,
     color: fontOnPrimaryColor
   },
   symptomBox: {
@@ -331,6 +340,6 @@ export const iconStyles = {
     color: fontOnPrimaryColor
   },
   menuIconInactive: {
-    color: 'lightgrey',
+    color: colorInActive,
   },
 }
