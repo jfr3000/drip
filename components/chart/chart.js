@@ -63,7 +63,8 @@ export default class CycleChart extends Component {
       this.xAxisHeight = this.state.chartHeight * config.xAxisHeightPercentage
       const remainingHeight = this.state.chartHeight - this.xAxisHeight
       this.symptomHeight = config.symptomHeightPercentage * remainingHeight
-      this.symptomRowHeight = this.symptomRowSymptoms.length * this.symptomHeight
+      this.symptomRowHeight = this.symptomRowSymptoms.length *
+        this.symptomHeight
       this.columnHeight = remainingHeight - this.symptomRowHeight
 
       const chartSymptoms = [...this.symptomRowSymptoms]
@@ -120,7 +121,8 @@ export default class CycleChart extends Component {
             (cycleDay.cervix.opening + cycleDay.cervix.firmness)
         } else if (symptom === 'sex') {
           // solo = 1 + partner = 2
-          acc.sex = cycleDay.sex && (cycleDay.sex.solo + 2 * cycleDay.sex.partner)
+          acc.sex = cycleDay.sex &&
+            (cycleDay.sex.solo + 2 * cycleDay.sex.partner)
         } else if (symptom === 'pain') {
           // is any pain documented?
           acc.pain = cycleDay.pain &&
@@ -165,10 +167,13 @@ export default class CycleChart extends Component {
                   style={{ alignItems: 'center', justifyContent: 'center' }}
                   key={symptomName}
                   width={styles.yAxis.width}
-                  height={this.symptomRowHeight / this.symptomRowSymptoms.length}
+                  height={this.symptomRowHeight /
+                    this.symptomRowSymptoms.length}
                 >
                   <Svg
-                    width={styles.yAxis.width * 0.8} height={this.symptomRowHeight / this.symptomRowSymptoms.length * 0.8}
+                    width={styles.yAxis.width * 0.8}
+                    height={this.symptomRowHeight /
+                      this.symptomRowSymptoms.length * 0.8}
                     viewBox={symptomIcons[symptomName].viewBox}
                   >
                     <G fill={symptomIcons[symptomName].color}>
@@ -182,10 +187,16 @@ export default class CycleChart extends Component {
               {makeYAxisLabels(this.columnHeight)}
             </View>
             <View style={[styles.yAxis, {height: this.xAxisHeight}]}>
-              <AppText style = {[styles.column.label.number, styles.yAxisLabels.cycleDayLabel]}>
+              <AppText style = {[
+                styles.column.label.number,
+                styles.yAxisLabels.cycleDayLabel
+              ]}>
                 {labels.cycleDayWithLinebreak}
               </AppText>
-              <AppText style={[styles.column.label.date,styles.yAxisLabels.dateLabel]}>
+              <AppText style={[
+                styles.column.label.date,
+                styles.yAxisLabels.dateLabel
+              ]}>
                 {labels.date}
               </AppText>
             </View>
