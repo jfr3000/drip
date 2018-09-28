@@ -56,7 +56,12 @@ export default class ActionButtonFooter extends Component {
           const textStyle = [styles.menuText]
           if (disabledCondition) textStyle.push(styles.menuTextInActive)
           const iconStyle = disabledCondition ?
-            Object.assign({}, iconStyles.menuIcon, iconStyles.menuIconInactive) :
+            Object.assign(
+              {},
+              iconStyles.menuIcon,
+              iconStyles.menuIconInactive
+            )
+            :
             iconStyles.menuIcon
 
           return (

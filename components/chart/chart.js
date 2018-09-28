@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, FlatList } from 'react-native'
 import range from 'date-range'
 import { LocalDate } from 'js-joda'
+import Svg, { G } from 'react-native-svg'
 import { makeYAxisLabels, normalizeToScale, makeHorizontalGrid } from './y-axis'
 import nfpLines from './nfp-lines'
 import DayColumn from './day-column'
@@ -11,6 +12,13 @@ import { scaleObservable } from '../../local-storage'
 import config from '../../config'
 import { AppText } from '../app-text'
 import { shared as labels } from '../labels'
+import BleedingIcon from '../../assets/bleeding'
+import CervixIcon from '../../assets/cervix'
+import DesireIcon from '../../assets/desire'
+import MucusIcon from '../../assets/mucus'
+import NoteIcon from '../../assets/note'
+import PainIcon from '../../assets/pain'
+import SexIcon from '../../assets/sex'
 
 export default class CycleChart extends Component {
   constructor(props) {
@@ -55,7 +63,8 @@ export default class CycleChart extends Component {
       this.xAxisHeight = this.state.chartHeight * config.xAxisHeightPercentage
       const remainingHeight = this.state.chartHeight - this.xAxisHeight
       this.symptomHeight = config.symptomHeightPercentage * remainingHeight
-      this.symptomRowHeight = this.symptomRowSymptoms.length * this.symptomHeight
+      this.symptomRowHeight = this.symptomRowSymptoms.length *
+        this.symptomHeight
       this.columnHeight = remainingHeight - this.symptomRowHeight
 
       const chartSymptoms = [...this.symptomRowSymptoms]
@@ -112,7 +121,8 @@ export default class CycleChart extends Component {
             (cycleDay.cervix.opening + cycleDay.cervix.firmness)
         } else if (symptom === 'sex') {
           // solo = 1 + partner = 2
-          acc.sex = cycleDay.sex && (cycleDay.sex.solo + 2 * cycleDay.sex.partner)
+          acc.sex = cycleDay.sex &&
+            (cycleDay.sex.solo + 2 * cycleDay.sex.partner)
         } else if (symptom === 'pain') {
           // is any pain documented?
           acc.pain = cycleDay.pain &&
@@ -153,8 +163,23 @@ export default class CycleChart extends Component {
           <View>
             <View style={[styles.yAxis, {height: this.symptomRowHeight}]}>
               {this.symptomRowSymptoms.map(symptomName => {
-                return <View key={symptomName} style={{flex: 1}}>
-                  <AppText>{symptomName[0]}</AppText>
+                return <View
+                  style={{ alignItems: 'center', justifyContent: 'center' }}
+                  key={symptomName}
+                  width={styles.yAxis.width}
+                  height={this.symptomRowHeight /
+                    this.symptomRowSymptoms.length}
+                >
+                  <Svg
+                    width={styles.yAxis.width * 0.8}
+                    height={this.symptomRowHeight /
+                      this.symptomRowSymptoms.length * 0.8}
+                    viewBox={symptomIcons[symptomName].viewBox}
+                  >
+                    <G fill={symptomIcons[symptomName].color}>
+                      {symptomIcons[symptomName].icon}
+                    </G>
+                  </Svg>
                 </View>
               })}
             </View>
@@ -162,10 +187,16 @@ export default class CycleChart extends Component {
               {makeYAxisLabels(this.columnHeight)}
             </View>
             <View style={[styles.yAxis, {height: this.xAxisHeight}]}>
-              <AppText style = {[styles.column.label.number, styles.yAxisLabels.cycleDayLabel]}>
+              <AppText style = {[
+                styles.column.label.number,
+                styles.yAxisLabels.cycleDayLabel
+              ]}>
                 {labels.cycleDayWithLinebreak}
               </AppText>
-              <AppText style={[styles.column.label.date,styles.yAxisLabels.dateLabel]}>
+              <AppText style={[
+                styles.column.label.date,
+                styles.yAxisLabels.dateLabel
+              ]}>
                 {labels.date}
               </AppText>
             </View>
@@ -224,4 +255,42 @@ function getInfoForNeighborColumns(index, cols) {
     ret.leftTemperatureExclude = left.temperatureExclude
   }
   return ret
+}
+
+const symptomIcons = {
+  'bleeding': {
+    'viewBox': '10 10 320 400',
+    'color': styles.iconShades.bleeding[3],
+    'icon': <BleedingIcon strokeWidth={'5'}/>
+  },
+  'mucus': {
+    'viewBox': '10 10 320 400',
+    'color': styles.iconShades.mucus[4],
+    'icon': <MucusIcon/>
+  },
+  'cervix': {
+    'viewBox': '10 10 320 440',
+    'color': styles.iconShades.cervix[3],
+    'icon': <CervixIcon/>
+  },
+  'desire': {
+    'viewBox': '10 10 320 380',
+    'color': styles.iconShades.desire[2],
+    'icon': <DesireIcon/>
+  },
+  'sex': {
+    'viewBox': '10 10 320 400',
+    'color': styles.iconShades.sex[2],
+    'icon': <SexIcon/>
+  },
+  'pain': {
+    'viewBox': '10 10 300 400',
+    'color': styles.iconShades.pain[0],
+    'icon': <PainIcon/>
+  },
+  'note': {
+    'viewBox': '10 10 270 400',
+    'color': styles.iconShades.note[0],
+    'icon': <NoteIcon/>
+  },
 }

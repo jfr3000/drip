@@ -16,7 +16,10 @@ export default class Header extends Component {
     return (
       this.props.isCycleDayOverView ?
         <View style={[styles.header, styles.headerCycleDay]}>
-          <View style={styles.accentCircle} left={middle - styles.accentCircle.width / 2}/>
+          <View
+            style={styles.accentCircle}
+            left={middle - styles.accentCircle.width / 2}
+          />
           <Icon
             name='chevron-thin-left'
             {...iconStyles.navigationArrow}
