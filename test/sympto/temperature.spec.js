@@ -40,6 +40,26 @@ describe('sympto', () => {
         })
       })
 
+      it('detects temperature shift correctly with drop after third high temp', () => {
+        const tempShift =
+        [36.7, 36.57, 36.47, 36.49, 36.57, 36.62, 36.55, 36.8, 36.86, 36.8, 36.4]
+          .map(turnIntoCycleDayObject)
+        const status = getTemperatureStatus(tempShift)
+        expect(status).to.eql({
+          detected: true,
+          ltl: 36.6,
+          firstHighMeasurementDay: {
+            date: 7,
+            temperature: { value: 36.8 }
+          },
+          evaluationCompleteDay: {
+            date: 9,
+            temperature: { value: 36.8 }
+          },
+          rule: 0
+        })
+      })
+
       it('detects no temperature shift when there are no 6 low temps', () => {
         const tempShift = [36.47, 36.49, 36.57, 36.62, 36.55, 36.8, 36.86, 36.8]
           .map(turnIntoCycleDayObject)
