@@ -133,7 +133,9 @@ export default StyleSheet.create({
     height: '15%'
   },
   headerSymptom: {
-    height: '15%'
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    height: '12%'
   },
   navigationArrow: {
     fontSize: 60,
@@ -294,6 +296,10 @@ export default StyleSheet.create({
 export const iconStyles = {
   navigationArrow: {
     size: 45,
+    color: fontOnPrimaryColor
+  },
+  symptomHeaderIcons: {
+    size: 30,
     color: fontOnPrimaryColor
   },
   symptomBox: {

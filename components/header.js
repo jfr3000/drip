@@ -34,11 +34,12 @@ export default class Header extends Component {
           />
         </View >
         : this.props.isSymptomView ?
-          <View style={[styles.header, styles.headerCycleDay]}>
+          <View style={[styles.header, styles.headerSymptom]}>
             <Icon
-              name='arrow-left-drop-circle'
-              {...iconStyles.navigationArrow}
+              name='keyboard-backspace'
+              {...iconStyles.symptomHeaderIcons}
               onPress={() => this.props.goBack()}
+
             />
             <View>
               <Text style={styles.dateHeader}>
@@ -47,7 +48,7 @@ export default class Header extends Component {
             </View >
             <Icon
               name='information-outline'
-              {...iconStyles.navigationArrow}
+              {...iconStyles.symptomHeaderIcons}
             />
           </View>
           :
