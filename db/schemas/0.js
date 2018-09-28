@@ -67,8 +67,6 @@ const SexSchema = {
     patch: { type: 'bool', optional: true },
     ring: { type: 'bool', optional: true },
     implant: { type: 'bool', optional: true },
-    diaphragm: { type: 'bool', optional: true },
-    none: { type: 'bool', optional: true },
     other: { type: 'bool', optional: true },
     note: { type: 'string', optional: true }
   }
@@ -129,14 +127,17 @@ const CycleDaySchema = {
   }
 }
 
-export default [
-  CycleDaySchema,
-  TemperatureSchema,
-  BleedingSchema,
-  MucusSchema,
-  CervixSchema,
-  NoteSchema,
-  DesireSchema,
-  SexSchema,
-  PainSchema
-]
+export default {
+  schema: [
+    CycleDaySchema,
+    TemperatureSchema,
+    BleedingSchema,
+    MucusSchema,
+    CervixSchema,
+    NoteSchema,
+    DesireSchema,
+    SexSchema,
+    PainSchema
+  ],
+  schemaVersion: 0
+}

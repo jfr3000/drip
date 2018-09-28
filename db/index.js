@@ -11,12 +11,37 @@ import {
   longAndComplicatedCycleWithCervix,
   cycleWithTempAndNoCervixShift
 } from './fixtures'
-import dbSchema from './schema'
+import schemas from './schemas'
 
 let db
-const realmConfig = {
-  schema: dbSchema
+
+export async function openDb ({ hash, persistConnection }) {
+  const realmConfig = {}
+  if (hash) {
+    realmConfig.encryptionKey = hashToInt8Array(hash)
+  }
+
+  // perform migrations if necessary, see https://realm.io/docs/javascript/2.8.0/#migrations
+  let nextSchemaIndex = Realm.schemaVersion(Realm.defaultPath)
+  while (nextSchemaIndex < schemas.length - 1) {
+    const tempConfig = Object.assign(
+      realmConfig,
+      schemas[nextSchemaIndex++]
+    )
+    const migratedRealm = new Realm(tempConfig)
+    migratedRealm.close()
+  }
+
+  // open the Realm with the latest schema
+  realmConfig.schema = schemas[schemas.length - 1]
+  const connection = await Realm.open(Object.assign(
+    realmConfig,
+    schemas[schemas.length - 1]
+  ))
+
+  if (persistConnection) db = connection
 }
+
 
 export function getBleedingDaysSortedByDate() {
   return db.objects('CycleDay').filtered('bleeding != null').sorted('date', true)
@@ -158,16 +183,6 @@ export function requestHash(type, pw) {
     type: type,
     message: pw
   }))
-}
-
-export async function openDb ({ hash, persistConnection }) {
-  if (hash) {
-    realmConfig.encryptionKey = hashToInt8Array(hash)
-  }
-
-  const connection = await Realm.open(realmConfig)
-
-  if (persistConnection) db = connection
 }
 
 export async function changeEncryptionAndRestartApp(hash) {
