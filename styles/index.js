@@ -322,7 +322,7 @@ export default StyleSheet.create({
 
 export const iconStyles = {
   navigationArrow: {
-    size: 45,
+    size: 20,
     color: fontOnPrimaryColor
   },
   symptomHeaderIcons: {
