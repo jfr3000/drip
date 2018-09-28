@@ -8,7 +8,10 @@ export const shared = {
   incorrectPasswordMessage: 'That password is incorrect.',
   tryAgain: 'Try again',
   ok: 'OK',
-  unlock: 'Unlock'
+  unlock: 'Unlock',
+  date: 'Date',
+  cycleDayWithLinebreak: 'Cycle\nday',
+  loading: 'Loading ...'
 }
 
 export const settings = {
@@ -54,6 +57,11 @@ export const settings = {
     timeSet: time => `Daily reminder set for ${time}`,
     notification: 'Record your morning temperature'
   },
+  periodReminder: {
+    title: 'Next period reminder',
+    reminderText: 'Get a notification 3 days before your next period is likely to start.',
+    notification: daysToEndOfPrediction => `Your next period is likely to start in 3 to ${daysToEndOfPrediction} days.`
+  },
   passwordSettings: {
     title: 'App password',
     explainerDisabled: "Encrypt the app's database with a password. You need to enter the password every time the app is started.",
@@ -84,6 +92,14 @@ export const headerTitles = {
   DesireEditView: 'Desire',
   SexEditView: 'Sex',
   PainEditView: 'Pain'
+}
+
+export const menuTitles = {
+  Home: 'Home',
+  Calendar: 'Calendar',
+  Chart: 'Chart',
+  Stats: 'Stats',
+  Settings: 'Settings',
 }
 
 export const stats = {

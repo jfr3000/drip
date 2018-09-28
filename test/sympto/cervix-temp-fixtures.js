@@ -2,9 +2,9 @@ function convertToSymptoFormat(val) {
   const sympto = { date: val.date }
   if (val.temperature) sympto.temperature = {
     value: val.temperature,
+    time: '08:00',
     exclude: false
   }
-
   if (val.cervix && typeof val.cervix.opening === 'number' && typeof val.cervix.firmness === 'number') sympto.cervix = {
     opening: val.cervix.opening,
     firmness: val.cervix.firmness,
@@ -18,11 +18,11 @@ function convertToSymptoFormat(val) {
 }
 
 export const cervixShiftAndFhmOnSameDay = [
-  { date: '2018-08-01', bleeding: 1, cervix: { opening: 1, firmness: 1 } },
-  { date: '2018-08-02', bleeding: 2, cervix: { opening: 1, firmness: 1 } },
-  { date: '2018-08-03', temperature: 36.6, bleeding: 2, cervix: { opening: 2, firmness: 1 } },
-  { date: '2018-08-04', temperature: 36.55, bleeding: 1, cervix: { opening: 2, firmness: 0 } },
-  { date: '2018-08-05', temperature: 36.6, cervix: { opening: 0, firmness: 1 } },
+  { date: '2018-08-01', bleeding: 1 },
+  { date: '2018-08-02', bleeding: 2 },
+  { date: '2018-08-03', temperature: 36.6, bleeding: 2 },
+  { date: '2018-08-04', temperature: 36.55, bleeding: 1 },
+  { date: '2018-08-05', temperature: 36.6, cervix: { opening: 0, firmness: 0 } },
   { date: '2018-08-06', temperature: 36.65, cervix: { opening: 0, firmness: 1 } },
   { date: '2018-08-07', temperature: 36.71, cervix: { opening: 1, firmness: 0 } },
   { date: '2018-08-08', temperature: 36.69, cervix: { opening: 1, firmness: 0 } },
@@ -99,6 +99,8 @@ export const longAndComplicatedCycle = [
   { date: '2018-06-04', temperature: 36.6 },
   { date: '2018-06-05', temperature: 36.55 },
   { date: '2018-06-06', temperature: 36.7, cervix: { opening: 0, firmness: 0 } },
+  { date: '2018-06-07', temperature: 36.5, cervix: { opening: 0, firmness: 0 } },
+  { date: '2018-06-08', temperature: 36.52, cervix: { opening: 0, firmness: 0 } },
   { date: '2018-06-09', temperature: 36.5, cervix: { opening: 2, firmness: 1 } },
   { date: '2018-06-10', temperature: 36.4, cervix: { opening: 2, firmness: 1 } },
   { date: '2018-06-13', temperature: 36.45, cervix: { opening: 1, firmness: 1 } },
@@ -110,7 +112,7 @@ export const longAndComplicatedCycle = [
   { date: '2018-06-19', temperature: 36.8, cervix: { opening: 0, firmness: 0 } },
   { date: '2018-06-20', temperature: 36.85, cervix: { opening: 1, firmness: 1 } },
   { date: '2018-06-21', temperature: 36.8, cervix: { opening: 1, firmness: 1 } },
-  { date: '2018-06-22', temperature: 36.9, cervix: { opening: 2, firmness: 1 } },
+  { date: '2018-06-22', temperature: 36.9, cervix: { opening: 0, firmness: 0 } },
   { date: '2018-06-25', temperature: 36.9, cervix: { opening: 0, firmness: 0 } },
   { date: '2018-06-26', temperature: 36.8, cervix: { opening: 0, firmness: 0 } },
   { date: '2018-06-27', temperature: 36.9, cervix: { opening: 0, firmness: 0 } }
@@ -185,4 +187,81 @@ export const noOvulationDetected = [
 export const fiveDayCycle = [
   { date: '2018-08-01', bleeding: 2 },
   { date: '2018-08-03', bleeding: 3 }
+].map(convertToSymptoFormat)
+
+export const fhmOnDay12 = [
+  { date: '2018-06-01', temperature: 36.6, bleeding: 2 },
+  { date: '2018-06-02', temperature: 36.65 },
+  { date: '2018-06-04', temperature: 36.6 },
+  { date: '2018-06-05', temperature: 36.55 },
+  { date: '2018-06-06', temperature: 36.7, cervix: { opening: 0, firmness: 0 } },
+  { date: '2018-06-09', temperature: 36.5, cervix: { opening: 1, firmness: 1 } },
+  { date: '2018-06-10', temperature: 36.4, cervix: { opening: 1, firmness: 1 } },
+  { date: '2018-06-12', temperature: 36.8, cervix: { opening: 1, firmness: 1 } },
+  { date: '2018-06-14', temperature: 36.9, cervix: { opening: 0, firmness: 0 } },
+  { date: '2018-06-17', temperature: 36.9, cervix: { opening: 0, firmness: 0 } },
+  { date: '2018-06-18', temperature: 36.9, cervix: { opening: 0, firmness: 0 } }
+].map(convertToSymptoFormat)
+
+export const fhmOnDay15 = [
+  { date: '2018-06-01', temperature: 36.6, bleeding: 2 },
+  { date: '2018-06-02', temperature: 36.65 },
+  { date: '2018-06-04', temperature: 36.6 },
+  { date: '2018-06-05', temperature: 36.55 },
+  { date: '2018-06-06', temperature: 36.7, cervix: { opening: 0, firmness: 0 } },
+  { date: '2018-06-09', temperature: 36.5, cervix: { opening: 1, firmness: 1 } },
+  { date: '2018-06-10', temperature: 36.4, cervix: { opening: 1, firmness: 1 } },
+  { date: '2018-06-11', temperature: 36.4, cervix: { opening: 1, firmness: 1 } },
+  { date: '2018-06-12', temperature: 36.4, cervix: { opening: 1, firmness: 1 } },
+  { date: '2018-06-14', temperature: 36.4, cervix: { opening: 1, firmness: 1 } },
+  { date: '2018-06-15', temperature: 36.8, cervix: { opening: 1, firmness: 1 } },
+  { date: '2018-06-16', temperature: 36.9, cervix: { opening: 0, firmness: 0 } },
+  { date: '2018-06-17', temperature: 36.9, cervix: { opening: 0, firmness: 0 } },
+  { date: '2018-06-18', temperature: 36.9, cervix: { opening: 0, firmness: 0 } }
+].map(convertToSymptoFormat)
+
+export const cycleWithEarlyCervix = [
+  { date: '2018-06-01', temperature: 36.6, bleeding: 2 },
+  { date: '2018-06-02', temperature: 36.65, cervix: { opening: 1, firmness: 1 } },
+  { date: '2018-06-05', temperature: 36.55 },
+  { date: '2018-06-06', temperature: 36.7, cervix: { opening: 0, firmness: 0 } },
+  { date: '2018-06-08', temperature: 36.45, cervix: { opening: 0, firmness: 0 } },
+  { date: '2018-06-09', temperature: 36.5, cervix: { opening: 1, firmness: 1 } },
+  { date: '2018-06-10', temperature: 36.4, cervix: { opening: 2, firmness: 0 } },
+  { date: '2018-06-11', temperature: 36.5, cervix: { opening: 2, firmness: 1 } },
+  { date: '2018-06-13', temperature: 36.45, cervix: { opening: 2, firmness: 1 } },
+  { date: '2018-06-14', temperature: 36.5, cervix: { opening: 1, firmness: 1 } },
+  { date: '2018-06-15', temperature: 36.55, cervix: { opening: 1, firmness: 1 } },
+  { date: '2018-06-16', temperature: 36.7, cervix: { opening: 1, firmness: 0 } },
+  { date: '2018-06-17', temperature: 36.65, cervix: { opening: 0, firmness: 1 } },
+  { date: '2018-06-18', temperature: 36.75, cervix: { opening: 0, firmness: 0 } },
+  { date: '2018-06-19', temperature: 36.8, cervix: { opening: 0, firmness: 0 } },
+  { date: '2018-06-20', temperature: 36.85, cervix: { opening: 0, firmness: 0 } },
+  { date: '2018-06-23', temperature: 36.9, cervix: { opening: 0, firmness: 1 } },
+  { date: '2018-06-24', temperature: 36.85, cervix: { opening: 1, firmness: 1 } },
+  { date: '2018-06-26', temperature: 36.8, cervix: { opening: 1, firmness: 1 } },
+  { date: '2018-06-27', temperature: 36.9, cervix: { opening: 1, firmness: 1 } }
+].map(convertToSymptoFormat)
+
+export const cycleWithCervixOnFirstDay = [
+  { date: '2018-06-01', temperature: 36.6, bleeding: 2, cervix: { opening: 1, firmness: 1 } },
+  { date: '2018-06-02', temperature: 36.65 },
+  { date: '2018-06-05', temperature: 36.55 },
+  { date: '2018-06-06', temperature: 36.7, cervix: { opening: 0, firmness: 0 } },
+  { date: '2018-06-08', temperature: 36.45, cervix: { opening: 0, firmness: 0 } },
+  { date: '2018-06-09', temperature: 36.5, cervix: { opening: 1, firmness: 1 } },
+  { date: '2018-06-10', temperature: 36.4, cervix: { opening: 2, firmness: 0 } },
+  { date: '2018-06-11', temperature: 36.5, cervix: { opening: 2, firmness: 1 } },
+  { date: '2018-06-13', temperature: 36.45, cervix: { opening: 2, firmness: 1 } },
+  { date: '2018-06-14', temperature: 36.5, cervix: { opening: 1, firmness: 1 } },
+  { date: '2018-06-15', temperature: 36.55, cervix: { opening: 1, firmness: 1 } },
+  { date: '2018-06-16', temperature: 36.7, cervix: { opening: 1, firmness: 0 } },
+  { date: '2018-06-17', temperature: 36.65, cervix: { opening: 0, firmness: 1 } },
+  { date: '2018-06-18', temperature: 36.75, cervix: { opening: 0, firmness: 0 } },
+  { date: '2018-06-19', temperature: 36.8, cervix: { opening: 0, firmness: 0 } },
+  { date: '2018-06-20', temperature: 36.85, cervix: { opening: 0, firmness: 0 } },
+  { date: '2018-06-23', temperature: 36.9, cervix: { opening: 0, firmness: 1 } },
+  { date: '2018-06-24', temperature: 36.85, cervix: { opening: 1, firmness: 1 } },
+  { date: '2018-06-26', temperature: 36.8, cervix: { opening: 1, firmness: 1 } },
+  { date: '2018-06-27', temperature: 36.9, cervix: { opening: 1, firmness: 1 } }
 ].map(convertToSymptoFormat)

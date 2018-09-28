@@ -34,6 +34,16 @@ export async function saveTempReminder(reminder) {
   tempReminderObservable.set(reminder)
 }
 
+export const periodReminderObservable = Observable()
+setObvWithInitValue('periodReminder', periodReminderObservable, {
+  enabled: false
+})
+
+export async function savePeriodReminder(reminder) {
+  await AsyncStorage.setItem('periodReminder', JSON.stringify(reminder))
+  periodReminderObservable.set(reminder)
+}
+
 export const hasEncryptionObservable = Observable()
 setObvWithInitValue('hasEncryption', hasEncryptionObservable, false)
 

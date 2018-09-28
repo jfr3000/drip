@@ -10,6 +10,7 @@ import styles from './styles'
 import { scaleObservable } from '../../local-storage'
 import config from '../../config'
 import { AppText } from '../app-text'
+import { shared as labels } from '../labels'
 
 export default class CycleChart extends Component {
   constructor(props) {
@@ -111,7 +112,7 @@ export default class CycleChart extends Component {
             (cycleDay.cervix.opening + cycleDay.cervix.firmness)
         } else if (symptom === 'sex') {
           // solo = 1 + partner = 2
-          acc.sex = cycleDay.sex && (cycleDay.sex.solo + cycleDay.sex.partner)
+          acc.sex = cycleDay.sex && (cycleDay.sex.solo + 2 * cycleDay.sex.partner)
         } else if (symptom === 'pain') {
           // is any pain documented?
           acc.pain = cycleDay.pain &&
@@ -144,19 +145,32 @@ export default class CycleChart extends Component {
       >
         {!this.state.chartLoaded &&
           <View style={{width: '100%', justifyContent: 'center', alignItems: 'center'}}>
-            <AppText>Loading...</AppText>
+            <AppText>{labels.loading}</AppText>
           </View>
         }
 
         {this.state.chartHeight && this.state.chartLoaded &&
-          <View
-            style={[styles.yAxis, {
-              height: this.columnHeight,
-              marginTop: this.symptomRowHeight
-            }]}
-          >
-            {makeYAxisLabels(this.columnHeight)}
+          <View>
+            <View style={[styles.yAxis, {height: this.symptomRowHeight}]}>
+              {this.symptomRowSymptoms.map(symptomName => {
+                return <View key={symptomName} style={{flex: 1}}>
+                  <AppText>{symptomName[0]}</AppText>
+                </View>
+              })}
+            </View>
+            <View style={[styles.yAxis, {height: this.columnHeight}]}>
+              {makeYAxisLabels(this.columnHeight)}
+            </View>
+            <View style={[styles.yAxis, {height: this.xAxisHeight}]}>
+              <AppText style = {[styles.column.label.number, styles.yAxisLabels.cycleDayLabel]}>
+                {labels.cycleDayWithLinebreak}
+              </AppText>
+              <AppText style={[styles.column.label.date,styles.yAxisLabels.dateLabel]}>
+                {labels.date}
+              </AppText>
+            </View>
           </View>}
+
 
         {this.state.chartHeight && this.state.chartLoaded &&
           makeHorizontalGrid(this.columnHeight, this.symptomRowHeight)

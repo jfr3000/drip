@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import {
   View,
-  Text
+  Text,
+  Dimensions
 } from 'react-native'
 import styles, { iconStyles } from '../styles'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -10,9 +11,11 @@ import { formatDateForViewHeader } from '../components/cycle-day/labels/format'
 
 export default class Header extends Component {
   render() {
+    const middle = Dimensions.get('window').width / 2
     return (
       this.props.isCycleDayOverView ?
         <View style={[styles.header, styles.headerCycleDay]}>
+          <View style={styles.accentCircle} left={middle - styles.accentCircle.width / 2}/>
           <Icon
             name='arrow-left-drop-circle'
             {...iconStyles.navigationArrow}
@@ -35,6 +38,7 @@ export default class Header extends Component {
         </View >
         : this.props.isSymptomView ?
           <View style={[styles.header, styles.headerSymptom]}>
+            <View style={styles.accentCircle} left={middle - styles.accentCircle.width / 2}/>
             <Icon
               name='keyboard-backspace'
               {...iconStyles.symptomHeaderIcons}
@@ -53,7 +57,8 @@ export default class Header extends Component {
           </View>
           :
           <View style={styles.header}>
-            <Text style={styles.dateHeader}>
+            <View style={styles.accentCircle} />
+            <Text style={styles.headerText}>
               {this.props.title}
             </Text>
           </View >

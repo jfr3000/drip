@@ -1,16 +1,25 @@
 function convertToSymptoFormat(val) {
   const sympto = { date: val.date }
+  if (val.bleeding) sympto.bleeding = {
+    value: val.bleeding,
+    exclude: false
+  }
   if (val.temperature) sympto.temperature = {
     value: val.temperature,
+    time: '08:00',
     exclude: false
   }
   if (val.mucus) sympto.mucus = {
     value: val.mucus,
-    exclude: false,
     feeling: val.mucus,
-    texture: val.mucus
+    texture: val.mucus,
+    exclude: false
   }
-  if (val.bleeding) sympto.bleeding = { value: val.bleeding, exclude: false }
+  if (val.cervix && typeof val.cervix.opening === 'number' && typeof val.cervix.firmness === 'number') sympto.cervix = {
+    opening: val.cervix.opening,
+    firmness: val.cervix.firmness,
+    exclude: false
+  }
   return sympto
 }
 
@@ -75,7 +84,7 @@ export const cycleWithTempAndNoMucusShift = [
   { date: '2018-05-27', temperature: 36.9, mucus: 4 }
 ].map(convertToSymptoFormat).reverse()
 
-export const cycleWithFhmCervix = [
+export const cervixShiftAndFhmOnSameDay = [
   { date: '2018-08-01', bleeding: 2 },
   { date: '2018-08-02', bleeding: 1 },
   { date: '2018-08-03', bleeding: 0 },

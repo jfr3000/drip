@@ -127,14 +127,17 @@ const CycleDaySchema = {
   }
 }
 
-export default [
-  CycleDaySchema,
-  TemperatureSchema,
-  BleedingSchema,
-  MucusSchema,
-  CervixSchema,
-  NoteSchema,
-  DesireSchema,
-  SexSchema,
-  PainSchema
-]
+export default {
+  schema: [
+    CycleDaySchema,
+    TemperatureSchema,
+    BleedingSchema,
+    MucusSchema,
+    CervixSchema,
+    NoteSchema,
+    DesireSchema,
+    SexSchema,
+    PainSchema
+  ],
+  schemaVersion: 0
+}
