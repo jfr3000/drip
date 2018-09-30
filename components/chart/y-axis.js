@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import config from '../../config'
 import styles from './styles'
 import { scaleObservable, unitObservable } from '../../local-storage'
-import { AppText } from '../app-text'
+import AppText from '../app-text'
 
 export function makeYAxisLabels(columnHeight) {
   const units = unitObservable.value

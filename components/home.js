@@ -1,108 +1,234 @@
 import React, { Component } from 'react'
-import {
-  View,
-  Button,
-  Text,
-  ScrollView
-} from 'react-native'
+import { ScrollView, View, TouchableOpacity, TouchableHighlight, Dimensions } from 'react-native'
 import { LocalDate, ChronoUnit } from 'js-joda'
-import styles from '../styles/index'
+import Icon from 'react-native-vector-icons/Entypo'
+import { secondaryColor, cycleDayColor, periodColor } from '../styles'
+import { home as labels, bleedingPrediction as predictLabels, shared } from './labels'
+import CycleCircle from '../assets/home-circle'
+import Drop from '../assets/home-drop'
 import cycleModule from '../lib/cycle'
-import { getOrCreateCycleDay, getBleedingDaysSortedByDate, fillWithMucusDummyData, fillWithCervixDummyData } from '../db'
-import {bleedingPrediction as labels} from './labels'
+import { getOrCreateCycleDay, getCycleDaysSortedByDate } from '../db'
+import { getFertilityStatusForDay } from '../lib/sympto-adapter'
+import styles from '../styles'
+import AppText, { AppTextLight } from './app-text'
 
 export default class Home extends Component {
   constructor(props) {
     super(props)
     this.getCycleDayNumber = cycleModule().getCycleDayNumber
+    this.getBleedingPrediction = cycleModule().getPredictedMenses
     this.todayDateString = LocalDate.now().toString()
-    const cycleDayNumber = this.getCycleDayNumber(this.todayDateString)
+    const prediction = this.getBleedingPrediction()
+    const fertilityStatus = getFertilityStatusForDay(this.todayDateString)
 
     this.state = {
-      welcomeText: determineWelcomeText(cycleDayNumber),
-      predictionText: determinePredictionText()
+      cycleDayNumber: this.getCycleDayNumber(this.todayDateString),
+      predictionText: determinePredictionText(prediction),
+      bleedingPredictionRange: getBleedingPredictionRange(prediction),
+      ...fertilityStatus
     }
 
-    this.bleedingDays = getBleedingDaysSortedByDate()
-    this.bleedingDays.addListener(this.setStateWithCurrentText)
+    this.cycleDays = getCycleDaysSortedByDate()
+    this.cycleDays.addListener(this.updateState)
   }
 
-  setStateWithCurrentText = () => {
-    const cycleDayNumber = this.getCycleDayNumber(this.todayDateString)
+  updateState = () => {
+    const prediction = this.getBleedingPrediction()
+    const fertilityStatus = getFertilityStatusForDay(this.todayDateString)
     this.setState({
-      welcomeText: determineWelcomeText(cycleDayNumber),
-      predictionText: determinePredictionText()
+      cycleDayNumber: this.getCycleDayNumber(this.todayDateString),
+      predictionText: determinePredictionText(prediction),
+      bleedingPredictionRange: getBleedingPredictionRange(prediction),
+      ...fertilityStatus
     })
   }
 
   componentWillUnmount() {
-    this.bleedingDays.removeListener(this.setStateWithCurrentText)
+    this.cycleDays.removeListener(this.updateState)
   }
 
-  passTodayToDayView() {
+  passTodayTo(componentName) {
     const todayDateString = LocalDate.now().toString()
     const cycleDay = getOrCreateCycleDay(todayDateString)
     const navigate = this.props.navigate
-    navigate('CycleDay', { cycleDay })
+    navigate(componentName, { cycleDay })
   }
 
   render() {
+    const cycleDayMoreText = this.state.cycleDayNumber ?
+      labels.cycleDayKnown(this.state.cycleDayNumber)
+      :
+      labels.cycleDayNotEnoughInfo
+
+    const {height, width} = Dimensions.get('window')
     return (
-      <ScrollView>
-        <Text style={styles.welcome}>{this.state.welcomeText}</Text>
-        <Text style={styles.welcome}>{this.state.predictionText}</Text>
-        <View style={styles.homeButtons}>
-          <View style={styles.homeButton}>
-            <Button
-              onPress={() => this.passTodayToDayView()}
-              title="Edit symptoms for today">
-            </Button>
+      <View flex={1}>
+        <ScrollView>
+          <View
+            style={styles.homeView}
+          >
+            <TouchableOpacity
+              onPress={() => this.passTodayTo('CycleDay')}
+              style={styles.homeIconElement}
+            >
+              <View position='absolute'>
+                <CycleCircle/>
+              </View>
+              <View style={[styles.homeIconTextWrapper, styles.wrapperCycle]}>
+                <AppTextLight style={styles.iconText}>
+                  {this.state.cycleDayNumber || labels.unknown}
+                </AppTextLight>
+              </View>
+
+              { this.state.showMore &&
+                  <AppText style={styles.paragraph}>{cycleDayMoreText}</AppText>
+              }
+              <View style={[
+                styles.homeButton,
+                { backgroundColor: cycleDayColor }
+              ]}>
+                <AppText style={styles.homeButtonText}>
+                  {labels.editToday}
+                </AppText>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => this.passTodayTo('BleedingEditView')}
+              style={styles.homeIconElement}
+            >
+              <View position='absolute'>
+                <Drop/>
+              </View>
+              <View style={[styles.homeIconTextWrapper, styles.wrapperDrop]}>
+                <AppTextLight style={styles.iconText}>
+                  {this.state.bleedingPredictionRange}
+                </AppTextLight>
+              </View>
+
+              {this.state.showMore &&
+                <AppText style={styles.paragraph}>
+                  {this.state.predictionText}
+                </AppText>
+              }
+              <View style={[
+                styles.homeButton,
+                { backgroundColor: periodColor }
+              ]}>
+                <AppText style={styles.homeButtonText}>
+                  {labels.trackPeriod}
+                </AppText>
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => this.props.navigate('Chart')}
+              style={styles.homeIconElement}
+            >
+              <View style={styles.homeCircle}>
+                <AppTextLight style={styles.iconText}>
+                  {this.state.phase ?
+                    this.state.phase.toString()
+                    :
+                    labels.unknown
+                  }
+                </AppTextLight>
+              </View>
+              {this.state.phase &&
+              <AppTextLight>
+                {`${labels.phase(this.state.phase)} (${this.state.status})`}
+              </AppTextLight>
+              }
+              {this.state.showMore &&
+                <AppText styles={styles.paragraph}>
+                  {this.state.statusText}
+                </AppText>
+              }
+              <View style={[
+                styles.homeButton,
+                { backgroundColor: secondaryColor }
+              ]}>
+                <AppText style={styles.homeButtonText}>
+                  {labels.checkFertility}
+                </AppText>
+              </View>
+            </TouchableOpacity>
           </View>
-          <View style={styles.homeButton}>
-            <Button
-              onPress={() => fillWithMucusDummyData()}
-              title="fill with example data for mucus&temp">
-            </Button>
-          </View>
-          <View style={styles.homeButton}>
-            <Button
-              onPress={() => fillWithCervixDummyData()}
-              title="fill with example data for cervix&temp">
-            </Button>
-          </View>
-        </View>
-      </ScrollView>
+
+        </ScrollView>
+
+        {!this.state.showMore &&
+          <TouchableHighlight
+            onPress={() => this.setState({showMore: true})}
+            style={[styles.showMore, {
+              top: height / 2 - styles.header.height - 30,
+              left: width - 40
+            }]}
+          >
+            <View style={{alignItems: 'center'}}>
+              <AppTextLight>{shared.more}</AppTextLight>
+              <Icon name='chevron-thin-down' />
+            </View>
+          </TouchableHighlight>
+        }
+
+        {this.state.showMore &&
+          <TouchableHighlight
+            onPress={() => this.setState({showMore: false})}
+            style={[styles.showLess, {
+              top: height / 2 - styles.header.height - 30,
+              left: 10
+            }]}
+          >
+            <View style={{alignItems: 'center'}}>
+              <AppTextLight>{shared.less}</AppTextLight>
+              <Icon name='chevron-thin-down' />
+            </View>
+          </TouchableHighlight>
+        }
+      </View>
     )
   }
 }
 
-function determineWelcomeText(cycleDayNumber) {
-  const welcomeTextWithCycleDay = `Welcome! Today is day ${cycleDayNumber} of your current cycle`
-  const welcomeText = `Welcome! We don't have enough information to know what your current cycle day is`
-  return cycleDayNumber ? welcomeTextWithCycleDay : welcomeText
-}
-
-function determinePredictionText() {
-  const bleedingPrediction = cycleModule().getPredictedMenses()
-  if (!bleedingPrediction.length) return labels.noPrediction
+function determinePredictionText(bleedingPrediction) {
+  if (!bleedingPrediction.length) return predictLabels.noPrediction
   const todayDate = LocalDate.now()
   const bleedingStart = LocalDate.parse(bleedingPrediction[0][0])
-  const bleedingEnd = LocalDate.parse(bleedingPrediction[0][ bleedingPrediction[0].length - 1 ])
+  const bleedingEnd = LocalDate.parse(
+    bleedingPrediction[0][ bleedingPrediction[0].length - 1 ]
+  )
   if (todayDate.isBefore(bleedingStart)) {
-    return labels.predictionInFuture(
+    return predictLabels.predictionInFuture(
       todayDate.until(bleedingStart, ChronoUnit.DAYS),
       todayDate.until(bleedingEnd, ChronoUnit.DAYS)
     )
   }
   if (todayDate.isAfter(bleedingEnd)) {
-    return labels.predictionInPast(bleedingStart.toString(), bleedingEnd.toString())
+    return predictLabels.predictionInPast(
+      bleedingStart.toString(), bleedingEnd.toString()
+    )
   }
   const daysToEnd = todayDate.until(bleedingEnd, ChronoUnit.DAYS)
   if (daysToEnd === 0) {
-    return labels.predictionStartedNoDaysLeft
+    return predictLabels.predictionStartedNoDaysLeft
   } else if (daysToEnd === 1) {
-    return labels.predictionStarted1DayLeft
+    return predictLabels.predictionStarted1DayLeft
   } else {
-    return labels.predictionStartedXDaysLeft(daysToEnd)
+    return predictLabels.predictionStartedXDaysLeft(daysToEnd)
   }
+}
+
+function getBleedingPredictionRange(prediction) {
+  if (!prediction.length) return labels.unknown
+  const todayDate = LocalDate.now()
+  const bleedingStart = LocalDate.parse(prediction[0][0])
+  const bleedingEnd = LocalDate.parse(prediction[0][ prediction[0].length - 1 ])
+  if (todayDate.isBefore(bleedingStart)) {
+    return `${todayDate.until(bleedingStart, ChronoUnit.DAYS)}-${todayDate.until(bleedingEnd, ChronoUnit.DAYS)}`
+  }
+  if (todayDate.isAfter(bleedingEnd)) {
+    return labels.unknown
+  }
+  return '0'
 }

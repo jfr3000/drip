@@ -4,7 +4,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import styles from '../../styles'
-import { AppText } from '../app-text'
+import AppText from '../app-text'
 
 export default class SelectBoxGroup extends Component {
   render() {

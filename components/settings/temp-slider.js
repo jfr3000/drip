@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import Slider from '@ptomasroos/react-native-multi-slider'
-import { AppText } from '../app-text'
+import AppText from '../app-text'
 import {
   scaleObservable,
   saveTempScale,

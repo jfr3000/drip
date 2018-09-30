@@ -11,7 +11,9 @@ export const shared = {
   unlock: 'Unlock',
   date: 'Date',
   cycleDayWithLinebreak: 'Cycle\nday',
-  loading: 'Loading ...'
+  loading: 'Loading ...',
+  more: 'more',
+  less: 'less'
 }
 
 export const settings = {
@@ -137,4 +139,36 @@ export const passwordPrompt = {
   areYouSureTitle: 'Are you sure?',
   areYouSure: 'Are you absolutely sure you want to permanently delete all your data?',
   reallyDeleteData: 'Yes, I am sure'
+}
+
+export const home = {
+  editToday: 'add data for today',
+  cycleDayNotEnoughInfo: "We don't have enough information to know what your current cycle day is.",
+  unknown: '?',
+  cycleDayKnown: d => `Your last period started ${getDaysDescriptor(d)}.`,
+  trackPeriod: 'track your period',
+  checkFertility: 'check your fertility',
+  phase: n => `${['1st', '2nd', '3rd'][n - 1]} cycle phase`
+}
+
+const getDaysDescriptor = cycleDayNumber => {
+  if (cycleDayNumber === 1) return 'today'
+  if (cycleDayNumber === 2) return 'yesterday'
+  return `${cycleDayNumber - 1} days ago`
+}
+
+export const fertilityStatus = {
+  fertile: 'fertile',
+  infertile: 'infertile',
+  fertileUntilEvening: 'Fertile phase ends in the evening',
+  unknown: 'We cannot show any cycle information because no period data has been added.',
+  preOvuText: "With NFP rules, you may assume 5 days of infertility at the beginning of your cycle, provided you don't observe any fertile mucus or cervix values.",
+  periOvuText: "We have not been able to detect both a temperature shift and mucus or cervix shift.",
+  postOvuText: tempRule => {
+    return (
+      'We have detected a temperature shift (' + ['regular', '1st exception', '2nd exception'][tempRule] +
+      ' temperature rule), as well as a mucus shift according to NFP rules. You may assume infertility, but always remember to ' +
+      'double-check for yourself. Make sure the data makes sense to you.'
+    )
+  }
 }

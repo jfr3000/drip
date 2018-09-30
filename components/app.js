@@ -40,20 +40,18 @@ export default class App extends Component {
   }
 
   navigate = (pageName, props) => {
-    const curr = this.state.currentPage
-    if (navigatingToCycleDayFromMainMenuEntry(pageName, curr)) {
-      this.cycleDayOrigin = curr
-    }
+    this.origin = this.state.currentPage
     this.setState({currentPage: pageName, currentProps: props})
   }
 
   handleBackButtonPress = () => {
     if (this.state.currentPage === 'Home') return false
     if (isSymptomView(this.state.currentPage)) {
-      this.navigate('CycleDay', { cycleDay: this.state.currentProps.cycleDay })
+      this.navigate(
+        this.origin, { cycleDay: this.state.currentProps.cycleDay }
+      )
     } else if(this.state.currentPage === 'CycleDay') {
-      this.navigate(this.cycleDayOrigin || 'Home')
-      this.cycleDayOrigin = null
+      this.navigate(this.origin)
     } else {
       this.navigate('Home')
     }
@@ -92,8 +90,4 @@ export default class App extends Component {
       </View>
     )
   }
-}
-
-function navigatingToCycleDayFromMainMenuEntry(target, curr) {
-  return target === 'CycleDay' && ['Home', 'Calendar', 'Chart'].indexOf(curr) > -1
 }

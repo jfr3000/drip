@@ -10,7 +10,7 @@ import { getCycleDay, getCycleDaysSortedByDate, getAmountOfCycleDays } from '../
 import styles from './styles'
 import { scaleObservable } from '../../local-storage'
 import config from '../../config'
-import { AppText } from '../app-text'
+import AppText from '../app-text'
 import { shared as labels } from '../labels'
 import BleedingIcon from '../../assets/bleeding'
 import CervixIcon from '../../assets/cervix'

@@ -4,11 +4,10 @@ import {
   Text,
   Dimensions
 } from 'react-native'
+import moment from 'moment'
 import styles, { iconStyles } from '../styles'
 import Icon from 'react-native-vector-icons/Entypo'
 import FeatherIcon from 'react-native-vector-icons/Feather'
-import { formatDateForViewHeader } from '../components/cycle-day/labels/format'
-
 
 export default class Header extends Component {
   render() {
@@ -27,7 +26,7 @@ export default class Header extends Component {
           />
           <View>
             <Text style={styles.dateHeader}>
-              {formatDateForViewHeader(this.props.date)}
+              {moment(this.props.date).format('MMMM Do YYYY')}
             </Text>
             {this.props.cycleDayNumber &&
               <Text style={styles.cycleDayNumber} >
