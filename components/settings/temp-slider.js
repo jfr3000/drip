@@ -39,8 +39,8 @@ export default class TempSlider extends Component {
   render() {
     return (
       <View style={{ alignItems: 'center' }}>
-        <AppText>{`${labels.tempScale.min} ${this.state.min}`}</AppText>
-        <AppText>{`${labels.tempScale.max} ${this.state.max}`}</AppText>
+        <AppText>{`${labels.tempScale.min} ${this.state.min.toFixed(1)}`}</AppText>
+        <AppText>{`${labels.tempScale.max} ${this.state.max.toFixed(1)}`}</AppText>
         <Slider
           values={[this.state.min, this.state.max]}
           min={config.temperatureScale.min}

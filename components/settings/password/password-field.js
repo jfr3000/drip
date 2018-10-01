@@ -1,6 +1,6 @@
 import React from 'react'
 import { TextInput } from 'react-native'
-import styles from '../../../styles'
+import styles, {secondaryColor} from '../../../styles'
 
 export default function PasswordField(props) {
   return (
@@ -11,6 +11,9 @@ export default function PasswordField(props) {
       onChangeText={props.onChangeText}
       value={props.value}
       placeholder={props.placeholder}
+      borderWidth={1}
+      borderColor={secondaryColor}
+      borderStyle={'solid'}
     />
   )
 }

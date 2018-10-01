@@ -191,9 +191,13 @@ export default StyleSheet.create({
     width: 130
   },
   settingsSegment: {
-    backgroundColor: 'lightgrey',
-    padding: 10,
-    marginBottom: 10,
+    borderColor: secondaryColor,
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderRadius: 10,
+    marginTop: defaultTopMargin,
+    marginHorizontal: defaultIndentation,
+    padding: 7,
   },
   settingsSegmentTitle: {
     fontWeight: 'bold'
