@@ -105,30 +105,6 @@ describe('sympto', () => {
         }
       })
     })
-    it('when the cervix shift is happening after tempEvalEnd', () => {
-      const values = [1,1,1,1,1,2,3,3,3,3,1,1,1,1,0,0,0,0,0,0,0]
-        .map(turnIntoCycleDayObject)
-      const status = getCervixStatus(values, 10)
-      expect(status).to.eql({
-        detected: true,
-        cervixPeakBeforeShift: {
-          date: 13,
-          cervix: {
-            opening: 1,
-            firmness: 0,
-            exclude: false
-          }
-        },
-        evaluationCompleteDay: {
-          date: 16,
-          cervix: {
-            opening: 0,
-            firmness: 0,
-            exclude: false
-          }
-        }
-      })
-    })
   })
 
   describe('detects no cervix shift', () => {
@@ -142,6 +118,12 @@ describe('sympto', () => {
       const values = [2,0,0]
         .map(turnIntoCycleDayObject)
       const status = getCervixStatus(values, 17)
+      expect(status).to.eql({ detected: false })
+    })
+    it('when the cervix shift is happening after tempEvalEnd', () => {
+      const values = [1,1,1,1,1,2,3,3,3,3,1,1,1,1,0,0,0,0,0,0,0]
+        .map(turnIntoCycleDayObject)
+      const status = getCervixStatus(values, 10)
       expect(status).to.eql({ detected: false })
     })
     it('if no days indicate fertile cervix which could be cervix peak', () => {
