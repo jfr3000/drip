@@ -625,7 +625,8 @@ describe('getAllMensesStart', () => {
     const result = getAllMensesStarts()
     expect(result.length).to.eql(2)
     expect(result).to.eql(['2018-06-01', '2018-05-01'])
-  }),
+  })
+
   it('works for two cycle starts with excluded data', () => {
     const cycleDaysSortedByDate = [
       {
@@ -649,7 +650,8 @@ describe('getAllMensesStart', () => {
     const result = getAllMensesStarts()
     expect(result.length).to.eql(2)
     expect(result).to.eql(['2018-06-01', '2018-05-01'])
-  }),
+  })
+
   it('returns an empty array if no bleeding days are given', () => {
     const cycleDaysSortedByDate = [ {} ]
 
