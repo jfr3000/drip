@@ -1,6 +1,7 @@
 import chai from 'chai'
 import dirtyChai from 'dirty-chai'
 import cycleModule from '../lib/cycle'
+import { LocalDate } from 'js-joda'
 
 const expect = chai.expect
 chai.use(dirtyChai)
@@ -662,5 +663,26 @@ describe('getAllMensesStart', () => {
     const result = getAllMensesStarts()
     expect(result.length).to.eql(0)
     expect(result).to.eql([])
+  })
+
+  it('is not slow with 500 menses starts', () => {
+    const startDate = LocalDate.parse('2018-10-01')
+    const cycleDaysSortedByDate = Array(500)
+      .fill(null)
+      .map((_, i) => {
+        return {
+          date: startDate.minusMonths(i).toString(),
+          bleeding: { value: 2 }
+        }
+      })
+    const { getAllMensesStarts } = cycleModule({
+      cycleDaysSortedByDate,
+      bleedingDaysSortedByDate: cycleDaysSortedByDate
+    })
+    const start = Date.now()
+    const result = getAllMensesStarts()
+    const duration = Date.now() - start
+    expect(result.length).to.eql(500)
+    expect(duration).to.be.lessThan(100)
   })
 })
