@@ -5,7 +5,7 @@ import { getOrCreateCycleDay, getBleedingDaysSortedByDate } from '../db'
 import cycleModule from '../lib/cycle'
 import {shadesOfRed} from '../styles/index'
 import styles from '../styles/index'
-
+import nothingChanged from '../helpers/db-unchanged'
 
 export default class CalendarView extends Component {
   constructor(props) {
@@ -21,7 +21,8 @@ export default class CalendarView extends Component {
     this.bleedingDays.addListener(this.setStateWithCalFormattedDays)
   }
 
-  setStateWithCalFormattedDays = () => {
+  setStateWithCalFormattedDays = (_, changes) => {
+    if (nothingChanged(changes)) return
     const predictedMenses = cycleModule().getPredictedMenses()
     this.setState({
       bleedingDaysInCalFormat: toCalFormat(this.bleedingDays),

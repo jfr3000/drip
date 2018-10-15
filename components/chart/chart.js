@@ -19,6 +19,7 @@ import MucusIcon from '../../assets/mucus'
 import NoteIcon from '../../assets/note'
 import PainIcon from '../../assets/pain'
 import SexIcon from '../../assets/sex'
+import nothingChanged from '../../helpers/db-unchanged'
 
 export default class CycleChart extends Component {
   constructor(props) {
@@ -48,7 +49,8 @@ export default class CycleChart extends Component {
     if (this.state.chartHeight) return
     const height = nativeEvent.layout.height
     this.setState({ chartHeight: height })
-    this.reCalculateChartInfo = () => {
+    this.reCalculateChartInfo = (_, changes) => {
+      if (nothingChanged(changes)) return
       // how many symptoms need to be displayed on the chart's upper symptom row?
       this.symptomRowSymptoms = [
         'bleeding',
