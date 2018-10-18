@@ -10,6 +10,8 @@ export const shadesOfRed = [
   '#cf323d',
   '#c3000d'
 ] // light to dark
+export const cycleDayColor = '#29287f'
+export const periodColor = '#802249'
 
 const fontRegular = 'Prompt-Light'
 const fontLight = 'Prompt-Thin'
@@ -25,6 +27,11 @@ export default StyleSheet.create({
   appText: {
     color: 'black',
     fontFamily: fontRegular,
+    fontSize: regularSize
+  },
+  appTextLight: {
+    color: 'black',
+    fontFamily: fontLight,
     fontSize: regularSize
   },
   paragraph: {
@@ -67,6 +74,58 @@ export default StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 100,
+    position: 'absolute'
+  },
+  homeView: {
+    marginHorizontal: 50,
+    marginTop: 20,
+  },
+  homeButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    alignItems: 'center',
+    width: 200,
+  },
+  homeButtonText: {
+    color: fontOnPrimaryColor
+  },
+  homeIconElement: {
+    alignItems: 'center',
+    marginBottom: 10
+  },
+  homeIconTextWrapper: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 10,
+  },
+  wrapperCycle: {
+    width: 70,
+    height: 75
+  },
+  wrapperDrop: {
+    width: 80,
+    height: 80,
+    marginTop: 20
+  },
+  homeCircle: {
+    borderRadius: 100,
+    borderWidth: 0.5,
+    width: 80,
+    height: 80,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: secondaryColor,
+  },
+  iconText: {
+    fontSize: 25
+  },
+  showMore: {
+    transform: [{rotate: '90deg'}],
+    position: 'absolute',
+  },
+  showLess: {
+    transform: [{rotate: '270deg'}],
     position: 'absolute'
   },
   cycleDayNumber: {
@@ -167,12 +226,6 @@ export default StyleSheet.create({
   navigationArrow: {
     fontSize: 60,
     color: fontOnPrimaryColor
-  },
-  homeButtons: {
-    marginHorizontal: 15
-  },
-  homeButton: {
-    marginBottom: 15
   },
   temperatureTextInput: {
     fontSize: 20,

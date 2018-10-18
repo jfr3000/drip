@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 import styles from '../../styles/index'
 import { settings as labels } from '../labels'
-import { AppText } from '../app-text'
+import AppText from '../app-text'
 import TempReminderPicker from './temp-reminder-picker'
 import PeriodReminderPicker from './period-reminder'
 import TempSlider from './temp-slider'

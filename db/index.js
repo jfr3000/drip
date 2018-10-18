@@ -3,14 +3,6 @@ import { LocalDate, ChronoUnit } from 'js-joda'
 import nodejs from 'nodejs-mobile-react-native'
 import fs from 'react-native-fs'
 import restart from 'react-native-restart'
-import {
-  cycleWithFhmMucus,
-  longAndComplicatedCycleWithMucus,
-  cycleWithTempAndNoMucusShift,
-  cervixShiftAndFhmOnSameDay,
-  longAndComplicatedCycleWithCervix,
-  cycleWithTempAndNoCervixShift
-} from './fixtures'
 import schemas from './schemas'
 
 let db
@@ -73,56 +65,6 @@ export function getOrCreateCycleDay(localDate) {
 
 export function getCycleDay(localDate) {
   return db.objectForPrimaryKey('CycleDay', localDate)
-}
-
-export function fillWithMucusDummyData() {
-  const dummyCycles = [
-    cycleWithFhmMucus,
-    longAndComplicatedCycleWithMucus,
-    cycleWithTempAndNoMucusShift
-  ]
-
-  db.write(() => {
-    db.deleteAll()
-    dummyCycles.forEach(cycle => {
-      cycle.forEach(day => {
-        const existing = getCycleDay(day.date)
-        if (existing) {
-          Object.keys(day).forEach(key => {
-            if (key === 'date') return
-            existing[key] = day[key]
-          })
-        } else {
-          db.create('CycleDay', day)
-        }
-      })
-    })
-  })
-}
-
-export function fillWithCervixDummyData() {
-  const dummyCycles = [
-    cervixShiftAndFhmOnSameDay,
-    longAndComplicatedCycleWithCervix,
-    cycleWithTempAndNoCervixShift
-  ]
-
-  db.write(() => {
-    db.deleteAll()
-    dummyCycles.forEach(cycle => {
-      cycle.forEach(day => {
-        const existing = getCycleDay(day.date)
-        if (existing) {
-          Object.keys(day).forEach(key => {
-            if (key === 'date') return
-            existing[key] = day[key]
-          })
-        } else {
-          db.create('CycleDay', day)
-        }
-      })
-    })
-  })
 }
 
 export function getPreviousTemperature(cycleDay) {

@@ -8,7 +8,7 @@ import styles from '../styles/index'
 import cycleModule from '../lib/cycle'
 import {getCycleLengthStats as getCycleInfo} from '../lib/cycle-length'
 import {stats as labels} from './labels'
-import { AppText } from './app-text'
+import AppText from './app-text'
 
 export default class Stats extends Component {
   render() {

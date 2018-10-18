@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
-import { bleeding as labels } from '../labels/labels'
+import { bleeding as labels } from '../labels'
 import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
 import SymptomSection from './symptom-section'

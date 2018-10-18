@@ -5,7 +5,7 @@ import {
   Switch
 } from 'react-native'
 import DateTimePicker from 'react-native-modal-datetime-picker-nevo'
-import { AppText } from '../app-text'
+import AppText from '../app-text'
 import {
   tempReminderObservable,
   saveTempReminder

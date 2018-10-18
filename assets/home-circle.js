@@ -3,7 +3,7 @@ import Svg, { G, Path } from 'react-native-svg'
 
 export default function HomeCycleIcon() {
   return (
-    <Svg width={140} height={100} viewBox='200 200 350 350'>
+    <Svg width={80} height={80} viewBox='340 345 170 170'>
       <G>
         <Path fill="none" stroke="#1E0B7A" strokeWidth="2" d="M379.708,350.568
 		C356.431,365.455,341,391.529,341,421.21c0,46.275,37.515,83.79,83.791,83.79s83.79-37.515,83.79-83.79

@@ -65,13 +65,6 @@ export const pain = {
   explainer: 'How did your body feel today?'
 }
 
-export const fertilityStatus = {
-  fertile: 'fertile',
-  infertile: 'infertile',
-  fertileUntilEvening: 'Fertile phase ends in the evening',
-  unknown: 'We cannot show any cycle information because no menses has been entered'
-}
-
 export const temperature = {
   outOfRangeWarning: 'This temperature value is out of the current range for the temperature chart. You can change the range in the settings.',
   outOfAbsoluteRangeWarning: 'This temperature value is too high or low to be shown on the temperature chart.',

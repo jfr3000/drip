@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import CreatePassword from './create'
 import ChangePassword from './update'
 import DeletePassword from './delete'
-import { AppText } from '../../app-text'
+import AppText from '../../app-text'
 import {
   hasEncryptionObservable
 } from '../../../local-storage'

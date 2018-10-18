@@ -4,7 +4,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import nodejs from 'nodejs-mobile-react-native'
-import { AppText } from '../../app-text'
+import AppText from '../../app-text'
 import styles from '../../../styles'
 import { settings as labels } from '../../labels'
 import { requestHash, changeEncryptionAndRestartApp } from '../../../db'
