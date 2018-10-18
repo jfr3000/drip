@@ -7,7 +7,12 @@ export default function () {
   }
 
   function updateCurrentCycle(dateString) {
-    cycle.status = getCycleStatusForDay(dateString)
+    // for the NFP lines, we don't care about potentially extending the
+    // preOvu phase, so we don't include all earlier cycles, as that is
+    // an expensive db operation at the moment
+    cycle.status = getCycleStatusForDay(
+      dateString, { excludeEarlierCycles: true }
+    )
     if(!cycle.status) {
       cycle.noMoreCycles = true
       return

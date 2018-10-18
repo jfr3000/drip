@@ -3,10 +3,10 @@ import { View, FlatList } from 'react-native'
 import range from 'date-range'
 import { LocalDate } from 'js-joda'
 import Svg, { G } from 'react-native-svg'
-import { makeYAxisLabels, normalizeToScale, makeHorizontalGrid } from './y-axis'
+import { makeYAxisLabels, makeHorizontalGrid } from './y-axis'
 import nfpLines from './nfp-lines'
 import DayColumn from './day-column'
-import { getCycleDay, getCycleDaysSortedByDate, getAmountOfCycleDays } from '../../db'
+import { getCycleDaysSortedByDate, getAmountOfCycleDays } from '../../db'
 import styles from './styles'
 import { scaleObservable } from '../../local-storage'
 import config from '../../config'
@@ -24,20 +24,24 @@ export default class CycleChart extends Component {
   constructor(props) {
     super(props)
     this.state = {}
-    this.renderColumn = ({item, index}) => {
-      return (
-        <DayColumn
-          {...item}
-          index={index}
-          navigate={this.props.navigate}
-          symptomHeight={this.symptomHeight}
-          columnHeight={this.columnHeight}
-          chartHeight={this.state.chartHeight}
-          symptomRowSymptoms={this.symptomRowSymptoms}
-        />
-      )
-    }
     this.cycleDaysSortedByDate = getCycleDaysSortedByDate()
+    this.getFhmAndLtlInfo = nfpLines()
+  }
+
+  renderColumn = ({ item, index }) => {
+    return (
+      <DayColumn
+        dateString={item}
+        index={index}
+        navigate={this.props.navigate}
+        symptomHeight={this.symptomHeight}
+        columnHeight={this.columnHeight}
+        chartHeight={this.state.chartHeight}
+        symptomRowSymptoms={this.symptomRowSymptoms}
+        chartSymptoms={this.chartSymptoms}
+        getFhmAndLtlInfo={this.getFhmAndLtlInfo}
+      />
+    )
   }
 
   onLayout = ({ nativeEvent }) => {
@@ -67,12 +71,12 @@ export default class CycleChart extends Component {
         this.symptomHeight
       this.columnHeight = remainingHeight - this.symptomRowHeight
 
-      const chartSymptoms = [...this.symptomRowSymptoms]
+      this.chartSymptoms = [...this.symptomRowSymptoms]
       if (this.cycleDaysSortedByDate.some(day => day.temperature)) {
-        chartSymptoms.push('temperature')
+        this.chartSymptoms.push('temperature')
       }
 
-      const columnData = this.makeColumnInfo(nfpLines(), chartSymptoms)
+      const columnData = this.makeColumnInfo()
       this.setState({ columns: columnData })
     }
 
@@ -85,7 +89,7 @@ export default class CycleChart extends Component {
     this.removeObvListener()
   }
 
-  makeColumnInfo(getFhmAndLtlInfo, chartSymptoms) {
+  makeColumnInfo() {
     let amountOfCycleDays = getAmountOfCycleDays()
     // if there's not much data yet, we want to show at least 30 days on the chart
     if (amountOfCycleDays < 30) {
@@ -95,58 +99,12 @@ export default class CycleChart extends Component {
       amountOfCycleDays += 5
     }
     const jsDates = getTodayAndPreviousDays(amountOfCycleDays)
-    const xAxisDates = jsDates.map(jsDate => {
+    return jsDates.map(jsDate => {
       return LocalDate.of(
         jsDate.getFullYear(),
         jsDate.getMonth() + 1,
         jsDate.getDate()
       ).toString()
-    })
-
-    const columns = xAxisDates.map(dateString => {
-      const column = { dateString }
-      const cycleDay = getCycleDay(dateString)
-      let symptoms = {}
-
-      if (cycleDay) {
-        symptoms = chartSymptoms.reduce((acc, symptom) => {
-          if (symptom === 'bleeding' ||
-          symptom === 'temperature' ||
-          symptom === 'mucus' ||
-          symptom === 'desire' ||
-          symptom === 'note'
-          ) {
-            acc[symptom] = cycleDay[symptom] && cycleDay[symptom].value
-          } else if (symptom === 'cervix') {
-            acc.cervix = cycleDay.cervix &&
-            (cycleDay.cervix.opening + cycleDay.cervix.firmness)
-          } else if (symptom === 'sex') {
-          // solo = 1 + partner = 2
-            acc.sex = cycleDay.sex &&
-            (cycleDay.sex.solo + 2 * cycleDay.sex.partner)
-          } else if (symptom === 'pain') {
-          // is any pain documented?
-            acc.pain = cycleDay.pain &&
-            Object.values(cycleDay.pain).some(x => x === true)
-          }
-          acc[`${symptom}Exclude`] = cycleDay[symptom] && cycleDay[symptom].exclude
-          return acc
-        }, {})
-
-      }
-
-      const temp = symptoms.temperature
-      if (temp) {
-        column.y = normalizeToScale(temp, this.columnHeight)
-      }
-
-      const fhmAndLtl = getFhmAndLtlInfo(dateString, temp, this.columnHeight)
-      return Object.assign(column, symptoms, fhmAndLtl)
-    })
-
-    return columns.map((col, i) => {
-      const info = getInfoForNeighborColumns(i, columns)
-      return Object.assign(col, info)
     })
   }
 
@@ -217,9 +175,10 @@ export default class CycleChart extends Component {
             showsHorizontalScrollIndicator={false}
             data={this.state.columns}
             renderItem={this.renderColumn}
-            keyExtractor={item => item.dateString}
+            keyExtractor={item => item}
             initialNumToRender={15}
             maxToRenderPerBatch={5}
+            windowSize={30}
             onLayout={() => this.setState({chartLoaded: true})}
           />
         }
@@ -227,7 +186,6 @@ export default class CycleChart extends Component {
     )
   }
 }
-
 
 function getTodayAndPreviousDays(n) {
   const today = new Date()
@@ -238,26 +196,6 @@ function getTodayAndPreviousDays(n) {
   const earlierDate = new Date(today - (range.DAY * n))
 
   return range(earlierDate, today).reverse()
-}
-
-function getInfoForNeighborColumns(index, cols) {
-  const ret = {
-    rightY: null,
-    rightTemperatureExclude: null,
-    leftY: null,
-    leftTemperatureExclude: null
-  }
-  const right = index > 0 ? cols[index - 1] : undefined
-  const left = index < cols.length - 1 ? cols[index + 1] : undefined
-  if (right && right.y) {
-    ret.rightY = right.y
-    ret.rightTemperatureExclude = right.temperatureExclude
-  }
-  if (left && left.y) {
-    ret.leftY = left.y
-    ret.leftTemperatureExclude = left.temperatureExclude
-  }
-  return ret
 }
 
 const symptomIcons = {
