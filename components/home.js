@@ -11,7 +11,7 @@ import { getOrCreateCycleDay, getCycleDaysSortedByDate } from '../db'
 import { getFertilityStatusForDay } from '../lib/sympto-adapter'
 import styles from '../styles'
 import AppText, { AppTextLight } from './app-text'
-import nothingChanged from '../helpers/db-unchanged'
+import nothingChanged from '../db/db-unchanged'
 
 export default class Home extends Component {
   constructor(props) {

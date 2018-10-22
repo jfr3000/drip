@@ -19,7 +19,7 @@ import MucusIcon from '../../assets/mucus'
 import NoteIcon from '../../assets/note'
 import PainIcon from '../../assets/pain'
 import SexIcon from '../../assets/sex'
-import nothingChanged from '../../helpers/db-unchanged'
+import nothingChanged from '../../db/db-unchanged'
 
 export default class CycleChart extends Component {
   constructor(props) {

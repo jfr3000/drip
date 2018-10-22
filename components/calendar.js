@@ -5,7 +5,7 @@ import { getOrCreateCycleDay, getBleedingDaysSortedByDate } from '../db'
 import cycleModule from '../lib/cycle'
 import {shadesOfRed} from '../styles/index'
 import styles from '../styles/index'
-import nothingChanged from '../helpers/db-unchanged'
+import nothingChanged from '../db/db-unchanged'
 
 export default class CalendarView extends Component {
   constructor(props) {
