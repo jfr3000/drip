@@ -828,3 +828,175 @@ describe('isMensesStart', () => {
     expect(start).to.be.true()
   })
 })
+
+describe('getMensesDaysAfter', () => {
+  it('works for simple menses start', () => {
+    const cycleDaysSortedByDate = [
+      {
+        date: '2018-05-04',
+      },
+      {
+        date: '2018-05-03',
+        bleeding: { value: 1 }
+      },
+      {
+        date: '2018-05-02',
+        bleeding: { value: 1 }
+      },
+      {
+        date: '2018-05-01',
+        bleeding: { value: 1 }
+      },
+      {
+        date: '2018-04-30',
+      }
+    ]
+
+    const { getMensesDaysAfter } = cycleModule({
+      cycleDaysSortedByDate,
+      bleedingDaysSortedByDate: cycleDaysSortedByDate.filter(d => d.bleeding)
+    })
+    const days = getMensesDaysAfter(cycleDaysSortedByDate[3])
+    expect(days).to.eql([
+      {
+        date: '2018-05-03',
+        bleeding: { value: 1 }
+      },
+      {
+        date: '2018-05-02',
+        bleeding: { value: 1 }
+      }
+    ])
+  })
+
+  it('ignores excluded values', () => {
+    const cycleDaysSortedByDate = [
+      {
+        date: '2018-05-04',
+      },
+      {
+        date: '2018-05-03',
+        bleeding: { value: 1 }
+      },
+      {
+        date: '2018-05-02',
+        bleeding: { value: 1, exclude: true }
+      },
+      {
+        date: '2018-05-01',
+        bleeding: { value: 1 }
+      },
+      {
+        date: '2018-04-30',
+      }
+    ]
+
+    const { getMensesDaysAfter } = cycleModule({
+      cycleDaysSortedByDate,
+      bleedingDaysSortedByDate: cycleDaysSortedByDate.filter(d => d.bleeding)
+    })
+    const days = getMensesDaysAfter(cycleDaysSortedByDate[3])
+    expect(days).to.eql([
+      {
+        date: '2018-05-03',
+        bleeding: { value: 1 }
+      }
+    ])
+  })
+
+  it('returns empty when there are no bleeding days after', () => {
+    const cycleDaysSortedByDate = [
+      {
+        date: '2018-05-04',
+      },
+      {
+        date: '2018-05-03',
+      },
+      {
+        date: '2018-05-02',
+      },
+      {
+        date: '2018-05-01',
+        bleeding: { value: 1 }
+      },
+      {
+        date: '2018-04-30',
+      }
+    ]
+
+    const { getMensesDaysAfter } = cycleModule({
+      cycleDaysSortedByDate,
+      bleedingDaysSortedByDate: cycleDaysSortedByDate.filter(d => d.bleeding)
+    })
+    const days = getMensesDaysAfter(cycleDaysSortedByDate[3])
+    expect(days).to.eql([])
+  })
+
+  it('returns empty when there are no bleeding days within threshold', () => {
+    const cycleDaysSortedByDate = [
+      {
+        date: '2018-05-04',
+        bleeding: { value: 1 }
+      },
+      {
+        date: '2018-05-03',
+      },
+      {
+        date: '2018-05-02',
+      },
+      {
+        date: '2018-05-01',
+        bleeding: { value: 1 }
+      },
+      {
+        date: '2018-04-30',
+      }
+    ]
+
+    const { getMensesDaysAfter } = cycleModule({
+      cycleDaysSortedByDate,
+      bleedingDaysSortedByDate: cycleDaysSortedByDate.filter(d => d.bleeding)
+    })
+    const days = getMensesDaysAfter(cycleDaysSortedByDate[3])
+    expect(days).to.eql([])
+  })
+
+  it('includes days within the treshold', () => {
+    const cycleDaysSortedByDate = [
+      {
+        date: '2018-05-04',
+      },
+      {
+        date: '2018-05-05',
+        bleeding: { value: 1 }
+      },
+      {
+        date: '2018-05-03',
+        bleeding: { value: 1 }
+      },
+      {
+        date: '2018-05-01',
+        bleeding: { value: 1 }
+      },
+      {
+        date: '2018-04-30',
+      }
+    ]
+
+    const { getMensesDaysAfter } = cycleModule({
+      cycleDaysSortedByDate,
+      bleedingDaysSortedByDate: cycleDaysSortedByDate.filter(d => d.bleeding)
+    })
+    const days = getMensesDaysAfter(cycleDaysSortedByDate[3])
+    expect(days).to.eql([
+      {
+        date: '2018-05-05',
+        bleeding: { value: 1 }
+      },
+      {
+        date: '2018-05-03',
+        bleeding: { value: 1 }
+      }
+    ])
+  })
+})
