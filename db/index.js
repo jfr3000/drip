@@ -4,8 +4,11 @@ import nodejs from 'nodejs-mobile-react-native'
 import fs from 'react-native-fs'
 import restart from 'react-native-restart'
 import schemas from './schemas'
+import cycleModule from '../lib/cycle'
 
 let db
+let isMensesStart
+let getMensesDaysAfter
 
 export async function openDb ({ hash, persistConnection }) {
   const realmConfig = {}
@@ -32,6 +35,9 @@ export async function openDb ({ hash, persistConnection }) {
   ))
 
   if (persistConnection) db = connection
+  const cycle = cycleModule()
+  isMensesStart = cycle.isMensesStart
+  getMensesDaysAfter = cycle.getMensesDaysAfter
 }
 
 
@@ -47,8 +53,49 @@ export function getCycleDaysSortedByDate() {
 
 export function saveSymptom(symptom, cycleDay, val) {
   db.write(() => {
-    cycleDay[symptom] = val
+    if (symptom === 'bleeding') {
+      saveBleeding(cycleDay, val)
+    } else {
+      cycleDay[symptom] = val
+    }
   })
+}
+
+export function saveBleeding(cycleDay, bleeding) {
+  if (!bleeding) {
+    updateCycleDayAndMaybeSetNewCycleStart(cycleDay, bleeding)
+  } else {
+    cycleDay.bleeding = bleeding
+    cycleDay.isCycleStart = isMensesStart(cycleDay)
+    maybeClearOldCycleStartsInThisMenses(cycleDay)
+  }
+
+  function updateCycleDayAndMaybeSetNewCycleStart(oldCycleDay, newValue) {
+    // if a bleeding value is deleted, we need to check if
+    // there are any following bleeding days and if the
+    // next one of them is now a cycle start
+
+    // in order to get the menses days, the cycle day in question still
+    // has to have a bleeding value, so we get those days first and only
+    // then update the cycle day
+    const mensesDaysAfter = getMensesDaysAfter(oldCycleDay)
+    oldCycleDay.bleeding = newValue
+
+    if (!mensesDaysAfter.length) return
+
+    const nextOne = mensesDaysAfter[mensesDaysAfter.length - 1]
+    if (isMensesStart(nextOne)) {
+      nextOne.isCycleStart = true
+    }
+  }
+
+  function maybeClearOldCycleStartsInThisMenses(cycleDay) {
+    // if we have a new bleeding day, we need to clear the
+    // menses start marker from all following days of this
+    // menses that may have been marked as start before
+    const mensesDaysAfter = getMensesDaysAfter(cycleDay)
+    mensesDaysAfter.forEach(day => day.isCycleStart = false)
+  }
 }
 
 export function getOrCreateCycleDay(localDate) {
@@ -56,7 +103,8 @@ export function getOrCreateCycleDay(localDate) {
   if (!result) {
     db.write(() => {
       result = db.create('CycleDay', {
-        date: localDate
+        date: localDate,
+        isCycleStart: false
       })
     })
   }
