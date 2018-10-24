@@ -19,6 +19,7 @@ import MucusIcon from '../../assets/mucus'
 import NoteIcon from '../../assets/note'
 import PainIcon from '../../assets/pain'
 import SexIcon from '../../assets/sex'
+import nothingChanged from '../../db/db-unchanged'
 
 export default class CycleChart extends Component {
   constructor(props) {
@@ -47,8 +48,7 @@ export default class CycleChart extends Component {
   onLayout = ({ nativeEvent }) => {
     if (this.state.chartHeight) return
     const height = nativeEvent.layout.height
-    this.setState({ chartHeight: height })
-    this.reCalculateChartInfo = () => {
+    const reCalculateChartInfo = () => {
       // how many symptoms need to be displayed on the chart's upper symptom row?
       this.symptomRowSymptoms = [
         'bleeding',
@@ -64,8 +64,8 @@ export default class CycleChart extends Component {
         })
       })
 
-      this.xAxisHeight = this.state.chartHeight * config.xAxisHeightPercentage
-      const remainingHeight = this.state.chartHeight - this.xAxisHeight
+      this.xAxisHeight = height * config.xAxisHeightPercentage
+      const remainingHeight = height - this.xAxisHeight
       this.symptomHeight = config.symptomHeightPercentage * remainingHeight
       this.symptomRowHeight = this.symptomRowSymptoms.length *
         this.symptomHeight
@@ -76,16 +76,35 @@ export default class CycleChart extends Component {
         this.chartSymptoms.push('temperature')
       }
 
-      const columnData = this.makeColumnInfo()
-      this.setState({ columns: columnData })
+      const columnData = this.makeColumnInfo(nfpLines(), this.chartSymptoms)
+      this.setState({
+        columns: columnData,
+        chartHeight: height
+      })
     }
 
-    this.cycleDaysSortedByDate.addListener(this.reCalculateChartInfo)
-    this.removeObvListener = scaleObservable(this.reCalculateChartInfo, false)
+    reCalculateChartInfo()
+    this.updateListeners(reCalculateChartInfo)
+  }
+
+  updateListeners(dataUpdateHandler) {
+    // remove existing listeners
+    if(this.handleDbChange) {
+      this.cycleDaysSortedByDate.removeListener(this.handleDbChange)
+    }
+    if (this.removeObvListener) this.removeObvListener()
+
+    this.handleDbChange = (_, changes) => {
+      if (nothingChanged(changes)) return
+      dataUpdateHandler()
+    }
+
+    this.cycleDaysSortedByDate.addListener(this.handleDbChange)
+    this.removeObvListener = scaleObservable(dataUpdateHandler, false)
   }
 
   componentWillUnmount() {
-    this.cycleDaysSortedByDate.removeListener(this.reCalculateChartInfo)
+    this.cycleDaysSortedByDate.removeListener(this.handleDbChange)
     this.removeObvListener()
   }
 

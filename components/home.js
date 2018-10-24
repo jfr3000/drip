@@ -11,6 +11,7 @@ import { getOrCreateCycleDay, getCycleDaysSortedByDate } from '../db'
 import { getFertilityStatusForDay } from '../lib/sympto-adapter'
 import styles from '../styles'
 import AppText, { AppTextLight } from './app-text'
+import nothingChanged from '../db/db-unchanged'
 
 export default class Home extends Component {
   constructor(props) {
@@ -32,7 +33,8 @@ export default class Home extends Component {
     this.cycleDays.addListener(this.updateState)
   }
 
-  updateState = () => {
+  updateState = (_, changes) => {
+    if (nothingChanged(changes)) return
     const prediction = this.getBleedingPrediction()
     const fertilityStatus = getFertilityStatusForDay(this.todayDateString)
     this.setState({
