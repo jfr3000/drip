@@ -65,6 +65,7 @@ export function saveSymptom(symptom, cycleDay, val) {
   })
 }
 
+// TODO this also needs a test
 export function saveBleeding(cycleDay, bleeding) {
   if (!bleeding) {
     updateCycleDayAndMaybeSetNewCycleStart(cycleDay, bleeding)
@@ -84,6 +85,7 @@ export function saveBleeding(cycleDay, bleeding) {
     // then update the cycle day
     const mensesDaysAfter = getMensesDaysAfter(oldCycleDay)
     oldCycleDay.bleeding = newValue
+    oldCycleDay.isCycleStart = false
 
     if (!mensesDaysAfter.length) return
 
