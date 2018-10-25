@@ -51,6 +51,10 @@ export function getCycleDaysSortedByDate() {
   return db.objects('CycleDay').sorted('date', true)
 }
 
+export function getCycleStartsSortedByDate() {
+  return db.objects('CycleDay').filtered('isCycleStart = true').sorted('date', true)
+}
+
 export function saveSymptom(symptom, cycleDay, val) {
   db.write(() => {
     if (symptom === 'bleeding') {
