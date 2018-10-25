@@ -8,7 +8,7 @@ import cycleModule from '../lib/cycle'
 
 let db
 let isMensesStart
-let getMensesDaysAfter
+let getMensesDaysRightAfter
 
 export async function openDb ({ hash, persistConnection }) {
   const realmConfig = {}
@@ -37,7 +37,7 @@ export async function openDb ({ hash, persistConnection }) {
   if (persistConnection) db = connection
   const cycle = cycleModule()
   isMensesStart = cycle.isMensesStart
-  getMensesDaysAfter = cycle.getMensesDaysAfter
+  getMensesDaysRightAfter = cycle.getMensesDaysRightAfter
 }
 
 
@@ -57,51 +57,48 @@ export function getCycleStartsSortedByDate() {
 
 export function saveSymptom(symptom, cycleDay, val) {
   db.write(() => {
-    if (symptom === 'bleeding') {
-      saveBleeding(cycleDay, val)
+    if (bleedingValueDeleted(symptom, val)) {
+      cycleDay.bleeding = val
+      cycleDay.isCycleStart = false
+      maybeSetNewCycleStart(cycleDay, val)
+    } else if (bleedingValueAddedOrChanged(symptom, val)) {
+      cycleDay.bleeding = val
+      cycleDay.isCycleStart = isMensesStart(cycleDay)
+      maybeClearOldCycleStarts(cycleDay)
     } else {
       cycleDay[symptom] = val
     }
   })
-}
 
-// TODO this also needs a test
-export function saveBleeding(cycleDay, bleeding) {
-  if (!bleeding) {
-    updateCycleDayAndMaybeSetNewCycleStart(cycleDay, bleeding)
-  } else {
-    cycleDay.bleeding = bleeding
-    cycleDay.isCycleStart = isMensesStart(cycleDay)
-    maybeClearOldCycleStartsInThisMenses(cycleDay)
+  function bleedingValueDeleted(symptom, val) {
+    return symptom === 'bleeding' && !val
   }
 
-  function updateCycleDayAndMaybeSetNewCycleStart(oldCycleDay, newValue) {
+  function bleedingValueAddedOrChanged(symptom, val) {
+    return symptom === 'bleeding' && val
+  }
+
+  function maybeSetNewCycleStart(dayWithDeletedBleeding) {
     // if a bleeding value is deleted, we need to check if
     // there are any following bleeding days and if the
     // next one of them is now a cycle start
-
-    // in order to get the menses days, the cycle day in question still
-    // has to have a bleeding value, so we get those days first and only
-    // then update the cycle day
-    const mensesDaysAfter = getMensesDaysAfter(oldCycleDay)
-    oldCycleDay.bleeding = newValue
-    oldCycleDay.isCycleStart = false
-
+    const mensesDaysAfter = getMensesDaysRightAfter(dayWithDeletedBleeding)
     if (!mensesDaysAfter.length) return
-
     const nextOne = mensesDaysAfter[mensesDaysAfter.length - 1]
     if (isMensesStart(nextOne)) {
       nextOne.isCycleStart = true
     }
   }
 
-  function maybeClearOldCycleStartsInThisMenses(cycleDay) {
+  function maybeClearOldCycleStarts(cycleDay) {
     // if we have a new bleeding day, we need to clear the
     // menses start marker from all following days of this
     // menses that may have been marked as start before
-    const mensesDaysAfter = getMensesDaysAfter(cycleDay)
+    const mensesDaysAfter = getMensesDaysRightAfter(cycleDay)
     mensesDaysAfter.forEach(day => day.isCycleStart = false)
   }
+
+
 }
 
 export function getOrCreateCycleDay(localDate) {
