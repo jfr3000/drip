@@ -5,8 +5,6 @@ import cycleModule from '../lib/cycle'
 const expect = chai.expect
 chai.use(dirtyChai)
 
-// TODO getPreviousCycle
-
 describe('getCycleDayNumber', () => {
   it('works for a simple example', () => {
     const cycleStarts = [{
@@ -75,6 +73,179 @@ describe('getCycleDayNumber', () => {
   })
 
 
+})
+
+describe('getPreviousCycle', () => {
+  it('gets previous cycle', () => {
+    const cycleDaysSortedByDate = [
+      {
+        date: '2018-07-05',
+        bleeding: { value: 2 }
+      },
+      {
+        date: '2018-06-05',
+        bleeding: { value: 2 }
+      },
+      {
+        date: '2018-05-05',
+        mucus: { value: 2 }
+      },
+      {
+        date: '2018-05-04',
+        bleeding: { value: 2 }
+      },
+      {
+        date: '2018-05-03',
+        bleeding: { value: 2 }
+      },
+      {
+        date: '2018-04-05',
+        mucus: { value: 2 }
+      },
+      {
+        date: '2018-04-04',
+        mucus: { value: 2 }
+      },
+      {
+        date: '2018-04-03',
+        mucus: { value: 2 }
+      },
+      {
+        date: '2018-04-02',
+        bleeding: { value: 2 }
+      },
+    ]
+
+    const cycleStarts = [
+      '2018-07-05',
+      '2018-06-05',
+      '2018-05-03',
+      '2018-04-02'
+    ]
+
+    const { getPreviousCycle } = cycleModule({
+      cycleDaysSortedByDate,
+      cycleStartsSortedByDate: cycleDaysSortedByDate.filter(d => {
+        return cycleStarts.includes(d.date)
+      })
+    })
+    const result = getPreviousCycle('2018-06-08')
+    expect(result).to.eql([
+      {
+        date: '2018-05-05',
+        mucus: { value: 2 }
+      },
+      {
+        date: '2018-05-04',
+        bleeding: { value: 2 }
+      },
+      {
+        date: '2018-05-03',
+        bleeding: { value: 2 }
+      }
+    ])
+  })
+
+  it('returns null when target days is not in a cyle', () => {
+    const cycleDaysSortedByDate = [
+      {
+        date: '2018-07-05',
+      },
+      {
+        date: '2018-06-05',
+      },
+      {
+        date: '2018-05-05',
+      },
+      {
+        date: '2018-05-04',
+      },
+      {
+        date: '2018-05-03',
+      },
+      {
+        date: '2018-04-05',
+      },
+      {
+        date: '2018-04-04',
+        mucus: { value: 2 }
+      },
+      {
+        date: '2018-04-03',
+      },
+      {
+        date: '2018-04-02',
+      },
+    ]
+
+    const cycleStarts = []
+
+    const { getPreviousCycle } = cycleModule({
+      cycleDaysSortedByDate,
+      cycleStartsSortedByDate: cycleDaysSortedByDate.filter(d => {
+        return cycleStarts.includes(d.date)
+      })
+    })
+    const result = getPreviousCycle('2018-06-08')
+    expect(result).to.eql(null)
+  })
+
+  it('returns null when there is no previous cycle', () => {
+    const cycleDaysSortedByDate = [
+      {
+        date: '2018-07-05',
+        bleeding: { value: 2 }
+      },
+      {
+        date: '2018-06-05',
+        bleeding: { value: 2 }
+      },
+      {
+        date: '2018-05-05',
+        mucus: { value: 2 }
+      },
+      {
+        date: '2018-05-04',
+        bleeding: { value: 2 }
+      },
+      {
+        date: '2018-05-03',
+        bleeding: { value: 2 }
+      },
+      {
+        date: '2018-04-05',
+        mucus: { value: 2 }
+      },
+      {
+        date: '2018-04-04',
+        mucus: { value: 2 }
+      },
+      {
+        date: '2018-04-03',
+        mucus: { value: 2 }
+      },
+      {
+        date: '2018-04-02',
+        bleeding: { value: 2 }
+      },
+    ]
+
+    const cycleStarts = [
+      '2018-07-05',
+      '2018-06-05',
+      '2018-05-03',
+      '2018-04-02'
+    ]
+
+    const { getPreviousCycle } = cycleModule({
+      cycleDaysSortedByDate,
+      cycleStartsSortedByDate: cycleDaysSortedByDate.filter(d => {
+        return cycleStarts.includes(d.date)
+      })
+    })
+    const result = getPreviousCycle('2018-04-18')
+    expect(result).to.eql(null)
+  })
 })
 
 describe('getCyclesBefore', () => {
