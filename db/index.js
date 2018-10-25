@@ -40,7 +40,6 @@ export async function openDb ({ hash, persistConnection }) {
   getMensesDaysRightAfter = cycle.getMensesDaysRightAfter
 }
 
-
 export function getBleedingDaysSortedByDate() {
   return db.objects('CycleDay').filtered('bleeding != null').sorted('date', true)
 }
@@ -97,8 +96,16 @@ export function saveSymptom(symptom, cycleDay, val) {
     const mensesDaysAfter = getMensesDaysRightAfter(cycleDay)
     mensesDaysAfter.forEach(day => day.isCycleStart = false)
   }
+}
 
-
+export function updateCycleStartsForAllCycleDays() {
+  db.write(() => {
+    getBleedingDaysSortedByDate().forEach(day => {
+      if (isMensesStart(day)) {
+        day.isCycleStart = true
+      }
+    })
+  })
 }
 
 export function getOrCreateCycleDay(localDate) {
@@ -128,8 +135,10 @@ export function getPreviousTemperature(cycleDay) {
   return winner.temperature.value
 }
 
-export function tryToCreateCycleDay(day, i) {
+function tryToCreateCycleDayFromImport(day, i) {
   try {
+    // we cannot know this yet, gets detected afterwards
+    day.isCycleStart = false
     db.create('CycleDay', day)
   } catch (err) {
     const msg = `Line ${i + 1}(${day.date}): ${err.message}`
@@ -157,7 +166,7 @@ export function getSchema() {
 export function tryToImportWithDelete(cycleDays) {
   db.write(() => {
     db.delete(db.objects('CycleDay'))
-    cycleDays.forEach(tryToCreateCycleDay)
+    cycleDays.forEach(tryToCreateCycleDayFromImport)
   })
 }
 
@@ -166,7 +175,7 @@ export function tryToImportWithoutDelete(cycleDays) {
     cycleDays.forEach((day, i) => {
       const existing = getCycleDay(day.date)
       if (existing) db.delete(existing)
-      tryToCreateCycleDay(day, i)
+      tryToCreateCycleDayFromImport(day, i)
     })
   })
 }
