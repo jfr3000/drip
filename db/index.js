@@ -29,15 +29,24 @@ export async function openDb ({ hash, persistConnection }) {
 
   // open the Realm with the latest schema
   realmConfig.schema = schemas[schemas.length - 1]
-  const connection = await Realm.open(Object.assign(
+  let connection
+  try {
+    connection = await Realm.open(Object.assign(
     realmConfig,
     schemas[schemas.length - 1]
   ))
+  } catch(err) {
+    if (!err.toString().includes('decrypt')) throw err
+    return false
+  }
 
-  if (persistConnection) db = connection
+  if (persistConnection) {
+    db = connection
   const cycle = cycleModule()
   isMensesStart = cycle.isMensesStart
   getMensesDaysRightAfter = cycle.getMensesDaysRightAfter
+}
+  return true
 }
 
 export function getBleedingDaysSortedByDate() {
