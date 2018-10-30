@@ -10,14 +10,28 @@ let db
 let isMensesStart
 let getMensesDaysRightAfter
 
-export async function openDb ({ hash, persistConnection }) {
+export async function openDb (hash) {
   const realmConfig = {}
   if (hash) {
     realmConfig.encryptionKey = hashToInt8Array(hash)
   }
 
   // perform migrations if necessary, see https://realm.io/docs/javascript/2.8.0/#migrations
+  // we open the db temporarily, to get the schema version even if the db is encrypted
+  let tempConnection
+  try {
+    tempConnection = await Realm.open(realmConfig)
+  } catch(err) {
+    // wrong password provided
+    if (hash && err.toString().includes('decrypt')) return false
+    // tried to open without password, but is encrypted
+    if (!hash && err.toString().includes('Invalid mnemonic')) return false
+
+    throw err
+  }
+
   let nextSchemaIndex = Realm.schemaVersion(Realm.defaultPath)
+  tempConnection.close()
   while (nextSchemaIndex < schemas.length - 1) {
     const tempConfig = Object.assign(
       realmConfig,
@@ -29,23 +43,15 @@ export async function openDb ({ hash, persistConnection }) {
 
   // open the Realm with the latest schema
   realmConfig.schema = schemas[schemas.length - 1]
-  let connection
-  try {
-    connection = await Realm.open(Object.assign(
+  const connection = await Realm.open(Object.assign(
     realmConfig,
     schemas[schemas.length - 1]
   ))
-  } catch(err) {
-    if (!err.toString().includes('decrypt')) throw err
-    return false
-  }
 
-  if (persistConnection) {
-    db = connection
+  db = connection
   const cycle = cycleModule()
   isMensesStart = cycle.isMensesStart
   getMensesDaysRightAfter = cycle.getMensesDaysRightAfter
-}
   return true
 }
 
@@ -197,6 +203,7 @@ export function requestHash(type, pw) {
 }
 
 export async function changeEncryptionAndRestartApp(hash) {
+  console.log('this runs')
   let key
   if (hash) key = hashToInt8Array(hash)
   const defaultPath = db.path
@@ -221,7 +228,7 @@ export async function changeEncryptionAndRestartApp(hash) {
 export async function deleteDbAndOpenNew() {
   const exists = await fs.exists(Realm.defaultPath)
   if (exists) await fs.unlink(Realm.defaultPath)
-  await openDb({ persistConnection: true })
+  await openDb()
 }
 
 function hashToInt8Array(hash) {

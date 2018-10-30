@@ -24,7 +24,7 @@ export default class PasswordPrompt extends Component {
   }
 
   async tryToOpenDb() {
-    const connected = await openDb({ persistConnection: true })
+    const connected = await openDb()
     if (!connected) {
       this.setState({ showPasswordPrompt: true })
       await saveEncryptionFlag(true)
@@ -35,7 +35,7 @@ export default class PasswordPrompt extends Component {
   }
 
   passHashToDb = async hash => {
-    const connected = await openDb({ hash, persistConnection: true })
+    const connected = await openDb(hash)
     if (!connected) {
       Alert.alert(
         shared.incorrectPassword,
