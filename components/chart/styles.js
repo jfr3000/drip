@@ -1,5 +1,5 @@
 import config from '../../config'
-import {primaryColor, shadesOfRed} from '../../styles/index'
+import { shadesOfRed, cycleDayColor } from '../../styles/index'
 
 const colorTemperature = '#765285'
 const colorTemperatureLight = '#a67fb5'
@@ -36,7 +36,7 @@ const styles = {
         textAlign: 'center',
       },
       number: {
-        color: primaryColor,
+        color: cycleDayColor,
         fontSize: numberLabelFontSize,
         textAlign: 'center',
       }
