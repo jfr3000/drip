@@ -146,7 +146,7 @@ describe('getPreviousCycle', () => {
     ])
   })
 
-  it('returns null when target days is not in a cyle', () => {
+  it('returns null when target day is not in a cyle', () => {
     const cycleDaysSortedByDate = [
       {
         date: '2018-07-05',
@@ -860,7 +860,7 @@ describe('isMensesStart', () => {
   describe('with cycle thresholds', () => {
     const maxBreakInBleeding = 3
 
-    it('disregards bleeding breaks equal to max allowed bleeding break in a bleeding period', () => {
+    it('disregards bleeding breaks equal to maxAllowedBleedingBreak in a bleeding period', () => {
       const bleedingDays = [{
         date: '2018-05-14',
         bleeding: {
@@ -1121,7 +1121,7 @@ describe('getMensesDaysRightAfter', () => {
   describe('with cycle thresholds', () => {
     const maxBreakInBleeding = 3
 
-    it('disregards bleeding breaks shorter than max allowed bleeding break in a bleeding period', () => {
+    it('disregards bleeding breaks shorter than maxAllowedBleedingBreak in a bleeding period', () => {
       const bleedingDays = [{
         date: '2018-05-14',
         bleeding: {
