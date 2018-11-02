@@ -4,8 +4,11 @@ import nodejs from 'nodejs-mobile-react-native'
 import fs from 'react-native-fs'
 import restart from 'react-native-restart'
 import schemas from './schemas'
+import cycleModule from '../lib/cycle'
 
 let db
+let isMensesStart
+let getMensesDaysRightAfter
 
 export async function openDb ({ hash, persistConnection }) {
   const realmConfig = {}
@@ -32,8 +35,10 @@ export async function openDb ({ hash, persistConnection }) {
   ))
 
   if (persistConnection) db = connection
+  const cycle = cycleModule()
+  isMensesStart = cycle.isMensesStart
+  getMensesDaysRightAfter = cycle.getMensesDaysRightAfter
 }
-
 
 export function getBleedingDaysSortedByDate() {
   return db.objects('CycleDay').filtered('bleeding != null').sorted('date', true)
@@ -45,9 +50,61 @@ export function getCycleDaysSortedByDate() {
   return db.objects('CycleDay').sorted('date', true)
 }
 
+export function getCycleStartsSortedByDate() {
+  return db.objects('CycleDay').filtered('isCycleStart = true').sorted('date', true)
+}
+
 export function saveSymptom(symptom, cycleDay, val) {
   db.write(() => {
-    cycleDay[symptom] = val
+    if (bleedingValueDeleted(symptom, val)) {
+      cycleDay.bleeding = val
+      cycleDay.isCycleStart = false
+      maybeSetNewCycleStart(cycleDay, val)
+    } else if (bleedingValueAddedOrChanged(symptom, val)) {
+      cycleDay.bleeding = val
+      cycleDay.isCycleStart = isMensesStart(cycleDay)
+      maybeClearOldCycleStarts(cycleDay)
+    } else {
+      cycleDay[symptom] = val
+    }
+  })
+
+  function bleedingValueDeleted(symptom, val) {
+    return symptom === 'bleeding' && !val
+  }
+
+  function bleedingValueAddedOrChanged(symptom, val) {
+    return symptom === 'bleeding' && val
+  }
+
+  function maybeSetNewCycleStart(dayWithDeletedBleeding) {
+    // if a bleeding value is deleted, we need to check if
+    // there are any following bleeding days and if the
+    // next one of them is now a cycle start
+    const mensesDaysAfter = getMensesDaysRightAfter(dayWithDeletedBleeding)
+    if (!mensesDaysAfter.length) return
+    const nextOne = mensesDaysAfter[mensesDaysAfter.length - 1]
+    if (isMensesStart(nextOne)) {
+      nextOne.isCycleStart = true
+    }
+  }
+
+  function maybeClearOldCycleStarts(cycleDay) {
+    // if we have a new bleeding day, we need to clear the
+    // menses start marker from all following days of this
+    // menses that may have been marked as start before
+    const mensesDaysAfter = getMensesDaysRightAfter(cycleDay)
+    mensesDaysAfter.forEach(day => day.isCycleStart = false)
+  }
+}
+
+export function updateCycleStartsForAllCycleDays() {
+  db.write(() => {
+    getBleedingDaysSortedByDate().forEach(day => {
+      if (isMensesStart(day)) {
+        day.isCycleStart = true
+      }
+    })
   })
 }
 
@@ -56,7 +113,8 @@ export function getOrCreateCycleDay(localDate) {
   if (!result) {
     db.write(() => {
       result = db.create('CycleDay', {
-        date: localDate
+        date: localDate,
+        isCycleStart: false
       })
     })
   }
@@ -77,8 +135,10 @@ export function getPreviousTemperature(cycleDay) {
   return winner.temperature.value
 }
 
-export function tryToCreateCycleDay(day, i) {
+function tryToCreateCycleDayFromImport(day, i) {
   try {
+    // we cannot know this yet, gets detected afterwards
+    day.isCycleStart = false
     db.create('CycleDay', day)
   } catch (err) {
     const msg = `Line ${i + 1}(${day.date}): ${err.message}`
@@ -106,7 +166,7 @@ export function getSchema() {
 export function tryToImportWithDelete(cycleDays) {
   db.write(() => {
     db.delete(db.objects('CycleDay'))
-    cycleDays.forEach(tryToCreateCycleDay)
+    cycleDays.forEach(tryToCreateCycleDayFromImport)
   })
 }
 
@@ -115,7 +175,7 @@ export function tryToImportWithoutDelete(cycleDays) {
     cycleDays.forEach((day, i) => {
       const existing = getCycleDay(day.date)
       if (existing) db.delete(existing)
-      tryToCreateCycleDay(day, i)
+      tryToCreateCycleDayFromImport(day, i)
     })
   })
 }
