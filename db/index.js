@@ -203,7 +203,6 @@ export function requestHash(type, pw) {
 }
 
 export async function changeEncryptionAndRestartApp(hash) {
-  console.log('this runs')
   let key
   if (hash) key = hashToInt8Array(hash)
   const defaultPath = db.path
