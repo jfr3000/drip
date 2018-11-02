@@ -8,6 +8,7 @@ import {
   ScrollView
 } from 'react-native'
 import DateTimePicker from 'react-native-modal-datetime-picker-nevo'
+import padWithZeros from '../../helpers/pad-time-with-zeros'
 
 import { getPreviousTemperature, saveSymptom } from '../../../db'
 import styles from '../../../styles'
@@ -126,7 +127,7 @@ export default class Temp extends Component {
                 isVisible={this.state.isTimePickerVisible}
                 onConfirm={jsDate => {
                   this.setState({
-                    time: `${jsDate.getHours()}:${jsDate.getMinutes()}`,
+                    time: padWithZeros(jsDate),
                     isTimePickerVisible: false
                   })
                 }}
@@ -201,6 +202,7 @@ class TempInput extends Component {
 }
 
 function isInvalidTime(timeString) {
+  console.log(timeString)
   try {
     LocalTime.parse(timeString)
   } catch (err) {
