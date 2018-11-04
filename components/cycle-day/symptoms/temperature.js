@@ -202,7 +202,6 @@ class TempInput extends Component {
 }
 
 function isInvalidTime(timeString) {
-  console.log(timeString)
   try {
     LocalTime.parse(timeString)
   } catch (err) {
