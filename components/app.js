@@ -23,7 +23,8 @@ const menuTitlesLowerCase = Object.keys(menuTitles).reduce((acc, curr) => {
   return acc
 }, {})
 
-const isSymptomView = name => Object.keys(symptomViews).indexOf(name) > -1
+const isSymptomView = name => Object.keys(symptomViews).includes(name)
+const isMenuItem = name => Object.keys(menuTitles).includes(name)
 
 export default class App extends Component {
   constructor(props) {
@@ -40,7 +41,14 @@ export default class App extends Component {
   }
 
   navigate = (pageName, props) => {
-    this.origin = this.state.currentPage
+    // for the back button to work properly, we want to
+    // remember two origins: which menu item we came from
+    // and from where we navigated to the symptom view (day
+    // view or home page)
+    if (isMenuItem(this.state.currentPage)) {
+      this.menuOrigin = this.state.currentPage
+    }
+    this.originForSymptomView = this.state.currentPage
     this.setState({currentPage: pageName, currentProps: props})
   }
 
@@ -48,10 +56,10 @@ export default class App extends Component {
     if (this.state.currentPage === 'Home') return false
     if (isSymptomView(this.state.currentPage)) {
       this.navigate(
-        this.origin, { cycleDay: this.state.currentProps.cycleDay }
+        this.originForSymptomView, { cycleDay: this.state.currentProps.cycleDay }
       )
     } else if(this.state.currentPage === 'CycleDay') {
-      this.navigate(this.origin)
+      this.navigate(this.menuOrigin)
     } else {
       this.navigate('Home')
     }
