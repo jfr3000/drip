@@ -12,6 +12,7 @@ import {
 } from '../../local-storage'
 import styles from '../../styles/index'
 import { settings as labels } from '../labels'
+import padWithZeros from '../helpers/pad-time-with-zeros'
 
 export default class TempReminderPicker extends Component {
   constructor(props) {
@@ -50,7 +51,7 @@ export default class TempReminderPicker extends Component {
             mode="time"
             isVisible={this.state.isTimePickerVisible}
             onConfirm={jsDate => {
-              const time = padWithZeros(`${jsDate.getHours()}:${jsDate.getMinutes()}`)
+              const time = padWithZeros(jsDate)
               this.setState({
                 time,
                 isTimePickerVisible: false,
@@ -70,14 +71,4 @@ export default class TempReminderPicker extends Component {
       </TouchableOpacity>
     )
   }
-}
-
-function padWithZeros(time) {
-  const vals = time.split(':')
-  return vals.map(val => {
-    if (parseInt(val) < 10) {
-      val = `0${val}`
-    }
-    return val
-  }).join(':')
 }
