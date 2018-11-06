@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, FlatList } from 'react-native'
+import { View, FlatList, ActivityIndicator } from 'react-native'
 import range from 'date-range'
 import { LocalDate } from 'js-joda'
 import Svg, { G } from 'react-native-svg'
@@ -212,7 +212,7 @@ function LoadingMoreView(props) {
   return (
     <View style={styles.loadingMore}>
       {!props.end &&
-        <AppText>{labels.loadingMore}</AppText>
+        <ActivityIndicator size={'large'} color={'white'}/>
       }
     </View>
   )

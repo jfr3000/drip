@@ -12,7 +12,6 @@ export const shared = {
   date: 'Date',
   cycleDayWithLinebreak: 'Cycle\nday',
   loading: 'Loading ...',
-  loadingMore: 'Loading more ...',
   more: 'more',
   less: 'less'
 }
