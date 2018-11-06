@@ -196,14 +196,26 @@ export default class CycleChart extends Component {
             renderItem={this.renderColumn}
             keyExtractor={item => item}
             initialNumToRender={15}
-            maxToRenderPerBatch={5}
             windowSize={30}
             onLayout={() => this.setState({chartLoaded: true})}
+            onEndReached={() => this.setState({end: true})}
+            ListFooterComponent={<LoadingMoreView end={this.state.end}/>}
+            updateCellsBatchingPeriod={800}
           />
         }
       </View>
     )
   }
+}
+
+function LoadingMoreView(props) {
+  return (
+    <View style={styles.loadingMore}>
+      {!props.end &&
+        <AppText>{labels.loadingMore}</AppText>
+      }
+    </View>
+  )
 }
 
 function getTodayAndPreviousDays(n) {
