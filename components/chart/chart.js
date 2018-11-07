@@ -171,7 +171,7 @@ export default class CycleChart extends Component {
               <Svg
                 width={styles.yAxis.width * 0.7}
                 height={styles.yAxis.width * 0.7}
-                viewBox='325 330 185 185'
+                viewBox='325 330 190 190'
               >
                 <G fill="none" stroke="#1E0B7A" strokeWidth="10">
                   <CycleDayIcon/>
