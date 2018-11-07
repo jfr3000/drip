@@ -9,7 +9,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 export default class Menu extends Component {
   makeMenuItem = ({ title, icon, onPress}, i) => {
-    const styleActive = (this.props.currentPage.toLowerCase() === title) ? {color: secondaryColor} : {}
+    const styleActive = (this.props.currentPage.toLowerCase() === title) ?
+      {color: secondaryColor} : {}
     return (
       <TouchableOpacity
         onPress={onPress}

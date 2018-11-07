@@ -56,7 +56,8 @@ export default class App extends Component {
     if (this.state.currentPage === 'Home') return false
     if (isSymptomView(this.state.currentPage)) {
       this.navigate(
-        this.originForSymptomView, { cycleDay: this.state.currentProps.cycleDay }
+        this.originForSymptomView,
+        { cycleDay: this.state.currentProps.cycleDay }
       )
     } else if(this.state.currentPage === 'CycleDay') {
       this.navigate(this.menuOrigin)
