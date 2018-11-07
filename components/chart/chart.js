@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, FlatList } from 'react-native'
+import { View, FlatList, ActivityIndicator } from 'react-native'
 import range from 'date-range'
 import { LocalDate } from 'js-joda'
 import Svg, { G } from 'react-native-svg'
@@ -196,14 +196,26 @@ export default class CycleChart extends Component {
             renderItem={this.renderColumn}
             keyExtractor={item => item}
             initialNumToRender={15}
-            maxToRenderPerBatch={5}
             windowSize={30}
             onLayout={() => this.setState({chartLoaded: true})}
+            onEndReached={() => this.setState({end: true})}
+            ListFooterComponent={<LoadingMoreView end={this.state.end}/>}
+            updateCellsBatchingPeriod={800}
           />
         }
       </View>
     )
   }
+}
+
+function LoadingMoreView(props) {
+  return (
+    <View style={styles.loadingMore}>
+      {!props.end &&
+        <ActivityIndicator size={'large'} color={'white'}/>
+      }
+    </View>
+  )
 }
 
 function getTodayAndPreviousDays(n) {

@@ -122,6 +122,11 @@ const styles = {
   symptomRow: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  loadingMore: {
+    height: '100%',
+    backgroundColor: 'lightgrey',
+    justifyContent: 'center'
   }
 }
 
