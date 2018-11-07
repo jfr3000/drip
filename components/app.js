@@ -93,6 +93,7 @@ export default class App extends Component {
           <Menu
             navigate={this.navigate}
             titles={menuTitlesLowerCase}
+            currentPage={this.state.currentPage}
           />
         }
       </View>
