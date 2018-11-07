@@ -19,6 +19,7 @@ import MucusIcon from '../../assets/mucus'
 import NoteIcon from '../../assets/note'
 import PainIcon from '../../assets/pain'
 import SexIcon from '../../assets/sex'
+import CycleDayIcon from '../../assets/home-circle'
 import nothingChanged from '../../db/db-unchanged'
 
 export default class CycleChart extends Component {
@@ -166,13 +167,16 @@ export default class CycleChart extends Component {
             <View style={[styles.yAxis, {height: this.columnHeight}]}>
               {makeYAxisLabels(this.columnHeight)}
             </View>
-            <View style={[styles.yAxis, {height: this.xAxisHeight}]}>
-              <AppText style = {[
-                styles.column.label.number,
-                styles.yAxisLabels.cycleDayLabel
-              ]}>
-                {labels.cycleDayWithLinebreak}
-              </AppText>
+            <View style={[styles.yAxis, { alignItems: 'center', justifyContent: 'center' }]}>
+              <Svg
+                width={styles.yAxis.width * 0.7}
+                height={styles.yAxis.width * 0.7}
+                viewBox='325 330 190 190'
+              >
+                <G fill="none" stroke="#1E0B7A" strokeWidth="10">
+                  <CycleDayIcon/>
+                </G>
+              </Svg>
               <AppText style={[
                 styles.column.label.date,
                 styles.yAxisLabels.dateLabel

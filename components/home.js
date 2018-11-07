@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { ScrollView, View, TouchableOpacity, TouchableHighlight, Dimensions } from 'react-native'
 import { LocalDate, ChronoUnit } from 'js-joda'
 import Icon from 'react-native-vector-icons/Entypo'
+import Svg, { G } from 'react-native-svg'
 import { secondaryColor, cycleDayColor, periodColor } from '../styles'
 import { home as labels, bleedingPrediction as predictLabels, shared } from './labels'
-import CycleCircle from '../assets/home-circle'
+import CycleDayIcon from '../assets/home-circle'
 import Drop from '../assets/home-drop'
 import cycleModule from '../lib/cycle'
 import { getOrCreateCycleDay, getCycleDaysSortedByDate } from '../db'
@@ -74,7 +75,15 @@ export default class Home extends Component {
               style={styles.homeIconElement}
             >
               <View position='absolute'>
-                <CycleCircle/>
+                <Svg
+                  width={80}
+                  height={80}
+                  viewBox='340 345 170 170'
+                >
+                  <G fill="none" stroke="#1E0B7A" strokeWidth="2">
+                    <CycleDayIcon/>
+                  </G>
+                </Svg>
               </View>
               <View style={[styles.homeIconTextWrapper, styles.wrapperCycle]}>
                 <AppTextLight style={styles.iconText}>
