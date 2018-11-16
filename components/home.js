@@ -8,7 +8,7 @@ import { home as labels, bleedingPrediction as predictLabels, shared } from './l
 import CycleDayIcon from '../assets/home-circle'
 import Drop from '../assets/home-drop'
 import cycleModule from '../lib/cycle'
-import { getOrCreateCycleDay, getCycleDaysSortedByDate } from '../db'
+import { getCycleDaysSortedByDate } from '../db'
 import { getFertilityStatusForDay } from '../lib/sympto-adapter'
 import styles from '../styles'
 import AppText, { AppTextLight } from './app-text'
@@ -51,10 +51,8 @@ export default class Home extends Component {
   }
 
   passTodayTo(componentName) {
-    const todayDateString = LocalDate.now().toString()
-    const cycleDay = getOrCreateCycleDay(todayDateString)
     const navigate = this.props.navigate
-    navigate(componentName, { cycleDay })
+    navigate(componentName, { date: LocalDate.now().toString() })
   }
 
   render() {

@@ -13,9 +13,10 @@ import SymptomSection from './symptom-section'
 export default class Desire extends Component {
   constructor(props) {
     super(props)
-    this.cycleDay = props.cycleDay
+    const cycleDay = props.cycleDay
+    this.desire = cycleDay && cycleDay.desire
     this.makeActionButtons = props.makeActionButtons
-    const desireValue = this.cycleDay.desire && this.cycleDay.desire.value
+    const desireValue = this.desire && this.desire.value
     this.state = { currentValue: desireValue }
   }
 
@@ -41,9 +42,10 @@ export default class Desire extends Component {
         </ScrollView>
         <ActionButtonFooter
           symptom='desire'
-          cycleDay={this.cycleDay}
+          date={this.props.date}
+          currentSymptomValue={this.desire}
           saveAction={() => {
-            saveSymptom('desire', this.cycleDay, { value: this.state.currentValue })
+            saveSymptom('desire', this.props.date, { value: this.state.currentValue })
           }}
           saveDisabled={typeof this.state.currentValue != 'number'}
           navigate={this.props.navigate}

@@ -7,7 +7,6 @@ import { LocalDate } from 'js-joda'
 import moment from 'moment'
 import styles from './styles'
 import config from '../../config'
-import { getOrCreateCycleDay } from '../../db'
 import cycleModule from '../../lib/cycle'
 import { getCycleDay } from '../../db'
 import DotAndLine from './dot-and-line'
@@ -58,13 +57,8 @@ export default class DayColumn extends Component {
     )
   }
 
-  passDateToDayView(dateString) {
-    const cycleDay = getOrCreateCycleDay(dateString)
-    this.props.navigate('CycleDay', { cycleDay })
-  }
-
-  shouldComponentUpdate(newProps) {
-    return Object.keys(newProps).some(key => newProps[key] != this.props[key])
+  shouldComponentUpdate() {
+    return false
   }
 
   render() {
@@ -232,7 +226,7 @@ export default class DayColumn extends Component {
 
     return (
       <TouchableOpacity
-        onPress={() => this.passDateToDayView(dateString)}
+        onPress={() => this.props.navigate('CycleDay', { date: dateString })}
         activeOpacity={1}
       >
         <View>

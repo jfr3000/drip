@@ -68,8 +68,10 @@ export function getCycleDaysSortedByDate() {
 export function getCycleStartsSortedByDate() {
   return db.objects('CycleDay').filtered('isCycleStart = true').sorted('date', true)
 }
+export function saveSymptom(symptom, date, val) {
+  let cycleDay = getCycleDay(date)
+  if (!cycleDay) cycleDay = createCycleDay(date)
 
-export function saveSymptom(symptom, cycleDay, val) {
   db.write(() => {
     if (bleedingValueDeleted(symptom, val)) {
       cycleDay.bleeding = val
@@ -123,28 +125,25 @@ export function updateCycleStartsForAllCycleDays() {
   })
 }
 
-export function getOrCreateCycleDay(localDate) {
-  let result = db.objectForPrimaryKey('CycleDay', localDate)
-  if (!result) {
-    db.write(() => {
-      result = db.create('CycleDay', {
-        date: localDate,
-        isCycleStart: false
-      })
+export function createCycleDay(dateString) {
+  let result
+  db.write(() => {
+    result = db.create('CycleDay', {
+      date: dateString,
+      isCycleStart: false
     })
-  }
+  })
   return result
 }
 
-export function getCycleDay(localDate) {
-  return db.objectForPrimaryKey('CycleDay', localDate)
+export function getCycleDay(dateString) {
+  return db.objectForPrimaryKey('CycleDay', dateString)
 }
 
-export function getPreviousTemperature(cycleDay) {
-  cycleDay.wrappedDate = LocalDate.parse(cycleDay.date)
-  const winner = getTemperatureDaysSortedByDate().find(day => {
-    const wrappedDate = LocalDate.parse(day.date)
-    return wrappedDate.isBefore(cycleDay.wrappedDate)
+export function getPreviousTemperature(date) {
+  const targetDate = LocalDate.parse(date)
+  const winner = getTemperatureDaysSortedByDate().find(candidate => {
+    return LocalDate.parse(candidate.date).isBefore(targetDate)
   })
   if (!winner) return null
   return winner.temperature.value

@@ -11,13 +11,14 @@ export default class ActionButtonFooter extends Component {
   render() {
     const {
       symptom,
-      cycleDay,
+      currentSymptomValue,
+      date,
       saveAction,
       saveDisabled,
       navigate,
       autoShowDayView = true}
       = this.props
-    const navigateToOverView = () => navigate('CycleDay', {cycleDay})
+    const navigateToOverView = () => navigate('CycleDay', {date})
     const buttons = [
       {
         title: labels.unset,
@@ -31,13 +32,13 @@ export default class ActionButtonFooter extends Component {
             }, {
               text: labels.reallyUnsetData,
               onPress: () => {
-                saveSymptom(symptom, cycleDay)
+                saveSymptom(symptom, date)
                 navigateToOverView()
               }
             }]
           )
         },
-        disabledCondition: !cycleDay[symptom],
+        disabledCondition: !currentSymptomValue,
         icon: 'delete-outline'
       }, {
         title: labels.save,

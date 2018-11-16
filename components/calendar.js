@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { CalendarList } from 'react-native-calendars'
 import {LocalDate} from 'js-joda'
-import { getOrCreateCycleDay, getBleedingDaysSortedByDate } from '../db'
+import { getBleedingDaysSortedByDate } from '../db'
 import cycleModule from '../lib/cycle'
 import {shadesOfRed} from '../styles/index'
 import styles from '../styles/index'
@@ -36,9 +36,8 @@ export default class CalendarView extends Component {
   }
 
   passDateToDayView = (result) => {
-    const cycleDay = getOrCreateCycleDay(result.dateString)
     const navigate = this.props.navigate
-    navigate('CycleDay', { cycleDay })
+    navigate('CycleDay', { date: result.dateString })
   }
   render() {
     return (

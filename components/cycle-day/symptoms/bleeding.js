@@ -14,11 +14,12 @@ import SymptomSection from './symptom-section'
 export default class Bleeding extends Component {
   constructor(props) {
     super(props)
-    this.cycleDay = props.cycleDay
+    const cycleDay = props.cycleDay
+    this.bleeding = cycleDay && cycleDay.bleeding
     this.makeActionButtons = props.makeActionButtons
     this.state = {
-      currentValue: this.cycleDay.bleeding && this.cycleDay.bleeding.value,
-      exclude: this.cycleDay.bleeding ? this.cycleDay.bleeding.exclude : false
+      currentValue: this.bleeding && this.bleeding.value,
+      exclude: this.bleeding ? this.bleeding.exclude : false
     }
   }
 
@@ -57,9 +58,10 @@ export default class Bleeding extends Component {
         </ScrollView>
         <ActionButtonFooter
           symptom='bleeding'
-          cycleDay={this.props.cycleDay}
+          date={this.props.date}
+          currentSymptomValue={this.bleeding}
           saveAction={() => {
-            saveSymptom('bleeding', this.props.cycleDay, {
+            saveSymptom('bleeding', this.props.date, {
               value: this.state.currentValue,
               exclude: this.state.exclude
             })
