@@ -3,8 +3,8 @@ import {
   View,
   Text} from 'react-native'
 import moment from 'moment'
-import styles, { iconStyles } from '../../styles'
-import Icon from 'react-native-vector-icons/Entypo'
+import styles from '../../styles'
+import NavigationArrow from './navigation-arrow'
 
 export default function CycleDayHeader(props) {
   return (<View style={[styles.header, styles.headerCycleDay]}>
@@ -12,7 +12,7 @@ export default function CycleDayHeader(props) {
       style={styles.accentCircle}
       left={props.middle - styles.accentCircle.width / 2}
     />
-    <Icon name='chevron-thin-left' {...iconStyles.navigationArrow} onPress={() => props.goToCycleDay('before')} />
+    <NavigationArrow direction='left' {...props}/>
     <View>
       <Text style={styles.dateHeader}>
         {moment(props.date).format('MMMM Do YYYY')}
@@ -22,7 +22,7 @@ export default function CycleDayHeader(props) {
           Cycle day {props.cycleDayNumber}
         </Text>}
     </View>
-    <Icon name='chevron-thin-right' {...iconStyles.navigationArrow} onPress={() => props.goToCycleDay('after')} />
+    <NavigationArrow direction='right' {...props}/>
   </View>
   )
 }
