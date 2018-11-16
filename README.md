@@ -3,8 +3,9 @@
 A menstrual cycle tracking app that's open-source and leaves your data on your phone. Use it to track your menstrual cycle or for fertility awareness!
 
 ## Development setup
+1. Install [Android Studio](https://developer.android.com/studio/) - you'll need it to install some dependencies.
 
-1. Either start a virtual device in Android Studio (or make sure it's already running, you should see a phone on your screen) or set your physical device like your phone up to run the app.
+1. Either start a virtual device in Android Studio (or make sure it's already running, you should see a phone on your screen) or [set your physical device like your phone up](https://developer.android.com/training/basics/firstapp/running-app) to run the app.
 
 2. Clone this repository:
 
