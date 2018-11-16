@@ -4,10 +4,9 @@ import {
   Text,
   Dimensions
 } from 'react-native'
-import styles, { iconStyles } from '../../styles'
-import Icon from 'react-native-vector-icons/Entypo'
-import FeatherIcon from 'react-native-vector-icons/Feather'
+import styles from '../../styles'
 import CycleDayHeader from './cycle-day'
+import SymptomViewHeader from './symptom-view'
 
 export default function Header(props) {
   const middle = Dimensions.get('window').width / 2
@@ -18,27 +17,10 @@ export default function Header(props) {
         {...props}
       />
       : props.isSymptomView ?
-        <View style={[styles.header, styles.headerSymptom]}>
-          <View
-            style={styles.accentCircle}
-            left={middle - styles.accentCircle.width / 2}
-          />
-          <Icon
-            name='chevron-thin-left'
-            {...iconStyles.navigationArrow}
-            onPress={() => props.goBack()}
-
-          />
-          <View>
-            <Text style={styles.dateHeader}>
-              {props.title}
-            </Text>
-          </View >
-          <FeatherIcon
-            name='info'
-            {...iconStyles.symptomHeaderIcons}
-          />
-        </View>
+        <SymptomViewHeader
+          middle={middle}
+          {...props}
+        />
         :
         <View style={styles.header}>
           <View style={styles.accentCircle} />
