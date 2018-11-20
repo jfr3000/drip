@@ -18,8 +18,8 @@ You just want to say hello? Send us a nice email :postbox: or tweet :bird: at us
 
 ## What should I know before I get started?
 
-We have prepared something for *you*: check our [README](https://gitlab.com/bloodyhealth/drip/blob/master/README.md) for more information on how to set up and install everything you'll need.
-[Ping us](mailto:bl00dyhealth@mailbox.org) if you could need some help!
+We have prepared something for *you* : check out our [README](https://gitlab.com/bloodyhealth/drip/blob/master/README.md) for more information on how to set up and install everything you'll need.
+[Ping us](mailto:bl00dyhealth@mailbox.org) if you could need some help :helmet\_with\_cross: !
 Let us know if you want to suggest improvements for the README.
 
 ## How can I contribute?
@@ -30,12 +30,12 @@ We are fans of labels, at least for our issues. You can find a list of `newbie` 
 If you decide to work on an issue, please create a branch based on that issue.
 This allows us to keep track of the issues that are related to an existing branch, which tells everyone "somebody's on it".
 
-If you want to open a merge request, yeah :tada: congratulations! We are using a template for merge requests to make sure we explain what we have done and why.
+If you want to open a merge request, yeah :tada: exciting! We are using a template for merge requests to make sure we explain what we have done and why.
 Keep in mind that people who will review your merge request are more motivated to do so when the merge request is well explained.
 
 ### Reporting Bugs
 
-You found a bug? Please feel free to investigate and save logs for more specific details.
+You found a bug :bug:? Please feel free to investigate and save logs for more specific details.
 Before creating a new issue, please review the [list of existing issues](https://gitlab.com/bloodyhealth/drip/issues) to make sure the bug is unknown.
 You are invited to describe the bug in all its details e.g. in what context/settings has it occurred?
 To send us a new issue you can also use our gitlab email: incoming+bloodyhealth/drip@incoming.gitlab.com.
