@@ -20,6 +20,7 @@ You just want to say hello? Send us a [nice email](mailto:bl00dyhealth@mailbox.o
 
 We have prepared something for **you**: check out our [README](https://gitlab.com/bloodyhealth/drip/blob/master/README.md) for more information on how to set up and install everything you'll need.
 [Ping us](mailto:bl00dyhealth@mailbox.org) if you could need some help :helmet\_with\_cross: !
+
 Let us know if you want to suggest improvements for the README.
 
 ## How can I contribute?
@@ -36,16 +37,20 @@ Keep in mind that people who will review your merge request are more motivated t
 ### Reporting Bugs
 
 You found a bug :bug:? Please feel free to investigate and save logs for more specific details.
+
 Before creating a new issue, please review the [list of existing issues](https://gitlab.com/bloodyhealth/drip/issues) to make sure the bug is unknown.
 You are invited to describe the bug in all its details e.g. in what context/settings has it occurred?
+
 To send us a new issue you can also use our gitlab email: incoming+bloodyhealth/drip@incoming.gitlab.com.
 It will automagically add a new issue to the list with a description text taken from the body of your email.
 
 ### Suggesting Enhancements
 
 Do you have suggestions for enhancing the app or for cleaning up some code? Fantastic!
+
 Before creating a new issue, please review the [list of existing issues](https://gitlab.com/bloodyhealth/drip/issues) to make sure nobody else had the same idea before you!
 You are then invited to open a new issue with a somewhat extensive description, you can use emojis or GIFs if it helps :)! 
+
 To send us a new issue you can also use our gitlab email: incoming+bloodyhealth/drip@incoming.gitlab.com.
 It will automagically add a new issue to the list with a description text taken from the body of your email.
 
