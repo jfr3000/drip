@@ -4,15 +4,23 @@ Good to see you here <3
 
 ## Table Of Contents
 
+[TL;DR](#tl-dr)
+
 [What should I know before I get started?](#what-should-i-know-before-i-get-started)
 
 [How can I contribute?](#how-can-i-contribute)
 
 [Thank you](#thank-you)
 
+## TL;DR
+
+You just want to say hello? Send us a nice email :postbox: or tweet :bird: at us @bl00dyhealth.
+
 ## What should I know before I get started?
 
-Read our [README](https://gitlab.com/bloodyhealth/drip/blob/master/README.md) and [ping us](mailto:bl00dyhealth@mailbox.org) if you could need some help!
+We have prepared something for *you*: check our [README](https://gitlab.com/bloodyhealth/drip/blob/master/README.md) for more information on how to set up and install everything you'll need.
+[Ping us](mailto:bl00dyhealth@mailbox.org) if you could need some help!
+Let us know if you want to suggest improvements for the README.
 
 ## How can I contribute?
 
@@ -44,5 +52,6 @@ It will automagically add a new issue to the list with a description text taken 
 ### Thank you
 
 ![](https://media.giphy.com/media/kPA88elN9kYco/giphy.gif)
+ 
 Thank you for contributing to open source, thank you for contributing to drip!
-Much love from Bloody Health
+Much love from Bloody Health :heart\_exclamation: 
