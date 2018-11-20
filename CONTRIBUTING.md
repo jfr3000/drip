@@ -14,7 +14,7 @@ So good to see you here, hello :wave\_tone1: :wave\_tone2: :wave\_tone3: :wave\_
 
 ## TL;DR
 
-You just want to say hello? Send us a nice email :postbox: or tweet :bird: at us @bl00dyhealth.
+You just want to say hello? Send us a [nice email](mailto:bl00dyhealth@mailbox.org?Subject=Nice%20incoming%20mail) :postbox: or tweet :bird: at us @bl00dyhealth.
 
 ## What should I know before I get started?
 
