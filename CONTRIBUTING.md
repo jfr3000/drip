@@ -38,21 +38,17 @@ Keep in mind that people who will review your merge request are more motivated t
 
 You found a bug :bug:? Please feel free to investigate and save logs for more specific details.
 
-Before creating a new issue, please review the [list of existing issues](https://gitlab.com/bloodyhealth/drip/issues) to make sure the bug is unknown.
-You are invited to describe the bug in all its details e.g. in what context/settings has it occurred?
+Before creating a new issue, please review the [list of existing issues](https://gitlab.com/bloodyhealth/drip/issues) to make sure the bug is unknown. You are invited to describe the bug in all its details e.g. in what context/settings has it occurred?
 
-To send us a new issue you can also use our gitlab email: incoming+bloodyhealth/drip@incoming.gitlab.com.
-It will automagically add a new issue to the list with a description text taken from the body of your email.
+To send us a new issue you can also use our gitlab email: incoming+bloodyhealth/drip@incoming.gitlab.com. It will automagically add a new issue to the list with a description text taken from the body of your email.
 
 ### Suggesting Enhancements
 
 Do you have suggestions for enhancing the app or for cleaning up some code? Fantastic!
 
-Before creating a new issue, please review the [list of existing issues](https://gitlab.com/bloodyhealth/drip/issues) to make sure nobody else had the same idea before you!
-You are then invited to open a new issue with a somewhat extensive description, you can use emojis or GIFs if it helps :)! 
+Before creating a new issue, please review the [list of existing issues](https://gitlab.com/bloodyhealth/drip/issues) to make sure nobody else had the same idea before you! You are then invited to open a new issue with a somewhat extensive description, you can use emojis or GIFs if it helps :)! 
 
-To send us a new issue you can also use our gitlab email: incoming+bloodyhealth/drip@incoming.gitlab.com.
-It will automagically add a new issue to the list with a description text taken from the body of your email.
+To send us a new issue you can also use our gitlab email: incoming+bloodyhealth/drip@incoming.gitlab.com. It will automagically add a new issue to the list with a description text taken from the body of your email.
 
 ### Thank you
 
