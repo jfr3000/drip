@@ -18,7 +18,7 @@ You just want to say hello? Send us a nice email :postbox: or tweet :bird: at us
 
 ## What should I know before I get started?
 
-We have prepared something for **you** : check out our [README](https://gitlab.com/bloodyhealth/drip/blob/master/README.md) for more information on how to set up and install everything you'll need.
+We have prepared something for **you**: check out our [README](https://gitlab.com/bloodyhealth/drip/blob/master/README.md) for more information on how to set up and install everything you'll need.
 [Ping us](mailto:bl00dyhealth@mailbox.org) if you could need some help :helmet\_with\_cross: !
 Let us know if you want to suggest improvements for the README.
 
