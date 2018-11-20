@@ -1,5 +1,5 @@
 # Contributing to drip
-Good to see you here <3
+So good to see you here, hello :wave\_tone1: :wave\_tone2: :wave\_tone3: :wave\_tone4: :wave\_tone5:
 
 
 ## Table Of Contents
