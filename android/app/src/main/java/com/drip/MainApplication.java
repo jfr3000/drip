@@ -5,7 +5,6 @@ import android.app.Application;
 import com.facebook.react.ReactApplication;
 import com.janeasystems.rn_nodejs_mobile.RNNodeJsMobilePackage;
 import com.avishayil.rnrestart.ReactNativeRestartPackage;
-import com.horcrux.svg.SvgPackage;
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.rnfs.RNFSPackage;
@@ -35,7 +34,6 @@ public class MainApplication extends Application implements ReactApplication, Sh
           new MainReactPackage(),
             new RNNodeJsMobilePackage(),
             new ReactNativeRestartPackage(),
-            new SvgPackage(),
             new ReactNativePushNotificationPackage(),
             new VectorIconsPackage(),
             new RNFSPackage(),
