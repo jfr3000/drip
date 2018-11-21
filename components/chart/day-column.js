@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {
   Text, View, TouchableOpacity
 } from 'react-native'
-import Svg,{ G, Rect, Line } from 'react-native-svg'
+import { Surface, Group as G, Path, Shape } from 'react-native/Libraries/ART/ReactNativeART'
 import { LocalDate } from 'js-joda'
 import moment from 'moment'
 import styles from './styles'
@@ -67,12 +67,12 @@ export default class DayColumn extends Component {
     const symptomHeight = this.props.symptomHeight
 
     if(this.fhmAndLtl.drawLtlAt) {
-      const ltlLine = (<Line
-        x1={0}
-        y1={this.fhmAndLtl.drawLtlAt}
-        x2={config.columnWidth}
-        y2={this.fhmAndLtl.drawLtlAt}
-        {...styles.nfpLine}
+      const ltlLine = (<Shape
+        fill = "red"
+        d={new Path()
+          .moveTo(0, this.fhmAndLtl.drawLtlAt)
+          .lineTo(config.columnWidth, this.fhmAndLtl.drawLtlAt)
+        }
         key='ltl'
       />)
       columnElements.push(ltlLine)
@@ -80,12 +80,12 @@ export default class DayColumn extends Component {
 
     if (this.fhmAndLtl.drawFhmLine) {
       const x = styles.nfpLine.strokeWidth / 2
-      const fhmLine = (<Line
-        x1={x}
-        y1={x}
-        x2={x}
-        y2={this.props.columnHeight}
-        {...styles.nfpLine}
+      const fhmLine = (<Shape
+        fill="red"
+        d={new Path()
+          .moveTo(x, x)
+          .lineTo(x, this.props.columnHeight)
+        }
         key='fhm'
       />)
       columnElements.push(fhmLine)
@@ -123,11 +123,18 @@ export default class DayColumn extends Component {
       </Text>
     )
 
+    const colWidth = config.columnWidth
+    const colHeight = this.props.chartHeight
     const column = (
       <G>
-        <Rect
-          height={this.props.chartHeight}
-          {...styles.column.rect}
+        <Shape
+          stroke={styles.column.stroke.color}
+          stroke-width={styles.column.stroke.width}
+          d={new Path()
+            .lineTo(0, colHeight)
+            .moveTo(colWidth, colHeight)
+            .lineTo(colWidth, 0)
+          }
         />
         { columnElements }
       </G>
@@ -235,9 +242,9 @@ export default class DayColumn extends Component {
           })}
         </View>
 
-        <Svg width={config.columnWidth} height={this.props.columnHeight}>
+        <Surface width={config.columnWidth} height={this.props.columnHeight}>
           {column}
-        </Svg>
+        </Surface>
 
         <View style={{height: this.props.xAxisHeight}}>
           {cycleDayLabel}

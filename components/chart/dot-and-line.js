@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Circle, Line } from 'react-native-svg'
+import { Path, Shape } from 'react-native/Libraries/ART/ReactNativeART'
 
 import styles from './styles'
 import config from '../../config'
@@ -27,11 +27,15 @@ export default class DotAndLine extends Component {
     }
 
     const dotStyle = exclude ? styles.curveDotsExcluded : styles.curveDots
+    const radius = dotStyle.r
     const dot = (
-      <Circle
-        cx={config.columnMiddle}
-        cy={y}
-        {...dotStyle}
+      <Shape
+        d={new Path()
+          .moveTo(config.columnMiddle, y - radius)
+          .arc(0, radius * 2, radius)
+          .arc(0, radius * -2, radius)
+        }
+        fill={dotStyle.fill}
         key='dot'
       />
     )
@@ -42,12 +46,12 @@ export default class DotAndLine extends Component {
 function makeLine(currY, middleY, x, excludeLine) {
   const lineStyle = excludeLine ? styles.curveExcluded : styles.curve
 
-  return <Line
-    x1={config.columnMiddle}
-    y1={currY}
-    x2={x}
-    y2={middleY}
-    {...lineStyle}
+  return <Shape
+    stroke={lineStyle.stroke}
+    d={new Path()
+      .moveTo(config.columnMiddle, currY)
+      .lineTo(x, middleY)
+    }
     key={x.toString()}
   />
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, FlatList, ActivityIndicator } from 'react-native'
 import range from 'date-range'
 import { LocalDate } from 'js-joda'
-import Svg, { G } from 'react-native-svg'
+import { Surface, Group as G } from 'react-native/Libraries/ART/ReactNativeART'
 import { makeYAxisLabels, makeHorizontalGrid } from './y-axis'
 import nfpLines from './nfp-lines'
 import DayColumn from './day-column'
@@ -151,7 +151,7 @@ export default class CycleChart extends Component {
                   height={this.symptomRowHeight /
                     this.symptomRowSymptoms.length}
                 >
-                  <Svg
+                  <Surface
                     width={styles.yAxis.width * 0.8}
                     height={this.symptomRowHeight /
                       this.symptomRowSymptoms.length * 0.8}
@@ -160,7 +160,7 @@ export default class CycleChart extends Component {
                     <G fill={symptomIcons[symptomName].color}>
                       {symptomIcons[symptomName].icon}
                     </G>
-                  </Svg>
+                  </Surface>
                 </View>
               })}
             </View>
@@ -168,7 +168,7 @@ export default class CycleChart extends Component {
               {makeYAxisLabels(this.columnHeight)}
             </View>
             <View style={[styles.yAxis, { alignItems: 'center', justifyContent: 'center' }]}>
-              <Svg
+              <Surface
                 width={styles.yAxis.width * 0.7}
                 height={styles.yAxis.width * 0.7}
                 viewBox='325 330 190 190'
@@ -176,7 +176,7 @@ export default class CycleChart extends Component {
                 <G fill="none" stroke="#1E0B7A" strokeWidth="10">
                   <CycleDayIcon/>
                 </G>
-              </Svg>
+              </Surface>
               <AppText style={[
                 styles.column.label.date,
                 styles.yAxisLabels.dateLabel

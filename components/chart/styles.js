@@ -3,10 +3,10 @@ import { shadesOfRed, cycleDayColor } from '../../styles/index'
 
 const colorTemperature = '#765285'
 const colorTemperatureLight = '#a67fb5'
-const dotRadius = 5
+export const dotRadius = 5
 const lineWidth = 1.5
 const colorLtl = '#feb47b'
-const gridColor = 'lightgrey'
+const gridColor = '#d3d3d3'
 const gridLineWidth = 0.5
 const numberLabelFontSize = 13
 
@@ -41,13 +41,9 @@ const styles = {
         textAlign: 'center',
       }
     },
-    rect: {
-      x:'0',
-      y:'0',
-      width: config.columnWidth,
-      stroke: gridColor,
-      strokeWidth: gridLineWidth,
-      fill: 'transparent'
+    stroke: {
+      color: gridColor,
+      width: gridLineWidth,
     }
   },
   symptomIcon: {
