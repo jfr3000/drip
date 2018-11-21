@@ -68,7 +68,8 @@ export default class DayColumn extends Component {
 
     if(this.fhmAndLtl.drawLtlAt) {
       const ltlLine = (<Shape
-        fill = "red"
+        stroke={styles.nfpLine.stroke}
+        stroke-width={styles.nfpLine.strokeWidth}
         d={new Path()
           .moveTo(0, this.fhmAndLtl.drawLtlAt)
           .lineTo(config.columnWidth, this.fhmAndLtl.drawLtlAt)
@@ -82,6 +83,8 @@ export default class DayColumn extends Component {
       const x = styles.nfpLine.strokeWidth / 2
       const fhmLine = (<Shape
         fill="red"
+        stroke={styles.nfpLine.stroke}
+        stroke-width={styles.nfpLine.strokeWidth}
         d={new Path()
           .moveTo(x, x)
           .lineTo(x, this.props.columnHeight)
@@ -123,18 +126,12 @@ export default class DayColumn extends Component {
       </Text>
     )
 
-    const colWidth = config.columnWidth
-    const colHeight = this.props.chartHeight
     const column = (
       <G>
         <Shape
           stroke={styles.column.stroke.color}
           stroke-width={styles.column.stroke.width}
-          d={new Path()
-            .lineTo(0, colHeight)
-            .moveTo(colWidth, colHeight)
-            .lineTo(colWidth, 0)
-          }
+          d={new Path().lineTo(0, this.props.chartHeight)}
         />
         { columnElements }
       </G>
