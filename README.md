@@ -14,7 +14,8 @@ A menstrual cycle tracking app that's open-source and leaves your data on your p
     cd drip
     ```
 
-4. Run `npm install`
+4. Make sure you are running Node 8 or 9. It's easiest to switch Node versions using `nvm`. Here's [how to set it up](https://nodesource.com/blog/installing-node-js-tutorial-using-nvm-on-mac-os-x-and-ubuntu/)
+5. Run `npm install`
 5. You may need to open your app's /android folder in Android Studio, so that it detects, downloads and cofigures requirements that might be missing, like the NDK and CMake to build the native code part of the project. Also check out nodejs-mobile repository for the necessary prerequisites for your system.
 5. Run `npm run android`
 7. In another tab, run `npm run log` to see logging output
