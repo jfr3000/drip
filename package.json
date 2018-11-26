@@ -27,7 +27,7 @@
     "object-path": "^0.11.4",
     "obv": "0.0.1",
     "react": "16.4.1",
-    "react-native": "^0.56.0",
+    "react-native": "~0.56.0",
     "react-native-calendars": "^1.19.3",
     "react-native-document-picker": "^2.1.0",
     "react-native-fs": "^2.10.14",
