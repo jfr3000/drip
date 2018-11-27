@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, FlatList, ActivityIndicator } from 'react-native'
 import range from 'date-range'
 import { LocalDate } from 'js-joda'
-import { Surface, Group as G } from 'react-native/Libraries/ART/ReactNativeART'
+import { Surface } from 'react-native/Libraries/ART/ReactNativeART'
 import { makeYAxisLabels, makeHorizontalGrid } from './y-axis'
 import nfpLines from './nfp-lines'
 import DayColumn from './day-column'
@@ -12,15 +12,19 @@ import { scaleObservable } from '../../local-storage'
 import config from '../../config'
 import AppText from '../app-text'
 import { shared as labels } from '../labels'
-import BleedingIcon from '../../assets/bleeding'
-import CervixIcon from '../../assets/cervix'
-import DesireIcon from '../../assets/desire'
-import MucusIcon from '../../assets/mucus'
-import NoteIcon from '../../assets/note'
-import PainIcon from '../../assets/pain'
-import SexIcon from '../../assets/sex'
+import DripIcon from '../../assets/drip-icons'
 import CycleDayIcon from '../../assets/home-circle'
 import nothingChanged from '../../db/db-unchanged'
+
+const symptomIcons = {
+  bleeding: <DripIcon size={16} name='drip-icon-bleeding' color={styles.iconShades.bleeding[3]}/>,
+  mucus: <DripIcon size={16} name='drip-icon-mucus' color={styles.iconShades.mucus[4]}/>,
+  cervix: <DripIcon size={16} name='drip-icon-cervix' color={styles.iconShades.cervix[3]}/>,
+  desire: <DripIcon size={16} name='drip-icon-desire' color={styles.iconShades.desire[2]}/>,
+  sex: <DripIcon size={16} name='drip-icon-sex' color={styles.iconShades.sex[2]}/>,
+  pain: <DripIcon size={16} name='drip-icon-pain' color={styles.iconShades.pain[0]}/>,
+  note: <DripIcon size={16} name='drip-icon-note' color={styles.iconShades.note[0]}/>
+}
 
 export default class CycleChart extends Component {
   constructor(props) {
@@ -151,16 +155,7 @@ export default class CycleChart extends Component {
                   height={this.symptomRowHeight /
                     this.symptomRowSymptoms.length}
                 >
-                  <Surface
-                    width={styles.yAxis.width * 0.8}
-                    height={this.symptomRowHeight /
-                      this.symptomRowSymptoms.length * 0.8}
-                    viewBox={symptomIcons[symptomName].viewBox}
-                  >
-                    <G fill={symptomIcons[symptomName].color}>
-                      {symptomIcons[symptomName].icon}
-                    </G>
-                  </Surface>
+                  {symptomIcons[symptomName]}
                 </View>
               })}
             </View>
@@ -169,13 +164,13 @@ export default class CycleChart extends Component {
             </View>
             <View style={[styles.yAxis, { alignItems: 'center', justifyContent: 'center' }]}>
               <Surface
-                width={styles.yAxis.width * 0.7}
-                height={styles.yAxis.width * 0.7}
-                viewBox='325 330 190 190'
+                width={styles.yAxis.width * 0.8}
+                height={styles.yAxis.width * 0.8}
               >
-                <G fill="none" stroke="#1E0B7A" strokeWidth="10">
-                  <CycleDayIcon/>
-                </G>
+                <CycleDayIcon
+                  strokeWidth={10}
+                  scale={0.12}
+                />
               </Surface>
               <AppText style={[
                 styles.column.label.date,
@@ -231,42 +226,4 @@ function getTodayAndPreviousDays(n) {
   const earlierDate = new Date(today - (range.DAY * n))
 
   return range(earlierDate, today).reverse()
-}
-
-const symptomIcons = {
-  'bleeding': {
-    'viewBox': '10 10 320 400',
-    'color': styles.iconShades.bleeding[3],
-    'icon': <BleedingIcon strokeWidth={'5'}/>
-  },
-  'mucus': {
-    'viewBox': '10 10 320 400',
-    'color': styles.iconShades.mucus[4],
-    'icon': <MucusIcon/>
-  },
-  'cervix': {
-    'viewBox': '10 10 320 440',
-    'color': styles.iconShades.cervix[3],
-    'icon': <CervixIcon/>
-  },
-  'desire': {
-    'viewBox': '10 10 320 380',
-    'color': styles.iconShades.desire[2],
-    'icon': <DesireIcon/>
-  },
-  'sex': {
-    'viewBox': '10 10 320 400',
-    'color': styles.iconShades.sex[2],
-    'icon': <SexIcon/>
-  },
-  'pain': {
-    'viewBox': '10 10 300 400',
-    'color': styles.iconShades.pain[0],
-    'icon': <PainIcon/>
-  },
-  'note': {
-    'viewBox': '10 10 270 400',
-    'color': styles.iconShades.note[0],
-    'icon': <NoteIcon/>
-  },
 }
