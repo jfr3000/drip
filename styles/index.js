@@ -110,7 +110,7 @@ export default StyleSheet.create({
   },
   homeCircle: {
     borderRadius: 100,
-    borderWidth: 0.5,
+    borderWidth: 1,
     width: 80,
     height: 80,
     alignItems: 'center',
