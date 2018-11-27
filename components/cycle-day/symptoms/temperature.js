@@ -25,10 +25,11 @@ const minutes = ChronoUnit.MINUTES
 export default class Temp extends Component {
   constructor(props) {
     super(props)
-    this.cycleDay = props.cycleDay
+    const cycleDay = props.cycleDay
+    this.temperature = cycleDay && cycleDay.temperature
     this.makeActionButtons = props.makeActionButtons
 
-    const temp = this.cycleDay.temperature
+    const temp = this.temperature
 
     this.state = {
       exclude: temp ? temp.exclude : false,
@@ -44,7 +45,7 @@ export default class Temp extends Component {
         this.state.temperature = `${this.state.temperature}.0`
       }
     } else {
-      const prevTemp = getPreviousTemperature(this.cycleDay)
+      const prevTemp = getPreviousTemperature(this.props.date)
       if (prevTemp) {
         this.state.temperature = prevTemp.toString()
         this.state.isSuggestion = true
@@ -59,8 +60,8 @@ export default class Temp extends Component {
       time: this.state.time,
       note: this.state.note
     }
-    saveSymptom('temperature', this.cycleDay, dataToSave)
-    this.props.navigate('CycleDay', {cycleDay: this.cycleDay})
+    saveSymptom('temperature', this.props.date, dataToSave)
+    this.props.navigate('CycleDay', {date: this.props.date})
   }
 
   checkRangeAndSave = () => {
@@ -164,7 +165,8 @@ export default class Temp extends Component {
         </ScrollView>
         <ActionButtonFooter
           symptom='temperature'
-          cycleDay={this.cycleDay}
+          date={this.props.date}
+          currentSymptomValue={this.temperature}
           saveAction={() => this.checkRangeAndSave()}
           saveDisabled={
             this.state.temperature === '' ||

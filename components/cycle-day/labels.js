@@ -35,19 +35,26 @@ export const desire = {
 }
 
 export const sex = {
-  solo: 'Solo',
-  partner: 'Partner',
-  condom: 'Condom',
-  pill: 'Pill',
-  iud: 'IUD',
-  patch: 'Patch',
-  ring: 'Ring',
-  implant: 'Implant',
-  diaphragm: 'Diaphragm',
-  none: 'None',
-  other: 'Other',
-  activityExplainer: 'Were you sexually active today?',
-  contraceptiveExplainer: 'Did you use contraceptives?'
+  categories:{
+    solo: 'Solo',
+    partner: 'Partner',
+  },
+  explainer: 'Were you sexually active today?',
+}
+
+export const contraceptives = {
+  categories:{
+    condom: 'Condom',
+    pill: 'Pill',
+    iud: 'IUD',
+    patch: 'Patch',
+    ring: 'Ring',
+    implant: 'Implant',
+    diaphragm: 'Diaphragm',
+    none: 'None',
+    other: 'Other',
+  },
+  explainer: 'Did you use contraceptives?'
 }
 
 export const pain = {
@@ -59,8 +66,7 @@ export const pain = {
     nausea: 'Nausea',
     tenderBreasts: 'Tender breasts',
     migraine: 'Migraine',
-    other: 'Other',
-    note: 'Note',
+    other: 'Other'
   },
   explainer: 'How did your body feel today?'
 }

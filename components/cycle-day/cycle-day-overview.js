@@ -8,7 +8,7 @@ import {
 import { LocalDate } from 'js-joda'
 import Svg, { G } from 'react-native-svg'
 import Header from '../header'
-import { getOrCreateCycleDay } from '../../db'
+import { getCycleDay } from '../../db'
 import cycleModule from '../../lib/cycle'
 import styles from '../../styles'
 import * as labels from './labels'
@@ -29,44 +29,151 @@ const openingLabels = labels.cervix.opening.categories
 const firmnessLabels = labels.cervix.firmness.categories
 const positionLabels = labels.cervix.position.categories
 const intensityLabels = labels.intensity
-const sexLabels = labels.sex
+const sexLabels = labels.sex.categories
+const contraceptiveLabels = labels.contraceptives.categories
 const painLabels = labels.pain.categories
 
 export default class CycleDayOverView extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      cycleDay: props.cycleDay
+      date: this.props.date,
+      cycleDay: getCycleDay(this.props.date)
     }
   }
 
   goToCycleDay = (target) => {
-    const localDate = LocalDate.parse(this.state.cycleDay.date)
+    const localDate = LocalDate.parse(this.state.date)
     const targetDate = target === 'before' ?
       localDate.minusDays(1).toString() :
       localDate.plusDays(1).toString()
-    this.setState({ cycleDay: getOrCreateCycleDay(targetDate) })
-  }
-
-  navigate(symptom) {
-    this.props.navigate(symptom, {
-      cycleDay: this.state.cycleDay,
+    this.setState({
+      date: targetDate,
+      cycleDay: getCycleDay(targetDate)
     })
   }
 
-  render() {
+  navigate(symptom) {
+    this.props.navigate(symptom, this.state)
+  }
+
+  getLabel(symptomName) {
     const cycleDay = this.state.cycleDay
+    if (!cycleDay || !cycleDay[symptomName]) return
+
+    const l = {
+      bleeding: bleeding => {
+        if (isNumber(bleeding.value)) {
+          let bleedingLabel = `${bleedingLabels[bleeding.value]}`
+          if (bleeding.exclude) bleedingLabel = "( " + bleedingLabel + " )"
+          return bleedingLabel
+        }
+      },
+      temperature: temperature => {
+        if (isNumber(temperature.value)) {
+          let temperatureLabel = `${temperature.value} °C - ${temperature.time}`
+          if (temperature.exclude) {
+            temperatureLabel = "( " + temperatureLabel + " )"
+          }
+          return temperatureLabel
+        }
+      },
+      mucus: mucus => {
+        const categories = ['feeling', 'texture', 'value']
+        if (categories.every(c => isNumber(mucus[c]))) {
+          let mucusLabel = [feelingLabels[mucus.feeling], textureLabels[mucus.texture]].join(', ')
+          mucusLabel += `\n${labels.mucusNFP[mucus.value]}`
+          if (mucus.exclude) mucusLabel = `(${mucusLabel})`
+          return mucusLabel
+        }
+      },
+      cervix: cervix => {
+        let cervixLabel = []
+        if (isNumber(cervix.opening) && isNumber(cervix.firmness)) {
+          cervixLabel.push(
+            openingLabels[cervix.opening],
+            firmnessLabels[cervix.firmness]
+          )
+          if (isNumber(cervix.position)) {
+            cervixLabel.push(positionLabels[cervix.position])
+          }
+          cervixLabel = cervixLabel.join(', ')
+          if (cervix.exclude) cervixLabel = `(${cervixLabel})`
+          return cervixLabel
+        }
+      },
+      note: note => {
+        return note.value
+      },
+      desire: desire => {
+        if (isNumber(desire.value)) {
+          const desireLabel = `${intensityLabels[desire.value]}`
+          return desireLabel
+        }
+      },
+      sex: sex => {
+        let sexLabel = []
+        if (sex && Object.values(sex).some(val => val)){
+          Object.keys(sex).forEach(key => {
+            if(sex[key] && key !== 'other' && key !== 'note') {
+              sexLabel.push(
+                sexLabels[key] ||
+                contraceptiveLabels[key]
+              )
+            }
+            if(key === 'other' && sex.other) {
+              let label = contraceptiveLabels[key]
+              if(sex.note) {
+                label = `${label} (${sex.note})`
+              }
+              sexLabel.push(label)
+            }
+          })
+          sexLabel = sexLabel.join(', ')
+          return sexLabel
+        }
+      },
+      pain: pain => {
+        let painLabel = []
+        if (pain && Object.values(pain).some(val => val)){
+          Object.keys(pain).forEach(key => {
+            if(pain[key] && key !== 'other' && key !== 'note') {
+              painLabel.push(painLabels[key])
+            }
+            if(key === 'other' && pain.other) {
+              let label = painLabels[key]
+              if(pain.note) {
+                label = `${label} (${pain.note})`
+              }
+              painLabel.push(label)
+            }
+          })
+          painLabel = painLabel.join(', ')
+          return painLabel
+        }
+      }
+    }
+
+    const symptomValue = cycleDay[symptomName]
+    const label = l[symptomName](symptomValue)
+    if (!label) return
+    if (label.length < 45) return label
+    return label.slice(0, 42) + '...'
+  }
+
+  render() {
     const getCycleDayNumber = cycleModule().getCycleDayNumber
-    const cycleDayNumber = getCycleDayNumber(cycleDay.date)
+    const cycleDayNumber = getCycleDayNumber(this.state.date)
     const dateInFuture = LocalDate
       .now()
-      .isBefore(LocalDate.parse(this.state.cycleDay.date))
+      .isBefore(LocalDate.parse(this.state.date))
+
     return (
       <View style={{ flex: 1 }}>
         <Header
           isCycleDayOverView={true}
           cycleDayNumber={cycleDayNumber}
-          date={cycleDay.date}
+          date={this.state.date}
           goToCycleDay={this.goToCycleDay}
         />
         <ScrollView>
@@ -74,7 +181,7 @@ export default class CycleDayOverView extends Component {
             <SymptomBox
               title='Bleeding'
               onPress={() => this.navigate('BleedingEditView')}
-              data={getLabel('bleeding', cycleDay.bleeding)}
+              data={this.getLabel('bleeding')}
               disabled={dateInFuture}
             >
               <BleedingIcon viewBox='10 10 320 400' />
@@ -82,7 +189,7 @@ export default class CycleDayOverView extends Component {
             <SymptomBox
               title='Temperature'
               onPress={() => this.navigate('TemperatureEditView')}
-              data={getLabel('temperature', cycleDay.temperature)}
+              data={this.getLabel('temperature')}
               disabled={dateInFuture}
             >
               <TemperatureIcon viewBox='10 10 320 400' />
@@ -90,7 +197,7 @@ export default class CycleDayOverView extends Component {
             <SymptomBox
               title='Mucus'
               onPress={() => this.navigate('MucusEditView')}
-              data={getLabel('mucus', cycleDay.mucus)}
+              data={this.getLabel('mucus')}
               disabled={dateInFuture}
             >
               <MucusIcon viewBox='10 10 320 400' />
@@ -98,7 +205,7 @@ export default class CycleDayOverView extends Component {
             <SymptomBox
               title='Cervix'
               onPress={() => this.navigate('CervixEditView')}
-              data={getLabel('cervix', cycleDay.cervix)}
+              data={this.getLabel('cervix')}
               disabled={dateInFuture}
             >
               <CervixIcon viewBox='10 10 320 440' />
@@ -106,7 +213,7 @@ export default class CycleDayOverView extends Component {
             <SymptomBox
               title='Desire'
               onPress={() => this.navigate('DesireEditView')}
-              data={getLabel('desire', cycleDay.desire)}
+              data={this.getLabel('desire')}
               disabled={dateInFuture}
             >
               <DesireIcon viewBox='10 10 320 380' />
@@ -114,7 +221,7 @@ export default class CycleDayOverView extends Component {
             <SymptomBox
               title='Sex'
               onPress={() => this.navigate('SexEditView')}
-              data={getLabel('sex', cycleDay.sex)}
+              data={this.getLabel('sex')}
               disabled={dateInFuture}
             >
               <SexIcon viewBox='10 10 320 400' />
@@ -122,7 +229,7 @@ export default class CycleDayOverView extends Component {
             <SymptomBox
               title='Pain'
               onPress={() => this.navigate('PainEditView')}
-              data={getLabel('pain', cycleDay.pain)}
+              data={this.getLabel('pain')}
               disabled={dateInFuture}
             >
               <PainIcon viewBox='10 10 300 400' />
@@ -130,7 +237,7 @@ export default class CycleDayOverView extends Component {
             <SymptomBox
               title='Note'
               onPress={() => this.navigate('NoteEditView')}
-              data={getLabel('note', cycleDay.note)}
+              data={this.getLabel('note')}
             >
               <NoteIcon viewBox='10 10 270 400' />
             </SymptomBox>
@@ -144,102 +251,7 @@ export default class CycleDayOverView extends Component {
   }
 }
 
-function getLabel(symptomName, symptom) {
-  const l = {
-    bleeding: bleeding => {
-      if (isNumber(bleeding.value)) {
-        let bleedingLabel = `${bleedingLabels[bleeding.value]}`
-        if (bleeding.exclude) bleedingLabel = "( " + bleedingLabel + " )"
-        return bleedingLabel
-      }
-    },
-    temperature: temperature => {
-      if (isNumber(temperature.value)) {
-        let temperatureLabel = `${temperature.value} °C - ${temperature.time}`
-        if (temperature.exclude) {
-          temperatureLabel = "( " + temperatureLabel + " )"
-        }
-        return temperatureLabel
-      }
-    },
-    mucus: mucus => {
-      const categories = ['feeling', 'texture', 'value']
-      if (categories.every(c => isNumber(mucus[c]))) {
-        let mucusLabel = [feelingLabels[mucus.feeling], textureLabels[mucus.texture]].join(', ')
-        mucusLabel += `\n${labels.mucusNFP[mucus.value]}`
-        if (mucus.exclude) mucusLabel = `(${mucusLabel})`
-        return mucusLabel
-      }
-    },
-    cervix: cervix => {
-      let cervixLabel = []
-      if (isNumber(cervix.opening) && isNumber(cervix.firmness)) {
-        cervixLabel.push(
-          openingLabels[cervix.opening],
-          firmnessLabels[cervix.firmness]
-        )
-        if (isNumber(cervix.position)) {
-          cervixLabel.push(positionLabels[cervix.position])
-        }
-        cervixLabel = cervixLabel.join(', ')
-        if (cervix.exclude) cervixLabel = `(${cervixLabel})`
-        return cervixLabel
-      }
-    },
-    note: note => {
-      return note.value
-    },
-    desire: desire => {
-      if (isNumber(desire.value)) {
-        const desireLabel = `${intensityLabels[desire.value]}`
-        return desireLabel
-      }
-    },
-    sex: sex => {
-      let sexLabel = []
-      if (sex && Object.values(sex).some(val => val)){
-        Object.keys(sex).forEach(key => {
-          if(sex[key] && key !== 'other' && key !== 'note') {
-            sexLabel.push(sexLabels[key])
-          }
-          if(key === 'other' && sex.other) {
-            let label = sexLabels[key]
-            if(sex.note) {
-              label = `${label} (${sex.note})`
-            }
-            sexLabel.push(label)
-          }
-        })
-        sexLabel = sexLabel.join(', ')
-      }
-      return sexLabel
-    },
-    pain: pain => {
-      let painLabel = []
-      if (pain && Object.values(pain).some(val => val)){
-        Object.keys(pain).forEach(key => {
-          if(pain[key] && key !== 'other' && key !== 'note') {
-            painLabel.push(painLabels[key])
-          }
-          if(key === 'other' && pain.other) {
-            let label = painLabels[key]
-            if(pain.note) {
-              label = `${label} (${pain.note})`
-            }
-            painLabel.push(label)
-          }
-        })
-        painLabel = painLabel.join(', ')
-      }
-      return painLabel
-    }
-  }
 
-  if (!symptom) return
-  const label = l[symptomName](symptom)
-  if (label.length < 45) return label
-  return label.slice(0, 42) + '...'
-}
 
 
 class SymptomBox extends Component {

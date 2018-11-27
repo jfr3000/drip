@@ -16,13 +16,10 @@ import SymptomSection from './symptom-section'
 export default class Mucus extends Component {
   constructor(props) {
     super(props)
-    this.cycleDay = props.cycleDay
+    const cycleDay = props.cycleDay
+    this.mucus = cycleDay && cycleDay.mucus
     this.makeActionButtons = props.makeActionButtons
-    this.state = {
-      exclude: this.cycleDay.mucus ? this.cycleDay.mucus.exclude : false,
-      feeling: this.cycleDay.mucus ? this.cycleDay.mucus.feeling : null,
-      texture: this.cycleDay.mucus ? this.cycleDay.mucus.texture : null
-    }
+    this.state = this.mucus ? this.mucus : {}
   }
 
   render() {
@@ -75,15 +72,16 @@ export default class Mucus extends Component {
         </ScrollView>
         <ActionButtonFooter
           symptom='mucus'
-          cycleDay={this.cycleDay}
+          date={this.props.date}
+          currentSymptomValue={this.mucus}
           saveAction={() => {
             const feeling = this.state.feeling
             const texture = this.state.texture
-            saveSymptom('mucus', this.cycleDay, {
+            saveSymptom('mucus', this.props.date, {
               feeling,
               texture,
               value: computeSensiplanValue(feeling, texture),
-              exclude: this.state.exclude
+              exclude: Boolean(this.state.exclude)
             })
           }}
           saveDisabled={typeof this.state.feeling != 'number' || typeof this.state.texture != 'number'}

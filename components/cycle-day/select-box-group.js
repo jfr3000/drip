@@ -10,20 +10,20 @@ export default class SelectBoxGroup extends Component {
   render() {
     return (
       <View style={styles.selectBoxSection}>
-        {this.props.data.map(({ label, stateKey }) => {
+        {Object.keys(this.props.labels).map(key => {
           const style = [styles.selectBox]
           const textStyle = []
-          if (this.props.optionsState[stateKey]) {
+          if (this.props.optionsState[key]) {
             style.push(styles.selectBoxActive)
             textStyle.push(styles.selectBoxTextActive)
           }
           return (
             <TouchableOpacity
-              onPress={() => this.props.onSelect(stateKey)}
-              key={stateKey}
+              onPress={() => this.props.onSelect(key)}
+              key={key}
             >
               <View style={style}>
-                <AppText style={textStyle}>{label}</AppText>
+                <AppText style={textStyle}>{this.props.labels[key]}</AppText>
               </View>
             </TouchableOpacity>
           )

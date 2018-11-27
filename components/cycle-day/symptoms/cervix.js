@@ -14,14 +14,10 @@ import SymptomSection from './symptom-section'
 export default class Cervix extends Component {
   constructor(props) {
     super(props)
-    this.cycleDay = props.cycleDay
+    const cycleDay = props.cycleDay
+    this.cervix = cycleDay && cycleDay.cervix
     this.makeActionButtons = props.makeActionButtons
-    this.state = {
-      exclude: this.cycleDay.cervix ? this.cycleDay.cervix.exclude : false,
-      opening: this.cycleDay.cervix ? this.cycleDay.cervix.opening : null,
-      firmness: this.cycleDay.cervix ? this.cycleDay.cervix.firmness : null,
-      position: this.cycleDay.cervix ? this.cycleDay.cervix.position : null
-    }
+    this.state = this.cervix ? this.cervix : {}
   }
 
   render() {
@@ -87,13 +83,14 @@ export default class Cervix extends Component {
         </ScrollView>
         <ActionButtonFooter
           symptom='cervix'
-          cycleDay={this.cycleDay}
+          date={this.props.date}
+          currentSymptomValue={this.cervix}
           saveAction={() => {
-            saveSymptom('cervix', this.cycleDay, {
+            saveSymptom('cervix', this.props.date, {
               opening: this.state.opening,
               firmness: this.state.firmness,
               position: this.state.position,
-              exclude: this.state.exclude
+              exclude: Boolean(this.state.exclude)
             })
           }}
           saveDisabled={typeof this.state.opening != 'number' || typeof this.state.firmness != 'number'}

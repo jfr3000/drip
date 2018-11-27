@@ -14,12 +14,12 @@ import { noteExplainer } from '../labels'
 export default class Note extends Component {
   constructor(props) {
     super(props)
-    this.cycleDay = props.cycleDay
-    const note = this.cycleDay.note
+    const cycleDay = props.cycleDay
+    this.note = cycleDay && cycleDay.note
     this.makeActionButtons = props.makeActionButtons
 
     this.state = {
-      currentValue: note && note.value || ''
+      currentValue: this.note && this.note.value || ''
     }
   }
 
@@ -43,9 +43,10 @@ export default class Note extends Component {
         </ScrollView>
         <ActionButtonFooter
           symptom='note'
-          cycleDay={this.cycleDay}
+          date={this.props.date}
+          currentSymptomValue={this.note}
           saveAction={() => {
-            saveSymptom('note', this.cycleDay, {
+            saveSymptom('note', this.props.date, {
               value: this.state.currentValue
             })
           }}
