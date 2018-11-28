@@ -7,7 +7,7 @@ import {
 import styles from '../styles/index'
 import cycleModule from '../lib/cycle'
 import {getCycleLengthStats as getCycleInfo} from '../lib/cycle-length'
-import {stats as labels} from '../copy/en/labels'
+import {stats as labels} from '../i18n/en/labels'
 import AppText from './app-text'
 import { getCycleStartsSortedByDate } from '../db'
 
