@@ -8,7 +8,7 @@ import {
   hasEncryptionObservable
 } from '../../../local-storage'
 import styles from '../../../styles/index'
-import { settings as labels } from '../../labels'
+import { settings as labels } from '../../../copy/en/labels'
 
 export default class PasswordSetting extends Component {
   constructor(props) {

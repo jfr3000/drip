@@ -1,6 +1,6 @@
 import { Alert } from 'react-native'
 import { openDb } from '../../../db'
-import { shared } from '../../labels'
+import { shared } from '../../../copy/en/labels'
 
 export default async function checkPassword({hash, onCancel, onTryAgain }) {
   const connected = await openDb(hash)

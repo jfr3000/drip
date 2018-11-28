@@ -4,7 +4,7 @@ import nodejs from 'nodejs-mobile-react-native'
 import { saveEncryptionFlag } from '../local-storage'
 import AppText from './app-text'
 import styles from '../styles'
-import { passwordPrompt as labels, shared } from './labels'
+import { passwordPrompt as labels, shared } from '../copy/en/labels'
 import { requestHash, deleteDbAndOpenNew, openDb } from '../db'
 
 export default class PasswordPrompt extends Component {

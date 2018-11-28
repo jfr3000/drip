@@ -9,7 +9,7 @@ import symptomViews from './cycle-day/symptoms'
 import Chart from './chart/chart'
 import Settings from './settings'
 import Stats from './stats'
-import {headerTitles, menuTitles} from './labels'
+import {headerTitles, menuTitles} from '../copy/en/labels'
 import setupNotifications from '../lib/notifications'
 
 // design wants everyhting lowercased, but we don't

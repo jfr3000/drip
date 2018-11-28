@@ -7,7 +7,7 @@ import {
   saveTempScale,
 } from '../../local-storage'
 import { secondaryColor } from '../../styles/index'
-import { settings as labels } from '../labels'
+import { settings as labels } from '../../copy/en/labels'
 import config from '../../config'
 import alertError from './alert-error'
 

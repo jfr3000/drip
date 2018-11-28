@@ -6,7 +6,7 @@ import {
 import nodejs from 'nodejs-mobile-react-native'
 import AppText from '../../app-text'
 import styles from '../../../styles'
-import { settings as labels, shared } from '../../labels'
+import { settings as labels, shared } from '../../../copy/en/labels'
 import { requestHash, changeEncryptionAndRestartApp } from '../../../db'
 import PasswordField from './password-field'
 import showBackUpReminder from './show-backup-reminder'

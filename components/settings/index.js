@@ -5,7 +5,7 @@ import {
   ScrollView,
 } from 'react-native'
 import styles from '../../styles/index'
-import { settings as labels } from '../labels'
+import { settings as labels } from '../../copy/en/labels'
 import AppText from '../app-text'
 import TempReminderPicker from './temp-reminder-picker'
 import PeriodReminderPicker from './period-reminder'

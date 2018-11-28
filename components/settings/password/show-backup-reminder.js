@@ -1,5 +1,5 @@
 import { Alert } from 'react-native'
-import { settings as labels, shared } from '../../labels'
+import { settings as labels, shared } from '../../../copy/en/labels'
 
 export default function showBackUpReminder(okHandler, isDelete) {
   let title, message

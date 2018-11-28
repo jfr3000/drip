@@ -1,7 +1,7 @@
 import Share from 'react-native-share'
 import getDataAsCsvDataUri from '../../lib/import-export/export-to-csv'
 import alertError from './alert-error'
-import { settings as labels } from '../labels'
+import { settings as labels } from '../../copy/en/labels'
 
 export default async function openShareDialogAndExport() {
   let data
