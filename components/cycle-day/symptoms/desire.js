@@ -5,7 +5,7 @@ import {
 } from 'react-native'
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
-import { intensity, desire } from '../labels'
+import { intensity, desire } from '../../../copy/en/cycle-day'
 import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
 import SymptomSection from './symptom-section'

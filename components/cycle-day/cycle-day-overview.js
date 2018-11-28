@@ -10,7 +10,7 @@ import Header from '../header'
 import { getCycleDay } from '../../db'
 import cycleModule from '../../lib/cycle'
 import styles from '../../styles'
-import * as labels from './labels'
+import * as labels from '../../copy/en/cycle-day'
 import AppText from '../app-text'
 import DripIcon from '../../assets/drip-icons'
 

@@ -9,7 +9,7 @@ import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
 import ActionButtonFooter from './action-button-footer'
 import SymptomSection from './symptom-section'
-import { noteExplainer } from '../labels'
+import { noteExplainer } from '../../../copy/en/cycle-day'
 
 export default class Note extends Component {
   constructor(props) {

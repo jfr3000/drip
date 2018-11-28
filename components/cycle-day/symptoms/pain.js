@@ -5,7 +5,7 @@ import {
   View
 } from 'react-native'
 import { saveSymptom } from '../../../db'
-import { pain as labels } from '../labels'
+import { pain as labels } from '../../../copy/en/cycle-day'
 import ActionButtonFooter from './action-button-footer'
 import SelectBoxGroup from '../select-box-group'
 import SymptomSection from './symptom-section'

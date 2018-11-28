@@ -5,7 +5,7 @@ import {
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { saveSymptom } from '../../../db'
 import styles, {iconStyles} from '../../../styles'
-import {sharedDialogs as labels} from '../labels'
+import {sharedDialogs as labels} from '../../../copy/en/cycle-day'
 
 export default class ActionButtonFooter extends Component {
   render() {
