@@ -191,10 +191,19 @@ export default StyleSheet.create({
   },
   header: {
     backgroundColor: primaryColor,
-    paddingHorizontal: 15,
     alignItems: 'center',
     justifyContent: 'center',
     height: 80
+  },
+  headerCycleDay: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  headerSymptom: {
+    paddingRight: 20
+  },
+  navigationArrow: {
+    padding: 20
   },
   menu: {
     backgroundColor: primaryColor,
@@ -214,18 +223,6 @@ export default StyleSheet.create({
   },
   menuTextInActive: {
     color: colorInActive
-  },
-  headerCycleDay: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  headerSymptom: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  navigationArrow: {
-    fontSize: 60,
-    color: fontOnPrimaryColor
   },
   temperatureTextInput: {
     fontSize: 20,
