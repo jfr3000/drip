@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
-import { mucus as labels } from '../labels'
+import { mucus as labels } from '../../../i18n/en/cycle-day'
 import computeSensiplanValue from '../../../lib/sensiplan-mucus'
 import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
