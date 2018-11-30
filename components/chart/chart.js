@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { View, FlatList, ActivityIndicator } from 'react-native'
 import range from 'date-range'
 import { LocalDate } from 'js-joda'
-import { Surface } from 'react-native/Libraries/ART/ReactNativeART'
 import { makeYAxisLabels, makeHorizontalGrid } from './y-axis'
 import nfpLines from './nfp-lines'
 import DayColumn from './day-column'
@@ -13,7 +12,7 @@ import config from '../../config'
 import AppText from '../app-text'
 import { shared as labels } from '../../i18n/en/labels'
 import DripIcon from '../../assets/drip-icons'
-import CycleDayIcon from '../../assets/home-circle'
+import DripHomeIcon from '../../assets/drip-home-icons'
 import nothingChanged from '../../db/db-unchanged'
 
 const symptomIcons = {
@@ -163,15 +162,11 @@ export default class CycleChart extends Component {
               {makeYAxisLabels(this.columnHeight)}
             </View>
             <View style={[styles.yAxis, { alignItems: 'center', justifyContent: 'center' }]}>
-              <Surface
-                width={styles.yAxis.width * 0.8}
-                height={styles.yAxis.width * 0.8}
-              >
-                <CycleDayIcon
-                  strokeWidth={10}
-                  scale={0.12}
-                />
-              </Surface>
+              <DripHomeIcon
+                name="circle"
+                size={styles.yAxis.width - 7}
+                color={styles.cycleDayColor}
+              />
               <AppText style={[
                 styles.column.label.date,
                 styles.yAxisLabels.dateLabel

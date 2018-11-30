@@ -2,17 +2,15 @@ import React, { Component } from 'react'
 import { ScrollView, View, TouchableOpacity, TouchableHighlight, Dimensions } from 'react-native'
 import { LocalDate, ChronoUnit } from 'js-joda'
 import Icon from 'react-native-vector-icons/Entypo'
-import { Surface } from 'react-native/Libraries/ART/ReactNativeART'
 import { secondaryColor, cycleDayColor, periodColor } from '../styles'
 import { home as labels, bleedingPrediction as predictLabels, shared } from '../i18n/en/labels'
-import CycleDayIcon from '../assets/home-circle'
-import Drop from '../assets/home-drop'
 import cycleModule from '../lib/cycle'
 import { getCycleDaysSortedByDate } from '../db'
 import { getFertilityStatusForDay } from '../lib/sympto-adapter'
 import styles from '../styles'
 import AppText, { AppTextLight } from './app-text'
 import nothingChanged from '../db/db-unchanged'
+import DripHomeIcon from '../assets/drip-home-icons'
 
 export default class Home extends Component {
   constructor(props) {
@@ -73,15 +71,7 @@ export default class Home extends Component {
               style={styles.homeIconElement}
             >
               <View position='absolute'>
-                <Surface
-                  width={80}
-                  height={80}
-                >
-                  <CycleDayIcon
-                    strokeWidth={2}
-                    scale={0.46}
-                  />
-                </Surface>
+                <DripHomeIcon name="circle" size={80} color={cycleDayColor}/>
               </View>
               <View style={[styles.homeIconTextWrapper, styles.wrapperCycle]}>
                 <AppTextLight style={styles.iconText}>
@@ -107,7 +97,7 @@ export default class Home extends Component {
               style={styles.homeIconElement}
             >
               <View position='absolute'>
-                <Drop scale={0.55}/>
+                <DripHomeIcon name="drop" size={105} color={periodColor} />
               </View>
               <View style={[styles.homeIconTextWrapper, styles.wrapperDrop]}>
                 <AppTextLight style={styles.iconText}>
