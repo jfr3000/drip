@@ -7,6 +7,7 @@ import nfpLines from './nfp-lines'
 import DayColumn from './day-column'
 import { getCycleDaysSortedByDate, getAmountOfCycleDays } from '../../db'
 import styles from './styles'
+import { cycleDayColor } from '../../styles'
 import { scaleObservable } from '../../local-storage'
 import config from '../../config'
 import AppText from '../app-text'
@@ -165,7 +166,7 @@ export default class CycleChart extends Component {
               <DripHomeIcon
                 name="circle"
                 size={styles.yAxis.width - 7}
-                color={styles.cycleDayColor}
+                color={cycleDayColor}
               />
               <AppText style={[
                 styles.column.label.date,
