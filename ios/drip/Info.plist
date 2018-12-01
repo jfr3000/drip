@@ -72,6 +72,13 @@
 		<string>Prompt-Thin.ttf</string>
 		<string>fontello.ttf</string>
 		<string>drip-icon-font.ttf</string>
+		<string>Dosis-Bold.ttf</string>
+		<string>Dosis-Book.ttf</string>
+		<string>Dosis-ExtraBold.ttf</string>
+		<string>Dosis-ExtraLight.ttf</string>
+		<string>Dosis-Light.ttf</string>
+		<string>Dosis-Medium.ttf</string>
+		<string>Dosis-SemiBold.ttf</string>
 	</array>
 </dict>
 </plist>

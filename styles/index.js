@@ -13,8 +13,9 @@ export const shadesOfRed = [
 export const cycleDayColor = '#29287f'
 export const periodColor = '#802249'
 
-const fontRegular = 'Prompt-Light'
-const fontLight = 'Prompt-Thin'
+//const fontRegular = 'Prompt-Light'
+const fontRegular = 'Dosis-Light'
+const fontLight = 'Dosis-ExtraLight'
 
 const regularSize = 16
 
