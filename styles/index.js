@@ -139,6 +139,10 @@ export default StyleSheet.create({
     color: 'black',
     marginBottom: 5
   },
+  symptomInfoIcon: {
+    marginRight: 20,
+    marginLeft: 20
+  },
   symptomBoxImage: {
     width: 50,
     height: 50
@@ -198,9 +202,6 @@ export default StyleSheet.create({
   headerCycleDay: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  headerSymptom: {
-    paddingRight: 20
   },
   navigationArrow: {
     padding: 20
