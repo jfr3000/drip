@@ -28,6 +28,19 @@ A menstrual cycle tracking app that's open-source and leaves your data on your p
 8. Run `adb shell input keyevent 82` and select enable hot reloading (see https://facebook.github.io/react-native/docs/debugging.html)
 9. We recommend installing an [ESLint plugin in your editor](https://eslint.org/docs/user-guide/integrations#editors). There's an `.eslintrc` file in this project which will be used by the plugin to check your code for style errors and potential bugs.
 
+## Java problems on macOS
+
+Make sure that you have Java 1.8 by running `java -version`.
+
+If you don't have Java installed, or your Java version is different, the app may not work. You can try just using Android Studio's Java by prepending it to your `$PATH` in your shell profile:
+
+    ```
+    export PATH="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home/bin:${PATH}"
+    ```
+
+Now, `which java` should output `/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home/bin/java`, and the correct Java version should be used.
+
+
 ## Tests
 You can run the tests with `npm test`.
 
