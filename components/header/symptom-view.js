@@ -24,6 +24,7 @@ export default function SymptomViewHeader(props) {
       </View >
       <FeatherIcon
         name='info'
+        style={styles.symptomInfoIcon}
         {...iconStyles.symptomHeaderIcons}
       />
     </View>
