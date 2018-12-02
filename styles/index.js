@@ -100,13 +100,17 @@ export default StyleSheet.create({
     marginBottom: 10,
   },
   wrapperCycle: {
-    width: 70,
-    height: 75
+    width: 80,
+    height: 77
   },
   wrapperDrop: {
+    width: 81,
+    height: 85,
+    marginTop: 20
+  },
+  wrapperCircle: {
     width: 80,
     height: 80,
-    marginTop: 20
   },
   homeCircle: {
     borderRadius: 100,

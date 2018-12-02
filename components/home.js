@@ -141,7 +141,10 @@ export default class Home extends Component {
               onPress={() => this.props.navigate('Chart')}
               style={styles.homeIconElement}
             >
-              <View style={styles.homeCircle}>
+
+              <View style={styles.homeCircle} position='absolute' />
+
+              <View style={[styles.homeIconTextWrapper, styles.wrapperCircle]}>
                 <AppTextLight style={styles.iconText}>
                   {this.state.phase ?
                     this.state.phase.toString()
