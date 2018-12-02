@@ -14,6 +14,19 @@ import styles from '../styles'
 import AppText, { AppTextLight } from './app-text'
 import nothingChanged from '../db/db-unchanged'
 
+const HomeButton = ({ backgroundColor, children }) => {
+  return (
+    <View style={[
+      styles.homeButton,
+      {backgroundColor}
+    ]}>
+      <AppText style={styles.homeButtonText}>
+        {children}
+      </AppText>
+    </View>
+  )
+}
+
 export default class Home extends Component {
   constructor(props) {
     super(props)
@@ -92,14 +105,11 @@ export default class Home extends Component {
               { this.state.showMore &&
                   <AppText style={styles.paragraph}>{cycleDayMoreText}</AppText>
               }
-              <View style={[
-                styles.homeButton,
-                { backgroundColor: cycleDayColor }
-              ]}>
-                <AppText style={styles.homeButtonText}>
-                  {labels.editToday}
-                </AppText>
-              </View>
+
+              <HomeButton backgroundColor={cycleDayColor}>
+                {labels.editToday}
+              </HomeButton>
+
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -120,14 +130,11 @@ export default class Home extends Component {
                   {this.state.predictionText}
                 </AppText>
               }
-              <View style={[
-                styles.homeButton,
-                { backgroundColor: periodColor }
-              ]}>
-                <AppText style={styles.homeButtonText}>
-                  {labels.trackPeriod}
-                </AppText>
-              </View>
+
+              <HomeButton backgroundColor={periodColor}>
+                {labels.trackPeriod}
+              </HomeButton>
+
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -153,14 +160,10 @@ export default class Home extends Component {
                   {this.state.statusText}
                 </AppText>
               }
-              <View style={[
-                styles.homeButton,
-                { backgroundColor: secondaryColor }
-              ]}>
-                <AppText style={styles.homeButtonText}>
-                  {labels.checkFertility}
-                </AppText>
-              </View>
+
+              <HomeButton backgroundColor={secondaryColor}>
+                {labels.checkFertility}
+              </HomeButton>
             </TouchableOpacity>
           </View>
 
