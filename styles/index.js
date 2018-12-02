@@ -15,7 +15,7 @@ export const periodColor = '#802249'
 
 //const fontRegular = 'Prompt-Light'
 const fontRegular = 'Dosis-Light'
-const fontLight = 'Dosis-ExtraLight'
+const fontLight = 'Promt-Light'
 
 const regularSize = 16
 
@@ -32,7 +32,7 @@ export default StyleSheet.create({
   },
   appTextLight: {
     color: 'black',
-    fontFamily: fontLight,
+    fontFamily: 'Promt-Light',
     fontSize: regularSize
   },
   paragraph: {
@@ -40,6 +40,7 @@ export default StyleSheet.create({
   },
   emphasis: {
     fontWeight: 'bold',
+    fontFamily: fontRegular,
   },
   title: {
     fontSize: 18,
@@ -251,7 +252,8 @@ export default StyleSheet.create({
     padding: 7,
   },
   settingsSegmentTitle: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontFamily: fontRegular
   },
   settingsButton: {
     backgroundColor: secondaryColor,
