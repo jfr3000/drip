@@ -10,7 +10,8 @@ import NavigationArrow from './navigation-arrow'
 const FormattedDate = ({ date }) => {
   const today = LocalDate.now()
   const dateToDisplay = LocalDate.parse(date)
-  return today.equals(dateToDisplay) ? 'today' : moment(date).format('MMMM Do YYYY')
+  const formattedDate = today.equals(dateToDisplay) ? 'today' : moment(date).format('MMMM Do YYYY')
+  return formattedDate.toLowerCase()
 }
 
 export default function CycleDayHeader({ date, ...props }) {
@@ -26,7 +27,7 @@ export default function CycleDayHeader({ date, ...props }) {
       </Text>
       {props.cycleDayNumber &&
         <Text style={styles.cycleDayNumber}>
-          Cycle day {props.cycleDayNumber}
+          {`Cycle day ${props.cycleDayNumber}`.toLowerCase()}
         </Text>}
     </View>
     <NavigationArrow direction='right' {...props}/>

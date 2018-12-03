@@ -64,7 +64,6 @@ export default class ActionButtonFooter extends Component {
             )
             :
             iconStyles.menuIcon
-
           return (
             <TouchableOpacity
               onPress={action}
@@ -74,7 +73,7 @@ export default class ActionButtonFooter extends Component {
             >
               <Icon name={icon} {...iconStyle} />
               <Text style={textStyle}>
-                {title}
+                {title.toLowerCase()}
               </Text>
             </TouchableOpacity>
           )

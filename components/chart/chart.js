@@ -176,7 +176,7 @@ export default class CycleChart extends Component {
                 styles.column.label.date,
                 styles.yAxisLabels.dateLabel
               ]}>
-                {labels.date}
+                {labels.date.toLowerCase()}
               </AppText>
             </View>
           </View>}
