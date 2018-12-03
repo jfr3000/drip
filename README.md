@@ -19,7 +19,7 @@ A menstrual cycle tracking app that's open-source and leaves your data on your p
     cd drip
     ```
 
-1. Open Android Studio and click on "Open an existing Android Studio project". Navigate to the drip repository you cloned and double click the android folder. It detects, downloads and cofigures requirements that might be missing, like the NDK and CMake to build the native code part of the project. Also check out nodejs-mobile repository for the necessary prerequisites for your system.
+1. Open Android Studio and click on "Open an existing Android Studio project". Navigate to the drip repository you cloned and double click the android folder. It detects, downloads and cofigures requirements that might be missing, like the NDK and CMake to build the native code part of the project. Also see the [nodejs-mobile repository](https://github.com/janeasystems/nodejs-mobile) for the necessary prerequisites for your system.
 
 1. Either start a virtual device in Android Studio (or make sure it's already running, you should see a phone on your screen) or [set your physical device like your phone up](https://developer.android.com/training/basics/firstapp/running-app) to run the app.
 
