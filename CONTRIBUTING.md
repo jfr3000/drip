@@ -48,7 +48,7 @@ Do you have suggestions for enhancing the app or for cleaning up some code? Fant
 
 Before creating a new issue, please review the [list of existing issues](https://gitlab.com/bloodyhealth/drip/issues) to make sure nobody else had the same idea before you! You are then invited to open a new issue with a somewhat extensive description, you can use emojis or GIFs if it helps :)! 
 
-To send us a new issue you can also use our gitlab email: incoming+bloodyhealth/drip@incoming.gitlab.com. It will automagically add a new issue to the list with a description text taken from the body of your email.
+To send us a new issue you can also use our [gitlab email](mailto:incoming+bloodyhealth/drip@incoming.gitlab.com). It will automagically add a new issue to the list with the title taken from the subject line and the description text for the issue taken from the body of your email.
 
 ### Thank you
 
