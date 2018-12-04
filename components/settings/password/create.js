@@ -6,17 +6,35 @@ import {
 import nodejs from 'nodejs-mobile-react-native'
 import AppText from '../../app-text'
 import styles from '../../../styles'
-import { settings as labels } from '../../../i18n/en/settings'
+import { settings } from '../../../i18n/en/settings'
 import { requestHash, changeEncryptionAndRestartApp } from '../../../db'
 import PasswordField from './password-field'
 import showBackUpReminder from './show-backup-reminder'
+
+const SettingsButton = ({ children, ...props }) => {
+  return (
+    <TouchableOpacity
+      style={[
+        styles.settingsButton,
+        props.disabled ? styles.settingsButtonDisabled : null
+      ]}
+      { ...props }
+    >
+      <AppText style={styles.settingsButtonText}>
+        {children}
+      </AppText>
+    </TouchableOpacity>
+  )
+}
 
 export default class CreatePassword extends Component {
   constructor() {
     super()
     this.state = {
-      enteringNewPassword: false,
-      newPassword: null
+      isSettingPassword: false,
+      password: '',
+      passwordConfirmation: '',
+      shouldShowErrorMessage: false,
     }
     nodejs.channel.addListener(
       'create-pw-hash',
@@ -29,33 +47,91 @@ export default class CreatePassword extends Component {
     nodejs.channel.removeListener('create-pw-hash', changeEncryptionAndRestartApp)
   }
 
+  savePassword = () => {
+    if (this.comparePasswords()) {
+      requestHash('create-pw-hash', this.state.password)
+    } else {
+      this.setState({
+        shouldShowErrorMessage: true
+      })
+    }
+  }
+
+  toggleSettingPassword = () => {
+    const { isSettingPassword } = this.state
+    this.setState({ isSettingPassword: !isSettingPassword })
+  }
+
+  startSettingPassword = () => {
+    showBackUpReminder(this.toggleSettingPassword)
+  }
+
+  comparePasswords = () => {
+    return this.state.password === this.state.passwordConfirmation
+  }
+
+  handlePasswordInput = (password) => {
+    this.setState({ password })
+  }
+
+  handleConfirmationInput = (passwordConfirmation) => {
+    const { password } = this.state
+    this.setState({
+      passwordConfirmation,
+      isPasswordsMatch: passwordConfirmation === password
+    })
+  }
+
   render () {
-    return (
-      <View>
-        {this.state.enteringNewPassword &&
+    const {
+      isSettingPassword,
+      password,
+      passwordConfirmation,
+      shouldShowErrorMessage,
+    } = this.state
+    const labels = settings.passwordSettings
+
+    const isSaveButtonDisabled =
+      !password.length ||
+      !passwordConfirmation.length
+
+    if (!isSettingPassword) {
+      return (
+        <View>
+          <SettingsButton onPress={this.startSettingPassword}>
+            {labels.setPassword}
+          </SettingsButton>
+        </View>
+      )
+    } else {
+      return (
+        <View>
           <PasswordField
-            placeholder={labels.passwordSettings.enterNew}
-            value={this.state.newPassword}
-            onChangeText={val => this.setState({newPassword: val})}
+            placeholder={labels.enterNew}
+            value={password}
+            onChangeText={this.handlePasswordInput}
           />
-        }
-        <TouchableOpacity
-          onPress={() => {
-            if (!this.state.enteringNewPassword) {
-              showBackUpReminder(() => {
-                this.setState({ enteringNewPassword: true })
-              })
-            } else {
-              requestHash('create-pw-hash', this.state.newPassword)
-            }
-          }}
-          disabled={this.state.enteringNewPassword && !this.state.newPassword}
-          style={styles.settingsButton}>
-          <AppText style={styles.settingsButtonText}>
-            {labels.passwordSettings.setPassword}
-          </AppText>
-        </TouchableOpacity>
-      </View>
-    )
+          <PasswordField
+            autoFocus={false}
+            placeholder={labels.confirmPassword}
+            value={passwordConfirmation}
+            onChangeText={this.handleConfirmationInput}
+          />
+          {
+            shouldShowErrorMessage &&
+            <AppText style={styles.errorMessage}>
+              {labels.passwordsDontMatch}
+            </AppText>
+          }
+          <SettingsButton
+            onPress={this.savePassword}
+            disabled={isSaveButtonDisabled}
+          >
+            {labels.savePassword}
+          </SettingsButton>
+        </View>
+      )
+    }
+
   }
 }

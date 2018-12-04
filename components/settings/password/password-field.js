@@ -6,7 +6,7 @@ export default function PasswordField(props) {
   return (
     <TextInput
       style={styles.passwordField}
-      autoFocus={true}
+      autoFocus={props.autoFocus === false ? false : true}
       secureTextEntry={true}
       onChangeText={props.onChangeText}
       value={props.value}
