@@ -14,25 +14,25 @@ So good to see you here, hello :wave\_tone1: :wave\_tone2: :wave\_tone3: :wave\_
 
 ## TL;DR
 
-You just want to say hello? Send us a [nice email](mailto:bl00dyhealth@mailbox.org?Subject=Nice%20incoming%20mail) :postbox: or tweet :bird: at us @bl00dyhealth.
+You just want to say hello? Send us a [nice email](mailto:bl00dyhealth@mailbox.org?Subject=Nice%20incoming%20mail) :postbox: or tweet :bird: at us [@bl00dyhealth](https://twitter.com/bl00dyhealth).
 
 ## What should I know before I get started?
 
 We have prepared something for **you**: check out our [README](https://gitlab.com/bloodyhealth/drip/blob/master/README.md) for more information on how to set up and install everything you'll need.
 [Ping us](mailto:bl00dyhealth@mailbox.org) if you could need some help :helmet\_with\_cross: !
 
-Let us know if you want to suggest improvements for the README.
+Let us know if you want to suggest improvements for the README and open a merge request (which is just like Github's pull request)
 
 ## How can I contribute?
 
 ### Your First Code Contribution
 
 We are fans of labels, at least for our issues. You can find a list of `newbie` issues [here](https://gitlab.com/bloodyhealth/drip/issues?label_name%5B%5D=Newbie).
-If you decide to work on an issue, please create a branch based on that issue.
-This allows us to keep track of the issues that are related to an existing branch, which tells everyone "somebody's on it".
+If you decide to work on an issue, please click on `Create branch` based on that issue. You can find this as a dropdown option right under `Create merge request`.
+This allows us to keep track of the issues that are related to an existing branch and tells everyone "somebody is working on it".
 
 If you want to open a merge request, yeah :tada: exciting! We are using a template for merge requests to make sure we explain what we have done and why.
-Keep in mind that people who will review your merge request are more motivated to do so when the merge request is well explained.
+Keep in mind that people who will review your merge request are more motivated to do so when the merge request is well explained and ideally not too big.
 
 ### Reporting Bugs
 
