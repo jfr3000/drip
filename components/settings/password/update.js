@@ -10,8 +10,10 @@ import { shared } from '../../../i18n/en/labels'
 import { settings as labels } from '../../../i18n/en/settings'
 import { requestHash, changeEncryptionAndRestartApp } from '../../../db'
 import PasswordField from './password-field'
+import SettingsButton from './settings-button'
 import showBackUpReminder from './show-backup-reminder'
 import checkCurrentPassword from './check-current-password'
+
 
 export default class ChangePassword extends Component {
   constructor() {
@@ -60,21 +62,23 @@ export default class ChangePassword extends Component {
     }
   }
 
+  startChangingPassword = () => {
+    showBackUpReminder(() => {
+      this.setState({ enteringCurrentPassword: true })
+    })
+  }
+
   render() {
     return (
       <View>
         {!this.state.enteringCurrentPassword &&
          !this.state.enteringNewPassword &&
-          <TouchableOpacity
-            onPress={() => showBackUpReminder(() => {
-              this.setState({ enteringCurrentPassword: true })
-            })}
-            disabled={this.state.currentPassword}
-            style={styles.settingsButton}>
-            <AppText style={styles.settingsButtonText}>
-              {labels.passwordSettings.changePassword}
-            </AppText>
-          </TouchableOpacity>
+         <SettingsButton
+           onPress={this.startChangingPassword}
+           disabled={this.state.currentPassword}
+         >
+           {labels.passwordSettings.changePassword}
+         </SettingsButton>
         }
 
         {this.state.enteringCurrentPassword &&
@@ -89,14 +93,12 @@ export default class ChangePassword extends Component {
               value={this.state.currentPassword}
               placeholder={labels.passwordSettings.enterCurrent}
             />
-            <TouchableOpacity
+            <SettingsButton
               onPress={() => requestHash('pre-change-pw-check', this.state.currentPassword)}
               disabled={!this.state.currentPassword}
-              style={styles.settingsButton}>
-              <AppText style={styles.settingsButtonText}>
-                {shared.unlock}
-              </AppText>
-            </TouchableOpacity>
+            >
+              {shared.unlock}
+            </SettingsButton>
           </View>
         }
 
@@ -112,15 +114,12 @@ export default class ChangePassword extends Component {
             value={this.state.changedPassword}
             placeholder={labels.passwordSettings.enterNew}
           />
-
-          <TouchableOpacity
+          <SettingsButton
             onPress={() => requestHash('change-pw', this.state.newPassword)}
             disabled={ !this.state.newPassword }
-            style={styles.settingsButton}>
-            <AppText style={styles.settingsButtonText}>
-              {labels.passwordSettings.changePassword}
-            </AppText>
-          </TouchableOpacity>
+          >
+            {labels.passwordSettings.changePassword}
+          </SettingsButton>
         </View>
         }
 
