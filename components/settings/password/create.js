@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-import {
-  View,
-  TouchableOpacity,
-} from 'react-native'
+import { View } from 'react-native'
 import nodejs from 'nodejs-mobile-react-native'
 import AppText from '../../app-text'
 import styles from '../../../styles'
@@ -10,22 +7,9 @@ import { settings } from '../../../i18n/en/settings'
 import { requestHash, changeEncryptionAndRestartApp } from '../../../db'
 import PasswordField from './password-field'
 import showBackUpReminder from './show-backup-reminder'
+import SettingsButton from './settings-button'
 
-const SettingsButton = ({ children, ...props }) => {
-  return (
-    <TouchableOpacity
-      style={[
-        styles.settingsButton,
-        props.disabled ? styles.settingsButtonDisabled : null
-      ]}
-      { ...props }
-    >
-      <AppText style={styles.settingsButtonText}>
-        {children}
-      </AppText>
-    </TouchableOpacity>
-  )
-}
+
 
 export default class CreatePassword extends Component {
   constructor() {
