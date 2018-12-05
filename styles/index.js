@@ -76,6 +76,11 @@ export default StyleSheet.create({
     borderRadius: 100,
     position: 'absolute'
   },
+  errorMessage: {
+    color: shadesOfRed[2],
+    marginLeft: 10,
+    marginTop: 6,
+  },
   homeView: {
     marginHorizontal: 50,
     marginTop: 20,
@@ -262,6 +267,9 @@ export default StyleSheet.create({
     padding: 10,
     alignItems: 'center',
     margin: 10,
+  },
+  settingsButtonDisabled: {
+    backgroundColor: colorInActive
   },
   settingsButtonText: {
     color: fontOnPrimaryColor
