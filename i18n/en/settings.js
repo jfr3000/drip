@@ -46,6 +46,11 @@ export const settings = {
     reminderText: 'Get a notification 3 days before your next period is likely to start.',
     notification: daysToEndOfPrediction => `Your next period is likely to start in 3 to ${daysToEndOfPrediction} days.`
   },
+  useCervix: {
+    title: 'Secondary symptom',
+    cervixModeOn: 'Cervix values are being used for symptothermal fertility detection',
+    cervixModeOff: 'Mucus values are being used for symptothermal fertility detection'
+  },
   passwordSettings: {
     title: 'App password',
     explainerDisabled: "Encrypt the app's database with a password. You need to enter the password every time the app is started.",
