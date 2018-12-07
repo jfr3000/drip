@@ -59,11 +59,7 @@ export default class CreatePassword extends Component {
   }
 
   handleConfirmationInput = (passwordConfirmation) => {
-    const { password } = this.state
-    this.setState({
-      passwordConfirmation,
-      isPasswordsMatch: passwordConfirmation === password
-    })
+    this.setState({ passwordConfirmation })
   }
 
   render () {

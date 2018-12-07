@@ -1,13 +1,8 @@
-
 import React, { Component } from 'react'
-import {
-  View,
-  TouchableOpacity} from 'react-native'
+import { View } from 'react-native'
 import nodejs from 'nodejs-mobile-react-native'
-import AppText from '../../app-text'
-import styles from '../../../styles'
-import { shared } from '../../../i18n/en/labels'
-import { settings as labels } from '../../../i18n/en/settings'
+import { shared as sharedLabels } from '../../../i18n/en/labels'
+import { settings } from '../../../i18n/en/settings'
 import { requestHash, changeEncryptionAndRestartApp } from '../../../db'
 import PasswordField from './password-field'
 import SettingsButton from './settings-button'
@@ -19,10 +14,11 @@ export default class ChangePassword extends Component {
   constructor() {
     super()
     this.state = {
-      enteringCurrentPassword: false,
       currentPassword: null,
-      enteringNewPassword: false,
-      newPassword: null
+      newPassword: null,
+      newPasswordConfirmation: null,
+      enteringCurrentPassword: false,
+      enteringNewPassword: false
     }
 
     nodejs.channel.addListener(
@@ -55,9 +51,9 @@ export default class ChangePassword extends Component {
 
     if (passwordCorrect) {
       this.setState({
-        enteringCurrentPassword: false,
         currentPassword: null,
-        enteringNewPassword: true
+        enteringNewPassword: true,
+        enteringCurrentPassword: false
       })
     }
   }
@@ -68,61 +64,77 @@ export default class ChangePassword extends Component {
     })
   }
 
+  handleCurrentPasswordInput = (currentPassword) => {
+    this.setState({ currentPassword })
+  }
+
+  checkCurrentPassword = () => {
+    requestHash('pre-change-pw-check', this.state.currentPassword)
+  }
+
+  handleNewPasswordInput = (newPassword) => {
+    this.setState({ newPassword })
+  }
+
+  changePassword = () => {
+    requestHash('change-pw', this.state.newPassword)
+  }
+
   render() {
-    return (
-      <View>
-        {!this.state.enteringCurrentPassword &&
-         !this.state.enteringNewPassword &&
-         <SettingsButton
-           onPress={this.startChangingPassword}
-           disabled={this.state.currentPassword}
-         >
-           {labels.passwordSettings.changePassword}
-         </SettingsButton>
-        }
 
-        {this.state.enteringCurrentPassword &&
-          <View>
-            <PasswordField
-              onChangeText={val => {
-                this.setState({
-                  currentPassword: val,
-                  wrongPassword: false
-                })
-              }}
-              value={this.state.currentPassword}
-              placeholder={labels.passwordSettings.enterCurrent}
-            />
-            <SettingsButton
-              onPress={() => requestHash('pre-change-pw-check', this.state.currentPassword)}
-              disabled={!this.state.currentPassword}
-            >
-              {shared.unlock}
-            </SettingsButton>
-          </View>
-        }
+    const {
+      enteringCurrentPassword,
+      enteringNewPassword,
+      currentPassword,
+      newPassword
+    } = this.state
 
-        {this.state.enteringNewPassword &&
+    const labels = settings.passwordSettings
+
+    if (enteringCurrentPassword) {
+      return (
         <View>
           <PasswordField
-            style={styles.passwordField}
-            onChangeText={val => {
-              this.setState({
-                newPassword: val
-              })
-            }}
-            value={this.state.changedPassword}
-            placeholder={labels.passwordSettings.enterNew}
+            placeholder={labels.enterCurrent}
+            value={currentPassword}
+            onChangeText={this.handleCurrentPasswordInput}
           />
           <SettingsButton
-            onPress={() => requestHash('change-pw', this.state.newPassword)}
-            disabled={ !this.state.newPassword }
+            onPress={this.checkCurrentPassword}
+            disabled={!currentPassword}
           >
-            {labels.passwordSettings.changePassword}
+            {sharedLabels.unlock}
           </SettingsButton>
         </View>
-        }
+      )
+    }
 
+    if (enteringNewPassword) {
+      return (
+        <View>
+          <PasswordField
+            placeholder={labels.enterNew}
+            value={newPassword}
+            onChangeText={this.handleNewPasswordInput}
+          />
+          <SettingsButton
+            onPress={this.changePassword}
+            disabled={!newPassword}
+          >
+            {labels.changePassword}
+          </SettingsButton>
+        </View>
+      )
+    }
+
+    return (
+      <View>
+        <SettingsButton
+          onPress={this.startChangingPassword}
+          disabled={currentPassword}
+        >
+          {labels.changePassword}
+        </SettingsButton>
       </View>
     )
   }
