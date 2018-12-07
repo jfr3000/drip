@@ -1,6 +1,6 @@
 # Bloody Health Cycle Tracker
 
-A menstrual cycle tracking app that's open-source and leaves your data on your phone. Use it to track your menstrual cycle or for fertility awareness!
+A menstrual cycle tracking app that's open-source and leaves your data on your phone. Use it to track your menstrual cycle and/or for fertility awareness!
 
 ## Development setup
 1. Install [Android Studio](https://developer.android.com/studio/) - you'll need it to install some dependencies.
@@ -21,7 +21,7 @@ A menstrual cycle tracking app that's open-source and leaves your data on your p
 
 1. Open Android Studio and click on "Open an existing Android Studio project". Navigate to the drip repository you cloned and double click the android folder. It detects, downloads and cofigures requirements that might be missing, like the NDK and CMake to build the native code part of the project. Also see the [nodejs-mobile repository](https://github.com/janeasystems/nodejs-mobile) for the necessary prerequisites for your system.
 
-1. Either start a virtual device in Android Studio (or make sure it's already running, you should see a phone on your screen) or [set your physical device like your phone up](https://developer.android.com/training/basics/firstapp/running-app) to run the app.
+1. Either start a [virtual device in Android Studio](https://developer.android.com/studio/run/emulator) or [set your physical device like your Android phone up](https://developer.android.com/training/basics/firstapp/running-app) to run the app.
 
 1. Open a terminal in Android Studio and run `npm install`
 
@@ -45,6 +45,9 @@ If you don't have Java installed, or your Java version is different, the app may
 
 Now, `which java` should output `/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home/bin/java`, and the correct Java version should be used.
 
+## Windows problems
+
+Unfortunately, the react native version we use doesn't work on Windows 10 it seems, find [more info here](https://github.com/facebook/react-native/issues/20015).
 
 ## Tests
 You can run the tests with `npm test`.
