@@ -52,7 +52,7 @@ export default class DayColumn extends Component {
 
     this.fhmAndLtl = props.getFhmAndLtlInfo(
       props.dateString,
-      props.temp,
+      this.data.temperature,
       props.columnHeight
     )
   }
