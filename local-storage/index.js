@@ -48,7 +48,6 @@ export const useCervixObservable = Observable()
 setObvWithInitValue('useCervix', useCervixObservable, false)
 
 export async function saveUseCervix(bool) {
-  console.log('saving cervix to', bool)
   await AsyncStorage.setItem('useCervix', JSON.stringify(bool))
   useCervixObservable.set(bool)
 }
@@ -63,8 +62,6 @@ export async function saveEncryptionFlag(bool) {
 
 async function setObvWithInitValue(key, obv, defaultValue) {
   const result = await AsyncStorage.getItem(key)
-  console.log('result from db for key')
-  console.log(result)
   let value
   if (result) {
     value = JSON.parse(result)
