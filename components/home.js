@@ -9,7 +9,6 @@ import { getCycleDaysSortedByDate } from '../db'
 import { getFertilityStatusForDay } from '../lib/sympto-adapter'
 import styles from '../styles'
 import AppText, { AppTextLight } from './app-text'
-import nothingChanged from '../db/db-unchanged'
 import DripHomeIcon from '../assets/drip-home-icons'
 
 const HomeButton = ({ backgroundColor, children }) => {
@@ -42,23 +41,6 @@ export default class Home extends Component {
     }
 
     this.cycleDays = getCycleDaysSortedByDate()
-    this.cycleDays.addListener(this.updateState)
-  }
-
-  updateState = (_, changes) => {
-    if (nothingChanged(changes)) return
-    const prediction = this.getBleedingPrediction()
-    const fertilityStatus = getFertilityStatusForDay(this.todayDateString)
-    this.setState({
-      cycleDayNumber: this.getCycleDayNumber(this.todayDateString),
-      predictionText: determinePredictionText(prediction),
-      bleedingPredictionRange: getBleedingPredictionRange(prediction),
-      ...fertilityStatus
-    })
-  }
-
-  componentWillUnmount() {
-    this.cycleDays.removeListener(this.updateState)
   }
 
   passTodayTo(componentName) {
