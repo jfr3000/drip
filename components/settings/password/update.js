@@ -3,7 +3,8 @@ import { View } from 'react-native'
 import nodejs from 'nodejs-mobile-react-native'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
 import { settings } from '../../../i18n/en/settings'
-import { requestHash, changeEncryptionAndRestartApp } from '../../../db'
+import { requestHash } from '../../../db'
+import EnterNewPassword from './enter-new-password'
 import PasswordField from './password-field'
 import SettingsButton from './settings-button'
 import showBackUpReminder from './show-backup-reminder'
@@ -15,8 +16,6 @@ export default class ChangePassword extends Component {
     super()
     this.state = {
       currentPassword: null,
-      newPassword: null,
-      newPasswordConfirmation: null,
       enteringCurrentPassword: false,
       enteringNewPassword: false
     }
@@ -26,17 +25,10 @@ export default class ChangePassword extends Component {
       this.openNewPasswordField,
       this
     )
-
-    nodejs.channel.addListener(
-      'change-pw',
-      changeEncryptionAndRestartApp,
-      this
-    )
   }
 
   componentWillUnmount() {
     nodejs.channel.removeListener('pre-change-pw-check', this.openNewPasswordField)
-    nodejs.channel.removeListener('change-pw', changeEncryptionAndRestartApp)
   }
 
   openNewPasswordField = async hash => {
@@ -72,21 +64,12 @@ export default class ChangePassword extends Component {
     requestHash('pre-change-pw-check', this.state.currentPassword)
   }
 
-  handleNewPasswordInput = (newPassword) => {
-    this.setState({ newPassword })
-  }
-
-  changePassword = () => {
-    requestHash('change-pw', this.state.newPassword)
-  }
-
   render() {
 
     const {
       enteringCurrentPassword,
       enteringNewPassword,
-      currentPassword,
-      newPassword
+      currentPassword
     } = this.state
 
     const labels = settings.passwordSettings
@@ -110,21 +93,7 @@ export default class ChangePassword extends Component {
     }
 
     if (enteringNewPassword) {
-      return (
-        <View>
-          <PasswordField
-            placeholder={labels.enterNew}
-            value={newPassword}
-            onChangeText={this.handleNewPasswordInput}
-          />
-          <SettingsButton
-            onPress={this.changePassword}
-            disabled={!newPassword}
-          >
-            {labels.changePassword}
-          </SettingsButton>
-        </View>
-      )
+      return <EnterNewPassword />
     }
 
     return (
