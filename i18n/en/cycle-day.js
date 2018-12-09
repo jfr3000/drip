@@ -92,5 +92,6 @@ export const sharedDialogs = {
   areYouSureToUnset: 'Are you sure you want to unset all entered data?',
   reallyUnsetData: 'Yes, I am sure',
   save: 'Save',
-  unset: 'Unset'
+  unset: 'Unset',
+  disabledInfo: 'There is some data missing'
 }
