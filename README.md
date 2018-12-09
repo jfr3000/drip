@@ -53,8 +53,8 @@ Unfortunately, the react native version we use doesn't work on Windows 10 it see
 You can run the tests with `npm test`.
 
 ## Debugging
-When running into an old version of the app try to run the following command first:
-`react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res`
+If you want to check what the code is actually doing you can add an extra line to your code to check a specific variable `console.log(someTestVariable)` or a function or just check whether this line gets actually reached.
+Save it and run `npm run android` in one window and `rpm run log` in a different window, where it will print out what you speficied in console.log, e.g. `someTestVariable`.
 
 ## NFP rules
 More information about how the app calculates fertility status and bleeding predictions in the [wiki on Gitlab](https://gitlab.com/bloodyhealth/drip/wikis/home)
