@@ -8,7 +8,7 @@ export default async function openShareDialogAndExport() {
   try {
     data = getDataAsCsvDataUri()
     if (!data) {
-      return alertError(labels.errors.noData)
+      return alertError(labels.export.errors.noData)
     }
   } catch (err) {
     console.error(err)
