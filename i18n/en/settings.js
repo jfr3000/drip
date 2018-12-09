@@ -67,5 +67,9 @@ export const settings = {
     backupReminder: 'Just to be safe, please backup your data using the export function before making changes to your password.\n\nLonger passwords are better! Consider using a passphrase.\n\nPlease also make sure you do not lose your password. There is no way to recover your data if you do.\n\nMaking any changes to your password setting will keep your data as it was before and restart the app.',
     deleteBackupReminderTitle: 'Read this before deleting your password',
     deleteBackupReminder: 'Deleting your password means your data will no longer be encrypted.\n\nJust to be safe, please backup your data using the export function before deleting your password.\n\nMaking any changes to your password setting will keep your data as it was before and restart the app.',
+  },
+  aboutSection: {
+    title: 'About',
+    segmentExplainer: 'Please note that your data is stored locally on your phone and not on a server. We want to ensure that you stay in control of those sensitive information. If you are planning to switch or reset your phone, please remember to export your data before doing so. You can reinstall the app afterwards and import your data.\n\nIf you encounter any technical issues, don\'t hesitate to contact us via email (bl00dyhealth@mailbox.org). You can also contribute to the code base on GitLab (https://gitlab.com/bloodyhealth/drip/).',
   }
 }
