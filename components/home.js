@@ -2,17 +2,28 @@ import React, { Component } from 'react'
 import { ScrollView, View, TouchableOpacity, TouchableHighlight, Dimensions } from 'react-native'
 import { LocalDate, ChronoUnit } from 'js-joda'
 import Icon from 'react-native-vector-icons/Entypo'
-import { Surface } from 'react-native/Libraries/ART/ReactNativeART'
 import { secondaryColor, cycleDayColor, periodColor } from '../styles'
 import { home as labels, bleedingPrediction as predictLabels, shared } from '../i18n/en/labels'
-import CycleDayIcon from '../assets/home-circle'
-import Drop from '../assets/home-drop'
 import cycleModule from '../lib/cycle'
 import { getCycleDaysSortedByDate } from '../db'
 import { getFertilityStatusForDay } from '../lib/sympto-adapter'
 import styles from '../styles'
 import AppText, { AppTextLight } from './app-text'
 import nothingChanged from '../db/db-unchanged'
+import DripHomeIcon from '../assets/drip-home-icons'
+
+const HomeButton = ({ backgroundColor, children }) => {
+  return (
+    <View style={[
+      styles.homeButton,
+      {backgroundColor}
+    ]}>
+      <AppText style={styles.homeButtonText}>
+        {children}
+      </AppText>
+    </View>
+  )
+}
 
 export default class Home extends Component {
   constructor(props) {
@@ -73,15 +84,7 @@ export default class Home extends Component {
               style={styles.homeIconElement}
             >
               <View position='absolute'>
-                <Surface
-                  width={80}
-                  height={80}
-                >
-                  <CycleDayIcon
-                    strokeWidth={2}
-                    scale={0.46}
-                  />
-                </Surface>
+                <DripHomeIcon name="circle" size={80} color={cycleDayColor}/>
               </View>
               <View style={[styles.homeIconTextWrapper, styles.wrapperCycle]}>
                 <AppTextLight style={styles.iconText}>
@@ -92,14 +95,11 @@ export default class Home extends Component {
               { this.state.showMore &&
                   <AppText style={styles.paragraph}>{cycleDayMoreText}</AppText>
               }
-              <View style={[
-                styles.homeButton,
-                { backgroundColor: cycleDayColor }
-              ]}>
-                <AppText style={styles.homeButtonText}>
-                  {labels.editToday}
-                </AppText>
-              </View>
+
+              <HomeButton backgroundColor={cycleDayColor}>
+                {labels.editToday}
+              </HomeButton>
+
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -107,7 +107,7 @@ export default class Home extends Component {
               style={styles.homeIconElement}
             >
               <View position='absolute'>
-                <Drop scale={0.55}/>
+                <DripHomeIcon name="drop" size={105} color={periodColor} />
               </View>
               <View style={[styles.homeIconTextWrapper, styles.wrapperDrop]}>
                 <AppTextLight style={styles.iconText}>
@@ -120,21 +120,21 @@ export default class Home extends Component {
                   {this.state.predictionText}
                 </AppText>
               }
-              <View style={[
-                styles.homeButton,
-                { backgroundColor: periodColor }
-              ]}>
-                <AppText style={styles.homeButtonText}>
-                  {labels.trackPeriod}
-                </AppText>
-              </View>
+
+              <HomeButton backgroundColor={periodColor}>
+                {labels.trackPeriod}
+              </HomeButton>
+
             </TouchableOpacity>
 
             <TouchableOpacity
               onPress={() => this.props.navigate('Chart')}
               style={styles.homeIconElement}
             >
-              <View style={styles.homeCircle}>
+
+              <View style={styles.homeCircle} position='absolute' />
+
+              <View style={[styles.homeIconTextWrapper, styles.wrapperCircle]}>
                 <AppTextLight style={styles.iconText}>
                   {this.state.phase ?
                     this.state.phase.toString()
@@ -153,14 +153,10 @@ export default class Home extends Component {
                   {this.state.statusText}
                 </AppText>
               }
-              <View style={[
-                styles.homeButton,
-                { backgroundColor: secondaryColor }
-              ]}>
-                <AppText style={styles.homeButtonText}>
-                  {labels.checkFertility}
-                </AppText>
-              </View>
+
+              <HomeButton backgroundColor={secondaryColor}>
+                {labels.checkFertility}
+              </HomeButton>
             </TouchableOpacity>
           </View>
 

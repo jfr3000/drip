@@ -13,6 +13,7 @@ import TempSlider from './temp-slider'
 import openImportDialogAndImport from './import-dialog'
 import openShareDialogAndExport from './export-dialog'
 import PasswordSetting from './password'
+import UseCervixSetting from './use-cervix'
 
 export default class Settings extends Component {
   constructor(props) {
@@ -24,6 +25,7 @@ export default class Settings extends Component {
     return (
       <ScrollView>
         <TempReminderPicker/>
+        <UseCervixSetting/>
         <View style={styles.settingsSegment}>
           <AppText style={styles.settingsSegmentTitle}>
             {labels.tempScale.segmentTitle}

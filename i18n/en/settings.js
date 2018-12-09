@@ -46,15 +46,23 @@ export const settings = {
     reminderText: 'Get a notification 3 days before your next period is likely to start.',
     notification: daysToEndOfPrediction => `Your next period is likely to start in 3 to ${daysToEndOfPrediction} days.`
   },
+  useCervix: {
+    title: 'Secondary symptom',
+    cervixModeOn: 'Cervix values are being used for symptothermal fertility detection. You can switch here to use mucus values for symptothermal fertility detection',
+    cervixModeOff: 'By default, mucus values are being used for symptothermal fertility detection. You can switch here to use cervix values for symptothermal fertility detection'
+  },
   passwordSettings: {
     title: 'App password',
     explainerDisabled: "Encrypt the app's database with a password. You need to enter the password every time the app is started.",
     explainerEnabled: "Password protection and database encryption is currently enabled",
     setPassword: 'Set password',
+    savePassword: 'Save password',
     changePassword: 'Change password',
     deletePassword: 'Delete password',
     enterCurrent: "Please enter your current password",
     enterNew: "Please enter a new password",
+    confirmPassword: "Please confirm your password",
+    passwordsDontMatch: "Password and confirmation don't match",
     backupReminderTitle: 'Read this before making changes to your password',
     backupReminder: 'Just to be safe, please backup your data using the export function before making changes to your password.\n\nLonger passwords are better! Consider using a passphrase.\n\nPlease also make sure you do not lose your password. There is no way to recover your data if you do.\n\nMaking any changes to your password setting will keep your data as it was before and restart the app.',
     deleteBackupReminderTitle: 'Read this before deleting your password',

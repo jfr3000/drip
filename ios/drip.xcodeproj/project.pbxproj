@@ -76,6 +76,8 @@
 		64083B0F5264453FAC04251B /* Dosis-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 97B6A2FB33264796A4D917E0 /* Dosis-Light.ttf */; };
 		9CA5B31E59524C9490DAFD48 /* Dosis-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A1E40B398D54045B358F0DB /* Dosis-Medium.ttf */; };
 		082F2BD2BEA046FE8EE58763 /* Dosis-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A26A6F601D64F3A8D4A02B0 /* Dosis-SemiBold.ttf */; };
+		DAA390B1EE7442D88A768596 /* drip-home-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94973D7B7BBA4B0FBE713A0E /* drip-home-icon-font.ttf */; };
+		BA7CE1E95B7843D7B0CF85FF /* drip-home-icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 887F1D52A4684A5280CB79AA /* drip-home-icons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -426,6 +428,8 @@
 		97B6A2FB33264796A4D917E0 /* Dosis-Light.ttf */ = {isa = PBXFileReference; name = "Dosis-Light.ttf"; path = "../assets/fonts/Dosis-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		2A1E40B398D54045B358F0DB /* Dosis-Medium.ttf */ = {isa = PBXFileReference; name = "Dosis-Medium.ttf"; path = "../assets/fonts/Dosis-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		2A26A6F601D64F3A8D4A02B0 /* Dosis-SemiBold.ttf */ = {isa = PBXFileReference; name = "Dosis-SemiBold.ttf"; path = "../assets/fonts/Dosis-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		94973D7B7BBA4B0FBE713A0E /* drip-home-icon-font.ttf */ = {isa = PBXFileReference; name = "drip-home-icon-font.ttf"; path = "../assets/fonts/drip-home-icon-font.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		887F1D52A4684A5280CB79AA /* drip-home-icons.ttf */ = {isa = PBXFileReference; name = "drip-home-icons.ttf"; path = "../assets/fonts/drip-home-icons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -741,6 +745,8 @@
 				97B6A2FB33264796A4D917E0 /* Dosis-Light.ttf */,
 				2A1E40B398D54045B358F0DB /* Dosis-Medium.ttf */,
 				2A26A6F601D64F3A8D4A02B0 /* Dosis-SemiBold.ttf */,
+				94973D7B7BBA4B0FBE713A0E /* drip-home-icon-font.ttf */,
+				887F1D52A4684A5280CB79AA /* drip-home-icons.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1224,6 +1230,8 @@
 				64083B0F5264453FAC04251B /* Dosis-Light.ttf in Resources */,
 				9CA5B31E59524C9490DAFD48 /* Dosis-Medium.ttf in Resources */,
 				082F2BD2BEA046FE8EE58763 /* Dosis-SemiBold.ttf in Resources */,
+				DAA390B1EE7442D88A768596 /* drip-home-icon-font.ttf in Resources */,
+				BA7CE1E95B7843D7B0CF85FF /* drip-home-icons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1387,7 +1395,7 @@ embed_framework()
 {
     FRAMEWORK_NAME=\"$(basename \"$1\")\"
     cp -r \"$1\" \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/\"
-    
+
     /usr/bin/codesign --force --sign $EXPANDED_CODE_SIGN_IDENTITY --preserve-metadata=identifier,entitlements,flags --timestamp=none \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/$FRAMEWORK_NAME\"
 }
 find \"$CODESIGNING_FOLDER_PATH/nodejs-project/\" -name \"*.framework\" -type d | while read frmwrk_path; do embed_framework \"$frmwrk_path\"; done
