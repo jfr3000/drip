@@ -81,6 +81,7 @@ export default class App extends Component {
             title={headerTitlesLowerCase[this.state.currentPage]}
             isSymptomView={true}
             goBack={this.handleBackButtonPress}
+            date={this.state.currentProps.date}
           />}
 
 

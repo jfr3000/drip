@@ -5,6 +5,7 @@ import {
 import styles, { iconStyles } from '../../styles'
 import FeatherIcon from 'react-native-vector-icons/Feather'
 import NavigationArrow from './navigation-arrow'
+import formatDate from '../helpers/format-date'
 
 export default function SymptomViewHeader(props) {
   return (
@@ -19,6 +20,9 @@ export default function SymptomViewHeader(props) {
       />
       <View>
         <Text style={styles.dateHeader}>
+          {formatDate(props.date)}
+        </Text>
+        <Text style={styles.cycleDayNumber}>
           {props.title}
         </Text>
       </View >
