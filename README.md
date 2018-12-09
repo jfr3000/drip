@@ -23,7 +23,7 @@ A menstrual cycle tracking app that's open-source and leaves your data on your p
 
 1. Either start a [virtual device in Android Studio](https://developer.android.com/studio/run/emulator) or [set your physical device like your Android phone up](https://developer.android.com/training/basics/firstapp/running-app) to run the app.
 
-1. Open a terminal in Android Studio and run `npm install`
+1. Open a terminal and run `npm install`
 
 1. Run `npm run android`
 
