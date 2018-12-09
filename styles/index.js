@@ -13,9 +13,10 @@ export const shadesOfRed = [
 export const cycleDayColor = '#29287f'
 export const periodColor = '#802249'
 
-//const fontRegular = 'Prompt-Light'
-const fontRegular = 'Dosis-Light'
-const fontLight = 'Promt-Light'
+const fontRegular = 'Prompt-Light'
+const fontLight = 'Prompt-Thin'
+const textFont = 'Dosis-Light'
+const textFontLight = 'Dosis-ExtraLight'
 
 const regularSize = 16
 
@@ -27,12 +28,12 @@ const colorInActive = '#666666'
 export default StyleSheet.create({
   appText: {
     color: 'black',
-    fontFamily: fontRegular,
+    fontFamily: textFont,
     fontSize: regularSize
   },
   appTextLight: {
     color: 'black',
-    fontFamily: 'Promt-Light',
+    fontFamily: textFontLight,
     fontSize: regularSize
   },
   paragraph: {
@@ -40,7 +41,7 @@ export default StyleSheet.create({
   },
   emphasis: {
     fontWeight: 'bold',
-    fontFamily: fontRegular,
+    fontFamily: textFont
   },
   title: {
     fontSize: 18,
@@ -78,6 +79,11 @@ export default StyleSheet.create({
     borderRadius: 100,
     position: 'absolute'
   },
+  errorMessage: {
+    color: shadesOfRed[2],
+    marginLeft: 10,
+    marginTop: 6,
+  },
   homeView: {
     marginHorizontal: 50,
     marginTop: 20,
@@ -102,17 +108,21 @@ export default StyleSheet.create({
     marginBottom: 10,
   },
   wrapperCycle: {
-    width: 70,
-    height: 75
+    width: 80,
+    height: 77
   },
   wrapperDrop: {
+    width: 81,
+    height: 85,
+    marginTop: 20
+  },
+  wrapperCircle: {
     width: 80,
     height: 80,
-    marginTop: 20
   },
   homeCircle: {
     borderRadius: 100,
-    borderWidth: 1,
+    borderWidth: 0.7,
     width: 80,
     height: 80,
     alignItems: 'center',
@@ -140,6 +150,10 @@ export default StyleSheet.create({
     fontSize: 20,
     color: 'black',
     marginBottom: 5
+  },
+  symptomInfoIcon: {
+    marginRight: 20,
+    marginLeft: 20
   },
   symptomBoxImage: {
     width: 50,
@@ -201,9 +215,6 @@ export default StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  headerSymptom: {
-    paddingRight: 20
-  },
   navigationArrow: {
     padding: 20
   },
@@ -250,16 +261,20 @@ export default StyleSheet.create({
     marginTop: defaultTopMargin,
     marginHorizontal: defaultIndentation,
     padding: 7,
+    fontFamily: 'textFont'
   },
   settingsSegmentTitle: {
     fontWeight: 'bold',
-    fontFamily: fontRegular
+    fontFamily: 'textFont'
   },
   settingsButton: {
     backgroundColor: secondaryColor,
     padding: 10,
     alignItems: 'center',
     margin: 10,
+  },
+  settingsButtonDisabled: {
+    backgroundColor: colorInActive
   },
   settingsButtonText: {
     color: fontOnPrimaryColor
