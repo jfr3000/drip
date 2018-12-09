@@ -44,6 +44,14 @@ export async function savePeriodReminder(reminder) {
   periodReminderObservable.set(reminder)
 }
 
+export const useCervixObservable = Observable()
+setObvWithInitValue('useCervix', useCervixObservable, false)
+
+export async function saveUseCervix(bool) {
+  await AsyncStorage.setItem('useCervix', JSON.stringify(bool))
+  useCervixObservable.set(bool)
+}
+
 export const hasEncryptionObservable = Observable()
 setObvWithInitValue('hasEncryption', hasEncryptionObservable, false)
 
