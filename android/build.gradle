@@ -35,3 +35,11 @@ ext {
     targetSdkVersion = 26
     supportLibVersion = "26.1.0"
 }
+
+subprojects {project ->
+  buildscript {
+    repositories {
+      maven { url = 'https://dl.bintray.com/android/android-tools/' }
+    }
+  }
+}
