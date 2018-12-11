@@ -1,5 +1,8 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.drip">
+<manifest
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  package="com.drip"
+>
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
@@ -36,9 +39,11 @@
             android:grantUriPermissions="true"
             android:exported="false">
             <meta-data
+                tools:replace="android:resource"
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/filepaths" />
       </provider>
+
         <meta-data  android:name="com.dieam.reactnativepushnotification.notification_channel_name"
                 android:value="drip-notification"/>
         <meta-data  android:name="com.dieam.reactnativepushnotification.notification_channel_description"
