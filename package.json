@@ -12,7 +12,8 @@
     "log": "react-native log-android",
     "test": "mocha --recursive --require @babel/register test && npm run lint",
     "test-watch": "mocha --recursive --require @babel/register --watch test",
-    "lint": "eslint components lib test"
+    "lint": "eslint components lib test",
+    "devtool": "adb shell input keyevent 82"
   },
   "dependencies": {
     "@ptomasroos/react-native-multi-slider": "^1.0.0",
