@@ -1,26 +1,23 @@
-
 import React, { Component } from 'react'
-import {
-  View,
-  TouchableOpacity} from 'react-native'
+import { View } from 'react-native'
 import nodejs from 'nodejs-mobile-react-native'
-import AppText from '../../app-text'
-import styles from '../../../styles'
-import { shared } from '../../../i18n/en/labels'
-import { settings as labels } from '../../../i18n/en/settings'
-import { requestHash, changeEncryptionAndRestartApp } from '../../../db'
+import { shared as sharedLabels } from '../../../i18n/en/labels'
+import { settings } from '../../../i18n/en/settings'
+import { requestHash } from '../../../db'
+import EnterNewPassword from './enter-new-password'
 import PasswordField from './password-field'
+import SettingsButton from './settings-button'
 import showBackUpReminder from './show-backup-reminder'
 import checkCurrentPassword from './check-current-password'
+
 
 export default class ChangePassword extends Component {
   constructor() {
     super()
     this.state = {
-      enteringCurrentPassword: false,
       currentPassword: null,
-      enteringNewPassword: false,
-      newPassword: null
+      enteringCurrentPassword: false,
+      enteringNewPassword: false
     }
 
     nodejs.channel.addListener(
@@ -28,17 +25,10 @@ export default class ChangePassword extends Component {
       this.openNewPasswordField,
       this
     )
-
-    nodejs.channel.addListener(
-      'change-pw',
-      changeEncryptionAndRestartApp,
-      this
-    )
   }
 
   componentWillUnmount() {
     nodejs.channel.removeListener('pre-change-pw-check', this.openNewPasswordField)
-    nodejs.channel.removeListener('change-pw', changeEncryptionAndRestartApp)
   }
 
   openNewPasswordField = async hash => {
@@ -53,77 +43,67 @@ export default class ChangePassword extends Component {
 
     if (passwordCorrect) {
       this.setState({
-        enteringCurrentPassword: false,
         currentPassword: null,
-        enteringNewPassword: true
+        enteringNewPassword: true,
+        enteringCurrentPassword: false
       })
     }
   }
 
+  startChangingPassword = () => {
+    showBackUpReminder(() => {
+      this.setState({ enteringCurrentPassword: true })
+    })
+  }
+
+  handleCurrentPasswordInput = (currentPassword) => {
+    this.setState({ currentPassword })
+  }
+
+  checkCurrentPassword = () => {
+    requestHash('pre-change-pw-check', this.state.currentPassword)
+  }
+
   render() {
-    return (
-      <View>
-        {!this.state.enteringCurrentPassword &&
-         !this.state.enteringNewPassword &&
-          <TouchableOpacity
-            onPress={() => showBackUpReminder(() => {
-              this.setState({ enteringCurrentPassword: true })
-            })}
-            disabled={this.state.currentPassword}
-            style={styles.settingsButton}>
-            <AppText style={styles.settingsButtonText}>
-              {labels.passwordSettings.changePassword}
-            </AppText>
-          </TouchableOpacity>
-        }
 
-        {this.state.enteringCurrentPassword &&
-          <View>
-            <PasswordField
-              onChangeText={val => {
-                this.setState({
-                  currentPassword: val,
-                  wrongPassword: false
-                })
-              }}
-              value={this.state.currentPassword}
-              placeholder={labels.passwordSettings.enterCurrent}
-            />
-            <TouchableOpacity
-              onPress={() => requestHash('pre-change-pw-check', this.state.currentPassword)}
-              disabled={!this.state.currentPassword}
-              style={styles.settingsButton}>
-              <AppText style={styles.settingsButtonText}>
-                {shared.unlock}
-              </AppText>
-            </TouchableOpacity>
-          </View>
-        }
+    const {
+      enteringCurrentPassword,
+      enteringNewPassword,
+      currentPassword
+    } = this.state
 
-        {this.state.enteringNewPassword &&
+    const labels = settings.passwordSettings
+
+    if (enteringCurrentPassword) {
+      return (
         <View>
           <PasswordField
-            style={styles.passwordField}
-            onChangeText={val => {
-              this.setState({
-                newPassword: val
-              })
-            }}
-            value={this.state.changedPassword}
-            placeholder={labels.passwordSettings.enterNew}
+            placeholder={labels.enterCurrent}
+            value={currentPassword}
+            onChangeText={this.handleCurrentPasswordInput}
           />
-
-          <TouchableOpacity
-            onPress={() => requestHash('change-pw', this.state.newPassword)}
-            disabled={ !this.state.newPassword }
-            style={styles.settingsButton}>
-            <AppText style={styles.settingsButtonText}>
-              {labels.passwordSettings.changePassword}
-            </AppText>
-          </TouchableOpacity>
+          <SettingsButton
+            onPress={this.checkCurrentPassword}
+            disabled={!currentPassword}
+          >
+            {sharedLabels.unlock}
+          </SettingsButton>
         </View>
-        }
+      )
+    }
 
+    if (enteringNewPassword) {
+      return <EnterNewPassword />
+    }
+
+    return (
+      <View>
+        <SettingsButton
+          onPress={this.startChangingPassword}
+          disabled={currentPassword}
+        >
+          {labels.changePassword}
+        </SettingsButton>
       </View>
     )
   }
