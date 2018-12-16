@@ -20,10 +20,10 @@ export default function SymptomViewHeader(props) {
       />
       <View>
         <Text style={styles.dateHeader}>
-          {formatDate(props.date)}
+          {props.title}
         </Text>
         <Text style={styles.cycleDayNumber}>
-          {props.title}
+          {formatDate(props.date)}
         </Text>
       </View >
       <FeatherIcon
