@@ -58,7 +58,6 @@ export default class ActionButtonFooter extends Component {
         icon: 'content-save-outline'
       }
     ]
-    console.log("Hello beautiful people")
     return (
       <View style={styles.menu}>
         {buttons.map(({ title, action, disabledCondition, icon }, i) => {
