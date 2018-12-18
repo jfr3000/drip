@@ -45,7 +45,6 @@ export default class ActionButtonFooter extends Component {
         title: labels.save,
         action: () => {
           if(saveDisabled) {
-            //toast
             ToastAndroid.show(labels.disabledInfo, ToastAndroid.LONG);
             console.log()
           } else {
