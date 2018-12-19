@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { View, ScrollView } from 'react-native'
 import CreatePassword from './create'
 import ChangePassword from './update'
 import DeletePassword from './delete'
@@ -21,30 +21,32 @@ export default class PasswordSetting extends Component {
 
   render() {
     return (
-      <View style={styles.settingsSegment}>
+      <ScrollView>
+        <View style={styles.settingsSegment}>
 
-        <AppText style={styles.settingsSegmentTitle}>
-          {labels.passwordSettings.title}
-        </AppText>
+          <AppText style={styles.settingsSegmentTitle}>
+            {labels.passwordSettings.title}
+          </AppText>
 
-        {this.state.showUpdateAndDelete ?
-          <AppText>{labels.passwordSettings.explainerEnabled}</AppText>
-          :
-          <AppText>{labels.passwordSettings.explainerDisabled}</AppText>
-        }
+          {this.state.showUpdateAndDelete ?
+            <AppText>{labels.passwordSettings.explainerEnabled}</AppText>
+            :
+            <AppText>{labels.passwordSettings.explainerDisabled}</AppText>
+          }
 
-        {this.state.showUpdateAndDelete &&
+          {this.state.showUpdateAndDelete &&
           <View>
             <ChangePassword/>
             <DeletePassword/>
           </View>
-        }
+          }
 
-        {this.state.showCreate &&
+          {this.state.showCreate &&
           <CreatePassword/>
-        }
+          }
 
-      </View>
+        </View>
+      </ScrollView>
     )
   }
 }

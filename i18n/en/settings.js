@@ -1,4 +1,11 @@
 export const settings = {
+  menuTitles: {
+    reminders: 'Reminders',
+    importExport: 'Import and Export',
+    nfpSettings: 'NFP settings',
+    password: 'Password',
+    about: 'About'
+  },
   export: {
     errors: {
       noData: 'There is no data to export',

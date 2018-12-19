@@ -7,7 +7,7 @@ import Calendar from './calendar'
 import CycleDay from './cycle-day/cycle-day-overview'
 import symptomViews from './cycle-day/symptoms'
 import Chart from './chart/chart'
-import Settings from './settings'
+import settingsViews from './settings'
 import Stats from './stats'
 import {headerTitles, menuTitles} from '../i18n/en/labels'
 import setupNotifications from '../lib/notifications'
@@ -68,7 +68,7 @@ export default class App extends Component {
 
   render() {
     const page = {
-      Home, Calendar, CycleDay, Chart, Settings, Stats, ...symptomViews
+      Home, Calendar, CycleDay, Chart, ...settingsViews, Stats, ...symptomViews
     }[this.state.currentPage]
     return (
       <View style={{flex: 1}}>

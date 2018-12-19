@@ -1,9 +1,9 @@
 import Share from 'react-native-share'
 
-import { getCycleDaysSortedByDate } from '../../db'
-import getDataAsCsvDataUri from '../../lib/import-export/export-to-csv'
-import alertError from './alert-error'
-import { settings } from '../../i18n/en/settings'
+import { getCycleDaysSortedByDate } from '../../../db'
+import getDataAsCsvDataUri from '../../../lib/import-export/export-to-csv'
+import alertError from '../alert-error'
+import { settings } from '../../../i18n/en/settings'
 import RNFS from 'react-native-fs'
 
 export default async function exportData() {
