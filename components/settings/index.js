@@ -10,6 +10,7 @@ import AppText from '../app-text'
 import TempReminderPicker from './temp-reminder-picker'
 import PeriodReminderPicker from './period-reminder'
 import TempSlider from './temp-slider'
+import AboutSection from './about'
 import openImportDialogAndImport from './import-dialog'
 import openShareDialogAndExport from './export-dialog'
 import PasswordSetting from './password'
@@ -61,6 +62,7 @@ export default class Settings extends Component {
             </AppText>
           </TouchableOpacity>
         </View>
+        <AboutSection/>
       </ScrollView>
     )
   }
