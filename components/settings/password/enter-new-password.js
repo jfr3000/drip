@@ -8,7 +8,7 @@ import PasswordField from './password-field'
 import SettingsButton from './settings-button'
 
 import styles from '../../../styles'
-import { settings } from '../../../i18n/en/settings'
+import settings from '../../../i18n/en/settings'
 
 const LISTENER_TYPE = 'create-or-change-pw'
 

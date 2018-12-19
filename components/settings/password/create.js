@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
-import { settings } from '../../../i18n/en/settings'
+import settings from '../../../i18n/en/settings'
 import EnterNewPassword from './enter-new-password'
 import SettingsButton from './settings-button'
 import showBackUpReminder from './show-backup-reminder'
