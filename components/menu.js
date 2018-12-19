@@ -38,7 +38,7 @@ export default class Menu extends Component {
           { title: t.Calendar, icon: 'calendar-range', onPress: () => this.goTo('Calendar') },
           { title: t.Chart, icon: 'chart-line', onPress: () => this.goTo('Chart') },
           { title: t.Stats, icon: 'chart-pie', onPress: () => this.goTo('Stats') },
-          { title: t.Settings, icon: 'settings', onPress: () => this.goTo('Settings') },
+          { title: t.Settings, icon: 'settings', onPress: () => this.goTo('SettingsMenu') },
         ].map(this.makeMenuItem)}
       </View >
     )

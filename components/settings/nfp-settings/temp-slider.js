@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
 import Slider from '@ptomasroos/react-native-multi-slider'
-import AppText from '../app-text'
+import AppText from '../../app-text'
 import {
   scaleObservable,
   saveTempScale,
-} from '../../local-storage'
-import { secondaryColor } from '../../styles/index'
-import { settings as labels } from '../../i18n/en/settings'
-import config from '../../config'
-import alertError from './alert-error'
+} from '../../../local-storage'
+import { secondaryColor } from '../../../styles/index'
+import labels from '../../../i18n/en/settings'
+import config from '../../../config'
+import alertError from '../alert-error'
 
 export default class TempSlider extends Component {
   constructor(props) {

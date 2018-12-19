@@ -1,3 +1,6 @@
+import labels from './settings'
+const settingsTitles = labels.menuTitles
+
 export const shared = {
   cancel: 'Cancel',
   save: 'Save',
@@ -21,7 +24,12 @@ export const headerTitles = {
   Calendar: 'Calendar',
   Chart: 'Chart',
   Stats: 'Statistics',
-  Settings: 'Settings',
+  SettingsMenu: 'Settings',
+  Reminders: settingsTitles.reminders,
+  NfpSettings: settingsTitles.nfpSettings,
+  ImportExport: settingsTitles.importExport,
+  Password: settingsTitles.password,
+  About: settingsTitles.about,
   BleedingEditView: 'Bleeding',
   TemperatureEditView: 'Temperature',
   MucusEditView: 'Mucus',

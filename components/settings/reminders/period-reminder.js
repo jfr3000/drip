@@ -3,13 +3,13 @@ import {
   View,
   Switch
 } from 'react-native'
-import AppText from '../app-text'
+import AppText from '../../app-text'
 import {
   periodReminderObservable,
   savePeriodReminder
-} from '../../local-storage'
-import styles from '../../styles/index'
-import { settings as labels } from '../../i18n/en/settings'
+} from '../../../local-storage'
+import styles from '../../../styles/index'
+import labels from '../../../i18n/en/settings'
 
 export default class PeriodReminderPicker extends Component {
   constructor(props) {

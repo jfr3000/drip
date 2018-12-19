@@ -4,13 +4,13 @@ import {
   TouchableOpacity,
   Switch
 } from 'react-native'
-import AppText from '../app-text'
+import AppText from '../../app-text'
 import {
   useCervixObservable,
   saveUseCervix
-} from '../../local-storage'
-import styles from '../../styles/index'
-import { settings as labels } from '../../i18n/en/settings'
+} from '../../../local-storage'
+import styles from '../../../styles/index'
+import labels from '../../../i18n/en/settings'
 
 export default class UseCervixSetting extends Component {
   constructor() {

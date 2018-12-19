@@ -7,7 +7,8 @@ import Calendar from './calendar'
 import CycleDay from './cycle-day/cycle-day-overview'
 import symptomViews from './cycle-day/symptoms'
 import Chart from './chart/chart'
-import Settings from './settings'
+import SettingsMenu from './settings/settings-menu'
+import settingsViews from './settings'
 import Stats from './stats'
 import {headerTitles, menuTitles} from '../i18n/en/labels'
 import setupNotifications from '../lib/notifications'
@@ -24,6 +25,7 @@ const menuTitlesLowerCase = Object.keys(menuTitles).reduce((acc, curr) => {
 }, {})
 
 const isSymptomView = name => Object.keys(symptomViews).includes(name)
+const isSettingsView = name => Object.keys(settingsViews).includes(name)
 const isMenuItem = name => Object.keys(menuTitles).includes(name)
 
 export default class App extends Component {
@@ -58,6 +60,8 @@ export default class App extends Component {
       this.navigate(
         this.originForSymptomView, { date: this.state.currentProps.date }
       )
+    } else if (isSettingsView(this.state.currentPage)) {
+      this.navigate('SettingsMenu')
     } else if(this.state.currentPage === 'CycleDay') {
       this.navigate(this.menuOrigin)
     } else {
@@ -68,7 +72,7 @@ export default class App extends Component {
 
   render() {
     const page = {
-      Home, Calendar, CycleDay, Chart, Settings, Stats, ...symptomViews
+      Home, Calendar, CycleDay, Chart, SettingsMenu, ...settingsViews, Stats, ...symptomViews
     }[this.state.currentPage]
     return (
       <View style={{flex: 1}}>
