@@ -11,7 +11,7 @@ import {
   saveTempReminder
 } from '../../../local-storage'
 import styles from '../../../styles/index'
-import { settings as labels } from '../../../i18n/en/settings'
+import labels from '../../../i18n/en/settings'
 import padWithZeros from '../../helpers/pad-time-with-zeros'
 
 export default class TempReminderPicker extends Component {

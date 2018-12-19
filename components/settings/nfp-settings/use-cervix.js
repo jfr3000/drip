@@ -10,7 +10,7 @@ import {
   saveUseCervix
 } from '../../../local-storage'
 import styles from '../../../styles/index'
-import { settings as labels } from '../../../i18n/en/settings'
+import labels from '../../../i18n/en/settings'
 
 export default class UseCervixSetting extends Component {
   constructor() {

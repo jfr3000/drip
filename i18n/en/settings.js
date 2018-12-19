@@ -1,4 +1,4 @@
-export const settings = {
+export default {
   menuTitles: {
     reminders: 'Reminders',
     importExport: 'Import and Export',

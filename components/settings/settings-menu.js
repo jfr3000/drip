@@ -4,10 +4,12 @@ import {
   ScrollView,
 } from 'react-native'
 import styles from '../../styles/index'
-import { settings as settingsLabels } from '../../i18n/en/settings'
+import settingsLabels from '../../i18n/en/settings'
 import AppText from '../app-text'
 
+console.log(settingsLabels.menuTitles)
 const labels = settingsLabels.menuTitles
+console.log(settingsLabels.menuTitles)
 
 const menu = [
   {title: labels.reminders, component: 'Reminders'},

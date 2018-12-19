@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, ScrollView } from 'react-native'
 import AppText from '../app-text'
 import styles from '../../styles/index'
-import { settings as labels } from '../../i18n/en/settings'
+import labels from '../../i18n/en/settings'
 export default class AboutSection extends Component {
   render() {
     return (

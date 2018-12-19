@@ -4,7 +4,7 @@ import {
   TouchableOpacity,
 } from 'react-native'
 import styles from '../../../styles/index'
-import { settings as labels } from '../../../i18n/en/settings'
+import labels from '../../../i18n/en/settings'
 import AppText from '../../app-text'
 import openImportDialogAndImport from './import-dialog'
 import openShareDialogAndExport from './export-dialog'

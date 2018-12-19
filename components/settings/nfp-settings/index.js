@@ -3,7 +3,7 @@ import {
   ScrollView, View
 } from 'react-native'
 import styles from '../../../styles'
-import { settings as labels } from '../../../i18n/en/settings'
+import labels from '../../../i18n/en/settings'
 import AppText from '../../app-text'
 import TempSlider from './temp-slider'
 import UseCervixSetting from './use-cervix'
