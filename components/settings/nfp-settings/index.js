@@ -8,6 +8,7 @@ import AppText from '../../app-text'
 import TempSlider from './temp-slider'
 import UseCervixSetting from './use-cervix'
 import Icon from 'react-native-vector-icons/Entypo'
+import Link from '../../link'
 
 export default class Settings extends Component {
   constructor(props) {
@@ -31,7 +32,11 @@ export default class Settings extends Component {
             <Icon name="info-with-circle" style={iconStyles.infoInHeading}/>
             <AppText style={styles.settingsSegmentTitle}>{`${labels.preOvu.title} `}</AppText>
           </View>
-          <AppText>{`${labels.preOvu.note} `}</AppText>
+          <AppText>
+            {labels.preOvu.note1}
+            <Link text={labels.preOvu.link} href="https://gitlab.com/bloodyhealth/drip/wikis/home" />
+            {labels.preOvu.note2}
+          </AppText>
         </View>
       </ScrollView>
     )

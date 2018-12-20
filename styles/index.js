@@ -40,6 +40,10 @@ export default StyleSheet.create({
   emphasis: {
     fontWeight: 'bold',
   },
+  link: {
+    color: cycleDayColor,
+    textDecorationLine: 'underline'
+  },
   title: {
     fontSize: 18,
     color: 'black',

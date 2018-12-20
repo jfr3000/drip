@@ -1,33 +1,30 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Text } from 'react-native'
 import styles from "../styles"
 
-export default class AppText extends Component {
-  render() {
-    return (
-      <Text style={[styles.appText, this.props.style]}>
-        {this.props.children}
-      </Text>
-    )
-  }
+export default function AppText(props) {
+  return (
+    <Text
+      style={[styles.appText, props.style]}
+      onPress={props.onPress}
+    >
+      {props.children}
+    </Text>
+  )
 }
 
-export class AppTextLight extends Component {
-  render() {
-    return (
-      <Text style={[styles.appTextLight, this.props.style]}>
-        {this.props.children}
-      </Text>
-    )
-  }
+export function AppTextLight(props) {
+  return (
+    <Text style={[styles.appTextLight, props.style]}>
+      {props.children}
+    </Text>
+  )
 }
 
-export class SymptomSectionHeader extends Component {
-  render() {
-    return (
-      <AppText style={styles.symptomViewHeading}>
-        {this.props.children}
-      </AppText>
-    )
-  }
+export function SymptomSectionHeader(props) {
+  return (
+    <AppText style={styles.symptomViewHeading}>
+      {props.children}
+    </AppText>
+  )
 }
