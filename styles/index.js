@@ -409,4 +409,8 @@ export const iconStyles = {
   menuIconInactive: {
     color: colorInActive,
   },
+  infoInHeading: {
+    marginRight: 5,
+    color: 'black'
+  }
 }
