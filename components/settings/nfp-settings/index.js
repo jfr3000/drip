@@ -26,7 +26,7 @@ export default class Settings extends Component {
           <AppText>{labels.tempScale.segmentExplainer}</AppText>
           <TempSlider/>
         </View>
-        <View style={styles.settingsSegment}>
+        <View style={[styles.settingsSegment, styles.settingsSegmentLast]}>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Icon name="info-with-circle" style={iconStyles.infoInHeading}/>
             <AppText style={styles.settingsSegmentTitle}>{`${labels.preOvu.title} `}</AppText>

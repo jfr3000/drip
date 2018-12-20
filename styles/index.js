@@ -259,6 +259,9 @@ export default StyleSheet.create({
     marginHorizontal: defaultIndentation,
     padding: 7,
   },
+  settingsSegmentLast: {
+    marginBottom: defaultTopMargin,
+  },
   settingsSegmentTitle: {
     fontWeight: 'bold'
   },
