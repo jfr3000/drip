@@ -25,6 +25,10 @@ export default class Settings extends Component {
           <AppText>{labels.tempScale.segmentExplainer}</AppText>
           <TempSlider/>
         </View>
+        <View style={styles.settingsSegment}>
+          <AppText style={styles.settingsSegmentTitle}>{`${labels.preOvu.title} `}</AppText>
+          <AppText>{`${labels.preOvu.note} `}</AppText>
+        </View>
       </ScrollView>
     )
   }
