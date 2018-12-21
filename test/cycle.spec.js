@@ -71,8 +71,6 @@ describe('getCycleDayNumber', () => {
     const result = getCycleDayNumber(targetDate)
     expect(result).to.be.null()
   })
-
-
 })
 
 describe('getPreviousCycle', () => {
@@ -431,6 +429,47 @@ describe('getCycleForDay', () => {
   it('returns null if there is no cycle start for that date', () => {
     const result = getCycleForDay('2018-04-01')
     expect(result).to.eql(null)
+  })
+
+  it('returns null if the cycle is longer than the max', () => {
+    const { getCycleForDay } = cycleModule({
+      cycleDaysSortedByDate,
+      cycleStartsSortedByDate: cycleDaysSortedByDate.filter(d => {
+        return cycleStarts.includes(d.date)
+      }),
+      maxCycleLength: 3
+    })
+    const result = getCycleForDay('2018-04-04')
+    expect(result).to.eql(null)
+  })
+
+  it('returns the cycle if the cycle is shorter or equal max', () => {
+    const { getCycleForDay } = cycleModule({
+      cycleDaysSortedByDate,
+      cycleStartsSortedByDate: cycleDaysSortedByDate.filter(d => {
+        return cycleStarts.includes(d.date)
+      }),
+      maxCycleLength: 4
+    })
+    const result = getCycleForDay('2018-04-04')
+    expect(result).to.eql([
+      {
+        date: '2018-04-05',
+        mucus: { value: 2 }
+      },
+      {
+        date: '2018-04-04',
+        mucus: { value: 2 }
+      },
+      {
+        date: '2018-04-03',
+        mucus: { value: 2 }
+      },
+      {
+        date: '2018-04-02',
+        bleeding: { value: 2 }
+      },
+    ])
   })
 
   it('gets cycle for day', () => {
