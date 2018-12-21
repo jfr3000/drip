@@ -939,6 +939,62 @@ describe('getPredictedMenses', () => {
       ]
       expect(result).to.eql(expectedResult)
     })
+
+    it('does not count cycles longer than max', () => {
+      const cycleDaysSortedByDate = [
+        {
+          date: '2018-08-01',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2018-07-14',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2018-07-04',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2018-06-20',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2018-04-20',
+          bleeding: { value: 2 }
+        },
+      ]
+
+      const { getPredictedMenses } = cycleModule({
+        cycleDaysSortedByDate,
+        cycleStartsSortedByDate: cycleDaysSortedByDate,
+        maxCycleLength: 50
+      })
+      const result = getPredictedMenses()
+      const expectedResult = [
+        [
+          '2018-08-13',
+          '2018-08-14',
+          '2018-08-15',
+          '2018-08-16',
+          '2018-08-17',
+        ],
+        [
+          '2018-08-27',
+          '2018-08-28',
+          '2018-08-29',
+          '2018-08-30',
+          '2018-08-31',
+        ],
+        [
+          '2018-09-10',
+          '2018-09-11',
+          '2018-09-12',
+          '2018-09-13',
+          '2018-09-14',
+        ]
+      ]
+      expect(result).to.eql(expectedResult)
+    })
   })
 })
 
