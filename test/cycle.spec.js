@@ -709,6 +709,47 @@ describe('getPredictedMenses', () => {
       const result = getPredictedMenses()
       expect(result).to.eql([])
     })
+
+    it('if number of cycles is below minCyclesForPrediction because one of them is too long', () => {
+      const cycleDaysSortedByDate = [
+        {
+          date: '2018-06-02',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2018-06-01',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2018-05-01',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2018-04-03',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2018-04-02',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2018-04-01',
+          bleeding: { value: 2 }
+        },
+      ]
+      const cycleStarts = ['2018-06-01', '2018-05-01', '2018-04-01']
+
+      const { getPredictedMenses } = cycleModule({
+        cycleDaysSortedByDate,
+        bleedingDaysSortedByDate: cycleDaysSortedByDate.filter(d => d.bleeding),
+        cycleStartsSortedByDate: cycleDaysSortedByDate.filter(d => {
+          return cycleStarts.includes(d.date)
+        }),
+        maxCycleLength: 2
+      })
+      const result = getPredictedMenses()
+      expect(result).to.eql([])
+    })
   })
   describe('works', () => {
     it('for one completed cycle with minCyclesForPrediction = 1', () => {
