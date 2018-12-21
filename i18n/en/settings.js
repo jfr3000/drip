@@ -85,5 +85,9 @@ export default {
     note1: "drip applies NFP's rules for calculating infertile days at the start of the cycle (see the ",
     link: 'wiki',
     note2: " for more info). However, drip does not currently apply the so called 20-day-rule, which determines infertile days at the cycle start from past cycle lengths in case no past symptothermal info is available."
+  },
+  credits: {
+    title: 'Credits',
+    note: 'Thanks and lots of <3 to all of our contributors, as well as, and especially,  Susanne Umscheid for the wonderful visual and logo design, and Paula Härtel for the symptom icons'
   }
 }
