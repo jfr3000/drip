@@ -71,6 +71,27 @@ describe('getCycleDayNumber', () => {
     const result = getCycleDayNumber(targetDate)
     expect(result).to.be.null()
   })
+
+  it('returns null if the cycle is longer than the max', function () {
+    const cycleStarts = [{
+      date: '2018-05-09',
+      isCycleStart: true,
+      bleeding: {
+        value: 2
+      }
+    }, {
+      date: '2018-05-03',
+      isCycleStart: true,
+      bleeding: { value: 2 }
+    }]
+    // we use the default 99 days max length
+    const getCycleDayNumber = cycleModule({
+      cycleStartsSortedByDate: cycleStarts
+    }).getCycleDayNumber
+    const targetDate = '2018-08-16'
+    const result = getCycleDayNumber(targetDate)
+    expect(result).to.be.null()
+  })
 })
 
 describe('getPreviousCycle', () => {
