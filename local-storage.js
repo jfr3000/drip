@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native'
 import Observable from 'obv'
-import config from '../config'
+import config from './config'
 
 export const scaleObservable = Observable()
 setObvWithInitValue('tempScale', scaleObservable, {
@@ -58,6 +58,15 @@ setObvWithInitValue('hasEncryption', hasEncryptionObservable, false)
 export async function saveEncryptionFlag(bool) {
   await AsyncStorage.setItem('hasEncryption', JSON.stringify(bool))
   hasEncryptionObservable.set(bool)
+}
+
+
+export async function getLicenseFlag() {
+  return AsyncStorage.getItem('agreedToLicense')
+}
+
+export async function saveLicenseFlag() {
+  await AsyncStorage.setItem('agreedToLicense', JSON.stringify(true))
 }
 
 async function setObvWithInitValue(key, obv, defaultValue) {

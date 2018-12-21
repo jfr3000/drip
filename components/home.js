@@ -10,19 +10,7 @@ import { getFertilityStatusForDay } from '../lib/sympto-adapter'
 import styles from '../styles'
 import AppText, { AppTextLight } from './app-text'
 import DripHomeIcon from '../assets/drip-home-icons'
-
-const HomeButton = ({ backgroundColor, children }) => {
-  return (
-    <View style={[
-      styles.homeButton,
-      {backgroundColor}
-    ]}>
-      <AppText style={styles.homeButtonText}>
-        {children}
-      </AppText>
-    </View>
-  )
-}
+import Button from './button'
 
 export default class Home extends Component {
   constructor(props) {
@@ -78,9 +66,9 @@ export default class Home extends Component {
                   <AppText style={styles.paragraph}>{cycleDayMoreText}</AppText>
               }
 
-              <HomeButton backgroundColor={cycleDayColor}>
+              <Button backgroundColor={cycleDayColor}>
                 {labels.editToday}
-              </HomeButton>
+              </Button>
 
             </TouchableOpacity>
 
@@ -103,9 +91,9 @@ export default class Home extends Component {
                 </AppText>
               }
 
-              <HomeButton backgroundColor={periodColor}>
+              <Button backgroundColor={periodColor}>
                 {labels.trackPeriod}
-              </HomeButton>
+              </Button>
 
             </TouchableOpacity>
 
@@ -136,9 +124,9 @@ export default class Home extends Component {
                 </AppText>
               }
 
-              <HomeButton backgroundColor={secondaryColor}>
+              <Button backgroundColor={secondaryColor}>
                 {labels.checkFertility}
-              </HomeButton>
+              </Button>
             </TouchableOpacity>
           </View>
 
