@@ -45,8 +45,7 @@ export default class ActionButtonFooter extends Component {
         title: labels.save,
         action: () => {
           if(saveDisabled) {
-            ToastAndroid.show(labels.disabledInfo, ToastAndroid.LONG);
-            console.log()
+            ToastAndroid.show(labels.disabledInfo, ToastAndroid.LONG)
           } else {
             saveAction()
             if (autoShowDayView) navigateToOverView()
@@ -62,7 +61,7 @@ export default class ActionButtonFooter extends Component {
         {buttons.map(({ title, action, disabledCondition, icon }, i) => {
           const textStyle = [styles.menuText]
           if (disabledCondition) {
-            textStyle.push(styles.menuTextInActive);
+            textStyle.push(styles.menuTextInActive)
           }
           const iconStyle = disabledCondition ?
             Object.assign(
