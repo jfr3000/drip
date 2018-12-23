@@ -11,6 +11,9 @@ export const links = {
   wiki: {
     url: 'https://gitlab.com/bloodyhealth/drip/wikis/home',
     text: 'wiki'
+  },
+  website: {
+    url: 'https://bloodyhealth.gitlab.io/'
   }
 }
 
@@ -124,6 +127,9 @@ You can contact us by email at bloodyhealth@mailbox.com.`
   },
   version: {
     title: 'Version'
+  },
+  website: {
+    title: 'Website'
   },
   preOvu: {
     title: 'Infertile days at cycle start',
