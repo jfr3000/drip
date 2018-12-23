@@ -16,6 +16,16 @@ export default class AboutSection extends Component {
             <AppText>{`${labels.aboutSection.segmentExplainer} `}</AppText>
           </Hyperlink>
         </SettingsSegment>
+        <View style={styles.settingsSegment}>
+          <AppText style={styles.settingsSegmentTitle}>{`${labels.philosophy.title} `}</AppText>
+          <AppText>{labels.philosophy.text}</AppText>
+        </View>
+        <View style={styles.settingsSegment}>
+          <Hyperlink linkStyle={styles.link} linkText={replace}>
+            <AppText style={styles.settingsSegmentTitle}>{`${labels.aboutSection.title} `}</AppText>
+            <AppText>{labels.aboutSection.text}</AppText>
+          </Hyperlink>
+        </View>
         <SettingsSegment title={`${labels.credits.title} `} style={styles.settingsSegmentLast}>
           <AppText>{`${labels.credits.note}`}</AppText>
         </SettingsSegment>
