@@ -1,18 +1,20 @@
 import React from 'react'
-import { View } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import AppText from './app-text'
 import styles from '../styles'
 
-export default function Button({ backgroundColor, style, children }) {
+export default function Button(props) {
   return (
-    <View style={[
-      styles.button,
-      style,
-      {backgroundColor}
-    ]}>
+    <TouchableOpacity
+      onPress={props.onPress}
+      style={[
+        styles.button,
+        props.style,
+        {backgroundColor: props.backgroundColor}
+      ]}>
       <AppText style={styles.homeButtonText}>
-        {children}
+        {props.children}
       </AppText>
-    </View>
+    </TouchableOpacity>
   )
 }

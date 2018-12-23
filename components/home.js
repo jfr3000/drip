@@ -66,7 +66,9 @@ export default class Home extends Component {
                   <AppText style={styles.paragraph}>{cycleDayMoreText}</AppText>
               }
 
-              <Button backgroundColor={cycleDayColor}>
+              <Button
+                onPress={() => this.passTodayTo('CycleDay')}
+                backgroundColor={cycleDayColor}>
                 {labels.editToday}
               </Button>
 
@@ -91,7 +93,9 @@ export default class Home extends Component {
                 </AppText>
               }
 
-              <Button backgroundColor={periodColor}>
+              <Button
+                onPress={() => this.passTodayTo('BleedingEditView')}
+                backgroundColor={periodColor}>
                 {labels.trackPeriod}
               </Button>
 
@@ -124,7 +128,9 @@ export default class Home extends Component {
                 </AppText>
               }
 
-              <Button backgroundColor={secondaryColor}>
+              <Button
+                onPress={() => this.props.navigate('Chart')}
+                backgroundColor={secondaryColor}>
                 {labels.checkFertility}
               </Button>
             </TouchableOpacity>

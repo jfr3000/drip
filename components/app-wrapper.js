@@ -18,14 +18,13 @@ export default class AppWrapper extends Component {
 
   async checkLicenseAgreement() {
     const agreed = await getLicenseFlag()
-    console.log(agreed)
     if (agreed) this.setState({showLicense: false})
   }
 
   render() {
     return (
       this.state.showLicense ?
-        <License/>
+        <License setLicense={() => this.setState({showLicense: false})}/>
         :
         <View style={{ flex: 1 }}>
           {this.state.showApp ?
