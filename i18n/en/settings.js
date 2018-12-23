@@ -20,7 +20,8 @@ export default {
     dataManagement: 'Manage your data',
     nfpSettings: 'NFP settings',
     password: 'Password',
-    about: 'About'
+    about: 'About',
+    license: 'License'
   },
   export: {
     errors: {
@@ -109,6 +110,17 @@ export default {
   aboutSection: {
     title: 'About',
     segmentExplainer: `Please note that your data is stored locally on your phone and not on a server. We want to ensure that you stay in control of your own data. If you are planning to switch or reset your phone, please remember to export your data before doing so. You can reinstall the app afterwards and import your data.\n\nIf you encounter any technical issues, don't hesitate to contact via ${links.email.url}. You can also contribute to the code base on ${links.gitlab.url}`,
+  },
+  license: {
+    title: 'drip is an open-source cycle tracking app',
+    text: `Copyright (C) 2019 Bloody Health GbR
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details: https://www.gnu.org/licenses/
+
+You can contact us by email at bloodyhealth@mailbox.com.`
   },
   preOvu: {
     title: 'Infertile days at cycle start',
