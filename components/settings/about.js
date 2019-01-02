@@ -11,6 +11,10 @@ export default class AboutSection extends Component {
           <AppText style={styles.settingsSegmentTitle}>{`${labels.aboutSection.title} `}</AppText>
           <AppText>{`${labels.aboutSection.segmentExplainer} `}</AppText>
         </View>
+        <View style={[styles.settingsSegment, styles.settingsSegmentLast]}>
+          <AppText style={styles.settingsSegmentTitle}>{`${labels.credits.title} `}</AppText>
+          <AppText>{`${labels.credits.note}`}</AppText>
+        </View>
       </ScrollView>
     )
   }
