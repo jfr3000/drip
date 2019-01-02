@@ -1,3 +1,4 @@
+
 export default {
   menuTitles: {
     reminders: 'Reminders',
@@ -78,5 +79,11 @@ export default {
   aboutSection: {
     title: 'About',
     segmentExplainer: 'Please note that your data is stored locally on your phone and not on a server. We want to ensure that you stay in control of those sensitive information. If you are planning to switch or reset your phone, please remember to export your data before doing so. You can reinstall the app afterwards and import your data.\n\nIf you encounter any technical issues, don\'t hesitate to contact us via email (bl00dyhealth@mailbox.org). You can also contribute to the code base on GitLab (https://gitlab.com/bloodyhealth/drip/).',
+  },
+  preOvu: {
+    title: 'Infertile days at cycle start',
+    note1: "drip applies NFP's rules for calculating infertile days at the start of the cycle (see the ",
+    link: 'wiki',
+    note2: " for more info). However, drip does not currently apply the so called 20-day-rule, which determines infertile days at the cycle start from past cycle lengths in case no past symptothermal info is available."
   }
 }
