@@ -10,7 +10,7 @@ export default class AppWrapper extends Component {
   constructor() {
     super()
     this.state = {
-      showLicense: true
+      retrievingLicenseSetting: true
     }
     nodejs.start('main.js')
     this.checkLicenseAgreement()
@@ -18,25 +18,27 @@ export default class AppWrapper extends Component {
 
   async checkLicenseAgreement() {
     const agreed = await getLicenseFlag()
-    if (agreed) this.setState({showLicense: false})
+    this.setState({retrievingLicenseSetting: false})
+    if (!agreed) this.setState({showLicense: true})
   }
 
   render() {
-    return (
-      this.state.showLicense ?
-        <License setLicense={() => this.setState({showLicense: false})}/>
-        :
-        <View style={{ flex: 1 }}>
-          {this.state.showApp ?
-            <App/>
-            :
-            <PasswordPrompt
-              showApp={() => {
-                this.setState({showApp: true})
-              }}
-            />
-          }
-        </View>
-    )
+    const whiteScreen = <View style={{ flex: 1 }}></View>
+    const licenseScreen = <License setLicense={() => {
+      this.setState({showLicense: false})
+    }}/>
+    const passwordPrompt = <PasswordPrompt showApp={() => {
+      this.setState({showApp: true})
+    }}/>
+
+    if (this.state.retrievingLicenseSetting) {
+      return whiteScreen
+    } else if (this.state.showLicense) {
+      return licenseScreen
+    } else if (!this.state.showApp) {
+      return passwordPrompt
+    } else {
+      return <App/>
+    }
   }
 }
