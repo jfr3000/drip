@@ -37,7 +37,14 @@ export default {
   },
   deleteSegment: {
     title: 'Delete app data',
-    explainer: 'Delete all app data from this phone'
+    explainer: 'Delete all app data from this phone',
+    question: 'Do you want to delete data from this phone?',
+    message: 'Please note that deletion of the data is permanent and irreversible. We recomend to export existing data before deletion.',
+    confirmation: 'Yes, I want to delete data permanently',
+    errors: {
+      couldNotDeleteFile: 'Could not delete file',
+      postFix: 'No data was deleted or changed'
+    }
   },
   tempScale: {
     segmentTitle: 'Temperature scale',

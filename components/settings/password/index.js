@@ -8,7 +8,6 @@ import AppText from '../../app-text'
 import {
   hasEncryptionObservable
 } from '../../../local-storage'
-import styles from '../../../styles/index'
 import labels from '../../../i18n/en/settings'
 
 export default class PasswordSetting extends Component {
