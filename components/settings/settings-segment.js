@@ -7,7 +7,7 @@ import styles from '../../styles'
 
 const SettingsSegment = ({ children, ...props }) => {
   return (
-    <View style={styles.settingsSegment}>
+    <View style={[styles.settingsSegment, props.style]}>
       <AppText style={styles.settingsSegmentTitle}>{props.title}</AppText>
       {children}
     </View>
