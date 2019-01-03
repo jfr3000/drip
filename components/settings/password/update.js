@@ -6,7 +6,7 @@ import settings from '../../../i18n/en/settings'
 import { requestHash } from '../../../db'
 import EnterNewPassword from './enter-new-password'
 import PasswordField from './password-field'
-import SettingsButton from './settings-button'
+import SettingsButton from '../settings-button'
 import showBackUpReminder from './show-backup-reminder'
 import checkCurrentPassword from './check-current-password'
 

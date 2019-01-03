@@ -27,7 +27,7 @@ export const headerTitles = {
   SettingsMenu: 'Settings',
   Reminders: settingsTitles.reminders,
   NfpSettings: settingsTitles.nfpSettings,
-  ImportExport: settingsTitles.importExport,
+  DataManagement: settingsTitles.dataManagement,
   Password: settingsTitles.password,
   About: settingsTitles.about,
   BleedingEditView: 'Bleeding',

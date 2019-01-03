@@ -7,14 +7,12 @@ import styles from '../../styles/index'
 import settingsLabels from '../../i18n/en/settings'
 import AppText from '../app-text'
 
-console.log(settingsLabels.menuTitles)
 const labels = settingsLabels.menuTitles
-console.log(settingsLabels.menuTitles)
 
 const menu = [
   {title: labels.reminders, component: 'Reminders'},
   {title: labels.nfpSettings, component: 'NfpSettings'},
-  {title: labels.importExport, component: 'ImportExport'},
+  {title: labels.dataManagement, component: 'DataManagement'},
   {title: labels.password, component: 'Password'},
   {title: labels.about, component: 'About'}
 ]

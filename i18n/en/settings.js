@@ -2,7 +2,7 @@
 export default {
   menuTitles: {
     reminders: 'Reminders',
-    importExport: 'Import and Export',
+    dataManagement: 'Data management',
     nfpSettings: 'NFP settings',
     password: 'Password',
     about: 'About'
@@ -34,6 +34,10 @@ export default {
       message: 'Data successfully imported'
     },
     segmentExplainer: 'Import data in CSV format'
+  },
+  deleteSegment: {
+    title: 'Delete app data',
+    explainer: 'Delete all app data from this phone'
   },
   tempScale: {
     segmentTitle: 'Temperature scale',
