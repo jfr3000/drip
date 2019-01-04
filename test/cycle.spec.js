@@ -473,10 +473,14 @@ describe('getCyclesBefore', () => {
       cycleStartsSortedByDate: cycleDaysSortedByDate.filter(d => {
         return cycleStarts.includes(d.date)
       }),
-      maxCycleLength: 2
+      maxCycleLength: 30
     })
     const result = getCyclesBefore(cycleDaysSortedByDate[0])
-    expect(result.length).to.eql(0)
+    expect(result.length).to.eql(1)
+    expect(result).to.eql([[{
+      bleeding: { value: 2 },
+      date: "2018-06-05"
+    }]])
   })
 })
 
