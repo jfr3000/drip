@@ -17,6 +17,7 @@ const fontRegular = 'Prompt-Light'
 const fontLight = 'Prompt-Thin'
 const textFont = 'Dosis-Light'
 const textFontLight = 'Dosis-ExtraLight'
+const textFontBold = 'book'
 
 const regularSize = 16
 
@@ -41,7 +42,7 @@ export default StyleSheet.create({
   },
   emphasis: {
     fontWeight: 'bold',
-    fontFamily: textFont
+    fontFamily: textFontBold
   },
   link: {
     color: cycleDayColor,
@@ -265,14 +266,14 @@ export default StyleSheet.create({
     marginTop: defaultTopMargin,
     marginHorizontal: defaultIndentation,
     padding: 7,
-    fontFamily: 'textFont'
+    fontFamily: textFont
   },
   settingsSegmentLast: {
     marginBottom: defaultTopMargin,
   },
   settingsSegmentTitle: {
     fontWeight: 'bold',
-    fontFamily: 'textFont'
+    fontFamily: textFontBold
   },
   settingsButton: {
     backgroundColor: secondaryColor,
