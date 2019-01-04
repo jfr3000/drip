@@ -43,6 +43,10 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: textFont
   },
+  link: {
+    color: cycleDayColor,
+    textDecorationLine: 'underline'
+  },
   title: {
     fontSize: 18,
     color: 'black',
@@ -263,6 +267,9 @@ export default StyleSheet.create({
     padding: 7,
     fontFamily: 'textFont'
   },
+  settingsSegmentLast: {
+    marginBottom: defaultTopMargin,
+  },
   settingsSegmentTitle: {
     fontWeight: 'bold',
     fontFamily: 'textFont'
@@ -414,4 +421,8 @@ export const iconStyles = {
   menuIconInactive: {
     color: colorInActive,
   },
+  infoInHeading: {
+    marginRight: 5,
+    color: 'black'
+  }
 }

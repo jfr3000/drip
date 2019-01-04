@@ -7,7 +7,7 @@ import {
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
 import { mucus as labels } from '../../../i18n/en/cycle-day'
-import computeSensiplanValue from '../../../lib/sensiplan-mucus'
+import computeNfpValue from '../../../lib/nfp-mucus'
 import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
 import SymptomSection from './symptom-section'
@@ -80,7 +80,7 @@ export default class Mucus extends Component {
             saveSymptom('mucus', this.props.date, {
               feeling,
               texture,
-              value: computeSensiplanValue(feeling, texture),
+              value: computeNfpValue(feeling, texture),
               exclude: Boolean(this.state.exclude)
             })
           }}

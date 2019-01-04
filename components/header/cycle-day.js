@@ -2,17 +2,9 @@ import React from 'react'
 import {
   View,
   Text} from 'react-native'
-import { LocalDate } from 'js-joda'
-import moment from 'moment'
 import styles from '../../styles'
 import NavigationArrow from './navigation-arrow'
-
-const FormattedDate = ({ date }) => {
-  const today = LocalDate.now()
-  const dateToDisplay = LocalDate.parse(date)
-  const formattedDate = today.equals(dateToDisplay) ? 'today' : moment(date).format('MMMM Do YYYY')
-  return formattedDate.toLowerCase()
-}
+import formatDate from '../helpers/format-date'
 
 export default function CycleDayHeader({ date, ...props }) {
   return (<View style={[styles.header, styles.headerCycleDay]}>
@@ -23,7 +15,7 @@ export default function CycleDayHeader({ date, ...props }) {
     <NavigationArrow direction='left' {...props}/>
     <View>
       <Text style={styles.dateHeader}>
-        <FormattedDate date={date} />
+        {formatDate(date)}
       </Text>
       {props.cycleDayNumber &&
         <Text style={styles.cycleDayNumber}>

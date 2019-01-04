@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import {
-  View, TouchableOpacity, Text, Alert
+  View, TouchableOpacity, Text, Alert, ToastAndroid
 } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { saveSymptom } from '../../../db'
 import styles, {iconStyles} from '../../../styles'
 import {sharedDialogs as labels} from '../../../i18n/en/cycle-day'
+
 
 export default class ActionButtonFooter extends Component {
   render() {
@@ -43,19 +44,26 @@ export default class ActionButtonFooter extends Component {
       }, {
         title: labels.save,
         action: () => {
-          saveAction()
-          if (autoShowDayView) navigateToOverView()
+          if(saveDisabled) {
+            ToastAndroid.show(labels.disabledInfo, ToastAndroid.LONG);
+            console.log()
+          } else {
+            saveAction()
+            if (autoShowDayView) navigateToOverView()
+          }
+
         },
         disabledCondition: saveDisabled,
         icon: 'content-save-outline'
       }
     ]
-
     return (
       <View style={styles.menu}>
         {buttons.map(({ title, action, disabledCondition, icon }, i) => {
           const textStyle = [styles.menuText]
-          if (disabledCondition) textStyle.push(styles.menuTextInActive)
+          if (disabledCondition) {
+            textStyle.push(styles.menuTextInActive);
+          }
           const iconStyle = disabledCondition ?
             Object.assign(
               {},
@@ -68,7 +76,6 @@ export default class ActionButtonFooter extends Component {
             <TouchableOpacity
               onPress={action}
               style={styles.menuItem}
-              disabled={disabledCondition}
               key={i.toString()}
             >
               <Icon name={icon} {...iconStyle} />
@@ -76,6 +83,7 @@ export default class ActionButtonFooter extends Component {
                 {title.toLowerCase()}
               </Text>
             </TouchableOpacity>
+
           )
         })}
       </View>

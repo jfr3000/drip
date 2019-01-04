@@ -1,59 +1,15 @@
 import React, { Component } from 'react'
-import {
-  View,
-  TouchableOpacity,
-} from 'react-native'
-import nodejs from 'nodejs-mobile-react-native'
-import AppText from '../../app-text'
-import styles from '../../../styles'
-import { settings } from '../../../i18n/en/settings'
-import { requestHash, changeEncryptionAndRestartApp } from '../../../db'
-import PasswordField from './password-field'
+import { View } from 'react-native'
+import settings from '../../../i18n/en/settings'
+import EnterNewPassword from './enter-new-password'
+import SettingsButton from './settings-button'
 import showBackUpReminder from './show-backup-reminder'
-
-const SettingsButton = ({ children, ...props }) => {
-  return (
-    <TouchableOpacity
-      style={[
-        styles.settingsButton,
-        props.disabled ? styles.settingsButtonDisabled : null
-      ]}
-      { ...props }
-    >
-      <AppText style={styles.settingsButtonText}>
-        {children}
-      </AppText>
-    </TouchableOpacity>
-  )
-}
 
 export default class CreatePassword extends Component {
   constructor() {
     super()
     this.state = {
-      isSettingPassword: false,
-      password: '',
-      passwordConfirmation: '',
-      shouldShowErrorMessage: false,
-    }
-    nodejs.channel.addListener(
-      'create-pw-hash',
-      changeEncryptionAndRestartApp,
-      this
-    )
-  }
-
-  componentWillUnmount() {
-    nodejs.channel.removeListener('create-pw-hash', changeEncryptionAndRestartApp)
-  }
-
-  savePassword = () => {
-    if (this.comparePasswords()) {
-      requestHash('create-pw-hash', this.state.password)
-    } else {
-      this.setState({
-        shouldShowErrorMessage: true
-      })
+      isSettingPassword: false
     }
   }
 
@@ -66,34 +22,11 @@ export default class CreatePassword extends Component {
     showBackUpReminder(this.toggleSettingPassword)
   }
 
-  comparePasswords = () => {
-    return this.state.password === this.state.passwordConfirmation
-  }
-
-  handlePasswordInput = (password) => {
-    this.setState({ password })
-  }
-
-  handleConfirmationInput = (passwordConfirmation) => {
-    const { password } = this.state
-    this.setState({
-      passwordConfirmation,
-      isPasswordsMatch: passwordConfirmation === password
-    })
-  }
-
   render () {
     const {
-      isSettingPassword,
-      password,
-      passwordConfirmation,
-      shouldShowErrorMessage,
+      isSettingPassword
     } = this.state
     const labels = settings.passwordSettings
-
-    const isSaveButtonDisabled =
-      !password.length ||
-      !passwordConfirmation.length
 
     if (!isSettingPassword) {
       return (
@@ -104,33 +37,7 @@ export default class CreatePassword extends Component {
         </View>
       )
     } else {
-      return (
-        <View>
-          <PasswordField
-            placeholder={labels.enterNew}
-            value={password}
-            onChangeText={this.handlePasswordInput}
-          />
-          <PasswordField
-            autoFocus={false}
-            placeholder={labels.confirmPassword}
-            value={passwordConfirmation}
-            onChangeText={this.handleConfirmationInput}
-          />
-          {
-            shouldShowErrorMessage &&
-            <AppText style={styles.errorMessage}>
-              {labels.passwordsDontMatch}
-            </AppText>
-          }
-          <SettingsButton
-            onPress={this.savePassword}
-            disabled={isSaveButtonDisabled}
-          >
-            {labels.savePassword}
-          </SettingsButton>
-        </View>
-      )
+      return <EnterNewPassword />
     }
 
   }

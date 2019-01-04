@@ -81,7 +81,7 @@ export default class CycleChart extends Component {
         this.chartSymptoms.push('temperature')
       }
 
-      const columnData = this.makeColumnInfo(nfpLines(), this.chartSymptoms)
+      const columnData = this.makeColumnInfo()
       this.setState({
         columns: columnData,
         chartHeight: height

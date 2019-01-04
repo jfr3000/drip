@@ -4,7 +4,7 @@ import dirtyChai from 'dirty-chai'
 const expect = chai.expect
 chai.use(dirtyChai)
 
-import getSensiplanMucus from '../lib/sensiplan-mucus'
+import getSensiplanMucus from '../lib/nfp-mucus'
 
 describe('getSensiplanMucus', () => {
 
