@@ -36,13 +36,13 @@ export default {
     segmentExplainer: 'Import data in CSV format'
   },
   deleteSegment: {
-    title: 'Delete app data',
-    explainer: 'Delete all app data from this phone',
+    title: 'Delete data',
+    explainer: 'Delete data from this phone',
     question: 'Do you want to delete data from this phone?',
-    message: 'Please note that deletion of the data is permanent and irreversible. We recomend to export existing data before deletion.',
-    confirmation: 'Yes, I want to delete data permanently',
+    message: 'Please note that deletion of the data is permanent and irreversible. We recommend exporting existing data before deletion.',
+    confirmation: 'Delete data permanently',
     errors: {
-      couldNotDeleteFile: 'Could not delete file',
+      couldNotDeleteFile: 'Could not delete data',
       postFix: 'No data was deleted or changed'
     }
   },
