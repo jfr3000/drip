@@ -421,7 +421,7 @@ describe('getCyclesBefore', () => {
     ])
   })
 
-  it('skips cycle that are longer than max', () => {
+  it('skips cycles that are longer than max', () => {
     const cycleDaysSortedByDate = [
       {
         date: '2018-07-05',
@@ -476,15 +476,7 @@ describe('getCyclesBefore', () => {
       maxCycleLength: 2
     })
     const result = getCyclesBefore(cycleDaysSortedByDate[0])
-    expect(result.length).to.eql(1)
-    expect(result).to.eql([
-      [
-        {
-          date: '2018-06-05',
-          bleeding: { value: 2 }
-        }
-      ]
-    ])
+    expect(result.length).to.eql(0)
   })
 })
 
@@ -542,7 +534,7 @@ describe('getCycleForDay', () => {
   })
 
   it('gets cycle that has only one day', () => {
-    const result = getCycleForDay('2018-07-05')
+    const result = getCycleForDay('2018-07-05', '2018-08-01')
     expect(result.length).to.eql(1)
     expect(result).to.eql([
       {
@@ -586,35 +578,6 @@ describe('getCycleForDay', () => {
     })
     const result = getCycleForDay('2018-04-04')
     expect(result).to.eql(null)
-  })
-
-  it('returns the cycle if the cycle is shorter or equal max', () => {
-    const { getCycleForDay } = cycleModule({
-      cycleDaysSortedByDate,
-      cycleStartsSortedByDate: cycleDaysSortedByDate.filter(d => {
-        return cycleStarts.includes(d.date)
-      }),
-      maxCycleLength: 4
-    })
-    const result = getCycleForDay('2018-04-04')
-    expect(result).to.eql([
-      {
-        date: '2018-04-05',
-        mucus: { value: 2 }
-      },
-      {
-        date: '2018-04-04',
-        mucus: { value: 2 }
-      },
-      {
-        date: '2018-04-03',
-        mucus: { value: 2 }
-      },
-      {
-        date: '2018-04-02',
-        bleeding: { value: 2 }
-      },
-    ])
   })
 
   it('gets cycle for day', () => {
