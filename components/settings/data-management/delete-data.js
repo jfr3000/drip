@@ -1,61 +1,48 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
-import nodejs from 'nodejs-mobile-react-native'
 import RNFS from 'react-native-fs'
+import { Alert } from 'react-native'
 
-import settings from '../../../i18n/en/settings'
-import { requestHash, clearDb } from '../../../db'
+import { clearDb } from '../../../db'
 import { hasEncryptionObservable } from '../../../local-storage'
-import PasswordField from '../password/password-field'
 import SettingsButton from '../settings-button'
-import showDeleteDialog from './delete-data-dialog'
-import checkCurrentPassword from '../password/check-current-password'
+import ConfirmWithPassword from './confirm-with-password'
 import alertError from '../alert-error'
 
+import settings from '../../../i18n/en/settings'
+import { shared as sharedLabels } from '../../../i18n/en/labels'
 
 export default class DeleteData extends Component {
   constructor() {
     super()
     this.state = {
       isPasswordSet: hasEncryptionObservable.value,
-      currentPassword: null,
-      enteringCurrentPassword: false
+      isConfirmingWithPassword: false
     }
+  }
 
-    nodejs.channel.addListener(
-      'pre-change-pw-check',
-      this.openNewPasswordField,
-      this
+  onAlertConfirmation = () => {
+    if (this.state.isPasswordSet) {
+      this.setState({ isConfirmingWithPassword: true })
+    } else {
+      this.deleteAppData()
+    }
+  }
+
+  alertBeforeDeletion = () => {
+    const { question, message, confirmation } = settings.deleteSegment
+
+    Alert.alert(
+      question,
+      message,
+      [{
+        text: confirmation,
+        onPress: this.onAlertConfirmation
+      }, {
+        text: sharedLabels.cancel,
+        style: 'cancel',
+        onPress: this.cancelConfirmationWithPassword
+      }]
     )
-  }
-
-  componentWillUnmount() {
-    nodejs.channel.removeListener('pre-change-pw-check', this.openNewPasswordField)
-  }
-
-  openNewPasswordField = async hash => {
-    const passwordCorrect = await checkCurrentPassword({
-      hash,
-      onTryAgain: () => this.setState({ currentPassword: null }),
-      onCancel: () => this.setState({
-        enteringCurrentPassword: false,
-        currentPassword: null
-      })
-    })
-
-    if (passwordCorrect) {
-      await this.deleteAppData()
-    }
-  }
-
-  startDataDeletion = () => {
-    showDeleteDialog(() => {
-      if (this.state.isPasswordSet) {
-        this.setState({ enteringCurrentPassword: true })
-      } else {
-        this.deleteAppData()
-      }
-    })
   }
 
   deleteExportedFile = async () => {
@@ -77,50 +64,26 @@ export default class DeleteData extends Component {
     }
   }
 
-  handleCurrentPasswordInput = (currentPassword) => {
-    this.setState({ currentPassword })
-  }
-
-  checkCurrentPassword = () => {
-    requestHash('pre-change-pw-check', this.state.currentPassword)
+  cancelConfirmationWithPassword = () => {
+    this.setState({ isConfirmingWithPassword: false })
   }
 
   render() {
+    const { isConfirmingWithPassword } = this.state
 
-    const {
-      enteringCurrentPassword,
-      currentPassword
-    } = this.state
-
-    const labels = settings.passwordSettings
-
-    if (enteringCurrentPassword) {
+    if (isConfirmingWithPassword) {
       return (
-        <View>
-          <PasswordField
-            placeholder={labels.enterCurrent}
-            value={currentPassword}
-            onChangeText={this.handleCurrentPasswordInput}
-          />
-          <SettingsButton
-            onPress={this.checkCurrentPassword}
-            disabled={!currentPassword}
-          >
-            {settings.deleteSegment.title}
-          </SettingsButton>
-        </View>
+        <ConfirmWithPassword
+          onSuccess={this.deleteAppData}
+          onCancel={this.cancelConfirmationWithPassword}
+        />
       )
     }
 
     return (
-      <View>
-        <SettingsButton
-          onPress={this.startDataDeletion}
-          disabled={currentPassword}
-        >
-          {settings.deleteSegment.title}
-        </SettingsButton>
-      </View>
+      <SettingsButton onPress={this.alertBeforeDeletion}>
+        {settings.deleteSegment.title}
+      </SettingsButton>
     )
   }
 }
