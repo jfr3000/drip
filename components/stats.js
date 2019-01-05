@@ -9,17 +9,14 @@ import cycleModule from '../lib/cycle'
 import {getCycleLengthStats as getCycleInfo} from '../lib/cycle-length'
 import {stats as labels} from '../i18n/en/labels'
 import AppText from './app-text'
-import { getCycleStartsSortedByDate } from '../db'
 
 export default class Stats extends Component {
   render() {
-    const allMensesStarts = getCycleStartsSortedByDate()
-    const atLeastOneCycle = allMensesStarts.length > 1
-    let cycleLengths
+    const cycleLengths = cycleModule().getAllCycleLengths()
+    const atLeastOneCycle = cycleLengths.length > 1
     let numberOfCycles
     let cycleInfo
     if (atLeastOneCycle) {
-      cycleLengths = cycleModule().getAllCycleLengths()
       numberOfCycles = cycleLengths.length
       if (numberOfCycles > 1) {
         cycleInfo = getCycleInfo(cycleLengths)

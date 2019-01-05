@@ -72,7 +72,26 @@ describe('getCycleDayNumber', () => {
     expect(result).to.be.null()
   })
 
-
+  it('returns null if the cycle is longer than the max', function () {
+    const cycleStarts = [{
+      date: '2018-05-09',
+      isCycleStart: true,
+      bleeding: {
+        value: 2
+      }
+    }, {
+      date: '2018-05-03',
+      isCycleStart: true,
+      bleeding: { value: 2 }
+    }]
+    // we use the default 99 days max length
+    const getCycleDayNumber = cycleModule({
+      cycleStartsSortedByDate: cycleStarts
+    }).getCycleDayNumber
+    const targetDate = '2018-08-16'
+    const result = getCycleDayNumber(targetDate)
+    expect(result).to.be.null()
+  })
 })
 
 describe('getPreviousCycle', () => {
@@ -246,6 +265,64 @@ describe('getPreviousCycle', () => {
     const result = getPreviousCycle('2018-04-18')
     expect(result).to.eql(null)
   })
+
+  it('returns null when the previous cycle > maxcyclelength', () => {
+    const cycleDaysSortedByDate = [
+      {
+        date: '2018-07-05',
+        bleeding: { value: 2 }
+      },
+      {
+        date: '2018-06-05',
+        bleeding: { value: 2 }
+      },
+      {
+        date: '2018-05-05',
+        mucus: { value: 2 }
+      },
+      {
+        date: '2018-05-04',
+        bleeding: { value: 2 }
+      },
+      {
+        date: '2018-05-03',
+        bleeding: { value: 2 }
+      },
+      {
+        date: '2018-04-05',
+        mucus: { value: 2 }
+      },
+      {
+        date: '2018-04-04',
+        mucus: { value: 2 }
+      },
+      {
+        date: '2018-04-03',
+        mucus: { value: 2 }
+      },
+      {
+        date: '2018-04-02',
+        bleeding: { value: 2 }
+      },
+    ]
+
+    const cycleStarts = [
+      '2018-07-05',
+      '2018-06-05',
+      '2018-05-03',
+      '2018-04-02'
+    ]
+
+    const { getPreviousCycle } = cycleModule({
+      cycleDaysSortedByDate,
+      cycleStartsSortedByDate: cycleDaysSortedByDate.filter(d => {
+        return cycleStarts.includes(d.date)
+      }),
+      maxCycleLength: 2
+    })
+    const result = getPreviousCycle('2018-06-08')
+    expect(result).to.eql(null)
+  })
 })
 
 describe('getCyclesBefore', () => {
@@ -343,6 +420,68 @@ describe('getCyclesBefore', () => {
       ]
     ])
   })
+
+  it('skips cycles that are longer than max', () => {
+    const cycleDaysSortedByDate = [
+      {
+        date: '2018-07-05',
+        bleeding: { value: 2 }
+      },
+      {
+        date: '2018-06-05',
+        bleeding: { value: 2 }
+      },
+      {
+        date: '2018-05-05',
+        mucus: { value: 2 }
+      },
+      {
+        date: '2018-05-04',
+        bleeding: { value: 2 }
+      },
+      {
+        date: '2018-05-03',
+        bleeding: { value: 2 }
+      },
+      {
+        date: '2018-04-05',
+        mucus: { value: 2 }
+      },
+      {
+        date: '2018-04-04',
+        mucus: { value: 2 }
+      },
+      {
+        date: '2018-04-03',
+        mucus: { value: 2 }
+      },
+      {
+        date: '2018-04-02',
+        bleeding: { value: 2 }
+      },
+    ]
+
+    const cycleStarts = [
+      '2018-07-05',
+      '2018-06-05',
+      '2018-05-03',
+      '2018-04-02'
+    ]
+
+    const { getCyclesBefore } = cycleModule({
+      cycleDaysSortedByDate,
+      cycleStartsSortedByDate: cycleDaysSortedByDate.filter(d => {
+        return cycleStarts.includes(d.date)
+      }),
+      maxCycleLength: 30
+    })
+    const result = getCyclesBefore(cycleDaysSortedByDate[0])
+    expect(result.length).to.eql(1)
+    expect(result).to.eql([[{
+      bleeding: { value: 2 },
+      date: "2018-06-05"
+    }]])
+  })
 })
 
 describe('getCycleForDay', () => {
@@ -399,7 +538,7 @@ describe('getCycleForDay', () => {
   })
 
   it('gets cycle that has only one day', () => {
-    const result = getCycleForDay('2018-07-05')
+    const result = getCycleForDay('2018-07-05', '2018-08-01')
     expect(result.length).to.eql(1)
     expect(result).to.eql([
       {
@@ -430,6 +569,18 @@ describe('getCycleForDay', () => {
 
   it('returns null if there is no cycle start for that date', () => {
     const result = getCycleForDay('2018-04-01')
+    expect(result).to.eql(null)
+  })
+
+  it('returns null if the cycle is longer than the max', () => {
+    const { getCycleForDay } = cycleModule({
+      cycleDaysSortedByDate,
+      cycleStartsSortedByDate: cycleDaysSortedByDate.filter(d => {
+        return cycleStarts.includes(d.date)
+      }),
+      maxCycleLength: 3
+    })
+    const result = getCycleForDay('2018-04-04')
     expect(result).to.eql(null)
   })
 
@@ -521,6 +672,47 @@ describe('getPredictedMenses', () => {
         cycleStartsSortedByDate: cycleDaysSortedByDate.filter(d => {
           return cycleStarts.includes(d.date)
         }),
+      })
+      const result = getPredictedMenses()
+      expect(result).to.eql([])
+    })
+
+    it('if number of cycles is below minCyclesForPrediction because one of them is too long', () => {
+      const cycleDaysSortedByDate = [
+        {
+          date: '2018-06-02',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2018-06-01',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2018-05-01',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2018-04-03',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2018-04-02',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2018-04-01',
+          bleeding: { value: 2 }
+        },
+      ]
+      const cycleStarts = ['2018-06-01', '2018-05-01', '2018-04-01']
+
+      const { getPredictedMenses } = cycleModule({
+        cycleDaysSortedByDate,
+        bleedingDaysSortedByDate: cycleDaysSortedByDate.filter(d => d.bleeding),
+        cycleStartsSortedByDate: cycleDaysSortedByDate.filter(d => {
+          return cycleStarts.includes(d.date)
+        }),
+        maxCycleLength: 2
       })
       const result = getPredictedMenses()
       expect(result).to.eql([])
@@ -687,6 +879,62 @@ describe('getPredictedMenses', () => {
       const { getPredictedMenses } = cycleModule({
         cycleDaysSortedByDate,
         cycleStartsSortedByDate: cycleDaysSortedByDate
+      })
+      const result = getPredictedMenses()
+      const expectedResult = [
+        [
+          '2018-08-13',
+          '2018-08-14',
+          '2018-08-15',
+          '2018-08-16',
+          '2018-08-17',
+        ],
+        [
+          '2018-08-27',
+          '2018-08-28',
+          '2018-08-29',
+          '2018-08-30',
+          '2018-08-31',
+        ],
+        [
+          '2018-09-10',
+          '2018-09-11',
+          '2018-09-12',
+          '2018-09-13',
+          '2018-09-14',
+        ]
+      ]
+      expect(result).to.eql(expectedResult)
+    })
+
+    it('does not count cycles longer than max', () => {
+      const cycleDaysSortedByDate = [
+        {
+          date: '2018-08-01',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2018-07-14',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2018-07-04',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2018-06-20',
+          bleeding: { value: 2 }
+        },
+        {
+          date: '2018-04-20',
+          bleeding: { value: 2 }
+        },
+      ]
+
+      const { getPredictedMenses } = cycleModule({
+        cycleDaysSortedByDate,
+        cycleStartsSortedByDate: cycleDaysSortedByDate,
+        maxCycleLength: 50
       })
       const result = getPredictedMenses()
       const expectedResult = [
