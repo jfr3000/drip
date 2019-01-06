@@ -2,7 +2,7 @@
 export default {
   menuTitles: {
     reminders: 'Reminders',
-    dataManagement: 'Data management',
+    dataManagement: 'Manage your data',
     nfpSettings: 'NFP settings',
     password: 'Password',
     about: 'About'
