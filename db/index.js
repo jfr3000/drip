@@ -233,10 +233,8 @@ export async function deleteDbAndOpenNew() {
   await openDb()
 }
 
-export async function clearDb() {
-  await db.write(async () => {
-    await db.deleteAll()
-  })
+export function clearDb() {
+  db.write(db.deleteAll)
 }
 
 function hashToInt8Array(hash) {

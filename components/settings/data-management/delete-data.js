@@ -57,7 +57,7 @@ export default class DeleteData extends Component {
   deleteAppData = async () => {
     const { errors, success } = settings.deleteSegment
     try {
-      await clearDb()
+      clearDb()
       await this.deleteExportedFile()
       ToastAndroid.show(success.message, ToastAndroid.LONG)
       this.props.onDeleteData()
