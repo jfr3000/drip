@@ -43,7 +43,8 @@ export default {
     confirmation: 'Delete app data permanently',
     errors: {
       couldNotDeleteFile: 'Could not delete data',
-      postFix: 'No data was deleted or changed'
+      postFix: 'No data was deleted or changed',
+      noData: 'There is no data to delete'
     },
     success: {
       message: 'App data successfully deleted'
