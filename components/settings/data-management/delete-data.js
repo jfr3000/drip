@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import RNFS from 'react-native-fs'
-import { Alert } from 'react-native'
+import { Alert, ToastAndroid } from 'react-native'
 
 import { clearDb } from '../../../db'
 import { hasEncryptionObservable } from '../../../local-storage'
@@ -55,10 +55,11 @@ export default class DeleteData extends Component {
   }
 
   deleteAppData = async () => {
-    const { errors } = settings.deleteSegment
+    const { errors, success } = settings.deleteSegment
     try {
       await clearDb()
       await this.deleteExportedFile()
+      ToastAndroid.show(success.message, ToastAndroid.LONG)
       this.props.onDeleteData()
     } catch (err) {
       return alertError(errors.couldNotDeleteFile)

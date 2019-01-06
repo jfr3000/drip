@@ -44,6 +44,9 @@ export default {
     errors: {
       couldNotDeleteFile: 'Could not delete data',
       postFix: 'No data was deleted or changed'
+    },
+    success: {
+      message: 'App data successfully deleted'
     }
   },
   tempScale: {
