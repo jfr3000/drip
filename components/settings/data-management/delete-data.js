@@ -10,6 +10,7 @@ import alertError from '../alert-error'
 
 import settings from '../../../i18n/en/settings'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
+import { EXPORT_FILE_NAME } from './constants'
 
 export default class DeleteData extends Component {
   constructor() {
@@ -46,7 +47,7 @@ export default class DeleteData extends Component {
   }
 
   deleteExportedFile = async () => {
-    const path = RNFS.DocumentDirectoryPath + '/data.csv'
+    const path = `${RNFS.DocumentDirectoryPath}/${EXPORT_FILE_NAME}`
     const isFileExist = await RNFS.exists(path)
     if (isFileExist) {
       await RNFS.unlink(path)
