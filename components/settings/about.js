@@ -13,21 +13,21 @@ export default class AboutSection extends Component {
       <ScrollView>
         <SettingsSegment title={labels.aboutSection.title}>
           <Hyperlink linkStyle={styles.link} linkText={replace}>
-            <AppText>{`${labels.aboutSection.text} `}</AppText>
+            <AppText>{labels.aboutSection.text}</AppText>
           </Hyperlink>
         </SettingsSegment>
         <SettingsSegment title={labels.philosophy.title}>
           <AppText>{labels.philosophy.text}</AppText>
         </SettingsSegment>
         <SettingsSegment title={labels.credits.title}>
-          <AppText>{`${labels.credits.note}`}</AppText>
+          <AppText>{labels.credits.note}</AppText>
         </SettingsSegment>
         <SettingsSegment title={labels.website.title}>
           <Hyperlink linkStyle={styles.link}>
             <AppText>{links.website.url}</AppText>
           </Hyperlink>
         </SettingsSegment>
-        <SettingsSegment title={labels.version.title} last={true}>
+        <SettingsSegment title={labels.version.title} last>
           <AppText>{require('../../package.json').version}</AppText>
         </SettingsSegment>
       </ScrollView>
