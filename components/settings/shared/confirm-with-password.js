@@ -81,6 +81,11 @@ export default class ConfirmWithPassword extends Component {
         >
           {shared.confirmToProceed}
         </SettingsButton>
+        <SettingsButton
+          onPress={this.props.onCancel}
+        >
+          {shared.cancel}
+        </SettingsButton>
       </View>
     )
 
