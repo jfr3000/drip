@@ -1,20 +1,20 @@
 import React, { Component } from 'react'
-import { View, ScrollView } from 'react-native'
+import { ScrollView } from 'react-native'
 import AppText from '../app-text'
+import SettingsSegment from './settings-segment'
 import styles from '../../styles/index'
 import labels from '../../i18n/en/settings'
+
 export default class AboutSection extends Component {
   render() {
     return (
       <ScrollView>
-        <View style={styles.settingsSegment}>
-          <AppText style={styles.settingsSegmentTitle}>{`${labels.aboutSection.title} `}</AppText>
+        <SettingsSegment title={`${labels.aboutSection.title} `}>
           <AppText>{`${labels.aboutSection.segmentExplainer} `}</AppText>
-        </View>
-        <View style={[styles.settingsSegment, styles.settingsSegmentLast]}>
-          <AppText style={styles.settingsSegmentTitle}>{`${labels.credits.title} `}</AppText>
+        </SettingsSegment>
+        <SettingsSegment title={`${labels.credits.title} `} style={styles.settingsSegmentLast}>
           <AppText>{`${labels.credits.note}`}</AppText>
-        </View>
+        </SettingsSegment>
       </ScrollView>
     )
   }

@@ -4,6 +4,7 @@ import { getCycleDaysSortedByDate } from '../../../db'
 import getDataAsCsvDataUri from '../../../lib/import-export/export-to-csv'
 import alertError from '../alert-error'
 import settings from '../../../i18n/en/settings'
+import { EXPORT_FILE_NAME } from './constants'
 import RNFS from 'react-native-fs'
 
 export default async function exportData() {
@@ -24,7 +25,7 @@ export default async function exportData() {
   }
 
   try {
-    const path = RNFS.DocumentDirectoryPath + '/data.csv'
+    const path = `${RNFS.DocumentDirectoryPath}/${EXPORT_FILE_NAME}`
     await RNFS.writeFile(path, data)
 
     await Share.open({

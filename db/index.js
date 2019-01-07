@@ -223,10 +223,18 @@ export async function changeEncryptionAndRestartApp(hash) {
   restart.Restart()
 }
 
+export function isDbEmpty () {
+  return db.empty
+}
+
 export async function deleteDbAndOpenNew() {
   const exists = await fs.exists(Realm.defaultPath)
   if (exists) await fs.unlink(Realm.defaultPath)
   await openDb()
+}
+
+export function clearDb() {
+  db.write(db.deleteAll)
 }
 
 function hashToInt8Array(hash) {

@@ -1,9 +1,9 @@
 import Reminders from './reminders'
 import NfpSettings from './nfp-settings'
-import ImportExport from './import-export'
+import DataManagement from './data-management'
 import Password from './password'
 import About from './about'
 
 export default {
-  Reminders, NfpSettings, ImportExport, Password, About
+  Reminders, NfpSettings, DataManagement, Password, About
 }

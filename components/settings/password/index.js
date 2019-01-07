@@ -3,11 +3,11 @@ import { View, ScrollView } from 'react-native'
 import CreatePassword from './create'
 import ChangePassword from './update'
 import DeletePassword from './delete'
+import SettingsSegment from '../settings-segment'
 import AppText from '../../app-text'
 import {
   hasEncryptionObservable
 } from '../../../local-storage'
-import styles from '../../../styles/index'
 import labels from '../../../i18n/en/settings'
 
 export default class PasswordSetting extends Component {
@@ -22,11 +22,7 @@ export default class PasswordSetting extends Component {
   render() {
     return (
       <ScrollView>
-        <View style={styles.settingsSegment}>
-
-          <AppText style={styles.settingsSegmentTitle}>
-            {labels.passwordSettings.title}
-          </AppText>
+        <SettingsSegment title={labels.passwordSettings.title}>
 
           {this.state.showUpdateAndDelete ?
             <AppText>{labels.passwordSettings.explainerEnabled}</AppText>
@@ -45,7 +41,7 @@ export default class PasswordSetting extends Component {
           <CreatePassword/>
           }
 
-        </View>
+        </SettingsSegment>
       </ScrollView>
     )
   }
