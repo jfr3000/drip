@@ -20,6 +20,7 @@ export default class ChangePassword extends Component {
     showBackUpReminder(() => {
       this.setState({ enteringCurrentPassword: true })
     })
+    this.props.onStartChangingPassword()
   }
 
   startEnteringNewPassword = () => {

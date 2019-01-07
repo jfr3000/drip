@@ -14,6 +14,7 @@ export default class DeletePassword extends Component {
 
   startConfirmWithPassword = () => {
     this.setState({ enteringCurrentPassword: true })
+    this.props.onStartDeletingPassword()
   }
 
   startDeletePassword = async () => {

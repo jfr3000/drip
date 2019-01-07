@@ -15,29 +15,57 @@ export default class PasswordSetting extends Component {
     super(props)
     this.state = {
       showUpdateAndDelete: hasEncryptionObservable.value,
-      showCreate: !hasEncryptionObservable.value
+      showCreate: !hasEncryptionObservable.value,
+      isChangingPassword: false,
+      isDeletingPassword: false
     }
   }
 
+  onChangingPassword = () => {
+    this.setState({ isChangingPassword: true })
+  }
+
+  onDeletingPassword = () => {
+    this.setState({ isDeletingPassword: true })
+  }
+
   render() {
+
+    const {
+      showUpdateAndDelete,
+      isChangingPassword,
+      isDeletingPassword,
+      showCreate
+    } = this.state
+
     return (
       <ScrollView>
         <SettingsSegment title={labels.passwordSettings.title}>
 
-          {this.state.showUpdateAndDelete ?
+          {showUpdateAndDelete ?
             <AppText>{labels.passwordSettings.explainerEnabled}</AppText>
             :
             <AppText>{labels.passwordSettings.explainerDisabled}</AppText>
           }
 
-          {this.state.showUpdateAndDelete &&
-          <View>
-            <ChangePassword/>
-            <DeletePassword/>
-          </View>
+          {
+            showUpdateAndDelete && (
+              <View>
+                {(isChangingPassword
+                  || !isChangingPassword && !isDeletingPassword)
+                && <ChangePassword
+                  onStartChangingPassword = {this.onChangingPassword}
+                />}
+                {(isDeletingPassword
+                  || !isChangingPassword && !isDeletingPassword)
+                && <DeletePassword
+                  onStartDeletingPassword = {this.onDeletingPassword}
+                />}
+              </View>
+            )
           }
 
-          {this.state.showCreate &&
+          {showCreate &&
           <CreatePassword/>
           }
 
