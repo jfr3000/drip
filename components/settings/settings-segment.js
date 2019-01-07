@@ -9,15 +9,23 @@ const SettingsSegment = ({ children, ...props }) => {
   const style = [styles.settingsSegment, props.style]
   if (props.last) style.push(styles.settingsSegmentLast)
   return (
+<<<<<<< HEAD
     <View style={style}>
       <AppText style={styles.settingsSegmentTitle}>{props.title}</AppText>
+=======
+    <View style={[styles.settingsSegment, props.style]}>
+      {
+        props.title
+        && <AppText style={styles.settingsSegmentTitle}>{props.title}</AppText>
+      }
+>>>>>>> Refactor npf settings component
       {children}
     </View>
   )
 }
 
 SettingsSegment.propTypes = {
-  title: PropTypes.string.isRequired
+  title: PropTypes.string
 }
 
 export default SettingsSegment
