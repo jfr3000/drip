@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { View, ScrollView } from 'react-native'
+import { ScrollView } from 'react-native'
 import CreatePassword from './create'
 import ChangePassword from './update'
 import DeletePassword from './delete'
-import SettingsSegment from '../settings-segment'
+import SettingsSegment from '../common/settings-segment'
 import AppText from '../../app-text'
 import {
   hasEncryptionObservable
@@ -14,8 +14,7 @@ export default class PasswordSetting extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      showUpdateAndDelete: hasEncryptionObservable.value,
-      showCreate: !hasEncryptionObservable.value,
+      isPasswordSet: hasEncryptionObservable.value,
       isChangingPassword: false,
       isDeletingPassword: false
     }
@@ -32,43 +31,37 @@ export default class PasswordSetting extends Component {
   render() {
 
     const {
-      showUpdateAndDelete,
+      isPasswordSet,
       isChangingPassword,
       isDeletingPassword,
-      showCreate
     } = this.state
+
+    const {
+      title,
+      explainerEnabled,
+      explainerDisabled
+    } = labels.passwordSettings
 
     return (
       <ScrollView>
-        <SettingsSegment title={labels.passwordSettings.title}>
+        <SettingsSegment title={title}>
+          <AppText>
+            { isPasswordSet ? explainerEnabled : explainerDisabled }
+          </AppText>
 
-          {showUpdateAndDelete ?
-            <AppText>{labels.passwordSettings.explainerEnabled}</AppText>
-            :
-            <AppText>{labels.passwordSettings.explainerDisabled}</AppText>
-          }
+          { !isPasswordSet && <CreatePassword/> }
 
-          {
-            showUpdateAndDelete && (
-              <View>
-                {(isChangingPassword
-                  || !isChangingPassword && !isDeletingPassword)
-                && <ChangePassword
-                  onStartChangingPassword = {this.onChangingPassword}
-                />}
-                {(isDeletingPassword
-                  || !isChangingPassword && !isDeletingPassword)
-                && <DeletePassword
-                  onStartDeletingPassword = {this.onDeletingPassword}
-                />}
-              </View>
-            )
-          }
+          { (isPasswordSet && !isDeletingPassword) && (
+            <ChangePassword
+              onStartChangingPassword = {this.onChangingPassword}
+            />
+          )}
 
-          {showCreate &&
-          <CreatePassword/>
-          }
-
+          { (isPasswordSet && !isChangingPassword) && (
+            <DeletePassword
+              onStartDeletingPassword = {this.onDeletingPassword}
+            />
+          )}
         </SettingsSegment>
       </ScrollView>
     )

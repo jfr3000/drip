@@ -4,8 +4,8 @@ import nodejs from 'nodejs-mobile-react-native'
 
 import { requestHash, changeEncryptionAndRestartApp } from '../../../db'
 import AppText from '../../app-text'
-import PasswordField from './password-field'
-import SettingsButton from '../settings-button'
+import PasswordField from '../common/password-field'
+import SettingsButton from '../common/settings-button'
 
 import styles from '../../../styles'
 import settings from '../../../i18n/en/settings'

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import settings from '../../../i18n/en/settings'
 import EnterNewPassword from './enter-new-password'
-import SettingsButton from '../settings-button'
+import SettingsButton from '../common/settings-button'
 import showBackUpReminder from './show-backup-reminder'
 import ConfirmWithPassword from '../common/confirm-with-password'
 

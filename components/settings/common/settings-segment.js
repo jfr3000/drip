@@ -2,8 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import { View } from 'react-native'
-import AppText from '../app-text'
-import styles from '../../styles'
+import AppText from '../../app-text'
+import styles from '../../../styles'
 
 const SettingsSegment = ({ children, ...props }) => {
   const style = [styles.settingsSegment, props.style]

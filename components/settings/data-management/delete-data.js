@@ -4,9 +4,9 @@ import { Alert, ToastAndroid } from 'react-native'
 
 import { clearDb, isDbEmpty } from '../../../db'
 import { hasEncryptionObservable } from '../../../local-storage'
-import SettingsButton from '../settings-button'
+import SettingsButton from '../common/settings-button'
 import ConfirmWithPassword from '../common/confirm-with-password'
-import alertError from '../alert-error'
+import alertError from '../common/alert-error'
 
 import settings from '../../../i18n/en/settings'
 import { shared as sharedLabels } from '../../../i18n/en/labels'

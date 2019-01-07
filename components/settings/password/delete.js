@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import labels from '../../../i18n/en/settings'
 import { changeEncryptionAndRestartApp } from '../../../db'
 import ConfirmWithPassword from '../common/confirm-with-password'
-import SettingsButton from '../settings-button'
+import SettingsButton from '../common/settings-button'
 
 export default class DeletePassword extends Component {
   constructor() {

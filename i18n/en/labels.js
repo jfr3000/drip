@@ -11,7 +11,7 @@ export const shared = {
   incorrectPasswordMessage: 'That password is incorrect.',
   tryAgain: 'Try again',
   ok: 'OK',
-  unlock: 'Unlock',
+  confirmToProceed: 'Confirm to proceed',
   date: 'Date',
   cycleDayWithLinebreak: 'Cycle\nday',
   loading: 'Loading ...',

@@ -9,7 +9,7 @@ import {
 import { secondaryColor } from '../../../styles/index'
 import labels from '../../../i18n/en/settings'
 import config from '../../../config'
-import alertError from '../alert-error'
+import alertError from '../common/alert-error'
 
 export default class TempSlider extends Component {
   constructor(props) {

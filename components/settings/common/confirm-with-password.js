@@ -4,8 +4,8 @@ import { View, Alert } from 'react-native'
 import nodejs from 'nodejs-mobile-react-native'
 import { requestHash, openDb } from '../../../db'
 
-import PasswordField from '../password/password-field'
-import SettingsButton from '../settings-button'
+import PasswordField from './password-field'
+import SettingsButton from '../common/settings-button'
 
 import settings from '../../../i18n/en/settings'
 import { shared } from '../../../i18n/en/labels'
@@ -79,7 +79,7 @@ export default class ConfirmWithPassword extends Component {
           onPress={this.initPasswordCheck}
           disabled={!password}
         >
-          {settings.deleteSegment.title}
+          {shared.confirmToProceed}
         </SettingsButton>
       </View>
     )
