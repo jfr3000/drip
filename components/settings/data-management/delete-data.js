@@ -5,7 +5,7 @@ import { Alert, ToastAndroid } from 'react-native'
 import { clearDb, isDbEmpty } from '../../../db'
 import { hasEncryptionObservable } from '../../../local-storage'
 import SettingsButton from '../settings-button'
-import ConfirmWithPassword from './confirm-with-password'
+import ConfirmWithPassword from '../common/confirm-with-password'
 import alertError from '../alert-error'
 
 import settings from '../../../i18n/en/settings'
