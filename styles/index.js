@@ -89,11 +89,13 @@ export default StyleSheet.create({
     marginHorizontal: 50,
     marginTop: 20,
   },
-  homeButton: {
+  button: {
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,
     alignItems: 'center',
+  },
+  homeButton: {
     width: 200,
   },
   homeButtonText: {
@@ -391,6 +393,19 @@ export default StyleSheet.create({
   passwordPromptForgotPasswordText: {
     marginTop: 20,
     color: 'grey'
+  },
+  licensePage: {
+    paddingVertical: 20,
+    paddingHorizontal: 10
+  },
+  licenseButtons: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginTop: 40
+  },
+  licenseButton: {
+    marginLeft: 30,
+    width: 100
   }
 })
 
