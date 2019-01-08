@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, ScrollView } from 'react-native'
+import { ScrollView } from 'react-native'
 import Hyperlink from 'react-native-hyperlink'
 import AppText from '../app-text'
 import SettingsSegment from './settings-segment'
@@ -11,34 +11,25 @@ export default class AboutSection extends Component {
   render() {
     return (
       <ScrollView>
-        <SettingsSegment title={`${labels.aboutSection.title} `}>
+        <SettingsSegment title={labels.aboutSection.title}>
           <Hyperlink linkStyle={styles.link} linkText={replace}>
-            <AppText>{`${labels.aboutSection.segmentExplainer} `}</AppText>
+            <AppText>{`${labels.aboutSection.text} `}</AppText>
           </Hyperlink>
         </SettingsSegment>
-        <View style={styles.settingsSegment}>
-          <AppText style={styles.settingsSegmentTitle}>{`${labels.philosophy.title} `}</AppText>
+        <SettingsSegment title={labels.philosophy.title}>
           <AppText>{labels.philosophy.text}</AppText>
-        </View>
-        <View style={styles.settingsSegment}>
-          <Hyperlink linkStyle={styles.link} linkText={replace}>
-            <AppText style={styles.settingsSegmentTitle}>{`${labels.aboutSection.title} `}</AppText>
-            <AppText>{labels.aboutSection.text}</AppText>
-          </Hyperlink>
-        </View>
-        <SettingsSegment title={`${labels.credits.title} `} style={styles.settingsSegmentLast}>
+        </SettingsSegment>
+        <SettingsSegment title={labels.credits.title}>
           <AppText>{`${labels.credits.note}`}</AppText>
         </SettingsSegment>
-        <View style={[styles.settingsSegment, styles.settingsSegmentLast]}>
+        <SettingsSegment title={labels.website.title}>
           <Hyperlink linkStyle={styles.link}>
-            <AppText style={styles.settingsSegmentTitle}>{`${labels.website.title} `}</AppText>
             <AppText>{links.website.url}</AppText>
           </Hyperlink>
-        </View>
-        <View style={[styles.settingsSegment, styles.settingsSegmentLast]}>
-          <AppText style={styles.settingsSegmentTitle}>{`${labels.version.title} `}</AppText>
+        </SettingsSegment>
+        <SettingsSegment title={labels.version.title} last={true}>
           <AppText>{require('../../package.json').version}</AppText>
-        </View>
+        </SettingsSegment>
       </ScrollView>
     )
   }

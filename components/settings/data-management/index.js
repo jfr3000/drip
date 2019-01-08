@@ -26,7 +26,7 @@ const DataManagement = () => {
       </SettingsSegment>
       <SettingsSegment
         title={labels.deleteSegment.title}
-        style={styles.settingsSegmentLast}
+        last={true}
       >
         <AppText>{labels.deleteSegment.explainer}</AppText>
         <DeleteData />
