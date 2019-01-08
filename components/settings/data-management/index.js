@@ -7,7 +7,6 @@ import openImportDialogAndImport from './import-dialog'
 import openShareDialogAndExport from './export-dialog'
 import DeleteData from './delete-data'
 import labels from '../../../i18n/en/settings'
-import styles from '../../../styles/index'
 
 const DataManagement = () => {
   return (
@@ -26,7 +25,7 @@ const DataManagement = () => {
       </SettingsSegment>
       <SettingsSegment
         title={labels.deleteSegment.title}
-        style={styles.settingsSegmentLast}
+        last={true}
       >
         <AppText>{labels.deleteSegment.explainer}</AppText>
         <DeleteData />

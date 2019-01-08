@@ -30,6 +30,7 @@ export const headerTitles = {
   DataManagement: settingsTitles.dataManagement,
   Password: settingsTitles.password,
   About: settingsTitles.about,
+  License: settingsTitles.license,
   BleedingEditView: 'Bleeding',
   TemperatureEditView: 'Temperature',
   MucusEditView: 'Mucus',

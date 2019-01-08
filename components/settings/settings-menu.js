@@ -14,7 +14,8 @@ const menu = [
   {title: labels.nfpSettings, component: 'NfpSettings'},
   {title: labels.dataManagement, component: 'DataManagement'},
   {title: labels.password, component: 'Password'},
-  {title: labels.about, component: 'About'}
+  {title: labels.about, component: 'About'},
+  {title: labels.license, component: 'License'}
 ]
 
 export default function SettingsMenu(props) {
