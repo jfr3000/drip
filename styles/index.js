@@ -396,11 +396,12 @@ export default StyleSheet.create({
   },
   licensePage: {
     paddingVertical: 20,
-    paddingHorizontal: 20
+    paddingHorizontal: 10
   },
   licenseButtons: {
     flexDirection: 'row',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    marginTop: 40
   },
   licenseButton: {
     marginLeft: 30,
