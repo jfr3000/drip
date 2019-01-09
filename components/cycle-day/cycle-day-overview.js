@@ -24,6 +24,7 @@ const intensityLabels = labels.intensity
 const sexLabels = labels.sex.categories
 const contraceptiveLabels = labels.contraceptives.categories
 const painLabels = labels.pain.categories
+const moodLabels = labels.mood.categories
 
 export default class CycleDayOverView extends Component {
   constructor(props) {
@@ -143,6 +144,25 @@ export default class CycleDayOverView extends Component {
           painLabel = painLabel.join(', ')
           return painLabel
         }
+      },
+      mood: mood => {
+        let moodLabel = []
+        if (mood && Object.values(mood).some(val => val)){
+          Object.keys(mood).forEach(key => {
+            if(mood[key] && key !== 'other' && key !== 'note') {
+              moodLabel.push(moodLabels[key])
+            }
+            if(key === 'other' && mood.other) {
+              let label = moodLabels[key]
+              if(mood.note) {
+                label = `${label} (${mood.note})`
+              }
+              moodLabel.push(label)
+            }
+          })
+          moodLabel = moodLabel.join(', ')
+          return moodLabel
+        }
       }
     }
 
@@ -227,6 +247,14 @@ export default class CycleDayOverView extends Component {
             >
             </SymptomBox>
             <SymptomBox
+              title='Mood'
+              onPress={() => this.navigate('MoodEditView')}
+              data={this.getLabel('mood')}
+              disabled={dateInFuture}
+              iconName='drip-icon-pain'
+            >
+            </SymptomBox>
+            <SymptomBox
               title='Note'
               onPress={() => this.navigate('NoteEditView')}
               data={this.getLabel('note')}
@@ -236,9 +264,9 @@ export default class CycleDayOverView extends Component {
             {/*  this is just to make the last row adhere to the grid
         (and) because there are no pseudo properties in RN */}
             <FillerBoxes />
-          </View >
-        </ScrollView >
-      </View >
+          </View>
+        </ScrollView>
+      </View>
     )
   }
 }
