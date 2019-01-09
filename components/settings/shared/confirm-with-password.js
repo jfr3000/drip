@@ -64,7 +64,6 @@ export default class ConfirmWithPassword extends Component {
   }
 
   render() {
-
     const { password } = this.state
     const labels = settings.passwordSettings
 
@@ -75,17 +74,27 @@ export default class ConfirmWithPassword extends Component {
           value={password}
           onChangeText={this.handlePasswordInput}
         />
-        <SettingsButton
-          onPress={this.initPasswordCheck}
-          disabled={!password}
-        >
-          {shared.confirmToProceed}
-        </SettingsButton>
-        <SettingsButton
-          onPress={this.props.onCancel}
-        >
-          {shared.cancel}
-        </SettingsButton>
+        <View style={{
+          flex: 1,
+          flexDirection: 'row',
+          justifyContent: 'space-between'
+        }}>
+          <SettingsButton
+            onPress={this.props.onCancel}
+            secondary
+          >
+            {shared.cancel}
+          </SettingsButton>
+          <SettingsButton
+            onPress={this.initPasswordCheck}
+            disabled={!password}
+            style={{
+              flex: 1,
+            }}
+          >
+            {shared.confirmToProceed}
+          </SettingsButton>
+        </View>
       </View>
     )
 
