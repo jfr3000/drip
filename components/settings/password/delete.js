@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import labels from '../../../i18n/en/settings'
 import { changeEncryptionAndRestartApp } from '../../../db'
-import ConfirmWithPassword from '../common/confirm-with-password'
-import SettingsButton from '../common/settings-button'
+import ConfirmWithPassword from '../shared/confirm-with-password'
+import SettingsButton from '../shared/settings-button'
 
 export default class DeletePassword extends Component {
   constructor() {

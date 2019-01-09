@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {
   ScrollView,
 } from 'react-native'
-import SettingsSegment from '../common/settings-segment'
+import SettingsSegment from '../shared/settings-segment'
 import TempReminderPicker from './temp-reminder-picker'
 import PeriodReminderPicker from './period-reminder'
 

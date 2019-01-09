@@ -5,7 +5,7 @@ import nodejs from 'nodejs-mobile-react-native'
 import { requestHash, openDb } from '../../../db'
 
 import PasswordField from './password-field'
-import SettingsButton from '../common/settings-button'
+import SettingsButton from '../shared/settings-button'
 
 import settings from '../../../i18n/en/settings'
 import { shared } from '../../../i18n/en/labels'

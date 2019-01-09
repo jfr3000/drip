@@ -4,7 +4,7 @@ import rnfs from 'react-native-fs'
 import importCsv from '../../../lib/import-export/import-from-csv'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
 import labels from '../../../i18n/en/settings'
-import alertError from '../common/alert-error'
+import alertError from '../shared/alert-error'
 
 export default function openImportDialogAndImport() {
   Alert.alert(
