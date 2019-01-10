@@ -8,7 +8,6 @@ import {
   periodReminderObservable,
   savePeriodReminder
 } from '../../../local-storage'
-import styles from '../../../styles/index'
 import labels from '../../../i18n/en/settings'
 
 export default class PeriodReminderPicker extends Component {
@@ -19,22 +18,17 @@ export default class PeriodReminderPicker extends Component {
 
   render() {
     return (
-      <View style={styles.settingsSegment}>
-        <AppText style={styles.settingsSegmentTitle}>
-          {labels.periodReminder.title}
-        </AppText>
-        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <View style={{ flex: 1 }}>
-            <AppText>{labels.periodReminder.reminderText}</AppText>
-          </View>
-          <Switch
-            value={this.state.enabled}
-            onValueChange={switchOn => {
-              this.setState({ enabled: switchOn })
-              savePeriodReminder({enabled: switchOn})
-            }}
-          />
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <View style={{ flex: 1 }}>
+          <AppText>{labels.periodReminder.reminderText}</AppText>
         </View>
+        <Switch
+          value={this.state.enabled}
+          onValueChange={switchOn => {
+            this.setState({ enabled: switchOn })
+            savePeriodReminder({enabled: switchOn})
+          }}
+        />
       </View>
     )
   }

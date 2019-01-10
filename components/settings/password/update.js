@@ -1,14 +1,9 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
-import nodejs from 'nodejs-mobile-react-native'
-import { shared as sharedLabels } from '../../../i18n/en/labels'
 import settings from '../../../i18n/en/settings'
-import { requestHash } from '../../../db'
 import EnterNewPassword from './enter-new-password'
-import PasswordField from './password-field'
-import SettingsButton from '../settings-button'
+import SettingsButton from '../shared/settings-button'
 import showBackUpReminder from './show-backup-reminder'
-import checkCurrentPassword from './check-current-password'
+import ConfirmWithPassword from '../shared/confirm-with-password'
 
 
 export default class ChangePassword extends Component {
@@ -19,49 +14,29 @@ export default class ChangePassword extends Component {
       enteringCurrentPassword: false,
       enteringNewPassword: false
     }
-
-    nodejs.channel.addListener(
-      'pre-change-pw-check',
-      this.openNewPasswordField,
-      this
-    )
-  }
-
-  componentWillUnmount() {
-    nodejs.channel.removeListener('pre-change-pw-check', this.openNewPasswordField)
-  }
-
-  openNewPasswordField = async hash => {
-    const passwordCorrect = await checkCurrentPassword({
-      hash,
-      onTryAgain: () => this.setState({ currentPassword: null }),
-      onCancel: () => this.setState({
-        enteringCurrentPassword: false,
-        currentPassword: null
-      })
-    })
-
-    if (passwordCorrect) {
-      this.setState({
-        currentPassword: null,
-        enteringNewPassword: true,
-        enteringCurrentPassword: false
-      })
-    }
   }
 
   startChangingPassword = () => {
     showBackUpReminder(() => {
       this.setState({ enteringCurrentPassword: true })
     })
+    this.props.onStartChangingPassword()
   }
 
-  handleCurrentPasswordInput = (currentPassword) => {
-    this.setState({ currentPassword })
+  startEnteringNewPassword = () => {
+    this.setState({
+      currentPassword: null,
+      enteringNewPassword: true,
+      enteringCurrentPassword: false
+    })
   }
 
-  checkCurrentPassword = () => {
-    requestHash('pre-change-pw-check', this.state.currentPassword)
+  cancelConfirmationWithPassword = () => {
+    this.setState({
+      currentPassword: null,
+      enteringNewPassword: false,
+      enteringCurrentPassword: false
+    })
   }
 
   render() {
@@ -76,19 +51,10 @@ export default class ChangePassword extends Component {
 
     if (enteringCurrentPassword) {
       return (
-        <View>
-          <PasswordField
-            placeholder={labels.enterCurrent}
-            value={currentPassword}
-            onChangeText={this.handleCurrentPasswordInput}
-          />
-          <SettingsButton
-            onPress={this.checkCurrentPassword}
-            disabled={!currentPassword}
-          >
-            {sharedLabels.unlock}
-          </SettingsButton>
-        </View>
+        <ConfirmWithPassword
+          onSuccess={this.startEnteringNewPassword}
+          onCancel={this.cancelConfirmationWithPassword}
+        />
       )
     }
 
@@ -97,14 +63,12 @@ export default class ChangePassword extends Component {
     }
 
     return (
-      <View>
-        <SettingsButton
-          onPress={this.startChangingPassword}
-          disabled={currentPassword}
-        >
-          {labels.changePassword}
-        </SettingsButton>
-      </View>
+      <SettingsButton
+        onPress={this.startChangingPassword}
+        disabled={currentPassword}
+      >
+        {labels.changePassword}
+      </SettingsButton>
     )
   }
 }

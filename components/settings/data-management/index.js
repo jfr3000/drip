@@ -1,8 +1,8 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
 import AppText from '../../app-text'
-import SettingsSegment from '../settings-segment'
-import SettingsButton from '../settings-button'
+import SettingsSegment from '../shared/settings-segment'
+import SettingsButton from '../shared/settings-button'
 import openImportDialogAndImport from './import-dialog'
 import openShareDialogAndExport from './export-dialog'
 import DeleteData from './delete-data'
@@ -25,7 +25,7 @@ const DataManagement = () => {
       </SettingsSegment>
       <SettingsSegment
         title={labels.deleteSegment.title}
-        last={true}
+        last
       >
         <AppText>{labels.deleteSegment.explainer}</AppText>
         <DeleteData />

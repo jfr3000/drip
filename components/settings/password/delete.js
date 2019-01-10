@@ -1,80 +1,47 @@
 import React, { Component } from 'react'
-import {
-  View,
-  TouchableOpacity
-} from 'react-native'
-import nodejs from 'nodejs-mobile-react-native'
-import AppText from '../../app-text'
-import styles from '../../../styles'
 import labels from '../../../i18n/en/settings'
-import { requestHash, changeEncryptionAndRestartApp } from '../../../db'
-import PasswordField from './password-field'
-import showBackUpReminder from './show-backup-reminder'
-import checkCurrentPassword from './check-current-password'
+import { changeEncryptionAndRestartApp } from '../../../db'
+import ConfirmWithPassword from '../shared/confirm-with-password'
+import SettingsButton from '../shared/settings-button'
 
 export default class DeletePassword extends Component {
   constructor() {
     super()
     this.state = {
-      enteringCurrentPassword: false,
-      currentPassword: null
+      enteringCurrentPassword: false
     }
-
-    nodejs.channel.addListener(
-      'pre-delete-pw-check',
-      this.removeEncryption,
-      this
-    )
   }
 
-  componentWillUnmount() {
-    nodejs.channel.removeListener('pre-delete-pw-check', this.removeEncryption)
+  startConfirmWithPassword = () => {
+    this.setState({ enteringCurrentPassword: true })
+    this.props.onStartDeletingPassword()
   }
 
-  removeEncryption = async hash => {
-    const passwordIsCorrect = await checkCurrentPassword({
-      hash,
-      onTryAgain: () => this.setState({currentPassword: null}),
-      onCancel: () => this.setState({
-        enteringCurrentPassword: false,
-        currentPassword: null
-      })
-    })
+  startDeletePassword = async () => {
+    await changeEncryptionAndRestartApp()
+  }
 
-    if (passwordIsCorrect) await changeEncryptionAndRestartApp()
+  cancelConfirmationWithPassword = () => {
+    this.setState({ enteringCurrentPassword: false })
   }
 
   render() {
+
+    const { enteringCurrentPassword } = this.state
+
+    if (enteringCurrentPassword) {
+      return (
+        <ConfirmWithPassword
+          onSuccess={this.startDeletePassword}
+          onCancel={this.cancelConfirmationWithPassword}
+        />
+      )
+    }
+
     return (
-      <View>
-        {this.state.enteringCurrentPassword &&
-          <PasswordField
-            onChangeText={val => this.setState({ currentPassword: val })}
-            value={this.state.currentPassword}
-            placeholder={labels.passwordSettings.enterCurrent}
-          />
-        }
-        <TouchableOpacity
-          onPress={() => {
-            if (!this.state.enteringCurrentPassword) {
-              showBackUpReminder(() => {
-                this.setState({ enteringCurrentPassword: true })
-              }, true)
-            } else {
-              requestHash('pre-delete-pw-check', this.state.currentPassword)
-            }
-          }}
-          disabled={
-            this.state.enteringCurrentPassword &&
-            !this.state.currentPassword
-          }
-          style={styles.settingsButton}
-        >
-          <AppText style={styles.settingsButtonText}>
-            {labels.passwordSettings.deletePassword}
-          </AppText>
-        </TouchableOpacity>
-      </View>
+      <SettingsButton onPress={this.startConfirmWithPassword} >
+        {labels.passwordSettings.deletePassword}
+      </SettingsButton>
     )
   }
 }
