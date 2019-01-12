@@ -101,7 +101,7 @@ export default class Temp extends Component {
         <ScrollView style={styles.page}>
           <View>
             <SymptomSection
-              header="Temperature (°C)"
+              header={labels.temperature.header}
               explainer={labels.temperature.explainer}
               inline={true}
             >
@@ -112,7 +112,7 @@ export default class Temp extends Component {
               />
             </SymptomSection>
             <SymptomSection
-              header="Time"
+              header={labels.time}
               inline={true}
             >
               <TextInput
@@ -136,7 +136,7 @@ export default class Temp extends Component {
               />
             </SymptomSection>
             <SymptomSection
-              header="Note"
+              header={labels.note.header}
               explainer={labels.note.explainer}
             >
               <TextInput
@@ -150,8 +150,8 @@ export default class Temp extends Component {
               />
             </SymptomSection>
             <SymptomSection
-              header="Exclude"
-              explainer={labels.excludeExplainer}
+              header={labels.exclude.header}
+              explainer={labels.exclude.explainer}
               inline={true}
             >
               <Switch
