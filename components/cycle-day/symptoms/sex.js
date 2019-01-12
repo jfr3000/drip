@@ -6,8 +6,8 @@ import {
 } from 'react-native'
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
-import { sex as sexLabels, contraceptives as cLabels } from '../../../i18n/en/cycle-day'
-import { shared } from '../../../i18n/en/labels'
+import { sex as sexLabels, contraceptives as contraceptivesLabels } from '../../../i18n/en/cycle-day'
+import { shared as sharedLabels } from '../../../i18n/en/labels'
 import ActionButtonFooter from './action-button-footer'
 import SelectBoxGroup from '../select-box-group'
 import SymptomSection from './symptom-section'
@@ -49,11 +49,11 @@ export default class Sex extends Component {
             />
           </SymptomSection>
           <SymptomSection
-            header={cLabels.header}
-            explainer={cLabels.explainer}
+            header={contraceptivesLabels.header}
+            explainer={contraceptivesLabels.explainer}
           >
             <SelectBoxGroup
-              labels={cLabels.categories}
+              labels={contraceptivesLabels.categories}
               onSelect={this.toggleState}
               optionsState={this.state}
             />
@@ -63,7 +63,7 @@ export default class Sex extends Component {
             <TextInput
               autoFocus={this.state.focusTextArea}
               multiline={true}
-              placeholder={shared.enter}
+              placeholder={sharedLabels.enter}
               value={this.state.note}
               onChangeText={(val) => {
                 this.setState({ note: val })

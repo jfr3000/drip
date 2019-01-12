@@ -15,7 +15,7 @@ import styles from '../../../styles'
 import { LocalTime, ChronoUnit } from 'js-joda'
 import { temperature as labels } from '../../../i18n/en/cycle-day'
 import { scaleObservable } from '../../../local-storage'
-import { shared } from '../../../i18n/en/labels'
+import { shared as sharedLabels } from '../../../i18n/en/labels'
 import ActionButtonFooter from './action-button-footer'
 import config from '../../../config'
 import SymptomSection from './symptom-section'
@@ -81,11 +81,11 @@ export default class Temp extends Component {
 
     if (warningMsg) {
       Alert.alert(
-        shared.warning,
+        sharedLabels.warning,
         warningMsg,
         [
-          { text: shared.cancel },
-          { text: shared.save, onPress: this.saveTemperature}
+          { text: sharedLabels.cancel },
+          { text: sharedLabels.save, onPress: this.saveTemperature}
         ]
       )
     } else {
@@ -142,7 +142,7 @@ export default class Temp extends Component {
               <TextInput
                 multiline={true}
                 autoFocus={this.state.focusTextArea}
-                placeholder={shared.enter}
+                placeholder={sharedLabels.enter}
                 value={this.state.note}
                 onChangeText={(val) => {
                   this.setState({ note: val })

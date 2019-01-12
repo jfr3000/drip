@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 import { saveSymptom } from '../../../db'
 import { pain as labels } from '../../../i18n/en/cycle-day'
-import { shared } from '../../../i18n/en/labels'
+import { shared as sharedLabels } from '../../../i18n/en/labels'
 import ActionButtonFooter from './action-button-footer'
 import SelectBoxGroup from '../select-box-group'
 import SymptomSection from './symptom-section'
@@ -50,7 +50,7 @@ export default class Pain extends Component {
               <TextInput
                 autoFocus={this.state.focusTextArea}
                 multiline={true}
-                placeholder={shared.enter}
+                placeholder={sharedLabels.enter}
                 value={this.state.note}
                 onChangeText={(val) => {
                   this.setState({note: val})
