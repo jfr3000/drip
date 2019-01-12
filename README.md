@@ -18,14 +18,16 @@ A menstrual cycle tracking app that's open-source and leaves your data on your p
     git clone git@gitlab.com:bloodyhealth/drip.git
     cd drip
     ```
+    and run
+    ```
+    npm install
+    ```
 
 1. Open Android Studio and click on "Open an existing Android Studio project". Navigate to the drip repository you cloned and double click the android folder. It detects, downloads and cofigures requirements that might be missing, like the NDK and CMake to build the native code part of the project. Also see the [nodejs-mobile repository](https://github.com/janeasystems/nodejs-mobile) for the necessary prerequisites for your system.
 
 1. Either start a [virtual device in Android Studio](https://developer.android.com/studio/run/emulator) or [set your physical device like your Android phone up](https://developer.android.com/training/basics/firstapp/running-app) to run the app.
 
-1. Open a terminal and run `npm install`
-
-1. Run `npm run android`
+1. Open a terminal and run `npm run android`
 
 1. In another tab, run `npm run log` to see logging output
 
