@@ -13,8 +13,7 @@ export const shadesOfRed = [
 export const cycleDayColor = '#29287f'
 export const periodColor = '#802249'
 
-const fontRegular = 'Prompt-Light'
-const fontLight = 'Prompt-Thin'
+const headerFont = 'Prompt-Thin'
 
 const textFont = 'Dosis-Light'
 const textFontLight = 'Dosis-ExtraLight'
@@ -67,13 +66,13 @@ export default StyleSheet.create({
   },
   dateHeader: {
     fontSize: 20,
-    fontFamily: fontLight,
+    fontFamily: headerFont,
     color: fontOnPrimaryColor,
     textAlign: 'center',
   },
   headerText: {
     fontSize: 30,
-    fontFamily: fontLight,
+    fontFamily: headerFont,
     color: fontOnPrimaryColor,
     textAlign: 'center',
   },
@@ -150,7 +149,7 @@ export default StyleSheet.create({
     fontSize: 15,
     color: fontOnPrimaryColor,
     textAlign: 'center',
-    fontFamily: fontLight
+    fontFamily: headerFont
   },
   symptomViewHeading: {
     fontSize: 20,
@@ -238,11 +237,11 @@ export default StyleSheet.create({
   },
   menuText: {
     color: fontOnPrimaryColor,
-    fontFamily: fontLight
+    fontFamily: headerFont
   },
   menuTextInActive: {
     color: colorInActive,
-    fontFamily: fontLight
+    fontFamily: headerFont
   },
   temperatureTextInput: {
     fontSize: 20,
