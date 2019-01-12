@@ -5,11 +5,11 @@ A menstrual cycle tracking app that's open-source and leaves your data on your p
 ## Development setup
 1. Install [Android Studio](https://developer.android.com/studio/) - you'll need it to install some dependencies.
 
-1. Make sure you are running Node 8 or 9 (newer versions won’t work). It's easiest to switch Node versions using `nvm`, here’s how to do it:
+1. Make sure you are running Node 8 (newer versions won’t work). It's easiest to switch Node versions using `nvm`, here’s how to do it:
 
     ```
     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
-    nvm install v9
+    nvm install v8
     ```
 
 1. Clone this repository:
