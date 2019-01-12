@@ -35,7 +35,8 @@ A menstrual cycle tracking app that's open-source and leaves your data on your p
 
 1. We recommend installing an [ESLint plugin in your editor](https://eslint.org/docs/user-guide/integrations#editors). There's an `.eslintrc` file in this project which will be used by the plugin to check your code for style errors and potential bugs.
 
-## Java problems on macOS
+## Troubleshooting
+### [MacOS] Java problems
 
 Make sure that you have Java 1.8 by running `java -version`.
 
@@ -46,6 +47,18 @@ If you don't have Java installed, or your Java version is different, the app may
     ```
 
 Now, `which java` should output `/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home/bin/java`, and the correct Java version should be used.
+
+### [MacOS] Ninja
+If `npm` says `CMake was unable to find a build program corresponding to "Ninja".`:
+    ```
+    brew install ninja
+    ```
+
+### [MacOS] adb not on the path
+If you get error messages about `adb` not being found on your path:
+    ```
+    ln -s ~/Library/Android/sdk/platform-tools/adb /usr/local/bin/adb
+    ```
 
 ## Windows problems
 
