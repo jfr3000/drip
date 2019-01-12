@@ -16,7 +16,8 @@ export const shared = {
   cycleDayWithLinebreak: 'Cycle\nday',
   loading: 'Loading ...',
   more: 'more',
-  less: 'less'
+  less: 'less',
+  enter: 'Enter'
 }
 
 export const headerTitles = {

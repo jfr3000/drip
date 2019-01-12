@@ -50,6 +50,7 @@ export const sex = {
     solo: 'Solo',
     partner: 'Partner',
   },
+  header: "Activity",
   explainer: 'Were you sexually active today?',
 }
 
@@ -65,6 +66,7 @@ export const contraceptives = {
     none: 'None',
     other: 'Other',
   },
+  header: "Contraceptives",
   explainer: 'Did you use contraceptives?'
 }
 

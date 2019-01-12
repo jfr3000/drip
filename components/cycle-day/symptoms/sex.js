@@ -7,6 +7,7 @@ import {
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
 import { sex as sexLabels, contraceptives as cLabels } from '../../../i18n/en/cycle-day'
+import { shared } from '../../../i18n/en/labels'
 import ActionButtonFooter from './action-button-footer'
 import SelectBoxGroup from '../select-box-group'
 import SymptomSection from './symptom-section'
@@ -38,7 +39,7 @@ export default class Sex extends Component {
       <View style={{ flex: 1 }}>
         <ScrollView style={styles.page}>
           <SymptomSection
-            header="Activity"
+            header={sexLabels.header}
             explainer={sexLabels.explainer}
           >
             <SelectBoxGroup
@@ -48,7 +49,7 @@ export default class Sex extends Component {
             />
           </SymptomSection>
           <SymptomSection
-            header="Contraceptives"
+            header={cLabels.header}
             explainer={cLabels.explainer}
           >
             <SelectBoxGroup
@@ -62,7 +63,7 @@ export default class Sex extends Component {
             <TextInput
               autoFocus={this.state.focusTextArea}
               multiline={true}
-              placeholder="Enter"
+              placeholder={shared.enter}
               value={this.state.note}
               onChangeText={(val) => {
                 this.setState({ note: val })
