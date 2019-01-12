@@ -15,9 +15,10 @@ export const periodColor = '#802249'
 
 const fontRegular = 'Prompt-Light'
 const fontLight = 'Prompt-Thin'
+
 const textFont = 'Dosis-Light'
 const textFontLight = 'Dosis-ExtraLight'
-const textFontBold = 'book'
+const textFontBold = 'Dosis-Book'
 
 const regularSize = 16
 
@@ -240,7 +241,8 @@ export default StyleSheet.create({
     fontFamily: fontLight
   },
   menuTextInActive: {
-    color: colorInActive
+    color: colorInActive,
+    fontFamily: fontLight
   },
   temperatureTextInput: {
     fontSize: 20,
