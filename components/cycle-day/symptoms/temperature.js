@@ -142,7 +142,7 @@ export default class Temp extends Component {
               <TextInput
                 multiline={true}
                 autoFocus={this.state.focusTextArea}
-                placeholder="Enter"
+                placeholder={shared.enter}
                 value={this.state.note}
                 onChangeText={(val) => {
                   this.setState({ note: val })

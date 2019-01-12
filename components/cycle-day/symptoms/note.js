@@ -10,6 +10,7 @@ import { saveSymptom } from '../../../db'
 import ActionButtonFooter from './action-button-footer'
 import SymptomSection from './symptom-section'
 import { noteExplainer } from '../../../i18n/en/cycle-day'
+import { shared } from '../../../i18n/en/labels'
 
 export default class Note extends Component {
   constructor(props) {
@@ -33,7 +34,7 @@ export default class Note extends Component {
             <TextInput
               autoFocus={!this.state.currentValue}
               multiline={true}
-              placeholder="Enter"
+              placeholder={shared.enter}
               onChangeText={(val) => {
                 this.setState({ currentValue: val })
               }}
