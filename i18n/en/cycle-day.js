@@ -1,6 +1,17 @@
-export const bleeding = ['spotting', 'light', 'medium', 'heavy']
 export const mucusNFP = ['t', 'Ø', 'f', 'S', 'S+']
 export const intensity = ['low', 'medium', 'high']
+
+export const bleeding = {
+    labels: ['spotting', 'light', 'medium', 'heavy'],
+    heaviness: {
+        header: "Heaviness",
+        explainer: "How heavy is the bleeding?",
+    },
+    exclude: {
+        header: "Exclude",
+        explainer: "You can exclude this value if it's not menstrual bleeding"
+    }
+}
 
 export const cervix = {
   opening: {

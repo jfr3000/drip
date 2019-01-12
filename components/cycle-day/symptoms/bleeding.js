@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 import styles from '../../../styles'
 import { saveSymptom } from '../../../db'
-import { bleeding as labels } from '../../../i18n/en/cycle-day'
+import { bleeding } from '../../../i18n/en/cycle-day'
 import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
 import SymptomSection from './symptom-section'
@@ -25,17 +25,17 @@ export default class Bleeding extends Component {
 
   render() {
     const bleedingRadioProps = [
-      { label: labels[0], value: 0 },
-      { label: labels[1], value: 1 },
-      { label: labels[2], value: 2 },
-      { label: labels[3], value: 3 },
+      { label: bleeding.labels[0], value: 0 },
+      { label: bleeding.labels[1], value: 1 },
+      { label: bleeding.labels[2], value: 2 },
+      { label: bleeding.labels[3], value: 3 },
     ]
     return (
       <View style={{ flex: 1 }}>
         <ScrollView style={styles.page}>
           <SymptomSection
-            header="Heaviness"
-            explainer="How heavy is the bleeding?"
+            header={bleeding.heaviness.header}
+            explainer={bleeding.heaviness.explainer}
           >
             <SelectTabGroup
               buttons={bleedingRadioProps}
@@ -44,8 +44,8 @@ export default class Bleeding extends Component {
             />
           </SymptomSection>
           <SymptomSection
-            header="Exclude"
-            explainer="You can exclude this value if it's not menstrual bleeding"
+            header={bleeding.exclude.header}
+            explainer={bleeding.exclude.explainer}
             inline={true}
           >
             <Switch
