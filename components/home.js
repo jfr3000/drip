@@ -118,9 +118,9 @@ export default class Home extends Component {
                 </AppTextLight>
               </View>
               {this.state.phase &&
-              <AppTextLight>
+              <AppText>
                 {`${labels.phase(this.state.phase)} (${this.state.status})`}
-              </AppTextLight>
+              </AppText>
               }
               {this.state.showMore &&
                 <AppText styles={styles.paragraph}>
@@ -147,7 +147,7 @@ export default class Home extends Component {
             }]}
           >
             <View style={{alignItems: 'center'}}>
-              <AppTextLight>{shared.more}</AppTextLight>
+              <AppText>{shared.more}</AppText>
               <Icon name='chevron-thin-down' />
             </View>
           </TouchableHighlight>
@@ -162,7 +162,7 @@ export default class Home extends Component {
             }]}
           >
             <View style={{alignItems: 'center'}}>
-              <AppTextLight>{shared.less}</AppTextLight>
+              <AppText>{shared.less}</AppText>
               <Icon name='chevron-thin-down' />
             </View>
           </TouchableHighlight>
