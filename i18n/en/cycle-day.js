@@ -1,6 +1,17 @@
-export const bleeding = ['spotting', 'light', 'medium', 'heavy']
 export const mucusNFP = ['t', 'Ø', 'f', 'S', 'S+']
 export const intensity = ['low', 'medium', 'high']
+
+export const bleeding = {
+    labels: ['spotting', 'light', 'medium', 'heavy'],
+    heaviness: {
+        header: "Heaviness",
+        explainer: "How heavy is the bleeding?",
+    },
+    exclude: {
+        header: "Exclude",
+        explainer: "You can exclude this value if it's not menstrual bleeding"
+    }
+}
 
 export const cervix = {
   opening: {
@@ -39,6 +50,7 @@ export const sex = {
     solo: 'Solo',
     partner: 'Partner',
   },
+  header: "Activity",
   explainer: 'Were you sexually active today?',
 }
 
@@ -54,6 +66,7 @@ export const contraceptives = {
     none: 'None',
     other: 'Other',
   },
+  header: "Contraceptives",
   explainer: 'Did you use contraceptives?'
 }
 
@@ -76,12 +89,18 @@ export const temperature = {
   outOfAbsoluteRangeWarning: 'This temperature value is too high or low to be shown on the temperature chart.',
   saveAnyway: 'Save anyway',
   temperature: {
+    header: "Temperature (°C)",
     explainer: 'Take your temperature right after waking up, before getting out of bed'
   },
+  time: "Time",
   note: {
+    header: "Note",
     explainer: 'Is there anything that could have influenced this value, such as bad sleep or alcohol consumption?'
   },
-  excludeExplainer: "You can exclude this value if you don't want to use it for fertility detection"
+  exclude: {
+    header: "Exclude",
+    explainer: "You can exclude this value if you don't want to use it for fertility detection"
+  }
 }
 
 export const noteExplainer = "Anything you want to add for the day?"

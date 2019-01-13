@@ -15,7 +15,7 @@ import styles from '../../../styles'
 import { LocalTime, ChronoUnit } from 'js-joda'
 import { temperature as labels } from '../../../i18n/en/cycle-day'
 import { scaleObservable } from '../../../local-storage'
-import { shared } from '../../../i18n/en/labels'
+import { shared as sharedLabels } from '../../../i18n/en/labels'
 import ActionButtonFooter from './action-button-footer'
 import config from '../../../config'
 import SymptomSection from './symptom-section'
@@ -81,11 +81,11 @@ export default class Temp extends Component {
 
     if (warningMsg) {
       Alert.alert(
-        shared.warning,
+        sharedLabels.warning,
         warningMsg,
         [
-          { text: shared.cancel },
-          { text: shared.save, onPress: this.saveTemperature}
+          { text: sharedLabels.cancel },
+          { text: sharedLabels.save, onPress: this.saveTemperature}
         ]
       )
     } else {
@@ -101,7 +101,7 @@ export default class Temp extends Component {
         <ScrollView style={styles.page}>
           <View>
             <SymptomSection
-              header="Temperature (°C)"
+              header={labels.temperature.header}
               explainer={labels.temperature.explainer}
               inline={true}
             >
@@ -112,7 +112,7 @@ export default class Temp extends Component {
               />
             </SymptomSection>
             <SymptomSection
-              header="Time"
+              header={labels.time}
               inline={true}
             >
               <TextInput
@@ -136,13 +136,13 @@ export default class Temp extends Component {
               />
             </SymptomSection>
             <SymptomSection
-              header="Note"
+              header={labels.note.header}
               explainer={labels.note.explainer}
             >
               <TextInput
                 multiline={true}
                 autoFocus={this.state.focusTextArea}
-                placeholder="Enter"
+                placeholder={sharedLabels.enter}
                 value={this.state.note}
                 onChangeText={(val) => {
                   this.setState({ note: val })
@@ -150,8 +150,8 @@ export default class Temp extends Component {
               />
             </SymptomSection>
             <SymptomSection
-              header="Exclude"
-              explainer={labels.excludeExplainer}
+              header={labels.exclude.header}
+              explainer={labels.exclude.explainer}
               inline={true}
             >
               <Switch
