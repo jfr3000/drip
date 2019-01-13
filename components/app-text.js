@@ -24,14 +24,10 @@ export function AppTextLight(props) {
 export function ActionHint(props) {
   if(props.isVisible) {
     return (
-      <View
-        style={styles.actionHintWrappingView}
-        isVisible={false}>
-        <AppText
-          style={[styles.actionHint, props.style]}>
-          {props.children}
-        </AppText>
-      </View>
+      <AppText
+        style={[styles.actionHint, props.style]}>
+        {props.children}
+      </AppText>
     )
   } else {
     return null

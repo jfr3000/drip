@@ -35,13 +35,11 @@ export default StyleSheet.create({
     fontFamily: fontLight,
     fontSize: regularSize
   },
-  actionHintWrappingView: {
-    margin: defaultIndentation
-  },
   actionHint: {
     color: secondaryColor,
     fontFamily: fontRegular,
-    fontSize: hintSize
+    fontSize: hintSize,
+    margin: defaultIndentation
   },
   paragraph: {
     marginBottom: defaultBottomMargin
