@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text } from 'react-native'
+import { Text, View } from 'react-native'
 import styles from "../styles"
 
 export default function AppText(props) {
@@ -18,6 +18,18 @@ export function AppTextLight(props) {
     <Text style={[styles.appTextLight, props.style]}>
       {props.children}
     </Text>
+  )
+}
+
+export function ActionHint(props) {
+  return (
+    <View
+      style={styles.actionHintWrappingView}>
+      <AppText
+        style={[styles.actionHint, props.style]}>
+        {props.children}
+      </AppText>
+    </View>
   )
 }
 
