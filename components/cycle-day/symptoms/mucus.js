@@ -34,6 +34,7 @@ export default class Mucus extends Component {
       { label: labels.texture.categories[1], value: 1 },
       { label: labels.texture.categories[2], value: 2 }
     ]
+    const mandatoryNotCompletedYet = typeof this.state.feeling != 'number' || typeof this.state.texture != 'number'
     return (
       <View style={{ flex: 1 }}>
         <ScrollView style={styles.page}>
@@ -70,7 +71,7 @@ export default class Mucus extends Component {
             />
           </SymptomSection>
         </ScrollView>
-        <ActionHint>{labels.actionHint}</ActionHint>
+        <ActionHint isVisible={mandatoryNotCompletedYet}>{labels.actionHint}</ActionHint>
         <ActionButtonFooter
           symptom='mucus'
           date={this.props.date}
@@ -85,7 +86,7 @@ export default class Mucus extends Component {
               exclude: Boolean(this.state.exclude)
             })
           }}
-          saveDisabled={typeof this.state.feeling != 'number' || typeof this.state.texture != 'number'}
+          saveDisabled={mandatoryNotCompletedYet}
           navigate={this.props.navigate}
         />
       </View>

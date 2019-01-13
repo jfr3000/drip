@@ -22,15 +22,20 @@ export function AppTextLight(props) {
 }
 
 export function ActionHint(props) {
-  return (
-    <View
-      style={styles.actionHintWrappingView}>
-      <AppText
-        style={[styles.actionHint, props.style]}>
-        {props.children}
-      </AppText>
-    </View>
-  )
+  if(props.isVisible) {
+    return (
+      <View
+        style={styles.actionHintWrappingView}
+        isVisible={false}>
+        <AppText
+          style={[styles.actionHint, props.style]}>
+          {props.children}
+        </AppText>
+      </View>
+    )
+  } else {
+    return null
+  }
 }
 
 export function SymptomSectionHeader(props) {
