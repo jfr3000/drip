@@ -10,6 +10,7 @@ import { cervix as labels } from '../../../i18n/en/cycle-day'
 import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
 import SymptomSection from './symptom-section'
+import { ActionHint } from '../../app-text'
 
 export default class Cervix extends Component {
   constructor(props) {
@@ -81,6 +82,7 @@ export default class Cervix extends Component {
             />
           </SymptomSection>
         </ScrollView>
+        <ActionHint>{labels.actionHint}</ActionHint>
         <ActionButtonFooter
           symptom='cervix'
           date={this.props.date}
