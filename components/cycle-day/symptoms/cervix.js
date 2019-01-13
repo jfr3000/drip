@@ -10,6 +10,7 @@ import { cervix as labels } from '../../../i18n/en/cycle-day'
 import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
 import SymptomSection from './symptom-section'
+import { ActionHint } from '../../app-text'
 
 export default class Cervix extends Component {
   constructor(props) {
@@ -35,6 +36,7 @@ export default class Cervix extends Component {
       { label: labels.position.categories[1], value: 1 },
       { label: labels.position.categories[2], value: 2 }
     ]
+    const mandatoryNotCompletedYet = typeof this.state.opening != 'number' || typeof this.state.firmness != 'number'
     return (
       <View style={{ flex: 1 }}>
         <ScrollView style={styles.page}>
@@ -81,6 +83,7 @@ export default class Cervix extends Component {
             />
           </SymptomSection>
         </ScrollView>
+        <ActionHint isVisible={mandatoryNotCompletedYet}>{labels.actionHint}</ActionHint>
         <ActionButtonFooter
           symptom='cervix'
           date={this.props.date}
@@ -93,7 +96,7 @@ export default class Cervix extends Component {
               exclude: Boolean(this.state.exclude)
             })
           }}
-          saveDisabled={typeof this.state.opening != 'number' || typeof this.state.firmness != 'number'}
+          saveDisabled={mandatoryNotCompletedYet}
           navigate={this.props.navigate}
         />
       </View>

@@ -17,6 +17,7 @@ const fontRegular = 'Prompt-Light'
 const fontLight = 'Prompt-Thin'
 
 const regularSize = 16
+const hintSize = 14
 
 const defaultBottomMargin = 5
 const defaultIndentation = 10
@@ -33,6 +34,12 @@ export default StyleSheet.create({
     color: 'black',
     fontFamily: fontLight,
     fontSize: regularSize
+  },
+  actionHint: {
+    color: secondaryColor,
+    fontFamily: fontRegular,
+    fontSize: hintSize,
+    margin: defaultIndentation
   },
   paragraph: {
     marginBottom: defaultBottomMargin

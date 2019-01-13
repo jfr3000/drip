@@ -25,7 +25,8 @@ export const cervix = {
   position: {
     categories: ['low', 'medium', 'high'],
     explainer: 'How high up in the vagina is the cervix?'
-  }
+  },
+  actionHint: 'Choose values for at least "Opening" and "Firmness" to save.'
 }
 
 export const mucus = {
@@ -37,7 +38,8 @@ export const mucus = {
     categories: ['nothing', 'creamy', 'egg white'],
     explainer: "Looking at and touching your cervical mucus, which describes it best?"
   },
-  excludeExplainer: "You can exclude this value if you don't want to use it for fertility detection"
+  excludeExplainer: "You can exclude this value if you don't want to use it for fertility detection",
+  actionHint: 'Choose values for both "Feeling" and "Texture" to save.'
 }
 
 export const desire = {
