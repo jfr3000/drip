@@ -71,19 +71,20 @@ export default StyleSheet.create({
     fontFamily: fontLight,
     color: fontOnPrimaryColor,
     textAlign: 'center',
+    position: 'absolute',
+    paddingBottom: 4
   },
   accentCircle: {
     borderColor: secondaryColor,
     borderWidth: 0.5,
     width: 40,
     height: 40,
-    borderRadius: 100,
-    position: 'absolute'
+    borderRadius: 100
   },
   errorMessage: {
     color: shadesOfRed[2],
     marginLeft: 10,
-    marginTop: 6,
+    marginTop: 6
   },
   homeView: {
     marginHorizontal: 50,
