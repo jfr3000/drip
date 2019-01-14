@@ -78,7 +78,6 @@ export default StyleSheet.create({
     fontFamily: fontLight,
     color: fontOnPrimaryColor,
     textAlign: 'center',
-    position: 'absolute',
     paddingBottom: 4
   },
   accentCircle: {
