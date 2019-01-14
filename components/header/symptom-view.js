@@ -1,7 +1,9 @@
 import React from 'react'
 import {
   View,
-  Text} from 'react-native'
+  Text,
+  TouchableOpacity
+} from 'react-native'
 import styles, { iconStyles } from '../../styles'
 import FeatherIcon from 'react-native-vector-icons/Feather'
 import NavigationArrow from './navigation-arrow'
@@ -26,11 +28,17 @@ export default function SymptomViewHeader(props) {
           {formatDate(props.date)}
         </Text>
       </View >
-      <FeatherIcon
-        name='info'
-        style={styles.symptomInfoIcon}
-        {...iconStyles.symptomHeaderIcons}
-      />
+      <TouchableOpacity
+        onPress={() => props.goToSymptomInfo()}
+        style={styles.infoButton}
+      >
+        <FeatherIcon
+          name="info"
+          style={styles.symptomInfoIcon}
+          {...iconStyles.symptomHeaderIcons}
+        />
+      </TouchableOpacity>
+
     </View>
   )
 }
