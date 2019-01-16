@@ -42,4 +42,13 @@ subprojects {project ->
       maven { url = 'https://dl.bintray.com/android/android-tools/' }
     }
   }
+  // https://stackoverflow.com/questions/52613089/getting-verifyreleaseresources-error-after-upgrading-react-native
+  afterEvaluate {
+    if (project.hasProperty("android")) {
+      android {
+        compileSdkVersion 27
+        buildToolsVersion "27.0.3"
+      }
+    }
+  }
 }
