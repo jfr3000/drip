@@ -78,7 +78,6 @@ export default StyleSheet.create({
     fontFamily: fontLight,
     color: fontOnPrimaryColor,
     textAlign: 'center',
-    position: 'absolute',
     paddingBottom: 4
   },
   accentCircle: {
@@ -86,7 +85,8 @@ export default StyleSheet.create({
     borderWidth: 0.5,
     width: 40,
     height: 40,
-    borderRadius: 100
+    borderRadius: 100,
+    position: 'absolute'
   },
   errorMessage: {
     color: shadesOfRed[2],
