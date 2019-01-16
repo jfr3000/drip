@@ -13,6 +13,7 @@ import styles from '../../styles'
 import * as labels from '../../i18n/en/cycle-day'
 import AppText from '../app-text'
 import DripIcon from '../../assets/drip-icons'
+import DripHomeIcon from '../../assets/drip-home-icons'
 
 const bleedingLabels = labels.bleeding.labels
 const feelingLabels = labels.mucus.feeling.categories
@@ -251,7 +252,7 @@ export default class CycleDayOverView extends Component {
               onPress={() => this.navigate('MoodEditView')}
               data={this.getLabel('mood')}
               disabled={dateInFuture}
-              iconName='drip-icon-pain'
+              iconName='circle'
             >
             </SymptomBox>
             <SymptomBox
@@ -287,7 +288,10 @@ class SymptomBox extends Component {
         disabled={this.props.disabled}
       >
         <View style={[styles.symptomBox, boxActive, disabledStyle]}>
-          <DripIcon name={this.props.iconName} size={50} color={d ? 'white' : 'black'}/>
+          {this.props.iconName == 'circle'
+            ? <DripHomeIcon name='circle' size={50} color={d ? 'white' : 'black'}/>
+            : <DripIcon name={this.props.iconName} size={50} color={d ? 'white' : 'black'}/>
+          }
           <AppText style={[textActive, disabledStyle]}>
             {this.props.title.toLowerCase()}
           </AppText>

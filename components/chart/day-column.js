@@ -44,6 +44,10 @@ export default class DayColumn extends Component {
           // is any pain documented?
           acc.pain = cycleDay.pain &&
             Object.values(cycleDay.pain).some(x => x === true)
+        } else if (symptom === 'mood') {
+          // is mood documented?
+          acc.mood = cycleDay.mood &&
+            Object.values(cycleDay.mood).some(x => x === true)
         }
         acc[`${symptom}Exclude`] = cycleDay[symptom] && cycleDay[symptom].exclude
         return acc
@@ -211,6 +215,18 @@ export default class DayColumn extends Component {
           <View
             {...styles.symptomIcon}
             backgroundColor={styles.iconShades.pain}
+          />
+        </SymptomIconView>
+      ),
+      mood: (
+        <SymptomIconView
+          value={this.data.mood}
+          symptomHeight={symptomHeight}
+          key='mood'
+        >
+          <View
+            {...styles.symptomIcon}
+            backgroundColor={styles.iconShades.mood}
           />
         </SymptomIconView>
       ),

@@ -15,8 +15,8 @@ export default class Mood extends Component {
   constructor(props) {
     super(props)
     const cycleDay = props.cycleDay
-    if (cycleDay && cycleDay.pain) {
-      this.state = Object.assign({}, cycleDay.pain)
+    if (cycleDay && cycleDay.mood) {
+      this.state = Object.assign({}, cycleDay.mood)
     } else {
       this.state = {}
     }
