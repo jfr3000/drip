@@ -41,7 +41,7 @@ export default StyleSheet.create({
   },
   actionHint: {
     color: secondaryColor,
-    fontFamily: fontRegular,
+    fontFamily: textFont,
     fontSize: hintSize,
     margin: defaultIndentation
   },
