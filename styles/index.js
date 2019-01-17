@@ -229,6 +229,9 @@ export default StyleSheet.create({
   navigationArrow: {
     padding: 20
   },
+  hiddenIcon: {
+    padding: 20
+  },
   menu: {
     backgroundColor: primaryColor,
     alignItems: 'center',
@@ -408,6 +411,9 @@ export default StyleSheet.create({
     marginTop: 20,
     color: 'grey'
   },
+  infoButton: {
+    paddingVertical: 20
+  },
   licensePage: {
     paddingVertical: 20,
     paddingHorizontal: 10
@@ -448,5 +454,9 @@ export const iconStyles = {
   infoInHeading: {
     marginRight: 5,
     color: 'black'
+  },
+  hiddenIcon: {
+    size: 20,
+    display: 'none'
   }
 }

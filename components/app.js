@@ -11,6 +11,7 @@ import SettingsMenu from './settings/settings-menu'
 import settingsViews from './settings'
 import Stats from './stats'
 import {headerTitles, menuTitles} from '../i18n/en/labels'
+import InfoSymptom from './cycle-day/symptoms/info-symptom'
 import setupNotifications from '../lib/notifications'
 
 // design wants everyhting lowercased, but we don't
@@ -50,7 +51,10 @@ export default class App extends Component {
     if (isMenuItem(this.state.currentPage)) {
       this.menuOrigin = this.state.currentPage
     }
-    this.originForSymptomView = this.state.currentPage
+    if (!isSymptomView(this.state.currentPage) &&
+      this.state.currentPage !== 'InfoSymptom') {
+      this.originForSymptomView = this.state.currentPage
+    }
     this.setState({currentPage: pageName, currentProps: props})
   }
 
@@ -62,30 +66,55 @@ export default class App extends Component {
       )
     } else if (isSettingsView(this.state.currentPage)) {
       this.navigate('SettingsMenu')
-    } else if(this.state.currentPage === 'CycleDay') {
+    } else if (this.state.currentPage === 'CycleDay') {
       this.navigate(this.menuOrigin)
+    } else if (this.state.currentPage === 'InfoSymptom') {
+      this.navigate(
+        this.state.currentProps.symptomView, {
+          date: this.state.currentProps.date,
+          cycleDay: this.state.currentProps.cycleDay
+        })
     } else {
       this.navigate('Home')
     }
     return true
   }
 
+  isDefaultView() {
+    return this.state.currentPage !== 'CycleDay' &&
+      !isSymptomView(this.state.currentPage) &&
+      this.state.currentPage !== 'InfoSymptom'
+  }
+
   render() {
     const page = {
-      Home, Calendar, CycleDay, Chart, SettingsMenu, ...settingsViews, Stats, ...symptomViews
+      Home, Calendar, CycleDay, Chart, InfoSymptom,
+      SettingsMenu, ...settingsViews, Stats, ...symptomViews
     }[this.state.currentPage]
     return (
       <View style={{flex: 1}}>
-        {this.state.currentPage != 'CycleDay' && !isSymptomView(this.state.currentPage) &&
+        {this.isDefaultView() &&
           <Header
             title={headerTitlesLowerCase[this.state.currentPage]}
-          />}
+          />
+        }
+        {this.state.currentPage === 'InfoSymptom' &&
+          <Header
+            title={headerTitlesLowerCase[this.state.currentPage]}
+            goBack={this.handleBackButtonPress}
+          />
+        }
         {isSymptomView(this.state.currentPage) &&
           <Header
             title={headerTitlesLowerCase[this.state.currentPage]}
             isSymptomView={true}
             goBack={this.handleBackButtonPress}
             date={this.state.currentProps.date}
+            goToSymptomInfo={() => this.navigate('InfoSymptom', {
+              date: this.state.currentProps.date,
+              symptomView: this.state.currentPage,
+              cycleDay: this.state.currentProps.cycleDay
+            })}
           />}
 
 
