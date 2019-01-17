@@ -16,7 +16,6 @@ export const periodColor = '#802249'
 const headerFont = 'Prompt-Thin'
 
 const textFont = 'Dosis-Light'
-const textFontLight = 'Dosis-ExtraLight'
 const textFontBold = 'Dosis-Book'
 
 const regularSize = 16
@@ -33,11 +32,6 @@ export default StyleSheet.create({
     fontFamily: textFont,
     fontSize: regularSize,
     letterSpacing: 0.5
-  },
-  appTextLight: {
-    color: 'black',
-    fontFamily: textFontLight,
-    fontSize: regularSize
   },
   actionHint: {
     color: secondaryColor,

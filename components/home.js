@@ -8,7 +8,7 @@ import cycleModule from '../lib/cycle'
 import { getCycleDaysSortedByDate } from '../db'
 import { getFertilityStatusForDay } from '../lib/sympto-adapter'
 import styles from '../styles'
-import AppText, { AppTextLight } from './app-text'
+import AppText from './app-text'
 import DripHomeIcon from '../assets/drip-home-icons'
 import Button from './button'
 
@@ -57,9 +57,9 @@ export default class Home extends Component {
                 <DripHomeIcon name="circle" size={80} color={cycleDayColor}/>
               </View>
               <View style={[styles.homeIconTextWrapper, styles.wrapperCycle]}>
-                <AppTextLight style={styles.iconText}>
+                <AppText style={styles.iconText}>
                   {this.state.cycleDayNumber || labels.unknown}
-                </AppTextLight>
+                </AppText>
               </View>
 
               { this.state.showMore &&
@@ -82,9 +82,9 @@ export default class Home extends Component {
                 <DripHomeIcon name="drop" size={105} color={periodColor} />
               </View>
               <View style={[styles.homeIconTextWrapper, styles.wrapperDrop]}>
-                <AppTextLight style={styles.iconText}>
+                <AppText style={styles.iconText}>
                   {this.state.bleedingPredictionRange}
-                </AppTextLight>
+                </AppText>
               </View>
 
               {this.state.showMore &&
@@ -109,13 +109,13 @@ export default class Home extends Component {
               <View style={styles.homeCircle} position='absolute' />
 
               <View style={[styles.homeIconTextWrapper, styles.wrapperCircle]}>
-                <AppTextLight style={styles.iconText}>
+                <AppText style={styles.iconText}>
                   {this.state.phase ?
                     this.state.phase.toString()
                     :
                     labels.unknown
                   }
-                </AppTextLight>
+                </AppText>
               </View>
               {this.state.phase &&
               <AppText>
