@@ -5,7 +5,7 @@ export const links = {
     text: 'GitLab'
   },
   email: {
-    url: 'mailto:bl00dyhealth@mailbox.org',
+    url: 'mailto:bloodyhealth@mailbox.org',
     text: 'email'
   },
   wiki: {
@@ -124,7 +124,7 @@ export default {
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details: https://www.gnu.org/licenses/gpl-3.0.html 
 
-You can contact us by email at bloodyhealth@mailbox.com.`
+You can contact us by bloodyhealth@mailbox.org.`
   },
   version: {
     title: 'Version'
