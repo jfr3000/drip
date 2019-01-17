@@ -13,10 +13,10 @@ export const shadesOfRed = [
 export const cycleDayColor = '#29287f'
 export const periodColor = '#802249'
 
-const headerFont = 'Prompt-Thin'
+const headerFont = 'Prompt-ExtraLight'
 
-const textFont = 'Dosis-Light'
-const textFontBold = 'Dosis-Book'
+const textFont = 'Dosis-Book'
+const textFontBold = 'Dosis-medium'
 
 const regularSize = 16
 const hintSize = 14
@@ -81,7 +81,7 @@ export default StyleSheet.create({
   },
   accentCircle: {
     borderColor: secondaryColor,
-    borderWidth: 0.5,
+    borderWidth: 1,
     width: 40,
     height: 40,
     borderRadius: 100,
