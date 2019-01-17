@@ -11,7 +11,7 @@ export default class License extends Component {
     return (
       <ScrollView>
         <View style={styles.settingsSegment}>
-          <Hyperlink linkStyle={styles.link} linkText={replace}>
+          <Hyperlink linkStyle={styles.link} linkText={replace} linkDefault>
             <AppText style={styles.settingsSegmentTitle}>{`${labels.license.title} `}</AppText>
             <AppText>{`${labels.license.text} `}</AppText>
           </Hyperlink>

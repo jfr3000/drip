@@ -33,7 +33,7 @@ export default class Settings extends Component {
             <Icon name="info-with-circle" style={iconStyles.infoInHeading}/>
             <AppText style={styles.settingsSegmentTitle}>{`${labels.preOvu.title} `}</AppText>
           </View>
-          <Hyperlink linkStyle={styles.link} linkText={replaceUrlWithText}>
+          <Hyperlink linkStyle={styles.link} linkText={replaceUrlWithText} linkDefault>
             <AppText>{labels.preOvu.note}</AppText>
           </Hyperlink>
         </SettingsSegment>
