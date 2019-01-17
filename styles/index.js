@@ -280,16 +280,22 @@ export default StyleSheet.create({
     fontWeight: 'bold'
   },
   settingsButton: {
-    backgroundColor: secondaryColor,
     padding: 10,
     alignItems: 'center',
-    margin: 10,
+    margin: 10
+  },
+  settingsButtonAccent: {
+    backgroundColor: secondaryColor
   },
   settingsButtonDisabled: {
     backgroundColor: colorInActive
   },
   settingsButtonText: {
     color: fontOnPrimaryColor
+  },
+  settingsButtonSecondaryText: {
+    color: secondaryColor
+
   },
   statsRow: {
     flexDirection: 'row',
