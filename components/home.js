@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { ScrollView, View, TouchableOpacity, TouchableHighlight, Dimensions } from 'react-native'
+import { ScrollView, View, TouchableHighlight, Dimensions } from 'react-native'
 import { LocalDate, ChronoUnit } from 'js-joda'
 import Icon from 'react-native-vector-icons/Entypo'
 import { secondaryColor, cycleDayColor, periodColor } from '../styles'
 import { home as labels, bleedingPrediction as predictLabels, shared } from '../i18n/en/labels'
 import cycleModule from '../lib/cycle'
-import { getCycleDaysSortedByDate } from '../db'
+import { getCycleDaysSortedByDate, getCycleDay } from '../db'
 import { getFertilityStatusForDay } from '../lib/sympto-adapter'
 import styles from '../styles'
 import AppText, { AppTextLight } from './app-text'
@@ -46,13 +46,8 @@ export default class Home extends Component {
     return (
       <View flex={1}>
         <ScrollView>
-          <View
-            style={styles.homeView}
-          >
-            <TouchableOpacity
-              onPress={() => this.passTodayTo('CycleDay')}
-              style={styles.homeIconElement}
-            >
+          <View style={styles.homeView}>
+            <View style={styles.homeIconElement}>
               <View position='absolute'>
                 <DripHomeIcon name="circle" size={80} color={cycleDayColor}/>
               </View>
@@ -72,12 +67,9 @@ export default class Home extends Component {
                 {labels.editToday}
               </Button>
 
-            </TouchableOpacity>
+            </View>
 
-            <TouchableOpacity
-              onPress={() => this.passTodayTo('BleedingEditView')}
-              style={styles.homeIconElement}
-            >
+            <View style={styles.homeIconElement}>
               <View position='absolute'>
                 <DripHomeIcon name="drop" size={105} color={periodColor} />
               </View>
@@ -94,20 +86,21 @@ export default class Home extends Component {
               }
 
               <Button
-                onPress={() => this.passTodayTo('BleedingEditView')}
+                onPress={() => {
+                  const today = LocalDate.now().toString()
+                  const cycleDay = getCycleDay(today)
+                  const props = {date: today}
+                  if (cycleDay) props.cycleDay = cycleDay
+                  this.props.navigate('BleedingEditView', props)
+                }}
                 backgroundColor={periodColor}>
                 {labels.trackPeriod}
               </Button>
 
-            </TouchableOpacity>
+            </View>
 
-            <TouchableOpacity
-              onPress={() => this.props.navigate('Chart')}
-              style={styles.homeIconElement}
-            >
-
+            <View style={styles.homeIconElement}>
               <View style={styles.homeCircle} position='absolute' />
-
               <View style={[styles.homeIconTextWrapper, styles.wrapperCircle]}>
                 <AppTextLight style={styles.iconText}>
                   {this.state.phase ?
@@ -133,7 +126,7 @@ export default class Home extends Component {
                 backgroundColor={secondaryColor}>
                 {labels.checkFertility}
               </Button>
-            </TouchableOpacity>
+            </View>
           </View>
 
         </ScrollView>
