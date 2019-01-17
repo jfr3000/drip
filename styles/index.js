@@ -30,7 +30,8 @@ export default StyleSheet.create({
   appText: {
     color: 'black',
     fontFamily: textFont,
-    fontSize: regularSize
+    fontSize: regularSize,
+    letterSpacing: 0.5
   },
   appTextLight: {
     color: 'black',
