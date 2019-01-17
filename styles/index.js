@@ -132,7 +132,7 @@ export default StyleSheet.create({
   },
   homeCircle: {
     borderRadius: 100,
-    borderWidth: 0.7,
+    borderWidth: 2.3,
     width: 80,
     height: 80,
     alignItems: 'center',
