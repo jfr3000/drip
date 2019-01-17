@@ -5,6 +5,8 @@ import {
   TouchableOpacity
 } from 'react-native'
 
+import settingsViews from './settings'
+
 import { menuTitles } from '../i18n/en/labels'
 
 import styles, { iconStyles, secondaryColor } from '../styles'
@@ -19,7 +21,7 @@ const menuItems = [
   {
     labelKey: 'Home',
     icon: 'home',
-    component: 'Home'
+    component: 'Home',
   },
   {
     labelKey: 'Calendar',
@@ -29,7 +31,7 @@ const menuItems = [
   {
     labelKey: 'Chart',
     icon: 'chart-line',
-    component: 'Chart'
+    component: 'Chart',
   },
   {
     labelKey: 'Stats',
@@ -40,6 +42,7 @@ const menuItems = [
     labelKey: 'Settings',
     icon: 'settings',
     component: 'SettingsMenu',
+    children: Object.keys(settingsViews),
   }
 ]
 
@@ -61,13 +64,15 @@ const MenuItem = ({ icon, labelKey, active, onPress }) => {
 const Menu = ({ currentPage, navigate }) => {
   return (
     <View style={styles.menu}>
-      { menuItems.map(({ icon, labelKey, component }) => {
+      { menuItems.map(({ icon, labelKey, component, children }) => {
+        const isActive = (component === currentPage) ||
+          (children && children.indexOf(currentPage) !== -1)
         return (
           <MenuItem
             key={labelKey}
             labelKey={labelKey}
             icon={icon}
-            active={component === currentPage}
+            active={isActive}
             onPress={() => navigate(component)}
           />
         )}
