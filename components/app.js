@@ -51,7 +51,8 @@ export default class App extends Component {
     if (isMenuItem(this.state.currentPage)) {
       this.menuOrigin = this.state.currentPage
     }
-    if (this.state.currentPage !== 'InfoSymptom') {
+    if (!isSymptomView(this.state.currentPage) &&
+      this.state.currentPage !== 'InfoSymptom') {
       this.originForSymptomView = this.state.currentPage
     }
     this.setState({currentPage: pageName, currentProps: props})
@@ -69,8 +70,10 @@ export default class App extends Component {
       this.navigate(this.menuOrigin)
     } else if (this.state.currentPage === 'InfoSymptom') {
       this.navigate(
-        this.originForSymptomView, { date: this.state.currentProps.date }
-      )
+        this.state.currentProps.symptomView, {
+          date: this.state.currentProps.date,
+          cycleDay: this.state.currentProps.cycleDay
+        })
     } else {
       this.navigate('Home')
     }
