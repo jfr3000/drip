@@ -13,8 +13,11 @@ export const shadesOfRed = [
 export const cycleDayColor = '#29287f'
 export const periodColor = '#802249'
 
-const fontRegular = 'Prompt-Light'
-const fontLight = 'Prompt-Thin'
+const headerFont = 'Prompt-Thin'
+
+const textFont = 'Dosis-Light'
+const textFontLight = 'Dosis-ExtraLight'
+const textFontBold = 'Dosis-Book'
 
 const regularSize = 16
 const hintSize = 14
@@ -27,12 +30,13 @@ const colorInActive = '#666666'
 export default StyleSheet.create({
   appText: {
     color: 'black',
-    fontFamily: fontRegular,
-    fontSize: regularSize
+    fontFamily: textFont,
+    fontSize: regularSize,
+    letterSpacing: 0.5
   },
   appTextLight: {
     color: 'black',
-    fontFamily: fontLight,
+    fontFamily: textFontLight,
     fontSize: regularSize
   },
   actionHint: {
@@ -46,6 +50,7 @@ export default StyleSheet.create({
   },
   emphasis: {
     fontWeight: 'bold',
+    fontFamily: textFontBold
   },
   link: {
     color: cycleDayColor,
@@ -69,13 +74,13 @@ export default StyleSheet.create({
   },
   dateHeader: {
     fontSize: 20,
-    fontFamily: fontLight,
+    fontFamily: headerFont,
     color: fontOnPrimaryColor,
     textAlign: 'center',
   },
   headerText: {
     fontSize: 30,
-    fontFamily: fontLight,
+    fontFamily: headerFont,
     color: fontOnPrimaryColor,
     textAlign: 'center',
     paddingBottom: 4
@@ -155,7 +160,7 @@ export default StyleSheet.create({
     fontSize: 15,
     color: fontOnPrimaryColor,
     textAlign: 'center',
-    fontFamily: fontLight
+    fontFamily: headerFont
   },
   symptomViewHeading: {
     fontSize: 20,
@@ -246,10 +251,11 @@ export default StyleSheet.create({
   },
   menuText: {
     color: fontOnPrimaryColor,
-    fontFamily: fontLight
+    fontFamily: headerFont
   },
   menuTextInActive: {
-    color: colorInActive
+    color: colorInActive,
+    fontFamily: headerFont
   },
   temperatureTextInput: {
     fontSize: 20,
@@ -275,12 +281,14 @@ export default StyleSheet.create({
     marginTop: defaultTopMargin,
     marginHorizontal: defaultIndentation,
     padding: 7,
+    fontFamily: textFont
   },
   settingsSegmentLast: {
     marginBottom: defaultTopMargin,
   },
   settingsSegmentTitle: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontFamily: textFontBold
   },
   settingsButton: {
     padding: 10,
