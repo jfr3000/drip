@@ -20,10 +20,6 @@ const headerTitlesLowerCase = Object.keys(headerTitles).reduce((acc, curr) => {
   acc[curr] = headerTitles[curr].toLowerCase()
   return acc
 }, {})
-const menuTitlesLowerCase = Object.keys(menuTitles).reduce((acc, curr) => {
-  acc[curr] = menuTitles[curr].toLowerCase()
-  return acc
-}, {})
 
 const isSymptomView = name => Object.keys(symptomViews).includes(name)
 const isSettingsView = name => Object.keys(settingsViews).includes(name)
@@ -87,47 +83,55 @@ export default class App extends Component {
   }
 
   render() {
-    const page = {
-      Home, Calendar, CycleDay, Chart, InfoSymptom,
-      SettingsMenu, ...settingsViews, Stats, ...symptomViews
-    }[this.state.currentPage]
+    const { currentPage, currentProps } = this.state
+    const pages = {
+      Home,
+      Calendar,
+      CycleDay,
+      Chart,
+      InfoSymptom,
+      SettingsMenu,
+      ...settingsViews,
+      Stats,
+      ...symptomViews
+    }
+    const page = pages[currentPage]
     return (
       <View style={{flex: 1}}>
         {this.isDefaultView() &&
           <Header
-            title={headerTitlesLowerCase[this.state.currentPage]}
+            title={headerTitlesLowerCase[currentPage]}
           />
         }
-        {this.state.currentPage === 'InfoSymptom' &&
+        {currentPage === 'InfoSymptom' &&
           <Header
-            title={headerTitlesLowerCase[this.state.currentPage]}
+            title={headerTitlesLowerCase[currentPage]}
             goBack={this.handleBackButtonPress}
           />
         }
-        {isSymptomView(this.state.currentPage) &&
+        {isSymptomView(currentPage) &&
           <Header
-            title={headerTitlesLowerCase[this.state.currentPage]}
+            title={headerTitlesLowerCase[currentPage]}
             isSymptomView={true}
             goBack={this.handleBackButtonPress}
-            date={this.state.currentProps.date}
+            date={currentProps.date}
             goToSymptomInfo={() => this.navigate('InfoSymptom', {
-              date: this.state.currentProps.date,
-              symptomView: this.state.currentPage,
-              cycleDay: this.state.currentProps.cycleDay
+              date: currentProps.date,
+              symptomView: currentPage,
+              cycleDay: currentProps.cycleDay
             })}
           />}
 
 
         {React.createElement(page, {
           navigate: this.navigate,
-          ...this.state.currentProps
+          ...currentProps
         })}
 
-        {!isSymptomView(this.state.currentPage) &&
+        {!isSymptomView(currentPage) &&
           <Menu
             navigate={this.navigate}
-            titles={menuTitlesLowerCase}
-            currentPage={this.state.currentPage}
+            currentPage={currentPage}
           />
         }
       </View>
