@@ -14,7 +14,7 @@ import * as labels from '../../i18n/en/cycle-day'
 import AppText from '../app-text'
 import DripIcon from '../../assets/drip-icons'
 
-const bleedingLabels = labels.bleeding
+const bleedingLabels = labels.bleeding.labels
 const feelingLabels = labels.mucus.feeling.categories
 const textureLabels = labels.mucus.texture.categories
 const openingLabels = labels.cervix.opening.categories
@@ -56,7 +56,7 @@ export default class CycleDayOverView extends Component {
     const l = {
       bleeding: bleeding => {
         if (isNumber(bleeding.value)) {
-          let bleedingLabel = `${bleedingLabels[bleeding.value]}`
+          let bleedingLabel = bleedingLabels[bleeding.value]
           if (bleeding.exclude) bleedingLabel = "( " + bleedingLabel + " )"
           return bleedingLabel
         }
