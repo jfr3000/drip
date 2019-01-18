@@ -47,7 +47,8 @@ export default {
     deleteOption: 'Import and delete existing',
     errors: {
       couldNotOpenFile: 'Could not open file',
-      postFix: 'No data was imported or changed'
+      postFix: 'No data was imported or changed',
+      futureEdit: 'Future dates may only contain a note, no other symptoms'
     },
     success: {
       message: 'Data successfully imported'
