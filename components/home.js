@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Linking } from 'react-native'
 import { ScrollView, View, TouchableOpacity, TouchableHighlight, Dimensions } from 'react-native'
 import { LocalDate, ChronoUnit } from 'js-joda'
 import Icon from 'react-native-vector-icons/Entypo'
@@ -12,16 +13,63 @@ import AppText, { AppTextLight } from './app-text'
 import DripHomeIcon from '../assets/drip-home-icons'
 import Button from './button'
 
+const ShowMoreToggler = ({ isShowingMore, onToggle }) => {
+  const {height, width} = Dimensions.get('window')
+  const leftPosition = isShowingMore ? 10 : width - 40
+  const style = isShowingMore ? styles.showLess : styles.showMore
+  const topPosition = height / 2 - styles.header.height - 30
+
+  return (
+    <TouchableHighlight
+      onPress={onToggle}
+      style={[style, { top: topPosition, left: leftPosition}]}
+    >
+      <View style={{alignItems: 'center'}}>
+        <AppText>{isShowingMore ? shared.less : shared.more}</AppText>
+        <Icon name='chevron-thin-down' />
+      </View>
+    </TouchableHighlight>
+  )
+}
+
+const IconText = ({ children, wrapperStyles }) => {
+  return (
+    <View style={[styles.homeIconTextWrapper, wrapperStyles]}>
+      <AppTextLight style={styles.iconText}>
+        { children }
+      </AppTextLight>
+    </View>
+  )
+}
+
+const HomeElement = ({ children, onPress, buttonColor, buttonLabel  }) => {
+  return (
+    <TouchableOpacity
+      onPress={ onPress }
+      style={ styles.homeIconElement }
+    >
+      { children }
+      <Button
+        onPress={ onPress }
+        backgroundColor={ buttonColor }>
+        { buttonLabel }
+      </Button>
+    </TouchableOpacity>
+  )
+}
+
 export default class Home extends Component {
   constructor(props) {
     super(props)
-    this.getCycleDayNumber = cycleModule().getCycleDayNumber
-    this.getBleedingPrediction = cycleModule().getPredictedMenses
+    const { getCycleDayNumber, getPredictedMenses } = cycleModule()
+    this.getCycleDayNumber = getCycleDayNumber
+    this.getBleedingPrediction = getPredictedMenses
     this.todayDateString = LocalDate.now().toString()
     const prediction = this.getBleedingPrediction()
     const fertilityStatus = getFertilityStatusForDay(this.todayDateString)
 
     this.state = {
+      isShowingMore: false,
       cycleDayNumber: this.getCycleDayNumber(this.todayDateString),
       predictionText: determinePredictionText(prediction),
       bleedingPredictionRange: getBleedingPredictionRange(prediction),
@@ -32,141 +80,91 @@ export default class Home extends Component {
   }
 
   passTodayTo(componentName) {
-    const navigate = this.props.navigate
+    const { navigate } = this.props
     navigate(componentName, { date: LocalDate.now().toString() })
   }
 
+  toggleShowingMore = () => {
+    this.setState({ isShowingMore: !this.state.isShowingMore })
+  }
+
   render() {
-    const cycleDayMoreText = this.state.cycleDayNumber ?
-      labels.cycleDayKnown(this.state.cycleDayNumber)
-      :
+    const { isShowingMore, cycleDayNumber, phase, status } = this.state
+    const { navigate } = this.props
+    const cycleDayMoreText = cycleDayNumber ?
+      labels.cycleDayKnown(cycleDayNumber) :
       labels.cycleDayNotEnoughInfo
 
-    const {height, width} = Dimensions.get('window')
     return (
       <View flex={1}>
         <ScrollView>
-          <View
-            style={styles.homeView}
-          >
-            <TouchableOpacity
-              onPress={() => this.passTodayTo('CycleDay')}
-              style={styles.homeIconElement}
+          <View style={styles.homeView}>
+
+            <HomeElement
+              onPress={ () => this.passTodayTo('CycleDay') }
+              buttonColor={ cycleDayColor }
+              buttonLabel={ labels.editToday }
             >
               <View position='absolute'>
                 <DripHomeIcon name="circle" size={80} color={cycleDayColor}/>
               </View>
-              <View style={[styles.homeIconTextWrapper, styles.wrapperCycle]}>
-                <AppTextLight style={styles.iconText}>
-                  {this.state.cycleDayNumber || labels.unknown}
-                </AppTextLight>
-              </View>
+              <IconText wrapperStyles={styles.wrapperCycle}>
+                {cycleDayNumber || labels.unknown}
+              </IconText>
 
-              { this.state.showMore &&
+              { isShowingMore &&
                   <AppText style={styles.paragraph}>{cycleDayMoreText}</AppText>
               }
+            </HomeElement>
 
-              <Button
-                onPress={() => this.passTodayTo('CycleDay')}
-                backgroundColor={cycleDayColor}>
-                {labels.editToday}
-              </Button>
-
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => this.passTodayTo('BleedingEditView')}
-              style={styles.homeIconElement}
+            <HomeElement
+              onPress={ () => this.passTodayTo('BleedingEditView') }
+              buttonColor={ periodColor }
+              buttonLabel={ labels.trackPeriod }
             >
               <View position='absolute'>
                 <DripHomeIcon name="drop" size={105} color={periodColor} />
               </View>
-              <View style={[styles.homeIconTextWrapper, styles.wrapperDrop]}>
-                <AppTextLight style={styles.iconText}>
-                  {this.state.bleedingPredictionRange}
-                </AppTextLight>
-              </View>
 
-              {this.state.showMore &&
+              <IconText wrapperStyles={styles.wrapperDrop}>
+                {this.state.bleedingPredictionRange}
+              </IconText>
+
+              { isShowingMore &&
                 <AppText style={styles.paragraph}>
                   {this.state.predictionText}
                 </AppText>
               }
+            </HomeElement>
 
-              <Button
-                onPress={() => this.passTodayTo('BleedingEditView')}
-                backgroundColor={periodColor}>
-                {labels.trackPeriod}
-              </Button>
-
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => this.props.navigate('Chart')}
-              style={styles.homeIconElement}
+            <HomeElement
+              onPress={ () => navigate('Chart') }
+              buttonColor={ secondaryColor }
+              buttonLabel={ labels.checkFertility }
             >
-
               <View style={styles.homeCircle} position='absolute' />
 
-              <View style={[styles.homeIconTextWrapper, styles.wrapperCircle]}>
-                <AppTextLight style={styles.iconText}>
-                  {this.state.phase ?
-                    this.state.phase.toString()
-                    :
-                    labels.unknown
-                  }
-                </AppTextLight>
-              </View>
-              {this.state.phase &&
-              <AppText>
-                {`${labels.phase(this.state.phase)} (${this.state.status})`}
-              </AppText>
-              }
-              {this.state.showMore &&
-                <AppText styles={styles.paragraph}>
-                  {this.state.statusText}
-                </AppText>
-              }
+              <IconText wrapperStyles={styles.wrapperCircle}>
+                { phase ? phase.toString() : labels.unknown }
+              </IconText>
 
-              <Button
-                onPress={() => this.props.navigate('Chart')}
-                backgroundColor={secondaryColor}>
-                {labels.checkFertility}
-              </Button>
-            </TouchableOpacity>
+              { phase &&
+                <AppText>{`${labels.phase(phase)} (${status})`}</AppText>
+              }
+              { isShowingMore &&
+                <View>
+                  <AppText styles={styles.paragraph}>
+                    {this.state.statusText}
+                  </AppText>
+                </View>
+              }
+            </HomeElement>
           </View>
-
         </ScrollView>
-
-        {!this.state.showMore &&
-          <TouchableHighlight
-            onPress={() => this.setState({showMore: true})}
-            style={[styles.showMore, {
-              top: height / 2 - styles.header.height - 30,
-              left: width - 40
-            }]}
-          >
-            <View style={{alignItems: 'center'}}>
-              <AppText>{shared.more}</AppText>
-              <Icon name='chevron-thin-down' />
-            </View>
-          </TouchableHighlight>
-        }
-
-        {this.state.showMore &&
-          <TouchableHighlight
-            onPress={() => this.setState({showMore: false})}
-            style={[styles.showLess, {
-              top: height / 2 - styles.header.height - 30,
-              left: 10
-            }]}
-          >
-            <View style={{alignItems: 'center'}}>
-              <AppText>{shared.less}</AppText>
-              <Icon name='chevron-thin-down' />
-            </View>
-          </TouchableHighlight>
-        }
+        <ShowMoreToggler
+          isShowingMore={isShowingMore}
+          onToggle={this.toggleShowingMore}
+        />
       </View>
     )
   }
