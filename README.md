@@ -1,6 +1,7 @@
 # Bloody Health Cycle Tracker
 
 A menstrual cycle tracking app that's open-source and leaves your data on your phone. Use it to track your menstrual cycle and/or for fertility awareness!
+Find more information on [our website](https://bloodyhealth.gitlab.io/).
 
 ## Development setup
 1. Install [Android Studio](https://developer.android.com/studio/) - you'll need it to install some dependencies.
