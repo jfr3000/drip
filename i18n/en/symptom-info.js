@@ -15,7 +15,10 @@ When you track your cervix as a secondary symptom in addition to tracking your b
   desire: `Sexual desire can be influenced by the menstrual cycle and its hormonal changes. The app allows you to track the intensity of your sexual desire for your mere information, it is not taken into account for any calculation.`,
   mucus: `Cervical mucus can help determine in which phase of the menstrual cycle you are.
 
-When you track your cervical mucus as a secondary symptom in addition to tracking your basal body temperature, the app helps you identify in which phase of your cycle you are.`,
+When you track your cervical mucus as a secondary symptom in addition to tracking your basal body temperature, the app helps you identify in which phase of your cycle you are.
+
+The values you enter for both feeling and texture of your cervical mucus are combined by drip into one of five NFP-conforming values, from least to most fertile:  t, ∅, f, S, and S+. Please note that drip does not yet support "parenthesis values": According to NFP rules,  you can qualify a mucus value by putting parentheses around it, to indicate that it doesn't fully meet the descriptors of one of the five categories, and instead is in between. This functionality will be supported in the future.
+`,
   note: `Note allows you to track any extra information you want to save here.`,
   pain: `Keep track of different kinds of pain you experience. They may be influenced by or have an impact on your menstrual cycles.`,
   sex: `Did you know that having an orgasm can help release cramps?`,
