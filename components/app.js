@@ -20,20 +20,17 @@ const headerTitlesLowerCase = Object.keys(headerTitles).reduce((acc, curr) => {
   acc[curr] = headerTitles[curr].toLowerCase()
   return acc
 }, {})
-const menuTitlesLowerCase = Object.keys(menuTitles).reduce((acc, curr) => {
-  acc[curr] = menuTitles[curr].toLowerCase()
-  return acc
-}, {})
 
-const isSymptomView = name => Object.keys(symptomViews).includes(name)
-const isSettingsView = name => Object.keys(settingsViews).includes(name)
-const isMenuItem = name => Object.keys(menuTitles).includes(name)
+const HOME_PAGE = 'Home'
+const INFO_SYMPTOM_PAGE = 'InfoSymptom'
+const CYCLE_DAY_PAGE = 'CycleDay'
+const SETTINGS_MENU_PAGE = 'SettingsMenu'
 
 export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentPage: 'Home'
+      currentPage: HOME_PAGE
     }
     this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonPress)
     setupNotifications(this.navigate)
@@ -44,91 +41,107 @@ export default class App extends Component {
   }
 
   navigate = (pageName, props) => {
+    const { currentPage } = this.state
     // for the back button to work properly, we want to
     // remember two origins: which menu item we came from
     // and from where we navigated to the symptom view (day
     // view or home page)
-    if (isMenuItem(this.state.currentPage)) {
-      this.menuOrigin = this.state.currentPage
+    if (this.isMenuItem()) {
+      this.menuOrigin = currentPage
     }
-    if (!isSymptomView(this.state.currentPage) &&
-      this.state.currentPage !== 'InfoSymptom') {
-      this.originForSymptomView = this.state.currentPage
+    if (!this.isSymptomView() && !this.isInfoSymptomView()) {
+      this.originForSymptomView = currentPage
     }
-    this.setState({currentPage: pageName, currentProps: props})
+    this.setState({ currentPage: pageName, currentProps: props })
   }
 
   handleBackButtonPress = () => {
-    if (this.state.currentPage === 'Home') return false
-    if (isSymptomView(this.state.currentPage)) {
+    const { currentPage, currentProps } = this.state
+    if (currentPage === HOME_PAGE) return false
+    if (this.isSymptomView()) {
       this.navigate(
-        this.originForSymptomView, { date: this.state.currentProps.date }
+        this.originForSymptomView, { date: currentProps.date }
       )
-    } else if (isSettingsView(this.state.currentPage)) {
-      this.navigate('SettingsMenu')
-    } else if (this.state.currentPage === 'CycleDay') {
+    } else if (this.isSettingsView()) {
+      this.navigate(SETTINGS_MENU_PAGE)
+    } else if (currentPage === CYCLE_DAY_PAGE) {
       this.navigate(this.menuOrigin)
-    } else if (this.state.currentPage === 'InfoSymptom') {
+    } else if (this.isInfoSymptomView()) {
+      const { date, cycleDay, symptomView } = currentProps
       this.navigate(
-        this.state.currentProps.symptomView, {
-          date: this.state.currentProps.date,
-          cycleDay: this.state.currentProps.cycleDay
-        })
+        symptomView, { date, cycleDay })
     } else {
-      this.navigate('Home')
+      this.navigate(HOME_PAGE)
     }
     return true
   }
 
+  isMenuItem() {
+    return Object.keys(menuTitles).includes(this.state.currentPage)
+  }
+
+  isSymptomView() {
+    return Object.keys(symptomViews).includes(this.state.currentPage)
+  }
+
+  isInfoSymptomView() {
+    return this.state.currentPage === INFO_SYMPTOM_PAGE
+  }
+
+  isSettingsView() {
+    return Object.keys(settingsViews).includes(this.state.currentPage)
+  }
+
   isDefaultView() {
-    return this.state.currentPage !== 'CycleDay' &&
-      !isSymptomView(this.state.currentPage) &&
-      this.state.currentPage !== 'InfoSymptom'
+    const { currentPage } = this.state
+    return currentPage !== CYCLE_DAY_PAGE &&
+      !this.isSymptomView() &&
+      !this.isInfoSymptomView()
   }
 
   render() {
-    const page = {
-      Home, Calendar, CycleDay, Chart, InfoSymptom,
-      SettingsMenu, ...settingsViews, Stats, ...symptomViews
-    }[this.state.currentPage]
+    const { currentPage, currentProps } = this.state
+    const pages = {
+      Home,
+      Calendar,
+      CycleDay,
+      Chart,
+      InfoSymptom,
+      SettingsMenu,
+      ...settingsViews,
+      Stats,
+      ...symptomViews
+    }
+    const page = pages[currentPage]
+    const title = headerTitlesLowerCase[currentPage]
+    const isSymptomView = this.isSymptomView()
     return (
       <View style={{flex: 1}}>
         {this.isDefaultView() &&
-          <Header
-            title={headerTitlesLowerCase[this.state.currentPage]}
-          />
+          <Header title={title} />
         }
-        {this.state.currentPage === 'InfoSymptom' &&
-          <Header
-            title={headerTitlesLowerCase[this.state.currentPage]}
-            goBack={this.handleBackButtonPress}
-          />
+        {this.isInfoSymptomView() &&
+          <Header title={title} goBack={this.handleBackButtonPress} />
         }
-        {isSymptomView(this.state.currentPage) &&
+        {isSymptomView &&
           <Header
-            title={headerTitlesLowerCase[this.state.currentPage]}
+            title={title}
             isSymptomView={true}
             goBack={this.handleBackButtonPress}
-            date={this.state.currentProps.date}
-            goToSymptomInfo={() => this.navigate('InfoSymptom', {
-              date: this.state.currentProps.date,
-              symptomView: this.state.currentPage,
-              cycleDay: this.state.currentProps.cycleDay
+            date={currentProps.date}
+            goToSymptomInfo={() => this.navigate(INFO_SYMPTOM_PAGE, {
+              symptomView: currentPage,
+              ...currentProps
             })}
           />}
 
-
         {React.createElement(page, {
           navigate: this.navigate,
-          ...this.state.currentProps
+          ...currentProps
         })}
 
-        {!isSymptomView(this.state.currentPage) &&
-          <Menu
-            navigate={this.navigate}
-            titles={menuTitlesLowerCase}
-            currentPage={this.state.currentPage}
-          />
+        {!isSymptomView &&
+          <Menu navigate={this.navigate} currentPage={currentPage} />
         }
       </View>
     )
