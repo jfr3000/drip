@@ -15,8 +15,8 @@ export const periodColor = '#802249'
 
 const headerFont = 'Prompt-ExtraLight'
 
-const textFont = 'Dosis-Book'
-const textFontBold = 'Dosis-medium'
+const textFont = 'OpenSans-Light'
+const textFontBold = 'OpenSans-SemiBold'
 
 const regularSize = 16
 const hintSize = 14

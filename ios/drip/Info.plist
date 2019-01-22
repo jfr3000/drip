@@ -83,6 +83,9 @@
 		<string>drip-home-icons.ttf</string>
 		<string>Dosis-medium.ttf</string>
 		<string>Prompt-ExtraLight.ttf</string>
+		<string>OpenSans-Light.ttf</string>
+		<string>OpenSans-Regular.ttf</string>
+		<string>OpenSans-SemiBold.ttf</string>
 	</array>
 </dict>
 </plist>
