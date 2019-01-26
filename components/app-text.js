@@ -13,14 +13,6 @@ export default function AppText(props) {
   )
 }
 
-export function AppTextLight(props) {
-  return (
-    <Text style={[styles.appTextLight, props.style]}>
-      {props.children}
-    </Text>
-  )
-}
-
 export function ActionHint(props) {
   if(props.isVisible) {
     return (

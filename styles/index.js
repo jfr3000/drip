@@ -13,11 +13,10 @@ export const shadesOfRed = [
 export const cycleDayColor = '#29287f'
 export const periodColor = '#802249'
 
-const headerFont = 'Prompt-Thin'
+const headerFont = 'Prompt-ExtraLight'
 
-const textFont = 'Dosis-Light'
-const textFontLight = 'Dosis-ExtraLight'
-const textFontBold = 'Dosis-Book'
+const textFont = 'OpenSans-Light'
+const textFontBold = 'OpenSans-SemiBold'
 
 const regularSize = 16
 const hintSize = 14
@@ -33,11 +32,6 @@ export default StyleSheet.create({
     fontFamily: textFont,
     fontSize: regularSize,
     letterSpacing: 0.5
-  },
-  appTextLight: {
-    color: 'black',
-    fontFamily: textFontLight,
-    fontSize: regularSize
   },
   actionHint: {
     color: secondaryColor,
@@ -87,7 +81,7 @@ export default StyleSheet.create({
   },
   accentCircle: {
     borderColor: secondaryColor,
-    borderWidth: 0.5,
+    borderWidth: 1,
     width: 40,
     height: 40,
     borderRadius: 100,
@@ -138,7 +132,7 @@ export default StyleSheet.create({
   },
   homeCircle: {
     borderRadius: 100,
-    borderWidth: 0.7,
+    borderWidth: 2.3,
     width: 80,
     height: 80,
     alignItems: 'center',

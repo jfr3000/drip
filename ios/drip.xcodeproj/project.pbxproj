@@ -78,6 +78,11 @@
 		082F2BD2BEA046FE8EE58763 /* Dosis-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A26A6F601D64F3A8D4A02B0 /* Dosis-SemiBold.ttf */; };
 		DAA390B1EE7442D88A768596 /* drip-home-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94973D7B7BBA4B0FBE713A0E /* drip-home-icon-font.ttf */; };
 		BA7CE1E95B7843D7B0CF85FF /* drip-home-icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 887F1D52A4684A5280CB79AA /* drip-home-icons.ttf */; };
+		26DAA39DDC6B436E8342239B /* Dosis-medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 096E5227936940FEBA7321FE /* Dosis-medium.ttf */; };
+		B9A5B9946C4C456C823B7641 /* Prompt-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E7B0A75F8004C6699B70F86 /* Prompt-ExtraLight.ttf */; };
+		5D921C348AC14944835A4D82 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 673C016DDDD74C2F89050279 /* OpenSans-Light.ttf */; };
+		2B66457E5A344222AB41C4FF /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D05637D8F19344B098982AE5 /* OpenSans-Regular.ttf */; };
+		71D0BCE4666A4AB8A0874B5A /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 644690BCCEBF41789960B9A2 /* OpenSans-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -430,6 +435,11 @@
 		2A26A6F601D64F3A8D4A02B0 /* Dosis-SemiBold.ttf */ = {isa = PBXFileReference; name = "Dosis-SemiBold.ttf"; path = "../assets/fonts/Dosis-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		94973D7B7BBA4B0FBE713A0E /* drip-home-icon-font.ttf */ = {isa = PBXFileReference; name = "drip-home-icon-font.ttf"; path = "../assets/fonts/drip-home-icon-font.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		887F1D52A4684A5280CB79AA /* drip-home-icons.ttf */ = {isa = PBXFileReference; name = "drip-home-icons.ttf"; path = "../assets/fonts/drip-home-icons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		096E5227936940FEBA7321FE /* Dosis-medium.ttf */ = {isa = PBXFileReference; name = "Dosis-medium.ttf"; path = "../assets/fonts/Dosis-medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5E7B0A75F8004C6699B70F86 /* Prompt-ExtraLight.ttf */ = {isa = PBXFileReference; name = "Prompt-ExtraLight.ttf"; path = "../assets/fonts/Prompt-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		673C016DDDD74C2F89050279 /* OpenSans-Light.ttf */ = {isa = PBXFileReference; name = "OpenSans-Light.ttf"; path = "../assets/fonts/OpenSans-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D05637D8F19344B098982AE5 /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; name = "OpenSans-Regular.ttf"; path = "../assets/fonts/OpenSans-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		644690BCCEBF41789960B9A2 /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; name = "OpenSans-SemiBold.ttf"; path = "../assets/fonts/OpenSans-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -747,6 +757,11 @@
 				2A26A6F601D64F3A8D4A02B0 /* Dosis-SemiBold.ttf */,
 				94973D7B7BBA4B0FBE713A0E /* drip-home-icon-font.ttf */,
 				887F1D52A4684A5280CB79AA /* drip-home-icons.ttf */,
+				096E5227936940FEBA7321FE /* Dosis-medium.ttf */,
+				5E7B0A75F8004C6699B70F86 /* Prompt-ExtraLight.ttf */,
+				673C016DDDD74C2F89050279 /* OpenSans-Light.ttf */,
+				D05637D8F19344B098982AE5 /* OpenSans-Regular.ttf */,
+				644690BCCEBF41789960B9A2 /* OpenSans-SemiBold.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -782,9 +797,9 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				2B572382D4504B8FB4B9D251 /* Embed Frameworks */,
-				0244C597A2A04526BFF61B8C /* Build NodeJS Mobile Native Modules */,
-				9AAC1A9690414880B0E4B349 /* Sign NodeJS Mobile Native Modules */,
-				57F5EF05D2424834A33EAF38 /* Remove NodeJS Mobile Framework Simulator Strips */,
+				C52FE1F07D2540FEB02224ED /* Build NodeJS Mobile Native Modules */,
+				7F65CDD695CB4BB7B863E328 /* Sign NodeJS Mobile Native Modules */,
+				28DCEE6D292742008DE5CFDC /* Remove NodeJS Mobile Framework Simulator Strips */,
 			);
 			buildRules = (
 			);
@@ -1232,6 +1247,11 @@
 				082F2BD2BEA046FE8EE58763 /* Dosis-SemiBold.ttf in Resources */,
 				DAA390B1EE7442D88A768596 /* drip-home-icon-font.ttf in Resources */,
 				BA7CE1E95B7843D7B0CF85FF /* drip-home-icons.ttf in Resources */,
+				26DAA39DDC6B436E8342239B /* Dosis-medium.ttf in Resources */,
+				B9A5B9946C4C456C823B7641 /* Prompt-ExtraLight.ttf in Resources */,
+				5D921C348AC14944835A4D82 /* OpenSans-Light.ttf in Resources */,
+				2B66457E5A344222AB41C4FF /* OpenSans-Regular.ttf in Resources */,
+				71D0BCE4666A4AB8A0874B5A /* OpenSans-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1281,7 +1301,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		0244C597A2A04526BFF61B8C /* Build NodeJS Mobile Native Modules */ = {
+		C52FE1F07D2540FEB02224ED /* Build NodeJS Mobile Native Modules */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1349,7 +1369,7 @@ fi
 popd
 ";
 		};
-		9AAC1A9690414880B0E4B349 /* Sign NodeJS Mobile Native Modules */ = {
+		7F65CDD695CB4BB7B863E328 /* Sign NodeJS Mobile Native Modules */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1395,7 +1415,7 @@ embed_framework()
 {
     FRAMEWORK_NAME=\"$(basename \"$1\")\"
     cp -r \"$1\" \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/\"
-
+    
     /usr/bin/codesign --force --sign $EXPANDED_CODE_SIGN_IDENTITY --preserve-metadata=identifier,entitlements,flags --timestamp=none \"$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH/$FRAMEWORK_NAME\"
 }
 find \"$CODESIGNING_FOLDER_PATH/nodejs-project/\" -name \"*.framework\" -type d | while read frmwrk_path; do embed_framework \"$frmwrk_path\"; done
@@ -1409,7 +1429,7 @@ find \"$CODESIGNING_FOLDER_PATH/nodejs-project/\" -path \"*/*.framework/*\" -del
 find \"$CODESIGNING_FOLDER_PATH/nodejs-project/\" -name \"*.framework\" -type d -delete
 ";
 		};
-		57F5EF05D2424834A33EAF38 /* Remove NodeJS Mobile Framework Simulator Strips */ = {
+		28DCEE6D292742008DE5CFDC /* Remove NodeJS Mobile Framework Simulator Strips */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
