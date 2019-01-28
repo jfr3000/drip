@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
-import { Linking } from 'react-native'
 import { ScrollView, View, TouchableOpacity, TouchableHighlight, Dimensions } from 'react-native'
 import { LocalDate, ChronoUnit } from 'js-joda'
 import Icon from 'react-native-vector-icons/Entypo'
+import Hyperlink from 'react-native-hyperlink'
 import { secondaryColor, cycleDayColor, periodColor } from '../styles'
-import { home as labels, bleedingPrediction as predictLabels, shared } from '../i18n/en/labels'
+import { home as labels, bleedingPrediction as predictLabels, shared, links } from '../i18n/en/labels'
 import cycleModule from '../lib/cycle'
 import { getCycleDaysSortedByDate } from '../db'
 import { getFertilityStatusForDay } from '../lib/sympto-adapter'
+import replace from './helpers/replace-url-with-text'
 import styles from '../styles'
 import AppText, { AppTextLight } from './app-text'
 import DripHomeIcon from '../assets/drip-home-icons'
@@ -95,6 +96,8 @@ export default class Home extends Component {
       labels.cycleDayKnown(cycleDayNumber) :
       labels.cycleDayNotEnoughInfo
 
+    const { statusText } = this.state;
+
     return (
       <View flex={1}>
         <ScrollView>
@@ -154,7 +157,10 @@ export default class Home extends Component {
               { isShowingMore &&
                 <View>
                   <AppText styles={styles.paragraph}>
-                    {this.state.statusText}
+                    { statusText && <AppText>{ `${status}.` }</AppText> }
+                    <Hyperlink linkStyle={styles.link} linkText={replace}>
+                      <AppText>${links.moreToNfp.url}`}</AppText>
+                    </Hyperlink>
                   </AppText>
                 </View>
               }

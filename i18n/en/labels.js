@@ -94,7 +94,7 @@ export const home = {
   cycleDayKnown: d => `Your last period started ${getDaysDescriptor(d)}.`,
   trackPeriod: 'track your period',
   checkFertility: 'check your fertility',
-  phase: n => `${['1st', '2nd', '3rd'][n - 1]} cycle phase`
+  phase: n => `${['1st', '2nd', '3rd'][n - 1]} cycle phase`,
 }
 
 const getDaysDescriptor = cycleDayNumber => {
