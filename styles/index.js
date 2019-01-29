@@ -37,6 +37,7 @@ export default StyleSheet.create({
     color: secondaryColor,
     fontFamily: textFont,
     fontSize: hintSize,
+    fontWeight: 'bold',
     margin: defaultIndentation
   },
   paragraph: {
