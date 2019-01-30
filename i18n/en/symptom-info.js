@@ -106,9 +106,9 @@ ${generalInfo.nfpTfyReminder}`
     title: 'Notes',
     text: `Note allows you to track any extra information you want to save here. It is the only category that can store information for a date in the future. This can be helpful e.g. for reminding you of an appointment.
 
-    ${generalInfo.noNfpSymptom}
+${generalInfo.noNfpSymptom}
 
-    ${generalInfo.curiousNfp}`
+${generalInfo.curiousNfp}`
   },
   pain:  {
     title: 'Tracking pain',
@@ -123,8 +123,6 @@ ${generalInfo.curiousNfp}`
   sex:  {
     title: 'Tracking sex and contraceptives',
     text: `The app allows you to track sex independently from sexual desire. You can differentiate between masturbation and sex with a partner/partners. Here you can also track your contraceptive method(s). Only sexual activity will be shown in the "chart" section, lighter purple indicating solo sex and darker purple partner sex. Did you know that having an orgasm can help release cramps?
-
-${generalInfo.cycleRelation}
 
 ${generalInfo.noNfpSymptom}
 
