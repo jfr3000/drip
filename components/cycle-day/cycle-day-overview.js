@@ -13,7 +13,6 @@ import styles from '../../styles'
 import * as labels from '../../i18n/en/cycle-day'
 import AppText from '../app-text'
 import DripIcon from '../../assets/drip-icons'
-import DripHomeIcon from '../../assets/drip-home-icons'
 
 const bleedingLabels = labels.bleeding.labels
 const feelingLabels = labels.mucus.feeling.categories
@@ -252,7 +251,7 @@ export default class CycleDayOverView extends Component {
               onPress={() => this.navigate('MoodEditView')}
               data={this.getLabel('mood')}
               disabled={dateInFuture}
-              iconName='circle'
+              iconName='drip-icon-mood'
             >
             </SymptomBox>
             <SymptomBox
@@ -277,9 +276,9 @@ export default class CycleDayOverView extends Component {
 
 class SymptomBox extends Component {
   render() {
-    const d = this.props.data
-    const boxActive = d ? styles.symptomBoxActive : {}
-    const textActive = d ? styles.symptomTextActive : {}
+    const hasData = this.props.data
+    const boxActive = hasData ? styles.symptomBoxActive : {}
+    const textActive = hasData ? styles.symptomTextActive : {}
     const disabledStyle = this.props.disabled ? styles.symptomInFuture : {}
 
     return (
@@ -288,10 +287,7 @@ class SymptomBox extends Component {
         disabled={this.props.disabled}
       >
         <View style={[styles.symptomBox, boxActive, disabledStyle]}>
-          {this.props.iconName == 'circle'
-            ? <DripHomeIcon name='circle' size={50} color={d ? 'white' : 'black'}/>
-            : <DripIcon name={this.props.iconName} size={50} color={d ? 'white' : 'black'}/>
-          }
+          <DripIcon name={this.props.iconName} size={50} color={hasData ? 'white' : 'black'}/>
           <AppText style={[textActive, disabledStyle]}>
             {this.props.title.toLowerCase()}
           </AppText>

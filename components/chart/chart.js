@@ -23,7 +23,7 @@ const symptomIcons = {
   desire: <DripIcon size={16} name='drip-icon-desire' color={styles.iconShades.desire[2]}/>,
   sex: <DripIcon size={16} name='drip-icon-sex' color={styles.iconShades.sex[2]}/>,
   pain: <DripIcon size={16} name='drip-icon-pain' color={styles.iconShades.pain[0]}/>,
-  mood: <DripHomeIcon size={16} name='circle' color={styles.iconShades.mood[0]}/>,
+  mood: <DripIcon size={16} name='drip-icon-mood' color={styles.iconShades.mood[0]}/>,
   note: <DripIcon size={16} name='drip-icon-note' color={styles.iconShades.note[0]}/>
 }
 
