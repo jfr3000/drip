@@ -9,7 +9,7 @@ export const links = {
     text: 'email'
   },
   wiki: {
-    url: 'https://gitlab.com/bloodyhealth/drip/wikis/home',
+    url: 'https://gitlab.com/bloodyhealth/drip/wikis/',
     text: 'wiki'
   },
   website: {
