@@ -77,7 +77,8 @@ const styles = {
       '#9e346c',
     ],
     'pain': ['#bccd67'],
-    'note': ['#6CA299']
+    'mood': ['#bc6642'],
+    'note': ['#6ca299']
   },
   yAxis: {
     width: 27,

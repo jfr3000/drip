@@ -40,6 +40,7 @@ export const headerTitles = {
   DesireEditView: 'Desire',
   SexEditView: 'Sex',
   PainEditView: 'Pain',
+  MoodEditView: 'Mood',
   InfoSymptom: 'Info'
 }
 

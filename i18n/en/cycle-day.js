@@ -86,6 +86,22 @@ export const pain = {
   explainer: 'How did your body feel today?'
 }
 
+export const mood = {
+  categories: {
+    happy: 'Happy',
+    sad: 'Sad',
+    stressed: 'Stressed',
+    balanced: 'Balanced',
+    fine: 'Fine',
+    anxious: 'Anxious',
+    energetic: 'Energetic',
+    fatigue: 'Fatigue',
+    angry: 'Angry',
+    other: 'Other'
+  },
+  explainer: 'How did you feel today?'
+}
+
 export const temperature = {
   outOfRangeWarning: 'This temperature value is out of the current range for the temperature chart. You can change the range in the settings.',
   outOfAbsoluteRangeWarning: 'This temperature value is too high or low to be shown on the temperature chart.',
