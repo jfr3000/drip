@@ -1,7 +1,9 @@
-# Bloody Health Cycle Tracker
+# drip, the open-source cycle tracking app
 
 A menstrual cycle tracking app that's open-source and leaves your data on your phone. Use it to track your menstrual cycle and/or for fertility awareness!
 Find more information on [our website](https://bloodyhealth.gitlab.io/).
+
+The app is build in React Native and currently developed for Android.
 
 ## Development setup
 1. Install [Android Studio](https://developer.android.com/studio/) - you'll need it to install some dependencies.
@@ -36,20 +38,20 @@ Find more information on [our website](https://bloodyhealth.gitlab.io/).
 
 1. We recommend installing an [ESLint plugin in your editor](https://eslint.org/docs/user-guide/integrations#editors). There's an `.eslintrc` file in this project which will be used by the plugin to check your code for style errors and potential bugs.
 
-## Troubleshooting
-### [MacOS] Java problems
+### Troubleshooting
+#### [MacOS] Java problems
 
 Make sure that you have Java 1.8 by running `java -version`.
 
 If you don't have Java installed, or your Java version is different, the app may not work. You can try just using Android Studio's Java by prepending it to your `$PATH` in your shell profile:
 
-    ```
-    export PATH="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home/bin:${PATH}"
-    ```
+```
+export PATH="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home/bin:${PATH}"
+```
 
 Now, `which java` should output `/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home/bin/java`, and the correct Java version should be used.
 
-### [MacOS] Ninja
+#### [MacOS] Ninja
 If `npm` says `CMake was unable to find a build program corresponding to "Ninja".`:
     ```
     brew install ninja
@@ -61,7 +63,7 @@ If you get error messages about `adb` not being found on your path:
     ln -s ~/Library/Android/sdk/platform-tools/adb /usr/local/bin/adb
     ```
 
-## Windows problems
+### [Windows 10] react native problems
 
 Unfortunately, the react native version we use doesn't work on Windows 10 it seems, find [more info here](https://github.com/facebook/react-native/issues/20015).
 
@@ -69,7 +71,18 @@ Unfortunately, the react native version we use doesn't work on Windows 10 it see
 You can run the tests with `npm test`.
 
 ## Debugging
-In order to see logging output from the app, run `npm run log` in a separate terminal.
+In order to see logging output from the app, run `npm run log` in a separate terminal. You can output specific code you want to see, with:
+`console.log(theVariableIWantToSeeHere)`
+or just a random string to check if this piece of code is actually running:
+`console.log("HELLO")`.
 
 ## NFP rules
 More information about how the app calculates fertility status and bleeding predictions in the [wiki on Gitlab](https://gitlab.com/bloodyhealth/drip/wikis/home)
+
+## Adding a new tracking icon
+1. We use [fontello](http://fontello.com/) to create icon fonts for us. You need to upload the complete set of tracking icons (bleeding, mucus, ...) including the new icon you wish to add, all in SVG.
+2. Download webfont from fontello
+3. Copy both the content of `config.json` and `font.tff` into `assets/fonts`, replacing it with the current content of `config-drip-icon-font.json` and `drip-icon-font.tff`.
+4. Now run the following command in your console:
+`$ react-native link`
+5. You should be able to use the icon now within drip, e.g. in Cycle Day Overview and on the chart.
