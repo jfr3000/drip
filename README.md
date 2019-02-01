@@ -86,5 +86,7 @@ More information about how the app calculates fertility status and bleeding pred
 2. Download webfont from fontello
 3. Copy both the content of `config.json` and `font.tff` into `assets/fonts`, replacing it with the current content of `config-drip-icon-font.json` and `drip-icon-font.tff`.
 4. Now run the following command in your console:
-`$ react-native link`
+```
+$ react-native link
+```
 5. You should be able to use the icon now within drip, e.g. in Cycle Day Overview and on the chart.
