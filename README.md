@@ -5,7 +5,7 @@ Find more information on [our website](https://bloodyhealth.gitlab.io/).
 
 The app is build in React Native and currently developed for Android.
 
-Please find out contributing guide [here](https://gitlab.com/bloodyhealth/drip/blob/master/CONTRIBUTING.md).
+Here --> you will find our [contributing guide](https://gitlab.com/bloodyhealth/drip/blob/master/CONTRIBUTING.md).
 
 ## Development setup
 1. Install [Android Studio](https://developer.android.com/studio/) - you'll need it to install some dependencies.
