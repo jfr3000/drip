@@ -32,11 +32,21 @@ Here --> you will find our [contributing guide](https://gitlab.com/bloodyhealth/
 
 1. Either start a [virtual device in Android Studio](https://developer.android.com/studio/run/emulator) or [set your physical device like your Android phone up](https://developer.android.com/training/basics/firstapp/running-app) to run the app.
 
-1. Open a terminal and run `npm run android`
+1. Open a terminal and run
+```
+npm run android
+```
 
-1. In another tab, run `npm run log` to see logging output
+1. To see logging output, run the following command in another tab: 
+```
+npm run log
+```
 
-1. Run `adb shell input keyevent 82` and select enable hot reloading (see https://facebook.github.io/react-native/docs/debugging.html)
+1. Run 
+```
+adb shell input keyevent 82
+```
+and select enable hot reloading (see https://facebook.github.io/react-native/docs/debugging.html)
 
 1. We recommend installing an [ESLint plugin in your editor](https://eslint.org/docs/user-guide/integrations#editors). There's an `.eslintrc` file in this project which will be used by the plugin to check your code for style errors and potential bugs.
 
@@ -70,7 +80,10 @@ If you get error messages about `adb` not being found on your path:
 Unfortunately, the react native version we use doesn't work on Windows 10 it seems, find [more info here](https://github.com/facebook/react-native/issues/20015).
 
 ## Tests
-You can run the tests with `npm test`.
+You can run the tests with:
+```
+npm test
+```
 
 ## Debugging
 In order to see logging output from the app, run `npm run log` in a separate terminal. You can output specific code you want to see, with:
