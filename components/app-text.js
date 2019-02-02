@@ -1,15 +1,19 @@
 import React from 'react'
 import { Text } from 'react-native'
 import styles from "../styles"
+import Link from './link'
 
 export default function AppText(props) {
+  // we parse for links in case the text contains any
   return (
-    <Text
-      style={[styles.appText, props.style]}
-      onPress={props.onPress}
-    >
-      {props.children}
-    </Text>
+    <Link>
+      <Text
+        style={[styles.appText, props.style]}
+        onPress={props.onPress}
+      >
+        {props.children}
+      </Text>
+    </Link>
   )
 }
 

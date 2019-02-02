@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { ScrollView, View, TouchableHighlight, Dimensions } from 'react-native'
 import { LocalDate, ChronoUnit } from 'js-joda'
 import Icon from 'react-native-vector-icons/Entypo'
-import Hyperlink from 'react-native-hyperlink'
 import { secondaryColor, cycleDayColor, periodColor } from '../styles'
 import {
   home as labels,
@@ -12,7 +11,6 @@ import {
 import links from '../i18n/en/links'
 import cycleModule from '../lib/cycle'
 import { getFertilityStatusForDay } from '../lib/sympto-adapter'
-import replace from './helpers/replace-url-with-text'
 import styles from '../styles'
 import AppText from './app-text'
 import DripHomeIcon from '../assets/drip-home-icons'
@@ -158,11 +156,9 @@ export default class Home extends Component {
               }
               { isShowingMore &&
                 <View>
-                  <Hyperlink linkStyle={styles.link} linkText={replace} linkDefault>
-                    <AppText styles={styles.paragraph}>
-                      { `${statusText} ${links.moreAboutNfp.url}` }
-                    </AppText>
-                  </Hyperlink>
+                  <AppText styles={styles.paragraph}>
+                    { `${statusText} ${links.moreAboutNfp.url}` }
+                  </AppText>
                 </View>
               }
             </HomeElement>

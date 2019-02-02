@@ -1,21 +1,16 @@
 import React, { Component } from 'react'
 import { ScrollView } from 'react-native'
-import Hyperlink from 'react-native-hyperlink'
 import AppText from '../app-text'
 import SettingsSegment from './shared/settings-segment'
-import styles from '../../styles/index'
 import labels from '../../i18n/en/settings'
 import links from '../../i18n/en/links'
-import replace from '../helpers/replace-url-with-text'
 
 export default class AboutSection extends Component {
   render() {
     return (
       <ScrollView>
         <SettingsSegment title={labels.aboutSection.title}>
-          <Hyperlink linkStyle={styles.link} linkText={replace} linkDefault>
-            <AppText>{labels.aboutSection.text}</AppText>
-          </Hyperlink>
+          <AppText>{labels.aboutSection.text}</AppText>
         </SettingsSegment>
         <SettingsSegment title={labels.philosophy.title}>
           <AppText>{labels.philosophy.text}</AppText>
@@ -24,9 +19,7 @@ export default class AboutSection extends Component {
           <AppText>{labels.credits.note}</AppText>
         </SettingsSegment>
         <SettingsSegment title={labels.website.title}>
-          <Hyperlink linkStyle={styles.link} linkDefault>
-            <AppText>{links.website.url}</AppText>
-          </Hyperlink>
+          <AppText>{links.website.url}</AppText>
         </SettingsSegment>
         <SettingsSegment title={labels.version.title} last>
           <AppText>{require('../../package.json').version}</AppText>
