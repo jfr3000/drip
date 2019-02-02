@@ -14,7 +14,7 @@ export default function License({setLicense}) {
   return (
     <ScrollView style={styles.licensePage}>
       <Hyperlink linkStyle={styles.link} linkText={replace} linkDefault>
-        <AppText style={styles.settingsSegmentTitle}>{labels.title}</AppText>
+        <AppText style={styles.framedSegmentTitle}>{labels.title}</AppText>
         <AppText>{labels.text}</AppText>
       </Hyperlink>
       <View style={styles.licenseButtons}>

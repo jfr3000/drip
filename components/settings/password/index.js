@@ -3,7 +3,7 @@ import { ScrollView } from 'react-native'
 import CreatePassword from './create'
 import ChangePassword from './update'
 import DeletePassword from './delete'
-import SettingsSegment from '../shared/settings-segment'
+import FramedSegment from '../../framed-segment'
 import AppText from '../../app-text'
 import {
   hasEncryptionObservable
@@ -44,7 +44,7 @@ export default class PasswordSetting extends Component {
 
     return (
       <ScrollView>
-        <SettingsSegment title={title}>
+        <FramedSegment title={title}>
           <AppText>
             { isPasswordSet ? explainerEnabled : explainerDisabled }
           </AppText>
@@ -62,7 +62,7 @@ export default class PasswordSetting extends Component {
               onStartDeletingPassword = {this.onDeletingPassword}
             />
           )}
-        </SettingsSegment>
+        </FramedSegment>
       </ScrollView>
     )
   }
