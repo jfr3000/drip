@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, View, TouchableHighlight, TouchableOpacity, Dimensions } from 'react-native'
+import { ScrollView, View, TouchableHighlight, Dimensions } from 'react-native'
 import { LocalDate, ChronoUnit } from 'js-joda'
 import Icon from 'react-native-vector-icons/Entypo'
 import Hyperlink from 'react-native-hyperlink'
@@ -49,7 +49,7 @@ const IconText = ({ children, wrapperStyles }) => {
 
 const HomeElement = ({ children, onPress, buttonColor, buttonLabel  }) => {
   return (
-    <TouchableOpacity
+    <View
       onPress={ onPress }
       style={ styles.homeIconElement }
     >
@@ -59,7 +59,7 @@ const HomeElement = ({ children, onPress, buttonColor, buttonLabel  }) => {
         backgroundColor={ buttonColor }>
         { buttonLabel }
       </Button>
-    </TouchableOpacity>
+    </View>
   )
 }
 
