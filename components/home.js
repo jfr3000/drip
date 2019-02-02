@@ -158,11 +158,10 @@ export default class Home extends Component {
               }
               { isShowingMore &&
                 <View>
-                  <Hyperlink linkStyle={styles.link} linkText={replace}>
+                  <Hyperlink linkStyle={styles.link} linkText={replace} linkDefault>
                     <AppText styles={styles.paragraph}>
-                      { statusText }
+                      { `${statusText} ${links.moreAboutNfp.url}` }
                     </AppText>
-                    <AppText>{links.moreAboutNfp.url}</AppText>
                   </Hyperlink>
                 </View>
               }
