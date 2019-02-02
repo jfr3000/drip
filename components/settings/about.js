@@ -12,7 +12,7 @@ export default class AboutSection extends Component {
     return (
       <ScrollView>
         <SettingsSegment title={labels.aboutSection.title}>
-          <Hyperlink linkStyle={styles.link} linkText={replace}>
+          <Hyperlink linkStyle={styles.link} linkText={replace} linkDefault>
             <AppText>{labels.aboutSection.text}</AppText>
           </Hyperlink>
         </SettingsSegment>
@@ -23,7 +23,7 @@ export default class AboutSection extends Component {
           <AppText>{labels.credits.note}</AppText>
         </SettingsSegment>
         <SettingsSegment title={labels.website.title}>
-          <Hyperlink linkStyle={styles.link}>
+          <Hyperlink linkStyle={styles.link} linkDefault>
             <AppText>{links.website.url}</AppText>
           </Hyperlink>
         </SettingsSegment>

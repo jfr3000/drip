@@ -39,7 +39,9 @@ export const headerTitles = {
   NoteEditView: 'Note',
   DesireEditView: 'Desire',
   SexEditView: 'Sex',
-  PainEditView: 'Pain'
+  PainEditView: 'Pain',
+  MoodEditView: 'Mood',
+  InfoSymptom: 'Info'
 }
 
 export const menuTitles = {

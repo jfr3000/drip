@@ -1,4 +1,4 @@
-# Contributing to drip
+# Contributing to drip aka CONDRIBUTING
 So good to see you here, hello :wave\_tone1: :wave\_tone2: :wave\_tone3: :wave\_tone4: :wave\_tone5:
 
 
@@ -8,7 +8,7 @@ So good to see you here, hello :wave\_tone1: :wave\_tone2: :wave\_tone3: :wave\_
 
 [What should I know before I get started?](#what-should-i-know-before-i-get-started)
 
-[How can I contribute?](#how-can-i-contribute)
+[How can I condribute?](#how-can-i-condribute)
 
 [Thank you](#thank-you)
 
@@ -23,9 +23,9 @@ We have prepared something for **you**: check out our [README](https://gitlab.co
 
 Let us know if you want to suggest improvements for the README and open a merge request (which is just like Github's pull request)
 
-## How can I contribute?
+## How can I condribute?
 
-### Your First Code Contribution
+### Your First Code Condribution
 
 We are fans of labels, at least for our issues. You can find a list of `newbie` issues [here](https://gitlab.com/bloodyhealth/drip/issues?label_name%5B%5D=Newbie).
 If you decide to work on an issue, please click on `Create branch` based on that issue. You can find this as a dropdown option right under `Create merge request`.
@@ -40,19 +40,19 @@ You found a bug :bug:? Please feel free to investigate and save logs for more sp
 
 Before creating a new issue, please review the [list of existing issues](https://gitlab.com/bloodyhealth/drip/issues) to make sure the bug is unknown. You are invited to describe the bug in all its details e.g. in what context/settings has it occurred?
 
-To send us a new issue you can also use our gitlab email: incoming+bloodyhealth/drip@incoming.gitlab.com. It will automagically add a new issue to the list with a description text taken from the body of your email.
+To send us a new issue you can also use our [gitlab email](mailto:incoming+bloodyhealth/drip@incoming.gitlab.com). It will automagically add a new issue to the list with a description text taken from the body of your email.
 
 ### Suggesting Enhancements
 
 Do you have suggestions for enhancing the app or for cleaning up some code? Fantastic!
 
-Before creating a new issue, please review the [list of existing issues](https://gitlab.com/bloodyhealth/drip/issues) to make sure nobody else had the same idea before you! You are then invited to open a new issue with a somewhat extensive description, you can use emojis or GIFs if it helps :)! 
+Before creating a new issue, please review the [list of existing issues](https://gitlab.com/bloodyhealth/drip/issues) to make sure nobody else had the same idea before you! You are then invited to open a new issue with a somewhat extensive description, you can use emojis or GIFs if it helps :)!
 
 To send us a new issue you can also use our [gitlab email](mailto:incoming+bloodyhealth/drip@incoming.gitlab.com). It will automagically add a new issue to the list with the title taken from the subject line and the description text for the issue taken from the body of your email.
 
 ### Thank you
 
 ![](https://media.giphy.com/media/kPA88elN9kYco/giphy.gif)
- 
-Thank you for contributing to open source, thank you for contributing to drip!
-Much love from Bloody Health :heart\_exclamation: 
+
+Thank you for condributing to open source, thank you for condributing to drip!
+Much love from Bloody Health :heart\_exclamation:

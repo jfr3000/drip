@@ -1,25 +1,4 @@
-
-export const links = {
-  gitlab: {
-    url: 'https://gitlab.com/bloodyhealth/drip',
-    text: 'GitLab'
-  },
-  email: {
-    url: 'mailto:bl00dyhealth@mailbox.org',
-    text: 'email'
-  },
-  wiki: {
-    url: 'https://gitlab.com/bloodyhealth/drip/wikis/home',
-    text: 'wiki'
-  },
-  website: {
-    url: 'https://bloodyhealth.gitlab.io/'
-  },
-  moreToNfp: {
-    url: 'https://gitlab.com/bloodyhealth/drip/wikis/nfp/intro',
-    text: 'More'
-  },
-}
+import links from './links'
 
 export default {
   menuTitles: {
@@ -51,7 +30,8 @@ export default {
     deleteOption: 'Import and delete existing',
     errors: {
       couldNotOpenFile: 'Could not open file',
-      postFix: 'No data was imported or changed'
+      postFix: 'No data was imported or changed',
+      futureEdit: 'Future dates may only contain a note, no other symptoms'
     },
     success: {
       message: 'Data successfully imported'
@@ -128,7 +108,7 @@ export default {
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details: https://www.gnu.org/licenses/gpl-3.0.html
 
-You can contact us by email at bloodyhealth@mailbox.com.`
+You can contact us by bloodyhealth@mailbox.org.`
   },
   version: {
     title: 'Version'

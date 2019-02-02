@@ -1,16 +1,20 @@
 import React, { Component } from 'react'
-import { ScrollView, View, TouchableOpacity, TouchableHighlight, Dimensions } from 'react-native'
+import { ScrollView, View, TouchableHighlight, TouchableOpacity, Dimensions } from 'react-native'
 import { LocalDate, ChronoUnit } from 'js-joda'
 import Icon from 'react-native-vector-icons/Entypo'
 import Hyperlink from 'react-native-hyperlink'
 import { secondaryColor, cycleDayColor, periodColor } from '../styles'
-import { home as labels, bleedingPrediction as predictLabels, shared, links } from '../i18n/en/labels'
+import {
+  home as labels,
+  bleedingPrediction as predictLabels,
+  shared,
+} from '../i18n/en/labels'
+import links from '../i18n/en/links'
 import cycleModule from '../lib/cycle'
-import { getCycleDaysSortedByDate } from '../db'
 import { getFertilityStatusForDay } from '../lib/sympto-adapter'
 import replace from './helpers/replace-url-with-text'
 import styles from '../styles'
-import AppText, { AppTextLight } from './app-text'
+import AppText from './app-text'
 import DripHomeIcon from '../assets/drip-home-icons'
 import Button from './button'
 
@@ -36,9 +40,9 @@ const ShowMoreToggler = ({ isShowingMore, onToggle }) => {
 const IconText = ({ children, wrapperStyles }) => {
   return (
     <View style={[styles.homeIconTextWrapper, wrapperStyles]}>
-      <AppTextLight style={styles.iconText}>
+      <AppText style={styles.iconText}>
         { children }
-      </AppTextLight>
+      </AppText>
     </View>
   )
 }
@@ -76,8 +80,6 @@ export default class Home extends Component {
       bleedingPredictionRange: getBleedingPredictionRange(prediction),
       ...fertilityStatus
     }
-
-    this.cycleDays = getCycleDaysSortedByDate()
   }
 
   passTodayTo(componentName) {
@@ -96,7 +98,7 @@ export default class Home extends Component {
       labels.cycleDayKnown(cycleDayNumber) :
       labels.cycleDayNotEnoughInfo
 
-    const { statusText } = this.state;
+    const { statusText } = this.state
 
     return (
       <View flex={1}>
@@ -156,12 +158,12 @@ export default class Home extends Component {
               }
               { isShowingMore &&
                 <View>
-                  <AppText styles={styles.paragraph}>
-                    { statusText && <AppText>{ `${status}.` }</AppText> }
-                    <Hyperlink linkStyle={styles.link} linkText={replace}>
-                      <AppText>${links.moreToNfp.url}`}</AppText>
-                    </Hyperlink>
-                  </AppText>
+                  <Hyperlink linkStyle={styles.link} linkText={replace}>
+                    <AppText styles={styles.paragraph}>
+                      { statusText }
+                    </AppText>
+                    <AppText>{links.moreAboutNfp.url}</AppText>
+                  </Hyperlink>
                 </View>
               }
             </HomeElement>

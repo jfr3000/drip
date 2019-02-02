@@ -13,8 +13,10 @@ export const shadesOfRed = [
 export const cycleDayColor = '#29287f'
 export const periodColor = '#802249'
 
-const fontRegular = 'Prompt-Light'
-const fontLight = 'Prompt-Thin'
+const headerFont = 'Prompt-ExtraLight'
+
+const textFont = 'OpenSans-Light'
+const textFontBold = 'OpenSans-SemiBold'
 
 const regularSize = 16
 const hintSize = 14
@@ -27,18 +29,15 @@ const colorInActive = '#666666'
 export default StyleSheet.create({
   appText: {
     color: 'black',
-    fontFamily: fontRegular,
-    fontSize: regularSize
-  },
-  appTextLight: {
-    color: 'black',
-    fontFamily: fontLight,
-    fontSize: regularSize
+    fontFamily: textFont,
+    fontSize: regularSize,
+    letterSpacing: 0.5
   },
   actionHint: {
     color: secondaryColor,
-    fontFamily: fontRegular,
+    fontFamily: textFont,
     fontSize: hintSize,
+    fontWeight: 'bold',
     margin: defaultIndentation
   },
   paragraph: {
@@ -46,6 +45,7 @@ export default StyleSheet.create({
   },
   emphasis: {
     fontWeight: 'bold',
+    fontFamily: textFontBold
   },
   link: {
     color: cycleDayColor,
@@ -69,20 +69,20 @@ export default StyleSheet.create({
   },
   dateHeader: {
     fontSize: 20,
-    fontFamily: fontLight,
+    fontFamily: headerFont,
     color: fontOnPrimaryColor,
     textAlign: 'center',
   },
   headerText: {
     fontSize: 30,
-    fontFamily: fontLight,
+    fontFamily: headerFont,
     color: fontOnPrimaryColor,
     textAlign: 'center',
     paddingBottom: 4
   },
   accentCircle: {
     borderColor: secondaryColor,
-    borderWidth: 0.5,
+    borderWidth: 1,
     width: 40,
     height: 40,
     borderRadius: 100,
@@ -133,7 +133,7 @@ export default StyleSheet.create({
   },
   homeCircle: {
     borderRadius: 100,
-    borderWidth: 0.7,
+    borderWidth: 2.3,
     width: 80,
     height: 80,
     alignItems: 'center',
@@ -155,7 +155,7 @@ export default StyleSheet.create({
     fontSize: 15,
     color: fontOnPrimaryColor,
     textAlign: 'center',
-    fontFamily: fontLight
+    fontFamily: headerFont
   },
   symptomViewHeading: {
     fontSize: 20,
@@ -229,6 +229,9 @@ export default StyleSheet.create({
   navigationArrow: {
     padding: 20
   },
+  hiddenIcon: {
+    padding: 20
+  },
   menu: {
     backgroundColor: primaryColor,
     alignItems: 'center',
@@ -243,10 +246,11 @@ export default StyleSheet.create({
   },
   menuText: {
     color: fontOnPrimaryColor,
-    fontFamily: fontLight
+    fontFamily: headerFont
   },
   menuTextInActive: {
-    color: colorInActive
+    color: colorInActive,
+    fontFamily: headerFont
   },
   temperatureTextInput: {
     fontSize: 20,
@@ -272,24 +276,32 @@ export default StyleSheet.create({
     marginTop: defaultTopMargin,
     marginHorizontal: defaultIndentation,
     padding: 7,
+    fontFamily: textFont
   },
   settingsSegmentLast: {
     marginBottom: defaultTopMargin,
   },
   settingsSegmentTitle: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontFamily: textFontBold
   },
   settingsButton: {
-    backgroundColor: secondaryColor,
     padding: 10,
     alignItems: 'center',
-    margin: 10,
+    margin: 10
+  },
+  settingsButtonAccent: {
+    backgroundColor: secondaryColor
   },
   settingsButtonDisabled: {
     backgroundColor: colorInActive
   },
   settingsButtonText: {
     color: fontOnPrimaryColor
+  },
+  settingsButtonSecondaryText: {
+    color: secondaryColor
+
   },
   statsRow: {
     flexDirection: 'row',
@@ -402,6 +414,9 @@ export default StyleSheet.create({
     marginTop: 20,
     color: 'grey'
   },
+  infoButton: {
+    paddingVertical: 20
+  },
   licensePage: {
     paddingVertical: 20,
     paddingHorizontal: 10
@@ -442,5 +457,9 @@ export const iconStyles = {
   infoInHeading: {
     marginRight: 5,
     color: 'black'
+  },
+  hiddenIcon: {
+    size: 20,
+    display: 'none'
   }
 }

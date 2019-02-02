@@ -14,7 +14,7 @@ import * as labels from '../../i18n/en/cycle-day'
 import AppText from '../app-text'
 import DripIcon from '../../assets/drip-icons'
 
-const bleedingLabels = labels.bleeding
+const bleedingLabels = labels.bleeding.labels
 const feelingLabels = labels.mucus.feeling.categories
 const textureLabels = labels.mucus.texture.categories
 const openingLabels = labels.cervix.opening.categories
@@ -24,6 +24,7 @@ const intensityLabels = labels.intensity
 const sexLabels = labels.sex.categories
 const contraceptiveLabels = labels.contraceptives.categories
 const painLabels = labels.pain.categories
+const moodLabels = labels.mood.categories
 
 export default class CycleDayOverView extends Component {
   constructor(props) {
@@ -56,7 +57,7 @@ export default class CycleDayOverView extends Component {
     const l = {
       bleeding: bleeding => {
         if (isNumber(bleeding.value)) {
-          let bleedingLabel = `${bleedingLabels[bleeding.value]}`
+          let bleedingLabel = bleedingLabels[bleeding.value]
           if (bleeding.exclude) bleedingLabel = "( " + bleedingLabel + " )"
           return bleedingLabel
         }
@@ -143,6 +144,25 @@ export default class CycleDayOverView extends Component {
           painLabel = painLabel.join(', ')
           return painLabel
         }
+      },
+      mood: mood => {
+        let moodLabel = []
+        if (mood && Object.values(mood).some(val => val)){
+          Object.keys(mood).forEach(key => {
+            if(mood[key] && key !== 'other' && key !== 'note') {
+              moodLabel.push(moodLabels[key])
+            }
+            if(key === 'other' && mood.other) {
+              let label = moodLabels[key]
+              if(mood.note) {
+                label = `${label} (${mood.note})`
+              }
+              moodLabel.push(label)
+            }
+          })
+          moodLabel = moodLabel.join(', ')
+          return moodLabel
+        }
       }
     }
 
@@ -227,6 +247,14 @@ export default class CycleDayOverView extends Component {
             >
             </SymptomBox>
             <SymptomBox
+              title='Mood'
+              onPress={() => this.navigate('MoodEditView')}
+              data={this.getLabel('mood')}
+              disabled={dateInFuture}
+              iconName='drip-icon-mood'
+            >
+            </SymptomBox>
+            <SymptomBox
               title='Note'
               onPress={() => this.navigate('NoteEditView')}
               data={this.getLabel('note')}
@@ -236,9 +264,9 @@ export default class CycleDayOverView extends Component {
             {/*  this is just to make the last row adhere to the grid
         (and) because there are no pseudo properties in RN */}
             <FillerBoxes />
-          </View >
-        </ScrollView >
-      </View >
+          </View>
+        </ScrollView>
+      </View>
     )
   }
 }
@@ -248,9 +276,9 @@ export default class CycleDayOverView extends Component {
 
 class SymptomBox extends Component {
   render() {
-    const d = this.props.data
-    const boxActive = d ? styles.symptomBoxActive : {}
-    const textActive = d ? styles.symptomTextActive : {}
+    const hasData = this.props.data
+    const boxActive = hasData ? styles.symptomBoxActive : {}
+    const textActive = hasData ? styles.symptomTextActive : {}
     const disabledStyle = this.props.disabled ? styles.symptomInFuture : {}
 
     return (
@@ -259,7 +287,7 @@ class SymptomBox extends Component {
         disabled={this.props.disabled}
       >
         <View style={[styles.symptomBox, boxActive, disabledStyle]}>
-          <DripIcon name={this.props.iconName} size={50} color={d ? 'white' : 'black'}/>
+          <DripIcon name={this.props.iconName} size={50} color={hasData ? 'white' : 'black'}/>
           <AppText style={[textActive, disabledStyle]}>
             {this.props.title.toLowerCase()}
           </AppText>

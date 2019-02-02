@@ -13,7 +13,7 @@ const labels = settingsLabels.license
 export default function License({setLicense}) {
   return (
     <ScrollView style={styles.licensePage}>
-      <Hyperlink linkStyle={styles.link} linkText={replace}>
+      <Hyperlink linkStyle={styles.link} linkText={replace} linkDefault>
         <AppText style={styles.settingsSegmentTitle}>{labels.title}</AppText>
         <AppText>{labels.text}</AppText>
       </Hyperlink>

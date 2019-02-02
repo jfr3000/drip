@@ -2,15 +2,15 @@ export const mucusNFP = ['t', 'Ø', 'f', 'S', 'S+']
 export const intensity = ['low', 'medium', 'high']
 
 export const bleeding = {
-    labels: ['spotting', 'light', 'medium', 'heavy'],
-    heaviness: {
-        header: "Heaviness",
-        explainer: "How heavy is the bleeding?",
-    },
-    exclude: {
-        header: "Exclude",
-        explainer: "You can exclude this value if it's not menstrual bleeding"
-    }
+  labels: ['spotting', 'light', 'medium', 'heavy'],
+  heaviness: {
+    header: "Heaviness",
+    explainer: "How heavy is the bleeding?",
+  },
+  exclude: {
+    header: "Exclude",
+    explainer: "You can exclude this value if it's not menstrual bleeding"
+  }
 }
 
 export const cervix = {
@@ -84,6 +84,22 @@ export const pain = {
     other: 'Other'
   },
   explainer: 'How did your body feel today?'
+}
+
+export const mood = {
+  categories: {
+    happy: 'Happy',
+    sad: 'Sad',
+    stressed: 'Stressed',
+    balanced: 'Balanced',
+    fine: 'Fine',
+    anxious: 'Anxious',
+    energetic: 'Energetic',
+    fatigue: 'Fatigue',
+    angry: 'Angry',
+    other: 'Other'
+  },
+  explainer: 'How did you feel today?'
 }
 
 export const temperature = {
