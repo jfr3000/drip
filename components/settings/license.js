@@ -10,9 +10,9 @@ export default class License extends Component {
   render() {
     return (
       <ScrollView>
-        <View style={styles.settingsSegment}>
+        <View style={styles.framedSegment}>
           <Hyperlink linkStyle={styles.link} linkText={replace} linkDefault>
-            <AppText style={styles.settingsSegmentTitle}>{`${labels.license.title} `}</AppText>
+            <AppText style={styles.framedSegmentTitle}>{`${labels.license.title} `}</AppText>
             <AppText>{`${labels.license.text} `}</AppText>
           </Hyperlink>
         </View>

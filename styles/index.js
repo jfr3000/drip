@@ -268,7 +268,7 @@ export default StyleSheet.create({
   symptomEditButton: {
     width: 130
   },
-  settingsSegment: {
+  framedSegment: {
     borderColor: secondaryColor,
     borderStyle: 'solid',
     borderWidth: 1,
@@ -278,10 +278,10 @@ export default StyleSheet.create({
     padding: 7,
     fontFamily: textFont
   },
-  settingsSegmentLast: {
+  framedSegmentLast: {
     marginBottom: defaultTopMargin,
   },
-  settingsSegmentTitle: {
+  framedSegmentTitle: {
     fontWeight: 'bold',
     fontFamily: textFontBold
   },

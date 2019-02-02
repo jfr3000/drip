@@ -28,7 +28,7 @@ export default function SettingsMenu(props) {
   function menuItem(item) {
     return (
       <TouchableOpacity
-        style={styles.settingsSegment}
+        style={styles.framedSegment}
         key={item.title}
         onPress={() => props.navigate(item.component)}
       >
