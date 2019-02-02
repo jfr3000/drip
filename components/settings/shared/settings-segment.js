@@ -9,7 +9,7 @@ const SettingsSegment = ({ children, ...props }) => {
   const style = [styles.settingsSegment, props.style]
   if (props.last) style.push(styles.settingsSegmentLast)
   return (
-    <View style={[styles.settingsSegment, props.style]}>
+    <View style={[style]}>
       {
         props.title
         && <AppText style={styles.settingsSegmentTitle}>{props.title}</AppText>
