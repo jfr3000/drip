@@ -25,7 +25,10 @@ export default class InfoSymptom extends Component {
 
     return (
       <ScrollView>
-        <FramedSegment title={labels[currentSymptom].title}>
+        <FramedSegment
+          style={styles.framedSegmentLast}
+          title={labels[currentSymptom].title}
+        >
           <Hyperlink linkStyle={styles.link} linkText={replace} linkDefault>
             <AppText>{labels[currentSymptom].text}</AppText>
           </Hyperlink>
