@@ -1,7 +1,7 @@
 import {links} from './settings'
 
 export const generalInfo = {
-  chartNfp: `On the chart you can track fertility signs. When both a valid temperature shift and a mucus or cervix shift has been detected, an orange cross will be displayed on the chart. This indicates the end of the peri-ovulatory and the beginning of the post-ovulatory phase.`,
+  chartNfp: `On the chart, you can track fertility signs. When both a valid temperature shift and a mucus or cervix shift have been detected, an orange line will be displayed on the chart. This indicates the end of the peri-ovulatory and the beginning of the post-ovulatory phase.`,
   curiousNfp: `If you are curious to learn more about the sympto-thermal method that is used for fertility tracking within the app, you can visit our ${links.wiki.url}.`,
   cycleRelation: `It may be influenced by or have an impact on your menstrual cycles and its hormonal changes.`,
   excludeExplainer: `You can exclude these values, so they won't be taken into account for any fertility calculation.`,
@@ -16,14 +16,14 @@ export default {
     title: `Tracking menstrual bleeding`,
     text: `Tracking menstrual bleeding allows you to know the beginning and the end of a menstrual cycle.
 
-After tracking at least 3 menstrual cycles drip will give you an overview of
+After tracking at least 3 menstrual cycles, drip will give you an overview of
 · how long your cycles last on average (in "stats"),
 · whether the length of your last cycles vary a lot (in "stats" and in bleeding predictions)
 · and predict your next 3 cycles with a range of 3 or 5 days (on home screen and "calendar").
 
-The app allows you to track different intensity of bleeding. On the chart and on the calendar bleeding values are colored in different shades of red, the darker the more intense your bleeding has been. Every bleeding value that is not excluded is taken into account for fertility calculation and prediction for the start of next cycles.
+The app allows you to track different intensities of bleeding. On the chart and on the calendar, bleeding values are colored in different shades of red. The darker, the more intense your bleeding. Every bleeding value that is not excluded is taken into account for fertility calculation and prediction for the start of next cycles.
 
-Excluding bleeding values is for tracking bleeding when it's not marking the start of a new cycle or the continuation of menstrual bleeding the day(s) before, e.g. bleeding caused by miscarriage or ovulation.
+Excluding bleeding values is for tracking bleeding when it's not marking the start of a new cycle or the continuation of menstrual bleeding the day(s) before, e.g. bleeding caused by ovulation or a miscarriage.
 
 When - on a daily/regular basis - you track:
 1. your basal body temperature,
@@ -37,16 +37,16 @@ ${generalInfo.nfpTfyReminder}`,
     title: `Tracking your cervix`,
     text: `The cervix is located inside of the body at the end of the vaginal canal, between the vagina and the uterus.
 
-Tracking how open or closed and how firm or soft the cervix feels like can help determine in which phase of the menstrual cycle you are.
+Tracking how open or closed and how firm or soft the cervix feels can help determine in which phase of the menstrual cycle you are.
 
-By default the secondary symptom is cervical mucus, but you can change it to cervix in "Settings" -> "NFP Settings". When - on a daily/regular basis - you track:
+By default, the secondary symptom the app uses for NFP evaluation is cervical mucus, but you can change it to cervix in "Settings" -> "NFP Settings". When - on a daily/regular basis - you track:
 1. your basal body temperature,
 2. your cervical mucus OR your cervix,
 3. and menstrual bleeding
 the app helps you identify in which phase of your cycle you are.
 
 · How to identify a fertile cervix?
-When your cervix is rather open and feels soft like your earlobes, in contrast to an infertile cervix that must feel rather closed and hard like the tip of your nose. If the cervix feels any other than closed and hard, drip takes it as a sign of fertility. On the chart a fertile cervix is colored in dark yellow, and infertile cervix is colored in light yellow.
+When your cervix is rather open and feels soft like your earlobes, in contrast to an infertile cervix that feels rather closed and hard, like the tip of your nose. If the cervix feels anything but closed and hard, drip takes it as a sign of fertility. On the chart, a fertile cervix is colored in dark yellow, and infertile cervix is colored in light yellow.
 
 ${generalInfo.chartNfp}
 
@@ -78,7 +78,7 @@ ${generalInfo.curiousNfp}`
     title: 'Tracking cervical mucus',
     text: `Cervical mucus can help determine in which phase of the menstrual cycle you are.
 
-By default the secondary symptom is cervical mucus. When - on a daily/regular basis - you track:
+By default the secondary symptom the app uses for NFP evaluation is cervical mucus. When - on a daily/regular basis - you track:
 1. your basal body temperature,
 2. your cervical mucus OR your cervix,
 3. and menstrual bleeding
@@ -92,7 +92,7 @@ Tracking the feeling and the texture of your cervical mucus on a daily basis hel
 · S (= no OR wet feeling + creamy texture),
 · and S+ (= any feeling + egg white texture OR slippery feeling + any texture).
 
-On the chart fertile mucus is colored in dark blue, and infertile mucus values are colored in lighter shades of blue.
+On the chart, fertile mucus is colored in dark blue, and infertile mucus values are colored in lighter shades of blue.
 
 Please note that drip does not yet support "parenthesis values": According to NFP rules,  you can qualify a mucus value by putting parentheses around it, to indicate that it doesn't fully meet the descriptors of one of the five categories, and instead is in between. This functionality will be supported in the future.
 
@@ -139,13 +139,13 @@ By default the secondary symptom is cervical mucus, but you can change it to cer
 the app helps you identify in which phase of your cycle you are.
 
 · What is body basal temperature?
-It's your temperature after laying still for at least ~6 hours. For many this is when they are waking up in the morning after sleeping at least 6 hours and before getting up.
+It's your temperature after lying still for at least 6 hours. For many, this is when they are waking up in the morning after sleeping at least 6 hours and before getting up.
 
 · Which thermometer to use?
 The thermometer must indicate 2 decimal places.
 
 · How to measure?
-You can either measure rectally, vaginally or orally. If you chose rectal or vaginal measurement you need to measure for at least 3 minutes long. If you chose oral measurement you want to measure for at least 5 minutes long. Pick one way and stick to it.
+You can either measure rectally, vaginally or orally. If you chose rectal or vaginal measurement, you need to measure for at least 3 minutes. If you chose oral measurement, you should measure for at least 5 minutes. Pick one way and stick to it.
 
 ${generalInfo.chartNfp}
 
