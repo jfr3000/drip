@@ -32,7 +32,7 @@ export default function SettingsMenu(props) {
         key={item.title}
         onPress={() => props.navigate(item.component)}
       >
-        <AppText>{item.title}</AppText>
+        <AppText>{item.title.toLowerCase()}</AppText>
       </TouchableOpacity>
     )
   }
