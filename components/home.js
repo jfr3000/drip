@@ -53,6 +53,7 @@ const HomeElement = ({ children, onPress, buttonColor, buttonLabel  }) => {
     >
       { children }
       <Button
+        style={styles.homeButton}
         onPress={ onPress }
         backgroundColor={ buttonColor }>
         { buttonLabel }
@@ -108,7 +109,7 @@ export default class Home extends Component {
               buttonColor={ cycleDayColor }
               buttonLabel={ labels.editToday }
             >
-              <View position='absolute'>
+              <View>
                 <DripHomeIcon name="circle" size={80} color={cycleDayColor}/>
               </View>
               <IconText wrapperStyles={styles.wrapperCycle}>
@@ -125,7 +126,7 @@ export default class Home extends Component {
               buttonColor={ periodColor }
               buttonLabel={ labels.trackPeriod }
             >
-              <View position='absolute'>
+              <View>
                 <DripHomeIcon name="drop" size={105} color={periodColor} />
               </View>
 
@@ -145,7 +146,7 @@ export default class Home extends Component {
               buttonColor={ secondaryColor }
               buttonLabel={ labels.checkFertility }
             >
-              <View style={styles.homeCircle} position='absolute' />
+              <View style={styles.homeCircle}/>
 
               <IconText wrapperStyles={styles.wrapperCircle}>
                 { phase ? phase.toString() : labels.unknown }
