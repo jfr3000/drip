@@ -13,7 +13,7 @@ import AppText from './app-text'
 export default class Stats extends Component {
   render() {
     const cycleLengths = cycleModule().getAllCycleLengths()
-    const atLeastOneCycle = cycleLengths.length > 1
+    const atLeastOneCycle = cycleLengths.length >= 1
     let numberOfCycles
     let cycleInfo
     if (atLeastOneCycle) {
