@@ -10,6 +10,7 @@ export default function AppText(props) {
       <Text
         style={[styles.appText, props.style]}
         onPress={props.onPress}
+        numberOfLines={props.numberOfLines}
       >
         {props.children}
       </Text>

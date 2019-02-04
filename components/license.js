@@ -11,7 +11,7 @@ const labels = settingsLabels.license
 export default function License({setLicense}) {
   return (
     <ScrollView style={styles.licensePage}>
-      <AppText style={styles.settingsSegmentTitle}>{labels.title}</AppText>
+      <AppText style={styles.framedSegmentTitle}>{labels.title}</AppText>
       <AppText>{labels.text}</AppText>
       <View style={styles.licenseButtons}>
         <Button

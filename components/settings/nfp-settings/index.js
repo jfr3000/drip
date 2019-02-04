@@ -5,7 +5,7 @@ import {
 import styles, { iconStyles } from '../../../styles'
 import labels from '../../../i18n/en/settings'
 import AppText from '../../app-text'
-import SettingsSegment from '../shared/settings-segment'
+import FramedSegment from '../../framed-segment'
 import TempSlider from './temp-slider'
 import UseCervixSetting from './use-cervix'
 import Icon from 'react-native-vector-icons/Entypo'
@@ -19,20 +19,21 @@ export default class Settings extends Component {
   render() {
     return (
       <ScrollView>
-        <SettingsSegment title={labels.useCervix.title}>
+        <FramedSegment title={labels.useCervix.title}>
           <UseCervixSetting/>
-        </SettingsSegment>
-        <SettingsSegment title={labels.tempScale.segmentTitle}>
+        </FramedSegment>
+        <FramedSegment title={labels.tempScale.segmentTitle}>
           <AppText>{labels.tempScale.segmentExplainer}</AppText>
           <TempSlider/>
-        </SettingsSegment>
-        <SettingsSegment style={styles.settingsSegmentLast} >
+        </FramedSegment>
+        <FramedSegment style={styles.framedSegmentLast} >
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <Icon name="info-with-circle" style={iconStyles.infoInHeading}/>
-            <AppText style={styles.settingsSegmentTitle}>{`${labels.preOvu.title} `}</AppText>
+            <AppText style={styles.framedSegmentTitle}>{`${labels.preOvu.title} `}</AppText>
           </View>
           <AppText>{labels.preOvu.note}</AppText>
-        </SettingsSegment>
+          <AppText>{labels.preOvu.note}</AppText>
+        </FramedSegment>
       </ScrollView>
     )
   }

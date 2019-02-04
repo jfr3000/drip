@@ -8,8 +8,8 @@ export default class License extends Component {
   render() {
     return (
       <ScrollView>
-        <View style={styles.settingsSegment}>
-          <AppText style={styles.settingsSegmentTitle}>{`${labels.license.title} `}</AppText>
+        <View style={styles.framedSegment}>
+          <AppText style={styles.framedSegmentTitle}>{`${labels.license.title} `}</AppText>
           <AppText>{`${labels.license.text} `}</AppText>
         </View>
       </ScrollView>
