@@ -8,7 +8,7 @@ import styles, { iconStyles } from '../../styles'
 import NavigationArrow from './navigation-arrow'
 import Icon from 'react-native-vector-icons/Entypo'
 
-export default function InfoSymptomHeader(props) {
+export default function BackButtonHeader(props) {
   return (
     <View style={[styles.header, styles.headerCycleDay, styles.headerSymptom]}>
       <View

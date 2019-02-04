@@ -94,9 +94,7 @@ export default class App extends Component {
 
   isDefaultView() {
     const { currentPage } = this.state
-    return currentPage !== CYCLE_DAY_PAGE &&
-      !this.isSymptomView() &&
-      !this.isInfoSymptomView()
+    return this.isMenuItem(currentPage) || currentPage === SETTINGS_MENU_PAGE
   }
 
   render() {
@@ -114,16 +112,19 @@ export default class App extends Component {
     }
     const page = pages[currentPage]
     const title = headerTitlesLowerCase[currentPage]
-    const isSymptomView = this.isSymptomView()
     return (
       <View style={{flex: 1}}>
         {this.isDefaultView() &&
           <Header title={title} />
         }
-        {this.isInfoSymptomView() &&
-          <Header title={title} goBack={this.handleBackButtonPress} />
+        {(this.isInfoSymptomView() || this.isSettingsView()) &&
+          <Header
+            title={title}
+            showBackButton={true}
+            goBack={this.handleBackButtonPress}
+          />
         }
-        {isSymptomView &&
+        {this.isSymptomView() &&
           <Header
             title={title}
             isSymptomView={true}
@@ -140,7 +141,7 @@ export default class App extends Component {
           ...currentProps
         })}
 
-        {!isSymptomView &&
+        {!this.isSymptomView() &&
           <Menu navigate={this.navigate} currentPage={currentPage} />
         }
       </View>
