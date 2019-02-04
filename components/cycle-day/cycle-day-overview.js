@@ -167,10 +167,7 @@ export default class CycleDayOverView extends Component {
     }
 
     const symptomValue = cycleDay[symptomName]
-    const label = l[symptomName](symptomValue)
-    if (!label) return
-    if (label.length < 45) return label
-    return label.slice(0, 42) + '...'
+    return l[symptomName](symptomValue)
   }
 
   render() {
@@ -293,7 +290,10 @@ class SymptomBox extends Component {
           </AppText>
         </View>
         <View style={[styles.symptomDataBox, disabledStyle]}>
-          <AppText style={styles.symptomDataText}>{this.props.data}</AppText>
+          <AppText
+            style={styles.symptomDataText}
+            numberOfLines={3}
+          >{this.props.data}</AppText>
         </View>
       </TouchableOpacity>
     )
