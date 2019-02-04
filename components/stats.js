@@ -31,11 +31,11 @@ export default class Stats extends Component {
             <AppText>{labels.emptyStats}</AppText>
           }
           {atLeastOneCycle && numberOfCycles === 1 &&
-            <AppText>
-              {labels.oneCycleStats}
-              <AppText style={styles.emphasis}> {cycleLengths[0]} </AppText>
-              {labels.daysLabel + '.'}
-            </AppText>
+            <View style={styles.statsRow}>
+              <AppText>{labels.oneCycleStats}</AppText>
+              <AppText style={styles.emphasis}>{' ' + cycleLengths[0] + ' '}</AppText>
+              <AppText>{labels.daysLabel + '.'}</AppText>
+            </View>
           }
           {atLeastOneCycle && numberOfCycles > 1 && <View>
             <View style={styles.statsRow}>
@@ -54,11 +54,11 @@ export default class Stats extends Component {
               <AppText style={styles.statsLabelLeft}>{labels.stdLabel}</AppText>
               <AppText style={styles.statsLabelRight}>{cycleInfo.stdDeviation + ' ' + labels.daysLabel}</AppText>
             </View>
-            <AppText>
-              {labels.basisOfStatsBeginning}
-              <AppText style={styles.emphasis}> {numberOfCycles} </AppText>
-              {labels.basisOfStatsEnd}
-            </AppText>
+            <View style={styles.statsRow}>
+              <AppText>{labels.basisOfStatsBeginning}</AppText>
+              <AppText style={styles.emphasis}>{' ' + numberOfCycles + ' '} </AppText>
+              <AppText>{labels.basisOfStatsEnd}</AppText>
+            </View>
           </View>}
         </View>
       </ScrollView>
