@@ -1,21 +1,4 @@
-
-export const links = {
-  gitlab: {
-    url: 'https://gitlab.com/bloodyhealth/drip',
-    text: 'GitLab'
-  },
-  email: {
-    url: 'mailto:bloodyhealth@mailbox.org',
-    text: 'email'
-  },
-  wiki: {
-    url: 'https://gitlab.com/bloodyhealth/drip/wikis/',
-    text: 'wiki'
-  },
-  website: {
-    url: 'https://bloodyhealth.gitlab.io/'
-  }
-}
+import links from './links'
 
 export default {
   menuTitles: {
@@ -123,7 +106,7 @@ export default {
     title: 'drip is an open-source cycle tracking app',
     text: `Copyright (C) 2019 Bloody Health GbR
 
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details: https://www.gnu.org/licenses/gpl-3.0.html 
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details: https://www.gnu.org/licenses/gpl-3.0.html
 
 You can contact us by bloodyhealth@mailbox.org.`
   },

@@ -1,4 +1,4 @@
-import {links} from './settings'
+import links from './links'
 
 export const generalInfo = {
   chartNfp: `On the chart, you can track fertility signs. When both a valid temperature shift and a mucus or cervix shift have been detected, an orange line will be displayed on the chart. This indicates the end of the peri-ovulatory and the beginning of the post-ovulatory phase.`,

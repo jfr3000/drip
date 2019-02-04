@@ -1,20 +1,16 @@
 import React, { Component } from 'react'
 import { View, ScrollView } from 'react-native'
-import Hyperlink from 'react-native-hyperlink'
 import AppText from '../app-text'
 import styles from '../../styles/index'
 import labels from '../../i18n/en/settings'
-import replace from '../helpers/replace-url-with-text'
 
 export default class License extends Component {
   render() {
     return (
       <ScrollView>
         <View style={styles.framedSegment}>
-          <Hyperlink linkStyle={styles.link} linkText={replace} linkDefault>
-            <AppText style={styles.framedSegmentTitle}>{`${labels.license.title} `}</AppText>
-            <AppText>{`${labels.license.text} `}</AppText>
-          </Hyperlink>
+          <AppText style={styles.framedSegmentTitle}>{`${labels.license.title} `}</AppText>
+          <AppText>{`${labels.license.text} `}</AppText>
         </View>
       </ScrollView>
     )
