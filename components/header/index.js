@@ -15,7 +15,7 @@ export default function Header(p) {
   else if (props.isSymptomView) {
     return (<SymptomViewHeader {...props} />)
   }
-  else if (props.title === 'info') {
+  else if (props.showBackButton) {
     return (<BackButtonHeader {...props} />)
   }
   else {
