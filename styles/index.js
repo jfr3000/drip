@@ -45,7 +45,8 @@ export default StyleSheet.create({
   },
   emphasis: {
     fontWeight: 'bold',
-    fontFamily: textFontBold
+    fontFamily: textFontBold,
+    color: secondaryColor,
   },
   link: {
     color: cycleDayColor,
@@ -306,16 +307,6 @@ export default StyleSheet.create({
   statsRow: {
     flexDirection: 'row',
     width: '100%'
-  },
-  statsLabelLeft: {
-    width: '60%',
-    textAlign: 'left',
-    textAlignVertical: 'center',
-    marginLeft: 10
-  },
-  statsLabelRight: {
-    textAlign: 'left',
-    textAlignVertical: 'center'
   },
   menuLabel: {
     fontSize: 15,
