@@ -95,7 +95,6 @@ export default StyleSheet.create({
   },
   homeView: {
     marginHorizontal: 50,
-    marginTop: 20,
   },
   button: {
     paddingVertical: 10,
@@ -105,13 +104,14 @@ export default StyleSheet.create({
   },
   homeButton: {
     width: 200,
+    marginTop: 5
   },
   homeButtonText: {
     color: fontOnPrimaryColor
   },
   homeIconElement: {
     alignItems: 'center',
-    marginBottom: 10
+    marginTop: 15
   },
   homeIconTextWrapper: {
     alignItems: 'center',
@@ -120,16 +120,19 @@ export default StyleSheet.create({
   },
   wrapperCycle: {
     width: 80,
-    height: 77
+    height: 77,
+    position: 'absolute'
   },
   wrapperDrop: {
     width: 81,
     height: 85,
-    marginTop: 20
+    marginTop: 20,
+    position: 'absolute'
   },
   wrapperCircle: {
     width: 80,
     height: 80,
+    position: 'absolute'
   },
   homeCircle: {
     borderRadius: 100,
