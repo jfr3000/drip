@@ -29,37 +29,44 @@ export default class Stats extends Component {
           style={styles.framedSegmentLast}
           title={labels.cycleLengthTitle}
         >
-          <AppText style={styles.paragraph}>{labels.cycleLengthExplainer}</AppText>
+          <AppText style={styles.paragraph}>
+            {labels.cycleLengthExplainer}
+          </AppText>
+
           {!atLeastOneCycle &&
             <AppText>{labels.emptyStats}</AppText>
           }
           {atLeastOneCycle && numberOfCycles === 1 &&
-            <View style={styles.statsRow}>
+            <View style={[styles.statsRow, styles.paragraph]}>
               <AppText>{labels.oneCycleStats}</AppText>
-              <AppText style={styles.emphasis}>{' ' + cycleLengths[0] + ' '}</AppText>
-              <AppText>{labels.daysLabel + '.'}</AppText>
+              <AppText style={styles.emphasis}> {cycleLengths[0]} </AppText>
+              <AppText>{labels.daysLabel}.</AppText>
             </View>
           }
           {atLeastOneCycle && numberOfCycles > 1 && <View>
-            <View style={styles.statsRow}>
-              <AppText style={styles.emphasis}>{labels.averageLabel}</AppText>
-              <AppText style={styles.emphasis}>{': ' + cycleInfo.mean + ' ' + labels.daysLabel}</AppText>
+            <View style={styles.paragraph}>
+              <AppText style={styles.emphasis}>
+                {labels.averageLabel}: {cycleInfo.mean} {labels.daysLabel}
+              </AppText>
             </View>
-            <View style={styles.statsRow}>
-              <AppText>{labels.minLabel}</AppText>
-              <AppText>{': ' + cycleInfo.minimum + ' ' + labels.daysLabel}</AppText>
+            <View>
+              <AppText>
+                {labels.minLabel}: {cycleInfo.minimum} {labels.daysLabel}
+              </AppText>
             </View>
-            <View style={styles.statsRow}>
-              <AppText>{labels.maxLabel}</AppText>
-              <AppText>{': ' + cycleInfo.maximum + ' ' + labels.daysLabel}</AppText>
+            <View>
+              <AppText>
+                {labels.maxLabel}: {cycleInfo.maximum} {labels.daysLabel}
+              </AppText>
             </View>
-            <View style={[styles.statsRow, styles.paragraph]}>
-              <AppText>{labels.stdLabel}</AppText>
-              <AppText>{': ' + cycleInfo.stdDeviation + ' ' + labels.daysLabel}</AppText>
+            <View style={styles.paragraph}>
+              <AppText>
+                {labels.stdLabel}: {cycleInfo.stdDeviation} {labels.daysLabel}
+              </AppText>
             </View>
             <View style={styles.statsRow}>
               <AppText>{labels.basisOfStatsBeginning}</AppText>
-              <AppText style={styles.emphasis}>{' ' + numberOfCycles + ' '} </AppText>
+              <AppText style={styles.emphasis}> {numberOfCycles} </AppText>
               <AppText>{labels.basisOfStatsEnd}</AppText>
             </View>
           </View>}

@@ -306,7 +306,7 @@ export default StyleSheet.create({
   },
   statsRow: {
     flexDirection: 'row',
-    width: '100%'
+    flexWrap: 'wrap'
   },
   menuLabel: {
     fontSize: 15,
