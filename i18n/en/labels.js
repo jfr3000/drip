@@ -55,7 +55,7 @@ export const menuTitles = {
 export const stats = {
   cycleLengthTitle: 'Cycle length',
   cycleLengthExplainer: 'Basic statistics about the length of your cycles.',
-  emptyStats: 'At least one completed cycle is needed to present you with stats here.',
+  emptyStats: 'At least one completed cycle is needed to display stats.',
   //oneCycleStats: (number) => `You have documented one cycle of ${number} days.`,
   oneCycleStats: 'You have documented one cycle of',
   daysLabel: 'days',
