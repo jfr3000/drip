@@ -85,14 +85,15 @@ By default the secondary symptom the app uses for NFP evaluation is cervical muc
 the app helps you identify in which phase of your cycle you are.
 
 · How to identify fertile cervical mucus?
-Tracking the feeling and the texture of your cervical mucus on a daily basis helps you identify changes of the quality of the cervical mucus. The values you enter for both feeling and texture of your cervical mucus are combined by drip into one of five NFP-conforming values. From least to most fertile:
+Tracking the feeling and the texture of your cervical mucus on a daily basis helps you identify changes of the quality of the cervical mucus. The values you enter for both feeling and texture of your cervical mucus are combined by drip into one of five NFP-conforming values.
+From lowest to best quality:
 · t = (dry feeling + no texture),
 · ∅ = (no feeling + no texture),
 · f = (wet feeling + no texture),
 · S = (no OR wet feeling + creamy texture),
 · S+ = (any feeling + egg white texture) OR (slippery feeling + any texture).
 
-On the chart, fertile mucus is colored in dark blue, and infertile mucus is colored in lighter shades of blue.
+On the chart, mucus is colored in blue: the darker the shade of blue the better the quality of your mucus.
 
 Please note that drip does not yet support "parenthesis values": According to NFP rules,  you can qualify a mucus value by putting parentheses around it, to indicate that it doesn't fully meet the descriptors of one of the five categories, and instead is in between. This functionality will be supported in the future.
 
@@ -122,7 +123,7 @@ ${generalInfo.curiousNfp}`
   },
   sex:  {
     title: 'Tracking sex and contraceptives',
-    text: `The app allows you to track sex independently from sexual desire. You can differentiate between masturbation and sex with a partner(s). Here you can also track your contraceptive method(s). Only sexual activity will be shown in the "chart" section, lighter purple indicating solo sex and darker purple partner sex. Did you know that having an orgasm can help release cramps?
+    text: `The app allows you to track sex independently from sexual desire. You can differentiate between masturbation and sex with a partner/partners. Here you can also track your contraceptive method(s). Only sexual activity will be shown in the "chart" section, lighter purple indicating solo sex and darker purple partner sex. Did you know that having an orgasm can help release cramps?
 
 ${generalInfo.noNfpSymptom}
 
