@@ -126,9 +126,9 @@ export const noteExplainer = "Anything you want to add for the day?"
 export const sharedDialogs = {
   cancel: 'Cancel',
   areYouSureTitle: 'Are you sure?',
-  areYouSureToUnset: 'Are you sure you want to delete this entry?',
-  reallyUnsetData: 'Yes, I am sure',
+  areYouSureToDelete: 'Are you sure you want to delete this entry?',
+  reallyDeleteData: 'Yes, I am sure',
   save: 'Save',
-  unset: 'Delete',
+  delete: 'Delete',
   disabledInfo: 'There is some data missing'
 }
