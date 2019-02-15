@@ -8,7 +8,7 @@ export const generalInfo = {
   nfpTfyReminder: `Drip makes period predictions for you and helps you apply NFP fertility awareness rules. But please remember that this app is made by humans, and humans make mistakes. Always think for yourself: "Does this make sense?" Remember, you don't need an app to understand your cycle! However, drip wants to support you and make period tracking easier, more transparent and secure.
 
 Please find more info on the sympto-thermal method in our ${links.wiki.url}.`,
-  noNfpSymptom: `The app allows you to track this symptom for your mere information, it is not taken into account for any calculation. On the chart you can check how often you track this symptom.`
+  noNfpSymptom: `The app allows you to track this symptom for your information, it is not taken into account for any calculation. On the chart you can check how often you track this symptom.`
 }
 
 export default {
@@ -18,7 +18,7 @@ export default {
 
 After tracking at least 3 menstrual cycles, drip will give you an overview of
 · how long your cycles last on average (in "stats"),
-· whether the length of your last cycles vary a lot (in "stats" and in bleeding predictions)
+· whether the length of your cycles varied significantly (in "stats" and in bleeding predictions)
 · and predict your next 3 cycles with a range of 3 or 5 days (on home screen and "calendar").
 
 The app allows you to track different intensities of bleeding. On the chart and on the calendar, bleeding values are colored in different shades of red. The darker, the more intense your bleeding. Every bleeding value that is not excluded is taken into account for fertility calculation and prediction for the start of next cycles.
@@ -46,7 +46,7 @@ By default, the secondary symptom the app uses for NFP evaluation is cervical mu
 the app helps you identify in which phase of your cycle you are.
 
 · How to identify a fertile cervix?
-When your cervix is rather open and feels soft like your earlobes, in contrast to an infertile cervix that feels rather closed and hard, like the tip of your nose. If the cervix feels anything but closed and hard, drip takes it as a sign of fertility. On the chart, a fertile cervix is colored in dark yellow, and infertile cervix is colored in light yellow.
+A fertile cervix is open and feels soft like your earlobes. In contrast, an infertile cervix feels closed and hard, like the tip of your nose. If the cervix feels anything other than closed and hard, drip takes it as a sign of fertility. On the chart, a fertile cervix is colored in dark yellow, and infertile cervix is colored in light yellow.
 
 ${generalInfo.chartNfp}
 
@@ -85,14 +85,15 @@ By default the secondary symptom the app uses for NFP evaluation is cervical muc
 the app helps you identify in which phase of your cycle you are.
 
 · How to identify fertile cervical mucus?
-Tracking the feeling and the texture of your cervical mucus on a daily basis helps you identify changes of the quality of the cervical mucus. The values you enter for both feeling and texture of your cervical mucus are combined by drip into one of five NFP-conforming values, from least to most fertile:
-· t (= dry feeling + no texture),
-· ∅ (= no feeling + no texture),
-· f (= wet feeling + no texture),
-· S (= no OR wet feeling + creamy texture),
-· and S+ (= any feeling + egg white texture OR slippery feeling + any texture).
+Tracking the feeling and the texture of your cervical mucus on a daily basis helps you identify changes of the quality of the cervical mucus. The values you enter for both feeling and texture of your cervical mucus are combined by drip into one of five NFP-conforming values.
+From lowest to best quality:
+· t = (dry feeling + no texture),
+· ∅ = (no feeling + no texture),
+· f = (wet feeling + no texture),
+· S = (no OR wet feeling + creamy texture),
+· S+ = (any feeling + egg white texture) OR (slippery feeling + any texture).
 
-On the chart, fertile mucus is colored in dark blue, and infertile mucus values are colored in lighter shades of blue.
+On the chart, mucus is colored in blue: the darker the shade of blue the better the quality of your mucus.
 
 Please note that drip does not yet support "parenthesis values": According to NFP rules,  you can qualify a mucus value by putting parentheses around it, to indicate that it doesn't fully meet the descriptors of one of the five categories, and instead is in between. This functionality will be supported in the future.
 
@@ -104,7 +105,7 @@ ${generalInfo.nfpTfyReminder}`
   },
   note:  {
     title: 'Notes',
-    text: `Note allows you to track any extra information you want to save here. It is the only category that can store information for a date in the future. This can be helpful e.g. for reminding you of an appointment.
+    text: `Note allows you to track any extra information you want to save. It is the only category that can store information for a date in the future. This can be helpful for reminding you of an appointment.
 
 ${generalInfo.noNfpSymptom}
 
@@ -145,7 +146,7 @@ It's your temperature after lying still for at least 6 hours. For many, this is 
 The thermometer must indicate 2 decimal places.
 
 · How to measure?
-You can either measure rectally, vaginally or orally. If you chose rectal or vaginal measurement, you need to measure for at least 3 minutes. If you chose oral measurement, you should measure for at least 5 minutes. Pick one way and stick to it.
+You can measure rectally, vaginally or orally. If you chose rectal or vaginal measurement, you need to measure for at least 3 minutes. If you chose oral measurement, you should measure for at least 5 minutes. Pick one way and stick to it.
 
 ${generalInfo.chartNfp}
 

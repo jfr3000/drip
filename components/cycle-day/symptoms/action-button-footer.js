@@ -22,16 +22,16 @@ export default class ActionButtonFooter extends Component {
     const navigateToOverView = () => navigate('CycleDay', {date})
     const buttons = [
       {
-        title: labels.unset,
+        title: labels.delete,
         action: () => {
           Alert.alert(
             labels.areYouSureTitle,
-            labels.areYouSureToUnset,
+            labels.areYouSureToDelete,
             [{
               text: labels.cancel,
               style: 'cancel'
             }, {
-              text: labels.reallyUnsetData,
+              text: labels.reallyDeleteData,
               onPress: () => {
                 saveSymptom(symptom, date)
                 navigateToOverView()

@@ -122,6 +122,6 @@ You can contact us by bloodyhealth@mailbox.org.`
   },
   credits: {
     title: 'Credits',
-    note: 'Thanks and lots of <3 to all of our contributors, as well as, and especially,  Susanne Umscheid for the wonderful visual and logo design, and Paula Härtel for the symptom icons'
+    note: 'Thanks and lots of <3 to all of our contributors as well as Susanne Umscheid for the wonderful design, and Paula Härtel for the symptom icons.'
   }
 }
