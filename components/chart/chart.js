@@ -170,10 +170,7 @@ export default class CycleChart extends Component {
                 size={styles.yAxis.width - 7}
                 color={cycleDayColor}
               />
-              <AppText style={[
-                styles.column.label.date,
-                styles.yAxisLabels.dateLabel
-              ]}>
+              <AppText style={[styles.yAxisLabels.dateLabel]}>
                 {labels.date.toLowerCase()}
               </AppText>
             </View>

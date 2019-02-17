@@ -34,6 +34,7 @@ const styles = {
         fontSize: 9,
         fontWeight: '100',
         textAlign: 'center',
+        paddingTop: 2.5
       },
       number: {
         color: cycleDayColor,
@@ -101,7 +102,10 @@ const styles = {
     },
     dateLabel: {
       textAlign: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
+      color: 'grey',
+      fontSize: 9,
+      fontWeight: '100',
     }
   },
   horizontalGrid: {
