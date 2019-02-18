@@ -5,7 +5,13 @@ export const generalInfo = {
   curiousNfp: `If you are curious to learn more about the sympto-thermal method that is used for fertility tracking within the app, you can visit our ${links.wiki.url}.`,
   cycleRelation: `It may be influenced by or have an impact on your menstrual cycles and its hormonal changes.`,
   excludeExplainer: `You can exclude these values, so they won't be taken into account for any fertility calculation.`,
-  nfpTfyReminder: `Drip makes period predictions for you and helps you apply NFP fertility awareness rules. But please remember that this app is made by humans, and humans make mistakes. Always think for yourself: "Does this make sense?" Remember, you don't need an app to understand your cycle! However, drip wants to support you and make period tracking easier, more transparent and secure.
+  nfpTfyReminder: `When - on a daily/regular basis - you track:
+  1. your basal body temperature,
+  2. your cervical mucus OR your cervix,
+  3. and menstrual bleeding
+the app helps you identify in which phase of the menstrual cycle you are.
+
+drip makes period predictions for you and helps you apply NFP fertility awareness rules. But please remember that this app is made by humans, and humans make mistakes. Always think for yourself: "Does this make sense?" Remember, you don't need an app to understand your cycle! However, drip wants to support you and make period tracking easier, more transparent and secure.
 
 Please find more info on the sympto-thermal method in our ${links.wiki.url}.`,
   noNfpSymptom: `The app allows you to track this symptom for your information, it is not taken into account for any calculation. On the chart you can check how often you track this symptom.`
@@ -25,12 +31,6 @@ The app allows you to track different intensities of bleeding. On the chart and 
 
 Excluding bleeding values is for tracking bleeding when it's not marking the start of a new cycle or the continuation of menstrual bleeding the day(s) before, e.g. bleeding caused by ovulation or a miscarriage.
 
-When - on a daily/regular basis - you track:
-1. your basal body temperature,
-2. your cervical mucus OR your cervix,
-3. and menstrual bleeding
-the app helps you identify in which phase of your cycle you are.
-
 ${generalInfo.nfpTfyReminder}`,
   },
   cervix:  {
@@ -39,11 +39,7 @@ ${generalInfo.nfpTfyReminder}`,
 
 Tracking how open or closed and how firm or soft the cervix feels can help determine in which phase of the menstrual cycle you are.
 
-By default, the secondary symptom the app uses for NFP evaluation is cervical mucus, but you can change it to cervix in "Settings" -> "NFP Settings". When - on a daily/regular basis - you track:
-1. your basal body temperature,
-2. your cervical mucus OR your cervix,
-3. and menstrual bleeding
-the app helps you identify in which phase of your cycle you are.
+By default, the secondary symptom the app uses for NFP evaluation is cervical mucus, but you can change it to cervix in "Settings" -> "NFP Settings".
 
 · How to identify a fertile cervix?
 A fertile cervix is open and feels soft like your earlobes. In contrast, an infertile cervix feels closed and hard, like the tip of your nose. If the cervix feels anything other than closed and hard, drip takes it as a sign of fertility. On the chart, a fertile cervix is colored in dark yellow, and infertile cervix is colored in light yellow.
@@ -78,11 +74,7 @@ ${generalInfo.curiousNfp}`
     title: 'Tracking cervical mucus',
     text: `Cervical mucus can help determine in which phase of the menstrual cycle you are.
 
-By default the secondary symptom the app uses for NFP evaluation is cervical mucus. When - on a daily/regular basis - you track:
-1. your basal body temperature,
-2. your cervical mucus OR your cervix,
-3. and menstrual bleeding
-the app helps you identify in which phase of your cycle you are.
+By default the secondary symptom the app uses for NFP evaluation is cervical mucus.
 
 · How to identify fertile cervical mucus?
 Tracking the feeling and the texture of your cervical mucus on a daily basis helps you identify changes of the quality of the cervical mucus. The values you enter for both feeling and texture of your cervical mucus are combined by drip into one of five NFP-conforming values.
@@ -133,11 +125,7 @@ ${generalInfo.curiousNfp}`
     title: 'Tracking body basal temperature',
     text: `One of the body signs you need to track for knowing your fertility status is your body basal temperature. The body temperature changes over the course of a menstrual cycle, it rises after ovulation.
 
-By default the secondary symptom is cervical mucus, but you can change it to cervix in "Settings" -> "NFP Settings". When - on a daily/regular basis - you track:
-1. your basal body temperature,
-2. your cervical mucus OR your cervix,
-3. and menstrual bleeding
-the app helps you identify in which phase of your cycle you are.
+By default the secondary symptom is cervical mucus, but you can change it to cervix in "Settings" -> "NFP Settings".
 
 · What is body basal temperature?
 It's your temperature after lying still for at least 6 hours. For many, this is when they are waking up in the morning after sleeping at least 6 hours and before getting up.

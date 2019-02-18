@@ -15,8 +15,8 @@ export default {
       couldNotConvert: 'Could not convert data to CSV',
       problemSharing: 'There was a problem sharing the data export file'
     },
-    title: 'My Drip data export',
-    subject: 'My Drip data export',
+    title: 'My drip data export',
+    subject: 'My drip data export',
     button: 'Export data',
     segmentExplainer: 'Export data in CSV format for backup or so you can use it elsewhere'
   },
@@ -96,11 +96,11 @@ export default {
   },
   aboutSection: {
     title: 'About',
-    text: `Please note that your data is stored locally on your phone and not on a server. This means your data cannot be read by anyone else unless they have access to your phone. We want to ensure that you stay in control of your own data. If you are planning to switch or reset your phone, please remember to export your data before doing so. You can reinstall the app afterwards and import your data.\n\nIf you encounter any technical issues, don't hesitate to contact via ${links.email.url}. You can also contribute to the code base on ${links.gitlab.url}`,
+    text: `Please note that your data is stored locally on your phone and not on a server. This means your data cannot be read by anyone else unless they have access to your phone. We want to ensure that you stay in control of your own data. If you are planning to switch or reset your phone, please remember to export your data before doing so. You can reinstall the app afterwards and import your data.\n\nIf you encounter any technical issues, don't hesitate to contact us via ${links.email.url}. You can also contribute to the code base on ${links.gitlab.url}`,
   },
   philosophy: {
     title: 'Remember to think for yourself',
-    text: `Drip makes period predictions for you and helps you apply NFP fertility awareness rules. But please remember that this app is made by humans, and humans make mistakes. Always think for yourself: "Does this make sense?" Remember, you don't need an app to understand your cycle! However, drip wants to support you and make period tracking easier, more transparent and secure.`,
+    text: `drip makes period predictions for you and helps you apply NFP fertility awareness rules. But please remember that this app is made by humans, and humans make mistakes. Always think for yourself: "Does this make sense?" Remember, you don't need an app to understand your cycle! However, drip wants to support you and make period tracking easier, more transparent and secure.`,
   },
   license: {
     title: 'drip is an open-source cycle tracking app',
