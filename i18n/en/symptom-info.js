@@ -2,12 +2,12 @@ import links from './links'
 
 export const generalInfo = {
   chartNfp: `On the chart, you can track fertility signs. When both a valid temperature shift and a mucus or cervix shift have been detected, an orange line will be displayed on the chart. This indicates the end of the peri-ovulatory and the beginning of the post-ovulatory phase.`,
-  curiousNfp: `If you are curious to learn more about the sympto-thermal method that is used for fertility tracking within the app, you can visit our ${links.wiki.url}.`,
+  curiousNfp: `If you are curious to learn more about the sympto-thermal method that is used for fertility tracking within the app, you can visit ${links.wiki.url}.`,
   cycleRelation: `It may be influenced by or have an impact on your menstrual cycles and its hormonal changes.`,
   excludeExplainer: `You can exclude these values, so they won't be taken into account for any fertility calculation.`,
   nfpTfyReminder: `Drip makes period predictions for you and helps you apply NFP fertility awareness rules. But please remember that this app is made by humans, and humans make mistakes. Always think for yourself: "Does this make sense?" Remember, you don't need an app to understand your cycle! However, drip wants to support you and make period tracking easier, more transparent and secure.
 
-Please find more info on the sympto-thermal method in our ${links.wiki.url}.`,
+Please find more info on the sympto-thermal method in ${links.wiki.url}.`,
   noNfpSymptom: `The app allows you to track this symptom for your information, it is not taken into account for any calculation. On the chart you can check how often you track this symptom.`
 }
 

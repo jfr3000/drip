@@ -111,7 +111,7 @@ export const fertilityStatus = {
   fertileUntilEvening: 'Fertile phase ends in the evening',
   unknown: 'We cannot show any cycle information because no period data has been added.',
   preOvuText: "With NFP rules, you may assume 5 days of infertility at the beginning of your cycle, provided you don't observe any fertile mucus or cervix values.",
-  periOvuText: "We have not been able to detect both a temperature shift and mucus or cervix shift.",
+  periOvuText: "We have not been able to detect both a temperature shift and mucus or cervix shift. Please find more information on NFP rules here:",
   postOvuText: tempRule => {
     return (
       'We have detected a temperature shift (' + ['regular', '1st exception', '2nd exception'][tempRule] +
