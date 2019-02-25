@@ -9,6 +9,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "android": "react-native run-android",
+    "ios": "react-native run-ios --simulator=\"iPhone 8 Plus\"",
     "log": "react-native log-android",
     "test": "mocha --recursive --require @babel/register test && npm run lint",
     "test-watch": "mocha --recursive --require @babel/register --watch test",

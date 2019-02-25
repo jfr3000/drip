@@ -106,7 +106,7 @@ export default class CycleDayOverView extends Component {
       },
       sex: sex => {
         let sexLabel = []
-        if (sex && Object.values(sex).some(val => val)){
+        if (sex && Object.values({...sex}).some(val => val)){
           Object.keys(sex).forEach(key => {
             if(sex[key] && key !== 'other' && key !== 'note') {
               sexLabel.push(
@@ -128,7 +128,7 @@ export default class CycleDayOverView extends Component {
       },
       pain: pain => {
         let painLabel = []
-        if (pain && Object.values(pain).some(val => val)){
+        if (pain && Object.values({...pain}).some(val => val)){
           Object.keys(pain).forEach(key => {
             if(pain[key] && key !== 'other' && key !== 'note') {
               painLabel.push(painLabels[key])
@@ -147,7 +147,7 @@ export default class CycleDayOverView extends Component {
       },
       mood: mood => {
         let moodLabel = []
-        if (mood && Object.values(mood).some(val => val)){
+        if (mood && Object.values({...mood}).some(val => val)){
           Object.keys(mood).forEach(key => {
             if(mood[key] && key !== 'other' && key !== 'note') {
               moodLabel.push(moodLabels[key])
