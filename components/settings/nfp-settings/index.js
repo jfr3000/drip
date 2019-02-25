@@ -32,7 +32,6 @@ export default class Settings extends Component {
             <AppText style={styles.framedSegmentTitle}>{`${labels.preOvu.title} `}</AppText>
           </View>
           <AppText>{labels.preOvu.note}</AppText>
-          <AppText>{labels.preOvu.note}</AppText>
         </FramedSegment>
       </ScrollView>
     )
