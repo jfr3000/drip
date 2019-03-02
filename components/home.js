@@ -158,7 +158,7 @@ export default class Home extends Component {
               { isShowingMore &&
                 <View>
                   <AppText styles={styles.paragraph}>
-                    { `${statusText} ${links.moreAboutNfp.url}` }
+                    { `${statusText} ${links.wiki.url}.` }
                   </AppText>
                 </View>
               }

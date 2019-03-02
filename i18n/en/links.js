@@ -9,13 +9,9 @@ export default {
   },
   wiki: {
     url: 'https://gitlab.com/bloodyhealth/drip/wikis/home',
-    text: 'wiki'
+    text: 'our wiki'
   },
   website: {
     url: 'https://bloodyhealth.gitlab.io/'
-  },
-  moreAboutNfp: {
-    url: 'https://gitlab.com/bloodyhealth/drip/wikis/nfp/intro',
-    text: 'More'
   },
 }
