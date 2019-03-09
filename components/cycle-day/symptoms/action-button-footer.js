@@ -39,7 +39,10 @@ export default class ActionButtonFooter extends Component {
             }]
           )
         },
-        disabledCondition: !currentSymptomValue,
+        disabledCondition: (!currentSymptomValue ||
+          (Object.keys(currentSymptomValue).length === 0 && currentSymptomValue.constructor === Object) ||
+          (Object.values(currentSymptomValue).every(x => !x) && currentSymptomValue.constructor === Object)
+        ),
         icon: 'delete-outline'
       }, {
         title: labels.save,
