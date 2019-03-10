@@ -26,6 +26,16 @@ const defaultIndentation = 10
 const defaultTopMargin = 10
 const colorInActive = '#666666'
 
+export const calendarTheme = {
+  textDayFontFamily: textFont,
+  textMonthFontFamily: textFontBold,
+  textDayHeaderFontFamily: textFont,
+  textDayFontSize: regularSize,
+  textMonthFontSize: regularSize,
+  textDayHeaderFontSize: hintSize,
+  textSectionTitleColor: 'grey'
+}
+
 export default StyleSheet.create({
   appText: {
     color: 'black',
