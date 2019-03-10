@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { CalendarList } from 'react-native-calendars'
-import {LocalDate} from 'js-joda'
+import { LocalDate } from 'js-joda'
 import { getBleedingDaysSortedByDate } from '../db'
 import cycleModule from '../lib/cycle'
-import {shadesOfRed} from '../styles/index'
+import { shadesOfRed, calendarTheme } from '../styles/index'
 import styles from '../styles/index'
 import nothingChanged from '../db/db-unchanged'
 
@@ -52,6 +52,9 @@ export default class CalendarView extends Component {
           )
         }
         markingType={'custom'}
+        // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
+        firstDay={1}
+        theme={calendarTheme}
       />
     )
   }
