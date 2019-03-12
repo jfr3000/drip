@@ -172,9 +172,9 @@ export default StyleSheet.create({
     fontFamily: headerFont
   },
   symptomViewHeading: {
-    fontSize: 20,
-    color: 'black',
-    marginBottom: 5
+    fontWeight: 'bold',
+    fontFamily: textFontBold,
+    marginTop: 10
   },
   symptomInfoIcon: {
     marginRight: 20,
@@ -343,10 +343,10 @@ export default StyleSheet.create({
   selectBoxSection: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginVertical: 10,
+    marginTop: 7,
   },
   selectTabGroup: {
-    marginVertical: 10,
+    marginTop: 7,
     flexDirection: 'row'
   },
   selectTab: {
