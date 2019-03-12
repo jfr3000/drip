@@ -27,7 +27,7 @@ export default class SelectTabGroup extends Component {
                 key={i}
                 activeOpacity={1}
               >
-                <View style={styles.radioButtonTextGroup}>
+                <View>
                   <View style={[
                     styles.selectTab,
                     firstOrLastStyle,
