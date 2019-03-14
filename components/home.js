@@ -1,19 +1,20 @@
+import { ChronoUnit, LocalDate } from 'js-joda'
 import React, { Component } from 'react'
-import { ScrollView, View, TouchableHighlight, Dimensions } from 'react-native'
-import { LocalDate, ChronoUnit } from 'js-joda'
+import { Dimensions, ScrollView, TouchableHighlight, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Entypo'
-import { secondaryColor, cycleDayColor, periodColor } from '../styles'
+
+import DripHomeIcon from '../assets/drip-home-icons'
+import { getCycleDay } from '../db'
 import {
-  home as labels,
   bleedingPrediction as predictLabels,
+  home as labels,
   shared,
 } from '../i18n/en/labels'
 import links from '../i18n/en/links'
 import cycleModule from '../lib/cycle'
 import { getFertilityStatusForDay } from '../lib/sympto-adapter'
-import styles from '../styles'
+import styles, { cycleDayColor, periodColor, secondaryColor } from '../styles'
 import AppText from './app-text'
-import DripHomeIcon from '../assets/drip-home-icons'
 import Button from './button'
 
 const ShowMoreToggler = ({ isShowingMore, onToggle }) => {
@@ -83,7 +84,10 @@ export default class Home extends Component {
 
   passTodayTo(componentName) {
     const { navigate } = this.props
-    navigate(componentName, { date: LocalDate.now().toString() })
+    navigate(componentName, {
+      date: this.todayDateString,
+      cycleDay: getCycleDay(this.todayDateString)
+    })
   }
 
   toggleShowingMore = () => {
