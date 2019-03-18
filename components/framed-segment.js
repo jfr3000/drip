@@ -5,7 +5,7 @@ import { View } from 'react-native'
 import AppText from './app-text'
 import styles from '../styles'
 
-const FramedSegment = ({ children, ...props }) => {
+const FramedSegment = ({children, ...props}) => {
   const style = [styles.framedSegment, props.style]
   if (props.last) style.push(styles.framedSegmentLast)
   return (
