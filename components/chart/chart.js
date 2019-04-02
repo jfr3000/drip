@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { View, FlatList, ActivityIndicator } from 'react-native'
-import range from 'date-range'
 import { LocalDate } from 'js-joda'
 import { makeYAxisLabels, makeHorizontalGrid } from './y-axis'
 import nfpLines from './nfp-lines'
@@ -124,14 +123,8 @@ export default class CycleChart extends Component {
       // we don't want the chart to end abruptly before the first data day
       amountOfCycleDays += 5
     }
-    const jsDates = getTodayAndPreviousDays(amountOfCycleDays)
-    return jsDates.map(jsDate => {
-      return LocalDate.of(
-        jsDate.getFullYear(),
-        jsDate.getMonth() + 1,
-        jsDate.getDate()
-      ).toString()
-    })
+    const localDates = getTodayAndPreviousDays(amountOfCycleDays)
+    return localDates.map(localDate => localDate.toString())
   }
 
   render() {
@@ -213,12 +206,18 @@ function LoadingMoreView(props) {
 }
 
 function getTodayAndPreviousDays(n) {
-  const today = new Date()
-  today.setHours(12)
-  today.setMinutes(0)
-  today.setSeconds(0)
-  today.setMilliseconds(0)
-  const earlierDate = new Date(today - (range.DAY * n))
+  const today = LocalDate.now()
+  const targetDate = today.minusDays(n)
 
-  return range(earlierDate, today).reverse()
+  function getDaysInRange(currDate, range) {
+    if (currDate.isBefore(targetDate)) {
+      return range
+    } else {
+      range.push(currDate)
+      const next = currDate.minusDays(1)
+      return getDaysInRange(next, range)
+    }
+  }
+
+  return getDaysInRange(today, [])
 }
