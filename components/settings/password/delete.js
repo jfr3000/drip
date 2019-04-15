@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+
 import labels from '../../../i18n/en/settings'
 import { changeEncryptionAndRestartApp } from '../../../db'
 import ConfirmWithPassword from '../shared/confirm-with-password'
@@ -45,4 +47,9 @@ export default class DeletePassword extends Component {
       </SettingsButton>
     )
   }
+}
+
+DeletePassword.propTypes = {
+  onStartDelete: PropTypes.func,
+  onCancelDelete: PropTypes.func
 }

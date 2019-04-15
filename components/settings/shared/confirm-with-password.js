@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { View, Alert } from 'react-native'
 
 import nodejs from 'nodejs-mobile-react-native'
@@ -99,4 +100,9 @@ export default class ConfirmWithPassword extends Component {
     )
 
   }
+}
+
+ConfirmWithPassword.propTypes = {
+  onSuccess: PropTypes.func,
+  onCancel: PropTypes.func
 }

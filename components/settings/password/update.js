@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+
 import settings from '../../../i18n/en/settings'
 import EnterNewPassword from './enter-new-password'
 import SettingsButton from '../shared/settings-button'
@@ -77,4 +79,9 @@ export default class ChangePassword extends Component {
       </SettingsButton>
     )
   }
+}
+
+ChangePassword.propTypes = {
+  onStartChange: PropTypes.func,
+  onCancelChange: PropTypes.func
 }
