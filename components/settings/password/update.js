@@ -17,10 +17,15 @@ export default class ChangePassword extends Component {
   }
 
   startChangingPassword = () => {
-    showBackUpReminder(() => {
-      this.setState({ enteringCurrentPassword: true })
-    })
-    this.props.onStartChangingPassword()
+    showBackUpReminder(
+      this.startEnteringCurrentPassword,
+      this.cancelConfirmationWithPassword
+    )
+  }
+
+  startEnteringCurrentPassword = () => {
+    this.setState({ enteringCurrentPassword: true })
+    this.props.onStartChange()
   }
 
   startEnteringNewPassword = () => {
@@ -37,6 +42,7 @@ export default class ChangePassword extends Component {
       enteringNewPassword: false,
       enteringCurrentPassword: false
     })
+    this.props.onCancelChange()
   }
 
   render() {

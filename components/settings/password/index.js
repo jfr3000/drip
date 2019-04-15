@@ -24,8 +24,16 @@ export default class PasswordSetting extends Component {
     this.setState({ isChangingPassword: true })
   }
 
+  onCancelChangingPassword = () => {
+    this.setState({ isChangingPassword: false })
+  }
+
   onDeletingPassword = () => {
     this.setState({ isDeletingPassword: true })
+  }
+
+  onCancelDeletingPassword = () => {
+    this.setState({ isDeletingPassword: false })
   }
 
   render() {
@@ -53,13 +61,15 @@ export default class PasswordSetting extends Component {
 
           { (isPasswordSet && !isDeletingPassword) && (
             <ChangePassword
-              onStartChangingPassword = {this.onChangingPassword}
+              onStartChange = {this.onChangingPassword}
+              onCancelChange = {this.onCancelChangingPassword}
             />
           )}
 
           { (isPasswordSet && !isChangingPassword) && (
             <DeletePassword
-              onStartDeletingPassword = {this.onDeletingPassword}
+              onStartDelete = {this.onDeletingPassword}
+              onCancelDelete = {this.onCancelDeletingPassword}
             />
           )}
         </FramedSegment>
