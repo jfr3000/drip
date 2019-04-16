@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.0.2] - 2019-04-09
+## [0.0.2] - 2019-04-16
 ## Second updated beta release version
 ### Changes
 - First day of the week in calendar is now Monday instead of Sunday
@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Delete button for sex, pain and mood
 - Dates on chart
 
-## [0.0.1] - 2019-02-22
+## [0.0.1] - 2019-02-15
 ## First beta release version
 ### Added (list of core functionality)
 - you can track your menstrual bleeding
