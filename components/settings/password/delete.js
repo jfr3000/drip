@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+
 import labels from '../../../i18n/en/settings'
 import { changeEncryptionAndRestartApp } from '../../../db'
 import ConfirmWithPassword from '../shared/confirm-with-password'
@@ -14,7 +16,7 @@ export default class DeletePassword extends Component {
 
   startConfirmWithPassword = () => {
     this.setState({ enteringCurrentPassword: true })
-    this.props.onStartDeletingPassword()
+    this.props.onStartDelete()
   }
 
   startDeletePassword = async () => {
@@ -23,6 +25,7 @@ export default class DeletePassword extends Component {
 
   cancelConfirmationWithPassword = () => {
     this.setState({ enteringCurrentPassword: false })
+    this.props.onCancelDelete()
   }
 
   render() {
@@ -44,4 +47,9 @@ export default class DeletePassword extends Component {
       </SettingsButton>
     )
   }
+}
+
+DeletePassword.propTypes = {
+  onStartDelete: PropTypes.func,
+  onCancelDelete: PropTypes.func
 }

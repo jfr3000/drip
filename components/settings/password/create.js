@@ -19,7 +19,7 @@ export default class CreatePassword extends Component {
   }
 
   startSettingPassword = () => {
-    showBackUpReminder(this.toggleSettingPassword)
+    showBackUpReminder(this.toggleSettingPassword, () => {})
   }
 
   render () {

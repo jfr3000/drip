@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+
 import settings from '../../../i18n/en/settings'
 import EnterNewPassword from './enter-new-password'
 import SettingsButton from '../shared/settings-button'
@@ -17,10 +19,15 @@ export default class ChangePassword extends Component {
   }
 
   startChangingPassword = () => {
-    showBackUpReminder(() => {
-      this.setState({ enteringCurrentPassword: true })
-    })
-    this.props.onStartChangingPassword()
+    showBackUpReminder(
+      this.startEnteringCurrentPassword,
+      this.cancelConfirmationWithPassword
+    )
+  }
+
+  startEnteringCurrentPassword = () => {
+    this.setState({ enteringCurrentPassword: true })
+    this.props.onStartChange()
   }
 
   startEnteringNewPassword = () => {
@@ -37,6 +44,7 @@ export default class ChangePassword extends Component {
       enteringNewPassword: false,
       enteringCurrentPassword: false
     })
+    this.props.onCancelChange()
   }
 
   render() {
@@ -71,4 +79,9 @@ export default class ChangePassword extends Component {
       </SettingsButton>
     )
   }
+}
+
+ChangePassword.propTypes = {
+  onStartChange: PropTypes.func,
+  onCancelChange: PropTypes.func
 }
