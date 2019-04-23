@@ -269,7 +269,8 @@ export default StyleSheet.create({
   temperatureTextInput: {
     fontSize: 20,
     color: 'black',
-    textAlign: 'center'
+    textAlign: 'center',
+    width: '30%'
   },
   temperatureTextInputSuggestion: {
     color: '#939393'
@@ -298,6 +299,10 @@ export default StyleSheet.create({
   framedSegmentTitle: {
     fontWeight: 'bold',
     fontFamily: textFontBold
+  },
+  framedSegmentInlineChildren: {
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   settingsButton: {
     padding: 10,
@@ -383,10 +388,16 @@ export default StyleSheet.create({
     marginTop: 1
   },
   passwordField: {
-    padding: 10,
-    marginTop: 10,
     marginHorizontal: 10,
-    backgroundColor: 'white'
+    marginTop: 10
+  },
+  textInputField: {
+    padding: 10,
+    marginVertical: 10,
+    backgroundColor: 'white',
+    borderColor: secondaryColor,
+    borderStyle: 'solid',
+    borderWidth: 1,
   },
   passwordPromptPage: {
     padding: 30,

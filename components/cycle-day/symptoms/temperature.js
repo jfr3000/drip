@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {
   View,
-  TextInput,
   Switch,
   Keyboard,
   Alert,
@@ -18,6 +17,8 @@ import { scaleObservable } from '../../../local-storage'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
 import ActionButtonFooter from './action-button-footer'
 import config from '../../../config'
+import AppTextInput from '../../app-text-input'
+import AppText from '../../app-text'
 import SymptomSection from './symptom-section'
 
 const minutes = ChronoUnit.MINUTES
@@ -27,7 +28,6 @@ export default class Temp extends Component {
     super(props)
     const cycleDay = props.cycleDay
     this.temperature = cycleDay && cycleDay.temperature
-    this.makeActionButtons = props.makeActionButtons
 
     const temp = this.temperature
 
@@ -66,14 +66,12 @@ export default class Temp extends Component {
 
   checkRangeAndSave = () => {
     const value = Number(this.state.temperature)
-
-    const absolute = {
-      min: config.temperatureScale.min,
-      max: config.temperatureScale.max
-    }
+    const { min, max } = config.temperatureScale
+    const range = { min, max }
     const scale = scaleObservable.value
     let warningMsg
-    if (value < absolute.min || value > absolute.max) {
+
+    if (value < range.min || value > range.max) {
       warningMsg = labels.outOfAbsoluteRangeWarning
     } else if (value < scale.min || value > scale.max) {
       warningMsg = labels.outOfRangeWarning
@@ -91,36 +89,54 @@ export default class Temp extends Component {
     } else {
       this.saveTemperature()
     }
-
   }
 
+  setTemperature = (temperature) => {
+    if (isNaN(Number(temperature))) return
+    this.setState({ temperature, isSuggestion: false })
+  }
+
+  setNote = (note) => {
+    this.setState({ note })
+  }
+
+  showTimePicker = () => {
+    Keyboard.dismiss()
+    this.setState({ isTimePickerVisible: true })
+  }
 
   render() {
+    const inputStyle = [styles.temperatureTextInput]
+    if (this.state.isSuggestion) {
+      inputStyle.push(styles.temperatureTextInputSuggestion)
+    }
     return (
       <View style={{ flex: 1 }}>
         <ScrollView style={styles.page}>
-          <View>
-            <SymptomSection
-              header={labels.temperature.header}
-              explainer={labels.temperature.explainer}
-              inline={true}
-            >
-              <TempInput
+          <SymptomSection
+            header={labels.temperature.header}
+            explainer={labels.temperature.explainer}
+          >
+            <View style={styles.framedSegmentInlineChildren}>
+              <AppTextInput
+                style={[inputStyle]}
+                autoFocus={true}
+                placeholder={this.state.temperature}
                 value={this.state.temperature}
-                setState={(val) => this.setState(val)}
-                isSuggestion={this.state.isSuggestion}
+                onChangeText={this.setTemperature}
+                keyboardType='numeric'
+                onBlur={this.checkRange}
               />
-            </SymptomSection>
-            <SymptomSection
-              header={labels.time}
-              inline={true}
-            >
-              <TextInput
-                style={styles.temperatureTextInput}
-                onFocus={() => {
-                  Keyboard.dismiss()
-                  this.setState({ isTimePickerVisible: true })
-                }}
+              <AppText style={{ marginLeft: 5 }}>°C</AppText>
+            </View>
+          </SymptomSection>
+          <SymptomSection
+            header={labels.time}
+          >
+            <View style={styles.framedSegmentInlineChildren}>
+              <AppTextInput
+                style={[styles.temperatureTextInput]}
+                onFocus={this.showTimePicker}
                 value={this.state.time}
               />
               <DateTimePicker
@@ -134,34 +150,32 @@ export default class Temp extends Component {
                 }}
                 onCancel={() => this.setState({ isTimePickerVisible: false })}
               />
-            </SymptomSection>
-            <SymptomSection
-              header={labels.note.header}
-              explainer={labels.note.explainer}
-            >
-              <TextInput
-                multiline={true}
-                autoFocus={this.state.focusTextArea}
-                placeholder={sharedLabels.enter}
-                value={this.state.note}
-                onChangeText={(val) => {
-                  this.setState({ note: val })
-                }}
-              />
-            </SymptomSection>
-            <SymptomSection
-              header={labels.exclude.header}
-              explainer={labels.exclude.explainer}
-              inline={true}
-            >
-              <Switch
-                onValueChange={(val) => {
-                  this.setState({ exclude: val })
-                }}
-                value={this.state.exclude}
-              />
-            </SymptomSection>
-          </View>
+            </View>
+          </SymptomSection>
+          <SymptomSection
+            header={labels.note.header}
+            explainer={labels.note.explainer}
+          >
+            <AppTextInput
+              multiline={true}
+              autoFocus={this.state.focusTextArea}
+              placeholder={sharedLabels.enter}
+              value={this.state.note}
+              onChangeText={this.setNote}
+            />
+          </SymptomSection>
+          <SymptomSection
+            header={labels.exclude.header}
+            explainer={labels.exclude.explainer}
+            inline={true}
+          >
+            <Switch
+              onValueChange={(val) => {
+                this.setState({ exclude: val })
+              }}
+              value={this.state.exclude}
+            />
+          </SymptomSection>
         </ScrollView>
         <ActionButtonFooter
           symptom='temperature'
@@ -177,28 +191,6 @@ export default class Temp extends Component {
           autoShowDayView={false}
         />
       </View>
-    )
-  }
-}
-
-class TempInput extends Component {
-  render() {
-    const style = [styles.temperatureTextInput]
-    if (this.props.isSuggestion) {
-      style.push(styles.temperatureTextInputSuggestion)
-    }
-    return (
-      <TextInput
-        style={style}
-        onChangeText={(val) => {
-          if (isNaN(Number(val))) return
-          this.props.setState({ temperature: val, isSuggestion: false })
-        }}
-        keyboardType='numeric'
-        value={this.props.value}
-        onBlur={this.checkRange}
-        autoFocus={true}
-      />
     )
   }
 }

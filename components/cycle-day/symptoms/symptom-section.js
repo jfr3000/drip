@@ -20,9 +20,11 @@ export default class SymptomSection extends Component {
           flex={1}
           alignItems={p.inline ? 'center' : null}
         >
-          <View flex={1}>
-            <AppText>{p.explainer}</AppText>
-          </View>
+          { p.explainer && (
+            <View flex={1}>
+              <AppText>{p.explainer}</AppText>
+            </View>
+          )}
           {p.children}
         </View>
       </View>

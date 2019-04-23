@@ -1,19 +1,22 @@
 import React from 'react'
-import { TextInput } from 'react-native'
-import styles, {secondaryColor} from '../../../styles'
+import PropTypes from 'prop-types'
+import AppTextInput from '../../app-text-input'
+
+import styles from '../../../styles'
 
 export default function PasswordField(props) {
   return (
-    <TextInput
-      style={styles.passwordField}
-      autoFocus={props.autoFocus === false ? false : true}
-      secureTextEntry={true}
-      onChangeText={props.onChangeText}
-      value={props.value}
-      placeholder={props.placeholder}
-      borderWidth={1}
-      borderColor={secondaryColor}
-      borderStyle={'solid'}
+    <AppTextInput
+      style={ styles.passwordField }
+      secureTextEntry
+      {...props}
     />
   )
+}
+
+PasswordField.propTypes = {
+  placeholder: PropTypes.string,
+  value: PropTypes.string,
+  onChangeText: PropTypes.func,
+  autoFocus: PropTypes.bool
 }
