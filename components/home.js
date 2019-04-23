@@ -217,5 +217,11 @@ function getBleedingPredictionRange(prediction) {
   if (todayDate.isAfter(bleedingEnd)) {
     return labels.unknown
   }
-  return '0'
+  const daysToEnd = todayDate.until(bleedingEnd, ChronoUnit.DAYS)
+  if (daysToEnd === 0) {
+    return '0'
+  } else {
+    return `0 - ${daysToEnd}`
+  }
+  
 }
