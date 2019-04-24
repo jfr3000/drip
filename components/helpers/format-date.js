@@ -7,3 +7,7 @@ export default function (date) {
   const formattedDate = today.equals(dateToDisplay) ? 'today' : moment(date).format('MMMM Do YYYY')
   return formattedDate.toLowerCase()
 }
+
+export function dateForShortDescription (date) {
+  return moment(date.toString()).format('dddd, MMMM Do')
+}
