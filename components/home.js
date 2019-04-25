@@ -182,22 +182,22 @@ export default class Home extends Component {
 function determinePredictionText(bleedingPrediction) {
   if (!bleedingPrediction.length) return predictLabels.noPrediction
   const todayDate = LocalDate.now()
-  const bleedingStart = LocalDate.parse(bleedingPrediction[0][0])
-  const bleedingEnd = LocalDate.parse(
+  const predictedBleedingStart = LocalDate.parse(bleedingPrediction[0][0])
+  const predictedBleedingEnd = LocalDate.parse(
     bleedingPrediction[0][ bleedingPrediction[0].length - 1 ]
   )
-  if (todayDate.isBefore(bleedingStart)) {
+  if (todayDate.isBefore(predictedBleedingStart)) {
     return predictLabels.predictionInFuture(
-      todayDate.until(bleedingStart, ChronoUnit.DAYS),
-      todayDate.until(bleedingEnd, ChronoUnit.DAYS)
+      todayDate.until(predictedBleedingStart, ChronoUnit.DAYS),
+      todayDate.until(predictedBleedingEnd, ChronoUnit.DAYS)
     )
   }
-  if (todayDate.isAfter(bleedingEnd)) {
+  if (todayDate.isAfter(predictedBleedingEnd)) {
     return predictLabels.predictionInPast(
-      dateForShortDescription(bleedingStart), dateForShortDescription(bleedingEnd)
+      dateForShortDescription(predictedBleedingStart), dateForShortDescription(predictedBleedingEnd)
     )
   }
-  const daysToEnd = todayDate.until(bleedingEnd, ChronoUnit.DAYS)
+  const daysToEnd = todayDate.until(predictedBleedingEnd, ChronoUnit.DAYS)
   if (daysToEnd === 0) {
     return predictLabels.predictionStartedNoDaysLeft
   } else if (daysToEnd === 1) {
@@ -210,15 +210,15 @@ function determinePredictionText(bleedingPrediction) {
 function getBleedingPredictionRange(prediction) {
   if (!prediction.length) return labels.unknown
   const todayDate = LocalDate.now()
-  const bleedingStart = LocalDate.parse(prediction[0][0])
-  const bleedingEnd = LocalDate.parse(prediction[0][ prediction[0].length - 1 ])
-  if (todayDate.isBefore(bleedingStart)) {
-    return `${todayDate.until(bleedingStart, ChronoUnit.DAYS)}-${todayDate.until(bleedingEnd, ChronoUnit.DAYS)}`
+  const predictedBleedingStart = LocalDate.parse(prediction[0][0])
+  const predictedBleedingEnd = LocalDate.parse(prediction[0][ prediction[0].length - 1 ])
+  if (todayDate.isBefore(predictedBleedingStart)) {
+    return `${todayDate.until(predictedBleedingStart, ChronoUnit.DAYS)}-${todayDate.until(predictedBleedingEnd, ChronoUnit.DAYS)}`
   }
-  if (todayDate.isAfter(bleedingEnd)) {
+  if (todayDate.isAfter(predictedBleedingEnd)) {
     return labels.unknown
   }
-  const daysToEnd = todayDate.until(bleedingEnd, ChronoUnit.DAYS)
+  const daysToEnd = todayDate.until(predictedBleedingEnd, ChronoUnit.DAYS)
   if (daysToEnd === 0) {
     return '0'
   } else {
