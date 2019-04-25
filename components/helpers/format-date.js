@@ -8,6 +8,6 @@ export default function (date) {
   return formattedDate.toLowerCase()
 }
 
-export function dateForShortDescription (date) {
+export function formatDateForShortText (date) {
   return moment(date.toString()).format('dddd, MMMM Do')
 }

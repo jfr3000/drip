@@ -16,7 +16,7 @@ import { getFertilityStatusForDay } from '../lib/sympto-adapter'
 import styles, { cycleDayColor, periodColor, secondaryColor } from '../styles'
 import AppText from './app-text'
 import Button from './button'
-import { dateForShortDescription } from './helpers/format-date'
+import { formatDateForShortText } from './helpers/format-date'
 
 const ShowMoreToggler = ({ isShowingMore, onToggle }) => {
   const {height, width} = Dimensions.get('window')
@@ -194,7 +194,7 @@ function determinePredictionText(bleedingPrediction) {
   }
   if (todayDate.isAfter(predictedBleedingEnd)) {
     return predictLabels.predictionInPast(
-      dateForShortDescription(predictedBleedingStart), dateForShortDescription(predictedBleedingEnd)
+      formatDateForShortText(predictedBleedingStart), formatDateForShortText(predictedBleedingEnd)
     )
   }
   const daysToEnd = todayDate.until(predictedBleedingEnd, ChronoUnit.DAYS)
