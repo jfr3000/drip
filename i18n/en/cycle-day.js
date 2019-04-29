@@ -49,8 +49,8 @@ export const desire = {
 
 export const sex = {
   categories:{
-    solo: 'Solo',
-    partner: 'Partner',
+    solo: 'solo',
+    partner: 'partner',
   },
   header: "Activity",
   explainer: 'Were you sexually active today?',
@@ -58,15 +58,15 @@ export const sex = {
 
 export const contraceptives = {
   categories:{
-    condom: 'Condom',
-    pill: 'Pill',
-    iud: 'IUD',
-    patch: 'Patch',
-    ring: 'Ring',
-    implant: 'Implant',
-    diaphragm: 'Diaphragm',
-    none: 'None',
-    other: 'Other',
+    condom: 'condom',
+    pill: 'pill',
+    iud: 'iud',
+    patch: 'patch',
+    ring: 'ring',
+    implant: 'implant',
+    diaphragm: 'diaphragm',
+    none: 'none',
+    other: 'other',
   },
   header: "Contraceptives",
   explainer: 'Did you use contraceptives?'
@@ -74,30 +74,30 @@ export const contraceptives = {
 
 export const pain = {
   categories: {
-    cramps: 'Cramps',
-    ovulationPain: 'Ovulation pain',
-    headache: 'Headache',
-    backache: 'Backache',
-    nausea: 'Nausea',
-    tenderBreasts: 'Tender breasts',
-    migraine: 'Migraine',
-    other: 'Other'
+    cramps: 'cramps',
+    ovulationPain: 'ovulation pain',
+    headache: 'headache',
+    backache: 'backache',
+    nausea: 'nausea',
+    tenderBreasts: 'tender breasts',
+    migraine: 'migraine',
+    other: 'other'
   },
   explainer: 'How did your body feel today?'
 }
 
 export const mood = {
   categories: {
-    happy: 'Happy',
-    sad: 'Sad',
-    stressed: 'Stressed',
-    balanced: 'Balanced',
-    fine: 'Fine',
-    anxious: 'Anxious',
-    energetic: 'Energetic',
-    fatigue: 'Fatigue',
-    angry: 'Angry',
-    other: 'Other'
+    happy: 'happy',
+    sad: 'sad',
+    stressed: 'stressed',
+    balanced: 'balanced',
+    fine: 'fine',
+    anxious: 'anxious',
+    energetic: 'energetic',
+    fatigue: 'fatigue',
+    angry: 'angry',
+    other: 'other'
   },
   explainer: 'How did you feel today?'
 }
