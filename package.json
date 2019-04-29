@@ -25,7 +25,7 @@
     "js-base64": "^2.4.8",
     "js-joda": "^1.8.2",
     "moment": "^2.22.2",
-    "nodejs-mobile-react-native": "^0.3.0",
+    "nodejs-mobile-react-native": "^0.4.1",
     "object-path": "^0.11.4",
     "obv": "0.0.1",
     "prop-types": "^15.6.2",
