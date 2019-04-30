@@ -125,6 +125,7 @@ export default class Temp extends Component {
                 value={this.state.temperature}
                 onChangeText={this.setTemperature}
                 keyboardType='numeric'
+                maxLength={5}
                 onBlur={this.checkRange}
               />
               <AppText style={{ marginLeft: 5 }}>°C</AppText>
