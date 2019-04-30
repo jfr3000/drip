@@ -275,10 +275,19 @@ export default StyleSheet.create({
   temperatureTextInputSuggestion: {
     color: '#939393'
   },
-  actionButtonRow: {
+  actionButtonFooter: {
+    alignItems: 'center',
+    justifyContent: 'space-around',
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    marginTop: 50
+    height: 60,
+  },
+  actionButtonItem: {
+    backgroundColor: primaryColor,
+    alignItems: 'center',
+    flex: 1,
+    marginHorizontal: 5,
+    paddingVertical: 5,
+    borderRadius: 5,
   },
   symptomEditButton: {
     width: 130
