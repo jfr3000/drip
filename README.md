@@ -11,11 +11,11 @@ Here --> you will find our [contributing guide](https://gitlab.com/bloodyhealth/
 
 1.  Install [Android Studio](https://developer.android.com/studio/) - you'll need it to install some dependencies.
 
-1.  Make sure you are running Node 8 (newer versions won’t work). It's easiest to switch Node versions using `nvm`, here’s how to do it:
+1.  Make sure you are running Node 10 (newer versions won’t work). It's easiest to switch Node versions using `nvm`, here’s how to do it:
 
     ```
     $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
-    $ nvm install v8
+    $ nvm install v10
     ```
 
 1.  Clone this repository:
