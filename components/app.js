@@ -110,8 +110,9 @@ export default class App extends Component {
       Stats,
       ...symptomViews
     }
-    const page = pages[currentPage]
+    const Page = pages[currentPage]
     const title = headerTitlesLowerCase[currentPage]
+
     return (
       <View style={{flex: 1}}>
         {this.isDefaultView() &&
@@ -136,10 +137,7 @@ export default class App extends Component {
             })}
           />}
 
-        {React.createElement(page, {
-          navigate: this.navigate,
-          ...currentProps
-        })}
+        <Page navigate={this.navigate} {...currentProps} />
 
         {!this.isSymptomView() &&
           <Menu navigate={this.navigate} currentPage={currentPage} />
