@@ -179,7 +179,7 @@ export default class Home extends Component {
   }
 }
 
-function getTimes(prediction) {
+function getTimes(prediction) { 
   const todayDate = LocalDate.now()
   const predictedBleedingStart = LocalDate.parse(prediction[0][0])
   const predictedBleedingEnd = LocalDate.parse(prediction[0][ prediction[0].length - 1 ])
@@ -220,9 +220,5 @@ function getBleedingPredictionRange(prediction) {
   if (todayDate.isAfter(predictedBleedingEnd)) {
     return labels.unknown
   }
-  if (daysToEnd === 0) {
-    return '0'
-  } else {
-    return `0 - ${daysToEnd}`
-  }
+  return (daysToEnd === 0 ? '0' : `0 - ${daysToEnd}`)
 }
