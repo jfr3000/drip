@@ -7,7 +7,8 @@ export const dotRadius = 5
 const lineWidth = 1.5
 const colorLtl = '#feb47b'
 const gridColor = '#d3d3d3'
-const gridLineWidth = 0.5
+const gridLineWidthVertical = 0.6
+const gridLineWidthHorizontal = 0.3
 const numberLabelFontSize = 13
 
 const styles = {
@@ -44,7 +45,7 @@ const styles = {
     },
     stroke: {
       color: gridColor,
-      width: gridLineWidth,
+      width: gridLineWidthVertical,
     }
   },
   symptomIcon: {
@@ -110,10 +111,10 @@ const styles = {
   },
   horizontalGrid: {
     position:'absolute',
-    borderColor: gridColor,
-    borderWidth: gridLineWidth,
-    width: '100%',
     borderStyle: 'solid',
+    borderBottomColor: gridColor,
+    borderBottomWidth: gridLineWidthHorizontal,
+    width: '100%',
     left: config.columnWidth
   },
   nfpLine: {
