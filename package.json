@@ -18,12 +18,14 @@
     "update-version": "./tools/update-version.js",
     "build-android-release": "cd android && ./gradlew assembleRelease && cd ..",
     "commit-release": "./tools/commit-release",
+    "update-changelog": "./tools/update-changelog.js",
     "release": "npm run update-version && npm run build-android-release && npm run commit-release"
   },
   "dependencies": {
     "@ptomasroos/react-native-multi-slider": "^1.0.0",
     "ajv": "^5.5.2",
     "assert": "^1.4.1",
+    "basic-changelog": "gitlab:bloodyhealth/basic-changelog",
     "csvtojson": "^2.0.8",
     "isobject": "^3.0.1",
     "js-base64": "^2.4.8",
