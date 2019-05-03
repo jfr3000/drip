@@ -401,6 +401,8 @@ export default StyleSheet.create({
   },
   passwordPromptPage: {
     padding: 30,
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center'
   },
   passwordPromptField: {

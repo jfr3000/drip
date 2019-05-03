@@ -50,6 +50,7 @@ export const menuTitles = {
   Chart: 'Chart',
   Stats: 'Stats',
   Settings: 'Settings',
+  PasswordPrompt: 'Drip'
 }
 
 export const stats = {

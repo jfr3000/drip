@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { View, TextInput, TouchableOpacity, Alert, Image } from 'react-native'
+import { View, TextInput, TouchableOpacity, Alert } from 'react-native'
 import nodejs from 'nodejs-mobile-react-native'
 import { saveEncryptionFlag } from '../local-storage'
 import AppText from './app-text'
+import Header from './header'
 import styles from '../styles'
-import { passwordPrompt as labels, shared } from '../i18n/en/labels'
+import { passwordPrompt as labels, shared, menuTitles } from '../i18n/en/labels'
 import { requestHash, deleteDbAndOpenNew, openDb } from '../db'
 
 export default class PasswordPrompt extends Component {
@@ -87,12 +88,10 @@ export default class PasswordPrompt extends Component {
   render() {
     return (
       <View flex={1}>
+        <Header title={menuTitles.PasswordPrompt.toLowerCase()} />
         {this.state.showPasswordPrompt &&
           <View style={styles.passwordPromptPage}>
-            <Image
-              source={require('../assets/drip_small.png')}
-              style={styles.passwordPromptImage}
-            />
+
             <TextInput
               onChangeText={val => this.setState({ password: val })}
               style={styles.passwordPromptField}
