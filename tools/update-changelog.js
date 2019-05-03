@@ -2,7 +2,11 @@
 
 const updateChangelog = require('basic-changelog')
 
-updateChangelog('./CHANGELOG.md', err => {
+const opts = {
+  filterCommitsStartingWith: ['release:']
+}
+
+updateChangelog('./CHANGELOG.md', opts, err => {
   if (err) {
     console.error('Something went wrong trying to update the changelog:')
     console.error(err)
