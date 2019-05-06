@@ -16,16 +16,15 @@ export default class DataManagement extends Component {
     this.state = { isLoading: false }
   }
 
-  onStartLoading = () => {
+  startLoading = () => {
     this.setState({ isLoading: true })
   }
 
-  onEndLoading = () => {
+  endLoading = () => {
     this.setState({ isLoading: false })
   }
 
-  onImportData = async (shouldDeleteExistingData) => {
-
+  startImportFlow = async (shouldDeleteExistingData) => {
     try {
       this.onStartLoading()
       const fileContent = await getFileContent()
