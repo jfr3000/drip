@@ -25,17 +25,12 @@ export default class DataManagement extends Component {
   }
 
   startImportFlow = async (shouldDeleteExistingData) => {
-    try {
-      this.onStartLoading()
-      const fileContent = await getFileContent()
-      if (fileContent) {
-        await importData(shouldDeleteExistingData, fileContent)
-      }
-    } catch(err) {
-      return
-    } finally {
-      this.onEndLoading()
+    this.startLoading()
+    const fileContent = await getFileContent()
+    if (fileContent) {
+      await importData(shouldDeleteExistingData, fileContent)
     }
+    this.endLoading()
   }
 
   render() {
@@ -54,7 +49,7 @@ export default class DataManagement extends Component {
               <FramedSegment title={labels.import.button}>
                 <AppText>{labels.import.segmentExplainer}</AppText>
                 <SettingsButton
-                  onPress= {() => openImportDialog(this.onImportData)}
+                  onPress= {() => openImportDialog(this.startImportFlow)}
                 >
                   {labels.import.button}
                 </SettingsButton>
