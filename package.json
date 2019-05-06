@@ -44,12 +44,12 @@
     "sympto": "^1.0.0"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.1",
-    "@babel/register": "^7.0.0",
     "@babel/core": "^7.2.2",
+    "@babel/register": "^7.0.0",
+    "babel-eslint": "^10.0.1",
     "chai": "^4.1.2",
     "dirty-chai": "^2.0.1",
-    "eslint": "^4.19.1",
+    "eslint": "^5.16.0",
     "eslint-plugin-react": "^7.8.2",
     "metro-react-native-babel-preset": "^0.51.1",
     "mocha": "^5.2.0"
