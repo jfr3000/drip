@@ -6,23 +6,23 @@ import { shared as sharedLabels } from '../../../i18n/en/labels'
 import labels from '../../../i18n/en/settings'
 import alertError from '../shared/alert-error'
 
-export default function openImportDialogAndImport() {
+export function openImportDialog(onImportData) {
   Alert.alert(
     labels.import.title,
     labels.import.message,
     [{
       text: labels.import.replaceOption,
-      onPress: () => getFileContentAndImport({ deleteExisting: false })
+      onPress: () => onImportData(false)
     }, {
       text: labels.import.deleteOption,
-      onPress: () => getFileContentAndImport({ deleteExisting: true })
+      onPress: () => onImportData(true)
     }, {
       text: sharedLabels.cancel, style: 'cancel', onPress: () => { }
     }]
   )
 }
 
-async function getFileContentAndImport({ deleteExisting }) {
+export async function getFileContent() {
   let fileInfo
   try {
     fileInfo = await new Promise((resolve, reject) => {
@@ -45,8 +45,13 @@ async function getFileContentAndImport({ deleteExisting }) {
     return importError(labels.import.errors.couldNotOpenFile)
   }
 
+  return fileContent
+}
+
+export async function importData(shouldDeleteExistingData, fileContent) {
+
   try {
-    await importCsv(fileContent, deleteExisting)
+    await importCsv(fileContent, shouldDeleteExistingData)
     Alert.alert(sharedLabels.successTitle, labels.import.success.message)
   } catch(err) {
     importError(err.message)

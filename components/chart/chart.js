@@ -10,6 +10,7 @@ import { cycleDayColor } from '../../styles'
 import { scaleObservable } from '../../local-storage'
 import config from '../../config'
 import AppText from '../app-text'
+import AppLoadingView from '../app-loading'
 import { shared as labels } from '../../i18n/en/labels'
 import DripIcon from '../../assets/drip-icons'
 import DripHomeIcon from '../../assets/drip-home-icons'
@@ -133,11 +134,7 @@ export default class CycleChart extends Component {
         onLayout={this.onLayout}
         style={{ flexDirection: 'row', flex: 1 }}
       >
-        {!this.state.chartLoaded &&
-          <View style={{width: '100%', justifyContent: 'center', alignItems: 'center'}}>
-            <AppText>{labels.loading}</AppText>
-          </View>
-        }
+        {!this.state.chartLoaded && <AppLoadingView />}
 
         {this.state.chartHeight && this.state.chartLoaded &&
           <View>
