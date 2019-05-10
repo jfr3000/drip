@@ -16,6 +16,7 @@ import { getFertilityStatusForDay } from '../lib/sympto-adapter'
 import styles, { cycleDayColor, periodColor, secondaryColor } from '../styles'
 import AppText from './app-text'
 import Button from './button'
+import { formatDateForShortText } from './helpers/format-date'
 
 const ShowMoreToggler = ({ isShowingMore, onToggle }) => {
   const {height, width} = Dimensions.get('window')
@@ -178,25 +179,30 @@ export default class Home extends Component {
   }
 }
 
+function getTimes(prediction) {
+  const todayDate = LocalDate.now()
+  const predictedBleedingStart = LocalDate.parse(prediction[0][0])
+  /* the range of predicted bleeding days can be either 3 or 5 */
+  const predictedBleedingEnd = LocalDate.parse(prediction[0][ prediction[0].length - 1 ])
+  const daysToEnd = todayDate.until(predictedBleedingEnd, ChronoUnit.DAYS)
+  return { todayDate, predictedBleedingStart, predictedBleedingEnd, daysToEnd }
+}
+
 function determinePredictionText(bleedingPrediction) {
   if (!bleedingPrediction.length) return predictLabels.noPrediction
-  const todayDate = LocalDate.now()
-  const bleedingStart = LocalDate.parse(bleedingPrediction[0][0])
-  const bleedingEnd = LocalDate.parse(
-    bleedingPrediction[0][ bleedingPrediction[0].length - 1 ]
-  )
-  if (todayDate.isBefore(bleedingStart)) {
+  const { todayDate, predictedBleedingStart, predictedBleedingEnd, daysToEnd } = getTimes(bleedingPrediction)
+  if (todayDate.isBefore(predictedBleedingStart)) {
     return predictLabels.predictionInFuture(
-      todayDate.until(bleedingStart, ChronoUnit.DAYS),
-      todayDate.until(bleedingEnd, ChronoUnit.DAYS)
+      todayDate.until(predictedBleedingStart, ChronoUnit.DAYS),
+      todayDate.until(predictedBleedingEnd, ChronoUnit.DAYS)
     )
   }
-  if (todayDate.isAfter(bleedingEnd)) {
+  if (todayDate.isAfter(predictedBleedingEnd)) {
     return predictLabels.predictionInPast(
-      bleedingStart.toString(), bleedingEnd.toString()
+      formatDateForShortText(predictedBleedingStart),
+      formatDateForShortText(predictedBleedingEnd)
     )
   }
-  const daysToEnd = todayDate.until(bleedingEnd, ChronoUnit.DAYS)
   if (daysToEnd === 0) {
     return predictLabels.predictionStartedNoDaysLeft
   } else if (daysToEnd === 1) {
@@ -208,14 +214,12 @@ function determinePredictionText(bleedingPrediction) {
 
 function getBleedingPredictionRange(prediction) {
   if (!prediction.length) return labels.unknown
-  const todayDate = LocalDate.now()
-  const bleedingStart = LocalDate.parse(prediction[0][0])
-  const bleedingEnd = LocalDate.parse(prediction[0][ prediction[0].length - 1 ])
-  if (todayDate.isBefore(bleedingStart)) {
-    return `${todayDate.until(bleedingStart, ChronoUnit.DAYS)}-${todayDate.until(bleedingEnd, ChronoUnit.DAYS)}`
+  const { todayDate, predictedBleedingStart, predictedBleedingEnd, daysToEnd } = getTimes(prediction)
+  if (todayDate.isBefore(predictedBleedingStart)) {
+    return `${todayDate.until(predictedBleedingStart, ChronoUnit.DAYS)}-${todayDate.until(predictedBleedingEnd, ChronoUnit.DAYS)}`
   }
-  if (todayDate.isAfter(bleedingEnd)) {
+  if (todayDate.isAfter(predictedBleedingEnd)) {
     return labels.unknown
   }
-  return '0'
+  return (daysToEnd === 0 ? '0' : `0 - ${daysToEnd}`)
 }
