@@ -179,9 +179,10 @@ export default class Home extends Component {
   }
 }
 
-function getTimes(prediction) { 
+function getTimes(prediction) {
   const todayDate = LocalDate.now()
   const predictedBleedingStart = LocalDate.parse(prediction[0][0])
+  /* the range of predicted bleeding days can be either 3 or 5 */
   const predictedBleedingEnd = LocalDate.parse(prediction[0][ prediction[0].length - 1 ])
   const daysToEnd = todayDate.until(predictedBleedingEnd, ChronoUnit.DAYS)
   return { todayDate, predictedBleedingStart, predictedBleedingEnd, daysToEnd }
