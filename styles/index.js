@@ -282,7 +282,7 @@ export default StyleSheet.create({
     height: 60,
   },
   actionButtonItem: {
-    backgroundColor: primaryColor,
+    backgroundColor: secondaryColor,
     alignItems: 'center',
     flex: 1,
     marginHorizontal: 5,
@@ -316,7 +316,8 @@ export default StyleSheet.create({
   settingsButton: {
     padding: 10,
     alignItems: 'center',
-    margin: 10
+    margin: 10,
+    borderRadius: 5,
   },
   settingsButtonAccent: {
     backgroundColor: secondaryColor
