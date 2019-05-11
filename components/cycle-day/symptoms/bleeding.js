@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
   View,
   Switch,
@@ -10,8 +10,9 @@ import { bleeding } from '../../../i18n/en/cycle-day'
 import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
 import SymptomSection from './symptom-section'
+import SymptomView from './symptom-view'
 
-export default class Bleeding extends Component {
+export default class Bleeding extends SymptomView {
   constructor(props) {
     super(props)
     const cycleDay = props.cycleDay
@@ -20,6 +21,13 @@ export default class Bleeding extends Component {
       currentValue: this.bleeding && this.bleeding.value,
       exclude: this.bleeding ? this.bleeding.exclude : false
     }
+  }
+
+  save() {
+    saveSymptom('bleeding', this.props.date, {
+      value: this.state.currentValue,
+      exclude: this.state.exclude
+    })
   }
 
   render() {
@@ -59,13 +67,6 @@ export default class Bleeding extends Component {
           symptom='bleeding'
           date={this.props.date}
           currentSymptomValue={this.bleeding}
-          saveAction={() => {
-            saveSymptom('bleeding', this.props.date, {
-              value: this.state.currentValue,
-              exclude: this.state.exclude
-            })
-          }}
-          saveDisabled={typeof this.state.currentValue != 'number'}
           navigate={this.props.navigate}
         />
       </View>

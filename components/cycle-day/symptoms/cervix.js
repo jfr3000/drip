@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
   View,
   Switch,
@@ -10,13 +10,23 @@ import { cervix as labels } from '../../../i18n/en/cycle-day'
 import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
 import SymptomSection from './symptom-section'
+import SymptomView from './symptom-view'
 
-export default class Cervix extends Component {
+export default class Cervix extends SymptomView {
   constructor(props) {
-    super(props)
+    super()
     const cycleDay = props.cycleDay
     this.cervix = cycleDay && cycleDay.cervix
     this.state = this.cervix ? this.cervix : {}
+  }
+
+  save() {
+    saveSymptom('cervix', this.props.date, {
+      opening: this.state.opening,
+      firmness: this.state.firmness,
+      position: this.state.position,
+      exclude: Boolean(this.state.exclude)
+    })
   }
 
   render() {

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
   TextInput,
   View,
@@ -11,8 +11,9 @@ import { shared as sharedLabels } from '../../../i18n/en/labels'
 import ActionButtonFooter from './action-button-footer'
 import SelectBoxGroup from '../select-box-group'
 import SymptomSection from './symptom-section'
+import SymptomView from './symptom-view'
 
-export default class Sex extends Component {
+export default class Sex extends SymptomView {
   constructor(props) {
     super(props)
     const cycleDay = props.cycleDay
@@ -24,6 +25,14 @@ export default class Sex extends Component {
     // We make sure other is always true when there is a note,
     // e.g. when import is messed up.
     if (this.state.note) this.state.other = true
+  }
+
+  save() {
+    const copyOfState = Object.assign({}, this.state)
+    if (!copyOfState.other) {
+      copyOfState.note = null
+    }
+    saveSymptom('sex', this.props.date, copyOfState)
   }
 
   toggleState = (key) => {
@@ -75,13 +84,6 @@ export default class Sex extends Component {
           symptom='sex'
           date={this.props.date}
           currentSymptomValue={this.state}
-          saveAction={() => {
-            const copyOfState = Object.assign({}, this.state)
-            if (!copyOfState.other) {
-              copyOfState.note = null
-            }
-            saveSymptom('sex', this.props.date, copyOfState)
-          }}
           saveDisabled={Object.values(this.state).every(value => !value)}
           navigate={this.props.navigate}
         />

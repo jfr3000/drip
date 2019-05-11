@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
   ScrollView,
   TextInput,
@@ -10,10 +10,11 @@ import ActionButtonFooter from './action-button-footer'
 import SelectBoxGroup from '../select-box-group'
 import SymptomSection from './symptom-section'
 import styles from '../../../styles'
+import SymptomView from './symptom-view'
 
-export default class Mood extends Component {
+export default class Mood extends SymptomView {
   constructor(props) {
-    super(props)
+    super()
     const cycleDay = props.cycleDay
     if (cycleDay && cycleDay.mood) {
       this.state = Object.assign({}, cycleDay.mood)
@@ -23,6 +24,14 @@ export default class Mood extends Component {
     if (this.state.note) {
       this.state.other = true
     }
+  }
+
+  save() {
+    const copyOfState = Object.assign({}, this.state)
+    if (!copyOfState.other) {
+      copyOfState.note = null
+    }
+    saveSymptom('mood', this.props.date, copyOfState)
   }
 
   toggleState = (key) => {
@@ -62,13 +71,6 @@ export default class Mood extends Component {
           symptom='mood'
           date={this.props.date}
           currentSymptomValue={this.state}
-          saveAction={() => {
-            const copyOfState = Object.assign({}, this.state)
-            if (!copyOfState.other) {
-              copyOfState.note = null
-            }
-            saveSymptom('mood', this.props.date, copyOfState)
-          }}
           saveDisabled={Object.values(this.state).every(value => !value)}
           navigate={this.props.navigate}
         />

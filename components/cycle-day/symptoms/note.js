@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
   View,
   ScrollView,
@@ -11,8 +11,9 @@ import ActionButtonFooter from './action-button-footer'
 import SymptomSection from './symptom-section'
 import { noteExplainer } from '../../../i18n/en/cycle-day'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
+import SymptomView from './symptom-view'
 
-export default class Note extends Component {
+export default class Note extends SymptomView {
   constructor(props) {
     super(props)
     const cycleDay = props.cycleDay
@@ -21,6 +22,12 @@ export default class Note extends Component {
     this.state = {
       currentValue: this.note && this.note.value || ''
     }
+  }
+
+  save() {
+    saveSymptom('note', this.props.date, {
+      value: this.state.currentValue
+    })
   }
 
   render() {
@@ -45,11 +52,6 @@ export default class Note extends Component {
           symptom='note'
           date={this.props.date}
           currentSymptomValue={this.note}
-          saveAction={() => {
-            saveSymptom('note', this.props.date, {
-              value: this.state.currentValue
-            })
-          }}
           saveDisabled={!this.state.currentValue}
           navigate={this.props.navigate}
         />

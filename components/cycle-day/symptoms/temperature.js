@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
   View,
   Switch,
@@ -20,10 +20,11 @@ import config from '../../../config'
 import AppTextInput from '../../app-text-input'
 import AppText from '../../app-text'
 import SymptomSection from './symptom-section'
+import SymptomView from './symptom-view'
 
 const minutes = ChronoUnit.MINUTES
 
-export default class Temp extends Component {
+export default class Temp extends SymptomView {
   constructor(props) {
     super(props)
     const cycleDay = props.cycleDay
@@ -45,12 +46,16 @@ export default class Temp extends Component {
         this.state.temperature = `${this.state.temperature}.0`
       }
     } else {
-      const prevTemp = getPreviousTemperature(this.props.date)
+      const prevTemp = getPreviousTemperature(props.date)
       if (prevTemp) {
         this.state.temperature = prevTemp.toString()
         this.state.isSuggestion = true
       }
     }
+  }
+
+  save() {
+    this.checkRangeAndSave()
   }
 
   saveTemperature = () => {
@@ -182,7 +187,6 @@ export default class Temp extends Component {
           symptom='temperature'
           date={this.props.date}
           currentSymptomValue={this.temperature}
-          saveAction={() => this.checkRangeAndSave()}
           saveDisabled={
             this.state.temperature === '' ||
             isNaN(Number(this.state.temperature)) ||

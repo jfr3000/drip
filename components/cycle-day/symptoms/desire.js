@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
   View,
   ScrollView
@@ -9,14 +9,19 @@ import { intensity, desire } from '../../../i18n/en/cycle-day'
 import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
 import SymptomSection from './symptom-section'
+import SymptomView from './symptom-view'
 
-export default class Desire extends Component {
+export default class Desire extends SymptomView {
   constructor(props) {
-    super(props)
+    super()
     const cycleDay = props.cycleDay
     this.desire = cycleDay && cycleDay.desire
     const desireValue = this.desire && this.desire.value
     this.state = { currentValue: desireValue }
+  }
+
+  save() {
+    saveSymptom('desire', this.props.date, { value: this.state.currentValue })
   }
 
   render() {
@@ -43,9 +48,6 @@ export default class Desire extends Component {
           symptom='desire'
           date={this.props.date}
           currentSymptomValue={this.desire}
-          saveAction={() => {
-            saveSymptom('desire', this.props.date, { value: this.state.currentValue })
-          }}
           saveDisabled={typeof this.state.currentValue != 'number'}
           navigate={this.props.navigate}
         />

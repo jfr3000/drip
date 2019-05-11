@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
   View,
   Switch,
@@ -11,13 +11,25 @@ import computeNfpValue from '../../../lib/nfp-mucus'
 import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
 import SymptomSection from './symptom-section'
+import SymptomView from './symptom-view'
 
-export default class Mucus extends Component {
+export default class Mucus extends SymptomView {
   constructor(props) {
-    super(props)
+    super()
     const cycleDay = props.cycleDay
     this.mucus = cycleDay && cycleDay.mucus
     this.state = this.mucus ? this.mucus : {}
+  }
+
+  save() {
+    const feeling = this.state.feeling
+    const texture = this.state.texture
+    saveSymptom('mucus', this.props.date, {
+      feeling,
+      texture,
+      value: computeNfpValue(feeling, texture),
+      exclude: Boolean(this.state.exclude)
+    })
   }
 
   render() {
@@ -73,16 +85,6 @@ export default class Mucus extends Component {
           symptom='mucus'
           date={this.props.date}
           currentSymptomValue={this.mucus}
-          saveAction={() => {
-            const feeling = this.state.feeling
-            const texture = this.state.texture
-            saveSymptom('mucus', this.props.date, {
-              feeling,
-              texture,
-              value: computeNfpValue(feeling, texture),
-              exclude: Boolean(this.state.exclude)
-            })
-          }}
           navigate={this.props.navigate}
         />
       </View>
