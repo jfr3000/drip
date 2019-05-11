@@ -11,7 +11,6 @@ import computeNfpValue from '../../../lib/nfp-mucus'
 import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
 import SymptomSection from './symptom-section'
-import { ActionHint } from '../../app-text'
 
 export default class Mucus extends Component {
   constructor(props) {
@@ -71,7 +70,6 @@ export default class Mucus extends Component {
             />
           </SymptomSection>
         </ScrollView>
-        <ActionHint isVisible={mandatoryNotCompletedYet}>{labels.actionHint}</ActionHint>
         <ActionButtonFooter
           symptom='mucus'
           date={this.props.date}
@@ -86,7 +84,6 @@ export default class Mucus extends Component {
               exclude: Boolean(this.state.exclude)
             })
           }}
-          saveDisabled={mandatoryNotCompletedYet}
           navigate={this.props.navigate}
         />
       </View>
