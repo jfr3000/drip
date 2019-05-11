@@ -16,7 +16,6 @@ export default class Cervix extends Component {
     super(props)
     const cycleDay = props.cycleDay
     this.cervix = cycleDay && cycleDay.cervix
-    this.makeActionButtons = props.makeActionButtons
     this.state = this.cervix ? this.cervix : {}
   }
 

@@ -17,7 +17,6 @@ export default class Note extends Component {
     super(props)
     const cycleDay = props.cycleDay
     this.note = cycleDay && cycleDay.note
-    this.makeActionButtons = props.makeActionButtons
 
     this.state = {
       currentValue: this.note && this.note.value || ''

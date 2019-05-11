@@ -17,7 +17,6 @@ export default class Mucus extends Component {
     super(props)
     const cycleDay = props.cycleDay
     this.mucus = cycleDay && cycleDay.mucus
-    this.makeActionButtons = props.makeActionButtons
     this.state = this.mucus ? this.mucus : {}
   }
 

@@ -16,7 +16,6 @@ export default class Bleeding extends Component {
     super(props)
     const cycleDay = props.cycleDay
     this.bleeding = cycleDay && cycleDay.bleeding
-    this.makeActionButtons = props.makeActionButtons
     this.state = {
       currentValue: this.bleeding && this.bleeding.value,
       exclude: this.bleeding ? this.bleeding.exclude : false

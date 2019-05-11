@@ -15,7 +15,6 @@ export default class Desire extends Component {
     super(props)
     const cycleDay = props.cycleDay
     this.desire = cycleDay && cycleDay.desire
-    this.makeActionButtons = props.makeActionButtons
     const desireValue = this.desire && this.desire.value
     this.state = { currentValue: desireValue }
   }
