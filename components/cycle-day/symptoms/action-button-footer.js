@@ -13,9 +13,8 @@ export default class ActionButtonFooter extends Component {
       symptom,
       currentSymptomValue,
       date,
-      saveAction,
       navigate,
-      autoShowDayView = true}
+    }
       = this.props
     const navigateToOverView = () => navigate('CycleDay', {date})
     const buttons = [
@@ -42,14 +41,6 @@ export default class ActionButtonFooter extends Component {
           (Object.values(currentSymptomValue).every(x => !x) && currentSymptomValue.constructor === Object)
         ),
         icon: 'delete-outline'
-      }, {
-        title: labels.save,
-        action: () => {
-          saveAction()
-          if (autoShowDayView) navigateToOverView()
-
-        },
-        icon: 'content-save-outline'
       }
     ]
     return (
