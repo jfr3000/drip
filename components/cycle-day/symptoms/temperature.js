@@ -9,7 +9,7 @@ import {
 import DateTimePicker from 'react-native-modal-datetime-picker-nevo'
 import padWithZeros from '../../helpers/pad-time-with-zeros'
 
-import { getPreviousTemperature, saveSymptom } from '../../../db'
+import { getPreviousTemperature } from '../../../db'
 import styles from '../../../styles'
 import { LocalTime, ChronoUnit } from 'js-joda'
 import { temperature as labels } from '../../../i18n/en/cycle-day'
@@ -54,7 +54,14 @@ export default class Temp extends SymptomView {
     }
   }
 
-  save() {
+  symptomName = 'temperature'
+
+  onBackButtonPress() {
+    if (this.state.temperature === '') {
+      this.deleteSymptomEntry()
+      return
+    }
+
     this.checkRangeAndSave()
   }
 
@@ -65,8 +72,8 @@ export default class Temp extends SymptomView {
       time: this.state.time,
       note: this.state.note
     }
-    saveSymptom('temperature', this.props.date, dataToSave)
-    this.props.navigate('CycleDay', {date: this.props.date})
+
+    this.saveSymptomEntry(dataToSave)
   }
 
   checkRangeAndSave = () => {

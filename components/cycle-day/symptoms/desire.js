@@ -4,7 +4,6 @@ import {
   ScrollView
 } from 'react-native'
 import styles from '../../../styles'
-import { saveSymptom } from '../../../db'
 import { intensity, desire } from '../../../i18n/en/cycle-day'
 import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
@@ -13,15 +12,21 @@ import SymptomView from './symptom-view'
 
 export default class Desire extends SymptomView {
   constructor(props) {
-    super()
+    super(props)
     const cycleDay = props.cycleDay
     this.desire = cycleDay && cycleDay.desire
     const desireValue = this.desire && this.desire.value
     this.state = { currentValue: desireValue }
   }
 
-  save() {
-    saveSymptom('desire', this.props.date, { value: this.state.currentValue })
+  symptomName = 'desire'
+
+  onBackButtonPress() {
+    if (!this.state.currentValue) {
+      this.deleteSymptomEntry()
+      return
+    }
+    this.saveSymptomEntry({ value: this.state.currentValue })
   }
 
   render() {

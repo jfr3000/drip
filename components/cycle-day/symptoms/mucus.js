@@ -5,7 +5,6 @@ import {
   ScrollView
 } from 'react-native'
 import styles from '../../../styles'
-import { saveSymptom } from '../../../db'
 import { mucus as labels } from '../../../i18n/en/cycle-day'
 import computeNfpValue from '../../../lib/nfp-mucus'
 import ActionButtonFooter from './action-button-footer'
@@ -15,16 +14,24 @@ import SymptomView from './symptom-view'
 
 export default class Mucus extends SymptomView {
   constructor(props) {
-    super()
+    super(props)
     const cycleDay = props.cycleDay
     this.mucus = cycleDay && cycleDay.mucus
     this.state = this.mucus ? this.mucus : {}
   }
 
-  save() {
+  symptomName = 'mucus'
+
+  onBackButtonPress() {
+    const nothingEntered = ['feeling', 'texture'].every(val => typeof this.state[val] != 'number')
+    if (nothingEntered) {
+      this.deleteSymptomEntry()
+      return
+    }
+
     const feeling = this.state.feeling
     const texture = this.state.texture
-    saveSymptom('mucus', this.props.date, {
+    this.saveSymptomEntry({
       feeling,
       texture,
       value: computeNfpValue(feeling, texture),

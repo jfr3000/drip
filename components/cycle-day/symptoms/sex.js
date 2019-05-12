@@ -5,7 +5,6 @@ import {
   ScrollView
 } from 'react-native'
 import styles from '../../../styles'
-import { saveSymptom } from '../../../db'
 import { sex as sexLabels, contraceptives as contraceptivesLabels } from '../../../i18n/en/cycle-day'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
 import ActionButtonFooter from './action-button-footer'
@@ -27,12 +26,20 @@ export default class Sex extends SymptomView {
     if (this.state.note) this.state.other = true
   }
 
-  save() {
+  symptomName = "sex"
+
+  onBackButtonPress() {
+    const nothingEntered = Object.values(this.state).every(val => !val)
+    if (nothingEntered) {
+      this.deleteSymptomEntry()
+      return
+    }
+
     const copyOfState = Object.assign({}, this.state)
     if (!copyOfState.other) {
       copyOfState.note = null
     }
-    saveSymptom('sex', this.props.date, copyOfState)
+    this.saveSymptomEntry(copyOfState)
   }
 
   toggleState = (key) => {

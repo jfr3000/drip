@@ -24,8 +24,14 @@ export default class Note extends SymptomView {
     }
   }
 
-  save() {
-    saveSymptom('note', this.props.date, {
+  symptomName = 'note'
+
+  onBackButtonPress() {
+    if (!this.state.currentValue) {
+      this.deleteSymptomEntry()
+      return
+    }
+    this.saveSymptomEntry({
       value: this.state.currentValue
     })
   }

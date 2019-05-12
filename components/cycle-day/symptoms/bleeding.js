@@ -5,7 +5,6 @@ import {
   ScrollView
 } from 'react-native'
 import styles from '../../../styles'
-import { saveSymptom } from '../../../db'
 import { bleeding } from '../../../i18n/en/cycle-day'
 import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
@@ -23,8 +22,14 @@ export default class Bleeding extends SymptomView {
     }
   }
 
-  save() {
-    saveSymptom('bleeding', this.props.date, {
+  symptomName = 'bleeding'
+
+  onBackButtonPress() {
+    if (typeof this.state.currentValue != 'number') {
+      this.deleteSymptomEntry()
+      return
+    }
+    this.saveSymptomEntry({
       value: this.state.currentValue,
       exclude: this.state.exclude
     })

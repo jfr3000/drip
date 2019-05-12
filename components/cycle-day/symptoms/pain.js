@@ -27,12 +27,20 @@ export default class Pain extends SymptomView {
     }
   }
 
-  save() {
+  symptomName = 'pain'
+
+  onBackButtonPress() {
+    const nothingEntered = Object.values(this.state).every(val => !val)
+    if (nothingEntered) {
+      this.deleteSymptomEntry()
+      return
+    }
+
     const copyOfState = Object.assign({}, this.state)
     if (!copyOfState.other) {
       copyOfState.note = null
     }
-    saveSymptom('pain', this.props.date, copyOfState)
+    this.saveSymptomEntry(copyOfState)
   }
 
   toggleState = (key) => {

@@ -4,7 +4,6 @@ import {
   TextInput,
   View
 } from 'react-native'
-import { saveSymptom } from '../../../db'
 import { mood as labels } from '../../../i18n/en/cycle-day'
 import ActionButtonFooter from './action-button-footer'
 import SelectBoxGroup from '../select-box-group'
@@ -14,7 +13,7 @@ import SymptomView from './symptom-view'
 
 export default class Mood extends SymptomView {
   constructor(props) {
-    super()
+    super(props)
     const cycleDay = props.cycleDay
     if (cycleDay && cycleDay.mood) {
       this.state = Object.assign({}, cycleDay.mood)
@@ -26,12 +25,19 @@ export default class Mood extends SymptomView {
     }
   }
 
-  save() {
+  symptomName = "mood"
+
+  onBackButtonPress() {
+    const nothingEntered = Object.values(this.state).every(val => !val)
+    if (nothingEntered) {
+      this.deleteSymptomEntry()
+      return
+    }
     const copyOfState = Object.assign({}, this.state)
     if (!copyOfState.other) {
       copyOfState.note = null
     }
-    saveSymptom('mood', this.props.date, copyOfState)
+    this.saveSymptomEntry(copyOfState)
   }
 
   toggleState = (key) => {

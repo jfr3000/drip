@@ -14,14 +14,22 @@ import SymptomView from './symptom-view'
 
 export default class Cervix extends SymptomView {
   constructor(props) {
-    super()
+    super(props)
     const cycleDay = props.cycleDay
     this.cervix = cycleDay && cycleDay.cervix
     this.state = this.cervix ? this.cervix : {}
   }
 
-  save() {
-    saveSymptom('cervix', this.props.date, {
+  symptomName = 'cervix'
+
+  onBackButtonPress() {
+    const nothingEntered = ['opening', 'firmness', 'position'].every(val => typeof this.state[val] != 'number')
+    if (nothingEntered) {
+      this.deleteSymptomEntry()
+      return
+    }
+
+    this.saveSymptomEntry({
       opening: this.state.opening,
       firmness: this.state.firmness,
       position: this.state.position,
@@ -95,14 +103,6 @@ export default class Cervix extends SymptomView {
           symptom='cervix'
           date={this.props.date}
           currentSymptomValue={this.cervix}
-          saveAction={() => {
-            saveSymptom('cervix', this.props.date, {
-              opening: this.state.opening,
-              firmness: this.state.firmness,
-              position: this.state.position,
-              exclude: Boolean(this.state.exclude)
-            })
-          }}
           navigate={this.props.navigate}
         />
       </View>
