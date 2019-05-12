@@ -4,10 +4,8 @@ import {
   TextInput,
   View
 } from 'react-native'
-import { saveSymptom } from '../../../db'
 import { pain as labels } from '../../../i18n/en/cycle-day'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
-import ActionButtonFooter from './action-button-footer'
 import SelectBoxGroup from '../select-box-group'
 import SymptomSection from './symptom-section'
 import styles from '../../../styles'
@@ -76,13 +74,6 @@ export default class Pain extends SymptomView {
             }
           </SymptomSection>
         </ScrollView>
-        <ActionButtonFooter
-          symptom='pain'
-          date={this.props.date}
-          currentSymptomValue={this.state}
-          saveDisabled={Object.values(this.state).every(value => !value)}
-          navigate={this.props.navigate}
-        />
       </View>
     )
   }

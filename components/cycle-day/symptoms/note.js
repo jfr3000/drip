@@ -6,8 +6,6 @@ import {
 } from 'react-native'
 
 import styles from '../../../styles'
-import { saveSymptom } from '../../../db'
-import ActionButtonFooter from './action-button-footer'
 import SymptomSection from './symptom-section'
 import { noteExplainer } from '../../../i18n/en/cycle-day'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
@@ -54,13 +52,6 @@ export default class Note extends SymptomView {
             />
           </SymptomSection>
         </ScrollView>
-        <ActionButtonFooter
-          symptom='note'
-          date={this.props.date}
-          currentSymptomValue={this.note}
-          saveDisabled={!this.state.currentValue}
-          navigate={this.props.navigate}
-        />
       </View>
     )
   }

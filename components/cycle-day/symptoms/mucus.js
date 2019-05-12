@@ -7,7 +7,6 @@ import {
 import styles from '../../../styles'
 import { mucus as labels } from '../../../i18n/en/cycle-day'
 import computeNfpValue from '../../../lib/nfp-mucus'
-import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
 import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
@@ -88,12 +87,6 @@ export default class Mucus extends SymptomView {
             />
           </SymptomSection>
         </ScrollView>
-        <ActionButtonFooter
-          symptom='mucus'
-          date={this.props.date}
-          currentSymptomValue={this.mucus}
-          navigate={this.props.navigate}
-        />
       </View>
     )
   }

@@ -5,9 +5,7 @@ import {
   ScrollView
 } from 'react-native'
 import styles from '../../../styles'
-import { saveSymptom } from '../../../db'
 import { cervix as labels } from '../../../i18n/en/cycle-day'
-import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
 import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
@@ -99,12 +97,6 @@ export default class Cervix extends SymptomView {
             />
           </SymptomSection>
         </ScrollView>
-        <ActionButtonFooter
-          symptom='cervix'
-          date={this.props.date}
-          currentSymptomValue={this.cervix}
-          navigate={this.props.navigate}
-        />
       </View>
     )
   }

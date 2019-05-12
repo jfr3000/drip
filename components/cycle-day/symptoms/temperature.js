@@ -15,7 +15,6 @@ import { LocalTime, ChronoUnit } from 'js-joda'
 import { temperature as labels } from '../../../i18n/en/cycle-day'
 import { scaleObservable } from '../../../local-storage'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
-import ActionButtonFooter from './action-button-footer'
 import config from '../../../config'
 import AppTextInput from '../../app-text-input'
 import AppText from '../../app-text'
@@ -190,28 +189,7 @@ export default class Temp extends SymptomView {
             />
           </SymptomSection>
         </ScrollView>
-        <ActionButtonFooter
-          symptom='temperature'
-          date={this.props.date}
-          currentSymptomValue={this.temperature}
-          saveDisabled={
-            this.state.temperature === '' ||
-            isNaN(Number(this.state.temperature)) ||
-            isInvalidTime(this.state.time)
-          }
-          navigate={this.props.navigate}
-          autoShowDayView={false}
-        />
       </View>
     )
   }
-}
-
-function isInvalidTime(timeString) {
-  try {
-    LocalTime.parse(timeString)
-  } catch (err) {
-    return true
-  }
-  return false
 }

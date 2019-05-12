@@ -5,7 +5,6 @@ import {
 } from 'react-native'
 import styles from '../../../styles'
 import { intensity, desire } from '../../../i18n/en/cycle-day'
-import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
 import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
@@ -22,7 +21,7 @@ export default class Desire extends SymptomView {
   symptomName = 'desire'
 
   onBackButtonPress() {
-    if (!this.state.currentValue) {
+    if (typeof this.state.currentValue != 'number') {
       this.deleteSymptomEntry()
       return
     }
@@ -49,13 +48,6 @@ export default class Desire extends SymptomView {
             />
           </SymptomSection>
         </ScrollView>
-        <ActionButtonFooter
-          symptom='desire'
-          date={this.props.date}
-          currentSymptomValue={this.desire}
-          saveDisabled={typeof this.state.currentValue != 'number'}
-          navigate={this.props.navigate}
-        />
       </View>
     )
   }

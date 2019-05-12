@@ -7,7 +7,6 @@ import {
 import styles from '../../../styles'
 import { sex as sexLabels, contraceptives as contraceptivesLabels } from '../../../i18n/en/cycle-day'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
-import ActionButtonFooter from './action-button-footer'
 import SelectBoxGroup from '../select-box-group'
 import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
@@ -87,13 +86,6 @@ export default class Sex extends SymptomView {
             />
           }
         </ScrollView>
-        <ActionButtonFooter
-          symptom='sex'
-          date={this.props.date}
-          currentSymptomValue={this.state}
-          saveDisabled={Object.values(this.state).every(value => !value)}
-          navigate={this.props.navigate}
-        />
       </View>
     )
   }

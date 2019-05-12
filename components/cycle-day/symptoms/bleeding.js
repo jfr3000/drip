@@ -6,7 +6,6 @@ import {
 } from 'react-native'
 import styles from '../../../styles'
 import { bleeding } from '../../../i18n/en/cycle-day'
-import ActionButtonFooter from './action-button-footer'
 import SelectTabGroup from '../select-tab-group'
 import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
@@ -68,12 +67,6 @@ export default class Bleeding extends SymptomView {
             />
           </SymptomSection>
         </ScrollView>
-        <ActionButtonFooter
-          symptom='bleeding'
-          date={this.props.date}
-          currentSymptomValue={this.bleeding}
-          navigate={this.props.navigate}
-        />
       </View>
     )
   }
