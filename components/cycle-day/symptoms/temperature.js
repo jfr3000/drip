@@ -116,13 +116,12 @@ export default class Temp extends SymptomView {
     this.setState({ isTimePickerVisible: true })
   }
 
-  render() {
+  renderContent() {
     const inputStyle = [styles.temperatureTextInput]
     if (this.state.isSuggestion) {
       inputStyle.push(styles.temperatureTextInputSuggestion)
     }
     return (
-      <View style={{ flex: 1 }}>
         <ScrollView style={styles.page}>
           <SymptomSection
             header={labels.temperature.header}
@@ -189,7 +188,6 @@ export default class Temp extends SymptomView {
             />
           </SymptomSection>
         </ScrollView>
-      </View>
     )
   }
 }

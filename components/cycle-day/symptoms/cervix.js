@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-  View,
   Switch,
   ScrollView
 } from 'react-native'
@@ -35,7 +34,7 @@ export default class Cervix extends SymptomView {
     })
   }
 
-  render() {
+  renderContent() {
     const cervixOpeningRadioProps = [
       { label: labels.opening.categories[0], value: 0 },
       { label: labels.opening.categories[1], value: 1 },
@@ -52,52 +51,50 @@ export default class Cervix extends SymptomView {
     ]
     const mandatoryNotCompleted = typeof this.state.opening != 'number' || typeof this.state.firmness != 'number'
     return (
-      <View style={{ flex: 1 }}>
-        <ScrollView style={styles.page}>
-          <SymptomSection
-            header="Opening"
-            explainer={labels.opening.explainer}
-          >
-            <SelectTabGroup
-              buttons={cervixOpeningRadioProps}
-              active={this.state.opening}
-              onSelect={val => this.setState({ opening: val })}
-            />
-          </SymptomSection>
-          <SymptomSection
-            header="Firmness"
-            explainer={labels.firmness.explainer}
-          >
-            <SelectTabGroup
-              buttons={cervixFirmnessRadioProps}
-              active={this.state.firmness}
-              onSelect={val => this.setState({ firmness: val })}
-            />
-          </SymptomSection>
-          <SymptomSection
-            header="Position"
-            explainer={labels.position.explainer}
-          >
-            <SelectTabGroup
-              buttons={cervixPositionRadioProps}
-              active={this.state.position}
-              onSelect={val => this.setState({ position: val })}
-            />
-          </SymptomSection>
-          <SymptomSection
-            header="Exclude"
-            explainer="You can exclude this value if you don't want to use it for fertility detection"
-            inline={true}
-          >
-            <Switch
-              onValueChange={(val) => {
-                this.setState({ exclude: val })
-              }}
-              value={this.state.exclude}
-            />
-          </SymptomSection>
-        </ScrollView>
-      </View>
+      <ScrollView style={styles.page}>
+        <SymptomSection
+          header="Opening"
+          explainer={labels.opening.explainer}
+        >
+          <SelectTabGroup
+            buttons={cervixOpeningRadioProps}
+            active={this.state.opening}
+            onSelect={val => this.setState({ opening: val })}
+          />
+        </SymptomSection>
+        <SymptomSection
+          header="Firmness"
+          explainer={labels.firmness.explainer}
+        >
+          <SelectTabGroup
+            buttons={cervixFirmnessRadioProps}
+            active={this.state.firmness}
+            onSelect={val => this.setState({ firmness: val })}
+          />
+        </SymptomSection>
+        <SymptomSection
+          header="Position"
+          explainer={labels.position.explainer}
+        >
+          <SelectTabGroup
+            buttons={cervixPositionRadioProps}
+            active={this.state.position}
+            onSelect={val => this.setState({ position: val })}
+          />
+        </SymptomSection>
+        <SymptomSection
+          header="Exclude"
+          explainer="You can exclude this value if you don't want to use it for fertility detection"
+          inline={true}
+        >
+          <Switch
+            onValueChange={(val) => {
+              this.setState({ exclude: val })
+            }}
+            value={this.state.exclude}
+          />
+        </SymptomSection>
+      </ScrollView>
     )
   }
 }

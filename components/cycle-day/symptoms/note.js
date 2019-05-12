@@ -34,25 +34,23 @@ export default class Note extends SymptomView {
     })
   }
 
-  render() {
+  renderContent() {
     return (
-      <View style={{ flex: 1 }}>
-        <ScrollView style={styles.page}>
-          <SymptomSection
-            explainer={noteExplainer}
-          >
-            <TextInput
-              autoFocus={!this.state.currentValue}
-              multiline={true}
-              placeholder={sharedLabels.enter}
-              onChangeText={(val) => {
-                this.setState({ currentValue: val })
-              }}
-              value={this.state.currentValue}
-            />
-          </SymptomSection>
-        </ScrollView>
-      </View>
+      <ScrollView style={styles.page}>
+        <SymptomSection
+          explainer={noteExplainer}
+        >
+          <TextInput
+            autoFocus={!this.state.currentValue}
+            multiline={true}
+            placeholder={sharedLabels.enter}
+            onChangeText={(val) => {
+              this.setState({ currentValue: val })
+            }}
+            value={this.state.currentValue}
+          />
+        </SymptomSection>
+      </ScrollView>
     )
   }
 }

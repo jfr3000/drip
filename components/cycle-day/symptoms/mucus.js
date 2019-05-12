@@ -38,7 +38,7 @@ export default class Mucus extends SymptomView {
     })
   }
 
-  render() {
+  renderContent() {
     const mucusFeeling = [
       { label: labels.feeling.categories[0], value: 0 },
       { label: labels.feeling.categories[1], value: 1 },
@@ -52,42 +52,40 @@ export default class Mucus extends SymptomView {
     ]
     const mandatoryNotCompletedYet = typeof this.state.feeling != 'number' || typeof this.state.texture != 'number'
     return (
-      <View style={{ flex: 1 }}>
-        <ScrollView style={styles.page}>
-          <SymptomSection
-            header='Feeling'
-            explainer={labels.feeling.explainer}
-          >
-            <SelectTabGroup
-              buttons={mucusFeeling}
-              onSelect={val => this.setState({ feeling: val })}
-              active={this.state.feeling}
-            />
-          </SymptomSection>
-          <SymptomSection
-            header='Texture'
-            explainer={labels.texture.explainer}
-          >
-            <SelectTabGroup
-              buttons={mucusTexture}
-              onSelect={val => this.setState({ texture: val })}
-              active={this.state.texture}
-            />
-          </SymptomSection>
-          <SymptomSection
-            header="Exclude"
-            explainer={labels.excludeExplainer}
-            inline={true}
-          >
-            <Switch
-              onValueChange={(val) => {
-                this.setState({ exclude: val })
-              }}
-              value={this.state.exclude}
-            />
-          </SymptomSection>
-        </ScrollView>
-      </View>
+      <ScrollView style={styles.page}>
+        <SymptomSection
+          header='Feeling'
+          explainer={labels.feeling.explainer}
+        >
+          <SelectTabGroup
+            buttons={mucusFeeling}
+            onSelect={val => this.setState({ feeling: val })}
+            active={this.state.feeling}
+          />
+        </SymptomSection>
+        <SymptomSection
+          header='Texture'
+          explainer={labels.texture.explainer}
+        >
+          <SelectTabGroup
+            buttons={mucusTexture}
+            onSelect={val => this.setState({ texture: val })}
+            active={this.state.texture}
+          />
+        </SymptomSection>
+        <SymptomSection
+          header="Exclude"
+          explainer={labels.excludeExplainer}
+          inline={true}
+        >
+          <Switch
+            onValueChange={(val) => {
+              this.setState({ exclude: val })
+            }}
+            value={this.state.exclude}
+          />
+        </SymptomSection>
+      </ScrollView>
     )
   }
 }

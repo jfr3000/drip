@@ -1,11 +1,15 @@
+import React from 'react'
 import { Component } from 'react'
-import { BackHandler } from 'react-native'
+import { BackHandler, View } from 'react-native'
 import { saveSymptom } from '../../../db'
+import Header from '../../header/symptom-view'
+import { headerTitles } from '../../../i18n/en/labels'
 
 export default class SymptomView extends Component {
   constructor(props) {
     super()
     this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPress.bind(this))
+    this.globalBackhandler = props.handleBackButtonPress
     this.symptomName = props.symptomName
     this.date = props.date
   }
@@ -20,5 +24,21 @@ export default class SymptomView extends Component {
 
   componentWillUnmount() {
     this.backHandler.remove()
+  }
+
+  render() {
+    return (
+      <View style={{flex: 1}}>
+        <Header
+          title={headerTitles[this.symptomName].toLowerCase()}
+          date={this.date}
+          goBack={() => {
+            this.onBackButtonPress()
+            this.globalBackhandler()
+          }}
+        />
+        {this.renderContent()}
+      </View>
+    )
   }
 }

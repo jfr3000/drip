@@ -3,7 +3,6 @@ import { Dimensions } from 'react-native'
 import CycleDayHeader from './cycle-day'
 import DefaultHeader from './default'
 import BackButtonHeader from './back-button'
-import SymptomViewHeader from './symptom-view'
 
 export default function Header(p) {
   const middle = Dimensions.get('window').width / 2
@@ -11,11 +10,7 @@ export default function Header(p) {
 
   if (props.isCycleDayOverView) {
     return (<CycleDayHeader {...props} />)
-  }
-  else if (props.isSymptomView) {
-    return (<SymptomViewHeader {...props} />)
-  }
-  else if (props.showBackButton) {
+  } else if (props.showBackButton) {
     return (<BackButtonHeader {...props} />)
   }
   else {

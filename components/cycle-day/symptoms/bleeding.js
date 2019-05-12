@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-  View,
   Switch,
   ScrollView
 } from 'react-native'
@@ -34,7 +33,7 @@ export default class Bleeding extends SymptomView {
     })
   }
 
-  render() {
+  renderContent() {
     const bleedingRadioProps = [
       { label: bleeding.labels[0], value: 0 },
       { label: bleeding.labels[1], value: 1 },
@@ -42,32 +41,30 @@ export default class Bleeding extends SymptomView {
       { label: bleeding.labels[3], value: 3 },
     ]
     return (
-      <View style={{ flex: 1 }}>
-        <ScrollView style={styles.page}>
-          <SymptomSection
-            header={bleeding.heaviness.header}
-            explainer={bleeding.heaviness.explainer}
-          >
-            <SelectTabGroup
-              buttons={bleedingRadioProps}
-              active={this.state.currentValue}
-              onSelect={val => this.setState({ currentValue: val })}
-            />
-          </SymptomSection>
-          <SymptomSection
-            header={bleeding.exclude.header}
-            explainer={bleeding.exclude.explainer}
-            inline={true}
-          >
-            <Switch
-              onValueChange={(val) => {
-                this.setState({ exclude: val })
-              }}
-              value={this.state.exclude}
-            />
-          </SymptomSection>
-        </ScrollView>
-      </View>
+      <ScrollView style={styles.page}>
+        <SymptomSection
+          header={bleeding.heaviness.header}
+          explainer={bleeding.heaviness.explainer}
+        >
+          <SelectTabGroup
+            buttons={bleedingRadioProps}
+            active={this.state.currentValue}
+            onSelect={val => this.setState({ currentValue: val })}
+          />
+        </SymptomSection>
+        <SymptomSection
+          header={bleeding.exclude.header}
+          explainer={bleeding.exclude.explainer}
+          inline={true}
+        >
+          <Switch
+            onValueChange={(val) => {
+              this.setState({ exclude: val })
+            }}
+            value={this.state.exclude}
+          />
+        </SymptomSection>
+      </ScrollView>
     )
   }
 }

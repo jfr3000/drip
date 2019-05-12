@@ -28,27 +28,25 @@ export default class Desire extends SymptomView {
     this.saveSymptomEntry({ value: this.state.currentValue })
   }
 
-  render() {
+  renderContent() {
     const desireRadioProps = [
       { label: intensity[0], value: 0 },
       { label: intensity[1], value: 1 },
       { label: intensity[2], value: 2 }
     ]
     return (
-      <View style={{ flex: 1 }}>
-        <ScrollView style={styles.page}>
-          <SymptomSection
-            header={desire.header}
-            explainer={desire.explainer}
-          >
-            <SelectTabGroup
-              buttons={desireRadioProps}
-              active={this.state.currentValue}
-              onSelect={val => this.setState({ currentValue: val })}
-            />
-          </SymptomSection>
-        </ScrollView>
-      </View>
+      <ScrollView style={styles.page}>
+        <SymptomSection
+          header={desire.header}
+          explainer={desire.explainer}
+        >
+          <SelectTabGroup
+            buttons={desireRadioProps}
+            active={this.state.currentValue}
+            onSelect={val => this.setState({ currentValue: val })}
+          />
+        </SymptomSection>
+      </ScrollView>
     )
   }
 }

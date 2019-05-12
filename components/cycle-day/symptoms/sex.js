@@ -1,7 +1,6 @@
 import React from 'react'
 import {
   TextInput,
-  View,
   ScrollView
 } from 'react-native'
 import styles from '../../../styles'
@@ -49,32 +48,31 @@ export default class Sex extends SymptomView {
     }
   }
 
-  render() {
+  renderContent() {
     return (
-      <View style={{ flex: 1 }}>
-        <ScrollView style={styles.page}>
-          <SymptomSection
-            header={sexLabels.header}
-            explainer={sexLabels.explainer}
-          >
-            <SelectBoxGroup
-              labels={sexLabels.categories}
-              onSelect={this.toggleState}
-              optionsState={this.state}
-            />
-          </SymptomSection>
-          <SymptomSection
-            header={contraceptivesLabels.header}
-            explainer={contraceptivesLabels.explainer}
-          >
-            <SelectBoxGroup
-              labels={contraceptivesLabels.categories}
-              onSelect={this.toggleState}
-              optionsState={this.state}
-            />
-          </SymptomSection>
+      <ScrollView style={styles.page}>
+        <SymptomSection
+          header={sexLabels.header}
+          explainer={sexLabels.explainer}
+        >
+          <SelectBoxGroup
+            labels={sexLabels.categories}
+            onSelect={this.toggleState}
+            optionsState={this.state}
+          />
+        </SymptomSection>
+        <SymptomSection
+          header={contraceptivesLabels.header}
+          explainer={contraceptivesLabels.explainer}
+        >
+          <SelectBoxGroup
+            labels={contraceptivesLabels.categories}
+            onSelect={this.toggleState}
+            optionsState={this.state}
+          />
+        </SymptomSection>
 
-          {this.state.other &&
+        {this.state.other &&
             <TextInput
               autoFocus={this.state.focusTextArea}
               multiline={true}
@@ -84,9 +82,8 @@ export default class Sex extends SymptomView {
                 this.setState({ note: val })
               }}
             />
-          }
-        </ScrollView>
-      </View>
+        }
+      </ScrollView>
     )
   }
 }

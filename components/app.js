@@ -125,19 +125,12 @@ export default class App extends Component {
             goBack={this.handleBackButtonPress}
           />
         }
-        {this.isSymptomView() &&
-          <Header
-            title={title}
-            isSymptomView={true}
-            goBack={this.handleBackButtonPress}
-            date={currentProps.date}
-            goToSymptomInfo={() => this.navigate(INFO_SYMPTOM_PAGE, {
-              symptomView: currentPage,
-              ...currentProps
-            })}
-          />}
 
-        <Page navigate={this.navigate} {...currentProps} />
+        <Page
+          navigate={this.navigate}
+          {...currentProps}
+          handleBackButtonPress={this.handleBackButtonPress}
+        />
 
         {!this.isSymptomView() &&
           <Menu navigate={this.navigate} currentPage={currentPage} />

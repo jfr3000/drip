@@ -2,7 +2,6 @@ import React from 'react'
 import {
   ScrollView,
   TextInput,
-  View
 } from 'react-native'
 import { pain as labels } from '../../../i18n/en/cycle-day'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
@@ -49,19 +48,18 @@ export default class Pain extends SymptomView {
     }
   }
 
-  render() {
+  renderContent() {
     return (
-      <View style={{ flex: 1 }}>
-        <ScrollView style={styles.page}>
-          <SymptomSection
-            explainer={labels.explainer}
-          >
-            <SelectBoxGroup
-              labels={labels.categories}
-              onSelect={this.toggleState}
-              optionsState={this.state}
-            />
-            { this.state.other &&
+      <ScrollView style={styles.page}>
+        <SymptomSection
+          explainer={labels.explainer}
+        >
+          <SelectBoxGroup
+            labels={labels.categories}
+            onSelect={this.toggleState}
+            optionsState={this.state}
+          />
+          { this.state.other &&
               <TextInput
                 autoFocus={this.state.focusTextArea}
                 multiline={true}
@@ -71,10 +69,8 @@ export default class Pain extends SymptomView {
                   this.setState({note: val})
                 }}
               />
-            }
-          </SymptomSection>
-        </ScrollView>
-      </View>
-    )
+          }
+        </SymptomSection>
+      </ScrollView>)
   }
 }
