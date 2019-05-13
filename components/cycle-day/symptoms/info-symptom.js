@@ -1,12 +1,11 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { ScrollView } from 'react-native'
 import AppText from '../../app-text'
 import labels from '../../../i18n/en/symptom-info.js'
 import FramedSegment from '../../framed-segment'
 import styles from '../../../styles/index'
-import SymptomView from './symptom-view'
 
-export default class InfoSymptom extends SymptomView {
+export default class InfoSymptom extends Component {
   render() {
     const symptomView = this.props.symptomView
     const symptomMapping = {
