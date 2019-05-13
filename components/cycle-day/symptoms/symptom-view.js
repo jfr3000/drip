@@ -1,5 +1,4 @@
-import React from 'react'
-import { Component } from 'react'
+import React, { Component } from 'react'
 import { BackHandler, View } from 'react-native'
 import { saveSymptom } from '../../../db'
 import Header from '../../header/symptom-view'
@@ -8,9 +7,9 @@ import { headerTitles } from '../../../i18n/en/labels'
 export default class SymptomView extends Component {
   constructor(props) {
     super()
+    // every specific symptom view provides their own onBackButtonPress method
     this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPress.bind(this))
     this.globalBackhandler = props.handleBackButtonPress
-    this.symptomName = props.symptomName
     this.date = props.date
   }
 
