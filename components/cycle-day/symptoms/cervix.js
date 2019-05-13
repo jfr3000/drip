@@ -49,7 +49,8 @@ export default class Cervix extends SymptomView {
       { label: labels.position.categories[1], value: 1 },
       { label: labels.position.categories[2], value: 2 }
     ]
-    const mandatoryNotCompleted = typeof this.state.opening != 'number' || typeof this.state.firmness != 'number'
+    // TODO saving this info for notice when leaving incomplete data
+    // const mandatoryNotCompleted = typeof this.state.opening != 'number' || typeof this.state.firmness != 'number'
     return (
       <ScrollView style={styles.page}>
         <SymptomSection

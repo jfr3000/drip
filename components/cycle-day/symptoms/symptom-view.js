@@ -36,6 +36,10 @@ export default class SymptomView extends Component {
             this.onBackButtonPress()
             this.globalBackhandler()
           }}
+          deleteEntry={() => {
+            this.deleteSymptomEntry()
+            this.globalBackhandler()
+          }}
         />
         {this.renderContent()}
       </View>

@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-  View,
   Switch,
   ScrollView
 } from 'react-native'
@@ -50,7 +49,8 @@ export default class Mucus extends SymptomView {
       { label: labels.texture.categories[1], value: 1 },
       { label: labels.texture.categories[2], value: 2 }
     ]
-    const mandatoryNotCompletedYet = typeof this.state.feeling != 'number' || typeof this.state.texture != 'number'
+    // TODO leaving this info for notice when leaving incomplete data
+    // const mandatoryNotCompletedYet = typeof this.state.feeling != 'number' || typeof this.state.texture != 'number'
     return (
       <ScrollView style={styles.page}>
         <SymptomSection

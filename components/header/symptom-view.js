@@ -31,7 +31,7 @@ export default function SymptomViewHeader(props) {
         </Text>
       </View >
       <TouchableOpacity
-        onPress={() => props.goToSymptomInfo()}
+        onPress={props.deleteEntry}
         style={styles.infoButton}
       >
         <FeatherIcon

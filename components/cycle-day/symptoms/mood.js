@@ -1,9 +1,7 @@
 import React from 'react'
 import {
   ScrollView,
-  TextInput,
-  View
-} from 'react-native'
+  TextInput} from 'react-native'
 import { mood as labels } from '../../../i18n/en/cycle-day'
 import SelectBoxGroup from '../select-box-group'
 import SymptomSection from './symptom-section'

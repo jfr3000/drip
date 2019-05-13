@@ -122,72 +122,72 @@ export default class Temp extends SymptomView {
       inputStyle.push(styles.temperatureTextInputSuggestion)
     }
     return (
-        <ScrollView style={styles.page}>
-          <SymptomSection
-            header={labels.temperature.header}
-            explainer={labels.temperature.explainer}
-          >
-            <View style={styles.framedSegmentInlineChildren}>
-              <AppTextInput
-                style={[inputStyle]}
-                autoFocus={true}
-                placeholder={this.state.temperature}
-                value={this.state.temperature}
-                onChangeText={this.setTemperature}
-                keyboardType='numeric'
-                maxLength={5}
-                onBlur={this.checkRange}
-              />
-              <AppText style={{ marginLeft: 5 }}>°C</AppText>
-            </View>
-          </SymptomSection>
-          <SymptomSection
-            header={labels.time}
-          >
-            <View style={styles.framedSegmentInlineChildren}>
-              <AppTextInput
-                style={[styles.temperatureTextInput]}
-                onFocus={this.showTimePicker}
-                value={this.state.time}
-              />
-              <DateTimePicker
-                mode="time"
-                isVisible={this.state.isTimePickerVisible}
-                onConfirm={jsDate => {
-                  this.setState({
-                    time: padWithZeros(jsDate),
-                    isTimePickerVisible: false
-                  })
-                }}
-                onCancel={() => this.setState({ isTimePickerVisible: false })}
-              />
-            </View>
-          </SymptomSection>
-          <SymptomSection
-            header={labels.note.header}
-            explainer={labels.note.explainer}
-          >
+      <ScrollView style={styles.page}>
+        <SymptomSection
+          header={labels.temperature.header}
+          explainer={labels.temperature.explainer}
+        >
+          <View style={styles.framedSegmentInlineChildren}>
             <AppTextInput
-              multiline={true}
-              autoFocus={this.state.focusTextArea}
-              placeholder={sharedLabels.enter}
-              value={this.state.note}
-              onChangeText={this.setNote}
+              style={[inputStyle]}
+              autoFocus={true}
+              placeholder={this.state.temperature}
+              value={this.state.temperature}
+              onChangeText={this.setTemperature}
+              keyboardType='numeric'
+              maxLength={5}
+              onBlur={this.checkRange}
             />
-          </SymptomSection>
-          <SymptomSection
-            header={labels.exclude.header}
-            explainer={labels.exclude.explainer}
-            inline={true}
-          >
-            <Switch
-              onValueChange={(val) => {
-                this.setState({ exclude: val })
+            <AppText style={{ marginLeft: 5 }}>°C</AppText>
+          </View>
+        </SymptomSection>
+        <SymptomSection
+          header={labels.time}
+        >
+          <View style={styles.framedSegmentInlineChildren}>
+            <AppTextInput
+              style={[styles.temperatureTextInput]}
+              onFocus={this.showTimePicker}
+              value={this.state.time}
+            />
+            <DateTimePicker
+              mode="time"
+              isVisible={this.state.isTimePickerVisible}
+              onConfirm={jsDate => {
+                this.setState({
+                  time: padWithZeros(jsDate),
+                  isTimePickerVisible: false
+                })
               }}
-              value={this.state.exclude}
+              onCancel={() => this.setState({ isTimePickerVisible: false })}
             />
-          </SymptomSection>
-        </ScrollView>
+          </View>
+        </SymptomSection>
+        <SymptomSection
+          header={labels.note.header}
+          explainer={labels.note.explainer}
+        >
+          <AppTextInput
+            multiline={true}
+            autoFocus={this.state.focusTextArea}
+            placeholder={sharedLabels.enter}
+            value={this.state.note}
+            onChangeText={this.setNote}
+          />
+        </SymptomSection>
+        <SymptomSection
+          header={labels.exclude.header}
+          explainer={labels.exclude.explainer}
+          inline={true}
+        >
+          <Switch
+            onValueChange={(val) => {
+              this.setState({ exclude: val })
+            }}
+            value={this.state.exclude}
+          />
+        </SymptomSection>
+      </ScrollView>
     )
   }
 }
