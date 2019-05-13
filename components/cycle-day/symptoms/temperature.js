@@ -56,7 +56,7 @@ export default class Temp extends SymptomView {
   symptomName = 'temperature'
 
   onBackButtonPress() {
-    if (this.state.temperature === '') {
+    if (typeof this.state.temperature != 'string' || this.state.temperature === '') {
       this.deleteSymptomEntry()
       return
     }
