@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
   View,
   Switch,
@@ -9,21 +9,21 @@ import {
 import DateTimePicker from 'react-native-modal-datetime-picker-nevo'
 import padWithZeros from '../../helpers/pad-time-with-zeros'
 
-import { getPreviousTemperature, saveSymptom } from '../../../db'
+import { getPreviousTemperature } from '../../../db'
 import styles from '../../../styles'
 import { LocalTime, ChronoUnit } from 'js-joda'
 import { temperature as labels } from '../../../i18n/en/cycle-day'
 import { scaleObservable } from '../../../local-storage'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
-import ActionButtonFooter from './action-button-footer'
 import config from '../../../config'
 import AppTextInput from '../../app-text-input'
 import AppText from '../../app-text'
 import SymptomSection from './symptom-section'
+import SymptomView from './symptom-view'
 
 const minutes = ChronoUnit.MINUTES
 
-export default class Temp extends Component {
+export default class Temp extends SymptomView {
   constructor(props) {
     super(props)
     const cycleDay = props.cycleDay
@@ -45,12 +45,23 @@ export default class Temp extends Component {
         this.state.temperature = `${this.state.temperature}.0`
       }
     } else {
-      const prevTemp = getPreviousTemperature(this.props.date)
+      const prevTemp = getPreviousTemperature(props.date)
       if (prevTemp) {
         this.state.temperature = prevTemp.toString()
         this.state.isSuggestion = true
       }
     }
+  }
+
+  symptomName = 'temperature'
+
+  onBackButtonPress() {
+    if (typeof this.state.temperature != 'string' || this.state.temperature === '') {
+      this.deleteSymptomEntry()
+      return
+    }
+
+    this.checkRangeAndSave()
   }
 
   saveTemperature = () => {
@@ -60,8 +71,8 @@ export default class Temp extends Component {
       time: this.state.time,
       note: this.state.note
     }
-    saveSymptom('temperature', this.props.date, dataToSave)
-    this.props.navigate('CycleDay', {date: this.props.date})
+
+    this.saveSymptomEntry(dataToSave)
   }
 
   checkRangeAndSave = () => {
@@ -105,102 +116,78 @@ export default class Temp extends Component {
     this.setState({ isTimePickerVisible: true })
   }
 
-  render() {
+  renderContent() {
     const inputStyle = [styles.temperatureTextInput]
     if (this.state.isSuggestion) {
       inputStyle.push(styles.temperatureTextInputSuggestion)
     }
     return (
-      <View style={{ flex: 1 }}>
-        <ScrollView style={styles.page}>
-          <SymptomSection
-            header={labels.temperature.header}
-            explainer={labels.temperature.explainer}
-          >
-            <View style={styles.framedSegmentInlineChildren}>
-              <AppTextInput
-                style={[inputStyle]}
-                autoFocus={true}
-                placeholder={this.state.temperature}
-                value={this.state.temperature}
-                onChangeText={this.setTemperature}
-                keyboardType='numeric'
-                maxLength={5}
-                onBlur={this.checkRange}
-              />
-              <AppText style={{ marginLeft: 5 }}>°C</AppText>
-            </View>
-          </SymptomSection>
-          <SymptomSection
-            header={labels.time}
-          >
-            <View style={styles.framedSegmentInlineChildren}>
-              <AppTextInput
-                style={[styles.temperatureTextInput]}
-                onFocus={this.showTimePicker}
-                value={this.state.time}
-              />
-              <DateTimePicker
-                mode="time"
-                isVisible={this.state.isTimePickerVisible}
-                onConfirm={jsDate => {
-                  this.setState({
-                    time: padWithZeros(jsDate),
-                    isTimePickerVisible: false
-                  })
-                }}
-                onCancel={() => this.setState({ isTimePickerVisible: false })}
-              />
-            </View>
-          </SymptomSection>
-          <SymptomSection
-            header={labels.note.header}
-            explainer={labels.note.explainer}
-          >
+      <ScrollView style={styles.page}>
+        <SymptomSection
+          header={labels.temperature.header}
+          explainer={labels.temperature.explainer}
+        >
+          <View style={styles.framedSegmentInlineChildren}>
             <AppTextInput
-              multiline={true}
-              autoFocus={this.state.focusTextArea}
-              placeholder={sharedLabels.enter}
-              value={this.state.note}
-              onChangeText={this.setNote}
+              style={[inputStyle]}
+              autoFocus={true}
+              placeholder={this.state.temperature}
+              value={this.state.temperature}
+              onChangeText={this.setTemperature}
+              keyboardType='numeric'
+              maxLength={5}
+              onBlur={this.checkRange}
             />
-          </SymptomSection>
-          <SymptomSection
-            header={labels.exclude.header}
-            explainer={labels.exclude.explainer}
-            inline={true}
-          >
-            <Switch
-              onValueChange={(val) => {
-                this.setState({ exclude: val })
+            <AppText style={{ marginLeft: 5 }}>°C</AppText>
+          </View>
+        </SymptomSection>
+        <SymptomSection
+          header={labels.time}
+        >
+          <View style={styles.framedSegmentInlineChildren}>
+            <AppTextInput
+              style={[styles.temperatureTextInput]}
+              onFocus={this.showTimePicker}
+              value={this.state.time}
+            />
+            <DateTimePicker
+              mode="time"
+              isVisible={this.state.isTimePickerVisible}
+              onConfirm={jsDate => {
+                this.setState({
+                  time: padWithZeros(jsDate),
+                  isTimePickerVisible: false
+                })
               }}
-              value={this.state.exclude}
+              onCancel={() => this.setState({ isTimePickerVisible: false })}
             />
-          </SymptomSection>
-        </ScrollView>
-        <ActionButtonFooter
-          symptom='temperature'
-          date={this.props.date}
-          currentSymptomValue={this.temperature}
-          saveAction={() => this.checkRangeAndSave()}
-          saveDisabled={
-            this.state.temperature === '' ||
-            isNaN(Number(this.state.temperature)) ||
-            isInvalidTime(this.state.time)
-          }
-          navigate={this.props.navigate}
-          autoShowDayView={false}
-        />
-      </View>
+          </View>
+        </SymptomSection>
+        <SymptomSection
+          header={labels.note.header}
+          explainer={labels.note.explainer}
+        >
+          <AppTextInput
+            multiline={true}
+            autoFocus={this.state.focusTextArea}
+            placeholder={sharedLabels.enter}
+            value={this.state.note}
+            onChangeText={this.setNote}
+          />
+        </SymptomSection>
+        <SymptomSection
+          header={labels.exclude.header}
+          explainer={labels.exclude.explainer}
+          inline={true}
+        >
+          <Switch
+            onValueChange={(val) => {
+              this.setState({ exclude: val })
+            }}
+            value={this.state.exclude}
+          />
+        </SymptomSection>
+      </ScrollView>
     )
   }
-}
-
-function isInvalidTime(timeString) {
-  try {
-    LocalTime.parse(timeString)
-  } catch (err) {
-    return true
-  }
-  return false
 }

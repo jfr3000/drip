@@ -7,6 +7,11 @@ chai.use(dirtyChai)
 import getSensiplanMucus from '../lib/nfp-mucus'
 
 describe('getSensiplanMucus', () => {
+  it('returns null if there is no value for feeling or texture', () => {
+    expect(getSensiplanMucus()).to.be.null()
+    expect(getSensiplanMucus(undefined, 3)).to.be.null()
+    expect(getSensiplanMucus(2, undefined)).to.be.null()
+  })
 
   describe('results in t for:', () => {
     it('dry feeling and no texture', function () {

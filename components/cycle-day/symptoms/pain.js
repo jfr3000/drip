@@ -1,18 +1,16 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
   ScrollView,
   TextInput,
-  View
 } from 'react-native'
-import { saveSymptom } from '../../../db'
 import { pain as labels } from '../../../i18n/en/cycle-day'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
-import ActionButtonFooter from './action-button-footer'
 import SelectBoxGroup from '../select-box-group'
 import SymptomSection from './symptom-section'
 import styles from '../../../styles'
+import SymptomView from './symptom-view'
 
-export default class Pain extends Component {
+export default class Pain extends SymptomView {
   constructor(props) {
     super(props)
     const cycleDay = props.cycleDay
@@ -26,6 +24,22 @@ export default class Pain extends Component {
     }
   }
 
+  symptomName = 'pain'
+
+  onBackButtonPress() {
+    const nothingEntered = Object.values(this.state).every(val => !val)
+    if (nothingEntered) {
+      this.deleteSymptomEntry()
+      return
+    }
+
+    const copyOfState = Object.assign({}, this.state)
+    if (!copyOfState.other) {
+      copyOfState.note = null
+    }
+    this.saveSymptomEntry(copyOfState)
+  }
+
   toggleState = (key) => {
     const curr = this.state[key]
     this.setState({[key]: !curr})
@@ -34,19 +48,18 @@ export default class Pain extends Component {
     }
   }
 
-  render() {
+  renderContent() {
     return (
-      <View style={{ flex: 1 }}>
-        <ScrollView style={styles.page}>
-          <SymptomSection
-            explainer={labels.explainer}
-          >
-            <SelectBoxGroup
-              labels={labels.categories}
-              onSelect={this.toggleState}
-              optionsState={this.state}
-            />
-            { this.state.other &&
+      <ScrollView style={styles.page}>
+        <SymptomSection
+          explainer={labels.explainer}
+        >
+          <SelectBoxGroup
+            labels={labels.categories}
+            onSelect={this.toggleState}
+            optionsState={this.state}
+          />
+          { this.state.other &&
               <TextInput
                 autoFocus={this.state.focusTextArea}
                 multiline={true}
@@ -56,24 +69,8 @@ export default class Pain extends Component {
                   this.setState({note: val})
                 }}
               />
-            }
-          </SymptomSection>
-        </ScrollView>
-        <ActionButtonFooter
-          symptom='pain'
-          date={this.props.date}
-          currentSymptomValue={this.state}
-          saveAction={() => {
-            const copyOfState = Object.assign({}, this.state)
-            if (!copyOfState.other) {
-              copyOfState.note = null
-            }
-            saveSymptom('pain', this.props.date, copyOfState)
-          }}
-          saveDisabled={Object.values(this.state).every(value => !value)}
-          navigate={this.props.navigate}
-        />
-      </View>
-    )
+          }
+        </SymptomSection>
+      </ScrollView>)
   }
 }

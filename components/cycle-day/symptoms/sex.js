@@ -1,18 +1,16 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
   TextInput,
-  View,
   ScrollView
 } from 'react-native'
 import styles from '../../../styles'
-import { saveSymptom } from '../../../db'
 import { sex as sexLabels, contraceptives as contraceptivesLabels } from '../../../i18n/en/cycle-day'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
-import ActionButtonFooter from './action-button-footer'
 import SelectBoxGroup from '../select-box-group'
 import SymptomSection from './symptom-section'
+import SymptomView from './symptom-view'
 
-export default class Sex extends Component {
+export default class Sex extends SymptomView {
   constructor(props) {
     super(props)
     const cycleDay = props.cycleDay
@@ -26,6 +24,22 @@ export default class Sex extends Component {
     if (this.state.note) this.state.other = true
   }
 
+  symptomName = "sex"
+
+  onBackButtonPress() {
+    const nothingEntered = Object.values(this.state).every(val => !val)
+    if (nothingEntered) {
+      this.deleteSymptomEntry()
+      return
+    }
+
+    const copyOfState = Object.assign({}, this.state)
+    if (!copyOfState.other) {
+      copyOfState.note = null
+    }
+    this.saveSymptomEntry(copyOfState)
+  }
+
   toggleState = (key) => {
     const curr = this.state[key]
     this.setState({[key]: !curr})
@@ -34,32 +48,31 @@ export default class Sex extends Component {
     }
   }
 
-  render() {
+  renderContent() {
     return (
-      <View style={{ flex: 1 }}>
-        <ScrollView style={styles.page}>
-          <SymptomSection
-            header={sexLabels.header}
-            explainer={sexLabels.explainer}
-          >
-            <SelectBoxGroup
-              labels={sexLabels.categories}
-              onSelect={this.toggleState}
-              optionsState={this.state}
-            />
-          </SymptomSection>
-          <SymptomSection
-            header={contraceptivesLabels.header}
-            explainer={contraceptivesLabels.explainer}
-          >
-            <SelectBoxGroup
-              labels={contraceptivesLabels.categories}
-              onSelect={this.toggleState}
-              optionsState={this.state}
-            />
-          </SymptomSection>
+      <ScrollView style={styles.page}>
+        <SymptomSection
+          header={sexLabels.header}
+          explainer={sexLabels.explainer}
+        >
+          <SelectBoxGroup
+            labels={sexLabels.categories}
+            onSelect={this.toggleState}
+            optionsState={this.state}
+          />
+        </SymptomSection>
+        <SymptomSection
+          header={contraceptivesLabels.header}
+          explainer={contraceptivesLabels.explainer}
+        >
+          <SelectBoxGroup
+            labels={contraceptivesLabels.categories}
+            onSelect={this.toggleState}
+            optionsState={this.state}
+          />
+        </SymptomSection>
 
-          {this.state.other &&
+        {this.state.other &&
             <TextInput
               autoFocus={this.state.focusTextArea}
               multiline={true}
@@ -69,23 +82,8 @@ export default class Sex extends Component {
                 this.setState({ note: val })
               }}
             />
-          }
-        </ScrollView>
-        <ActionButtonFooter
-          symptom='sex'
-          date={this.props.date}
-          currentSymptomValue={this.state}
-          saveAction={() => {
-            const copyOfState = Object.assign({}, this.state)
-            if (!copyOfState.other) {
-              copyOfState.note = null
-            }
-            saveSymptom('sex', this.props.date, copyOfState)
-          }}
-          saveDisabled={Object.values(this.state).every(value => !value)}
-          navigate={this.props.navigate}
-        />
-      </View>
+        }
+      </ScrollView>
     )
   }
 }

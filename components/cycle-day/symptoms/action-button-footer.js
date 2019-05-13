@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {
-  View, TouchableOpacity, Text, Alert, ToastAndroid
-} from 'react-native'
+  View, TouchableOpacity, Text, Alert} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { saveSymptom } from '../../../db'
 import styles, {iconStyles} from '../../../styles'
@@ -14,10 +13,8 @@ export default class ActionButtonFooter extends Component {
       symptom,
       currentSymptomValue,
       date,
-      saveAction,
-      saveDisabled,
       navigate,
-      autoShowDayView = true}
+    }
       = this.props
     const navigateToOverView = () => navigate('CycleDay', {date})
     const buttons = [
@@ -44,43 +41,19 @@ export default class ActionButtonFooter extends Component {
           (Object.values(currentSymptomValue).every(x => !x) && currentSymptomValue.constructor === Object)
         ),
         icon: 'delete-outline'
-      }, {
-        title: labels.save,
-        action: () => {
-          if(saveDisabled) {
-            ToastAndroid.show(labels.disabledInfo, ToastAndroid.LONG)
-          } else {
-            saveAction()
-            if (autoShowDayView) navigateToOverView()
-          }
-
-        },
-        disabledCondition: saveDisabled,
-        icon: 'content-save-outline'
       }
     ]
     return (
-      <View style={styles.actionButtonFooter}>
-        {buttons.map(({ title, action, disabledCondition, icon }, i) => {
+      <View style={styles.menu}>
+        {buttons.map(({ title, action, icon }, i) => {
           const textStyle = [styles.menuText]
-          if (disabledCondition) {
-            textStyle.push(styles.menuTextInActive)
-          }
-          const iconStyle = disabledCondition ?
-            Object.assign(
-              {},
-              iconStyles.menuIcon,
-              iconStyles.menuIconInactive
-            )
-            :
-            iconStyles.menuIcon
           return (
             <TouchableOpacity
               onPress={action}
               style={styles.actionButtonItem}
               key={i.toString()}
             >
-              <Icon name={icon} {...iconStyle} />
+              <Icon name={icon} {...iconStyles.menuIcon} />
               <Text style={textStyle}>
                 {title.toLowerCase()}
               </Text>
