@@ -7,10 +7,18 @@ import { headerTitles } from '../../../i18n/en/labels'
 export default class SymptomView extends Component {
   constructor(props) {
     super()
-    // every specific symptom view provides their own onBackButtonPress method
-    this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.onBackButtonPress.bind(this))
+    this.backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.handleBackButtonPressOnSymptomView.bind(this)
+    )
     this.globalBackhandler = props.handleBackButtonPress
     this.date = props.date
+  }
+
+  async handleBackButtonPressOnSymptomView() {
+    // every specific symptom view provides their own onBackButtonPress method
+    const stopHere = await this.onBackButtonPress()
+    if (!stopHere) this.globalBackhandler()
   }
 
   saveSymptomEntry(entry) {
@@ -31,10 +39,7 @@ export default class SymptomView extends Component {
         <Header
           title={headerTitles[this.symptomName].toLowerCase()}
           date={this.date}
-          goBack={() => {
-            this.onBackButtonPress()
-            this.globalBackhandler()
-          }}
+          goBack={this.handleBackButtonPressOnSymptomView.bind(this)}
           deleteEntry={() => {
             this.deleteSymptomEntry()
             this.globalBackhandler()

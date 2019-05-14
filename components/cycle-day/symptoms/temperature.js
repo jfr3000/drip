@@ -55,13 +55,16 @@ export default class Temp extends SymptomView {
 
   symptomName = 'temperature'
 
-  onBackButtonPress() {
+  async onBackButtonPress() {
     if (typeof this.state.temperature != 'string' || this.state.temperature === '') {
       this.deleteSymptomEntry()
       return
     }
 
-    this.checkRangeAndSave()
+    const userWantsToSave = await this.warnUserIfTempOutOfRange()
+    if (!userWantsToSave) return true
+
+    this.saveTemperature()
   }
 
   saveTemperature = () => {
@@ -75,7 +78,7 @@ export default class Temp extends SymptomView {
     this.saveSymptomEntry(dataToSave)
   }
 
-  checkRangeAndSave = () => {
+  warnUserIfTempOutOfRange = async () => {
     const value = Number(this.state.temperature)
     const { min, max } = config.temperatureScale
     const range = { min, max }
@@ -88,18 +91,26 @@ export default class Temp extends SymptomView {
       warningMsg = labels.outOfRangeWarning
     }
 
-    if (warningMsg) {
-      Alert.alert(
-        sharedLabels.warning,
-        warningMsg,
-        [
-          { text: sharedLabels.cancel },
-          { text: sharedLabels.save, onPress: this.saveTemperature}
-        ]
-      )
-    } else {
-      this.saveTemperature()
-    }
+    // RN alert runs asynchronously but doesn't provide a callback, so wrap
+    // it in a promise
+    return new Promise(resolve => {
+      if (warningMsg) {
+        Alert.alert(
+          sharedLabels.warning,
+          warningMsg,
+          [
+            { text: sharedLabels.cancel, onPress: () => {
+              resolve(false)
+            }},
+            { text: sharedLabels.save, onPress: () => {
+              resolve(true)
+            }}
+          ]
+        )
+      } else {
+        resolve(true)
+      }
+    })
   }
 
   setTemperature = (temperature) => {
@@ -136,7 +147,6 @@ export default class Temp extends SymptomView {
               onChangeText={this.setTemperature}
               keyboardType='numeric'
               maxLength={5}
-              onBlur={this.checkRange}
             />
             <AppText style={{ marginLeft: 5 }}>°C</AppText>
           </View>
