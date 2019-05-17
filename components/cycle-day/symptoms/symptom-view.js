@@ -34,6 +34,13 @@ export default class SymptomView extends Component {
     this.backHandler.remove()
   }
 
+  isDeleteIconActive() {
+    return Object.values(this.state).some(value => {
+      // is there any meaningful value in the current state?
+      return value || value === 0
+    })
+  }
+
   render() {
     return (
       <View style={{flex: 1}}>
@@ -41,10 +48,7 @@ export default class SymptomView extends Component {
           title={headerTitles[this.symptomName].toLowerCase()}
           date={this.date}
           goBack={this.handleBackButtonPressOnSymptomView.bind(this)}
-          deleteIconActive={Object.values(this.state).some(x => {
-            // is there any meaningful value in the current state?
-            return x || x === 0
-          })}
+          deleteIconActive={this.isDeleteIconActive()}
           deleteEntry={() => {
             Alert.alert(
               sharedDialogs.areYouSureTitle,

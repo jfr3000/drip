@@ -55,6 +55,15 @@ export default class Temp extends SymptomView {
 
   symptomName = 'temperature'
 
+  isDeleteIconActive() {
+    return Object.keys(this.state).some(key => {
+    // the time is always prefilled, so it's not relevant for setting
+    // the delete button active
+      if (key === 'time') return
+      return this.state[key] || this.state[key] === 0
+    })
+  }
+
   async onBackButtonPress() {
     if (typeof this.state.temperature != 'string' || this.state.temperature === '') {
       this.deleteSymptomEntry()
