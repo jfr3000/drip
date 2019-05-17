@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import {
-  View, TouchableOpacity, Text, Alert} from 'react-native'
+  View, TouchableOpacity, Text} from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { saveSymptom } from '../../../db'
 import styles, {iconStyles} from '../../../styles'
 import {sharedDialogs as labels} from '../../../i18n/en/cycle-day'
 
@@ -10,31 +9,13 @@ import {sharedDialogs as labels} from '../../../i18n/en/cycle-day'
 export default class ActionButtonFooter extends Component {
   render() {
     const {
-      symptom,
       currentSymptomValue,
-      date,
-      navigate,
     }
       = this.props
-    const navigateToOverView = () => navigate('CycleDay', {date})
     const buttons = [
       {
         title: labels.delete,
         action: () => {
-          Alert.alert(
-            labels.areYouSureTitle,
-            labels.areYouSureToDelete,
-            [{
-              text: labels.cancel,
-              style: 'cancel'
-            }, {
-              text: labels.reallyDeleteData,
-              onPress: () => {
-                saveSymptom(symptom, date)
-                navigateToOverView()
-              }
-            }]
-          )
         },
         disabledCondition: (!currentSymptomValue ||
           (Object.keys(currentSymptomValue).length === 0 && currentSymptomValue.constructor === Object) ||
