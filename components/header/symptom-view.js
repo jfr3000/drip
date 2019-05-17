@@ -6,7 +6,7 @@ import {
   Dimensions
 } from 'react-native'
 import styles, { iconStyles } from '../../styles'
-import FeatherIcon from 'react-native-vector-icons/Feather'
+import Icon from 'react-native-vector-icons/AntDesign'
 import NavigationArrow from './navigation-arrow'
 import formatDate from '../helpers/format-date'
 
@@ -34,8 +34,8 @@ export default function SymptomViewHeader(props) {
         onPress={props.deleteEntry}
         style={styles.infoButton}
       >
-        <FeatherIcon
-          name="info"
+        <Icon
+          name="delete"
           style={styles.symptomInfoIcon}
           {...iconStyles.symptomHeaderIcons}
         />

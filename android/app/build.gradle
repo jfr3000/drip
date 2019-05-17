@@ -149,14 +149,14 @@ android {
 }
 
 dependencies {
-    compile project(':nodejs-mobile-react-native')
-    compile project(':react-native-restart')
-    compile project(':react-native-push-notification')
-    compile project(':react-native-vector-icons')
-    compile project(':react-native-fs')
-    compile project(':react-native-document-picker')
-    compile project(':react-native-share')
-    compile project(':realm')
+    implementation project(':realm')
+    implementation project(':react-native-vector-icons')
+    implementation project(':react-native-share')
+    implementation project(':react-native-restart')
+    implementation project(':react-native-push-notification')
+    implementation project(':react-native-fs')
+    implementation project(':react-native-document-picker')
+    implementation project(':nodejs-mobile-react-native')
     compile fileTree(dir: "libs", include: ["*.jar"])
     compile "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     compile "com.facebook.react:react-native:+"  // From node_modules
