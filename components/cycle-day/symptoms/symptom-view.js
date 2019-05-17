@@ -41,6 +41,10 @@ export default class SymptomView extends Component {
           title={headerTitles[this.symptomName].toLowerCase()}
           date={this.date}
           goBack={this.handleBackButtonPressOnSymptomView.bind(this)}
+          deleteIconActive={Object.values(this.state).some(x => {
+            // is there any meaningful value in the current state?
+            return x || x === 0
+          })}
           deleteEntry={() => {
             Alert.alert(
               sharedDialogs.areYouSureTitle,
