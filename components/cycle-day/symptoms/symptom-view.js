@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
-import { BackHandler, View, Alert } from 'react-native'
+import {
+  BackHandler, View, Alert, TouchableOpacity
+} from 'react-native'
 import { saveSymptom } from '../../../db'
 import Header from '../../header/symptom-view'
 import { headerTitles } from '../../../i18n/en/labels'
 import { sharedDialogs } from '../../../i18n/en/cycle-day'
+import FeatherIcon from 'react-native-vector-icons/Entypo'
+import styles, { iconStyles } from '../../../styles'
 
 export default class SymptomView extends Component {
   constructor(props) {
@@ -66,6 +70,16 @@ export default class SymptomView extends Component {
             )
           }}
         />
+        <TouchableOpacity
+          onPress={() => {}}
+          style={styles.infoButtonSymptomView}
+        >
+          <FeatherIcon
+            name="info-with-circle"
+            {...iconStyles.infoInSymptomView}
+            style={styles.symptomInfoIcon}
+          />
+        </TouchableOpacity>
         {this.renderContent()}
       </View>
     )

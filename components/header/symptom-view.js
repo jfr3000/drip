@@ -32,12 +32,14 @@ export default function SymptomViewHeader(props) {
       </View >
       <TouchableOpacity
         onPress={props.deleteEntry}
-        style={[styles.infoButton, {opacity: props.deleteIconActive ? 1 : 0}]}
+        style={[
+          styles.headerDeleteButton,
+          {opacity: props.deleteIconActive ? 1 : 0}
+        ]}
         disabled={!props.deleteIconActive}
       >
         <Icon
           name="delete"
-          style={styles.symptomDeleteIcon}
           {...iconStyles.symptomHeaderIcons}
         />
       </TouchableOpacity>

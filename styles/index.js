@@ -176,10 +176,6 @@ export default StyleSheet.create({
     fontFamily: textFontBold,
     marginTop: 10
   },
-  symptomDeleteIcon: {
-    marginRight: 20,
-    marginLeft: 20
-  },
   symptomBoxImage: {
     width: 50,
     height: 50
@@ -438,8 +434,15 @@ export default StyleSheet.create({
     marginTop: 20,
     color: 'grey'
   },
-  infoButton: {
-    paddingVertical: 20
+  headerDeleteButton: {
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    alignItems: 'flex-end'
+  },
+  infoButtonSymptomView: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    alignItems: 'flex-end'
   },
   licensePage: {
     paddingVertical: 20,
@@ -479,7 +482,13 @@ export const iconStyles = {
     color: colorInActive,
   },
   infoInHeading: {
-    marginRight: 5,
-    color: 'black'
+    marginRight: 5
+  },
+  infoInSymptomView: {
+    size: 20
+  },
+  hiddenIcon: {
+    size: 20,
+    display: 'none'
   }
 }
