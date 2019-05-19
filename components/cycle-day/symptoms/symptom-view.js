@@ -3,12 +3,12 @@ import {
   BackHandler, View, Alert, TouchableOpacity
 } from 'react-native'
 import { saveSymptom } from '../../../db'
+import InfoPopUp from './info-symptom'
 import Header from '../../header/symptom-view'
 import { headerTitles } from '../../../i18n/en/labels'
 import { sharedDialogs } from '../../../i18n/en/cycle-day'
 import FeatherIcon from 'react-native-vector-icons/Feather'
 import styles, { iconStyles } from '../../../styles'
-import infoLabels from '../../../i18n/en/symptom-info'
 
 export default class SymptomView extends Component {
   constructor(props) {
@@ -19,6 +19,10 @@ export default class SymptomView extends Component {
     )
     this.globalBackhandler = props.handleBackButtonPress
     this.date = props.date
+    this.navigate = props.navigate
+    this.state = {
+      showInfo: false
+    }
   }
 
   async handleBackButtonPressOnSymptomView() {
@@ -46,13 +50,6 @@ export default class SymptomView extends Component {
     })
   }
 
-  showInfoBox(){
-    Alert.alert(
-      infoLabels[this.symptomName].title,
-      infoLabels[this.symptomName].text
-    )
-  }
-
   render() {
     return (
       <View style={{flex: 1}}>
@@ -78,9 +75,9 @@ export default class SymptomView extends Component {
             )
           }}
         />
-        <View>
+        <View flex={1}>
           <TouchableOpacity
-            onPress={this.showInfoBox.bind(this)}
+            onPress={() => this.setState({showInfo: true})}
             style={styles.infoButtonSymptomView}
           >
             <FeatherIcon
@@ -90,6 +87,12 @@ export default class SymptomView extends Component {
             />
           </TouchableOpacity>
           {this.renderContent()}
+          { this.state.showInfo &&
+              <InfoPopUp
+                symptom={this.symptomName}
+                close={() => this.setState({showInfo: false})}
+              />
+          }
         </View>
       </View>
     )

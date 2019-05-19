@@ -270,20 +270,6 @@ export default StyleSheet.create({
   temperatureTextInputSuggestion: {
     color: '#939393'
   },
-  actionButtonFooter: {
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    flexDirection: 'row',
-    height: 60,
-  },
-  actionButtonItem: {
-    backgroundColor: secondaryColor,
-    alignItems: 'center',
-    flex: 1,
-    marginHorizontal: 5,
-    paddingVertical: 5,
-    borderRadius: 5,
-  },
   symptomEditButton: {
     width: 130
   },
@@ -307,6 +293,33 @@ export default StyleSheet.create({
   framedSegmentInlineChildren: {
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  infoPopUpWrapper: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0
+  },
+  infoPopUp: {
+    backgroundColor: 'white',
+    padding: 15,
+    position: 'absolute',
+    top: 20,
+    bottom: 20,
+    left: 20,
+    right: 20
+  },
+  dimmed: {
+    backgroundColor: 'black',
+    opacity: 0.5,
+    flex: 1
+  },
+  infoSymptomClose: {
+    alignItems: 'flex-end'
+  },
+  infoSymptomText: {
+    marginTop: 10
   },
   settingsButton: {
     padding: 10,
@@ -385,7 +398,7 @@ export default StyleSheet.create({
   },
   page: {
     marginHorizontal: 10,
-    marginTop: 20
+    marginTop: 20,
   },
   calendarToday: {
     fontWeight: 'bold',
@@ -490,14 +503,7 @@ export const iconStyles = {
   menuIconInactive: {
     color: colorInActive,
   },
-  infoInHeading: {
-    marginRight: 5
-  },
-  infoInSymptomView: {
-    size: 20
-  },
-  hiddenIcon: {
-    size: 20,
-    display: 'none'
+  infoPopUpClose: {
+    size: 25
   }
 }
