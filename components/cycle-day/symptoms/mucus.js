@@ -27,7 +27,7 @@ export default class Mucus extends SymptomView {
   }
 
   symptomName = 'mucus'
-  
+
   showInfoBox(){
     const symptomName = 'mucus'
     Alert.alert(
@@ -42,7 +42,7 @@ export default class Mucus extends SymptomView {
       this.deleteSymptomEntry()
       return
     }
-    
+
     const feeling = this.state.feeling
     const texture = this.state.texture
     this.saveSymptomEntry({

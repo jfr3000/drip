@@ -41,7 +41,7 @@ export default class Sex extends SymptomView {
       infoLabels[symptomName].text
     )
   }
-  
+
   onBackButtonPress() {
     const nothingEntered = Object.values(this.state).every(val => !val)
     if (nothingEntered) {

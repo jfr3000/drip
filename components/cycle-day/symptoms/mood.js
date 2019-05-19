@@ -32,7 +32,7 @@ export default class Mood extends SymptomView {
   }
 
   symptomName = 'mood'
-  
+
   showInfoBox(){
     const symptomName = 'mood'
     Alert.alert(
