@@ -1,23 +1,28 @@
 import React from 'react'
 import {
-  View,
-  Switch,
-  Keyboard,
   Alert,
-  ScrollView
+  Keyboard,
+  ScrollView,
+  Switch,
+  TouchableOpacity,
+  View
 } from 'react-native'
 import DateTimePicker from 'react-native-modal-datetime-picker-nevo'
-import padWithZeros from '../../helpers/pad-time-with-zeros'
-
-import { getPreviousTemperature } from '../../../db'
-import styles from '../../../styles'
+import FeatherIcon from 'react-native-vector-icons/Feather'
 import { LocalTime, ChronoUnit } from 'js-joda'
-import { temperature as labels } from '../../../i18n/en/cycle-day'
+
+import config from '../../../config'
+import { getPreviousTemperature } from '../../../db'
+import infoLabels from '../../../i18n/en/symptom-info'
 import { scaleObservable } from '../../../local-storage'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
-import config from '../../../config'
-import AppTextInput from '../../app-text-input'
+import styles, { iconStyles } from '../../../styles'
+import { temperature as labels } from '../../../i18n/en/cycle-day'
+
 import AppText from '../../app-text'
+import AppTextInput from '../../app-text-input'
+import padWithZeros from '../../helpers/pad-time-with-zeros'
+
 import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
 
@@ -54,6 +59,14 @@ export default class Temp extends SymptomView {
   }
 
   symptomName = 'temperature'
+
+  showInfoBox(){
+    const symptomName = 'temperature'
+    Alert.alert(
+      infoLabels[symptomName].title,
+      infoLabels[symptomName].text
+    )
+  }
 
   async onBackButtonPress() {
     if (typeof this.state.temperature != 'string' || this.state.temperature === '') {
@@ -134,23 +147,35 @@ export default class Temp extends SymptomView {
     }
     return (
       <ScrollView style={styles.page}>
-        <SymptomSection
-          header={labels.temperature.header}
-          explainer={labels.temperature.explainer}
-        >
-          <View style={styles.framedSegmentInlineChildren}>
-            <AppTextInput
-              style={[inputStyle]}
-              autoFocus={true}
-              placeholder={this.state.temperature}
-              value={this.state.temperature}
-              onChangeText={this.setTemperature}
-              keyboardType='numeric'
-              maxLength={5}
-            />
-            <AppText style={{ marginLeft: 5 }}>°C</AppText>
-          </View>
-        </SymptomSection>
+        <View style={{ flexDirection: 'row' }}>
+          <SymptomSection
+            header={labels.temperature.header}
+            explainer={labels.temperature.explainer}
+          >
+            <View style={{ flex: 1 }}></View>
+            <TouchableOpacity
+              onPress={this.showInfoBox}
+              style={styles.infoButton}
+            >
+              <FeatherIcon
+                name="info"
+                style={iconStyles.symptomInfo}
+              />
+            </TouchableOpacity>
+            <View style={styles.framedSegmentInlineChildren}>
+              <AppTextInput
+                style={[inputStyle]}
+                autoFocus={true}
+                placeholder={this.state.temperature}
+                value={this.state.temperature}
+                onChangeText={this.setTemperature}
+                keyboardType='numeric'
+                maxLength={5}
+              />
+              <AppText style={{ marginLeft: 5 }}>°C</AppText>
+            </View>
+          </SymptomSection>
+        </View>
         <SymptomSection
           header={labels.time}
         >

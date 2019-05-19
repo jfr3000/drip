@@ -1,11 +1,20 @@
 import React from 'react'
 import {
+  Alert,
   ScrollView,
-  TextInput} from 'react-native'
+  TextInput,
+  TouchableOpacity,
+  View
+} from 'react-native'
+import FeatherIcon from 'react-native-vector-icons/Feather'
+
+import infoLabels from '../../../i18n/en/symptom-info'
 import { mood as labels } from '../../../i18n/en/cycle-day'
+import styles, { iconStyles } from '../../../styles'
+
 import SelectBoxGroup from '../select-box-group'
+
 import SymptomSection from './symptom-section'
-import styles from '../../../styles'
 import SymptomView from './symptom-view'
 
 export default class Mood extends SymptomView {
@@ -22,7 +31,15 @@ export default class Mood extends SymptomView {
     }
   }
 
-  symptomName = "mood"
+  symptomName = 'mood'
+  
+  showInfoBox(){
+    const symptomName = 'mood'
+    Alert.alert(
+      infoLabels[symptomName].title,
+      infoLabels[symptomName].text
+    )
+  }
 
   onBackButtonPress() {
     const nothingEntered = Object.values(this.state).every(val => !val)
@@ -48,15 +65,25 @@ export default class Mood extends SymptomView {
   renderContent() {
     return (
       <ScrollView style={styles.page}>
-        <SymptomSection
-          explainer={labels.explainer}
-        >
-          <SelectBoxGroup
-            labels={labels.categories}
-            onSelect={this.toggleState}
-            optionsState={this.state}
-          />
-          { this.state.other &&
+        <View style={{ flexDirection: 'row' }}>
+          <SymptomSection
+            explainer={labels.explainer}
+          >
+            <TouchableOpacity
+              onPress={this.showInfoBox}
+              style={styles.infoButton}
+            >
+              <FeatherIcon
+                name="info"
+                style={iconStyles.symptomInfo}
+              />
+            </TouchableOpacity>
+            <SelectBoxGroup
+              labels={labels.categories}
+              onSelect={this.toggleState}
+              optionsState={this.state}
+            />
+            { this.state.other &&
               <TextInput
                 autoFocus={this.state.focusTextArea}
                 multiline={true}
@@ -66,8 +93,9 @@ export default class Mood extends SymptomView {
                   this.setState({note: val})
                 }}
               />
-          }
-        </SymptomSection>
+            }
+          </SymptomSection>
+        </View>
       </ScrollView>
     )
   }
