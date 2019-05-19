@@ -1,12 +1,20 @@
 import React from 'react'
 import {
+  Alert,
+  ScrollView,
   TextInput,
-  ScrollView
+  TouchableOpacity,
+  View
 } from 'react-native'
-import styles from '../../../styles'
+import FeatherIcon from 'react-native-vector-icons/Feather'
+
+import infoLabels from '../../../i18n/en/symptom-info'
 import { sex as sexLabels, contraceptives as contraceptivesLabels } from '../../../i18n/en/cycle-day'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
+import styles, { iconStyles } from '../../../styles'
+
 import SelectBoxGroup from '../select-box-group'
+
 import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
 
@@ -24,8 +32,16 @@ export default class Sex extends SymptomView {
     if (this.state.note) this.state.other = true
   }
 
-  symptomName = "sex"
+  symptomName = 'sex'
 
+  showInfoBox(){
+    const symptomName = 'sex'
+    Alert.alert(
+      infoLabels[symptomName].title,
+      infoLabels[symptomName].text
+    )
+  }
+  
   onBackButtonPress() {
     const nothingEntered = Object.values(this.state).every(val => !val)
     if (nothingEntered) {
@@ -51,16 +67,28 @@ export default class Sex extends SymptomView {
   renderContent() {
     return (
       <ScrollView style={styles.page}>
-        <SymptomSection
-          header={sexLabels.header}
-          explainer={sexLabels.explainer}
-        >
-          <SelectBoxGroup
-            labels={sexLabels.categories}
-            onSelect={this.toggleState}
-            optionsState={this.state}
-          />
-        </SymptomSection>
+        <View style={{ flexDirection: 'row' }}>
+          <SymptomSection
+            header={sexLabels.header}
+            explainer={sexLabels.explainer}
+          >
+            <SelectBoxGroup
+              labels={sexLabels.categories}
+              onSelect={this.toggleState}
+              optionsState={this.state}
+            />
+          </SymptomSection>
+          <View style={{ flex: 1 }}></View>
+          <TouchableOpacity
+            onPress={this.showInfoBox}
+            style={styles.infoButton}
+          >
+            <FeatherIcon
+              name="info"
+              style={iconStyles.symptomInfo}
+            />
+          </TouchableOpacity>
+        </View>
         <SymptomSection
           header={contraceptivesLabels.header}
           explainer={contraceptivesLabels.explainer}

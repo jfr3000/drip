@@ -1,10 +1,18 @@
 import React from 'react'
 import {
-  ScrollView
+  Alert,
+  ScrollView,
+  TouchableOpacity,
+  View
 } from 'react-native'
-import styles from '../../../styles'
+import FeatherIcon from 'react-native-vector-icons/Feather'
+
+import infoLabels from '../../../i18n/en/symptom-info'
 import { intensity, desire } from '../../../i18n/en/cycle-day'
+import styles, { iconStyles } from '../../../styles'
+
 import SelectTabGroup from '../select-tab-group'
+
 import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
 
@@ -18,6 +26,14 @@ export default class Desire extends SymptomView {
   }
 
   symptomName = 'desire'
+
+  showInfoBox(){
+    const symptomName = 'desire'
+    Alert.alert(
+      infoLabels[symptomName].title,
+      infoLabels[symptomName].text
+    )
+  }
 
   onBackButtonPress() {
     if (typeof this.state.currentValue != 'number') {
@@ -35,16 +51,28 @@ export default class Desire extends SymptomView {
     ]
     return (
       <ScrollView style={styles.page}>
-        <SymptomSection
-          header={desire.header}
-          explainer={desire.explainer}
-        >
-          <SelectTabGroup
-            buttons={desireRadioProps}
-            active={this.state.currentValue}
-            onSelect={val => this.setState({ currentValue: val })}
-          />
-        </SymptomSection>
+        <View style={{ flexDirection: 'row' }}>
+          <SymptomSection
+            header={desire.header}
+            explainer={desire.explainer}
+          >
+            <SelectTabGroup
+              buttons={desireRadioProps}
+              active={this.state.currentValue}
+              onSelect={val => this.setState({ currentValue: val })}
+            />
+          </SymptomSection>
+          <View style={{ flex: 1 }}></View>
+          <TouchableOpacity
+            onPress={this.showInfoBox}
+            style={styles.infoButton}
+          >
+            <FeatherIcon
+              name="info"
+              style={iconStyles.symptomInfo}
+            />
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     )
   }

@@ -1,12 +1,20 @@
 import React from 'react'
 import {
+  Alert,
   Switch,
-  ScrollView
+  ScrollView,
+  TouchableOpacity,
+  View
 } from 'react-native'
-import styles from '../../../styles'
+import FeatherIcon from 'react-native-vector-icons/Feather'
+
+import styles, { iconStyles } from '../../../styles'
+import infoLabels from '../../../i18n/en/symptom-info'
 import { mucus as labels } from '../../../i18n/en/cycle-day'
 import computeNfpValue from '../../../lib/nfp-mucus'
+
 import SelectTabGroup from '../select-tab-group'
+
 import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
 
@@ -19,6 +27,14 @@ export default class Mucus extends SymptomView {
   }
 
   symptomName = 'mucus'
+  
+  showInfoBox(){
+    const symptomName = 'mucus'
+    Alert.alert(
+      infoLabels[symptomName].title,
+      infoLabels[symptomName].text
+    )
+  }
 
   onBackButtonPress() {
     const nothingEntered = ['feeling', 'texture'].every(val => typeof this.state[val] != 'number')
@@ -26,7 +42,7 @@ export default class Mucus extends SymptomView {
       this.deleteSymptomEntry()
       return
     }
-
+    
     const feeling = this.state.feeling
     const texture = this.state.texture
     this.saveSymptomEntry({
@@ -53,16 +69,29 @@ export default class Mucus extends SymptomView {
     // const mandatoryNotCompletedYet = typeof this.state.feeling != 'number' || typeof this.state.texture != 'number'
     return (
       <ScrollView style={styles.page}>
-        <SymptomSection
-          header='Feeling'
-          explainer={labels.feeling.explainer}
-        >
-          <SelectTabGroup
-            buttons={mucusFeeling}
-            onSelect={val => this.setState({ feeling: val })}
-            active={this.state.feeling}
-          />
-        </SymptomSection>
+        <View style={{ flexDirection: 'row' }}>
+          <SymptomSection
+            header='Feeling'
+            explainer={labels.feeling.explainer}
+          >
+            <SelectTabGroup
+              buttons={mucusFeeling}
+              onSelect={val => this.setState({ feeling: val })}
+              active={this.state.feeling}
+            />
+          </SymptomSection>
+          <View style={{ flex: 1 }}></View>
+          <TouchableOpacity
+            onPress={this.showInfoBox}
+            style={styles.infoButton}
+          >
+            <FeatherIcon
+              name="info"
+              style={iconStyles.symptomInfo}
+            />
+          </TouchableOpacity>
+        </View>
+
         <SymptomSection
           header='Texture'
           explainer={labels.texture.explainer}

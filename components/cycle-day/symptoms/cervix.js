@@ -1,11 +1,19 @@
 import React from 'react'
 import {
+  Alert,
   Switch,
-  ScrollView
+  ScrollView,
+  TouchableOpacity,
+  View
 } from 'react-native'
-import styles from '../../../styles'
+import FeatherIcon from 'react-native-vector-icons/Feather'
+
 import { cervix as labels } from '../../../i18n/en/cycle-day'
+import infoLabels from '../../../i18n/en/symptom-info'
+import styles, { iconStyles } from '../../../styles'
+
 import SelectTabGroup from '../select-tab-group'
+
 import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
 
@@ -18,6 +26,14 @@ export default class Cervix extends SymptomView {
   }
 
   symptomName = 'cervix'
+
+  showInfoBox(){
+    const symptomName = 'cervix'
+    Alert.alert(
+      infoLabels[symptomName].title,
+      infoLabels[symptomName].text
+    )
+  }
 
   onBackButtonPress() {
     const nothingEntered = ['opening', 'firmness', 'position'].every(val => typeof this.state[val] != 'number')
@@ -53,16 +69,28 @@ export default class Cervix extends SymptomView {
     // const mandatoryNotCompleted = typeof this.state.opening != 'number' || typeof this.state.firmness != 'number'
     return (
       <ScrollView style={styles.page}>
-        <SymptomSection
-          header="Opening"
-          explainer={labels.opening.explainer}
-        >
-          <SelectTabGroup
-            buttons={cervixOpeningRadioProps}
-            active={this.state.opening}
-            onSelect={val => this.setState({ opening: val })}
-          />
-        </SymptomSection>
+        <View style={{ flexDirection: 'row' }}>
+          <SymptomSection
+            header="Opening"
+            explainer={labels.opening.explainer}
+          >
+            <SelectTabGroup
+              buttons={cervixOpeningRadioProps}
+              active={this.state.opening}
+              onSelect={val => this.setState({ opening: val })}
+            />
+          </SymptomSection>
+          <View style={{ flex: 1 }}></View>
+          <TouchableOpacity
+            onPress={this.showInfoBox}
+            style={styles.infoButton}
+          >
+            <FeatherIcon
+              name="info"
+              style={iconStyles.symptomInfo}
+            />
+          </TouchableOpacity>
+        </View>
         <SymptomSection
           header="Firmness"
           explainer={labels.firmness.explainer}

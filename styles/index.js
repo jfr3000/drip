@@ -474,6 +474,11 @@ export const iconStyles = {
   symptomBoxActive: {
     color: fontOnPrimaryColor
   },
+  symptomInfo: {
+    color: secondaryColor,
+    marginHorizontal: 20,
+    fontSize: 25
+  },
   menuIcon: {
     size: 20,
     color: fontOnPrimaryColor

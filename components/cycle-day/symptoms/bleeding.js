@@ -1,11 +1,19 @@
 import React from 'react'
 import {
+  Alert,
   Switch,
-  ScrollView
+  ScrollView,
+  TouchableOpacity,
+  View
 } from 'react-native'
-import styles from '../../../styles'
+import FeatherIcon from 'react-native-vector-icons/Feather'
+
 import { bleeding } from '../../../i18n/en/cycle-day'
+import infoLabels from '../../../i18n/en/symptom-info'
+import styles, { iconStyles } from '../../../styles'
+
 import SelectTabGroup from '../select-tab-group'
+
 import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
 
@@ -21,6 +29,14 @@ export default class Bleeding extends SymptomView {
   }
 
   symptomName = 'bleeding'
+
+  showInfoBox(){
+    const symptomName = 'bleeding'
+    Alert.alert(
+      infoLabels[symptomName].title,
+      infoLabels[symptomName].text
+    )
+  }
 
   onBackButtonPress() {
     if (typeof this.state.currentValue != 'number') {
@@ -42,16 +58,28 @@ export default class Bleeding extends SymptomView {
     ]
     return (
       <ScrollView style={styles.page}>
-        <SymptomSection
-          header={bleeding.heaviness.header}
-          explainer={bleeding.heaviness.explainer}
-        >
-          <SelectTabGroup
-            buttons={bleedingRadioProps}
-            active={this.state.currentValue}
-            onSelect={val => this.setState({ currentValue: val })}
-          />
-        </SymptomSection>
+        <View style={{ flexDirection: 'row' }}>
+          <SymptomSection
+            header={bleeding.heaviness.header}
+            explainer={bleeding.heaviness.explainer}
+          >
+            <SelectTabGroup
+              buttons={bleedingRadioProps}
+              active={this.state.currentValue}
+              onSelect={val => this.setState({ currentValue: val })}
+            />
+          </SymptomSection>
+          <View style={{ flex: 1 }}></View>
+          <TouchableOpacity
+            onPress={this.showInfoBox}
+            style={styles.infoButton}
+          >
+            <FeatherIcon
+              name="info"
+              style={iconStyles.symptomInfo}
+            />
+          </TouchableOpacity>
+        </View>
         <SymptomSection
           header={bleeding.exclude.header}
           explainer={bleeding.exclude.explainer}
