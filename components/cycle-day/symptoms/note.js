@@ -1,9 +1,7 @@
 import React from 'react'
 import {
   ScrollView,
-  TextInput,
-  View
-} from 'react-native'
+  TextInput} from 'react-native'
 
 import { noteExplainer } from '../../../i18n/en/cycle-day'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
@@ -38,21 +36,19 @@ export default class Note extends SymptomView {
   renderContent() {
     return (
       <ScrollView style={styles.page}>
-        <View style={{ flexDirection: 'row' }}>
-          <SymptomSection
-            explainer={noteExplainer}
-          >
-            <TextInput
-              autoFocus={!this.state.currentValue}
-              multiline={true}
-              placeholder={sharedLabels.enter}
-              onChangeText={(val) => {
-                this.setState({ currentValue: val })
-              }}
-              value={this.state.currentValue}
-            />
-          </SymptomSection>
-        </View>
+        <SymptomSection
+          explainer={noteExplainer}
+        >
+          <TextInput
+            autoFocus={!this.state.currentValue}
+            multiline={true}
+            placeholder={sharedLabels.enter}
+            onChangeText={(val) => {
+              this.setState({ currentValue: val })
+            }}
+            value={this.state.currentValue}
+          />
+        </SymptomSection>
       </ScrollView>
     )
   }

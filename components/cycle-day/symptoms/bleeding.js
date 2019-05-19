@@ -1,9 +1,7 @@
 import React from 'react'
 import {
   Switch,
-  ScrollView,
-  View
-} from 'react-native'
+  ScrollView} from 'react-native'
 
 import { bleeding } from '../../../i18n/en/cycle-day'
 import styles from '../../../styles'
@@ -46,19 +44,16 @@ export default class Bleeding extends SymptomView {
     ]
     return (
       <ScrollView style={styles.page}>
-        <View style={{ flexDirection: 'row' }}>
-          <SymptomSection
-            header={bleeding.heaviness.header}
-            explainer={bleeding.heaviness.explainer}
-          >
-            <SelectTabGroup
-              buttons={bleedingRadioProps}
-              active={this.state.currentValue}
-              onSelect={val => this.setState({ currentValue: val })}
-            />
-          </SymptomSection>
-          <View style={{ flex: 1 }}></View>
-        </View>
+        <SymptomSection
+          header={bleeding.heaviness.header}
+          explainer={bleeding.heaviness.explainer}
+        >
+          <SelectTabGroup
+            buttons={bleedingRadioProps}
+            active={this.state.currentValue}
+            onSelect={val => this.setState({ currentValue: val })}
+          />
+        </SymptomSection>
         <SymptomSection
           header={bleeding.exclude.header}
           explainer={bleeding.exclude.explainer}

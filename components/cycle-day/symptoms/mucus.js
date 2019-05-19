@@ -1,9 +1,7 @@
 import React from 'react'
 import {
   Switch,
-  ScrollView,
-  View
-} from 'react-native'
+  ScrollView} from 'react-native'
 
 import styles from '../../../styles'
 import { mucus as labels } from '../../../i18n/en/cycle-day'
@@ -57,18 +55,16 @@ export default class Mucus extends SymptomView {
     // const mandatoryNotCompletedYet = typeof this.state.feeling != 'number' || typeof this.state.texture != 'number'
     return (
       <ScrollView style={styles.page}>
-        <View style={{ flexDirection: 'row' }}>
-          <SymptomSection
-            header='Feeling'
-            explainer={labels.feeling.explainer}
-          >
-            <SelectTabGroup
-              buttons={mucusFeeling}
-              onSelect={val => this.setState({ feeling: val })}
-              active={this.state.feeling}
-            />
-          </SymptomSection>
-        </View>
+        <SymptomSection
+          header='Feeling'
+          explainer={labels.feeling.explainer}
+        >
+          <SelectTabGroup
+            buttons={mucusFeeling}
+            onSelect={val => this.setState({ feeling: val })}
+            active={this.state.feeling}
+          />
+        </SymptomSection>
 
         <SymptomSection
           header='Texture'

@@ -1,8 +1,6 @@
 import React from 'react'
 import {
-  ScrollView,
-  View
-} from 'react-native'
+  ScrollView} from 'react-native'
 
 import { intensity, desire } from '../../../i18n/en/cycle-day'
 import styles from '../../../styles'
@@ -39,18 +37,16 @@ export default class Desire extends SymptomView {
     ]
     return (
       <ScrollView style={styles.page}>
-        <View style={{ flexDirection: 'row' }}>
-          <SymptomSection
-            header={desire.header}
-            explainer={desire.explainer}
-          >
-            <SelectTabGroup
-              buttons={desireRadioProps}
-              active={this.state.currentValue}
-              onSelect={val => this.setState({ currentValue: val })}
-            />
-          </SymptomSection>
-        </View>
+        <SymptomSection
+          header={desire.header}
+          explainer={desire.explainer}
+        >
+          <SelectTabGroup
+            buttons={desireRadioProps}
+            active={this.state.currentValue}
+            onSelect={val => this.setState({ currentValue: val })}
+          />
+        </SymptomSection>
       </ScrollView>
     )
   }

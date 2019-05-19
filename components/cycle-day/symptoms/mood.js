@@ -1,15 +1,12 @@
 import React from 'react'
 import {
   ScrollView,
-  TextInput,
-  View
-} from 'react-native'
+  TextInput} from 'react-native'
 
 import { mood as labels } from '../../../i18n/en/cycle-day'
 import styles from '../../../styles'
 
 import SelectBoxGroup from '../select-box-group'
-
 import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
 
@@ -53,16 +50,15 @@ export default class Mood extends SymptomView {
   renderContent() {
     return (
       <ScrollView style={styles.page}>
-        <View style={{ flexDirection: 'row' }}>
-          <SymptomSection
-            explainer={labels.explainer}
-          >
-            <SelectBoxGroup
-              labels={labels.categories}
-              onSelect={this.toggleState}
-              optionsState={this.state}
-            />
-            { this.state.other &&
+        <SymptomSection
+          explainer={labels.explainer}
+        >
+          <SelectBoxGroup
+            labels={labels.categories}
+            onSelect={this.toggleState}
+            optionsState={this.state}
+          />
+          { this.state.other &&
               <TextInput
                 autoFocus={this.state.focusTextArea}
                 multiline={true}
@@ -72,9 +68,8 @@ export default class Mood extends SymptomView {
                   this.setState({note: val})
                 }}
               />
-            }
-          </SymptomSection>
-        </View>
+          }
+        </SymptomSection>
       </ScrollView>
     )
   }

@@ -144,25 +144,23 @@ export default class Temp extends SymptomView {
     }
     return (
       <ScrollView style={styles.page}>
-        <View style={{ flexDirection: 'row' }}>
-          <SymptomSection
-            header={labels.temperature.header}
-            explainer={labels.temperature.explainer}
-          >
-            <View style={styles.framedSegmentInlineChildren}>
-              <AppTextInput
-                style={[inputStyle]}
-                autoFocus={true}
-                placeholder={this.state.temperature}
-                value={this.state.temperature}
-                onChangeText={this.setTemperature}
-                keyboardType='numeric'
-                maxLength={5}
-              />
-              <AppText style={{ marginLeft: 5 }}>°C</AppText>
-            </View>
-          </SymptomSection>
-        </View>
+        <SymptomSection
+          header={labels.temperature.header}
+          explainer={labels.temperature.explainer}
+        >
+          <View style={styles.framedSegmentInlineChildren}>
+            <AppTextInput
+              style={[inputStyle]}
+              autoFocus={true}
+              placeholder={this.state.temperature}
+              value={this.state.temperature}
+              onChangeText={this.setTemperature}
+              keyboardType='numeric'
+              maxLength={5}
+            />
+            <AppText style={{ marginLeft: 5 }}>°C</AppText>
+          </View>
+        </SymptomSection>
         <SymptomSection
           header={labels.time}
         >

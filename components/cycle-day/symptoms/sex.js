@@ -55,19 +55,17 @@ export default class Sex extends SymptomView {
   renderContent() {
     return (
       <ScrollView style={styles.page}>
-        <View style={{ flexDirection: 'row' }}>
-          <SymptomSection
-            header={sexLabels.header}
-            explainer={sexLabels.explainer}
-          >
-            <SelectBoxGroup
-              labels={sexLabels.categories}
-              onSelect={this.toggleState}
-              optionsState={this.state}
-            />
-          </SymptomSection>
-          <View style={{ flex: 1 }}></View>
-        </View>
+        <SymptomSection
+          header={sexLabels.header}
+          explainer={sexLabels.explainer}
+        >
+          <SelectBoxGroup
+            labels={sexLabels.categories}
+            onSelect={this.toggleState}
+            optionsState={this.state}
+          />
+        </SymptomSection>
+        <View style={{ flex: 1 }}></View>
         <SymptomSection
           header={contraceptivesLabels.header}
           explainer={contraceptivesLabels.explainer}
