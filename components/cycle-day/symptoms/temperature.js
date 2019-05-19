@@ -47,13 +47,21 @@ export default class Temp extends SymptomView {
     } else {
       const prevTemp = getPreviousTemperature(props.date)
       if (prevTemp) {
-        this.state.temperature = prevTemp.toString()
+        this.state.suggestedTemperature = prevTemp.toString()
         this.state.isSuggestion = true
       }
     }
   }
 
   symptomName = 'temperature'
+
+  isDeleteIconActive() {
+    return ['temperature', 'note', 'exclude'].some(key => {
+    // the time is always and the suggested temp sometimes prefilled, so they're not relevant for setting
+    // the delete button active.
+      return this.state[key] || this.state[key] === 0
+    })
+  }
 
   async onBackButtonPress() {
     if (typeof this.state.temperature != 'string' || this.state.temperature === '') {
@@ -142,8 +150,7 @@ export default class Temp extends SymptomView {
             <AppTextInput
               style={[inputStyle]}
               autoFocus={true}
-              placeholder={this.state.temperature}
-              value={this.state.temperature}
+              value={this.state.temperature || this.state.suggestedTemperature}
               onChangeText={this.setTemperature}
               keyboardType='numeric'
               maxLength={5}

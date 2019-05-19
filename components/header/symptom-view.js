@@ -6,7 +6,7 @@ import {
   Dimensions
 } from 'react-native'
 import styles, { iconStyles } from '../../styles'
-import FeatherIcon from 'react-native-vector-icons/Feather'
+import Icon from 'react-native-vector-icons/AntDesign'
 import NavigationArrow from './navigation-arrow'
 import formatDate from '../helpers/format-date'
 
@@ -32,11 +32,12 @@ export default function SymptomViewHeader(props) {
       </View >
       <TouchableOpacity
         onPress={props.deleteEntry}
-        style={styles.infoButton}
+        style={[styles.infoButton, {opacity: props.deleteIconActive ? 1 : 0}]}
+        disabled={!props.deleteIconActive}
       >
-        <FeatherIcon
-          name="info"
-          style={styles.symptomInfoIcon}
+        <Icon
+          name="delete"
+          style={styles.symptomDeleteIcon}
           {...iconStyles.symptomHeaderIcons}
         />
       </TouchableOpacity>

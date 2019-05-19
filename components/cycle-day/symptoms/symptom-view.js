@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { BackHandler, View } from 'react-native'
+import { BackHandler, View, Alert } from 'react-native'
 import { saveSymptom } from '../../../db'
 import Header from '../../header/symptom-view'
 import { headerTitles } from '../../../i18n/en/labels'
+import { sharedDialogs } from '../../../i18n/en/cycle-day'
 
 export default class SymptomView extends Component {
   constructor(props) {
@@ -33,6 +34,13 @@ export default class SymptomView extends Component {
     this.backHandler.remove()
   }
 
+  isDeleteIconActive() {
+    return Object.values(this.state).some(value => {
+      // is there any meaningful value in the current state?
+      return value || value === 0
+    })
+  }
+
   render() {
     return (
       <View style={{flex: 1}}>
@@ -40,9 +48,22 @@ export default class SymptomView extends Component {
           title={headerTitles[this.symptomName].toLowerCase()}
           date={this.date}
           goBack={this.handleBackButtonPressOnSymptomView.bind(this)}
+          deleteIconActive={this.isDeleteIconActive()}
           deleteEntry={() => {
-            this.deleteSymptomEntry()
-            this.globalBackhandler()
+            Alert.alert(
+              sharedDialogs.areYouSureTitle,
+              sharedDialogs.areYouSureToDelete,
+              [{
+                text: sharedDialogs.cancel,
+                style: 'cancel'
+              }, {
+                text: sharedDialogs.reallyDeleteData,
+                onPress: () => {
+                  this.deleteSymptomEntry()
+                  this.globalBackhandler()
+                }
+              }]
+            )
           }}
         />
         {this.renderContent()}

@@ -176,7 +176,7 @@ export default StyleSheet.create({
     fontFamily: textFontBold,
     marginTop: 10
   },
-  symptomInfoIcon: {
+  symptomDeleteIcon: {
     marginRight: 20,
     marginLeft: 20
   },
@@ -241,9 +241,6 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   navigationArrow: {
-    padding: 20
-  },
-  hiddenIcon: {
     padding: 20
   },
   menu: {
@@ -484,9 +481,5 @@ export const iconStyles = {
   infoInHeading: {
     marginRight: 5,
     color: 'black'
-  },
-  hiddenIcon: {
-    size: 20,
-    display: 'none'
   }
 }
