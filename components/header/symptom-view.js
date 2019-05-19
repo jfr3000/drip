@@ -6,7 +6,7 @@ import {
   Dimensions
 } from 'react-native'
 import styles, { iconStyles } from '../../styles'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import Icon from 'react-native-vector-icons/AntDesign'
 import NavigationArrow from './navigation-arrow'
 import formatDate from '../helpers/format-date'
 
@@ -32,11 +32,14 @@ export default function SymptomViewHeader(props) {
       </View >
       <TouchableOpacity
         onPress={props.deleteEntry}
-        style={styles.infoButton}
+        style={[
+          styles.headerDeleteButton,
+          {opacity: props.deleteIconActive ? 1 : 0}
+        ]}
+        disabled={!props.deleteIconActive}
       >
         <Icon
-          name="delete-outline"
-          style={styles.symptomInfoIcon}
+          name="delete"
           {...iconStyles.symptomHeaderIcons}
         />
       </TouchableOpacity>

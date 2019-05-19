@@ -4,7 +4,7 @@ import {
   TouchableOpacity,
   View
 } from 'react-native'
-import styles, { iconStyles } from '../../styles'
+import styles from '../../styles'
 import NavigationArrow from './navigation-arrow'
 import Icon from 'react-native-vector-icons/Entypo'
 
@@ -21,10 +21,9 @@ export default function BackButtonHeader(props) {
           {props.title}
         </Text>
       </View>
-      <TouchableOpacity style={styles.hiddenIcon}>
+      <TouchableOpacity>
         <Icon
           name={'chevron-thin-right'}
-          {...iconStyles.hiddenIcon}
         />
       </TouchableOpacity>
     </View>

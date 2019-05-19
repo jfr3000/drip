@@ -4,19 +4,16 @@ import {
   Keyboard,
   ScrollView,
   Switch,
-  TouchableOpacity,
   View
 } from 'react-native'
 import DateTimePicker from 'react-native-modal-datetime-picker-nevo'
-import FeatherIcon from 'react-native-vector-icons/Feather'
 import { LocalTime, ChronoUnit } from 'js-joda'
 
 import config from '../../../config'
 import { getPreviousTemperature } from '../../../db'
-import infoLabels from '../../../i18n/en/symptom-info'
 import { scaleObservable } from '../../../local-storage'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
-import styles, { iconStyles } from '../../../styles'
+import styles from '../../../styles'
 import { temperature as labels } from '../../../i18n/en/cycle-day'
 
 import AppText from '../../app-text'
@@ -52,7 +49,7 @@ export default class Temp extends SymptomView {
     } else {
       const prevTemp = getPreviousTemperature(props.date)
       if (prevTemp) {
-        this.state.temperature = prevTemp.toString()
+        this.state.suggestedTemperature = prevTemp.toString()
         this.state.isSuggestion = true
       }
     }
@@ -60,12 +57,12 @@ export default class Temp extends SymptomView {
 
   symptomName = 'temperature'
 
-  showInfoBox(){
-    const symptomName = 'temperature'
-    Alert.alert(
-      infoLabels[symptomName].title,
-      infoLabels[symptomName].text
-    )
+  isDeleteIconActive() {
+    return ['temperature', 'note', 'exclude'].some(key => {
+    // the time is always and the suggested temp sometimes prefilled, so they're not relevant for setting
+    // the delete button active.
+      return this.state[key] || this.state[key] === 0
+    })
   }
 
   async onBackButtonPress() {
@@ -152,16 +149,6 @@ export default class Temp extends SymptomView {
             header={labels.temperature.header}
             explainer={labels.temperature.explainer}
           >
-            <View style={{ flex: 1 }}></View>
-            <TouchableOpacity
-              onPress={this.showInfoBox}
-              style={styles.infoButton}
-            >
-              <FeatherIcon
-                name="info"
-                style={iconStyles.symptomInfo}
-              />
-            </TouchableOpacity>
             <View style={styles.framedSegmentInlineChildren}>
               <AppTextInput
                 style={[inputStyle]}

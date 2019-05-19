@@ -173,12 +173,10 @@ export default StyleSheet.create({
   },
   symptomViewHeading: {
     fontWeight: 'bold',
-    fontFamily: textFontBold,
-    marginTop: 10
+    fontFamily: textFontBold
   },
-  symptomInfoIcon: {
-    marginRight: 20,
-    marginLeft: 20
+  symptomSection: {
+    marginBottom: 10
   },
   symptomBoxImage: {
     width: 50,
@@ -241,9 +239,6 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
   },
   navigationArrow: {
-    padding: 20
-  },
-  hiddenIcon: {
     padding: 20
   },
   menu: {
@@ -389,7 +384,8 @@ export default StyleSheet.create({
     borderLeftWidth: null
   },
   page: {
-    marginHorizontal: 10
+    marginHorizontal: 10,
+    marginTop: 20
   },
   calendarToday: {
     fontWeight: 'bold',
@@ -441,8 +437,16 @@ export default StyleSheet.create({
     marginTop: 20,
     color: 'grey'
   },
-  infoButton: {
-    paddingVertical: 20
+  headerDeleteButton: {
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    alignItems: 'flex-end'
+  },
+  infoButtonSymptomView: {
+    position: 'absolute',
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    right: -10
   },
   licensePage: {
     paddingVertical: 20,
@@ -487,8 +491,10 @@ export const iconStyles = {
     color: colorInActive,
   },
   infoInHeading: {
-    marginRight: 5,
-    color: 'black'
+    marginRight: 5
+  },
+  infoInSymptomView: {
+    size: 20
   },
   hiddenIcon: {
     size: 20,

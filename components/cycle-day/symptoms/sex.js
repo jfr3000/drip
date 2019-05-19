@@ -1,17 +1,13 @@
 import React from 'react'
 import {
-  Alert,
   ScrollView,
   TextInput,
-  TouchableOpacity,
   View
 } from 'react-native'
-import FeatherIcon from 'react-native-vector-icons/Feather'
 
-import infoLabels from '../../../i18n/en/symptom-info'
 import { sex as sexLabels, contraceptives as contraceptivesLabels } from '../../../i18n/en/cycle-day'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
-import styles, { iconStyles } from '../../../styles'
+import styles from '../../../styles'
 
 import SelectBoxGroup from '../select-box-group'
 
@@ -33,14 +29,6 @@ export default class Sex extends SymptomView {
   }
 
   symptomName = 'sex'
-
-  showInfoBox(){
-    const symptomName = 'sex'
-    Alert.alert(
-      infoLabels[symptomName].title,
-      infoLabels[symptomName].text
-    )
-  }
 
   onBackButtonPress() {
     const nothingEntered = Object.values(this.state).every(val => !val)
@@ -79,15 +67,6 @@ export default class Sex extends SymptomView {
             />
           </SymptomSection>
           <View style={{ flex: 1 }}></View>
-          <TouchableOpacity
-            onPress={this.showInfoBox}
-            style={styles.infoButton}
-          >
-            <FeatherIcon
-              name="info"
-              style={iconStyles.symptomInfo}
-            />
-          </TouchableOpacity>
         </View>
         <SymptomSection
           header={contraceptivesLabels.header}

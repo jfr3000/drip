@@ -1,15 +1,11 @@
 import React from 'react'
 import {
-  Alert,
   Switch,
   ScrollView,
-  TouchableOpacity,
   View
 } from 'react-native'
-import FeatherIcon from 'react-native-vector-icons/Feather'
 
-import styles, { iconStyles } from '../../../styles'
-import infoLabels from '../../../i18n/en/symptom-info'
+import styles from '../../../styles'
 import { mucus as labels } from '../../../i18n/en/cycle-day'
 import computeNfpValue from '../../../lib/nfp-mucus'
 
@@ -27,14 +23,6 @@ export default class Mucus extends SymptomView {
   }
 
   symptomName = 'mucus'
-
-  showInfoBox(){
-    const symptomName = 'mucus'
-    Alert.alert(
-      infoLabels[symptomName].title,
-      infoLabels[symptomName].text
-    )
-  }
 
   onBackButtonPress() {
     const nothingEntered = ['feeling', 'texture'].every(val => typeof this.state[val] != 'number')
@@ -80,16 +68,6 @@ export default class Mucus extends SymptomView {
               active={this.state.feeling}
             />
           </SymptomSection>
-          <View style={{ flex: 1 }}></View>
-          <TouchableOpacity
-            onPress={this.showInfoBox}
-            style={styles.infoButton}
-          >
-            <FeatherIcon
-              name="info"
-              style={iconStyles.symptomInfo}
-            />
-          </TouchableOpacity>
         </View>
 
         <SymptomSection

@@ -1,16 +1,12 @@
 import React from 'react'
 import {
-  Alert,
   Switch,
   ScrollView,
-  TouchableOpacity,
   View
 } from 'react-native'
-import FeatherIcon from 'react-native-vector-icons/Feather'
 
 import { bleeding } from '../../../i18n/en/cycle-day'
-import infoLabels from '../../../i18n/en/symptom-info'
-import styles, { iconStyles } from '../../../styles'
+import styles from '../../../styles'
 
 import SelectTabGroup from '../select-tab-group'
 
@@ -29,14 +25,6 @@ export default class Bleeding extends SymptomView {
   }
 
   symptomName = 'bleeding'
-
-  showInfoBox(){
-    const symptomName = 'bleeding'
-    Alert.alert(
-      infoLabels[symptomName].title,
-      infoLabels[symptomName].text
-    )
-  }
 
   onBackButtonPress() {
     if (typeof this.state.currentValue != 'number') {
@@ -70,15 +58,6 @@ export default class Bleeding extends SymptomView {
             />
           </SymptomSection>
           <View style={{ flex: 1 }}></View>
-          <TouchableOpacity
-            onPress={this.showInfoBox}
-            style={styles.infoButton}
-          >
-            <FeatherIcon
-              name="info"
-              style={iconStyles.symptomInfo}
-            />
-          </TouchableOpacity>
         </View>
         <SymptomSection
           header={bleeding.exclude.header}
