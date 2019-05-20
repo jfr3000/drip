@@ -1,16 +1,12 @@
 import React from 'react'
 import {
-  ScrollView,
   TextInput,
-  View
+  ScrollView
 } from 'react-native'
-
+import styles from '../../../styles'
 import { sex as sexLabels, contraceptives as contraceptivesLabels } from '../../../i18n/en/cycle-day'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
-import styles from '../../../styles'
-
 import SelectBoxGroup from '../select-box-group'
-
 import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
 
@@ -28,7 +24,7 @@ export default class Sex extends SymptomView {
     if (this.state.note) this.state.other = true
   }
 
-  symptomName = 'sex'
+  symptomName = "sex"
 
   onBackButtonPress() {
     const nothingEntered = Object.values(this.state).every(val => !val)
@@ -65,7 +61,6 @@ export default class Sex extends SymptomView {
             optionsState={this.state}
           />
         </SymptomSection>
-        <View style={{ flex: 1 }}></View>
         <SymptomSection
           header={contraceptivesLabels.header}
           explainer={contraceptivesLabels.explainer}

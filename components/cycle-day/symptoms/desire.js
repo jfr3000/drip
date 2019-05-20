@@ -1,12 +1,10 @@
 import React from 'react'
 import {
-  ScrollView} from 'react-native'
-
-import { intensity, desire } from '../../../i18n/en/cycle-day'
+  ScrollView
+} from 'react-native'
 import styles from '../../../styles'
-
+import { intensity, desire } from '../../../i18n/en/cycle-day'
 import SelectTabGroup from '../select-tab-group'
-
 import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
 

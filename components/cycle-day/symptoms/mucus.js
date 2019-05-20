@@ -1,14 +1,12 @@
 import React from 'react'
 import {
   Switch,
-  ScrollView} from 'react-native'
-
+  ScrollView
+} from 'react-native'
 import styles from '../../../styles'
 import { mucus as labels } from '../../../i18n/en/cycle-day'
 import computeNfpValue from '../../../lib/nfp-mucus'
-
 import SelectTabGroup from '../select-tab-group'
-
 import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
 
@@ -65,7 +63,6 @@ export default class Mucus extends SymptomView {
             active={this.state.feeling}
           />
         </SymptomSection>
-
         <SymptomSection
           header='Texture'
           explainer={labels.texture.explainer}

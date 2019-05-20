@@ -2,12 +2,10 @@ import React from 'react'
 import {
   ScrollView,
   TextInput} from 'react-native'
-
 import { mood as labels } from '../../../i18n/en/cycle-day'
-import styles from '../../../styles'
-
 import SelectBoxGroup from '../select-box-group'
 import SymptomSection from './symptom-section'
+import styles from '../../../styles'
 import SymptomView from './symptom-view'
 
 export default class Mood extends SymptomView {
@@ -24,7 +22,7 @@ export default class Mood extends SymptomView {
     }
   }
 
-  symptomName = 'mood'
+  symptomName = "mood"
 
   onBackButtonPress() {
     const nothingEntered = Object.values(this.state).every(val => !val)

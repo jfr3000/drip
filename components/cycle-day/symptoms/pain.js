@@ -1,15 +1,13 @@
 import React from 'react'
 import {
   ScrollView,
-  TextInput} from 'react-native'
-
+  TextInput,
+} from 'react-native'
 import { pain as labels } from '../../../i18n/en/cycle-day'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
-import styles from '../../../styles'
-
 import SelectBoxGroup from '../select-box-group'
-
 import SymptomSection from './symptom-section'
+import styles from '../../../styles'
 import SymptomView from './symptom-view'
 
 export default class Pain extends SymptomView {

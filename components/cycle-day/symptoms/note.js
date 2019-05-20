@@ -1,13 +1,13 @@
 import React from 'react'
 import {
   ScrollView,
-  TextInput} from 'react-native'
+  TextInput,
+} from 'react-native'
 
+import styles from '../../../styles'
+import SymptomSection from './symptom-section'
 import { noteExplainer } from '../../../i18n/en/cycle-day'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
-import styles from '../../../styles'
-
-import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
 
 export default class Note extends SymptomView {

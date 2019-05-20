@@ -1,13 +1,11 @@
 import React from 'react'
 import {
   Switch,
-  ScrollView} from 'react-native'
-
-import { bleeding } from '../../../i18n/en/cycle-day'
+  ScrollView
+} from 'react-native'
 import styles from '../../../styles'
-
+import { bleeding } from '../../../i18n/en/cycle-day'
 import SelectTabGroup from '../select-tab-group'
-
 import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
 

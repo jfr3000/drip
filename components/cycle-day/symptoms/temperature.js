@@ -1,25 +1,23 @@
 import React from 'react'
 import {
-  Alert,
-  Keyboard,
-  ScrollView,
+  View,
   Switch,
-  View
+  Keyboard,
+  Alert,
+  ScrollView
 } from 'react-native'
 import DateTimePicker from 'react-native-modal-datetime-picker-nevo'
-import { LocalTime, ChronoUnit } from 'js-joda'
-
-import config from '../../../config'
-import { getPreviousTemperature } from '../../../db'
-import { scaleObservable } from '../../../local-storage'
-import { shared as sharedLabels } from '../../../i18n/en/labels'
-import styles from '../../../styles'
-import { temperature as labels } from '../../../i18n/en/cycle-day'
-
-import AppText from '../../app-text'
-import AppTextInput from '../../app-text-input'
 import padWithZeros from '../../helpers/pad-time-with-zeros'
 
+import { getPreviousTemperature } from '../../../db'
+import styles from '../../../styles'
+import { LocalTime, ChronoUnit } from 'js-joda'
+import { temperature as labels } from '../../../i18n/en/cycle-day'
+import { scaleObservable } from '../../../local-storage'
+import { shared as sharedLabels } from '../../../i18n/en/labels'
+import config from '../../../config'
+import AppTextInput from '../../app-text-input'
+import AppText from '../../app-text'
 import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
 
@@ -152,8 +150,7 @@ export default class Temp extends SymptomView {
             <AppTextInput
               style={[inputStyle]}
               autoFocus={true}
-              placeholder={this.state.temperature}
-              value={this.state.temperature}
+              value={this.state.temperature || this.state.suggestedTemperature}
               onChangeText={this.setTemperature}
               keyboardType='numeric'
               maxLength={5}
