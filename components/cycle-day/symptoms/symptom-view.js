@@ -44,9 +44,10 @@ export default class SymptomView extends Component {
   }
 
   isDeleteIconActive() {
-    return Object.values(this.state).some(value => {
+    return Object.keys(this.state).some(key => {
+      if (key === 'showInfo') return
       // is there any meaningful value in the current state?
-      return value || value === 0
+      return this.state[key] || this.state[key] === 0
     })
   }
 
