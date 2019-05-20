@@ -11,13 +11,13 @@ export function openImportDialog(onImportData) {
     labels.import.title,
     labels.import.message,
     [{
-      text: labels.import.replaceOption,
-      onPress: () => onImportData(false)
+      text: sharedLabels.cancel, style: 'cancel', onPress: () => { }
     }, {
       text: labels.import.deleteOption,
       onPress: () => onImportData(true)
     }, {
-      text: sharedLabels.cancel, style: 'cancel', onPress: () => { }
+      text: labels.import.replaceOption,
+      onPress: () => onImportData(false)
     }]
   )
 }
