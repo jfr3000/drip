@@ -15,9 +15,6 @@ import AppText from '../app-text'
 import DripIcon from '../../assets/drip-icons'
 
 const bleedingLabels = labels.bleeding.labels
-const openingLabels = labels.cervix.opening.categories
-const firmnessLabels = labels.cervix.firmness.categories
-const positionLabels = labels.cervix.position.categories
 const intensityLabels = labels.intensity
 const sexLabels = labels.sex.categories
 const contraceptiveLabels = labels.contraceptives.categories
@@ -77,22 +74,18 @@ export default class CycleDayOverView extends Component {
 
         if (isNumber(mucus.value)) label += `\n${labels.mucusNFP[mucus.value]}`
         if (mucus.exclude) label = `(${label})`
+
         return label
       },
       cervix: cervix => {
-        let cervixLabel = []
-        if (isNumber(cervix.opening) && isNumber(cervix.firmness)) {
-          cervixLabel.push(
-            openingLabels[cervix.opening],
-            firmnessLabels[cervix.firmness]
-          )
-          if (isNumber(cervix.position)) {
-            cervixLabel.push(positionLabels[cervix.position])
-          }
-          cervixLabel = cervixLabel.join(', ')
-          if (cervix.exclude) cervixLabel = `(${cervixLabel})`
-          return cervixLabel
-        }
+        const filledCategories = ['opening', 'firmness', 'position'].filter(c => isNumber(cervix[c]))
+        let label = filledCategories.map(category => {
+          return labels.cervix[category].categories[cervix[category]]
+        }).join(', ')
+
+        if (cervix.exclude) label = `(${label})`
+
+        return label
       },
       note: note => {
         return note.value
