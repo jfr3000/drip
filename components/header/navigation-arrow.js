@@ -8,6 +8,10 @@ export default function NavigationArrow(props) {
     left: 'chevron-thin-left',
     right: 'chevron-thin-right'
   }[props.direction]
+  const iconPosition = {
+    left: 'navigationArrowLeft',
+    right: 'navigationArrowRight'
+  }[props.direction]
   let pressHandler
   if (props.goBack) {
     pressHandler = () => props.goBack()
@@ -19,7 +23,7 @@ export default function NavigationArrow(props) {
   }
   return (
     <TouchableOpacity
-      style={styles.navigationArrow}
+      style={[styles.navigationArrow, styles[iconPosition]]}
       onPress={pressHandler}
     >
       <Icon

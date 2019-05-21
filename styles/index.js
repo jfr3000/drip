@@ -234,13 +234,12 @@ export default StyleSheet.create({
     justifyContent: 'center',
     height: 80
   },
-  headerCycleDay: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
   navigationArrow: {
-    padding: 20
+    padding: 20,
+    position: 'absolute'
   },
+  navigationArrowLeft: { left: 0 },
+  navigationArrowRight: { right: 0 },
   menu: {
     backgroundColor: primaryColor,
     alignItems: 'center',
@@ -453,7 +452,8 @@ export default StyleSheet.create({
   headerDeleteButton: {
     paddingHorizontal: 20,
     paddingVertical: 20,
-    alignItems: 'flex-end'
+    position: 'absolute',
+    right: 0
   },
   infoButtonSymptomView: {
     position: 'absolute',
