@@ -15,11 +15,6 @@ import AppText from '../app-text'
 import DripIcon from '../../assets/drip-icons'
 
 const bleedingLabels = labels.bleeding.labels
-const feelingLabels = labels.mucus.feeling.categories
-const textureLabels = labels.mucus.texture.categories
-const openingLabels = labels.cervix.opening.categories
-const firmnessLabels = labels.cervix.firmness.categories
-const positionLabels = labels.cervix.position.categories
 const intensityLabels = labels.intensity
 const sexLabels = labels.sex.categories
 const contraceptiveLabels = labels.contraceptives.categories
@@ -72,28 +67,25 @@ export default class CycleDayOverView extends Component {
         }
       },
       mucus: mucus => {
-        const categories = ['feeling', 'texture', 'value']
-        if (categories.every(c => isNumber(mucus[c]))) {
-          let mucusLabel = [feelingLabels[mucus.feeling], textureLabels[mucus.texture]].join(', ')
-          mucusLabel += `\n${labels.mucusNFP[mucus.value]}`
-          if (mucus.exclude) mucusLabel = `(${mucusLabel})`
-          return mucusLabel
-        }
+        const filledCategories = ['feeling', 'texture'].filter(c => isNumber(mucus[c]))
+        let label = filledCategories.map(category => {
+          return labels.mucus[category].categories[mucus[category]]
+        }).join(', ')
+
+        if (isNumber(mucus.value)) label += `\n${labels.mucusNFP[mucus.value]}`
+        if (mucus.exclude) label = `(${label})`
+
+        return label
       },
       cervix: cervix => {
-        let cervixLabel = []
-        if (isNumber(cervix.opening) && isNumber(cervix.firmness)) {
-          cervixLabel.push(
-            openingLabels[cervix.opening],
-            firmnessLabels[cervix.firmness]
-          )
-          if (isNumber(cervix.position)) {
-            cervixLabel.push(positionLabels[cervix.position])
-          }
-          cervixLabel = cervixLabel.join(', ')
-          if (cervix.exclude) cervixLabel = `(${cervixLabel})`
-          return cervixLabel
-        }
+        const filledCategories = ['opening', 'firmness', 'position'].filter(c => isNumber(cervix[c]))
+        let label = filledCategories.map(category => {
+          return labels.cervix[category].categories[cervix[category]]
+        }).join(', ')
+
+        if (cervix.exclude) label = `(${label})`
+
+        return label
       },
       note: note => {
         return note.value
