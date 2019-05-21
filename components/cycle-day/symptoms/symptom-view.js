@@ -44,11 +44,17 @@ export default class SymptomView extends Component {
   }
 
   isDeleteIconActive() {
-    return Object.keys(this.state).some(key => {
+    const symptomValueHasBeenFilledOut = key => {
+      // the state tracks whether the symptom info should be shown,
+      // we ignore that property
       if (key === 'showInfo') return
       // is there any meaningful value in the current state?
       return this.state[key] || this.state[key] === 0
-    })
+    }
+
+    const symptomValues =  Object.keys(this.state)
+
+    return symptomValues.some(symptomValueHasBeenFilledOut)
   }
 
   render() {
