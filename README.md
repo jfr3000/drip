@@ -3,7 +3,7 @@
 A menstrual cycle tracking app that's open-source and leaves your data on your phone. Use it to track your menstrual cycle and/or for fertility awareness!
 Find more information on [our website](https://bloodyhealth.gitlab.io/).
 
-The app is build in React Native and currently developed for Android.
+The app is built in React Native and currently developed for Android.
 
 Here --> you will find our [contributing guide](https://gitlab.com/bloodyhealth/drip/blob/master/CONTRIBUTING.md).
 
@@ -74,10 +74,6 @@ If you get error messages about `adb` not being found on your path:
     ```
     $ ln -s ~/Library/Android/sdk/platform-tools/adb /usr/local/bin/adb
     ```
-
-### [Windows 10] react native problems
-
-Unfortunately, the react native version we use doesn't work on Windows 10 it seems, find [more info here](https://github.com/facebook/react-native/issues/20015).
 
 ## Tests
 You can run the tests with:
