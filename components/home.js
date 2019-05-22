@@ -12,7 +12,6 @@ import links from '../i18n/en/links'
 import cycleModule from '../lib/cycle'
 import { getFertilityStatusForDay } from '../lib/sympto-adapter'
 import styles, { cycleDayColor, periodColor, secondaryColor } from '../styles'
-
 import AppText from './app-text'
 import Button from './button'
 import { formatDateForShortText } from './helpers/format-date'
@@ -33,13 +32,18 @@ const HomeElement = ({ children, onPress, buttonColor, buttonLabel  }) => {
       onPress={ onPress }
       style={ styles.homeIconElement }
     >
-      { children }
-      <Button
-        style={styles.homeButton}
-        onPress={ onPress }
-        backgroundColor={ buttonColor }>
-        { buttonLabel }
-      </Button>
+      {children[0]}
+      {children[1]}
+
+      <View>
+        {children[2]}
+        <Button
+          style={styles.homeButton}
+          onPress={ onPress }
+          backgroundColor={ buttonColor }>
+          { buttonLabel }
+        </Button>
+      </View>
     </View>
   )
 }

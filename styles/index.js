@@ -122,7 +122,8 @@ export default StyleSheet.create({
   },
   homeIconElement: {
     alignItems: 'center',
-    marginTop: 15
+    marginTop: 15,
+    flexDirection: 'row'
   },
   homeIconTextWrapper: {
     alignItems: 'center',
