@@ -157,14 +157,6 @@ export default StyleSheet.create({
   iconText: {
     fontSize: 25
   },
-  showMore: {
-    transform: [{rotate: '90deg'}],
-    position: 'absolute',
-  },
-  showLess: {
-    transform: [{rotate: '270deg'}],
-    position: 'absolute'
-  },
   cycleDayNumber: {
     fontSize: 15,
     color: fontOnPrimaryColor,
