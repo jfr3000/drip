@@ -30,12 +30,12 @@ const HomeElement = ({ children, onPress, buttonColor, buttonLabel  }) => {
   return (
     <View
       onPress={ onPress }
-      style={ styles.homeIconElement }
+      style={ styles.homeElement }
     >
       {children[0]}
       {children[1]}
 
-      <View>
+      <View style={{paddingLeft: 15}}>
         {children[2]}
         <Button
           style={styles.homeButton}
@@ -96,11 +96,11 @@ export default class Home extends Component {
               <View>
                 <DripHomeIcon name="circle" size={80} color={cycleDayColor}/>
               </View>
-              <IconText wrapperStyles={styles.wrapperCycle}>
+              <IconText wrapperStyles={styles.wrapperIcon}>
                 {cycleDayNumber || labels.unknown}
               </IconText>
 
-              <AppText style={styles.paragraph}>{cycleDayMoreText}</AppText>
+              <AppText style={styles.homeDescriptionText}>{cycleDayMoreText}</AppText>
             </HomeElement>
 
             <HomeElement
@@ -109,14 +109,14 @@ export default class Home extends Component {
               buttonLabel={ labels.trackPeriod }
             >
               <View>
-                <DripHomeIcon name="drop" size={105} color={periodColor} />
+                <DripHomeIcon name="drop" size={100} color={periodColor} />
               </View>
 
-              <IconText wrapperStyles={styles.wrapperDrop}>
+              <IconText wrapperStyles={styles.wrapperIcon}>
                 {this.state.bleedingPredictionRange}
               </IconText>
 
-              <AppText style={styles.paragraph}>
+              <AppText style={styles.homeDescriptionText}>
                 {this.state.predictionText}
               </AppText>
             </HomeElement>
@@ -128,15 +128,17 @@ export default class Home extends Component {
             >
               <View style={styles.homeCircle}/>
 
-              <IconText wrapperStyles={styles.wrapperCircle}>
+              <IconText wrapperStyles={styles.wrapperIcon}>
                 { phase ? phase.toString() : labels.unknown }
               </IconText>
 
               { phase &&
-                <AppText>{`${labels.phase(phase)} (${status})`}</AppText>
+                <AppText style={styles.homeDescriptionText}>
+                  {`${labels.phase(phase)} (${status})`}
+                </AppText>
               }
               <View>
-                <AppText styles={styles.paragraph}>
+                <AppText styles={styles.homeDescriptionText}>
                   { `${statusText} ${links.wiki.url}.` }
                 </AppText>
               </View>
