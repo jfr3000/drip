@@ -32,8 +32,10 @@ const HomeElement = ({ children, onPress, buttonColor, buttonLabel  }) => {
       onPress={ onPress }
       style={ styles.homeElement }
     >
-      {children[0]}
-      {children[1]}
+      <View style={styles.homeIconAndText}>
+        {children[0]}
+        {children[1]}
+      </View>
 
       <View style={{paddingLeft: 15}}>
         {children[2]}
@@ -108,11 +110,9 @@ export default class Home extends Component {
               buttonColor={ periodColor }
               buttonLabel={ labels.trackPeriod }
             >
-              <View>
-                <DripHomeIcon name="drop" size={100} color={periodColor} />
-              </View>
+              <DripHomeIcon name="drop" size={100} color={periodColor} />
 
-              <IconText wrapperStyles={{top: 45, ...styles.wrapperIcon}}>
+              <IconText wrapperStyles={{top: '50%', ...styles.wrapperIcon}}>
                 {this.state.bleedingPredictionRange}
               </IconText>
 

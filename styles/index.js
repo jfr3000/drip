@@ -125,13 +125,15 @@ export default StyleSheet.create({
     marginBottom: defaultBottomMargin,
   },
   homeElement: {
-    alignItems: 'center',
     marginBottom: 40,
     flexDirection: 'row',
   },
   homeIconTextWrapper: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  homeIconAndText: {
+    justifyContent: 'center'
   },
   wrapperIcon: {
     width: 80,
