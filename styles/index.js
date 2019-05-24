@@ -104,9 +104,6 @@ export default StyleSheet.create({
     marginLeft: 10,
     marginTop: 6
   },
-  homeView: {
-    marginHorizontal: 50,
-  },
   button: {
     paddingVertical: 10,
     paddingHorizontal: 20,
@@ -120,29 +117,26 @@ export default StyleSheet.create({
   homeButtonText: {
     color: fontOnPrimaryColor
   },
-  homeIconElement: {
-    alignItems: 'center',
-    marginTop: 15
+  homeView: {
+    margin: 40,
+  },
+  homeDescriptionText: {
+    width: 200,
+    marginBottom: defaultBottomMargin,
+  },
+  homeElement: {
+    marginBottom: 40,
+    flexDirection: 'row',
   },
   homeIconTextWrapper: {
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 10,
   },
-  wrapperCycle: {
+  homeIconAndText: {
+    justifyContent: 'center'
+  },
+  wrapperIcon: {
     width: 80,
-    height: 77,
-    position: 'absolute'
-  },
-  wrapperDrop: {
-    width: 81,
-    height: 85,
-    marginTop: 20,
-    position: 'absolute'
-  },
-  wrapperCircle: {
-    width: 80,
-    height: 80,
     position: 'absolute'
   },
   homeCircle: {
@@ -156,14 +150,6 @@ export default StyleSheet.create({
   },
   iconText: {
     fontSize: 25
-  },
-  showMore: {
-    transform: [{rotate: '90deg'}],
-    position: 'absolute',
-  },
-  showLess: {
-    transform: [{rotate: '270deg'}],
-    position: 'absolute'
   },
   cycleDayNumber: {
     fontSize: 15,

@@ -15,8 +15,6 @@ export const shared = {
   date: 'Date',
   cycleDayWithLinebreak: 'Cycle\nday',
   loading: 'Loading ...',
-  more: 'more',
-  less: 'less',
   enter: 'Enter'
 }
 
