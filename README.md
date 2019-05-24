@@ -92,7 +92,7 @@ More information about how the app calculates fertility status and bleeding pred
 
 ## Adding a new tracking icon
 
-1.  We use [fontello](http://fontello.com/) to create icon fonts for us. You need to upload the complete set of tracking icons (bleeding, mucus, ...) including the new icon you wish to add, all in SVG.
+1.  We use [fontello](http://fontello.com/) to create icon fonts for us. You need to upload the complete set of tracking icons (bleeding, cervical mucus, ...) including the new icon you wish to add, all in SVG.
 2.  Download webfont from fontello
 3.  Copy both the content of `config.json` and `font.tff` into `assets/fonts`, replacing it with the current content of `config-drip-icon-font.json` and `drip-icon-font.tff`.
 4.  Now run the following command in your console:

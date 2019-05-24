@@ -74,8 +74,8 @@ export default {
   },
   useCervix: {
     title: 'Secondary symptom',
-    cervixModeOn: 'Cervix values are being used for symptothermal fertility detection. You can switch here to use mucus values for symptothermal fertility detection',
-    cervixModeOff: 'By default, mucus values are being used for symptothermal fertility detection. You can switch here to use cervix values for symptothermal fertility detection'
+    cervixModeOn: 'Cervix values are being used for symptothermal fertility detection. You can switch here to use cervical mucus values for symptothermal fertility detection',
+    cervixModeOff: 'By default, cervical mucus values are being used for symptothermal fertility detection. You can switch here to use cervix values for symptothermal fertility detection'
   },
   passwordSettings: {
     title: 'App password',

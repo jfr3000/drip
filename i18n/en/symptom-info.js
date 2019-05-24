@@ -1,7 +1,7 @@
 import links from './links'
 
 export const generalInfo = {
-  chartNfp: `On the chart, you can track fertility signs. When both a valid temperature shift and a mucus or cervix shift have been detected, an orange line will be displayed on the chart. This indicates the end of the peri-ovulatory and the beginning of the post-ovulatory phase.`,
+  chartNfp: `On the chart, you can track fertility signs. When both a valid temperature shift and a cervical mucus or cervix shift have been detected, an orange line will be displayed on the chart. This indicates the end of the peri-ovulatory and the beginning of the post-ovulatory phase.`,
   curiousNfp: `If you are curious to learn more about the sympto-thermal method that is used for fertility tracking within the app, you can visit ${links.wiki.url}.`,
   cycleRelation: `It may be influenced by or have an impact on your menstrual cycles and its hormonal changes.`,
   excludeExplainer: `You can exclude these values, so they won't be taken into account for any fertility calculation.`,
@@ -85,9 +85,9 @@ From lowest to best quality:
 · S = (no OR wet feeling + creamy texture),
 · S+ = (any feeling + egg white texture) OR (slippery feeling + any texture).
 
-On the chart, mucus is colored in blue: the darker the shade of blue the better the quality of your mucus.
+On the chart, cervical mucus is colored in blue: the darker the shade of blue the better the quality of your cervical mucus.
 
-Please note that drip does not yet support "parenthesis values": According to NFP rules,  you can qualify a mucus value by putting parentheses around it, to indicate that it doesn't fully meet the descriptors of one of the five categories, and instead is in between. This functionality will be supported in the future.
+Please note that drip does not yet support "parenthesis values": According to NFP rules, you can qualify a cervical mucus value by putting parentheses around it, to indicate that it doesn't fully meet the descriptors of one of the five categories, and instead is in between. This functionality will be supported in the future.
 
 ${generalInfo.chartNfp}
 
