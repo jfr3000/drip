@@ -474,7 +474,7 @@ export const iconStyles = {
   symptomBoxActive: {
     color: fontOnPrimaryColor
   },
-  symptomInfo: {
+  info: {
     color: secondaryColor,
     fontSize: 25
   },

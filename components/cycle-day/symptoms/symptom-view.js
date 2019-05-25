@@ -7,7 +7,7 @@ import InfoPopUp from './info-symptom'
 import Header from '../../header/symptom-view'
 import { headerTitles } from '../../../i18n/en/labels'
 import { sharedDialogs } from '../../../i18n/en/cycle-day'
-import FeatherIcon from 'react-native-vector-icons/Feather'
+import Icon from 'react-native-vector-icons/Entypo'
 import styles, { iconStyles } from '../../../styles'
 
 export default class SymptomView extends Component {
@@ -90,10 +90,9 @@ export default class SymptomView extends Component {
             }}
             style={styles.infoButtonSymptomView}
           >
-            <FeatherIcon
-              name="info"
-              {...iconStyles.infoInSymptomView}
-              style={iconStyles.symptomInfo}
+            <Icon
+              name="info-with-circle"
+              style={iconStyles.info}
             />
           </TouchableOpacity>
           { this.state.showInfo &&

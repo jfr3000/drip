@@ -28,8 +28,11 @@ export default class Settings extends Component {
         </FramedSegment>
         <FramedSegment style={styles.framedSegmentLast} >
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-            <Icon name="info-with-circle" style={iconStyles.infoInHeading}/>
-            <AppText style={styles.framedSegmentTitle}>{`${labels.preOvu.title} `}</AppText>
+            <Icon
+              name="info-with-circle"
+              style={iconStyles.info}
+            />
+            <AppText style={styles.framedSegmentTitle}>{` ${labels.preOvu.title} `}</AppText>
           </View>
           <AppText>{labels.preOvu.note}</AppText>
         </FramedSegment>
