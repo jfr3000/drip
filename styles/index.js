@@ -295,24 +295,22 @@ export default StyleSheet.create({
   },
   infoPopUpWrapper: {
     position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0
+    width: '100%',
+    height: '100%'
   },
   infoPopUp: {
     backgroundColor: 'white',
     padding: 15,
-    position: 'absolute',
-    top: 20,
-    bottom: 20,
-    left: 20,
-    right: 20
+    marginHorizontal: 20,
+    marginTop: 20,
+    maxHeight: '92%'
   },
   dimmed: {
+    position: 'absolute',
     backgroundColor: 'black',
     opacity: 0.5,
-    flex: 1
+    width: '100%',
+    height: '100%'
   },
   infoSymptomClose: {
     alignItems: 'flex-end'
