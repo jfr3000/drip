@@ -13,7 +13,10 @@ export default class DataManagement extends Component {
 
   constructor(props) {
     super(props)
-    this.state = { isLoading: false }
+    this.state = {
+      isLoading: false,
+      currentAction: null
+    }
   }
 
   startLoading = () => {
@@ -33,7 +36,22 @@ export default class DataManagement extends Component {
     this.endLoading()
   }
 
+  startExport = () => {
+    this.setCurrentAction('export')
+    openShareDialogAndExport()
+  }
+
+  startImport = () => {
+    this.setCurrentAction('import')
+    openImportDialog(this.startImportFlow)
+  }
+
+  setCurrentAction = (action) => {
+    this.setState({ currentAction: action })
+  }
+
   render() {
+    const { currentAction } = this.state
     return (
       <View flex={1}>
         {this.state.isLoading && <AppLoadingView />}
@@ -42,14 +60,14 @@ export default class DataManagement extends Component {
             <View>
               <FramedSegment title={labels.export.button}>
                 <AppText>{labels.export.segmentExplainer}</AppText>
-                <SettingsButton onPress={openShareDialogAndExport}>
+                <SettingsButton onPress={this.startExport}>
                   {labels.export.button}
                 </SettingsButton>
               </FramedSegment>
               <FramedSegment title={labels.import.button}>
                 <AppText>{labels.import.segmentExplainer}</AppText>
                 <SettingsButton
-                  onPress= {() => openImportDialog(this.startImportFlow)}
+                  onPress= {this.startImport}
                 >
                   {labels.import.button}
                 </SettingsButton>
@@ -59,7 +77,10 @@ export default class DataManagement extends Component {
                 last
               >
                 <AppText>{labels.deleteSegment.explainer}</AppText>
-                <DeleteData />
+                <DeleteData
+                  isDeletingData = { currentAction === 'delete' }
+                  onStartDeletion = {() => this.setCurrentAction('delete')}
+                />
               </FramedSegment>
             </View>
           </ScrollView>

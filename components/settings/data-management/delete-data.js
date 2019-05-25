@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import RNFS from 'react-native-fs'
 import { Alert, ToastAndroid } from 'react-native'
+import PropTypes from 'prop-types'
 
 import { clearDb, isDbEmpty } from '../../../db'
 import { hasEncryptionObservable } from '../../../local-storage'
@@ -24,6 +25,7 @@ export default class DeleteData extends Component {
   }
 
   onAlertConfirmation = () => {
+    this.props.onStartDeletion()
     if (this.state.isPasswordSet) {
       this.setState({ isConfirmingWithPassword: true })
     } else {
@@ -78,8 +80,9 @@ export default class DeleteData extends Component {
 
   render() {
     const { isConfirmingWithPassword } = this.state
+    const { isDeletingData } = this.props
 
-    if (isConfirmingWithPassword) {
+    if (isConfirmingWithPassword && isDeletingData) {
       return (
         <ConfirmWithPassword
           onSuccess={this.deleteAppData}
@@ -94,4 +97,9 @@ export default class DeleteData extends Component {
       </SettingsButton>
     )
   }
+}
+
+DeleteData.propTypes = {
+  isDeletingData: PropTypes.bool,
+  onStartDeletion: PropTypes.func.isRequired
 }
