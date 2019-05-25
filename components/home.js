@@ -112,7 +112,7 @@ export default class Home extends Component {
             >
               <DripHomeIcon name="drop" size={100} color={periodColor} />
 
-              <IconText wrapperStyles={{top: '50%', ...styles.wrapperIcon}}>
+              <IconText wrapperStyles={{top: '45%', ...styles.wrapperIcon}}>
                 {this.state.bleedingPredictionRange}
               </IconText>
 
