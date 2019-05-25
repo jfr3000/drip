@@ -83,8 +83,11 @@ export default class SymptomView extends Component {
           }}
         />
         <View flex={1}>
+          { this.renderContent() }
           <TouchableOpacity
-            onPress={() => this.setState({showInfo: true})}
+            onPress={() => {
+              this.setState({showInfo: true})
+            }}
             style={styles.infoButtonSymptomView}
           >
             <FeatherIcon
@@ -93,7 +96,6 @@ export default class SymptomView extends Component {
               style={iconStyles.symptomInfo}
             />
           </TouchableOpacity>
-          {this.renderContent()}
           { this.state.showInfo &&
               <InfoPopUp
                 symptom={this.symptomName}

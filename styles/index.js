@@ -457,9 +457,8 @@ export default StyleSheet.create({
   },
   infoButtonSymptomView: {
     position: 'absolute',
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    right: -10
+    padding: 15,
+    right: 0
   },
   licensePage: {
     paddingVertical: 20,
@@ -493,7 +492,6 @@ export const iconStyles = {
   },
   symptomInfo: {
     color: secondaryColor,
-    marginHorizontal: 20,
     fontSize: 25
   },
   menuIcon: {
