@@ -159,12 +159,10 @@ export default StyleSheet.create({
   },
   symptomViewHeading: {
     fontWeight: 'bold',
-    fontFamily: textFontBold,
-    marginTop: 10
+    fontFamily: textFontBold
   },
-  symptomDeleteIcon: {
-    marginRight: 20,
-    marginLeft: 20
+  symptomSection: {
+    marginBottom: 10
   },
   symptomBoxImage: {
     width: 50,
@@ -222,13 +220,12 @@ export default StyleSheet.create({
     justifyContent: 'center',
     height: 80
   },
-  headerCycleDay: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
   navigationArrow: {
-    padding: 20
+    padding: 20,
+    position: 'absolute'
   },
+  navigationArrowLeft: { left: 0 },
+  navigationArrowRight: { right: 0 },
   menu: {
     backgroundColor: primaryColor,
     alignItems: 'center',
@@ -258,20 +255,6 @@ export default StyleSheet.create({
   temperatureTextInputSuggestion: {
     color: '#939393'
   },
-  actionButtonFooter: {
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    flexDirection: 'row',
-    height: 60,
-  },
-  actionButtonItem: {
-    backgroundColor: secondaryColor,
-    alignItems: 'center',
-    flex: 1,
-    marginHorizontal: 5,
-    paddingVertical: 5,
-    borderRadius: 5,
-  },
   symptomEditButton: {
     width: 130
   },
@@ -295,6 +278,31 @@ export default StyleSheet.create({
   framedSegmentInlineChildren: {
     flexDirection: 'row',
     alignItems: 'center'
+  },
+  infoPopUpWrapper: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%'
+  },
+  infoPopUp: {
+    backgroundColor: 'white',
+    padding: 15,
+    marginHorizontal: 20,
+    marginTop: 20,
+    maxHeight: '92%'
+  },
+  dimmed: {
+    position: 'absolute',
+    backgroundColor: 'black',
+    opacity: 0.5,
+    width: '100%',
+    height: '100%'
+  },
+  infoSymptomClose: {
+    alignItems: 'flex-end'
+  },
+  infoSymptomText: {
+    marginTop: 10
   },
   settingsButton: {
     padding: 10,
@@ -372,7 +380,8 @@ export default StyleSheet.create({
     borderLeftWidth: null
   },
   page: {
-    marginHorizontal: 10
+    marginHorizontal: 10,
+    marginTop: 20,
   },
   calendarToday: {
     fontWeight: 'bold',
@@ -424,8 +433,16 @@ export default StyleSheet.create({
     marginTop: 20,
     color: 'grey'
   },
-  infoButton: {
-    paddingVertical: 20
+  headerDeleteButton: {
+    paddingHorizontal: 20,
+    paddingVertical: 20,
+    position: 'absolute',
+    right: 0
+  },
+  infoButtonSymptomView: {
+    position: 'absolute',
+    padding: 15,
+    right: 0
   },
   licensePage: {
     paddingVertical: 20,
@@ -457,6 +474,10 @@ export const iconStyles = {
   symptomBoxActive: {
     color: fontOnPrimaryColor
   },
+  symptomInfo: {
+    color: secondaryColor,
+    fontSize: 25
+  },
   menuIcon: {
     size: 20,
     color: fontOnPrimaryColor
@@ -464,8 +485,7 @@ export const iconStyles = {
   menuIconInactive: {
     color: colorInActive,
   },
-  infoInHeading: {
-    marginRight: 5,
-    color: 'black'
+  infoPopUpClose: {
+    size: 25
   }
 }

@@ -11,7 +11,6 @@ import SettingsMenu from './settings/settings-menu'
 import settingsViews from './settings'
 import Stats from './stats'
 import {headerTitles, menuTitles} from '../i18n/en/labels'
-import InfoSymptom from './cycle-day/symptoms/info-symptom'
 import setupNotifications from '../lib/notifications'
 
 // design wants everyhting lowercased, but we don't
@@ -22,7 +21,6 @@ const headerTitlesLowerCase = Object.keys(headerTitles).reduce((acc, curr) => {
 }, {})
 
 const HOME_PAGE = 'Home'
-const INFO_SYMPTOM_PAGE = 'InfoSymptom'
 const CYCLE_DAY_PAGE = 'CycleDay'
 const SETTINGS_MENU_PAGE = 'SettingsMenu'
 
@@ -49,7 +47,7 @@ export default class App extends Component {
     if (this.isMenuItem()) {
       this.menuOrigin = currentPage
     }
-    if (!this.isSymptomView() && !this.isInfoSymptomView()) {
+    if (!this.isSymptomView()) {
       this.originForSymptomView = currentPage
     }
     this.setState({ currentPage: pageName, currentProps: props })
@@ -66,10 +64,6 @@ export default class App extends Component {
       this.navigate(SETTINGS_MENU_PAGE)
     } else if (currentPage === CYCLE_DAY_PAGE) {
       this.navigate(this.menuOrigin)
-    } else if (this.isInfoSymptomView()) {
-      const { date, cycleDay, symptomView } = currentProps
-      this.navigate(
-        symptomView, { date, cycleDay })
     } else {
       this.navigate(HOME_PAGE)
     }
@@ -82,10 +76,6 @@ export default class App extends Component {
 
   isSymptomView() {
     return Object.keys(symptomViews).includes(this.state.currentPage)
-  }
-
-  isInfoSymptomView() {
-    return this.state.currentPage === INFO_SYMPTOM_PAGE
   }
 
   isSettingsView() {
@@ -104,7 +94,6 @@ export default class App extends Component {
       Calendar,
       CycleDay,
       Chart,
-      InfoSymptom,
       SettingsMenu,
       ...settingsViews,
       Stats,
@@ -118,7 +107,7 @@ export default class App extends Component {
         {this.isDefaultView() &&
           <Header title={title} />
         }
-        {(this.isInfoSymptomView() || this.isSettingsView()) &&
+        {(this.isSettingsView()) &&
           <Header
             title={title}
             showBackButton={true}

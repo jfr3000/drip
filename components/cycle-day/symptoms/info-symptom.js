@@ -1,35 +1,22 @@
-import React, { Component } from 'react'
-import { ScrollView } from 'react-native'
+import React from 'react'
+import { ScrollView, View, TouchableOpacity } from 'react-native'
+import Icon from 'react-native-vector-icons/SimpleLineIcons'
 import AppText from '../../app-text'
 import labels from '../../../i18n/en/symptom-info.js'
-import FramedSegment from '../../framed-segment'
-import styles from '../../../styles/index'
+import styles, {iconStyles} from '../../../styles/index'
 
-export default class InfoSymptom extends Component {
-  render() {
-    const symptomView = this.props.symptomView
-    const symptomMapping = {
-      BleedingEditView: 'bleeding',
-      CervixEditView: 'cervix',
-      DesireEditView: 'desire',
-      MoodEditView: 'mood',
-      MucusEditView: 'mucus',
-      NoteEditView: 'note',
-      PainEditView: 'pain',
-      SexEditView: 'sex',
-      TemperatureEditView: 'temperature'
-    }
-    const currentSymptom = symptomMapping[symptomView]
-
-    return (
-      <ScrollView>
-        <FramedSegment
-          style={styles.framedSegmentLast}
-          title={labels[currentSymptom].title}
-        >
-          <AppText>{labels[currentSymptom].text}</AppText>
-        </FramedSegment>
-      </ScrollView>
-    )
-  }
+export default function InfoSymptom(props) {
+  return (
+    <View style={styles.infoPopUpWrapper}>
+      <View style={styles.dimmed}></View>
+      <View style={styles.infoPopUp}>
+        <TouchableOpacity onPress={props.close} style={styles.infoSymptomClose}>
+          <Icon name='close' {...iconStyles.infoPopUpClose}/>
+        </TouchableOpacity>
+        <ScrollView style={styles.infoSymptomText}>
+          <AppText>{labels[props.symptom].text}</AppText>
+        </ScrollView>
+      </View>
+    </View>
+  )
 }
