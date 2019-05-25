@@ -11,6 +11,7 @@ import { getCycleDay } from '../../db'
 import cycleModule from '../../lib/cycle'
 import styles from '../../styles'
 import * as labels from '../../i18n/en/cycle-day'
+import { headerTitles as symptomTitles } from '../../i18n/en/labels'
 import AppText from '../app-text'
 import DripIcon from '../../assets/drip-icons'
 
@@ -180,7 +181,7 @@ export default class CycleDayOverView extends Component {
         <ScrollView>
           <View style={styles.symptomBoxesView}>
             <SymptomBox
-              title='Bleeding'
+              title={symptomTitles.bleeding}
               onPress={() => this.navigate('BleedingEditView')}
               data={this.getLabel('bleeding')}
               disabled={dateInFuture}
@@ -188,7 +189,7 @@ export default class CycleDayOverView extends Component {
             >
             </SymptomBox>
             <SymptomBox
-              title='Temperature'
+              title={symptomTitles.temperature}
               onPress={() => this.navigate('TemperatureEditView')}
               data={this.getLabel('temperature')}
               disabled={dateInFuture}
@@ -196,7 +197,7 @@ export default class CycleDayOverView extends Component {
             >
             </SymptomBox>
             <SymptomBox
-              title='Mucus'
+              title={symptomTitles.mucus}
               onPress={() => this.navigate('MucusEditView')}
               data={this.getLabel('mucus')}
               disabled={dateInFuture}
@@ -204,7 +205,7 @@ export default class CycleDayOverView extends Component {
             >
             </SymptomBox>
             <SymptomBox
-              title='Cervix'
+              title={symptomTitles.cervix}
               onPress={() => this.navigate('CervixEditView')}
               data={this.getLabel('cervix')}
               disabled={dateInFuture}
@@ -212,7 +213,7 @@ export default class CycleDayOverView extends Component {
             >
             </SymptomBox>
             <SymptomBox
-              title='Desire'
+              title={symptomTitles.desire}
               onPress={() => this.navigate('DesireEditView')}
               data={this.getLabel('desire')}
               disabled={dateInFuture}
@@ -220,7 +221,7 @@ export default class CycleDayOverView extends Component {
             >
             </SymptomBox>
             <SymptomBox
-              title='Sex'
+              title={symptomTitles.sex}
               onPress={() => this.navigate('SexEditView')}
               data={this.getLabel('sex')}
               disabled={dateInFuture}
@@ -228,7 +229,7 @@ export default class CycleDayOverView extends Component {
             >
             </SymptomBox>
             <SymptomBox
-              title='Pain'
+              title={symptomTitles.pain}
               onPress={() => this.navigate('PainEditView')}
               data={this.getLabel('pain')}
               disabled={dateInFuture}
@@ -236,7 +237,7 @@ export default class CycleDayOverView extends Component {
             >
             </SymptomBox>
             <SymptomBox
-              title='Mood'
+              title={symptomTitles.mood}
               onPress={() => this.navigate('MoodEditView')}
               data={this.getLabel('mood')}
               disabled={dateInFuture}
@@ -244,7 +245,7 @@ export default class CycleDayOverView extends Component {
             >
             </SymptomBox>
             <SymptomBox
-              title='Note'
+              title={symptomTitles.note}
               onPress={() => this.navigate('NoteEditView')}
               data={this.getLabel('note')}
               iconName='drip-icon-note'
