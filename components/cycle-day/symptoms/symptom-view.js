@@ -65,7 +65,7 @@ export default class SymptomView extends Component {
                 text: sharedDialogs.reallyDeleteData,
                 onPress: () => {
                   this.deleteSymptomEntry()
-                  this.globalBackhandler()
+                  this.props.handleBackButtonPress()
                 }
               }]
             )
