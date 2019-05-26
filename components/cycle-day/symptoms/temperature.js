@@ -63,19 +63,12 @@ export default class Temp extends SymptomView {
     })
   }
 
-  async onBackButtonPress() {
+  autoSave = () => {
     if (typeof this.state.temperature != 'string' || this.state.temperature === '') {
       this.deleteSymptomEntry()
       return
     }
 
-    const userWantsToSave = await this.warnUserIfTempOutOfRange()
-    if (!userWantsToSave) return true
-
-    this.saveTemperature()
-  }
-
-  saveTemperature = () => {
     const dataToSave = {
       value: Number(this.state.temperature),
       exclude: this.state.exclude,
@@ -103,15 +96,14 @@ export default class Temp extends SymptomView {
     // it in a promise
     return new Promise(resolve => {
       if (warningMsg) {
+        // we set this so the time picker doesn't open at the same time
+        this.warningAlertOpen = true
         Alert.alert(
           sharedLabels.warning,
           warningMsg,
           [
-            { text: sharedLabels.cancel, onPress: () => {
-              resolve(false)
-            }},
-            { text: sharedLabels.save, onPress: () => {
-              resolve(true)
+            { text: sharedLabels.ok, onPress: () => {
+              this.warningAlertOpen = false
             }}
           ]
         )
@@ -154,6 +146,7 @@ export default class Temp extends SymptomView {
               onChangeText={this.setTemperature}
               keyboardType='numeric'
               maxLength={5}
+              onBlur={this.warnUserIfTempOutOfRange}
             />
             <AppText style={{ marginLeft: 5 }}>°C</AppText>
           </View>
@@ -164,7 +157,13 @@ export default class Temp extends SymptomView {
           <View style={styles.framedSegmentInlineChildren}>
             <AppTextInput
               style={[styles.temperatureTextInput]}
-              onFocus={this.showTimePicker}
+              onFocus={() => {
+                if (this.warningAlertOpen) {
+                  Keyboard.dismiss()
+                } else {
+                  this.showTimePicker()
+                }
+              }}
               value={this.state.time}
             />
             <DateTimePicker
