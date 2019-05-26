@@ -3,7 +3,6 @@ import {
   View,
   Switch,
   Keyboard,
-  Alert,
   ScrollView
 } from 'react-native'
 import DateTimePicker from 'react-native-modal-datetime-picker-nevo'
@@ -35,7 +34,6 @@ export default class Temp extends SymptomView {
       exclude: temp ? temp.exclude : false,
       time: temp ? temp.time : LocalTime.now().truncatedTo(minutes).toString(),
       isTimePickerVisible: false,
-      outOfRange: null,
       note: temp ? temp.note : null
     }
 
@@ -44,6 +42,7 @@ export default class Temp extends SymptomView {
       if (temp.value === Math.floor(temp.value)) {
         this.state.temperature = `${this.state.temperature}.0`
       }
+      this.state.outOfRangeWarning = makeOutOfRangeWarningMessage(this.state.temperature)
     } else {
       const prevTemp = getPreviousTemperature(props.date)
       if (prevTemp) {
@@ -79,43 +78,13 @@ export default class Temp extends SymptomView {
     this.saveSymptomEntry(dataToSave)
   }
 
-  warnUserIfTempOutOfRange = async () => {
-    const value = Number(this.state.temperature)
-    const { min, max } = config.temperatureScale
-    const range = { min, max }
-    const scale = scaleObservable.value
-    let warningMsg
-
-    if (value < range.min || value > range.max) {
-      warningMsg = labels.outOfAbsoluteRangeWarning
-    } else if (value < scale.min || value > scale.max) {
-      warningMsg = labels.outOfRangeWarning
-    }
-
-    // RN alert runs asynchronously but doesn't provide a callback, so wrap
-    // it in a promise
-    return new Promise(resolve => {
-      if (warningMsg) {
-        // we set this so the time picker doesn't open at the same time
-        this.warningAlertOpen = true
-        Alert.alert(
-          sharedLabels.warning,
-          warningMsg,
-          [
-            { text: sharedLabels.ok, onPress: () => {
-              this.warningAlertOpen = false
-            }}
-          ]
-        )
-      } else {
-        resolve(true)
-      }
-    })
-  }
 
   setTemperature = (temperature) => {
     if (isNaN(Number(temperature))) return
-    this.setState({ temperature, isSuggestion: false })
+    this.setState({
+      temperature, isSuggestion: false,
+      outOfRangeWarning: makeOutOfRangeWarningMessage(temperature)
+    })
   }
 
   setNote = (note) => {
@@ -146,10 +115,14 @@ export default class Temp extends SymptomView {
               onChangeText={this.setTemperature}
               keyboardType='numeric'
               maxLength={5}
-              onBlur={this.warnUserIfTempOutOfRange}
             />
             <AppText style={{ marginLeft: 5 }}>°C</AppText>
           </View>
+          {this.state.outOfRangeWarning &&
+            <AppText style={styles.hint}>
+              {this.state.outOfRangeWarning}
+            </AppText>
+          }
         </SymptomSection>
         <SymptomSection
           header={labels.time}
@@ -157,13 +130,7 @@ export default class Temp extends SymptomView {
           <View style={styles.framedSegmentInlineChildren}>
             <AppTextInput
               style={[styles.temperatureTextInput]}
-              onFocus={() => {
-                if (this.warningAlertOpen) {
-                  Keyboard.dismiss()
-                } else {
-                  this.showTimePicker()
-                }
-              }}
+              onFocus={this.showTimePicker}
               value={this.state.time}
             />
             <DateTimePicker
@@ -206,4 +173,23 @@ export default class Temp extends SymptomView {
       </ScrollView>
     )
   }
+}
+
+function makeOutOfRangeWarningMessage(temperature) {
+  if (temperature === '') return
+  const value = Number(temperature)
+  const { min, max } = config.temperatureScale
+  const range = { min, max }
+  const scale = scaleObservable.value
+  let warningMsg
+
+  if (value < range.min || value > range.max) {
+    warningMsg = labels.outOfAbsoluteRangeWarning
+  } else if (value < scale.min || value > scale.max) {
+    warningMsg = labels.outOfRangeWarning
+  } else {
+    warningMsg = null
+  }
+
+  return warningMsg
 }

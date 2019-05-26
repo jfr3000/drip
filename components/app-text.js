@@ -18,19 +18,6 @@ export default function AppText(props) {
   )
 }
 
-export function ActionHint(props) {
-  if(props.isVisible) {
-    return (
-      <AppText
-        style={[styles.actionHint, props.style]}>
-        {props.children}
-      </AppText>
-    )
-  } else {
-    return null
-  }
-}
-
 export function SymptomSectionHeader(props) {
   return (
     <AppText style={styles.symptomViewHeading}>

@@ -24,13 +24,6 @@ export default class SymptomView extends Component {
     this.autoSave()
   }
 
-  // TODO where is this needed now?
-  async handleBackButtonPressOnSymptomView() {
-    // every specific symptom view provides their own onBackButtonPress method
-    const stopHere = await this.onBackButtonPress()
-    if (!stopHere) this.globalBackhandler()
-  }
-
   saveSymptomEntry(entry) {
     saveSymptom(this.symptomName, this.date, entry)
   }
@@ -59,8 +52,7 @@ export default class SymptomView extends Component {
         <Header
           title={headerTitles[this.symptomName].toLowerCase()}
           date={this.date}
-          // TODO what to put here instead?
-          goBack={this.handleBackButtonPressOnSymptomView.bind(this)}
+          goBack={this.props.handleBackButtonPress}
           deleteIconActive={this.isDeleteIconActive()}
           deleteEntry={() => {
             Alert.alert(

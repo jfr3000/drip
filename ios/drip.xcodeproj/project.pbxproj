@@ -72,6 +72,7 @@
 		E43EF009AC8C4698AB322190 /* NodeMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C225FC4966694B9FBD32E946 /* NodeMobile.framework */; };
 		E4584E55EEC24302A3E84A23 /* nodejs-project in Resources */ = {isa = PBXBuildFile; fileRef = 6466AE2461BE4FA88B8372F0 /* nodejs-project */; };
 		77500FAD5ADD402AAD2D9972 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3102FB76D69C42938E0E126D /* AntDesign.ttf */; };
+		AA800A96BB73482AA90E29B8 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 885BDE0B3896402F99D0C860 /* OpenSans-LightItalic.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -516,6 +517,7 @@
 		F59A471BDE4144A1A41D4B52 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		F992F2D99E614DD79FAD6565 /* libRNNodeJsMobile.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNNodeJsMobile.a; sourceTree = "<group>"; };
 		3102FB76D69C42938E0E126D /* AntDesign.ttf */ = {isa = PBXFileReference; name = "AntDesign.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		885BDE0B3896402F99D0C860 /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; name = "OpenSans-LightItalic.ttf"; path = "../assets/fonts/OpenSans-LightItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -608,6 +610,7 @@
 				673C016DDDD74C2F89050279 /* OpenSans-Light.ttf */,
 				644690BCCEBF41789960B9A2 /* OpenSans-SemiBold.ttf */,
 				3102FB76D69C42938E0E126D /* AntDesign.ttf */,
+				885BDE0B3896402F99D0C860 /* OpenSans-LightItalic.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -951,9 +954,9 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				2B572382D4504B8FB4B9D251 /* Embed Frameworks */,
-				6A61F9B7BEB149D1894D6AB5 /* Build NodeJS Mobile Native Modules */,
-				53E84D10AC6B4045A1DBAB0C /* Sign NodeJS Mobile Native Modules */,
-				F43CB3783FD9405C8198826C /* Remove NodeJS Mobile Framework Simulator Strips */,
+				D6AE48E8124449EE863F342D /* Build NodeJS Mobile Native Modules */,
+				7D43D3729FAE42C0859CDC36 /* Sign NodeJS Mobile Native Modules */,
+				54483AF1DA474A71931D6D6A /* Remove NodeJS Mobile Framework Simulator Strips */,
 			);
 			buildRules = (
 			);
@@ -1513,6 +1516,7 @@
 				5D921C348AC14944835A4D82 /* OpenSans-Light.ttf in Resources */,
 				71D0BCE4666A4AB8A0874B5A /* OpenSans-SemiBold.ttf in Resources */,
 				77500FAD5ADD402AAD2D9972 /* AntDesign.ttf in Resources */,
+				AA800A96BB73482AA90E29B8 /* OpenSans-LightItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1562,7 +1566,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
-		6A61F9B7BEB149D1894D6AB5 /* Build NodeJS Mobile Native Modules */ = {
+		D6AE48E8124449EE863F342D /* Build NodeJS Mobile Native Modules */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1630,7 +1634,7 @@ fi
 popd
 ";
 		};
-		53E84D10AC6B4045A1DBAB0C /* Sign NodeJS Mobile Native Modules */ = {
+		7D43D3729FAE42C0859CDC36 /* Sign NodeJS Mobile Native Modules */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1690,7 +1694,7 @@ find \"$CODESIGNING_FOLDER_PATH/nodejs-project/\" -path \"*/*.framework/*\" -del
 find \"$CODESIGNING_FOLDER_PATH/nodejs-project/\" -name \"*.framework\" -type d -delete
 ";
 		};
-		F43CB3783FD9405C8198826C /* Remove NodeJS Mobile Framework Simulator Strips */ = {
+		54483AF1DA474A71931D6D6A /* Remove NodeJS Mobile Framework Simulator Strips */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
