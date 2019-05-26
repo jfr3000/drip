@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {
-  BackHandler, View, Alert, TouchableOpacity
+  View, Alert, TouchableOpacity
 } from 'react-native'
 import { saveSymptom } from '../../../db'
 import InfoPopUp from './info-symptom'
@@ -13,11 +13,6 @@ import styles, { iconStyles } from '../../../styles'
 export default class SymptomView extends Component {
   constructor(props) {
     super()
-    this.backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      this.handleBackButtonPressOnSymptomView.bind(this)
-    )
-    this.globalBackhandler = props.handleBackButtonPress
     this.date = props.date
     this.navigate = props.navigate
     this.state = {
@@ -25,10 +20,8 @@ export default class SymptomView extends Component {
     }
   }
 
-  async handleBackButtonPressOnSymptomView() {
-    // every specific symptom view provides their own onBackButtonPress method
-    const stopHere = await this.onBackButtonPress()
-    if (!stopHere) this.globalBackhandler()
+  componentDidUpdate() {
+    this.autoSave()
   }
 
   saveSymptomEntry(entry) {
@@ -37,10 +30,6 @@ export default class SymptomView extends Component {
 
   deleteSymptomEntry() {
     saveSymptom(this.symptomName, this.date)
-  }
-
-  componentWillUnmount() {
-    this.backHandler.remove()
   }
 
   isDeleteIconActive() {
@@ -63,7 +52,7 @@ export default class SymptomView extends Component {
         <Header
           title={headerTitles[this.symptomName].toLowerCase()}
           date={this.date}
-          goBack={this.handleBackButtonPressOnSymptomView.bind(this)}
+          goBack={this.props.handleBackButtonPress}
           deleteIconActive={this.isDeleteIconActive()}
           deleteEntry={() => {
             Alert.alert(

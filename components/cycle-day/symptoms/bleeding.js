@@ -22,7 +22,7 @@ export default class Bleeding extends SymptomView {
 
   symptomName = 'bleeding'
 
-  onBackButtonPress() {
+  autoSave = () => {
     if (typeof this.state.currentValue != 'number') {
       this.deleteSymptomEntry()
       return

@@ -19,7 +19,7 @@ export default class Cervix extends SymptomView {
 
   symptomName = 'cervix'
 
-  onBackButtonPress() {
+  autoSave = () => {
     const nothingEntered = ['opening', 'firmness', 'position'].every(val => typeof this.state[val] != 'number')
     if (nothingEntered) {
       this.deleteSymptomEntry()

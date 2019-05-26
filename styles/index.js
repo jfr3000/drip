@@ -17,6 +17,7 @@ const headerFont = 'Prompt-ExtraLight'
 
 const textFont = 'OpenSans-Light'
 const textFontBold = 'OpenSans-SemiBold'
+const textFontItalic = 'OpenSans-LightItalic'
 
 const regularSize = 16
 const hintSize = 14
@@ -43,12 +44,9 @@ export default StyleSheet.create({
     fontSize: regularSize,
     letterSpacing: 0.5
   },
-  actionHint: {
-    color: secondaryColor,
-    fontFamily: textFont,
+  hint: {
+    fontFamily: textFontItalic,
     fontSize: hintSize,
-    fontWeight: 'bold',
-    margin: defaultIndentation
   },
   paragraph: {
     marginBottom: defaultBottomMargin

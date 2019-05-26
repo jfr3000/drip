@@ -19,7 +19,7 @@ export default class Desire extends SymptomView {
 
   symptomName = 'desire'
 
-  onBackButtonPress() {
+  autoSave = () => {
     if (typeof this.state.currentValue != 'number') {
       this.deleteSymptomEntry()
       return

@@ -24,7 +24,7 @@ export default class Mood extends SymptomView {
 
   symptomName = "mood"
 
-  onBackButtonPress() {
+  autoSave = () => {
     const nothingEntered = Object.values(this.state).every(val => !val)
     if (nothingEntered) {
       this.deleteSymptomEntry()
