@@ -20,7 +20,7 @@ export default class Mucus extends SymptomView {
 
   symptomName = 'mucus'
 
-  onBackButtonPress() {
+  autoSave = () => {
     const nothingEntered = ['feeling', 'texture'].every(val => typeof this.state[val] != 'number')
     if (nothingEntered) {
       this.deleteSymptomEntry()

@@ -26,7 +26,7 @@ export default class Pain extends SymptomView {
 
   symptomName = 'pain'
 
-  onBackButtonPress() {
+  autoSave = () => {
     const nothingEntered = Object.values(this.state).every(val => !val)
     if (nothingEntered) {
       this.deleteSymptomEntry()

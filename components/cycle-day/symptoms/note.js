@@ -23,7 +23,7 @@ export default class Note extends SymptomView {
 
   symptomName = 'note'
 
-  onBackButtonPress() {
+  autoSave = () => {
     if (!this.state.currentValue) {
       this.deleteSymptomEntry()
       return

@@ -26,7 +26,7 @@ export default class Sex extends SymptomView {
 
   symptomName = "sex"
 
-  onBackButtonPress() {
+  autoSave = () => {
     const nothingEntered = Object.values(this.state).every(val => !val)
     if (nothingEntered) {
       this.deleteSymptomEntry()
