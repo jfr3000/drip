@@ -14,6 +14,11 @@ export const bleeding = {
 }
 
 export const cervix = {
+  subcategories: {
+    opening: 'opening',
+    firmness: 'firmness',
+    position: 'position'
+  },
   opening: {
     categories: ['closed', 'medium', 'open'],
     explainer: 'Is your cervix open or closed?'
@@ -30,6 +35,10 @@ export const cervix = {
 }
 
 export const mucus = {
+  subcategories: {
+    feeling: 'feeling',
+    texture: 'texture'
+  },
   feeling: {
     categories: ['dry', 'nothing', 'wet', 'slippery'],
     explainer: 'What does your vaginal entrance feel like?'
