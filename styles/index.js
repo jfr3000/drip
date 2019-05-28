@@ -123,7 +123,7 @@ export default StyleSheet.create({
     marginBottom: defaultBottomMargin,
   },
   homeElement: {
-    marginBottom: 40,
+    marginBottom: 30,
     flexDirection: 'row',
   },
   homeIconTextWrapper: {

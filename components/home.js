@@ -38,7 +38,7 @@ const HomeElement = ({ children, onPress, buttonColor, buttonLabel  }) => {
       </View>
 
       <View style={{paddingLeft: 15}}>
-        {children[2]}
+        {children.slice(2)}
         <Button
           style={styles.homeButton}
           onPress={ onPress }
@@ -137,11 +137,9 @@ export default class Home extends Component {
                   {`${labels.phase(phase)} (${status})`}
                 </AppText>
               }
-              <View>
-                <AppText styles={styles.homeDescriptionText}>
-                  { `${statusText} ${links.wiki.url}.` }
-                </AppText>
-              </View>
+              <AppText style={styles.homeDescriptionText}>
+                { `${statusText} Visit ${links.wiki.url}.` }
+              </AppText>
             </HomeElement>
           </View>
         </ScrollView>
