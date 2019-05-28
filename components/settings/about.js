@@ -18,6 +18,9 @@ export default class AboutSection extends Component {
         <FramedSegment title={labels.credits.title}>
           <AppText>{labels.credits.note}</AppText>
         </FramedSegment>
+        <FramedSegment title={labels.donate.title}>
+          <AppText>{labels.donate.note}</AppText>
+        </FramedSegment>
         <FramedSegment title={labels.website.title}>
           <AppText>{links.website.url}</AppText>
         </FramedSegment>
