@@ -70,10 +70,10 @@ export default class CycleDayOverView extends Component {
       mucus: mucus => {
         const filledCategories = ['feeling', 'texture'].filter(c => isNumber(mucus[c]))
         let label = filledCategories.map(category => {
-          return labels.mucus[category].categories[mucus[category]]
+          return labels.mucus.subcategories[category] + ': ' + labels.mucus[category].categories[mucus[category]]
         }).join(', ')
 
-        if (isNumber(mucus.value)) label += `\n${labels.mucusNFP[mucus.value]}`
+        if (isNumber(mucus.value)) label += `\n => ${labels.mucusNFP[mucus.value]}`
         if (mucus.exclude) label = `(${label})`
 
         return label
@@ -81,7 +81,7 @@ export default class CycleDayOverView extends Component {
       cervix: cervix => {
         const filledCategories = ['opening', 'firmness', 'position'].filter(c => isNumber(cervix[c]))
         let label = filledCategories.map(category => {
-          return labels.cervix[category].categories[cervix[category]]
+          return labels.cervix.subcategories[category] + ': ' + labels.cervix[category].categories[cervix[category]]
         }).join(', ')
 
         if (cervix.exclude) label = `(${label})`
