@@ -278,7 +278,10 @@ class SymptomBox extends Component {
       >
         <View style={[styles.symptomBox, boxActive, disabledStyle]}>
           <DripIcon name={this.props.iconName} size={50} color={hasData ? 'white' : 'black'}/>
-          <AppText style={[textActive, disabledStyle]}>
+          <AppText
+            style={[textActive, disabledStyle, {fontSize: 15}]}
+            numberOfLines={1}
+          >
             {this.props.title.toLowerCase()}
           </AppText>
         </View>
