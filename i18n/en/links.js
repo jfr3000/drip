@@ -14,4 +14,8 @@ export default {
   website: {
     url: 'https://bloodyhealth.gitlab.io/'
   },
+  donate: {
+    url: 'https://ko-fi.com/dripapp',
+    text: 'here'
+  }
 }

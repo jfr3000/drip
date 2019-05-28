@@ -123,5 +123,9 @@ You can contact us by bloodyhealth@mailbox.org.`
   credits: {
     title: 'Credits',
     note: 'Thanks and lots of <3 to all of our contributors as well as Susanne Umscheid for the wonderful design, and Paula Härtel for the symptom icons.'
+  },
+  donate: {
+    title: 'Buy us a coffee!',
+    note: `The Bloody Health team is always grateful for donations, big or small, that help us maintain this app and develop new features. You can donate ${links.donate.url}. Thank you! You're awesome.`
   }
 }
