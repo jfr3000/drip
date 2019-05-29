@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+## v0.1905.29-beta
+
+- Auto save functionality for all symptoms
+- Add donation section to about
+- Styling fixes
+- Clearer labels on cycle day overview
+- Rename mucus to cervical mucus
+- Set show more on homescreen to default and get rid of more/less switch
+- Add loading screen to data import
+- Fix line width in chart
+- Removes logo and adds header on the main login screen
+- Nicer formatting for past bleeding prediction
+- Fixes prediction range in drop on homescreen
+- Removes permissions not required for debug or production
+- Temperature screen styling update
+
 ## v0.0.3 - 2019-04-17
 
 ### Changes
