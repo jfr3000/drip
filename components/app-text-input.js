@@ -4,6 +4,7 @@ import { TextInput } from 'react-native'
 import styles from '../styles'
 
 export default function AppTextInput({ style, ...props }) {
+  if (!Array.isArray(style)) style = [style]
   return (
     <TextInput
       style={[styles.textInputField, ...style]}
