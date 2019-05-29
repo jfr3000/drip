@@ -16,7 +16,7 @@
     "lint": "eslint components lib test",
     "devtool": "adb shell input keyevent 82",
     "update-version": "./tools/update-version.js",
-    "build-android-release": "cd android && ./gradlew assembleRelease && cd ..",
+    "build-android-release": "cd android && ./gradlew clean && ./gradlew assembleRelease && cd ..",
     "commit-release": "./tools/commit-release",
     "update-changelog": "./tools/update-changelog.js",
     "release": "npm run update-version && npm run build-android-release && npm run commit-release"
