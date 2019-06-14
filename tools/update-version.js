@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 // from https://gitlab.com/staltz/manyverse/blob/master/tools/update-version.js
 
 /* Any copyright is dedicated to the Public Domain.
@@ -11,60 +9,61 @@ const leftPad = require('left-pad')
 const path = require('path')
 const fs = require('fs')
 
-const currentVersion = JSON.parse(fs.readFileSync('./package.json')).version
+module.exports = () => {
+  return new Promise((resolve, reject) => {
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-})
+    const currentVersion = JSON.parse(fs.readFileSync('./package.json')).version
 
-function createTodaysVersion(attempt) {
-  const today = new Date()
-  const yy = today.getFullYear() - 2000 // So it's two digits
-  const mm = leftPad(today.getMonth() + 1, 2, '0')
-  const d = today.getDate()
-  if (attempt === 0) {
-    return `0.${yy}${mm}.${d}-beta`
-  } else {
-    const letter = String.fromCharCode(97 + attempt) // 0=a, 1=b, 2=c, ...
-    return `0.${yy}${mm}.${d}-beta.${letter}`
-  }
-}
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+    })
 
-let nextVersion
-for (let i = 0 /* letter a */; i <= 25 /* letter z */; i++) {
-  nextVersion = createTodaysVersion(i)
-  if (nextVersion !== currentVersion) break
-}
-if (nextVersion === currentVersion) {
-  console.error('I dont know what else to generate beyong ' + nextVersion)
-  process.exit(1)
-}
+    function createTodaysVersion(attempt) {
+      const today = new Date()
+      const yy = today.getFullYear() - 2000 // So it's two digits
+      const mm = leftPad(today.getMonth() + 1, 2, '0')
+      const d = today.getDate()
+      if (attempt === 0) {
+        return `0.${yy}${mm}.${d}-beta`
+      } else {
+        const letter = String.fromCharCode(96 + attempt) // 0=a, 1=b, 2=c, ...
+        return `0.${yy}${mm}.${d}-beta.${letter}`
+      }
+    }
 
-rl.question('Next version will be `' + nextVersion + '`, okay? y/n ', yn => {
-  if (yn !== 'y' && yn !== 'Y') {
-    console.log('Release cancelled.\n')
-    process.exit(1)
-    return
-  }
+    let nextVersion
+    for (let i = 0 /* letter a */; i <= 25 /* letter z */; i++) {
+      nextVersion = createTodaysVersion(i)
+      if (nextVersion !== currentVersion) break
+    }
+    if (nextVersion === currentVersion) {
+      console.error('I dont know what else to generate beyond ' + nextVersion)
+      process.exit(1)
+    }
 
-  const pkgJSON = JSON.parse(fs.readFileSync('./package.json'))
-  const pkgLockJSON = JSON.parse(fs.readFileSync('./package-lock.json'))
-  pkgJSON.version = nextVersion
-  pkgLockJSON.version = nextVersion
-  fs.writeFileSync('./package.json', JSON.stringify(pkgJSON, null, 2))
-  fs.writeFileSync('./package-lock.json', JSON.stringify(pkgLockJSON, null, 2))
+    rl.question('Next version will be `' + nextVersion + '`, okay? y/n ', async yn => {
+      if (yn !== 'y' && yn !== 'Y') {
+        reject('Release cancelled.\n')
+        return
+      }
 
-  ReactNativeVersion.version(
-    {
-      neverAmend: true,
-      target: 'android',
-    },
-    path.resolve(__dirname, '../'),
-  ).catch(err => {
-    console.error(err)
-    process.exit(1)
+      const pkgJSON = JSON.parse(fs.readFileSync('./package.json'))
+      const pkgLockJSON = JSON.parse(fs.readFileSync('./package-lock.json'))
+      pkgJSON.version = nextVersion
+      pkgLockJSON.version = nextVersion
+      fs.writeFileSync('./package.json', JSON.stringify(pkgJSON, null, 2))
+      fs.writeFileSync('./package-lock.json', JSON.stringify(pkgLockJSON, null, 2))
+
+      await ReactNativeVersion.version(
+        {
+          neverAmend: true,
+          target: 'android',
+        },
+        path.resolve(__dirname, '../'),
+      )
+      rl.close()
+      resolve()
+    })
   })
-
-  rl.close()
-})
+}
