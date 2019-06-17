@@ -20,19 +20,6 @@ export default class PasswordPrompt extends Component {
       this.passHashToDb,
       this
     )
-
-    this.tryToOpenDb()
-  }
-
-  async tryToOpenDb() {
-    const connected = await openDb()
-    if (!connected) {
-      this.setState({ showPasswordPrompt: true })
-      await saveEncryptionFlag(true)
-      return
-    }
-    await saveEncryptionFlag(false)
-    this.props.showApp()
   }
 
   passHashToDb = async hash => {
@@ -48,7 +35,7 @@ export default class PasswordPrompt extends Component {
       )
       return
     }
-    this.props.showApp()
+    this.props.enableShowApp()
   }
 
   confirmDeletion = async () => {
@@ -72,7 +59,7 @@ export default class PasswordPrompt extends Component {
               onPress: async () => {
                 await deleteDbAndOpenNew()
                 await saveEncryptionFlag(false)
-                this.props.showApp()
+                this.props.enableShowApp()
               }
             }]
           )
@@ -89,35 +76,32 @@ export default class PasswordPrompt extends Component {
     return (
       <View flex={1}>
         <Header title={menuTitles.PasswordPrompt.toLowerCase()} />
-        {this.state.showPasswordPrompt &&
-          <View style={styles.passwordPromptPage}>
-
-            <TextInput
-              onChangeText={val => this.setState({ password: val })}
-              style={styles.passwordPromptField}
-              secureTextEntry={true}
-              placeholder={labels.enterPassword}
-            />
-            <TouchableOpacity
-              style={styles.passwordPromptButton}
-              onPress={() => {
-                requestHash('check-pw', this.state.password)
-              }}
-              disabled={!this.state.password}
-            >
-              <AppText style={styles.passwordPromptButtonText}>
-                {labels.title}
-              </AppText>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={this.confirmDeletion}
-            >
-              <AppText style={styles.passwordPromptForgotPasswordText}>
-                {labels.forgotPassword}
-              </AppText>
-            </TouchableOpacity>
-          </View>
-        }
+        <View style={styles.passwordPromptPage}>
+          <TextInput
+            onChangeText={val => this.setState({ password: val })}
+            style={styles.passwordPromptField}
+            secureTextEntry={true}
+            placeholder={labels.enterPassword}
+          />
+          <TouchableOpacity
+            style={styles.passwordPromptButton}
+            onPress={() => {
+              requestHash('check-pw', this.state.password)
+            }}
+            disabled={!this.state.password}
+          >
+            <AppText style={styles.passwordPromptButtonText}>
+              {labels.title}
+            </AppText>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={this.confirmDeletion}
+          >
+            <AppText style={styles.passwordPromptForgotPasswordText}>
+              {labels.forgotPassword}
+            </AppText>
+          </TouchableOpacity>
+        </View>
       </View>
     )
   }

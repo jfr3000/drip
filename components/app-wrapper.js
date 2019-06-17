@@ -1,44 +1,86 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
 import nodejs from 'nodejs-mobile-react-native'
+
+import { getLicenseFlag, saveEncryptionFlag } from '../local-storage'
+import { openDb } from '../db'
+
 import App from './app'
 import PasswordPrompt from './password-prompt'
 import License from './license'
-import { getLicenseFlag } from '../local-storage'
+import AppLoadingView from './app-loading'
 
 export default class AppWrapper extends Component {
   constructor() {
     super()
     this.state = {
-      retrievingLicenseSetting: true
+      isCheckingLicenseAgreement: true,
+      shouldShowLicenseAgreement: false,
+      shouldShowPasswordPrompt: false,
+      shouldShowApp: false,
     }
     nodejs.start('main.js')
     this.checkLicenseAgreement()
+    this.checkDbPasswordSet()
   }
 
   async checkLicenseAgreement() {
-    const agreed = await getLicenseFlag()
-    this.setState({retrievingLicenseSetting: false})
-    if (!agreed) this.setState({showLicense: true})
+    const isLicenseFlagSet = await getLicenseFlag()
+    if (!isLicenseFlagSet) {
+      this.enableShowLicenseAgreement()
+    } else {
+      this.setState({ isCheckingLicenseAgreement: false })
+    }
+  }
+
+  async checkDbPasswordSet() {
+    const canConnectToDb = await openDb()
+    if (canConnectToDb) {
+      this.enableShowApp()
+      await saveEncryptionFlag(false)
+      return false
+    }
+    this.setState({ shouldShowPasswordPrompt: true })
+    await saveEncryptionFlag(true)
+  }
+
+  enableShowLicenseAgreement = () => {
+    this.setState({
+      shouldShowLicenseAgreement: true,
+      isCheckingLicenseAgreement: false
+    })
+  }
+
+  disableShowLicenseAgreement = () => {
+    this.setState({ shouldShowLicenseAgreement: false })
+  }
+
+  enableShowApp = () => {
+    this.setState({
+      shouldShowApp: true,
+      shouldShowPasswordPrompt: false
+    })
   }
 
   render() {
-    const whiteScreen = <View style={{ flex: 1 }}></View>
-    const licenseScreen = <License setLicense={() => {
-      this.setState({showLicense: false})
-    }}/>
-    const passwordPrompt = <PasswordPrompt showApp={() => {
-      this.setState({showApp: true})
-    }}/>
+    const {
+      isCheckingLicenseAgreement,
+      shouldShowLicenseAgreement,
+      shouldShowPasswordPrompt,
+      shouldShowApp,
+    } = this.state
 
-    if (this.state.retrievingLicenseSetting) {
-      return whiteScreen
-    } else if (this.state.showLicense) {
-      return licenseScreen
-    } else if (!this.state.showApp) {
-      return passwordPrompt
-    } else {
-      return <App/>
+    if (isCheckingLicenseAgreement) {
+      return <AppLoadingView />
     }
+
+    if (shouldShowLicenseAgreement) {
+      return <License setLicense={this.disableShowLicenseAgreement}/>
+    }
+
+    if (shouldShowPasswordPrompt) {
+      return <PasswordPrompt enableShowApp={this.enableShowApp} />
+    }
+
+    return shouldShowApp && <App />
   }
 }
