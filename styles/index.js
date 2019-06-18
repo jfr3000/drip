@@ -116,7 +116,8 @@ export default StyleSheet.create({
     color: fontOnPrimaryColor
   },
   homeView: {
-    margin: 40,
+    alignItems: 'center',
+    marginVertical: 40
   },
   homeDescriptionText: {
     width: 200,
