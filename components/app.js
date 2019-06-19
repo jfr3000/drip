@@ -12,6 +12,7 @@ import settingsViews from './settings'
 import Stats from './stats'
 import {headerTitles, menuTitles} from '../i18n/en/labels'
 import setupNotifications from '../lib/notifications'
+import { closeDb } from '../db'
 
 // design wants everyhting lowercased, but we don't
 // have CSS pseudo properties
@@ -55,7 +56,10 @@ export default class App extends Component {
 
   handleBackButtonPress = () => {
     const { currentPage, currentProps } = this.state
-    if (currentPage === HOME_PAGE) return false
+    if (currentPage === HOME_PAGE) {
+      closeDb()
+      return false
+    }
     if (this.isSymptomView()) {
       this.navigate(
         this.originForSymptomView, { date: currentProps.date }
