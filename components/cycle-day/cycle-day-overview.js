@@ -60,7 +60,10 @@ export default class CycleDayOverView extends Component {
       },
       temperature: temperature => {
         if (isNumber(temperature.value)) {
-          let temperatureLabel = `${temperature.value} °C - ${temperature.time}`
+          let temperatureLabel = `${temperature.value} °C`
+          if (temperature.time) {
+            temperatureLabel = `${temperatureLabel} - ${temperature.time}`
+          }
           if (temperature.exclude) {
             temperatureLabel = "( " + temperatureLabel + " )"
           }
