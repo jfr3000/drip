@@ -1,0 +1,20 @@
+Key Features
+• Track your bleeding, fertility, sex, mood, pain, and more if you want
+• Graphs to analyze cycle and period duration as well as other symptoms
+• Get notified about your next period and required temperature measurements
+• Easily import, export and password protect your data
+
+What makes drip special
+• Your data, your choice. Everything stays on your device.
+• Not another cute, pink app. drip is designed with gender inclusivity in mind.
+• Your body is not a black box. drip is transparent in its calculations and encourages you to think for yourself.
+• Based on science. drip detects your fertility using the symptothermal method.
+• Track what you like. Just your period or fertility symptoms, and more.
+• Open source. Contribute to the code, the documentation, translations and get involved with the community.
+• Non-commercial. drip doesn’t sell your data, no ads.
+
+SPECIAL THANKS TO:
+• All the condriputors!
+• The Prototype Fund
+• The Feminist Tech Fellowship
+• The Mozilla Foundation
