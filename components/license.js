@@ -10,14 +10,15 @@ import { saveLicenseFlag } from '../local-storage'
 const labels = settingsLabels.license
 export default function License({setLicense}) {
   return (
-    <ScrollView style={styles.licensePage}>
+    <ScrollView testID='licensePage' style={styles.licensePage}>
       <AppText style={styles.framedSegmentTitle}>{labels.title}</AppText>
-      <AppText>{labels.text}</AppText>
+      <AppText testID='test'>{labels.text}</AppText>
       <View style={styles.licenseButtons}>
         <Button
           style={styles.licenseButton}
           backgroundColor={'grey'}
           onPress={() => BackHandler.exitApp()}
+          testID='licenseCancelButton'
         >
           {shared.cancel}
         </Button>
@@ -28,6 +29,7 @@ export default function License({setLicense}) {
             await saveLicenseFlag()
             setLicense()
           }}
+          testID='licenseOkButton'
         >
           {shared.ok}
         </Button>

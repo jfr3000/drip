@@ -8,7 +8,7 @@ export default function DefaultHeader(props) {
   return (
     <View style={styles.header}>
       <View style={styles.accentCircle} />
-      <Text style={styles.headerText}>
+      <Text testID='pageTitle' style={styles.headerText}>
         {props.title}
       </Text>
     </View >
