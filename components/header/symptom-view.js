@@ -23,10 +23,10 @@ export default function SymptomViewHeader(props) {
         {...props}
       />
       <View>
-        <Text style={styles.dateHeader}>
+        <Text style={styles.dateHeader} testID='symptomViewTitleName'>
           {props.title}
         </Text>
-        <Text style={styles.cycleDayNumber}>
+        <Text style={styles.cycleDayNumber} testID='symptomViewTitleDate'>
           {formatDate(props.date)}
         </Text>
       </View >

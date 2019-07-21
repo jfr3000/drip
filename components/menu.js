@@ -54,7 +54,10 @@ const MenuItem = ({ icon, labelKey, active, onPress }) => {
       onPress={onPress}
     >
       <Icon name={icon} {...iconStyles.menuIcon} {...styleActive} />
-      <Text style={[styles.menuText, styleActive]}>
+      <Text
+        testID={active ? 'activeMenuItem' : `menuItem${labelKey}`}
+        style={[styles.menuText, styleActive]}
+      >
         {menuTitlesLowerCase[labelKey]}
       </Text>
     </TouchableOpacity>

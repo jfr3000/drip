@@ -25,6 +25,7 @@ export default function NavigationArrow(props) {
     <TouchableOpacity
       style={[styles.navigationArrow, styles[iconPosition]]}
       onPress={pressHandler}
+      testID={props.testID}
     >
       <Icon
         name={iconName}
