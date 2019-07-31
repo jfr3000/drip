@@ -9,6 +9,18 @@ import PasswordPrompt from './password-prompt'
 import License from './license'
 import AppLoadingView from './app-loading'
 
+import { combineReducers } from 'redux'
+import { configureStore } from 'redux-starter-kit'
+import { Provider } from 'react-redux'
+import dateReducer from '../slices/date'
+
+const rootReducer = combineReducers({
+  dateReducer,
+})
+
+const store = configureStore({ reducer: rootReducer })
+
+
 export default class AppWrapper extends Component {
   constructor() {
     super()
@@ -69,18 +81,19 @@ export default class AppWrapper extends Component {
       shouldShowApp,
     } = this.state
 
+    let initialView = null
+
     if (isCheckingLicenseAgreement) {
-      return <AppLoadingView />
+      initialView = <AppLoadingView />
+    } else if (shouldShowLicenseAgreement) {
+      initialView = <License setLicense={this.disableShowLicenseAgreement}/>
+    } else if (shouldShowPasswordPrompt) {
+      initialView = <PasswordPrompt enableShowApp={this.enableShowApp} />
+    } else if (shouldShowApp) {
+      initialView = <App />
     }
 
-    if (shouldShowLicenseAgreement) {
-      return <License setLicense={this.disableShowLicenseAgreement}/>
-    }
+    return <Provider store={store}>{initialView}</Provider>
 
-    if (shouldShowPasswordPrompt) {
-      return <PasswordPrompt enableShowApp={this.enableShowApp} />
-    }
-
-    return shouldShowApp && <App />
   }
 }
