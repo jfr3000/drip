@@ -26,9 +26,11 @@ export default function SymptomViewHeader(props) {
         <Text style={styles.dateHeader} testID='symptomViewTitleName'>
           {props.title}
         </Text>
-        <Text style={styles.cycleDayNumber} testID='symptomViewTitleDate'>
-          {formatDate(props.date)}
-        </Text>
+        { props.date &&
+          <Text style={styles.cycleDayNumber} testID='symptomViewTitleDate'>
+            {formatDate(props.date)}
+          </Text>
+        }
       </View >
       { props.deleteIconActive &&
         <TouchableOpacity

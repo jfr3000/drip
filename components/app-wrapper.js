@@ -9,17 +9,8 @@ import PasswordPrompt from './password-prompt'
 import License from './license'
 import AppLoadingView from './app-loading'
 
-import { combineReducers } from 'redux'
-import { configureStore } from 'redux-starter-kit'
+import store from "../store"
 import { Provider } from 'react-redux'
-import dateReducer from '../slices/date'
-
-const rootReducer = combineReducers({
-  dateReducer,
-})
-
-const store = configureStore({ reducer: rootReducer })
-
 
 export default class AppWrapper extends Component {
   constructor() {

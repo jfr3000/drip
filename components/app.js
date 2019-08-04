@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import { View, BackHandler } from 'react-native'
+import { connect } from 'react-redux'
+
+import { getDate } from '../slices/date'
+
 import Header from './header'
 import Menu from './menu'
 import Home from './home'
@@ -25,7 +29,7 @@ const HOME_PAGE = 'Home'
 const CYCLE_DAY_PAGE = 'CycleDay'
 const SETTINGS_MENU_PAGE = 'SettingsMenu'
 
-export default class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -55,14 +59,14 @@ export default class App extends Component {
   }
 
   handleBackButtonPress = () => {
-    const { currentPage, currentProps } = this.state
+    const { currentPage } = this.state
     if (currentPage === HOME_PAGE) {
       closeDb()
       return false
     }
     if (this.isSymptomView()) {
       this.navigate(
-        this.originForSymptomView, { date: currentProps.date }
+        this.originForSymptomView, { date: this.props.date }
       )
     } else if (this.isSettingsView()) {
       this.navigate(SETTINGS_MENU_PAGE)
@@ -92,7 +96,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { currentPage, currentProps } = this.state
+    const { currentPage } = this.state
     const pages = {
       Home,
       Calendar,
@@ -121,7 +125,6 @@ export default class App extends Component {
 
         <Page
           navigate={this.navigate}
-          {...currentProps}
           handleBackButtonPress={this.handleBackButtonPress}
         />
 
@@ -132,3 +135,14 @@ export default class App extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return({
+    date: getDate(state)
+  })
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(App)

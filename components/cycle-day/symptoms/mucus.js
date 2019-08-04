@@ -3,6 +3,10 @@ import {
   Switch,
   ScrollView
 } from 'react-native'
+import { connect } from 'react-redux'
+
+import { getDate } from '../../../slices/date'
+
 import styles from '../../../styles'
 import { mucus as labels } from '../../../i18n/en/cycle-day'
 import computeNfpValue from '../../../lib/nfp-mucus'
@@ -10,7 +14,7 @@ import SelectTabGroup from '../select-tab-group'
 import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
 
-export default class Mucus extends SymptomView {
+class Mucus extends SymptomView {
   constructor(props) {
     super(props)
     const cycleDay = props.cycleDay
@@ -89,3 +93,14 @@ export default class Mucus extends SymptomView {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return({
+    date: getDate(state)
+  })
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(Mucus)

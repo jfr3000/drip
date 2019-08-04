@@ -6,7 +6,7 @@ import styles from '../../styles'
 import NavigationArrow from './navigation-arrow'
 import formatDate from '../helpers/format-date'
 
-export default function CycleDayHeader({ date, ...props }) {
+export default function CycleDayHeader({ date, cycleDayNumber, ...props }) {
   return (<View style={[styles.header, styles.headerCycleDay]}>
     <View
       style={styles.accentCircle}
@@ -17,10 +17,11 @@ export default function CycleDayHeader({ date, ...props }) {
       <Text style={styles.dateHeader} testID='cycleDayTitleDate'>
         {formatDate(date)}
       </Text>
-      {props.cycleDayNumber &&
+      { cycleDayNumber &&
         <Text style={styles.cycleDayNumber}>
-          {`Cycle day ${props.cycleDayNumber}`.toLowerCase()}
-        </Text>}
+          {`Cycle day ${cycleDayNumber}`.toLowerCase()}
+        </Text>
+      }
     </View>
     <NavigationArrow direction='right' {...props}/>
   </View>

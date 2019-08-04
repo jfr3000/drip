@@ -1,9 +1,11 @@
 import { ChronoUnit, LocalDate } from 'js-joda'
 import React, { Component } from 'react'
 import { ScrollView, View } from 'react-native'
+import { connect } from 'react-redux'
+
+import { setDate } from '../slices/date'
 
 import DripHomeIcon from '../assets/drip-home-icons'
-import { getCycleDay } from '../db'
 import {
   bleedingPrediction as predictLabels,
   home as labels
@@ -50,7 +52,7 @@ const HomeElement = ({ children, onPress, buttonColor, buttonLabel  }) => {
   )
 }
 
-export default class Home extends Component {
+class Home extends Component {
   constructor(props) {
     super(props)
     const { getCycleDayNumber, getPredictedMenses } = cycleModule()
@@ -68,12 +70,18 @@ export default class Home extends Component {
     }
   }
 
-  passTodayTo(componentName) {
-    const { navigate } = this.props
-    navigate(componentName, {
-      date: this.todayDateString,
-      cycleDay: getCycleDay(this.todayDateString)
-    })
+  setTodayDate = () => {
+    this.props.setDate(this.todayDateString)
+  }
+
+  navigateToCycleDayView = () => {
+    this.setTodayDate()
+    this.props.navigate('CycleDay')
+  }
+
+  navigateToBleedingEditView = () => {
+    this.setTodayDate()
+    this.props.navigate('BleedingEditView')
   }
 
   render() {
@@ -91,7 +99,7 @@ export default class Home extends Component {
           <View style={styles.homeView}>
 
             <HomeElement
-              onPress={ () => this.passTodayTo('CycleDay') }
+              onPress={this.navigateToCycleDayView}
               buttonColor={ cycleDayColor }
               buttonLabel={ labels.editToday }
             >
@@ -102,11 +110,13 @@ export default class Home extends Component {
                 {cycleDayNumber || labels.unknown}
               </IconText>
 
-              <AppText style={styles.homeDescriptionText}>{cycleDayMoreText}</AppText>
+              <AppText style={styles.homeDescriptionText}>
+                {cycleDayMoreText}
+              </AppText>
             </HomeElement>
 
             <HomeElement
-              onPress={ () => this.passTodayTo('BleedingEditView') }
+              onPress={this.navigateToBleedingEditView}
               buttonColor={ periodColor }
               buttonLabel={ labels.trackPeriod }
             >
@@ -148,18 +158,36 @@ export default class Home extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return({
+    setDate: (date) => dispatch(setDate(date)),
+  })
+}
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(Home)
+
+
 function getTimes(prediction) {
   const todayDate = LocalDate.now()
   const predictedBleedingStart = LocalDate.parse(prediction[0][0])
   /* the range of predicted bleeding days can be either 3 or 5 */
-  const predictedBleedingEnd = LocalDate.parse(prediction[0][ prediction[0].length - 1 ])
+  const predictedBleedingEnd =
+    LocalDate.parse(prediction[0][ prediction[0].length - 1 ])
   const daysToEnd = todayDate.until(predictedBleedingEnd, ChronoUnit.DAYS)
   return { todayDate, predictedBleedingStart, predictedBleedingEnd, daysToEnd }
 }
 
 function determinePredictionText(bleedingPrediction) {
   if (!bleedingPrediction.length) return predictLabels.noPrediction
-  const { todayDate, predictedBleedingStart, predictedBleedingEnd, daysToEnd } = getTimes(bleedingPrediction)
+  const {
+    todayDate,
+    predictedBleedingStart,
+    predictedBleedingEnd,
+    daysToEnd
+  } = getTimes(bleedingPrediction)
   if (todayDate.isBefore(predictedBleedingStart)) {
     return predictLabels.predictionInFuture(
       todayDate.until(predictedBleedingStart, ChronoUnit.DAYS),
@@ -183,7 +211,12 @@ function determinePredictionText(bleedingPrediction) {
 
 function getBleedingPredictionRange(prediction) {
   if (!prediction.length) return labels.unknown
-  const { todayDate, predictedBleedingStart, predictedBleedingEnd, daysToEnd } = getTimes(prediction)
+  const {
+    todayDate,
+    predictedBleedingStart,
+    predictedBleedingEnd,
+    daysToEnd
+  } = getTimes(prediction)
   if (todayDate.isBefore(predictedBleedingStart)) {
     return `${todayDate.until(predictedBleedingStart, ChronoUnit.DAYS)}-${todayDate.until(predictedBleedingEnd, ChronoUnit.DAYS)}`
   }
