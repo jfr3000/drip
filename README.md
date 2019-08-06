@@ -76,10 +76,36 @@ If you get error messages about `adb` not being found on your path:
     ```
 
 ## Tests
+
+### Unit tests
 You can run the tests with:
 ```
 $ npm test
 ```
+
+### End to end tests
+- Check testing device in [package.json](https://gitlab.com/bloodyhealth/drip/blob/master/package.json) under:
+```
+{"detox":
+ {"configurations":
+  {"name": "NEXUS_DEVICE_OR_WHATEVER_SPECIFIED_DEVICE"}
+  }
+ }
+}
+```
+- Open Android Studio and go to -> Tools -> AVD manager -> `+Create virtual device` and select the device checked in the previous step
+- Find the emulator on your machine to run it without heavy Android Studio, e.g. in `~/Android/Sdk/emulator` OR chose to run the emulator within Android Studio
+- Here run: `$ ./emulator -avd NEXUS_DEVICE_OR_WHATEVER_SPECIFIED_DEVICE`
+- You might need to specify the following environment variables in your zsh or bash file according to where you have it installed:
+```
+export ANDROID_HOME="/home/myname/Android/Sdk"
+export ANDROID_SDK_ROOT="/home/myname/Android/Sdk"
+export ANDROID_AVD_HOME="/home/myname/.android/avd
+``` 
+- Open a new tab to run `npm run android`
+- Open a new tab to run `./node_modules/.bin/detox test -c android.emu.debug`
+
+Hopefully you see the magic happening clicking through the app and happy test results on your console :sun_with_face: !
 
 ## Debugging
 In order to see logging output from the app, run `npm run log` in a separate terminal. You can output specific code you want to see, with:
