@@ -13,9 +13,9 @@ export default function BackButtonHeader(props) {
         style={styles.accentCircle}
         left={props.middle - styles.accentCircle.width / 2}
       />
-      <NavigationArrow direction='left' {...props}/>
+      <NavigationArrow testID='backButton' direction='left' {...props}/>
       <View>
-        <Text style={styles.headerText}>
+        <Text style={styles.headerText} testID='pageTitle'>
           {props.title}
         </Text>
       </View>

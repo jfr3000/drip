@@ -14,7 +14,7 @@ export default function CycleDayHeader({ date, ...props }) {
     />
     <NavigationArrow direction='left' {...props}/>
     <View>
-      <Text style={styles.dateHeader}>
+      <Text style={styles.dateHeader} testID='cycleDayTitleDate'>
         {formatDate(date)}
       </Text>
       {props.cycleDayNumber &&

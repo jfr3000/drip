@@ -278,6 +278,7 @@ class SymptomBox extends Component {
       <TouchableOpacity
         onPress={this.props.onPress}
         disabled={this.props.disabled}
+        testID={this.props.iconName}
       >
         <View style={[styles.symptomBox, boxActive, disabledStyle]}>
           <DripIcon name={this.props.iconName} size={50} color={hasData ? 'white' : 'black'}/>

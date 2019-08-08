@@ -9,7 +9,7 @@ export default function InfoSymptom(props) {
   return (
     <View style={styles.infoPopUpWrapper}>
       <View style={styles.dimmed}></View>
-      <View style={styles.infoPopUp}>
+      <View style={styles.infoPopUp} testID="symptomInfoPopup">
         <TouchableOpacity onPress={props.close} style={styles.infoSymptomClose}>
           <Icon name='close' {...iconStyles.infoPopUpClose}/>
         </TouchableOpacity>

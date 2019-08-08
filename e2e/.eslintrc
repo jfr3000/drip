@@ -1,0 +1,8 @@
+{
+  "globals": {
+    "expect": true,
+    "element": true,
+    "by": true,
+    "device": true,
+  }
+}

@@ -11,7 +11,9 @@ export default function Button(props) {
         styles.button,
         props.style,
         {backgroundColor: props.backgroundColor}
-      ]}>
+      ]}
+      testID={props.testID}
+    >
       <AppText style={styles.homeButtonText}>
         {props.children}
       </AppText>

@@ -78,6 +78,7 @@ export default class SymptomView extends Component {
               this.setState({showInfo: true})
             }}
             style={styles.infoButtonSymptomView}
+            testID="symptomInfoButton"
           >
             <Icon
               name="info-with-circle"
