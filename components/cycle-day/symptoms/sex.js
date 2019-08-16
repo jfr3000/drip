@@ -1,47 +1,55 @@
-import React from 'react'
-import {
-  TextInput,
-  ScrollView
-} from 'react-native'
-import { connect } from 'react-redux'
+import React, { Component } from 'react'
+import { TextInput } from 'react-native'
+import PropTypes from 'prop-types'
 
-import { getDate } from '../../../slices/date'
-
-import styles from '../../../styles'
 import { sex as sexLabels, contraceptives as contraceptivesLabels } from '../../../i18n/en/cycle-day'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
 import SelectBoxGroup from '../select-box-group'
 import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
 
-class Sex extends SymptomView {
+import { saveSymptom } from '../../../db'
+
+class Sex extends Component {
+
+  static propTypes = {
+    cycleDay: PropTypes.object,
+    handleBackButtonPress: PropTypes.func,
+    date: PropTypes.string.isRequired,
+  }
+
   constructor(props) {
     super(props)
-    const cycleDay = props.cycleDay
-    if (cycleDay && cycleDay.sex) {
-      this.state = Object.assign({}, cycleDay.sex)
-    } else {
-      this.state = {}
-    }
+    const symptom = 'sex'
+    const { cycleDay } = props
+
+    const defaultSymptomData = {}
+
+    const symptomData =
+      cycleDay && cycleDay[symptom] ? cycleDay[symptom] : defaultSymptomData
+
+    this.state = { ...symptomData }
+
     // We make sure other is always true when there is a note,
     // e.g. when import is messed up.
     if (this.state.note) this.state.other = true
+
+    this.symptom = symptom
   }
 
-  symptomName = "sex"
-
   autoSave = () => {
+    const { date } = this.props
+    const valuesToSave = Object.assign({}, this.state)
+    if (!valuesToSave.other) {
+      valuesToSave.note = null
+    }
     const nothingEntered = Object.values(this.state).every(val => !val)
-    if (nothingEntered) {
-      this.deleteSymptomEntry()
-      return
-    }
 
-    const copyOfState = Object.assign({}, this.state)
-    if (!copyOfState.other) {
-      copyOfState.note = null
-    }
-    this.saveSymptomEntry(copyOfState)
+    saveSymptom(this.symptom, date, nothingEntered ? null : valuesToSave)
+  }
+
+  componentDidUpdate() {
+    this.autoSave()
   }
 
   toggleState = (key) => {
@@ -52,9 +60,14 @@ class Sex extends SymptomView {
     }
   }
 
-  renderContent() {
+  render() {
     return (
-      <ScrollView style={styles.page}>
+      <SymptomView
+        symptom={this.symptom}
+        values={this.state}
+        handleBackButtonPress={this.props.handleBackButtonPress}
+        date={this.props.date}
+      >
         <SymptomSection
           header={sexLabels.header}
           explainer={sexLabels.explainer}
@@ -87,18 +100,9 @@ class Sex extends SymptomView {
               }}
             />
         }
-      </ScrollView>
+      </SymptomView>
     )
   }
 }
 
-const mapStateToProps = (state) => {
-  return({
-    date: getDate(state)
-  })
-}
-
-export default connect(
-  mapStateToProps,
-  null
-)(Sex)
+export default Sex

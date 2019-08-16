@@ -1,66 +1,71 @@
-import React from 'react'
-import {
-  ScrollView
-} from 'react-native'
-import { connect } from 'react-redux'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
-import { getDate } from '../../../slices/date'
-
-import styles from '../../../styles'
 import { intensity, desire } from '../../../i18n/en/cycle-day'
 import SelectTabGroup from '../select-tab-group'
 import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
 
-class Desire extends SymptomView {
+import { getLabelsList } from '../../helpers/labels'
+import { saveSymptom } from '../../../db'
+
+class Desire extends Component {
+
+  static propTypes = {
+    cycleDay: PropTypes.object,
+    handleBackButtonPress: PropTypes.func,
+    date: PropTypes.string.isRequired,
+  }
+
   constructor(props) {
     super(props)
-    const cycleDay = props.cycleDay
-    this.desire = cycleDay && cycleDay.desire
-    const desireValue = this.desire && this.desire.value
-    this.state = { currentValue: desireValue }
-  }
+    const symptom = 'desire'
+    const { cycleDay } = props
 
-  symptomName = 'desire'
+    const defaultSymptomData = { value: '' }
+
+    const symptomData =
+      cycleDay && cycleDay[symptom] ? cycleDay[symptom] : defaultSymptomData
+
+    this.state = { ...symptomData }
+
+    this.symptom = symptom
+
+    this.desireRadioProps = getLabelsList(intensity)
+  }
 
   autoSave = () => {
-    if (typeof this.state.currentValue != 'number') {
-      this.deleteSymptomEntry()
-      return
-    }
-    this.saveSymptomEntry({ value: this.state.currentValue })
+    const { date } = this.props
+    const valuesToSave = { ...this.state }
+    const hasValueToSave =  typeof this.state.value === 'number'
+    saveSymptom(this.symptom, date, hasValueToSave ? valuesToSave : null)
   }
 
-  renderContent() {
-    const desireRadioProps = [
-      { label: intensity[0], value: 0 },
-      { label: intensity[1], value: 1 },
-      { label: intensity[2], value: 2 }
-    ]
+  componentDidUpdate() {
+    this.autoSave()
+  }
+
+  render() {
     return (
-      <ScrollView style={styles.page}>
+      <SymptomView
+        symptom={this.symptom}
+        values={this.state}
+        handleBackButtonPress={this.props.handleBackButtonPress}
+        date={this.props.date}
+      >
         <SymptomSection
           header={desire.header}
           explainer={desire.explainer}
         >
           <SelectTabGroup
-            buttons={desireRadioProps}
-            active={this.state.currentValue}
-            onSelect={val => this.setState({ currentValue: val })}
+            buttons={this.desireRadioProps}
+            active={this.state.value}
+            onSelect={val => this.setState({ value: val })}
           />
         </SymptomSection>
-      </ScrollView>
+      </SymptomView>
     )
   }
 }
 
-const mapStateToProps = (state) => {
-  return({
-    date: getDate(state)
-  })
-}
-
-export default connect(
-  mapStateToProps,
-  null
-)(Desire)
+export default Desire

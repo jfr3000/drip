@@ -1,70 +1,64 @@
-import React from 'react'
-import {
-  ScrollView,
-  TextInput,
-} from 'react-native'
-import { connect } from 'react-redux'
+import React, { Component } from 'react'
+import { TextInput } from 'react-native'
 
-import { getDate } from '../../../slices/date'
-
-import styles from '../../../styles'
 import SymptomSection from './symptom-section'
 import { noteExplainer } from '../../../i18n/en/cycle-day'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
 import SymptomView from './symptom-view'
 
-class Note extends SymptomView {
+import { saveSymptom } from '../../../db'
+
+class Note extends Component {
   constructor(props) {
     super(props)
-    const cycleDay = props.cycleDay
-    this.note = cycleDay && cycleDay.note
+    const symptom = 'note'
+    const { cycleDay } = props
 
-    this.state = {
-      currentValue: this.note && this.note.value || ''
-    }
+    const defaultSymptomData = { value: '' }
+
+    const symptomData =
+      cycleDay && cycleDay[symptom] ? cycleDay[symptom] : defaultSymptomData
+
+    this.state = { ...symptomData }
+
+    this.symptom = symptom
   }
-
-  symptomName = 'note'
 
   autoSave = () => {
-    if (!this.state.currentValue) {
-      this.deleteSymptomEntry()
-      return
-    }
-    this.saveSymptomEntry({
-      value: this.state.currentValue
-    })
+    const { date } = this.props
+    const valuesToSave = { ...this.state }
+    saveSymptom(this.symptom, date, this.state.value ? valuesToSave : null)
   }
 
-  renderContent() {
+  componentDidUpdate() {
+    this.autoSave()
+  }
+
+  render() {
     return (
-      <ScrollView style={styles.page}>
+      <SymptomView
+        symptom={this.symptom}
+        values={this.state}
+        handleBackButtonPress={this.props.handleBackButtonPress}
+        date={this.props.date}
+      >
         <SymptomSection
           explainer={noteExplainer}
         >
           <TextInput
-            autoFocus={!this.state.currentValue}
+            autoFocus={true}
             multiline={true}
             placeholder={sharedLabels.enter}
             onChangeText={(val) => {
-              this.setState({ currentValue: val })
+              this.setState({ value: val })
             }}
-            value={this.state.currentValue}
+            value={this.state.value}
             testID='noteInput'
           />
         </SymptomSection>
-      </ScrollView>
+      </SymptomView>
     )
   }
 }
 
-const mapStateToProps = (state) => {
-  return({
-    date: getDate(state)
-  })
-}
-
-export default connect(
-  mapStateToProps,
-  null
-)(Note)
+export default Note

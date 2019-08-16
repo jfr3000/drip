@@ -1,68 +1,76 @@
-import React from 'react'
-import {
-  Switch,
-  ScrollView
-} from 'react-native'
-import { connect } from 'react-redux'
+import React, { Component } from 'react'
+import { Switch } from 'react-native'
+import PropTypes from 'prop-types'
 
-import { getDate } from '../../../slices/date'
-
-import styles from '../../../styles'
 import { cervix as labels } from '../../../i18n/en/cycle-day'
 import SelectTabGroup from '../select-tab-group'
 import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
 
-class Cervix extends SymptomView {
+import { getLabelsList } from '../../helpers/labels'
+import { saveSymptom } from '../../../db'
+
+class Cervix extends Component {
+
+  static propTypes = {
+    cycleDay: PropTypes.object,
+    handleBackButtonPress: PropTypes.func,
+    date: PropTypes.string.isRequired,
+  }
+
   constructor(props) {
     super(props)
-    const cycleDay = props.cycleDay
-    this.cervix = cycleDay && cycleDay.cervix
-    this.state = this.cervix ? this.cervix : {}
-  }
+    const symptom = 'cervix'
+    const { cycleDay } = props
 
-  symptomName = 'cervix'
+    const defaultSymptomData = {}
+
+    const symptomData =
+      cycleDay && cycleDay[symptom] ? cycleDay[symptom] : defaultSymptomData
+
+    this.state = { ...symptomData }
+
+    this.cervixOpeningRadioProps = getLabelsList(labels.opening.categories)
+    this.cervixFirmnessRadioProps = getLabelsList(labels.firmness.categories)
+    this.cervixPositionRadioProps = getLabelsList(labels.position.categories)
+
+    this.symptom = symptom
+  }
 
   autoSave = () => {
-    const nothingEntered = ['opening', 'firmness', 'position'].every(val => typeof this.state[val] != 'number')
-    if (nothingEntered) {
-      this.deleteSymptomEntry()
-      return
+    const { date } = this.props
+    const { opening, firmness, position, exclude } = this.state
+    const valuesToSave = {
+      opening,
+      firmness,
+      position,
+      exclude: Boolean(exclude)
     }
-
-    this.saveSymptomEntry({
-      opening: this.state.opening,
-      firmness: this.state.firmness,
-      position: this.state.position,
-      exclude: Boolean(this.state.exclude)
-    })
+    const nothingEntered = ['opening', 'firmness', 'position'].every(
+      val => typeof this.state[val] !== 'number')
+    saveSymptom(this.symptom, date, nothingEntered ? null : valuesToSave)
   }
 
-  renderContent() {
-    const cervixOpeningRadioProps = [
-      { label: labels.opening.categories[0], value: 0 },
-      { label: labels.opening.categories[1], value: 1 },
-      { label: labels.opening.categories[2], value: 2 }
-    ]
-    const cervixFirmnessRadioProps = [
-      { label: labels.firmness.categories[0], value: 0 },
-      { label: labels.firmness.categories[1], value: 1 }
-    ]
-    const cervixPositionRadioProps = [
-      { label: labels.position.categories[0], value: 0 },
-      { label: labels.position.categories[1], value: 1 },
-      { label: labels.position.categories[2], value: 2 }
-    ]
+  componentDidUpdate() {
+    this.autoSave()
+  }
+
+  render() {
     // TODO saving this info for notice when leaving incomplete data
     // const mandatoryNotCompleted = typeof this.state.opening != 'number' || typeof this.state.firmness != 'number'
     return (
-      <ScrollView style={styles.page}>
+      <SymptomView
+        symptom={this.symptom}
+        values={this.state}
+        handleBackButtonPress={this.props.handleBackButtonPress}
+        date={this.props.date}
+      >
         <SymptomSection
           header="Opening"
           explainer={labels.opening.explainer}
         >
           <SelectTabGroup
-            buttons={cervixOpeningRadioProps}
+            buttons={this.cervixOpeningRadioProps}
             active={this.state.opening}
             onSelect={val => this.setState({ opening: val })}
           />
@@ -72,7 +80,7 @@ class Cervix extends SymptomView {
           explainer={labels.firmness.explainer}
         >
           <SelectTabGroup
-            buttons={cervixFirmnessRadioProps}
+            buttons={this.cervixFirmnessRadioProps}
             active={this.state.firmness}
             onSelect={val => this.setState({ firmness: val })}
           />
@@ -82,7 +90,7 @@ class Cervix extends SymptomView {
           explainer={labels.position.explainer}
         >
           <SelectTabGroup
-            buttons={cervixPositionRadioProps}
+            buttons={this.cervixPositionRadioProps}
             active={this.state.position}
             onSelect={val => this.setState({ position: val })}
           />
@@ -99,18 +107,9 @@ class Cervix extends SymptomView {
             value={this.state.exclude}
           />
         </SymptomSection>
-      </ScrollView>
+      </SymptomView>
     )
   }
 }
 
-const mapStateToProps = (state) => {
-  return({
-    date: getDate(state)
-  })
-}
-
-export default connect(
-  mapStateToProps,
-  null
-)(Cervix)
+export default Cervix

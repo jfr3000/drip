@@ -1,56 +1,70 @@
-import React from 'react'
-import { Switch, ScrollView } from 'react-native'
-import { connect } from 'react-redux'
+import React, { Component } from 'react'
+import { Switch } from 'react-native'
+import PropTypes from 'prop-types'
 
-import { getDate } from '../../../slices/date'
-
-import styles from '../../../styles'
 import { bleeding } from '../../../i18n/en/cycle-day'
 import SelectTabGroup from '../select-tab-group'
 import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
 
-class Bleeding extends SymptomView {
+import { getLabelsList } from '../../helpers/labels'
+import { saveSymptom } from '../../../db'
+
+class Bleeding extends Component {
+
+  static propTypes = {
+    cycleDay: PropTypes.object,
+    handleBackButtonPress: PropTypes.func,
+    date: PropTypes.string.isRequired,
+  }
+
   constructor(props) {
     super(props)
-    const cycleDay = props.cycleDay
-    this.bleeding = cycleDay && cycleDay.bleeding
-    this.state = {
-      currentValue: this.bleeding && this.bleeding.value,
-      exclude: this.bleeding ? this.bleeding.exclude : false
-    }
-  }
+    const symptom = 'bleeding'
+    const { cycleDay } = props
 
-  symptomName = 'bleeding'
+    const defaultSymptomData = {
+      value: null,
+      exclude: false
+    }
+
+    const symptomData =
+      cycleDay && cycleDay[symptom] ? cycleDay[symptom] : defaultSymptomData
+
+    this.state = { ...symptomData }
+
+    this.bleedingRadioProps = getLabelsList(bleeding.labels)
+
+    this.symptom = symptom
+  }
 
   autoSave = () => {
-    if (typeof this.state.currentValue != 'number') {
-      this.deleteSymptomEntry()
-      return
-    }
-    this.saveSymptomEntry({
-      value: this.state.currentValue,
-      exclude: this.state.exclude
-    })
+    const { date } = this.props
+    const valuesToSave = { ...this.state }
+    const hasValueToSave =  typeof this.state.value === 'number'
+    saveSymptom(this.symptom, date, hasValueToSave ? valuesToSave : null)
   }
 
-  renderContent() {
-    const bleedingRadioProps = [
-      { label: bleeding.labels[0], value: 0 },
-      { label: bleeding.labels[1], value: 1 },
-      { label: bleeding.labels[2], value: 2 },
-      { label: bleeding.labels[3], value: 3 },
-    ]
+  componentDidUpdate() {
+    this.autoSave()
+  }
+
+  render() {
     return (
-      <ScrollView style={styles.page}>
+      <SymptomView
+        symptom={this.symptom}
+        values={this.state}
+        handleBackButtonPress={this.props.handleBackButtonPress}
+        date={this.props.date}
+      >
         <SymptomSection
           header={bleeding.heaviness.header}
           explainer={bleeding.heaviness.explainer}
         >
           <SelectTabGroup
-            buttons={bleedingRadioProps}
-            active={this.state.currentValue}
-            onSelect={val => this.setState({ currentValue: val })}
+            buttons={this.bleedingRadioProps}
+            active={this.state.value}
+            onSelect={val => this.setState({ value: val })}
           />
         </SymptomSection>
         <SymptomSection
@@ -65,18 +79,9 @@ class Bleeding extends SymptomView {
             value={this.state.exclude}
           />
         </SymptomSection>
-      </ScrollView>
+      </SymptomView>
     )
   }
 }
 
-const mapStateToProps = (state) => {
-  return({
-    date: getDate(state)
-  })
-}
-
-export default connect(
-  mapStateToProps,
-  null
-)(Bleeding)
+export default Bleeding

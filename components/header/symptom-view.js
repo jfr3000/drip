@@ -5,12 +5,23 @@ import {
   TouchableOpacity,
   Dimensions
 } from 'react-native'
+import PropTypes from 'prop-types'
+
 import styles, { iconStyles } from '../../styles'
 import Icon from 'react-native-vector-icons/AntDesign'
 import NavigationArrow from './navigation-arrow'
 import formatDate from '../helpers/format-date'
 
+SymptomViewHeader.propTypes = {
+  title: PropTypes.string,
+  date: PropTypes.string,
+  goBack: PropTypes.func,
+  deleteIconActive: PropTypes.bool,
+  onDelete: PropTypes.func,
+}
+
 export default function SymptomViewHeader(props) {
+  const { goBack, title, date, shouldShowDelete, onDelete } = props
   const middle = Dimensions.get('window').width / 2
   return (
     <View style={[styles.header, styles.headerCycleDay, styles.headerSymptom]}>
@@ -18,34 +29,26 @@ export default function SymptomViewHeader(props) {
         style={styles.accentCircle}
         left={middle - styles.accentCircle.width / 2}
       />
-      <NavigationArrow
-        direction='left'
-        {...props}
-      />
+      <NavigationArrow direction='left' goBack={goBack} />
       <View>
         <Text style={styles.dateHeader} testID='symptomViewTitleName'>
-          {props.title}
+          {title}
         </Text>
-        { props.date &&
+        { date &&
           <Text style={styles.cycleDayNumber} testID='symptomViewTitleDate'>
-            {formatDate(props.date)}
+            {formatDate(date)}
           </Text>
         }
       </View >
-      { props.deleteIconActive &&
-        <TouchableOpacity
-          onPress={props.deleteEntry}
-          style={[
-            styles.headerDeleteButton,
-          ]}
-        >
-          <Icon
-            name="delete"
-            {...iconStyles.symptomHeaderIcons}
-          />
-        </TouchableOpacity>
-      }
-
+      { shouldShowDelete && <DeleteButton onDelete={onDelete} />}
     </View>
+  )
+}
+
+const DeleteButton = ({ onDelete }) => {
+  return (
+    <TouchableOpacity onPress={onDelete} style={styles.headerDeleteButton}>
+      <Icon name="delete" {...iconStyles.symptomHeaderIcons} />
+    </TouchableOpacity>
   )
 }

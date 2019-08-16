@@ -1,102 +1,114 @@
 import React, { Component } from 'react'
-import {
-  View, Alert, TouchableOpacity
-} from 'react-native'
+import { ScrollView, View, Alert } from 'react-native'
+import PropTypes from 'prop-types'
+
+import { connect } from 'react-redux'
+import { getDate } from '../../../slices/date'
 
 import { saveSymptom } from '../../../db'
-import InfoPopUp from './info-symptom'
+
 import Header from '../../header/symptom-view'
+import SymptomInfo from './symptom-info'
+
 import { headerTitles } from '../../../i18n/en/labels'
 import { sharedDialogs } from '../../../i18n/en/cycle-day'
-import Icon from 'react-native-vector-icons/Entypo'
-import styles, { iconStyles } from '../../../styles'
+
+import styles from '../../../styles'
 
 class SymptomView extends Component {
-  constructor(props, symptomName) {
+
+  static propTypes = {
+    symptom: PropTypes.string.isRequired,
+    values: PropTypes.object,
+    date: PropTypes.string,
+  }
+
+  constructor(props) {
     super()
-    this.symptomName = symptomName
+    this.values = props.values
+    this.state = {
+      shouldShowDelete: this.checkIfHasValuesToDelete()
+    }
     this.date = props.date
     this.navigate = props.navigate
-    this.state = {
-      showInfo: false
-    }
   }
 
   componentDidUpdate() {
-    this.autoSave()
-  }
-
-  saveSymptomEntry(entry) {
-    saveSymptom(this.symptomName, this.date, entry)
+    const shouldShowDelete = this.checkIfHasValuesToDelete()
+    if (shouldShowDelete !== this.state.shouldShowDelete) {
+      this.setState({ shouldShowDelete: this.checkIfHasValuesToDelete() })
+    }
   }
 
   deleteSymptomEntry() {
-    saveSymptom(this.symptomName, this.date)
+    const { symptom, date } = this.props
+    saveSymptom(symptom, date, null)
   }
 
-  isDeleteIconActive() {
-    const symptomValueHasBeenFilledOut = key => {
-      // the state tracks whether the symptom info should be shown,
-      // we ignore that property
-      if (key === 'showInfo') return
+  checkIfHasValuesToDelete() {
+    const valueHasBeenFilledOut = key => {
       // is there any meaningful value in the current state?
-      return this.state[key] || this.state[key] === 0
+      return this.values[key] || this.values[key] === 0
     }
 
-    const symptomValues =  Object.keys(this.state)
+    const valuesKeys =  Object.keys(this.values)
 
-    return symptomValues.some(symptomValueHasBeenFilledOut)
+    return valuesKeys.some(valueHasBeenFilledOut)
+  }
+
+  onDeleteConfirmation = () => {
+    this.deleteSymptomEntry()
+    this.props.handleBackButtonPress()
+  }
+
+  showConfirmationAlert = () => {
+
+    const cancelButton = {
+      text: sharedDialogs.cancel,
+      style: 'cancel'
+    }
+
+    const confirmationButton = {
+      text: sharedDialogs.reallyDeleteData,
+      onPress: this.onDeleteConfirmation
+    }
+
+    return Alert.alert(
+      sharedDialogs.areYouSureTitle,
+      sharedDialogs.areYouSureToDelete,
+      [cancelButton, confirmationButton]
+    )
   }
 
   render() {
+    const { symptom } = this.props
     return (
       <View style={{flex: 1}}>
         <Header
-          title={headerTitles[this.symptomName].toLowerCase()}
+          title={headerTitles[symptom].toLowerCase()}
           date={this.date}
           goBack={this.props.handleBackButtonPress}
-          deleteIconActive={this.isDeleteIconActive()}
-          deleteEntry={() => {
-            Alert.alert(
-              sharedDialogs.areYouSureTitle,
-              sharedDialogs.areYouSureToDelete,
-              [{
-                text: sharedDialogs.cancel,
-                style: 'cancel'
-              }, {
-                text: sharedDialogs.reallyDeleteData,
-                onPress: () => {
-                  this.deleteSymptomEntry()
-                  this.props.handleBackButtonPress()
-                }
-              }]
-            )
-          }}
+          shouldShowDelete={this.state.shouldShowDelete}
+          onDelete={this.showConfirmationAlert}
         />
         <View flex={1}>
-          { this.renderContent() }
-          <TouchableOpacity
-            onPress={() => {
-              this.setState({showInfo: true})
-            }}
-            style={styles.infoButtonSymptomView}
-            testID="symptomInfoButton"
-          >
-            <Icon
-              name="info-with-circle"
-              style={iconStyles.info}
-            />
-          </TouchableOpacity>
-          { this.state.showInfo &&
-              <InfoPopUp
-                symptom={this.symptomName}
-                close={() => this.setState({showInfo: false})}
-              />
-          }
+          <ScrollView style={styles.page}>
+            {this.props.children}
+          </ScrollView>
+          <SymptomInfo symptom={symptom} />
         </View>
       </View>
     )
   }
 }
 
-export default SymptomView
+const mapStateToProps = (state) => {
+  return({
+    date: getDate(state)
+  })
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(SymptomView)
