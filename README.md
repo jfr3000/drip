@@ -76,10 +76,40 @@ If you get error messages about `adb` not being found on your path:
     ```
 
 ## Tests
+
+### Unit tests
 You can run the tests with:
 ```
 $ npm test
 ```
+
+### End to end tests
+1. Check what testing device is specified in [package.json](https://gitlab.com/bloodyhealth/drip/blob/master/package.json) under:
+```
+{"detox":
+ {"configurations":
+  {"name": "NEXUS_DEVICE_OR_WHATEVER_SPECIFIED_DEVICE"}
+  }
+ }
+}
+```
+2. Check if the current device is already installed on your machine. Go to `cd ~/Android/sdk/emulator/` or wherever you have Android installed on your machine. Here you can run `./emulator -list-avds` and compare the devices with the one you found in step 1.
+3. Open Android Studio and go to -> Tools -> AVD manager -> `+Create virtual device` and select the device checked in the previous step
+4. Use the emulator on your machine to run it without heavy Android Studio, e.g. in `~/Android/Sdk/emulator` OR chose to run the emulator within Android Studio
+4.1 Here run: `$ ./emulator -avd NEXUS_DEVICE_OR_WHATEVER_SPECIFIED_DEVICE`
+4.2 You might need to specify the following environment variables in your zsh or bash file according to where you have it installed:
+```
+export ANDROID_HOME="/home/myname/Android/Sdk"
+export ANDROID_SDK_ROOT="/home/myname/Android/Sdk"
+export ANDROID_AVD_HOME="/home/myname/.android/avd"
+``` 
+5. For the first time you need to get the app on the phone or if you run into this error:
+`'app-debug-androidTest.apk' could not be found`
+--> open a new 2nd tab and run (in your drip folder): `cd android and ./gradlew assembleAndroidTest`
+Otherwise just open a new 2nd tab to run (in your drip folder) `npm run android`
+6. Open a new 3rd tab to run `./node_modules/.bin/detox test -c android.emu.debug`
+
+Hopefully you see the magic happening clicking through the app and happy test results on your console :sun_with_face: !
 
 ## Debugging
 In order to see logging output from the app, run `npm run log` in a separate terminal. You can output specific code you want to see, with:
