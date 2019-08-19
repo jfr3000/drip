@@ -12,7 +12,7 @@ export default function CycleDayHeader({ date, cycleDayNumber, ...props }) {
       style={styles.accentCircle}
       left={props.middle - styles.accentCircle.width / 2}
     />
-    <NavigationArrow direction='left' {...props}/>
+    <NavigationArrow testID='previousDateButton' direction='left' {...props}/>
     <View>
       <Text style={styles.dateHeader} testID='cycleDayTitleDate'>
         {formatDate(date)}

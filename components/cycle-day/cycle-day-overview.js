@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { ScrollView, View } from 'react-native'
 
 import { connect } from 'react-redux'
-import { getDate } from '../../slices/date'
+import { getDate, setDate } from '../../slices/date'
 
 import { LocalDate } from 'js-joda'
 import Header from '../header'
@@ -26,8 +26,8 @@ class CycleDayOverView extends Component {
     const targetDate = target === 'before' ?
       localDate.minusDays(1).toString() :
       localDate.plusDays(1).toString()
+    this.props.setDate(targetDate)
     this.setState({
-      date: targetDate,
       cycleDay: getCycleDay(targetDate)
     })
   }
@@ -100,7 +100,13 @@ const mapStateToProps = (state) => {
   })
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return({
+    setDate: (date) => dispatch(setDate(date)),
+  })
+}
+
 export default connect(
   mapStateToProps,
-  null,
+  mapDispatchToProps,
 )(CycleDayOverView)
