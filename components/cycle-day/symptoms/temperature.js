@@ -5,6 +5,10 @@ import {
   Keyboard,
   ScrollView
 } from 'react-native'
+import { connect } from 'react-redux'
+
+import { getDate } from '../../../slices/date'
+
 import DateTimePicker from 'react-native-modal-datetime-picker-nevo'
 import padWithZeros from '../../helpers/pad-time-with-zeros'
 
@@ -22,7 +26,7 @@ import SymptomView from './symptom-view'
 
 const minutes = ChronoUnit.MINUTES
 
-export default class Temp extends SymptomView {
+class Temp extends SymptomView {
   constructor(props) {
     super(props)
     const cycleDay = props.cycleDay
@@ -174,6 +178,17 @@ export default class Temp extends SymptomView {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return({
+    date: getDate(state)
+  })
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(Temp)
 
 function makeOutOfRangeWarningMessage(temperature) {
   if (temperature === '') return

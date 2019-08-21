@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {
   View, Alert, TouchableOpacity
 } from 'react-native'
+
 import { saveSymptom } from '../../../db'
 import InfoPopUp from './info-symptom'
 import Header from '../../header/symptom-view'
@@ -10,9 +11,10 @@ import { sharedDialogs } from '../../../i18n/en/cycle-day'
 import Icon from 'react-native-vector-icons/Entypo'
 import styles, { iconStyles } from '../../../styles'
 
-export default class SymptomView extends Component {
-  constructor(props) {
+class SymptomView extends Component {
+  constructor(props, symptomName) {
     super()
+    this.symptomName = symptomName
     this.date = props.date
     this.navigate = props.navigate
     this.state = {
@@ -96,3 +98,5 @@ export default class SymptomView extends Component {
     )
   }
 }
+
+export default SymptomView

@@ -3,13 +3,17 @@ import {
   Switch,
   ScrollView
 } from 'react-native'
+import { connect } from 'react-redux'
+
+import { getDate } from '../../../slices/date'
+
 import styles from '../../../styles'
 import { cervix as labels } from '../../../i18n/en/cycle-day'
 import SelectTabGroup from '../select-tab-group'
 import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
 
-export default class Cervix extends SymptomView {
+class Cervix extends SymptomView {
   constructor(props) {
     super(props)
     const cycleDay = props.cycleDay
@@ -99,3 +103,14 @@ export default class Cervix extends SymptomView {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return({
+    date: getDate(state)
+  })
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(Cervix)

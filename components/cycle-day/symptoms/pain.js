@@ -3,6 +3,10 @@ import {
   ScrollView,
   TextInput,
 } from 'react-native'
+import { connect } from 'react-redux'
+
+import { getDate } from '../../../slices/date'
+
 import { pain as labels } from '../../../i18n/en/cycle-day'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
 import SelectBoxGroup from '../select-box-group'
@@ -10,7 +14,7 @@ import SymptomSection from './symptom-section'
 import styles from '../../../styles'
 import SymptomView from './symptom-view'
 
-export default class Pain extends SymptomView {
+class Pain extends SymptomView {
   constructor(props) {
     super(props)
     const cycleDay = props.cycleDay
@@ -74,3 +78,14 @@ export default class Pain extends SymptomView {
       </ScrollView>)
   }
 }
+
+const mapStateToProps = (state) => {
+  return({
+    date: getDate(state)
+  })
+}
+
+export default connect(
+  mapStateToProps,
+  null
+)(Pain)
