@@ -33,7 +33,8 @@ class CycleDayOverView extends Component {
   }
 
   navigate(symptom) {
-    this.props.navigate(symptom)
+    const { cycleDay } = this.state
+    this.props.navigate(symptom, cycleDay)
   }
 
   render() {
@@ -77,7 +78,7 @@ class CycleDayOverView extends Component {
                     key={symptom}
                     symptom={symptom}
                     symptomData={symptomData}
-                    onPress={() => this.navigate(symptomEditView)}
+                    onPress={() => this.navigate(symptomEditView, symptomData)}
                     disabled={dateInFuture}
                   />)
               })

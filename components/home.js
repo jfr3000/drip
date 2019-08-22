@@ -17,6 +17,7 @@ import styles, { cycleDayColor, periodColor, secondaryColor } from '../styles'
 import AppText from './app-text'
 import Button from './button'
 import { formatDateForShortText } from './helpers/format-date'
+import { getCycleDay } from '../db'
 
 const IconText = ({ children, wrapperStyles }) => {
   return (
@@ -81,7 +82,10 @@ class Home extends Component {
 
   navigateToBleedingEditView = () => {
     this.setTodayDate()
-    this.props.navigate('BleedingEditView')
+    this.props.navigate(
+      'BleedingEditView',
+      getCycleDay(this.todayDateString)
+    )
   }
 
   render() {
