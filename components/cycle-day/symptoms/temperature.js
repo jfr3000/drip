@@ -1,32 +1,31 @@
 import React from 'react'
-import {
-  View,
-  Switch,
-  Keyboard,
-  ScrollView
-} from 'react-native'
+import { Switch, ScrollView } from 'react-native'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import { getDate } from '../../../slices/date'
 
-import DateTimePicker from 'react-native-modal-datetime-picker-nevo'
-import padWithZeros from '../../helpers/pad-time-with-zeros'
-
-import { getPreviousTemperature } from '../../../db'
 import styles from '../../../styles'
 import { LocalTime, ChronoUnit } from 'js-joda'
 import { temperature as labels } from '../../../i18n/en/cycle-day'
-import { scaleObservable } from '../../../local-storage'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
-import config from '../../../config'
+
 import AppTextInput from '../../app-text-input'
-import AppText from '../../app-text'
 import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
+import TimeInput from './time-input'
+import TemperatureInput from './temperature-input'
 
 const minutes = ChronoUnit.MINUTES
 
-class Temp extends SymptomView {
+class Temperature extends SymptomView {
+
+  static propTypes = {
+    cycleDay: PropTypes.object,
+    handleBackButtonPress: PropTypes.func,
+    date: PropTypes.string,
+  }
+
   constructor(props) {
     super(props)
     const cycleDay = props.cycleDay
@@ -37,22 +36,8 @@ class Temp extends SymptomView {
     this.state = {
       exclude: temp ? temp.exclude : false,
       time: temp ? temp.time : LocalTime.now().truncatedTo(minutes).toString(),
-      isTimePickerVisible: false,
+      temperature: temp ? temp.value : null,
       note: temp ? temp.note : null
-    }
-
-    if (temp) {
-      this.state.temperature = temp.value.toString()
-      if (temp.value === Math.floor(temp.value)) {
-        this.state.temperature = `${this.state.temperature}.0`
-      }
-      this.state.outOfRangeWarning = makeOutOfRangeWarningMessage(this.state.temperature)
-    } else {
-      const prevTemp = getPreviousTemperature(props.date)
-      if (prevTemp) {
-        this.state.suggestedTemperature = prevTemp.toString()
-        this.state.isSuggestion = true
-      }
     }
   }
 
@@ -67,13 +52,13 @@ class Temp extends SymptomView {
   }
 
   autoSave = () => {
-    if (typeof this.state.temperature != 'string' || this.state.temperature === '') {
+    if (!this.state.temperature) {
       this.deleteSymptomEntry()
       return
     }
 
     const dataToSave = {
-      value: Number(this.state.temperature),
+      value: this.state.temperature,
       exclude: this.state.exclude,
       time: this.state.time,
       note: this.state.note
@@ -82,73 +67,38 @@ class Temp extends SymptomView {
     this.saveSymptomEntry(dataToSave)
   }
 
+  setTime = (time) => {
+    this.setState({ time })
+  }
 
   setTemperature = (temperature) => {
-    if (isNaN(Number(temperature))) return
-    this.setState({
-      temperature, isSuggestion: false,
-      outOfRangeWarning: makeOutOfRangeWarningMessage(temperature)
-    })
+    this.setState({ temperature })
   }
 
   setNote = (note) => {
     this.setState({ note })
   }
 
-  showTimePicker = () => {
-    Keyboard.dismiss()
-    this.setState({ isTimePickerVisible: true })
-  }
-
   renderContent() {
-    const inputStyle = [styles.temperatureTextInput]
-    if (this.state.isSuggestion) {
-      inputStyle.push(styles.temperatureTextInputSuggestion)
-    }
+    const { temperature } = this.state
+
     return (
       <ScrollView style={styles.page}>
         <SymptomSection
           header={labels.temperature.header}
           explainer={labels.temperature.explainer}
         >
-          <View style={styles.framedSegmentInlineChildren}>
-            <AppTextInput
-              style={[inputStyle]}
-              autoFocus={true}
-              value={this.state.temperature || this.state.suggestedTemperature}
-              onChangeText={this.setTemperature}
-              keyboardType='numeric'
-              maxLength={5}
-            />
-            <AppText style={{ marginLeft: 5 }}>°C</AppText>
-          </View>
-          {this.state.outOfRangeWarning &&
-            <AppText style={styles.hint}>
-              {this.state.outOfRangeWarning}
-            </AppText>
-          }
+          <TemperatureInput
+            temperature={temperature ? temperature.toFixed(2) : ''}
+            date={this.props.date}
+            handleTemperatureChange={this.setTemperature}
+          />
         </SymptomSection>
-        <SymptomSection
-          header={labels.time}
-        >
-          <View style={styles.framedSegmentInlineChildren}>
-            <AppTextInput
-              style={[styles.temperatureTextInput]}
-              onFocus={this.showTimePicker}
-              value={this.state.time}
-            />
-            <DateTimePicker
-              mode="time"
-              isVisible={this.state.isTimePickerVisible}
-              onConfirm={jsDate => {
-                this.setState({
-                  time: padWithZeros(jsDate),
-                  isTimePickerVisible: false
-                })
-              }}
-              onCancel={() => this.setState({ isTimePickerVisible: false })}
-            />
-          </View>
+        <SymptomSection header={labels.time}>
+          <TimeInput
+            time={this.state.time}
+            handleTimeChange={this.setTime}
+          />
         </SymptomSection>
         <SymptomSection
           header={labels.note.header}
@@ -188,23 +138,4 @@ const mapStateToProps = (state) => {
 export default connect(
   mapStateToProps,
   null
-)(Temp)
-
-function makeOutOfRangeWarningMessage(temperature) {
-  if (temperature === '') return
-  const value = Number(temperature)
-  const { min, max } = config.temperatureScale
-  const range = { min, max }
-  const scale = scaleObservable.value
-  let warningMsg
-
-  if (value < range.min || value > range.max) {
-    warningMsg = labels.outOfAbsoluteRangeWarning
-  } else if (value < scale.min || value > scale.max) {
-    warningMsg = labels.outOfRangeWarning
-  } else {
-    warningMsg = null
-  }
-
-  return warningMsg
-}
+)(Temperature)
