@@ -33,7 +33,8 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentPage: HOME_PAGE
+      currentPage: HOME_PAGE,
+      cycleDay: {},
     }
     this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonPress)
     setupNotifications(this.navigate)
@@ -43,7 +44,7 @@ class App extends Component {
     this.backHandler.remove()
   }
 
-  navigate = (pageName, props) => {
+  navigate = (pageName, cycleDay) => {
     const { currentPage } = this.state
     // for the back button to work properly, we want to
     // remember two origins: which menu item we came from
@@ -55,7 +56,7 @@ class App extends Component {
     if (!this.isSymptomView()) {
       this.originForSymptomView = currentPage
     }
-    this.setState({ currentPage: pageName, currentProps: props })
+    this.setState({ currentPage: pageName, cycleDay })
   }
 
   handleBackButtonPress = () => {
@@ -65,9 +66,7 @@ class App extends Component {
       return false
     }
     if (this.isSymptomView()) {
-      this.navigate(
-        this.originForSymptomView, { date: this.props.date }
-      )
+      this.navigate(this.originForSymptomView)
     } else if (this.isSettingsView()) {
       this.navigate(SETTINGS_MENU_PAGE)
     } else if (currentPage === CYCLE_DAY_PAGE) {
@@ -96,7 +95,7 @@ class App extends Component {
   }
 
   render() {
-    const { currentPage } = this.state
+    const { currentPage, cycleDay } = this.state
     const pages = {
       Home,
       Calendar,
@@ -125,6 +124,7 @@ class App extends Component {
 
         <Page
           navigate={this.navigate}
+          cycleDay={cycleDay}
           handleBackButtonPress={this.handleBackButtonPress}
         />
 
