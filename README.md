@@ -97,13 +97,12 @@ $ npm test
 3. Open Android Studio and go to -> Tools -> AVD manager -> `+Create virtual device` and select the device checked in the previous step
 4. Use the emulator on your machine to run it without heavy Android Studio, e.g. in `~/Android/Sdk/emulator` OR chose to run the emulator within Android Studio
 4.1 Here run: `$ ./emulator -avd NEXUS_DEVICE_OR_WHATEVER_SPECIFIED_DEVICE`
-4.2 You might need to specify the following environment variables in your zsh or bash file according to where you have it installed. You can find exact path in Android Studio (Android Studio Preferences → Appearance and Behavior → System Settings → Android SDK).
+4.2 You might need to specify the following environment variables in your zsh or bash file according to where you have it installed. You can find exact path in Android Studio (Android Studio Preferences → Appearance and Behavior → System Settings → Android SDK). After adding environment variables, you might need to restart your terminal or source the modified bash profile (i.e. "source ~/.bash_profile"). 
 ```
 export ANDROID_HOME="/home/myname/Android/Sdk"
 export ANDROID_SDK_ROOT="/home/myname/Android/Sdk"
 export ANDROID_AVD_HOME="/home/myname/.android/avd"
 ```
-After adding environment variables, you might need to restart your terminal or source the modified bash profile (i.e. "source ~/.bash_profile"). 
 5. For the first time you need to get the app on the phone or if you run into this error:
 `'app-debug-androidTest.apk' could not be found`
 --> open a new 2nd tab and run (in your drip folder): `cd android and ./gradlew assembleAndroidTest`
