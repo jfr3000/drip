@@ -7,7 +7,6 @@ describe('Date', () => {
   })
 
   it('should have same date when navigating between cycle day and symptom view', async () => {
-    await element(by.id('licenseOkButton')).tap()
 
     await element(by.text('add data for today')).tap()
     await expect(

@@ -50,6 +50,7 @@ class Note extends SymptomView {
               this.setState({ currentValue: val })
             }}
             value={this.state.currentValue}
+            testID='noteInput'
           />
         </SymptomSection>
       </ScrollView>

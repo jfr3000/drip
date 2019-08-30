@@ -49,6 +49,7 @@ export default class TimeInput extends Component {
           style={styles.temperatureTextInput}
           onFocus={this.showTimePicker}
           value={this.props.time}
+          testID='timeInput'
         />
         <DateTimePicker
           mode="time"
