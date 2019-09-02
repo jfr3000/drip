@@ -70,6 +70,7 @@ export default class TemperatureInput extends Component {
             onChangeText={this.setTemperature}
             keyboardType='numeric'
             maxLength={5}
+            testID='temperatureInput'
           />
           <AppText style={{ marginLeft: 5 }}>°C</AppText>
         </View>

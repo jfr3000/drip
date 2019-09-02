@@ -110,6 +110,7 @@ class Temperature extends SymptomView {
             placeholder={sharedLabels.enter}
             value={this.state.note}
             onChangeText={this.setNote}
+            testID='noteInput'
           />
         </SymptomSection>
         <SymptomSection
