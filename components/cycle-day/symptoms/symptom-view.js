@@ -6,8 +6,9 @@ import { connect } from 'react-redux'
 import { getDate } from '../../../slices/date'
 
 import { saveSymptom } from '../../../db'
+import formatDate from '../../helpers/format-date'
 
-import Header from '../../header/symptom-view'
+import Header from '../../header'
 import SymptomInfo from './symptom-info'
 
 import { headerTitles } from '../../../i18n/en/labels'
@@ -80,16 +81,36 @@ class SymptomView extends Component {
     )
   }
 
+  showConfirmationAlert = () => {
+
+    const cancelButton = {
+      text: sharedDialogs.cancel,
+      style: 'cancel'
+    }
+
+    const confirmationButton = {
+      text: sharedDialogs.reallyDeleteData,
+      onPress: this.onDeleteConfirmation
+    }
+
+    return Alert.alert(
+      sharedDialogs.areYouSureTitle,
+      sharedDialogs.areYouSureToDelete,
+      [cancelButton, confirmationButton]
+    )
+  }
+
   render() {
     const { symptom } = this.props
     return (
       <View style={{flex: 1}}>
         <Header
           title={headerTitles[symptom].toLowerCase()}
-          date={this.date}
-          goBack={this.props.handleBackButtonPress}
-          shouldShowDelete={this.state.shouldShowDelete}
-          onDelete={this.showConfirmationAlert}
+          subtitle={formatDate(this.date)}
+          handleBack={this.props.handleBackButtonPress}
+          handleDelete={
+            this.state.shouldShowDelete && this.showConfirmationAlert
+          }
         />
         <View flex={1}>
           <ScrollView style={styles.page}>

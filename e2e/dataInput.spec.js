@@ -98,7 +98,7 @@ describe('Symptom Data Input', () => {
       await navigateToSymptomView(symptom)
 
       let expectedSymptomSummary
-      await expect(element(by.id('symptomViewTitleName').and(by.text(symptom))))
+      await expect(element(by.id('headerTitle').and(by.text(symptom))))
         .toBeVisible()
 
       switch (symptom) {

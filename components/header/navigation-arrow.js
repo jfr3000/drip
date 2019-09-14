@@ -1,36 +1,30 @@
 import React from 'react'
 import { TouchableOpacity } from 'react-native'
-import styles, { iconStyles } from '../../styles'
+import PropTypes from 'prop-types'
 import Icon from 'react-native-vector-icons/Entypo'
 
-export default function NavigationArrow(props) {
-  const iconName = {
-    left: 'chevron-thin-left',
-    right: 'chevron-thin-right'
-  }[props.direction]
-  const iconPosition = {
-    left: 'navigationArrowLeft',
-    right: 'navigationArrowRight'
-  }[props.direction]
-  let pressHandler
-  if (props.goBack) {
-    pressHandler = () => props.goBack()
-  } else {
-    pressHandler = () => {
-      const target = props.direction === 'left' ? 'before' : 'after'
-      props.goToCycleDay(target)
-    }
-  }
+import styles, { iconStyles } from '../../styles'
+
+export default function NavigationArrow({ handleBack, handleNext }) {
+  const navigationDirection = handleBack ? 'Left' : 'Right'
   return (
     <TouchableOpacity
-      style={[styles.navigationArrow, styles[iconPosition]]}
-      onPress={pressHandler}
-      testID={props.testID}
+      style={[
+        styles.navigationArrow,
+        styles[`navigationArrow${navigationDirection}`]
+      ]}
+      onPress={ handleBack || handleNext }
+      testID={ handleBack ? 'backButton' : 'nextButton'}
     >
       <Icon
-        name={iconName}
+        name={`chevron-thin-${navigationDirection.toLowerCase()}`}
         {...iconStyles.navigationArrow}
       />
     </TouchableOpacity>
   )
+}
+
+NavigationArrow.propTypes = {
+  handleBack: PropTypes.func,
+  handleNext: PropTypes.func,
 }
