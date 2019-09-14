@@ -1,11 +1,7 @@
-import React from 'react'
-import { Switch, ScrollView } from 'react-native'
+import React, { Component } from 'react'
+import { Switch } from 'react-native'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 
-import { getDate } from '../../../slices/date'
-
-import styles from '../../../styles'
 import { LocalTime, ChronoUnit } from 'js-joda'
 import { temperature as labels } from '../../../i18n/en/cycle-day'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
@@ -16,32 +12,38 @@ import SymptomView from './symptom-view'
 import TimeInput from './time-input'
 import TemperatureInput from './temperature-input'
 
+import { saveSymptom } from '../../../db'
+
 const minutes = ChronoUnit.MINUTES
 
-class Temperature extends SymptomView {
+class Temperature extends Component {
 
   static propTypes = {
     cycleDay: PropTypes.object,
     handleBackButtonPress: PropTypes.func,
-    date: PropTypes.string,
+    date: PropTypes.string.isRequired,
   }
 
   constructor(props) {
     super(props)
-    const cycleDay = props.cycleDay
-    this.temperature = cycleDay && cycleDay.temperature
+    const symptom = 'temperature'
+    const { cycleDay } = props
 
-    const temp = this.temperature
-
-    this.state = {
-      exclude: temp ? temp.exclude : false,
-      time: temp ? temp.time : LocalTime.now().truncatedTo(minutes).toString(),
-      temperature: temp ? temp.value : null,
-      note: temp ? temp.note : null
+    const defaultSymptomData = {
+      time: LocalTime.now().truncatedTo(minutes).toString(),
+      temperature: null,
+      note: '',
+      exclude: false
     }
-  }
 
-  symptomName = 'temperature'
+    const symptomData =
+      cycleDay && cycleDay[symptom] ? cycleDay[symptom] : defaultSymptomData
+
+    const { value, ...restSymptomData } = symptomData
+    this.state = { temperature: value, ...restSymptomData }
+
+    this.symptom = symptom
+  }
 
   isDeleteIconActive() {
     return ['temperature', 'note', 'exclude'].some(key => {
@@ -52,19 +54,19 @@ class Temperature extends SymptomView {
   }
 
   autoSave = () => {
-    if (!this.state.temperature) {
-      this.deleteSymptomEntry()
-      return
+    const { date } = this.props
+    const { temperature, exclude, time, note } = this.state
+
+    console.log('/// autoSave state: ', this.state)
+
+    const valuesToSave = {
+      value: temperature,
+      exclude,
+      time,
+      note
     }
 
-    const dataToSave = {
-      value: this.state.temperature,
-      exclude: this.state.exclude,
-      time: this.state.time,
-      note: this.state.note
-    }
-
-    this.saveSymptomEntry(dataToSave)
+    saveSymptom(this.symptom, date, temperature ? valuesToSave : null)
   }
 
   setTime = (time) => {
@@ -79,11 +81,20 @@ class Temperature extends SymptomView {
     this.setState({ note })
   }
 
-  renderContent() {
+  componentDidUpdate() {
+    this.autoSave()
+  }
+
+  render() {
     const { temperature } = this.state
 
     return (
-      <ScrollView style={styles.page}>
+      <SymptomView
+        symptom={'temperature'}
+        values={this.state}
+        handleBackButtonPress={this.props.handleBackButtonPress}
+        date={this.props.date}
+      >
         <SymptomSection
           header={labels.temperature.header}
           explainer={labels.temperature.explainer}
@@ -106,7 +117,6 @@ class Temperature extends SymptomView {
         >
           <AppTextInput
             multiline={true}
-            autoFocus={this.state.focusTextArea}
             placeholder={sharedLabels.enter}
             value={this.state.note}
             onChangeText={this.setNote}
@@ -125,18 +135,9 @@ class Temperature extends SymptomView {
             value={this.state.exclude}
           />
         </SymptomSection>
-      </ScrollView>
+      </SymptomView>
     )
   }
 }
 
-const mapStateToProps = (state) => {
-  return({
-    date: getDate(state)
-  })
-}
-
-export default connect(
-  mapStateToProps,
-  null
-)(Temperature)
+export default Temperature

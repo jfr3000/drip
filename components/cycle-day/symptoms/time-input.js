@@ -21,7 +21,6 @@ export default class TimeInput extends Component {
     this.state = {
       isTimePickerVisible: false,
     }
-
   }
 
   showTimePicker = () => {

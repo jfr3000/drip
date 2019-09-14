@@ -105,6 +105,9 @@ describe('Symptom Data Input', () => {
       case 'temperature':
         await enterTemperature()
         expectedSymptomSummary = formExpectedSymptomSummary('temperature')
+        console.log(
+          'This test a bit flaky. console.log apparently helps to fix it.'
+        )
         break
       case 'note':
         await enterNote()

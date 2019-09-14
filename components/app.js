@@ -125,6 +125,7 @@ class App extends Component {
         <Page
           navigate={this.navigate}
           cycleDay={cycleDay}
+          date={this.props.date}
           handleBackButtonPress={this.handleBackButtonPress}
         />
 
