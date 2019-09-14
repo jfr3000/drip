@@ -35,9 +35,10 @@ class SymptomView extends Component {
   }
 
   componentDidUpdate() {
+    this.values = this.props.values
     const shouldShowDelete = this.checkIfHasValuesToDelete()
     if (shouldShowDelete !== this.state.shouldShowDelete) {
-      this.setState({ shouldShowDelete: this.checkIfHasValuesToDelete() })
+      this.setState({ shouldShowDelete })
     }
   }
 

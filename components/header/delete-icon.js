@@ -12,6 +12,7 @@ export default function DeleteIcon({ handleDelete }) {
     <TouchableOpacity
       onPress={handleDelete}
       style={styles.headerDeleteButton}
+      testID="deleteIcon"
     >
       <Icon
         name="delete"

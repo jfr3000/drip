@@ -108,6 +108,19 @@ describe('Symptom Data Input', () => {
         console.log(
           'This test a bit flaky. console.log apparently helps to fix it.'
         )
+
+        await goBack()
+        await expect(element(by.text(expectedSymptomSummary))).toExist()
+
+        // Testing here additionally the deletion of data
+        await navigateToSymptomView(symptom)
+        await element(by.id('deleteIcon')).tap()
+        await element(by.text('YES, I AM SURE')).tap()
+        await expect(element(by.text(expectedSymptomSummary))).toNotExist()
+
+        await navigateToSymptomView(symptom)
+        await enterTemperature()
+
         break
       case 'note':
         await enterNote()
@@ -127,4 +140,5 @@ describe('Symptom Data Input', () => {
       await expect(element(by.text(expectedSymptomSummary))).toExist()
     })
   }
+
 })
