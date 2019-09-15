@@ -106,7 +106,7 @@ class SymptomView extends Component {
     return (
       <View style={{flex: 1}}>
         <Header
-          title={headerTitles[symptom].toLowerCase()}
+          title={headerTitles[symptom]}
           subtitle={formatDate(this.date)}
           handleBack={this.props.handleBackButtonPress}
           handleDelete={

@@ -66,8 +66,7 @@ class CycleDayOverView extends Component {
 
     const { getCycleDayNumber } = cycleModule()
     const cycleDayNumber = getCycleDayNumber(date)
-    const headerSubtitle =
-      cycleDayNumber && `Cycle day ${cycleDayNumber}`.toLowerCase()
+    const headerSubtitle = cycleDayNumber && `Cycle day ${cycleDayNumber}`
 
     return (
       <View style={{ flex: 1 }}>

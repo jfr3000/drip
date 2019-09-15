@@ -18,13 +18,6 @@ import {headerTitles, menuTitles} from '../i18n/en/labels'
 import setupNotifications from '../lib/notifications'
 import { closeDb } from '../db'
 
-// design wants everyhting lowercased, but we don't
-// have CSS pseudo properties
-const headerTitlesLowerCase = Object.keys(headerTitles).reduce((acc, curr) => {
-  acc[curr] = headerTitles[curr].toLowerCase()
-  return acc
-}, {})
-
 const HOME_PAGE = 'Home'
 const CYCLE_DAY_PAGE = 'CycleDay'
 const SETTINGS_MENU_PAGE = 'SettingsMenu'
@@ -107,7 +100,7 @@ class App extends Component {
       ...symptomViews
     }
     const Page = pages[currentPage]
-    const title = headerTitlesLowerCase[currentPage]
+    const title = headerTitles[currentPage]
 
     const hasDefaultHeader =
       !this.isSymptomView() &&
