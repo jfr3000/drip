@@ -95,7 +95,8 @@ export default StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 100,
-    position: 'absolute'
+    position: 'absolute',
+    alignSelf: 'center',
   },
   errorMessage: {
     color: shadesOfRed[2],

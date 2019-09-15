@@ -10,9 +10,9 @@ describe('Date', () => {
 
     await element(by.text('add data for today')).tap()
     await expect(
-      element(by.id('cycleDayTitleDate').and(by.text('today')))
+      element(by.id('headerTitle').and(by.text('today')))
     ).toBeVisible()
-    await element(by.id('previousDateButton')).tap()
+    await element(by.id('backButton')).tap()
     await element(by.id('drip-icon-bleeding')).tap()
 
     const today = LocalDate.now()
@@ -22,7 +22,7 @@ describe('Date', () => {
       .toLowerCase()
 
     await expect(
-      element(by.id('symptomViewTitleDate').and(by.text(yesterdayFormatted)))
+      element(by.id('headerSubtitle').and(by.text(yesterdayFormatted)))
     ).toBeVisible()
   })
 

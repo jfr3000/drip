@@ -1,6 +1,6 @@
 const isOnPage = async (page, parentPage) => {
   await expect(
-    element(by.id('pageTitle').and(by.text(page)))
+    element(by.id('headerTitle').and(by.text(page)))
   ).toBeVisible()
   await expect(
     element(
@@ -35,10 +35,10 @@ describe('Home Navigation', () => {
   it('should navigate to today bleeding symptom', async () => {
     await element(by.text('track your period')).tap()
     await expect(
-      element(by.id('symptomViewTitleName').and(by.text('bleeding')))
+      element(by.id('headerTitle').and(by.text('bleeding')))
     ).toBeVisible()
     await expect(
-      element(by.id('symptomViewTitleDate').and(by.text('today')))
+      element(by.id('headerSubtitle').and(by.text('today')))
     ).toBeVisible()
   })
 

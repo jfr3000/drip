@@ -1,19 +1,35 @@
 import React from 'react'
-import { Dimensions } from 'react-native'
-import CycleDayHeader from './cycle-day'
-import DefaultHeader from './default'
-import BackButtonHeader from './back-button'
+import { View } from 'react-native'
+import PropTypes from 'prop-types'
 
-export default function Header(p) {
-  const middle = Dimensions.get('window').width / 2
-  const props = Object.assign({}, p, {middle})
+import Title from './title'
+import NavigationArrow from './navigation-arrow'
+import DeleteIcon from './delete-icon'
 
-  if (props.isCycleDayOverView) {
-    return (<CycleDayHeader {...props} />)
-  } else if (props.showBackButton) {
-    return (<BackButtonHeader {...props} />)
-  }
-  else {
-    return (<DefaultHeader {...props} />)
-  }
+import styles from '../../styles'
+
+export default function Header({
+  handleBack,
+  handleNext,
+  handleDelete,
+  title,
+  subtitle,
+}) {
+
+  return (
+    <View style={styles.header}>
+      <View style={styles.accentCircle} />
+      { handleBack && <NavigationArrow handleBack={handleBack} /> }
+      <Title title={title} subtitle={subtitle} />
+      { handleNext && <NavigationArrow handleNext={handleNext} /> }
+      { handleDelete && <DeleteIcon handleDelete={handleDelete} /> }
+    </View >
+  )
+}
+
+Header.propTypes = {
+  handleBack: PropTypes.func,
+  handleNext: PropTypes.func,
+  title: PropTypes.string,
+  subtitle: PropTypes.string,
 }

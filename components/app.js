@@ -109,16 +109,19 @@ class App extends Component {
     const Page = pages[currentPage]
     const title = headerTitlesLowerCase[currentPage]
 
+    const hasDefaultHeader =
+      !this.isSymptomView() &&
+      currentPage !== CYCLE_DAY_PAGE
+
+    const isSettingsSubView = this.isSettingsView()
+
     return (
-      <View style={{flex: 1}}>
-        {this.isDefaultView() &&
-          <Header title={title} />
-        }
-        {(this.isSettingsView()) &&
+      <View style={{ flex: 1 }}>
+
+        { hasDefaultHeader &&
           <Header
+            handleBack={isSettingsSubView ? this.handleBackButtonPress : null}
             title={title}
-            showBackButton={true}
-            goBack={this.handleBackButtonPress}
           />
         }
 
