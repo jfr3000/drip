@@ -57,8 +57,6 @@ class Temperature extends Component {
     const { date } = this.props
     const { temperature, exclude, time, note } = this.state
 
-    console.log('/// autoSave state: ', this.state)
-
     const valuesToSave = {
       value: temperature,
       exclude,
