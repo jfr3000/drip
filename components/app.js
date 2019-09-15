@@ -1,117 +1,74 @@
 import React, { Component } from 'react'
 import { View, BackHandler } from 'react-native'
+import PropTypes from 'prop-types'
+
+import { LocalDate } from 'js-joda'
 import { connect } from 'react-redux'
 
-import { getDate } from '../slices/date'
+import { getDate, setDate } from '../slices/date'
+import { getNavigation, navigate } from '../slices/navigation'
 
 import Header from './header'
 import Menu from './menu'
-import Home from './home'
-import Calendar from './calendar'
-import CycleDay from './cycle-day/cycle-day-overview'
-import symptomViews from './cycle-day/symptoms'
-import Chart from './chart/chart'
-import SettingsMenu from './settings/settings-menu'
-import settingsViews from './settings'
-import Stats from './stats'
-import {headerTitles, menuTitles} from '../i18n/en/labels'
-import setupNotifications from '../lib/notifications'
-import { closeDb } from '../db'
+import { pagesList, isSymptomView, isSettingsView } from './pages'
 
-const HOME_PAGE = 'Home'
-const CYCLE_DAY_PAGE = 'CycleDay'
-const SETTINGS_MENU_PAGE = 'SettingsMenu'
+import { headerTitles } from '../i18n/en/labels'
+import setupNotifications from '../lib/notifications'
+import { closeDb, getCycleDay } from '../db'
 
 class App extends Component {
+
+  static propTypes = {
+    date: PropTypes.string,
+    navigation: PropTypes.object.isRequired,
+  }
+
   constructor(props) {
     super(props)
+
+    this.todayDateString = LocalDate.now().toString()
+    props.setDate(this.todayDateString)
+
     this.state = {
-      currentPage: HOME_PAGE,
-      cycleDay: {},
+      cycleDay: getCycleDay(this.todayDateString),
     }
-    this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonPress)
-    setupNotifications(this.navigate)
+
+    this.backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.handleBackButtonPress
+    )
+
+    setupNotifications(this.props.navigate)
   }
 
   componentWillUnmount() {
     this.backHandler.remove()
   }
 
-  navigate = (pageName, cycleDay) => {
-    const { currentPage } = this.state
-    // for the back button to work properly, we want to
-    // remember two origins: which menu item we came from
-    // and from where we navigated to the symptom view (day
-    // view or home page)
-    if (this.isMenuItem()) {
-      this.menuOrigin = currentPage
-    }
-    if (!this.isSymptomView()) {
-      this.originForSymptomView = currentPage
-    }
-    this.setState({ currentPage: pageName, cycleDay })
-  }
-
   handleBackButtonPress = () => {
-    const { currentPage } = this.state
-    if (currentPage === HOME_PAGE) {
+    const { current, prev } = this.props.navigation
+    if (current === 'Home') {
       closeDb()
       return false
     }
-    if (this.isSymptomView()) {
-      this.navigate(this.originForSymptomView)
-    } else if (this.isSettingsView()) {
-      this.navigate(SETTINGS_MENU_PAGE)
-    } else if (currentPage === CYCLE_DAY_PAGE) {
-      this.navigate(this.menuOrigin)
-    } else {
-      this.navigate(HOME_PAGE)
-    }
+    this.props.navigate(prev)
     return true
   }
 
-  isMenuItem() {
-    return Object.keys(menuTitles).includes(this.state.currentPage)
-  }
-
-  isSymptomView() {
-    return Object.keys(symptomViews).includes(this.state.currentPage)
-  }
-
-  isSettingsView() {
-    return Object.keys(settingsViews).includes(this.state.currentPage)
-  }
-
-  isDefaultView() {
-    const { currentPage } = this.state
-    return this.isMenuItem(currentPage) || currentPage === SETTINGS_MENU_PAGE
-  }
-
   render() {
-    const { currentPage, cycleDay } = this.state
-    const pages = {
-      Home,
-      Calendar,
-      CycleDay,
-      Chart,
-      SettingsMenu,
-      ...settingsViews,
-      Stats,
-      ...symptomViews
-    }
-    const Page = pages[currentPage]
+    const { cycleDay } = this.state
+    const currentPage = this.props.navigation.current
+
+    const Page = pagesList[currentPage]
     const title = headerTitles[currentPage]
 
-    const hasDefaultHeader =
-      !this.isSymptomView() &&
-      currentPage !== CYCLE_DAY_PAGE
-
-    const isSettingsSubView = this.isSettingsView()
+    const isSymptomEditView = isSymptomView(currentPage)
+    const isSettingsSubView = isSettingsView(currentPage)
+    const isCycleDayView = currentPage === 'CycleDay'
 
     return (
       <View style={{ flex: 1 }}>
-
-        { hasDefaultHeader &&
+        { !isSymptomEditView && !isCycleDayView &&
           <Header
             handleBack={isSettingsSubView ? this.handleBackButtonPress : null}
             title={title}
@@ -119,15 +76,12 @@ class App extends Component {
         }
 
         <Page
-          navigate={this.navigate}
           cycleDay={cycleDay}
           date={this.props.date}
           handleBackButtonPress={this.handleBackButtonPress}
         />
 
-        {!this.isSymptomView() &&
-          <Menu navigate={this.navigate} currentPage={currentPage} />
-        }
+        { !isSymptomEditView && <Menu /> }
       </View>
     )
   }
@@ -135,11 +89,19 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return({
-    date: getDate(state)
+    date: getDate(state),
+    navigation: getNavigation(state)
+  })
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return({
+    setDate: (date) => dispatch(setDate(date)),
+    navigate: (page) => dispatch(navigate(page)),
   })
 }
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(App)

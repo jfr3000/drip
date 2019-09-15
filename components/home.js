@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { ScrollView, View } from 'react-native'
 import { connect } from 'react-redux'
 
-import { setDate } from '../slices/date'
+import { navigate } from '../slices/navigation'
 
 import DripHomeIcon from '../assets/drip-home-icons'
 import {
@@ -17,7 +17,6 @@ import styles, { cycleDayColor, periodColor, secondaryColor } from '../styles'
 import AppText from './app-text'
 import Button from './button'
 import { formatDateForShortText } from './helpers/format-date'
-import { getCycleDay } from '../db'
 
 const IconText = ({ children, wrapperStyles }) => {
   return (
@@ -71,26 +70,20 @@ class Home extends Component {
     }
   }
 
-  setTodayDate = () => {
-    this.props.setDate(this.todayDateString)
-  }
-
   navigateToCycleDayView = () => {
-    this.setTodayDate()
     this.props.navigate('CycleDay')
   }
 
   navigateToBleedingEditView = () => {
-    this.setTodayDate()
-    this.props.navigate(
-      'BleedingEditView',
-      getCycleDay(this.todayDateString)
-    )
+    this.props.navigate('BleedingEditView')
+  }
+
+  navigateToChart = () => {
+    this.props.navigate('Chart')
   }
 
   render() {
     const { cycleDayNumber, phase, status } = this.state
-    const { navigate } = this.props
     const cycleDayMoreText = cycleDayNumber ?
       labels.cycleDayKnown(cycleDayNumber) :
       labels.cycleDayNotEnoughInfo
@@ -136,7 +129,7 @@ class Home extends Component {
             </HomeElement>
 
             <HomeElement
-              onPress={ () => navigate('Chart') }
+              onPress={this.navigateToChart}
               buttonColor={ secondaryColor }
               buttonLabel={ labels.checkFertility }
             >
@@ -164,7 +157,7 @@ class Home extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return({
-    setDate: (date) => dispatch(setDate(date)),
+    navigate: (page) => dispatch(navigate(page))
   })
 }
 

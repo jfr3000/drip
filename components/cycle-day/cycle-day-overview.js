@@ -3,6 +3,7 @@ import { ScrollView, View } from 'react-native'
 
 import { connect } from 'react-redux'
 import { getDate, setDate } from '../../slices/date'
+import { navigate } from '../../slices/navigation'
 
 import { LocalDate } from 'js-joda'
 import Header from '../header'
@@ -39,11 +40,6 @@ class CycleDayOverView extends Component {
     const { date } = this.props
     const nextDate = LocalDate.parse(date).plusDays(1).toString()
     this.updateCycleDay(nextDate)
-  }
-
-  navigate(symptom) {
-    const { cycleDay } = this.state
-    this.props.navigate(symptom, cycleDay)
   }
 
   render() {
@@ -89,7 +85,7 @@ class CycleDayOverView extends Component {
                     key={symptom}
                     symptom={symptom}
                     symptomData={symptomData}
-                    onPress={() => this.navigate(symptomEditView, symptomData)}
+                    onPress={() => this.props.navigate(symptomEditView)}
                     disabled={dateInFuture}
                   />)
               })
@@ -115,6 +111,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return({
     setDate: (date) => dispatch(setDate(date)),
+    navigate: (page) => dispatch(navigate(page)),
   })
 }
 

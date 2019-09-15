@@ -3,6 +3,7 @@ import { TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 
 import { setDate } from '../../slices/date'
+import { navigate } from '../../slices/navigation'
 
 import { getCycleDay } from '../../db'
 
@@ -109,6 +110,7 @@ class DayColumn extends Component {
 const mapDispatchToProps = (dispatch) => {
   return({
     setDate: (date) => dispatch(setDate(date)),
+    navigate: (page) => dispatch(navigate(page)),
   })
 }
 
