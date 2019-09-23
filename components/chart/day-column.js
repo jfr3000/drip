@@ -27,50 +27,21 @@ class DayColumn extends Component {
   constructor(props) {
     super()
 
-    const { dateString, columnHeight, chartSymptoms } = props
+    const { dateString, chartSymptoms, columnHeight } = props
     const cycleDayData = getCycleDay(dateString)
     this.data = {}
 
     if (cycleDayData) {
-      this.data = chartSymptoms.reduce((symptomDataToDisplay, symptom) => {
+      this.data = chartSymptoms.reduce((symptomDataToDisplay, symptom, ) => {
         const symptomData = cycleDayData[symptom]
 
-        if (symptomData && !this.isSymptomExcluded(symptomData)) {
-          symptomDataToDisplay[symptom] = {}
-          switch (symptom) {
-          case 'temperature': {
-            symptomDataToDisplay[symptom].data = symptomData.value
-            symptomDataToDisplay.y =
-              normalizeToScale(symptomData.value, columnHeight)
-            const neighbourTemperatureValue =
-              getInfoForNeighborColumns(dateString, columnHeight)
-            for (const key in neighbourTemperatureValue) {
-              symptomDataToDisplay[key] = neighbourTemperatureValue[key]
-            }
-            break
-          }
-          case 'cervix':
-            symptomDataToDisplay[symptom].data =
-              (symptomData.opening + symptomData.firmness) > 0 ? 2 : 0
-            symptomDataToDisplay[symptom].isComplete =
-              this.isCervixDataComplete(symptomData)
-            break
-          case 'mucus':
-            symptomDataToDisplay[symptom].data =
-              (symptomData.feeling + symptomData.texture) > 0 ? 2 : 0
-            symptomDataToDisplay[symptom].isComplete =
-              this.isMucusDataComplete(symptomData)
-            break
-          case 'sex':
-            symptomDataToDisplay[symptom].data =
-              symptomData.solo + 2 * symptomData.partner - 1
-            break
-          case 'bleeding':
-          case 'desire':
-            symptomDataToDisplay[symptom].data = symptomData.value
-            break
-          default: // pain, mood, note
-            symptomDataToDisplay[symptom].data = 0
+        if (symptomData && symptom === 'temperature') {
+          symptomDataToDisplay[symptom] =
+           this.getTemperatureProps(symptomData, columnHeight, dateString)
+        } else {
+          if (symptomData && ! symptomData.exclude) {
+            symptomDataToDisplay[symptom] =
+              (this.getSymptomColorIndex[symptom] || this.getSymptomColorIndex['default'])(symptomData)
           }
         }
 
@@ -80,20 +51,78 @@ class DayColumn extends Component {
 
     this.fhmAndLtl = props.getFhmAndLtlInfo(
       props.dateString,
-      this.data.temperature,
+      this.data.temperature ? this.data.temperature.value : null,
       props.columnHeight
     )
   }
 
-  isSymptomExcluded = (symptomData) => {
-    return symptomData && symptomData.exclude ? symptomData.exclude : false
+  getTemperatureProps = (symptomData, columnHeight, dateString) => {
+    const extractedData = {}
+    const { value, exclude } = symptomData
+    const neighborTemperatureGraphPoints =
+      getInfoForNeighborColumns(dateString, columnHeight)
+
+    for (const key in neighborTemperatureGraphPoints) {
+      extractedData[key] = neighborTemperatureGraphPoints[key]
+    }
+    return Object.assign({
+      value,
+      y: normalizeToScale(value, columnHeight),
+      temperatureExclude: exclude,
+    }, extractedData)
   }
 
-  isCervixDataComplete = (symptomData) =>
-    (symptomData.opening != null) && (symptomData.firmness != null)
+  getSymptomColorIndex = {
+    'mucus': (symptomData) => {
+      const { feeling, texture } = symptomData
+      const colorIndex = feeling + texture
+      return colorIndex
+    },
+    'cervix': (symptomData) => {
+      const { opening, firmness } = symptomData
+      const isDataComplete = opening !== null && firmness !== null
+      // is fertile? fertile only when opening=closed and firmness=hard (=0)
+      const isFertile = isDataComplete && (opening === 0 && firmness === 0)
+      const colorIndex = isFertile ? 0 : 2
+      return colorIndex
+    },
+    'sex': (symptomData) => {
+      const { solo, partner } = symptomData
+      const colorIndex = (solo !== null && partner !== null) ?
+        (solo + 2 * partner - 1) : 0
+      return colorIndex
+    },
+    'bleeding': (symptomData) => {
+      const { value } = symptomData
+      const colorIndex = value
+      return colorIndex
+    },
+    'default': () => { // desire, pain, mood, note
+      const colorIndex = 0
+      return colorIndex
+    }
+  }
 
-  isMucusDataComplete = (symptomData) =>
-    (symptomData.feeling != null) && (symptomData.texture != null)
+  isSymptomDataComplete = (symptom) => {
+    const { dateString } = this.props
+    const cycleDayData = getCycleDay(dateString)
+    const symptomData = cycleDayData[symptom]
+
+    const dataCompletenessCheck = {
+      'cervix': () => {
+        const { opening, firmness } = symptomData
+        return (opening !== null) && (firmness !== null)
+      },
+      'mucus': () => {
+        const { feeling, texture } = symptomData
+        return (feeling !== null) && (texture !== null)
+      },
+      'default': () => {
+        return true
+      }
+    }
+    return (dataCompletenessCheck[symptom] || dataCompletenessCheck['default'])()
+  }
 
   onDaySelect = (date) => {
     this.props.setDate(date)
@@ -114,14 +143,13 @@ class DayColumn extends Component {
       const styleSymptom = styles.iconShades[symptom]
       const symptomData = this.data[symptom]
 
-      const isDataIncomplete = !symptomData.isComplete
+      const dataIsComplete = this.isSymptomDataComplete(symptom)
       const isMucusOrCervix = (symptom === 'mucus') || (symptom === 'cervix')
 
-      const backgroundColor = ( isMucusOrCervix && isDataIncomplete) ?
-        'white' : styleSymptom[symptomData.data]
-      const borderWidth = ( isMucusOrCervix && isDataIncomplete) ? 2 : 0
+      const backgroundColor = (isMucusOrCervix && !dataIsComplete) ?
+        'white' : styleSymptom[symptomData]
+      const borderWidth = (isMucusOrCervix && !dataIsComplete) ? 2 : 0
       const borderColor = styleSymptom[0]
-
       const styleChild = [styles.symptomIcon, {
         backgroundColor,
         borderColor,
@@ -130,7 +158,7 @@ class DayColumn extends Component {
 
       return (
         <View style={styleParent} key={symptom}>
-          {shouldDrawSymptom && <View style={styleChild} />}
+          <View style={styleChild} />
         </View>
       )
     } else {
@@ -147,7 +175,6 @@ class DayColumn extends Component {
       chartHeight,
       columnHeight,
       xAxisHeight } = this.props
-
 
     if(this.fhmAndLtl.drawLtlAt) {
       const ltlLine = (<Shape
@@ -174,15 +201,23 @@ class DayColumn extends Component {
       columnElements.push(fhmLine)
     }
 
-    if (this.data.y) {
+    if (this.data && this.data.temperature && this.data.temperature.y) {
+      const { temperatureExclude,
+        y,
+        rightY,
+        leftY,
+        rightTemperatureExclude,
+        leftTemperatureExclude
+      } = this.data.temperature
+
       columnElements.push(
         <DotAndLine
-          y={this.data.y}
-          exclude={this.data.temperatureExclude}
-          rightY={this.data.rightY}
-          rightTemperatureExclude={this.data.rightTemperatureExclude}
-          leftY={this.data.leftY}
-          leftTemperatureExclude={this.data.leftTemperatureExclude}
+          y={y}
+          exclude={temperatureExclude}
+          rightY={rightY}
+          rightTemperatureExclude={rightTemperatureExclude}
+          leftY={leftY}
+          leftTemperatureExclude={leftTemperatureExclude}
           key='dotandline'
         />
       )
