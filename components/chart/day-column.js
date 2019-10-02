@@ -40,8 +40,14 @@ class DayColumn extends Component {
            this.getTemperatureProps(symptomData, columnHeight, dateString)
         } else {
           if (symptomData && ! symptomData.exclude) {
-            symptomDataToDisplay[symptom] =
-              (this.getSymptomColorIndex[symptom] || this.getSymptomColorIndex['default'])(symptomData)
+            // if symptomColorMethods entry doesn't exist for given symptom,
+            // use 'default'
+            const getSymptomColorIndex =
+              this.symptomColorMethods[symptom] ||
+              this.symptomColorMethods['default']
+
+            getSymptomColorIndex(symptomData)
+            symptomDataToDisplay[symptom] = getSymptomColorIndex(symptomData)
           }
         }
 
@@ -72,7 +78,7 @@ class DayColumn extends Component {
     }, extractedData)
   }
 
-  getSymptomColorIndex = {
+  symptomColorMethods = {
     'mucus': (symptomData) => {
       const { feeling, texture } = symptomData
       const colorIndex = feeling + texture
@@ -81,9 +87,10 @@ class DayColumn extends Component {
     'cervix': (symptomData) => {
       const { opening, firmness } = symptomData
       const isDataComplete = opening !== null && firmness !== null
-      // is fertile? fertile only when opening=closed and firmness=hard (=0)
-      const isFertile = isDataComplete && (opening === 0 && firmness === 0)
-      const colorIndex = isFertile ? 0 : 2
+      const isClosedAndHard =
+        isDataComplete &&
+        (opening === 0 && firmness === 0)
+      const colorIndex = isClosedAndHard ? 0 : 2
       return colorIndex
     },
     'sex': (symptomData) => {
