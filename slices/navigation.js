@@ -3,14 +3,12 @@ import { createSlice } from 'redux-starter-kit'
 const navigationSlice = createSlice({
   slice: 'navigation',
   initialState: {
-    current: 'Home',
-    prev: null,
+    currentPage: 'Home',
   },
   reducers: {
     navigate: (state, action) => {
       return {
-        current: action.payload,
-        prev: state.current
+        currentPage: action.payload,
       }
     }
   }

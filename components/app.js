@@ -10,7 +10,7 @@ import { getNavigation, navigate } from '../slices/navigation'
 
 import Header from './header'
 import Menu from './menu'
-import { pagesList, isSymptomView, isSettingsView } from './pages'
+import { viewsList, isSymptomView, isSettingsView, pages } from './pages'
 
 import { headerTitles } from '../i18n/en/labels'
 import setupNotifications from '../lib/notifications'
@@ -46,20 +46,24 @@ class App extends Component {
   }
 
   handleBackButtonPress = () => {
-    const { current, prev } = this.props.navigation
-    if (current === 'Home') {
+    const { currentPage } = this.props.navigation
+
+    if (currentPage === 'Home') {
       closeDb()
       return false
     }
-    this.props.navigate(prev)
+
+    const page = pages.find(item => item.component ===  currentPage)
+    this.props.navigate(page.parent)
+
     return true
   }
 
   render() {
     const { cycleDay } = this.state
-    const currentPage = this.props.navigation.current
+    const { currentPage } = this.props.navigation
 
-    const Page = pagesList[currentPage]
+    const Page = viewsList[currentPage]
     const title = headerTitles[currentPage]
 
     const isSymptomEditView = isSymptomView(currentPage)

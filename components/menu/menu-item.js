@@ -11,7 +11,7 @@ const menuTitlesLowerCase = Object.keys(menuTitles).reduce((acc, curr) => {
   return acc
 }, {})
 
-const MenuItem = ({ icon, labelKey, active, onPress }) => {
+const MenuItem = ({ icon, label, active, onPress }) => {
   const styleActive = active ? { color: secondaryColor } : null
   return (
     <TouchableOpacity
@@ -20,10 +20,10 @@ const MenuItem = ({ icon, labelKey, active, onPress }) => {
     >
       <Icon name={icon} {...iconStyles.menuIcon} {...styleActive} />
       <Text
-        testID={active ? 'activeMenuItem' : `menuItem${labelKey}`}
+        testID={active ? 'activeMenuItem' : `menuItem${label}`}
         style={[styles.menuText, styleActive]}
       >
-        {menuTitlesLowerCase[labelKey]}
+        {menuTitlesLowerCase[label]}
       </Text>
     </TouchableOpacity>
   )

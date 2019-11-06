@@ -7,20 +7,21 @@ import MenuItem from './menu-item'
 import { connect } from 'react-redux'
 import { getNavigation, navigate } from '../../slices/navigation'
 
-import { menuItems } from './menu-config'
+import { pages } from '../pages'
 
 import styles from '../../styles'
 
-const Menu = ({ navigation, navigate }) => {
+const Menu = ({ navigate, navigation }) => {
+  const menuItems = pages.filter(page => page.isInMenu)
   return (
     <View style={styles.menu}>
-      { menuItems.map(({ icon, labelKey, component, children }) => {
-        const isActive = (component === navigation.current) ||
-          (children && children.indexOf(navigation.current) !== -1)
+      { menuItems.map(({ icon, label, component, children }) => {
+        const isActive = (component === navigation.currentPage) ||
+          (children && children.indexOf(navigation.currentPage) !== -1)
         return (
           <MenuItem
-            key={labelKey}
-            labelKey={labelKey}
+            key={label}
+            label={label}
             icon={icon}
             active={isActive}
             onPress={() => navigate(component)}
