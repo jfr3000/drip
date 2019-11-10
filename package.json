@@ -15,6 +15,7 @@
     "test-watch": "mocha --recursive --require @babel/register --watch test",
     "lint": "eslint components lib test",
     "devtool": "adb shell input keyevent 82",
+    "build-android-release": "cd android && ./gradlew clean && ./gradlew assembleRelease && cd ..",
     "update-version": "node ./tools/bin/update-version.js",
     "commit-release": "node ./tools/bin/commit-release.js",
     "tag-release": "node ./tools/bin/tag-release.js",
