@@ -55,12 +55,15 @@ buck-out/
 # Bundle artifact
 *.jsbundle
 
-# RN android release 
+# RN android release
 android/app/bin/
 android/app/release/
 android/app/src/main/assets/index.android.bundle
 android/.project
 android/app/.project
+
+ios/Podfile.lock
+android/app/src/main/res/drawable-*
 
 # nodejs-mobile creates these with every npm install
 nodejs-assets/nodejs-project/sample-*
