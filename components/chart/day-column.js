@@ -46,7 +46,6 @@ class DayColumn extends Component {
               this.symptomColorMethods[symptom] ||
               this.symptomColorMethods['default']
 
-            getSymptomColorIndex(symptomData)
             symptomDataToDisplay[symptom] = getSymptomColorIndex(symptomData)
           }
         }
@@ -140,7 +139,7 @@ class DayColumn extends Component {
     return false
   }
 
-  drawSypmtom = (symptom) => {
+  drawSymptom = (symptom) => {
 
     const { symptomHeight } = this.props
     const shouldDrawSymptom = this.data.hasOwnProperty(symptom)
@@ -265,7 +264,7 @@ class DayColumn extends Component {
         activeOpacity={1}
       >
         <View>
-          {symptomRowSymptoms.map(symptom => this.drawSypmtom(symptom))}
+          {symptomRowSymptoms.map(symptom => this.drawSymptom(symptom))}
         </View>
 
         <Surface width={config.columnWidth} height={columnHeight}>
