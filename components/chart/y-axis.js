@@ -1,9 +1,31 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { View } from 'react-native'
+
 import config from '../../config'
-import styles from './styles'
 import { scaleObservable, unitObservable } from '../../local-storage'
+
 import AppText from '../app-text'
+import DripIcon from '../../assets/drip-icons'
+import DripHomeIcon from '../../assets/drip-home-icons'
+
+import styles from './styles'
+import { cycleDayColor } from '../../styles'
+
+import { shared as labels } from '../../i18n/en/labels'
+
+
+const symptomIcons = {
+  bleeding: <DripIcon size={16} name='drip-icon-bleeding' color={styles.iconShades.bleeding[3]}/>,
+  mucus: <DripIcon size={16} name='drip-icon-mucus' color={styles.iconShades.mucus[4]}/>,
+  cervix: <DripIcon size={16} name='drip-icon-cervix' color={styles.iconShades.cervix[3]}/>,
+  desire: <DripIcon size={16} name='drip-icon-desire' color={styles.iconShades.desire[2]}/>,
+  sex: <DripIcon size={16} name='drip-icon-sex' color={styles.iconShades.sex[2]}/>,
+  pain: <DripIcon size={16} name='drip-icon-pain' color={styles.iconShades.pain[0]}/>,
+  mood: <DripIcon size={16} name='drip-icon-mood' color={styles.iconShades.mood[0]}/>,
+  note: <DripIcon size={16} name='drip-icon-note' color={styles.iconShades.note[0]}/>
+}
+
 
 export function makeYAxisLabels(columnHeight) {
   const units = unitObservable.value
@@ -73,3 +95,41 @@ function getAbsoluteValue(relative, columnHeight) {
   const scaleHeight = columnHeight - 2 * verticalPadding
   return scaleHeight * relative + verticalPadding
 }
+
+const YAxis = ({ height, symptomsToDisplay, symptomsSectionHeight }) => {
+  return (
+    <View>
+      <View style={[styles.yAxis, {height: symptomsSectionHeight}]}>
+        {symptomsToDisplay.map(symptomName => {
+          return <View
+            style={{ alignItems: 'center', justifyContent: 'center' }}
+            key={symptomName}
+            width={styles.yAxis.width}
+            height={symptomsSectionHeight / symptomsToDisplay.length}
+          >
+            {symptomIcons[symptomName]}
+          </View>
+        })}
+      </View>
+      <View style={[styles.yAxis, { height }]}>{makeYAxisLabels(height)}</View>
+      <View style={[styles.yAxis, { alignItems: 'center', justifyContent: 'center' }]}>
+        <DripHomeIcon
+          name="circle"
+          size={styles.yAxis.width - 7}
+          color={cycleDayColor}
+        />
+        <AppText style={[styles.yAxisLabels.dateLabel]}>
+          {labels.date.toLowerCase()}
+        </AppText>
+      </View>
+    </View>
+  )
+}
+
+YAxis.propTypes = {
+  height: PropTypes.number,
+  symptomsToDisplay: PropTypes.array,
+  symptomsSectionHeight: PropTypes.number,
+}
+
+export default YAxis
