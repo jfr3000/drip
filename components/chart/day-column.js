@@ -18,7 +18,10 @@ import styles from './styles'
 import config from '../../config'
 import cycleModule from '../../lib/cycle'
 import { getCycleDay } from '../../db'
+
 import DotAndLine from './dot-and-line'
+import SymptomCell from './symptom-cell'
+
 import { normalizeToScale } from '../helpers/chart'
 
 const label = styles.column.label
@@ -139,42 +142,6 @@ class DayColumn extends Component {
     return false
   }
 
-  drawSymptom = (symptom) => {
-
-    const { symptomHeight } = this.props
-    const shouldDrawSymptom = this.data.hasOwnProperty(symptom)
-    const styleParent = [styles.symptomRow, {height: symptomHeight}]
-
-    if (shouldDrawSymptom) {
-      const styleSymptom = styles.iconColors[symptom]
-      const symptomData = this.data[symptom]
-      const symptomColor = styleSymptom.shades[symptomData]
-
-      const dataIsComplete = this.isSymptomDataComplete(symptom)
-      const isMucusOrCervix = (symptom === 'mucus') || (symptom === 'cervix')
-
-      const backgroundColor = (isMucusOrCervix && !dataIsComplete) ?
-        'white' : symptomColor
-      const borderWidth = (isMucusOrCervix && !dataIsComplete) ? 2 : 0
-      const borderColor = symptomColor
-      const styleChild = [styles.symptomDot, {
-        backgroundColor,
-        borderColor,
-        borderWidth
-      }]
-
-      return (
-        <View style={styleParent} key={symptom}>
-          <View style={styleChild} />
-        </View>
-      )
-    } else {
-      return (
-        <View style={styleParent} key={symptom} />
-      )
-    }
-  }
-
   render() {
     const columnElements = []
     const { dateString,
@@ -264,9 +231,21 @@ class DayColumn extends Component {
         onPress={() => this.onDaySelect(dateString)}
         activeOpacity={1}
       >
-        <View>
-          {symptomRowSymptoms.map(symptom => this.drawSymptom(symptom))}
-        </View>
+
+        { symptomRowSymptoms.map(symptom => {
+          const hasSymptomData = this.data.hasOwnProperty(symptom)
+          return (
+            <SymptomCell
+              key={symptom}
+              symptom={symptom}
+              symptomValue={hasSymptomData && this.data[symptom]}
+              isSymptomDataComplete={
+                hasSymptomData && this.isSymptomDataComplete(symptom)
+              }
+              height={this.props.symptomHeight}
+            />)
+        }
+        )}
 
         <Surface width={config.columnWidth} height={columnHeight}>
           {column}
