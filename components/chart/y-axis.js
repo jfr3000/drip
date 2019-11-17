@@ -5,39 +5,47 @@ import { View } from 'react-native'
 import config from '../../config'
 import { scaleObservable, unitObservable } from '../../local-storage'
 
-import AppText from '../app-text'
 import SymptomIcon from './symptom-icon'
+import TickList from './tick-list'
 import ChartLegend from './chart-legend'
 
 import styles from './styles'
 
-export function makeYAxisLabels(columnHeight) {
+export function getTickList(columnHeight) {
+
   const units = unitObservable.value
   const scaleMax = scaleObservable.value.max
-  const style = styles.yAxisLabels.tempScale
 
-  return getTickPositions(columnHeight).map((y, i) => {
+  return getTickPositions(columnHeight).map((tickPosition, i) => {
+
     const tick = scaleMax - i * units
-    const tickLabel = tick * 10 % 10 ? tick.toString() : tick.toString() + '.0'
-    let showTick
-    let tickBold
-    if (units === 0.1) {
-      showTick =  (tick * 10 % 2) ? false : true
-      tickBold = tick * 10 % 5 ? {} : {fontWeight: 'bold', fontSize: 11}
+    let isBold, label, shouldShowLabel
+
+    if (Number.isInteger(tick)) {
+      isBold = true
+      label = tick.toString() + '.0'
     } else {
-      showTick =  (tick * 10 % 5) ? false : true
-      tickBold = tick * 10 % 10 ? {} : {fontWeight: 'bold', fontSize: 11}
+      isBold = false
+      label = tick.toString()
     }
-    // this eyeballing is sadly necessary because RN does not
-    // support percentage values for transforms, which we'd need
-    // to reliably place the label vertically centered to the grid
-    return (
-      <AppText
-        style={[style, {top: y - 8}, tickBold]}
-        key={i}>
-        {showTick && tickLabel}
-      </AppText>
-    )
+
+    // when temp range <= 3, units === 0.1 we show temp values with step 0.2
+    // when temp range > 3, units === 0.5 we show temp values with step 0.5
+
+    if (units === 0.1) {
+      // show label with step 0.2
+      shouldShowLabel = !(tick * 10 % 2)
+    } else {
+      // show label with step 0.5
+      shouldShowLabel = !(tick * 10 % 5)
+    }
+
+    return {
+      position: tickPosition,
+      label,
+      isBold,
+      shouldShowLabel,
+    }
   })
 }
 
@@ -95,7 +103,7 @@ const YAxis = ({ height, symptomsToDisplay, symptomsSectionHeight }) => {
           )
         })}
       </View>
-      <View style={[styles.yAxis, { height }]}>{makeYAxisLabels(height)}</View>
+      <TickList height={height} />
       <ChartLegend />
     </View>
   )

@@ -135,6 +135,10 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
   },
+  boldTick: {
+    fontWeight: 'bold',
+    fontSize: 11,
+  },
   horizontalGrid: {
     position:'absolute',
     borderStyle: 'solid',
