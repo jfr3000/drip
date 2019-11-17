@@ -131,6 +131,10 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
   },
+  chartLegend: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   horizontalGrid: {
     position:'absolute',
     borderStyle: 'solid',

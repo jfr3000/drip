@@ -6,13 +6,10 @@ import config from '../../config'
 import { scaleObservable, unitObservable } from '../../local-storage'
 
 import AppText from '../app-text'
-import DripHomeIcon from '../../assets/drip-home-icons'
 import SymptomIcon from './symptom-icon'
+import ChartLegend from './chart-legend'
 
 import styles from './styles'
-import { cycleDayColor } from '../../styles'
-
-import { shared as labels } from '../../i18n/en/labels'
 
 export function makeYAxisLabels(columnHeight) {
   const units = unitObservable.value
@@ -99,16 +96,7 @@ const YAxis = ({ height, symptomsToDisplay, symptomsSectionHeight }) => {
         })}
       </View>
       <View style={[styles.yAxis, { height }]}>{makeYAxisLabels(height)}</View>
-      <View style={[styles.yAxis, { alignItems: 'center', justifyContent: 'center' }]}>
-        <DripHomeIcon
-          name="circle"
-          size={styles.yAxis.width - 7}
-          color={cycleDayColor}
-        />
-        <AppText style={[styles.yAxisLabels.dateLabel]}>
-          {labels.date.toLowerCase()}
-        </AppText>
-      </View>
+      <ChartLegend />
     </View>
   )
 }
