@@ -19,7 +19,7 @@ import config from '../../config'
 import cycleModule from '../../lib/cycle'
 import { getCycleDay } from '../../db'
 import DotAndLine from './dot-and-line'
-import { normalizeToScale } from './y-axis'
+import { normalizeToScale } from '../helpers/chart'
 
 const label = styles.column.label
 

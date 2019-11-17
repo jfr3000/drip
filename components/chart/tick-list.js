@@ -4,7 +4,7 @@ import { View } from 'react-native'
 
 import Tick from './tick'
 
-import { getTickList } from './y-axis'
+import { getTickList } from '../helpers/chart'
 
 import styles from './styles'
 
