@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 import { View, FlatList, ActivityIndicator } from 'react-native'
 import { LocalDate } from 'js-joda'
-import YAxis, { makeHorizontalGrid } from './y-axis'
+
+import YAxis from './y-axis'
 import nfpLines from './nfp-lines'
 import DayColumn from './day-column'
+import HorizontalGrid from './horizontal-grid'
+
 import { getCycleDaysSortedByDate, getAmountOfCycleDays } from '../../db'
 import styles from './styles'
 import { scaleObservable } from '../../local-storage'
@@ -131,8 +134,11 @@ export default class CycleChart extends Component {
           />
         )}
 
-        {chartHeight && chartLoaded &&
-          makeHorizontalGrid(this.columnHeight, this.symptomRowHeight)
+        {chartHeight && chartLoaded && (
+          <HorizontalGrid
+            height={this.columnHeight}
+            startPosition={this.symptomRowHeight}
+          />)
         }
 
         {chartHeight &&
