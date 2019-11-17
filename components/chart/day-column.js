@@ -146,16 +146,17 @@ class DayColumn extends Component {
     const styleParent = [styles.symptomRow, {height: symptomHeight}]
 
     if (shouldDrawSymptom) {
-      const styleSymptom = styles.iconShades[symptom]
+      const styleSymptom = styles.iconColors[symptom]
       const symptomData = this.data[symptom]
+      const symptomColor = styleSymptom.shades[symptomData]
 
       const dataIsComplete = this.isSymptomDataComplete(symptom)
       const isMucusOrCervix = (symptom === 'mucus') || (symptom === 'cervix')
 
       const backgroundColor = (isMucusOrCervix && !dataIsComplete) ?
-        'white' : styleSymptom[symptomData]
+        'white' : symptomColor
       const borderWidth = (isMucusOrCervix && !dataIsComplete) ? 2 : 0
-      const borderColor = styleSymptom[0]
+      const borderColor = symptomColor
       const styleChild = [styles.symptomIcon, {
         backgroundColor,
         borderColor,
