@@ -157,7 +157,7 @@ class DayColumn extends Component {
         'white' : symptomColor
       const borderWidth = (isMucusOrCervix && !dataIsComplete) ? 2 : 0
       const borderColor = symptomColor
-      const styleChild = [styles.symptomIcon, {
+      const styleChild = [styles.symptomDot, {
         backgroundColor,
         borderColor,
         borderWidth

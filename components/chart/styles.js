@@ -61,7 +61,7 @@ const styles = {
       width: gridLineWidthVertical,
     }
   },
-  symptomIcon: {
+  symptomDot: {
     width: 12,
     height: 12,
     borderRadius: 50,
@@ -126,6 +126,10 @@ const styles = {
       fontSize: 9,
       fontWeight: '100',
     }
+  },
+  symptomIcon: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   horizontalGrid: {
     position:'absolute',

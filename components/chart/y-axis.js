@@ -6,8 +6,8 @@ import config from '../../config'
 import { scaleObservable, unitObservable } from '../../local-storage'
 
 import AppText from '../app-text'
-import DripIcon from '../../assets/drip-icons'
 import DripHomeIcon from '../../assets/drip-home-icons'
+import SymptomIcon from './symptom-icon'
 
 import styles from './styles'
 import { cycleDayColor } from '../../styles'
@@ -84,18 +84,18 @@ function getAbsoluteValue(relative, columnHeight) {
 }
 
 const YAxis = ({ height, symptomsToDisplay, symptomsSectionHeight }) => {
+  const symptomIconHeight = symptomsSectionHeight / symptomsToDisplay.length
   return (
     <View>
       <View style={[styles.yAxis, {height: symptomsSectionHeight}]}>
         {symptomsToDisplay.map(symptom => {
-          return <View
-            style={{ alignItems: 'center', justifyContent: 'center' }}
-            key={symptom}
-            width={styles.yAxis.width}
-            height={symptomsSectionHeight / symptomsToDisplay.length}
-          >
-            <DripIcon size={16} name={`drip-icon-${symptom}`} color={styles.iconColors[symptom].color}/>
-          </View>
+          return (
+            <SymptomIcon
+              key={symptom}
+              symptom={symptom}
+              height={symptomIconHeight}
+            />
+          )
         })}
       </View>
       <View style={[styles.yAxis, { height }]}>{makeYAxisLabels(height)}</View>
