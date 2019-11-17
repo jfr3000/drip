@@ -13,15 +13,14 @@ const YAxis = ({ height, symptomsToDisplay, symptomsSectionHeight }) => {
   return (
     <View>
       <View style={[styles.yAxis, {height: symptomsSectionHeight}]}>
-        {symptomsToDisplay.map(symptom => {
-          return (
-            <SymptomIcon
-              key={symptom}
-              symptom={symptom}
-              height={symptomIconHeight}
-            />
-          )
-        })}
+        {symptomsToDisplay.map(symptom => (
+          <SymptomIcon
+            key={symptom}
+            symptom={symptom}
+            height={symptomIconHeight}
+          />
+        )
+        )}
       </View>
       <TickList height={height} />
       <ChartLegend />
