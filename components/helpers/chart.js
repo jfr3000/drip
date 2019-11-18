@@ -1,9 +1,11 @@
 import { LocalDate } from 'js-joda'
 
 import { scaleObservable, unitObservable } from '../../local-storage'
-import { getCycleDay } from '../../db'
+import { getCycleDay, getAmountOfCycleDays } from '../../db'
 
 import config from '../../config'
+
+//YAxis helpers
 
 export function normalizeToScale(temp, columnHeight) {
   const scale = scaleObservable.value
@@ -69,6 +71,8 @@ export function getTickList(columnHeight) {
     }
   })
 }
+
+//DayColumn helpers
 
 export function isSymptomDataComplete(symptom, dateString) {
   const cycleDayData = getCycleDay(dateString)
@@ -161,4 +165,36 @@ export const symptomColorMethods = {
     const colorIndex = 0
     return colorIndex
   }
+}
+
+// Chart helpers
+
+export function makeColumnInfo() {
+  let amountOfCycleDays = getAmountOfCycleDays()
+  // if there's not much data yet, we want to show at least 30 days on the chart
+  if (amountOfCycleDays < 30) {
+    amountOfCycleDays = 30
+  } else {
+    // we don't want the chart to end abruptly before the first data day
+    amountOfCycleDays += 5
+  }
+  const localDates = getTodayAndPreviousDays(amountOfCycleDays)
+  return localDates.map(localDate => localDate.toString())
+}
+
+function getTodayAndPreviousDays(n) {
+  const today = LocalDate.now()
+  const targetDate = today.minusDays(n)
+
+  function getDaysInRange(currDate, range) {
+    if (currDate.isBefore(targetDate)) {
+      return range
+    } else {
+      range.push(currDate)
+      const next = currDate.minusDays(1)
+      return getDaysInRange(next, range)
+    }
+  }
+
+  return getDaysInRange(today, [])
 }

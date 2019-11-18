@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { View, FlatList, ActivityIndicator } from 'react-native'
-import { LocalDate } from 'js-joda'
 
 import AppLoadingView from '../app-loading'
 import YAxis from './y-axis'
@@ -8,9 +7,10 @@ import nfpLines from './nfp-lines'
 import DayColumn from './day-column'
 import HorizontalGrid from './horizontal-grid'
 
-import { getCycleDaysSortedByDate, getAmountOfCycleDays } from '../../db'
+import { getCycleDaysSortedByDate } from '../../db'
 import nothingChanged from '../../db/db-unchanged'
 import { scaleObservable } from '../../local-storage'
+import { makeColumnInfo } from '../helpers/chart'
 
 import config from '../../config'
 
@@ -71,7 +71,7 @@ export default class CycleChart extends Component {
         this.chartSymptoms.push('temperature')
       }
 
-      const columnData = this.makeColumnInfo()
+      const columnData = makeColumnInfo()
       this.setState({
         columns: columnData,
         chartHeight: height
@@ -101,19 +101,6 @@ export default class CycleChart extends Component {
   componentWillUnmount() {
     this.cycleDaysSortedByDate.removeListener(this.handleDbChange)
     this.removeObvListener()
-  }
-
-  makeColumnInfo() {
-    let amountOfCycleDays = getAmountOfCycleDays()
-    // if there's not much data yet, we want to show at least 30 days on the chart
-    if (amountOfCycleDays < 30) {
-      amountOfCycleDays = 30
-    } else {
-      // we don't want the chart to end abruptly before the first data day
-      amountOfCycleDays += 5
-    }
-    const localDates = getTodayAndPreviousDays(amountOfCycleDays)
-    return localDates.map(localDate => localDate.toString())
   }
 
   render() {
@@ -168,21 +155,4 @@ function LoadingMoreView(props) {
       }
     </View>
   )
-}
-
-function getTodayAndPreviousDays(n) {
-  const today = LocalDate.now()
-  const targetDate = today.minusDays(n)
-
-  function getDaysInRange(currDate, range) {
-    if (currDate.isBefore(targetDate)) {
-      return range
-    } else {
-      range.push(currDate)
-      const next = currDate.minusDays(1)
-      return getDaysInRange(next, range)
-    }
-  }
-
-  return getDaysInRange(today, [])
 }
