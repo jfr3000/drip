@@ -25,6 +25,10 @@ const orangeColor = '#bc6642'
 const mintColor = '#6ca299'
 
 const styles = {
+  container: {
+    flexDirection: 'row',
+    flex: 1,
+  },
   curve: {
     stroke: colorTemperature,
     strokeWidth: lineWidth,

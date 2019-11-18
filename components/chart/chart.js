@@ -2,19 +2,19 @@ import React, { Component } from 'react'
 import { View, FlatList, ActivityIndicator } from 'react-native'
 import { LocalDate } from 'js-joda'
 
+import AppLoadingView from '../app-loading'
 import YAxis from './y-axis'
 import nfpLines from './nfp-lines'
 import DayColumn from './day-column'
 import HorizontalGrid from './horizontal-grid'
 
 import { getCycleDaysSortedByDate, getAmountOfCycleDays } from '../../db'
-import styles from './styles'
+import nothingChanged from '../../db/db-unchanged'
 import { scaleObservable } from '../../local-storage'
+
 import config from '../../config'
 
-import AppLoadingView from '../app-loading'
-
-import nothingChanged from '../../db/db-unchanged'
+import styles from './styles'
 
 export default class CycleChart extends Component {
   constructor(props) {
@@ -121,24 +121,23 @@ export default class CycleChart extends Component {
     return (
       <View
         onLayout={this.onLayout}
-        style={{ flexDirection: 'row', flex: 1 }}
+        style={styles.container}
       >
         {!chartLoaded && <AppLoadingView />}
 
         {chartHeight && chartLoaded && (
-          <YAxis
-            height={this.columnHeight}
-            symptomsToDisplay={this.symptomRowSymptoms}
-            symptomsSectionHeight={this.symptomRowHeight}
-          />
+          <React.Fragment>
+            <YAxis
+              height={this.columnHeight}
+              symptomsToDisplay={this.symptomRowSymptoms}
+              symptomsSectionHeight={this.symptomRowHeight}
+            />
+            <HorizontalGrid
+              height={this.columnHeight}
+              startPosition={this.symptomRowHeight}
+            />
+          </React.Fragment>
         )}
-
-        {chartHeight && chartLoaded && (
-          <HorizontalGrid
-            height={this.columnHeight}
-            startPosition={this.symptomRowHeight}
-          />)
-        }
 
         {chartHeight &&
           <FlatList
