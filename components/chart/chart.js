@@ -32,7 +32,6 @@ export default class CycleChart extends Component {
         navigate={this.props.navigate}
         symptomHeight={this.symptomHeight}
         columnHeight={this.columnHeight}
-        chartHeight={this.state.chartHeight}
         symptomRowSymptoms={this.symptomRowSymptoms}
         chartSymptoms={this.chartSymptoms}
         getFhmAndLtlInfo={this.getFhmAndLtlInfo}

@@ -2,10 +2,7 @@ import React, { Component } from 'react'
 import {
   Text, View, TouchableOpacity
 } from 'react-native'
-import {
-  Surface,
-  Path
-} from 'react-native/Libraries/ART/ReactNativeART'
+import { Surface } from 'react-native/Libraries/ART/ReactNativeART'
 import { connect } from 'react-redux'
 
 import { setDate } from '../../slices/date'
@@ -17,9 +14,8 @@ import config from '../../config'
 import cycleModule from '../../lib/cycle'
 import { getCycleDay } from '../../db'
 
-import DotAndLine from './dot-and-line'
 import SymptomCell from './symptom-cell'
-import ChartLine from './chart-line'
+import TemperatureColumn from './temperature-column'
 
 import { normalizeToScale } from '../helpers/chart'
 
@@ -142,56 +138,10 @@ class DayColumn extends Component {
   }
 
   render() {
-    const columnElements = []
     const { dateString,
       symptomRowSymptoms,
-      chartHeight,
       columnHeight,
       xAxisHeight } = this.props
-
-    if(this.fhmAndLtl.drawLtlAt) {
-      const ltlLine = (<ChartLine
-        path={new Path()
-          .moveTo(0, this.fhmAndLtl.drawLtlAt)
-          .lineTo(config.columnWidth, this.fhmAndLtl.drawLtlAt)
-        }
-        isNfpLine={true}
-        key='ltl'
-      />)
-      columnElements.push(ltlLine)
-    }
-
-    if (this.fhmAndLtl.drawFhmLine) {
-      const x = styles.nfpLine.strokeWidth / 2
-      const fhmLine = (<ChartLine
-        path={new Path().moveTo(x, x).lineTo(x, columnHeight)}
-        isNfpLine={true}
-        key='fhm'
-      />)
-      columnElements.push(fhmLine)
-    }
-
-    if (this.data && this.data.temperature && this.data.temperature.y) {
-      const { temperatureExclude,
-        y,
-        rightY,
-        leftY,
-        rightTemperatureExclude,
-        leftTemperatureExclude
-      } = this.data.temperature
-
-      columnElements.push(
-        <DotAndLine
-          y={y}
-          exclude={temperatureExclude}
-          rightY={rightY}
-          rightTemperatureExclude={rightTemperatureExclude}
-          leftY={leftY}
-          leftTemperatureExclude={leftTemperatureExclude}
-          key='dotandline'
-        />
-      )
-    }
 
     const cycleDayNumber = cycleModule().getCycleDayNumber(dateString)
     const dayDate = LocalDate.parse(dateString)
@@ -233,10 +183,12 @@ class DayColumn extends Component {
         )}
 
         <Surface width={config.columnWidth} height={columnHeight}>
-          <ChartLine
-            path={new Path().lineTo(0, chartHeight)}
+          <TemperatureColumn
+            horizontalLinePosition={this.fhmAndLtl.drawLtlAt}
+            isVerticalLine={this.fhmAndLtl.drawFhmLine}
+            data={this.data && this.data.temperature}
+            columnHeight={columnHeight}
           />
-          { columnElements }
         </Surface>
 
         <View style={{height: xAxisHeight}}>
