@@ -1,5 +1,5 @@
 import { getCycleStatusForDay } from '../../lib/sympto-adapter'
-import { normalizeToScale } from './y-axis'
+import { normalizeToScale } from '../helpers/chart'
 
 export default function () {
   const cycle = {

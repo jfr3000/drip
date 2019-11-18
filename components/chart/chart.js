@@ -1,31 +1,20 @@
 import React, { Component } from 'react'
 import { View, FlatList, ActivityIndicator } from 'react-native'
 import { LocalDate } from 'js-joda'
-import { makeYAxisLabels, makeHorizontalGrid } from './y-axis'
+
+import YAxis from './y-axis'
 import nfpLines from './nfp-lines'
 import DayColumn from './day-column'
+import HorizontalGrid from './horizontal-grid'
+
 import { getCycleDaysSortedByDate, getAmountOfCycleDays } from '../../db'
 import styles from './styles'
-import { cycleDayColor } from '../../styles'
 import { scaleObservable } from '../../local-storage'
 import config from '../../config'
-import AppText from '../app-text'
-import AppLoadingView from '../app-loading'
-import { shared as labels } from '../../i18n/en/labels'
-import DripIcon from '../../assets/drip-icons'
-import DripHomeIcon from '../../assets/drip-home-icons'
-import nothingChanged from '../../db/db-unchanged'
 
-const symptomIcons = {
-  bleeding: <DripIcon size={16} name='drip-icon-bleeding' color={styles.iconShades.bleeding[3]}/>,
-  mucus: <DripIcon size={16} name='drip-icon-mucus' color={styles.iconShades.mucus[4]}/>,
-  cervix: <DripIcon size={16} name='drip-icon-cervix' color={styles.iconShades.cervix[3]}/>,
-  desire: <DripIcon size={16} name='drip-icon-desire' color={styles.iconShades.desire[2]}/>,
-  sex: <DripIcon size={16} name='drip-icon-sex' color={styles.iconShades.sex[2]}/>,
-  pain: <DripIcon size={16} name='drip-icon-pain' color={styles.iconShades.pain[0]}/>,
-  mood: <DripIcon size={16} name='drip-icon-mood' color={styles.iconShades.mood[0]}/>,
-  note: <DripIcon size={16} name='drip-icon-note' color={styles.iconShades.note[0]}/>
-}
+import AppLoadingView from '../app-loading'
+
+import nothingChanged from '../../db/db-unchanged'
 
 export default class CycleChart extends Component {
   constructor(props) {
@@ -129,49 +118,30 @@ export default class CycleChart extends Component {
   }
 
   render() {
+    const { chartHeight, chartLoaded } = this.state
     return (
       <View
         onLayout={this.onLayout}
         style={{ flexDirection: 'row', flex: 1 }}
       >
-        {!this.state.chartLoaded && <AppLoadingView />}
+        {!chartLoaded && <AppLoadingView />}
 
-        {this.state.chartHeight && this.state.chartLoaded &&
-          <View>
-            <View style={[styles.yAxis, {height: this.symptomRowHeight}]}>
-              {this.symptomRowSymptoms.map(symptomName => {
-                return <View
-                  style={{ alignItems: 'center', justifyContent: 'center' }}
-                  key={symptomName}
-                  width={styles.yAxis.width}
-                  height={this.symptomRowHeight /
-                    this.symptomRowSymptoms.length}
-                >
-                  {symptomIcons[symptomName]}
-                </View>
-              })}
-            </View>
-            <View style={[styles.yAxis, {height: this.columnHeight}]}>
-              {makeYAxisLabels(this.columnHeight)}
-            </View>
-            <View style={[styles.yAxis, { alignItems: 'center', justifyContent: 'center' }]}>
-              <DripHomeIcon
-                name="circle"
-                size={styles.yAxis.width - 7}
-                color={cycleDayColor}
-              />
-              <AppText style={[styles.yAxisLabels.dateLabel]}>
-                {labels.date.toLowerCase()}
-              </AppText>
-            </View>
-          </View>}
+        {chartHeight && chartLoaded && (
+          <YAxis
+            height={this.columnHeight}
+            symptomsToDisplay={this.symptomRowSymptoms}
+            symptomsSectionHeight={this.symptomRowHeight}
+          />
+        )}
 
-
-        {this.state.chartHeight && this.state.chartLoaded &&
-          makeHorizontalGrid(this.columnHeight, this.symptomRowHeight)
+        {chartHeight && chartLoaded && (
+          <HorizontalGrid
+            height={this.columnHeight}
+            startPosition={this.symptomRowHeight}
+          />)
         }
 
-        {this.state.chartHeight &&
+        {chartHeight &&
           <FlatList
             horizontal={true}
             inverted={true}
