@@ -1,4 +1,8 @@
+import { LocalDate } from 'js-joda'
+
 import { scaleObservable, unitObservable } from '../../local-storage'
+import { getCycleDay } from '../../db'
+
 import config from '../../config'
 
 export function normalizeToScale(temp, columnHeight) {
@@ -64,4 +68,97 @@ export function getTickList(columnHeight) {
       shouldShowLabel,
     }
   })
+}
+
+export function isSymptomDataComplete(symptom, dateString) {
+  const cycleDayData = getCycleDay(dateString)
+  const symptomData = cycleDayData[symptom]
+
+  const dataCompletenessCheck = {
+    'cervix': () => {
+      const { opening, firmness } = symptomData
+      return (opening !== null) && (firmness !== null)
+    },
+    'mucus': () => {
+      const { feeling, texture } = symptomData
+      return (feeling !== null) && (texture !== null)
+    },
+    'default': () => {
+      return true
+    }
+  }
+  return (dataCompletenessCheck[symptom] || dataCompletenessCheck['default'])()
+}
+
+function getInfoForNeighborColumns(dateString, columnHeight) {
+  const ret = {
+    rightY: null,
+    rightTemperatureExclude: null,
+    leftY: null,
+    leftTemperatureExclude: null
+  }
+  const target = LocalDate.parse(dateString)
+  const dayBefore = target.minusDays(1).toString()
+  const dayAfter = target.plusDays(1).toString()
+  const cycleDayBefore = getCycleDay(dayBefore)
+  const cycleDayAfter = getCycleDay(dayAfter)
+
+  if (cycleDayAfter && cycleDayAfter.temperature) {
+    ret.rightY = normalizeToScale(cycleDayAfter.temperature.value, columnHeight)
+    ret.rightTemperatureExclude = cycleDayAfter.temperature.exclude
+  }
+  if (cycleDayBefore && cycleDayBefore.temperature) {
+    ret.leftY = normalizeToScale(cycleDayBefore.temperature.value, columnHeight)
+    ret.leftTemperatureExclude = cycleDayBefore.temperature.exclude
+  }
+
+  return ret
+}
+
+export function getTemperatureProps(symptomData, columnHeight, dateString) {
+  const extractedData = {}
+  const { value, exclude } = symptomData
+  const neighborTemperatureGraphPoints =
+    getInfoForNeighborColumns(dateString, columnHeight)
+
+  for (const key in neighborTemperatureGraphPoints) {
+    extractedData[key] = neighborTemperatureGraphPoints[key]
+  }
+  return Object.assign({
+    value,
+    y: normalizeToScale(value, columnHeight),
+    temperatureExclude: exclude,
+  }, extractedData)
+}
+
+export const symptomColorMethods = {
+  'mucus': (symptomData) => {
+    const { feeling, texture } = symptomData
+    const colorIndex = feeling + texture
+    return colorIndex
+  },
+  'cervix': (symptomData) => {
+    const { opening, firmness } = symptomData
+    const isDataComplete = opening !== null && firmness !== null
+    const isClosedAndHard =
+      isDataComplete &&
+      (opening === 0 && firmness === 0)
+    const colorIndex = isClosedAndHard ? 0 : 2
+    return colorIndex
+  },
+  'sex': (symptomData) => {
+    const { solo, partner } = symptomData
+    const colorIndex = (solo !== null && partner !== null) ?
+      (solo + 2 * partner - 1) : 0
+    return colorIndex
+  },
+  'bleeding': (symptomData) => {
+    const { value } = symptomData
+    const colorIndex = value
+    return colorIndex
+  },
+  'default': () => { // desire, pain, mood, note
+    const colorIndex = 0
+    return colorIndex
+  }
 }
