@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Group, Path } from 'react-native/Libraries/ART/ReactNativeART'
+import { Surface , Path } from 'react-native/Libraries/ART/ReactNativeART'
 
 import ChartLine from './chart-line'
 import DotAndLine from './dot-and-line'
@@ -19,7 +19,7 @@ const TemperatureColumn = ({
   const x = styles.nfpLine.strokeWidth / 2
 
   return (
-    <Group>
+    <Surface width={config.columnWidth} height={columnHeight}>
 
       <ChartLine
         path={new Path().lineTo(0, columnHeight)}
@@ -49,7 +49,8 @@ const TemperatureColumn = ({
         leftTemperatureExclude={data.leftTemperatureExclude}
         key='dotandline'
       />}
-    </Group>
+
+    </Surface>
   )
 }
 

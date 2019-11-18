@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import { TouchableOpacity } from 'react-native'
-import { Surface } from 'react-native/Libraries/ART/ReactNativeART'
 import { connect } from 'react-redux'
 
 import { setDate } from '../../slices/date'
 
 import { LocalDate } from 'js-joda'
-import config from '../../config'
 import { getCycleDay } from '../../db'
 
 import SymptomCell from './symptom-cell'
@@ -158,14 +156,12 @@ class DayColumn extends Component {
         }
         )}
 
-        <Surface width={config.columnWidth} height={columnHeight}>
-          <TemperatureColumn
-            horizontalLinePosition={this.fhmAndLtl.drawLtlAt}
-            isVerticalLine={this.fhmAndLtl.drawFhmLine}
-            data={this.data && this.data.temperature}
-            columnHeight={columnHeight}
-          />
-        </Surface>
+        <TemperatureColumn
+          horizontalLinePosition={this.fhmAndLtl.drawLtlAt}
+          isVerticalLine={this.fhmAndLtl.drawFhmLine}
+          data={this.data && this.data.temperature}
+          columnHeight={columnHeight}
+        />
 
         <CycleDayLabel
           height={xAxisHeight}
