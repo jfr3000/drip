@@ -4,9 +4,7 @@ import {
 } from 'react-native'
 import {
   Surface,
-  Group as G,
-  Path,
-  Shape
+  Path
 } from 'react-native/Libraries/ART/ReactNativeART'
 import { connect } from 'react-redux'
 
@@ -21,6 +19,7 @@ import { getCycleDay } from '../../db'
 
 import DotAndLine from './dot-and-line'
 import SymptomCell from './symptom-cell'
+import ChartLine from './chart-line'
 
 import { normalizeToScale } from '../helpers/chart'
 
@@ -151,13 +150,12 @@ class DayColumn extends Component {
       xAxisHeight } = this.props
 
     if(this.fhmAndLtl.drawLtlAt) {
-      const ltlLine = (<Shape
-        stroke={styles.nfpLine.stroke}
-        strokeWidth={styles.nfpLine.strokeWidth}
-        d={new Path()
+      const ltlLine = (<ChartLine
+        path={new Path()
           .moveTo(0, this.fhmAndLtl.drawLtlAt)
           .lineTo(config.columnWidth, this.fhmAndLtl.drawLtlAt)
         }
+        isNfpLine={true}
         key='ltl'
       />)
       columnElements.push(ltlLine)
@@ -165,11 +163,9 @@ class DayColumn extends Component {
 
     if (this.fhmAndLtl.drawFhmLine) {
       const x = styles.nfpLine.strokeWidth / 2
-      const fhmLine = (<Shape
-        fill="red"
-        stroke={styles.nfpLine.stroke}
-        strokeWidth={styles.nfpLine.strokeWidth}
-        d={new Path().moveTo(x, x).lineTo(x, columnHeight)}
+      const fhmLine = (<ChartLine
+        path={new Path().moveTo(x, x).lineTo(x, columnHeight)}
+        isNfpLine={true}
         key='fhm'
       />)
       columnElements.push(fhmLine)
@@ -215,17 +211,6 @@ class DayColumn extends Component {
       </Text>
     )
 
-    const column = (
-      <G>
-        <Shape
-          stroke={styles.column.stroke.color}
-          strokeWidth={styles.column.stroke.width}
-          d={new Path().lineTo(0, chartHeight)}
-        />
-        { columnElements }
-      </G>
-    )
-
     return (
       <TouchableOpacity
         onPress={() => this.onDaySelect(dateString)}
@@ -248,7 +233,10 @@ class DayColumn extends Component {
         )}
 
         <Surface width={config.columnWidth} height={columnHeight}>
-          {column}
+          <ChartLine
+            path={new Path().lineTo(0, chartHeight)}
+          />
+          { columnElements }
         </Surface>
 
         <View style={{height: xAxisHeight}}>
