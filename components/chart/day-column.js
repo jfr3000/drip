@@ -1,25 +1,19 @@
 import React, { Component } from 'react'
-import {
-  Text, View, TouchableOpacity
-} from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { Surface } from 'react-native/Libraries/ART/ReactNativeART'
 import { connect } from 'react-redux'
 
 import { setDate } from '../../slices/date'
 
 import { LocalDate } from 'js-joda'
-import moment from 'moment'
-import styles from './styles'
 import config from '../../config'
-import cycleModule from '../../lib/cycle'
 import { getCycleDay } from '../../db'
 
 import SymptomCell from './symptom-cell'
 import TemperatureColumn from './temperature-column'
+import CycleDayLabel from './cycle-day-label'
 
 import { normalizeToScale } from '../helpers/chart'
-
-const label = styles.column.label
 
 class DayColumn extends Component {
   constructor(props) {
@@ -143,24 +137,6 @@ class DayColumn extends Component {
       columnHeight,
       xAxisHeight } = this.props
 
-    const cycleDayNumber = cycleModule().getCycleDayNumber(dateString)
-    const dayDate = LocalDate.parse(dateString)
-    const shortDate = dayDate.dayOfMonth() === 1 ?
-      moment(dateString, "YYYY-MM-DD").format('MMM')
-      :
-      moment(dateString, "YYYY-MM-DD").format('Do')
-    const boldDateLabel = dayDate.dayOfMonth() === 1 ? {fontWeight: 'bold'} : {}
-
-    const cycleDayLabel = (
-      <Text style = {label.number}>
-        {cycleDayNumber ? cycleDayNumber : ' '}
-      </Text>)
-    const dateLabel = (
-      <Text style = {[label.date, boldDateLabel]}>
-        {shortDate}
-      </Text>
-    )
-
     return (
       <TouchableOpacity
         onPress={() => this.onDaySelect(dateString)}
@@ -191,10 +167,11 @@ class DayColumn extends Component {
           />
         </Surface>
 
-        <View style={{height: xAxisHeight}}>
-          {cycleDayLabel}
-          {dateLabel}
-        </View>
+        <CycleDayLabel
+          height={xAxisHeight}
+          date={dateString}
+        />
+
       </TouchableOpacity>
     )
   }
@@ -210,7 +187,6 @@ export default connect(
   null,
   mapDispatchToProps,
 )(DayColumn)
-
 
 function getInfoForNeighborColumns(dateString, columnHeight) {
   const ret = {
