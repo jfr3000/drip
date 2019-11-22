@@ -6,11 +6,11 @@ import { LocalDate } from 'js-joda'
 import { connect } from 'react-redux'
 
 import { getDate, setDate } from '../slices/date'
-import { getNavigation, navigate } from '../slices/navigation'
+import { getNavigation, navigate, goBack } from '../slices/navigation'
 
 import Header from './header'
 import Menu from './menu'
-import { viewsList, isSymptomView, isSettingsView, pages } from './pages'
+import { viewsList, isSymptomView, isSettingsView } from './pages'
 
 import { headerTitles } from '../i18n/en/labels'
 import setupNotifications from '../lib/notifications'
@@ -53,9 +53,7 @@ class App extends Component {
       return false
     }
 
-    const page = pages.find(item => item.component ===  currentPage)
-    this.props.navigate(page.parent)
-
+    this.props.goBack()
     return true
   }
 
@@ -102,6 +100,7 @@ const mapDispatchToProps = (dispatch) => {
   return({
     setDate: (date) => dispatch(setDate(date)),
     navigate: (page) => dispatch(navigate(page)),
+    goBack: () => dispatch(goBack()),
   })
 }
 

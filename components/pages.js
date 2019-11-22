@@ -28,7 +28,8 @@ export const isSettingsView =
   (page) => Object.keys(settingsViews).includes(page)
 
 const symptomsPages = Object.keys(symptomViews).map(symptomView => ({
-  component: symptomView, parent: 'CycleDay',
+  component: symptomView,
+  parent: 'CycleDay',
 }))
 
 export const pages = [
