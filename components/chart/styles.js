@@ -12,8 +12,8 @@ const gridLineWidthHorizontal = 0.3
 const numberLabelFontSize = 13
 
 const redColor = '#c3000d'
-const violetColor = '#7689a9'
-const shadesOfViolet = ['#e3e7ed', '#c8cfdc', '#acb8cb', '#91a0ba', violetColor] // light to dark
+const violetColor = '#6a7b98'
+const shadesOfViolet = ['#e3e7ed', '#c8cfdc', '#acb8cb', '#91a0ba', '#7689a9', violetColor] // light to dark
 const yellowColor = '#dbb40c'
 const shadesOfYellow = ['#f0e19d', '#e9d26d', '#e2c33c', yellowColor] // light to dark
 const magentaColor = '#6f2565'
