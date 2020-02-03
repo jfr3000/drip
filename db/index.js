@@ -77,7 +77,7 @@ export function saveSymptom(symptom, date, val) {
   if (!cycleDay) cycleDay = createCycleDay(date)
 
   db.write(() => {
-    if (bleedingValueDeleted(symptom, val)) {
+    if (bleedingValueDeletedOrExluded(symptom, val)) {
       cycleDay.bleeding = val
       cycleDay.isCycleStart = false
       maybeSetNewCycleStart(cycleDay, val)
@@ -90,19 +90,23 @@ export function saveSymptom(symptom, date, val) {
     }
   })
 
-  function bleedingValueDeleted(symptom, val) {
-    return symptom === 'bleeding' && !val
+  function bleedingValueDeletedOrExluded(symptom, val) {
+    if (symptom !== 'bleeding') return
+
+    const bleedingDeleted = !val
+    const bleedingExcluded = val && val.exclude
+    return bleedingDeleted || bleedingExcluded
   }
 
   function bleedingValueAddedOrChanged(symptom, val) {
     return symptom === 'bleeding' && val
   }
 
-  function maybeSetNewCycleStart(dayWithDeletedBleeding) {
-    // if a bleeding value is deleted, we need to check if
+  function maybeSetNewCycleStart(dayWithRemovedBleeding) {
+    // if a bleeding value is deleted or excluded, we need to check if
     // there are any following bleeding days and if the
     // next one of them is now a cycle start
-    const mensesDaysAfter = getMensesDaysRightAfter(dayWithDeletedBleeding)
+    const mensesDaysAfter = getMensesDaysRightAfter(dayWithRemovedBleeding)
     if (!mensesDaysAfter.length) return
     const nextOne = mensesDaysAfter[mensesDaysAfter.length - 1]
     if (isMensesStart(nextOne)) {
