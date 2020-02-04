@@ -5,9 +5,10 @@ import fs from 'react-native-fs'
 import restart from 'react-native-restart'
 import schemas from './schemas'
 import cycleModule from '../lib/cycle'
+import maybeSetNewCycleStart from '../lib/set-new-cycle-start'
 
 let db
-let isMensesStart
+let checkIsMensesStart
 let getMensesDaysRightAfter
 
 export async function openDb (hash) {
@@ -50,7 +51,7 @@ export async function openDb (hash) {
 
   db = connection
   const cycle = cycleModule()
-  isMensesStart = cycle.isMensesStart
+  checkIsMensesStart = cycle.isMensesStart
   getMensesDaysRightAfter = cycle.getMensesDaysRightAfter
   return true
 }
@@ -77,56 +78,21 @@ export function saveSymptom(symptom, date, val) {
   if (!cycleDay) cycleDay = createCycleDay(date)
 
   db.write(() => {
-    if (bleedingValueDeletedOrExluded(symptom, val)) {
-      cycleDay.bleeding = val
-      cycleDay.isCycleStart = false
-      maybeSetNewCycleStart(cycleDay, val)
-    } else if (bleedingValueAddedOrChanged(symptom, val)) {
-      cycleDay.bleeding = val
-      cycleDay.isCycleStart = isMensesStart(cycleDay)
-      maybeClearOldCycleStarts(cycleDay)
+    if (symptom === 'bleeding') {
+      const mensesDaysAfter = getMensesDaysRightAfter(cycleDay)
+      maybeSetNewCycleStart({
+        val, cycleDay, mensesDaysAfter, checkIsMensesStart
+      })
     } else {
       cycleDay[symptom] = val
     }
   })
-
-  function bleedingValueDeletedOrExluded(symptom, val) {
-    if (symptom !== 'bleeding') return
-
-    const bleedingDeleted = !val
-    const bleedingExcluded = val && val.exclude
-    return bleedingDeleted || bleedingExcluded
-  }
-
-  function bleedingValueAddedOrChanged(symptom, val) {
-    return symptom === 'bleeding' && val
-  }
-
-  function maybeSetNewCycleStart(dayWithRemovedBleeding) {
-    // if a bleeding value is deleted or excluded, we need to check if
-    // there are any following bleeding days and if the
-    // next one of them is now a cycle start
-    const mensesDaysAfter = getMensesDaysRightAfter(dayWithRemovedBleeding)
-    if (!mensesDaysAfter.length) return
-    const nextOne = mensesDaysAfter[mensesDaysAfter.length - 1]
-    if (isMensesStart(nextOne)) {
-      nextOne.isCycleStart = true
-    }
-  }
-
-  function maybeClearOldCycleStarts(cycleDay) {
-    // if we have a new bleeding day, we need to clear the
-    // menses start marker from all following days of this
-    // menses that may have been marked as start before
-    const mensesDaysAfter = getMensesDaysRightAfter(cycleDay)
-    mensesDaysAfter.forEach(day => day.isCycleStart = false)
-  }
 }
 
 export function updateCycleStartsForAllCycleDays() {
   db.write(() => {
     getBleedingDaysSortedByDate().forEach(day => {
-      if (isMensesStart(day)) {
+      if (checkIsMensesStart(day)) {
         day.isCycleStart = true
       }
     })
