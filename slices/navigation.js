@@ -1,25 +1,39 @@
 import { createSlice } from 'redux-starter-kit'
+import { pages, isSymptomView } from '../components/pages'
+import { closeDb } from '../db'
+import { BackHandler } from 'react-native'
 
 const navigationSlice = createSlice({
   slice: 'navigation',
   initialState: {
     currentPage: 'Home',
-    history: [],
   },
   reducers: {
     navigate: (state, action) => {
-      const { history, currentPage } = state
       return {
-        history: history.concat(currentPage),
         currentPage: action.payload,
+        previousPage: state.currentPage,
       }
     },
-    goBack: (state) => {
-      const { history } = state
-      const lastIndex = history.length - 1
+    goBack: ({ currentPage, previousPage }) => {
+
+      if (currentPage === 'Home') {
+        closeDb()
+        BackHandler.exitApp()
+        return false
+      }
+
+      if (currentPage === 'CycleDay' || isSymptomView(currentPage)) {
+        if (previousPage) {
+          return {
+            currentPage: previousPage
+          }
+        }
+      }
+
+      const page = pages.find(p => p.component === currentPage)
       return {
-        currentPage: history[lastIndex],
-        history: history.slice(0, lastIndex),
+        currentPage: page.parent
       }
     }
   }

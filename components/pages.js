@@ -1,36 +1,19 @@
-import Home from './home'
-import Calendar from './calendar'
-import CycleDay from './cycle-day/cycle-day-overview'
 import symptomViews from './cycle-day/symptoms'
-import Chart from './chart/chart'
-import SettingsMenu from './settings/settings-menu'
 import settingsViews from './settings'
-import Stats from './stats'
 
 import settingsLabels from '../i18n/en/settings'
 const labels = settingsLabels.menuTitles
 
-export const viewsList = {
-  Home,
-  Calendar,
-  CycleDay,
-  Chart,
-  SettingsMenu,
-  ...settingsViews,
-  Stats,
-  ...symptomViews
-}
+const symptomsPages = Object.keys(symptomViews).map(symptomView => ({
+  component: symptomView,
+  parent: 'CycleDay',
+}))
 
 export const isSymptomView =
   (page) => Object.keys(symptomViews).includes(page)
 
 export const isSettingsView =
   (page) => Object.keys(settingsViews).includes(page)
-
-const symptomsPages = Object.keys(symptomViews).map(symptomView => ({
-  component: symptomView,
-  parent: 'CycleDay',
-}))
 
 export const pages = [
   {

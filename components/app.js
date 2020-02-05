@@ -10,11 +10,12 @@ import { getNavigation, navigate, goBack } from '../slices/navigation'
 
 import Header from './header'
 import Menu from './menu'
-import { viewsList, isSymptomView, isSettingsView } from './pages'
+import { viewsList } from './views'
+import { isSymptomView, isSettingsView } from './pages'
 
 import { headerTitles } from '../i18n/en/labels'
 import setupNotifications from '../lib/notifications'
-import { closeDb, getCycleDay } from '../db'
+import { getCycleDay } from '../db'
 
 class App extends Component {
 
@@ -35,7 +36,7 @@ class App extends Component {
 
     this.backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
-      this.handleBackButtonPress
+      props.goBack
     )
 
     setupNotifications(this.props.navigate)
@@ -45,21 +46,15 @@ class App extends Component {
     this.backHandler.remove()
   }
 
-  handleBackButtonPress = () => {
-    const { currentPage } = this.props.navigation
+  render() {
+    const { date, navigation, goBack } = this.props
+    const { currentPage } = navigation
 
-    if (currentPage === 'Home') {
-      closeDb()
+    if (!currentPage) {
       return false
     }
 
-    this.props.goBack()
-    return true
-  }
-
-  render() {
     const { cycleDay } = this.state
-    const { currentPage } = this.props.navigation
 
     const Page = viewsList[currentPage]
     const title = headerTitles[currentPage]
@@ -68,20 +63,26 @@ class App extends Component {
     const isSettingsSubView = isSettingsView(currentPage)
     const isCycleDayView = currentPage === 'CycleDay'
 
+    const headerProps = {
+      title,
+      handleBack: isSettingsSubView ? goBack : null,
+    }
+
+    const pageProps = {
+      cycleDay,
+      date,
+      handleBackButtonPress: goBack,
+    }
+
     return (
       <View style={{ flex: 1 }}>
-        { !isSymptomEditView && !isCycleDayView &&
-          <Header
-            handleBack={isSettingsSubView ? this.handleBackButtonPress : null}
-            title={title}
-          />
+        {
+          !isSymptomEditView &&
+          !isCycleDayView &&
+          <Header { ...headerProps } />
         }
 
-        <Page
-          cycleDay={cycleDay}
-          date={this.props.date}
-          handleBackButtonPress={this.handleBackButtonPress}
-        />
+        <Page { ...pageProps } />
 
         { !isSymptomEditView && <Menu /> }
       </View>
