@@ -19,6 +19,11 @@
   "plugins": [
     "react"
   ],
+  "settings": {
+    "react": {
+      "version": require('./package.json').dependencies.react,
+    },
+  },
   "rules": {
     "quotemark": false,
     "ordered-imports": false,
