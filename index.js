@@ -1,4 +1,4 @@
 import { AppRegistry } from 'react-native'
 import AppWrapper from './components/app-wrapper'
 
-AppRegistry.registerComponent('home', () => AppWrapper)
+AppRegistry.registerComponent('drip', () => AppWrapper)
