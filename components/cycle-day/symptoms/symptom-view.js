@@ -53,7 +53,7 @@ class SymptomView extends Component {
       return this.values[key] || this.values[key] === 0
     }
 
-    const valuesKeys =  Object.keys(this.values)
+    const valuesKeys = Object.keys(this.values)
 
     return valuesKeys.some(valueHasBeenFilledOut)
   }

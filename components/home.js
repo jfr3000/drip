@@ -29,7 +29,7 @@ const IconText = ({ children, wrapperStyles }) => {
   )
 }
 
-const HomeElement = ({ children, onPress, buttonColor, buttonLabel  }) => {
+const HomeElement = ({ children, onPress, buttonColor, buttonLabel }) => {
   return (
     <View
       onPress={ onPress }
