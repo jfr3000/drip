@@ -20,7 +20,7 @@ const navigationSlice = createSlice({
       if (currentPage === 'Home') {
         closeDb()
         BackHandler.exitApp()
-        return false
+        return { currentPage }
       }
 
       if (currentPage === 'CycleDay' || isSymptomView(currentPage)) {
