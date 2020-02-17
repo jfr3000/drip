@@ -61,6 +61,7 @@
         "ignoreComments": true,
         "ignoreTemplateLiterals": true
       }
-    ]
+    ],
+    "no-multi-spaces": 2,
   }
 }

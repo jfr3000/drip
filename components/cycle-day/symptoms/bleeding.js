@@ -41,7 +41,7 @@ class Bleeding extends Component {
   autoSave = () => {
     const { date } = this.props
     const valuesToSave = { ...this.state }
-    const hasValueToSave =  typeof this.state.value === 'number'
+    const hasValueToSave = typeof this.state.value === 'number'
     saveSymptom(this.symptom, date, hasValueToSave ? valuesToSave : null)
   }
 
