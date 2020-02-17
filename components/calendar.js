@@ -3,6 +3,7 @@ import { CalendarList } from 'react-native-calendars'
 import { connect } from 'react-redux'
 
 import { setDate } from '../slices/date'
+import { navigate } from '../slices/navigation'
 
 import { LocalDate } from 'js-joda'
 import { getBleedingDaysSortedByDate } from '../db'
@@ -68,6 +69,7 @@ class CalendarView extends Component {
 const mapDispatchToProps = (dispatch) => {
   return({
     setDate: (date) => dispatch(setDate(date)),
+    navigate: (page) => dispatch(navigate(page)),
   })
 }
 

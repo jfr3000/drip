@@ -10,18 +10,24 @@ export default function Title({ title, subtitle }) {
     return (
       <View>
         <Text style={styles.dateHeader} testID='headerTitle'>
-          {title}
+          { // design wants everyhting lowercased, but we don't
+            // have CSS pseudo properties
+            title.toLowerCase()}
         </Text>
         { subtitle &&
           <Text style={styles.cycleDayNumber} testID='headerSubtitle'>
-            {subtitle}
+            {subtitle.toLowerCase()}
           </Text>
         }
       </View>
     )
   }
 
-  return <Text testID='headerTitle' style={styles.headerText}>{title}</Text>
+  return (
+    <Text testID='headerTitle' style={styles.headerText}>
+      {title.toLowerCase()}
+    </Text>
+  )
 }
 
 Title.propTypes = {

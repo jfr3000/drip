@@ -1,10 +1,13 @@
 import React from 'react'
-import {
-  TouchableOpacity,
-  ScrollView,
-} from 'react-native'
+import { TouchableOpacity, ScrollView } from 'react-native'
+import { connect } from 'react-redux'
+
+import { navigate } from '../../slices/navigation'
+
 import styles from '../../styles/index'
+
 import settingsLabels from '../../i18n/en/settings'
+
 import AppText from '../app-text'
 
 const labels = settingsLabels.menuTitles
@@ -18,7 +21,7 @@ const menu = [
   {title: labels.license, component: 'License'}
 ]
 
-export default function SettingsMenu(props) {
+const SettingsMenu = (props) => {
   return (
     <ScrollView>
       { menu.map(menuItem)}
@@ -37,3 +40,14 @@ export default function SettingsMenu(props) {
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return({
+    navigate: (page) => dispatch(navigate(page)),
+  })
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(SettingsMenu)
