@@ -51,7 +51,7 @@
     "react-redux": "^6.0.0",
     "redux": "^4.0.1",
     "redux-starter-kit": "^0.6.3",
-    "sympto": "^1.0.4"
+    "sympto": "2.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
