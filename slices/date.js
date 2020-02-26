@@ -1,8 +1,9 @@
 import { createSlice } from 'redux-starter-kit'
+import { LocalDate } from 'js-joda'
 
 const dateSlice = createSlice({
   slice: 'date',
-  initialState: null,
+  initialState: LocalDate.now().toString(),
   reducers: {
     setDate: (state, action) => action.payload
   }
