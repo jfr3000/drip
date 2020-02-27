@@ -17,17 +17,8 @@ import { getFertilityStatusForDay } from '../lib/sympto-adapter'
 import styles, { cycleDayColor, periodColor, secondaryColor } from '../styles'
 import AppText from './app-text'
 import Button from './button'
+import IconText from './icon-text'
 import { formatDateForShortText } from './helpers/format-date'
-
-const IconText = ({ children, wrapperStyles }) => {
-  return (
-    <View style={[styles.homeIconTextWrapper, wrapperStyles]}>
-      <AppText style={styles.iconText}>
-        { children }
-      </AppText>
-    </View>
-  )
-}
 
 const HomeElement = ({ children, onPress, buttonColor, buttonLabel }) => {
   return (
@@ -106,9 +97,7 @@ class Home extends Component {
               <View>
                 <DripHomeIcon name="circle" size={80} color={cycleDayColor}/>
               </View>
-              <IconText wrapperStyles={styles.wrapperIcon}>
-                {cycleDayNumber || labels.unknown}
-              </IconText>
+              <IconText>{cycleDayNumber || labels.unknown}</IconText>
 
               <AppText style={styles.homeDescriptionText}>
                 {cycleDayMoreText}
@@ -122,7 +111,7 @@ class Home extends Component {
             >
               <DripHomeIcon name="drop" size={100} color={periodColor} />
 
-              <IconText wrapperStyles={{top: '45%', ...styles.wrapperIcon}}>
+              <IconText wrapperStyles={{ top: '45%' }}>
                 {this.state.bleedingPredictionRange}
               </IconText>
 
@@ -138,9 +127,7 @@ class Home extends Component {
             >
               <View style={styles.homeCircle}/>
 
-              <IconText wrapperStyles={styles.wrapperIcon}>
-                { phase ? phase.toString() : labels.unknown }
-              </IconText>
+              <IconText>{ phase ? phase.toString() : labels.unknown }</IconText>
 
               { phase &&
                 <AppText style={styles.homeDescriptionText}>

@@ -131,13 +131,11 @@ export default StyleSheet.create({
   homeIconTextWrapper: {
     alignItems: 'center',
     justifyContent: 'center',
+    width: 80,
+    position: 'absolute',
   },
   homeIconAndText: {
     justifyContent: 'center'
-  },
-  wrapperIcon: {
-    width: 80,
-    position: 'absolute'
   },
   homeCircle: {
     borderRadius: 100,
