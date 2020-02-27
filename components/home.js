@@ -1,10 +1,10 @@
-import { ChronoUnit, LocalDate } from 'js-joda'
+import { LocalDate } from 'js-joda'
 import React, { Component } from 'react'
 import { ScrollView, View } from 'react-native'
 import { connect } from 'react-redux'
 
 import { navigate } from '../slices/navigation'
-import { setDate } from '../slices/date'
+import { getDate, setDate } from '../slices/date'
 
 import DripHomeIcon from '../assets/drip-home-icons'
 
@@ -12,15 +12,15 @@ import AppText from './app-text'
 import IconText from './icon-text'
 import HomeElement from './home-element'
 
-import {
-  bleedingPrediction as predictLabels,
-  home as labels
-} from '../i18n/en/labels'
+import { home as labels } from '../i18n/en/labels'
 import links from '../i18n/en/links'
 
 import cycleModule from '../lib/cycle'
 import { getFertilityStatusForDay } from '../lib/sympto-adapter'
-import { formatDateForShortText } from './helpers/format-date'
+import {
+  determinePredictionText,
+  getBleedingPredictionRange
+} from './helpers/home'
 
 import styles, { cycleDayColor, periodColor, secondaryColor } from '../styles'
 
@@ -125,6 +125,12 @@ class Home extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return({
+    date: getDate(state),
+  })
+}
+
 const mapDispatchToProps = (dispatch) => {
   return({
     navigate: (page) => dispatch(navigate(page)),
@@ -133,63 +139,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(Home)
-
-
-function getTimes(prediction) {
-  const todayDate = LocalDate.now()
-  const predictedBleedingStart = LocalDate.parse(prediction[0][0])
-  /* the range of predicted bleeding days can be either 3 or 5 */
-  const predictedBleedingEnd =
-    LocalDate.parse(prediction[0][ prediction[0].length - 1 ])
-  const daysToEnd = todayDate.until(predictedBleedingEnd, ChronoUnit.DAYS)
-  return { todayDate, predictedBleedingStart, predictedBleedingEnd, daysToEnd }
-}
-
-function determinePredictionText(bleedingPrediction) {
-  if (!bleedingPrediction.length) return predictLabels.noPrediction
-  const {
-    todayDate,
-    predictedBleedingStart,
-    predictedBleedingEnd,
-    daysToEnd
-  } = getTimes(bleedingPrediction)
-  if (todayDate.isBefore(predictedBleedingStart)) {
-    return predictLabels.predictionInFuture(
-      todayDate.until(predictedBleedingStart, ChronoUnit.DAYS),
-      todayDate.until(predictedBleedingEnd, ChronoUnit.DAYS)
-    )
-  }
-  if (todayDate.isAfter(predictedBleedingEnd)) {
-    return predictLabels.predictionInPast(
-      formatDateForShortText(predictedBleedingStart),
-      formatDateForShortText(predictedBleedingEnd)
-    )
-  }
-  if (daysToEnd === 0) {
-    return predictLabels.predictionStartedNoDaysLeft
-  } else if (daysToEnd === 1) {
-    return predictLabels.predictionStarted1DayLeft
-  } else {
-    return predictLabels.predictionStartedXDaysLeft(daysToEnd)
-  }
-}
-
-function getBleedingPredictionRange(prediction) {
-  if (!prediction.length) return labels.unknown
-  const {
-    todayDate,
-    predictedBleedingStart,
-    predictedBleedingEnd,
-    daysToEnd
-  } = getTimes(prediction)
-  if (todayDate.isBefore(predictedBleedingStart)) {
-    return `${todayDate.until(predictedBleedingStart, ChronoUnit.DAYS)}-${todayDate.until(predictedBleedingEnd, ChronoUnit.DAYS)}`
-  }
-  if (todayDate.isAfter(predictedBleedingEnd)) {
-    return labels.unknown
-  }
-  return (daysToEnd === 0 ? '0' : `0 - ${daysToEnd}`)
-}
