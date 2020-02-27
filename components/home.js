@@ -7,42 +7,22 @@ import { navigate } from '../slices/navigation'
 import { setDate } from '../slices/date'
 
 import DripHomeIcon from '../assets/drip-home-icons'
+
+import AppText from './app-text'
+import IconText from './icon-text'
+import HomeElement from './home-element'
+
 import {
   bleedingPrediction as predictLabels,
   home as labels
 } from '../i18n/en/labels'
 import links from '../i18n/en/links'
+
 import cycleModule from '../lib/cycle'
 import { getFertilityStatusForDay } from '../lib/sympto-adapter'
-import styles, { cycleDayColor, periodColor, secondaryColor } from '../styles'
-import AppText from './app-text'
-import Button from './button'
-import IconText from './icon-text'
 import { formatDateForShortText } from './helpers/format-date'
 
-const HomeElement = ({ children, onPress, buttonColor, buttonLabel }) => {
-  return (
-    <View
-      onPress={ onPress }
-      style={ styles.homeElement }
-    >
-      <View style={styles.homeIconAndText}>
-        {children[0]}
-        {children[1]}
-      </View>
-
-      <View style={{paddingLeft: 15}}>
-        {children.slice(2)}
-        <Button
-          style={styles.homeButton}
-          onPress={ onPress }
-          backgroundColor={ buttonColor }>
-          { buttonLabel }
-        </Button>
-      </View>
-    </View>
-  )
-}
+import styles, { cycleDayColor, periodColor, secondaryColor } from '../styles'
 
 class Home extends Component {
   constructor(props) {
