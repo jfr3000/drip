@@ -25,21 +25,20 @@ import {
 import styles, { cycleDayColor, periodColor, secondaryColor } from '../styles'
 
 class Home extends Component {
+
   constructor(props) {
     super(props)
-    const { getCycleDayNumber, getPredictedMenses } = cycleModule()
-    this.getCycleDayNumber = getCycleDayNumber
-    this.getBleedingPrediction = getPredictedMenses
-    this.todayDateString = LocalDate.now().toString()
-    const prediction = this.getBleedingPrediction()
-    const fertilityStatus = getFertilityStatusForDay(this.todayDateString)
 
-    this.state = {
-      cycleDayNumber: this.getCycleDayNumber(this.todayDateString),
-      predictionText: determinePredictionText(prediction),
-      bleedingPredictionRange: getBleedingPredictionRange(prediction),
-      ...fertilityStatus
-    }
+    const { getCycleDayNumber, getPredictedMenses } = cycleModule()
+
+    this.todayDateString = LocalDate.now().toString()
+    this.cycleDayNumber = getCycleDayNumber(this.todayDateString)
+
+    const prediction = getPredictedMenses()
+    this.predictionText = determinePredictionText(prediction)
+    this.bleedingPredictionRange = getBleedingPredictionRange(prediction)
+
+    this.fertilityStatus = getFertilityStatusForDay(this.todayDateString)
   }
 
   navigateToCycleDayView = () => {
@@ -57,12 +56,17 @@ class Home extends Component {
   }
 
   render() {
-    const { cycleDayNumber, phase, status } = this.state
+    const {
+      cycleDayNumber,
+      predictionText,
+      bleedingPredictionRange,
+    } = this
+
+    const { phase, status, statusText } = this.fertilityStatus
+
     const cycleDayMoreText = cycleDayNumber ?
       labels.cycleDayKnown(cycleDayNumber) :
       labels.cycleDayNotEnoughInfo
-
-    const { statusText } = this.state
 
     return (
       <View flex={1}>
@@ -92,11 +96,11 @@ class Home extends Component {
               <DripHomeIcon name="drop" size={100} color={periodColor} />
 
               <IconText wrapperStyles={{ top: '45%' }}>
-                {this.state.bleedingPredictionRange}
+                {bleedingPredictionRange}
               </IconText>
 
               <AppText style={styles.homeDescriptionText}>
-                {this.state.predictionText}
+                {predictionText}
               </AppText>
             </HomeElement>
 
