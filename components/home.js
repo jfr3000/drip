@@ -2,6 +2,7 @@ import { LocalDate } from 'js-joda'
 import React, { Component } from 'react'
 import { ScrollView, View } from 'react-native'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import { navigate } from '../slices/navigation'
 import { getDate, setDate } from '../slices/date'
@@ -25,6 +26,16 @@ import {
 import styles, { cycleDayColor, periodColor, secondaryColor } from '../styles'
 
 class Home extends Component {
+
+  static propTypes = {
+    navigate: PropTypes.func,
+    setDate: PropTypes.func,
+    // The following three is not being used,
+    // we could see if it's possible to not pass them from the <App />
+    cycleDay: PropTypes.object,
+    date: PropTypes.string,
+    handleBackButtonPress: PropTypes.func,
+  }
 
   constructor(props) {
     super(props)
@@ -72,7 +83,6 @@ class Home extends Component {
       <View flex={1}>
         <ScrollView>
           <View style={styles.homeView}>
-
             <HomeElement
               onPress={this.navigateToCycleDayView}
               buttonColor={ cycleDayColor }
