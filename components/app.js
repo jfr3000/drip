@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { View, BackHandler } from 'react-native'
 import PropTypes from 'prop-types'
 
-import { LocalDate } from 'js-joda'
 import { connect } from 'react-redux'
 
 import { getDate, setDate } from '../slices/date'
@@ -27,13 +26,6 @@ class App extends Component {
   constructor(props) {
     super(props)
 
-    this.todayDateString = LocalDate.now().toString()
-    props.setDate(this.todayDateString)
-
-    this.state = {
-      cycleDay: getCycleDay(this.todayDateString),
-    }
-
     this.backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
       props.goBack
@@ -54,8 +46,6 @@ class App extends Component {
       return false
     }
 
-    const { cycleDay } = this.state
-
     const Page = viewsList[currentPage]
     const title = headerTitles[currentPage]
 
@@ -69,7 +59,7 @@ class App extends Component {
     }
 
     const pageProps = {
-      cycleDay,
+      cycleDay: date && getCycleDay(date),
       date,
       handleBackButtonPress: goBack,
     }

@@ -4,6 +4,7 @@ import { ScrollView, View } from 'react-native'
 import { connect } from 'react-redux'
 
 import { navigate } from '../slices/navigation'
+import { setDate } from '../slices/date'
 
 import DripHomeIcon from '../assets/drip-home-icons'
 import {
@@ -71,10 +72,12 @@ class Home extends Component {
   }
 
   navigateToCycleDayView = () => {
+    this.props.setDate(this.todayDateString)
     this.props.navigate('CycleDay')
   }
 
   navigateToBleedingEditView = () => {
+    this.props.setDate(this.todayDateString)
     this.props.navigate('BleedingEditView')
   }
 
@@ -157,7 +160,8 @@ class Home extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return({
-    navigate: (page) => dispatch(navigate(page))
+    navigate: (page) => dispatch(navigate(page)),
+    setDate: (date) => dispatch(setDate(date)),
   })
 }
 
