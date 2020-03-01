@@ -39,7 +39,6 @@ class Note extends Component {
       <SymptomView
         symptom={this.symptom}
         values={this.state}
-        handleBackButtonPress={this.props.handleBackButtonPress}
         date={this.props.date}
       >
         <SymptomSection

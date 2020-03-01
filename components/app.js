@@ -63,7 +63,6 @@ class App extends Component {
     const pageProps = {
       cycleDay: date && getCycleDay(date),
       date,
-      handleBackButtonPress: goBack,
     }
 
     return (

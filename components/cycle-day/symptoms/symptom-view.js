@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
 import { getDate } from '../../../slices/date'
+import { goBack } from '../../../slices/navigation'
 
 import { saveSymptom } from '../../../db'
 import formatDate from '../../helpers/format-date'
@@ -27,8 +28,8 @@ class SymptomView extends Component {
     symptom: PropTypes.string.isRequired,
     values: PropTypes.object,
     date: PropTypes.string,
-    handleBackButtonPress: PropTypes.func,
     children: PropTypes.node,
+    goBack: PropTypes.func,
   }
 
   constructor(props) {
@@ -52,7 +53,7 @@ class SymptomView extends Component {
 
   onDeleteConfirmation = () => {
     this.deleteSymptomEntry()
-    this.props.handleBackButtonPress()
+    this.props.goBack()
   }
 
   showConfirmationAlert = () => {
@@ -75,13 +76,13 @@ class SymptomView extends Component {
   }
 
   render() {
-    const { symptom, date } = this.props
+    const { symptom, date, goBack } = this.props
     return (
       <View style={{flex: 1}}>
         <Header
           title={headerTitles[symptom]}
           subtitle={formatDate(date)}
-          handleBack={this.props.handleBackButtonPress}
+          handleBack={goBack}
           handleDelete={
             this.state.shouldShowDelete && this.showConfirmationAlert
           }
@@ -99,11 +100,17 @@ class SymptomView extends Component {
 
 const mapStateToProps = (state) => {
   return({
-    date: getDate(state)
+    date: getDate(state),
+  })
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return({
+    goBack: () => dispatch(goBack()),
   })
 }
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps,
 )(SymptomView)

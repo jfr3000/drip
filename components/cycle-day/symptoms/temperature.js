@@ -20,7 +20,6 @@ class Temperature extends Component {
 
   static propTypes = {
     cycleDay: PropTypes.object,
-    handleBackButtonPress: PropTypes.func,
     date: PropTypes.string.isRequired,
   }
 
@@ -90,7 +89,6 @@ class Temperature extends Component {
       <SymptomView
         symptom={'temperature'}
         values={this.state}
-        handleBackButtonPress={this.props.handleBackButtonPress}
         date={this.props.date}
       >
         <SymptomSection

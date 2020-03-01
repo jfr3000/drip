@@ -14,7 +14,6 @@ class Cervix extends Component {
 
   static propTypes = {
     cycleDay: PropTypes.object,
-    handleBackButtonPress: PropTypes.func,
     date: PropTypes.string.isRequired,
   }
 
@@ -62,7 +61,6 @@ class Cervix extends Component {
       <SymptomView
         symptom={this.symptom}
         values={this.state}
-        handleBackButtonPress={this.props.handleBackButtonPress}
         date={this.props.date}
       >
         <SymptomSection
