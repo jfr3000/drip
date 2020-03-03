@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { ScrollView, View } from 'react-native'
+import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
 import { getDate, setDate } from '../../slices/date'
@@ -16,6 +17,16 @@ import { getCycleDay } from '../../db'
 import styles from '../../styles'
 
 class CycleDayOverView extends Component {
+
+  static propTypes = {
+    navigate: PropTypes.func,
+    setDate: PropTypes.func,
+    // The following are not being used,
+    // we could see if it's possible to not pass them from the <App />
+    cycleDay: PropTypes.object,
+    date: PropTypes.string,
+  }
+
   constructor(props) {
     super(props)
     this.state = {
