@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
 
-import { getDate, setDate } from '../slices/date'
+import { getDate } from '../slices/date'
 import { getNavigation, navigate, goBack } from '../slices/navigation'
 
 import Header from './header'
@@ -21,6 +21,8 @@ class App extends Component {
   static propTypes = {
     date: PropTypes.string,
     navigation: PropTypes.object.isRequired,
+    navigate: PropTypes.func,
+    goBack: PropTypes.func,
   }
 
   constructor(props) {
@@ -61,7 +63,6 @@ class App extends Component {
     const pageProps = {
       cycleDay: date && getCycleDay(date),
       date,
-      handleBackButtonPress: goBack,
     }
 
     return (
@@ -89,7 +90,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return({
-    setDate: (date) => dispatch(setDate(date)),
     navigate: (page) => dispatch(navigate(page)),
     goBack: () => dispatch(goBack()),
   })

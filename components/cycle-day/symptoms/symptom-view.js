@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
 import { getDate } from '../../../slices/date'
+import { goBack } from '../../../slices/navigation'
 
 import { saveSymptom } from '../../../db'
 import formatDate from '../../helpers/format-date'
@@ -16,27 +17,30 @@ import { sharedDialogs } from '../../../i18n/en/cycle-day'
 
 import styles from '../../../styles'
 
+const checkIfHasValues = data => {
+  const isMeaningfulValue = value => value || value === 0
+  return Object.values(data).some(isMeaningfulValue)
+}
+
 class SymptomView extends Component {
 
   static propTypes = {
     symptom: PropTypes.string.isRequired,
     values: PropTypes.object,
     date: PropTypes.string,
+    children: PropTypes.node,
+    goBack: PropTypes.func,
   }
 
   constructor(props) {
     super()
-    this.values = props.values
     this.state = {
-      shouldShowDelete: this.checkIfHasValuesToDelete()
+      shouldShowDelete: checkIfHasValues(props.values)
     }
-    this.date = props.date
-    this.navigate = props.navigate
   }
 
   componentDidUpdate() {
-    this.values = this.props.values
-    const shouldShowDelete = this.checkIfHasValuesToDelete()
+    const shouldShowDelete = checkIfHasValues(this.props.values)
     if (shouldShowDelete !== this.state.shouldShowDelete) {
       this.setState({ shouldShowDelete })
     }
@@ -47,39 +51,9 @@ class SymptomView extends Component {
     saveSymptom(symptom, date, null)
   }
 
-  checkIfHasValuesToDelete() {
-    const valueHasBeenFilledOut = key => {
-      // is there any meaningful value in the current state?
-      return this.values[key] || this.values[key] === 0
-    }
-
-    const valuesKeys = Object.keys(this.values)
-
-    return valuesKeys.some(valueHasBeenFilledOut)
-  }
-
   onDeleteConfirmation = () => {
     this.deleteSymptomEntry()
-    this.props.handleBackButtonPress()
-  }
-
-  showConfirmationAlert = () => {
-
-    const cancelButton = {
-      text: sharedDialogs.cancel,
-      style: 'cancel'
-    }
-
-    const confirmationButton = {
-      text: sharedDialogs.reallyDeleteData,
-      onPress: this.onDeleteConfirmation
-    }
-
-    return Alert.alert(
-      sharedDialogs.areYouSureTitle,
-      sharedDialogs.areYouSureToDelete,
-      [cancelButton, confirmationButton]
-    )
+    this.props.goBack()
   }
 
   showConfirmationAlert = () => {
@@ -102,13 +76,13 @@ class SymptomView extends Component {
   }
 
   render() {
-    const { symptom } = this.props
+    const { symptom, date, goBack } = this.props
     return (
       <View style={{flex: 1}}>
         <Header
           title={headerTitles[symptom]}
-          subtitle={formatDate(this.date)}
-          handleBack={this.props.handleBackButtonPress}
+          subtitle={formatDate(date)}
+          handleBack={goBack}
           handleDelete={
             this.state.shouldShowDelete && this.showConfirmationAlert
           }
@@ -126,11 +100,17 @@ class SymptomView extends Component {
 
 const mapStateToProps = (state) => {
   return({
-    date: getDate(state)
+    date: getDate(state),
+  })
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return({
+    goBack: () => dispatch(goBack()),
   })
 }
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps,
 )(SymptomView)

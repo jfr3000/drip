@@ -30,11 +30,10 @@ class Home extends Component {
   static propTypes = {
     navigate: PropTypes.func,
     setDate: PropTypes.func,
-    // The following three is not being used,
+    // The following are not being used,
     // we could see if it's possible to not pass them from the <App />
     cycleDay: PropTypes.object,
     date: PropTypes.string,
-    handleBackButtonPress: PropTypes.func,
   }
 
   constructor(props) {
