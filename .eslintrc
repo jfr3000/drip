@@ -25,23 +25,15 @@
     },
   },
   "rules": {
-    "ordered-imports": false,
-    "no-var-requires": false,
     "indent": [
       "error",
       2
     ],
-    "no-console": 0,
-    "eofline": false,
-    "no-unused-variable": true,
-    "no-unused-expression": true,
-    "only-arrow-functions": false,
-    "space-before-function-paren": 0,
-    "trailing-comma": [
-      true,
-      "never"
+    "no-console": [
+      "error",
+      { allow: ["warn", "error"] }
     ],
-    "object-literal-sort-keys": false,
+    "space-before-function-paren": 0,
     "semi": [
       "warn",
       "never"
