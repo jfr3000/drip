@@ -157,7 +157,8 @@ export default StyleSheet.create({
   },
   symptomViewHeading: {
     fontWeight: 'bold',
-    fontFamily: textFontBold
+    fontFamily: textFontBold,
+    flex: 1
   },
   symptomSection: {
     marginBottom: 10

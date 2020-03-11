@@ -1,10 +1,20 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Path, Shape } from 'react-native/Libraries/ART/ReactNativeART'
 
 import styles from './styles'
 import config from '../../config'
 
 export default class DotAndLine extends Component {
+  static propTypes = {
+    exclude: PropTypes.bool,
+    leftY: PropTypes.number,
+    leftTemperatureExclude: PropTypes.bool,
+    rightY: PropTypes.number,
+    rightTemperatureExclude: PropTypes.bool,
+    y: PropTypes.number.isRequired
+  }
+
   shouldComponentUpdate(newProps) {
     return Object.keys(newProps).some(key => newProps[key] != this.props[key])
   }

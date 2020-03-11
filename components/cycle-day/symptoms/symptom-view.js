@@ -77,15 +77,16 @@ class SymptomView extends Component {
 
   render() {
     const { symptom, date, goBack } = this.props
+    const { shouldShowDelete } = this.state
+    const handleDelete = shouldShowDelete ? this.showConfirmationAlert : null
+
     return (
       <View style={{flex: 1}}>
         <Header
           title={headerTitles[symptom]}
           subtitle={formatDate(date)}
           handleBack={goBack}
-          handleDelete={
-            this.state.shouldShowDelete && this.showConfirmationAlert
-          }
+          handleDelete={handleDelete}
         />
         <View flex={1}>
           <ScrollView style={styles.page}>

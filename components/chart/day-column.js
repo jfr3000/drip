@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 
@@ -18,6 +19,18 @@ import {
 } from '../helpers/chart'
 
 class DayColumn extends Component {
+  static propTypes = {
+    dateString: PropTypes.string.isRequired,
+    chartSymptoms: PropTypes.array,
+    columnHeight: PropTypes.number.isRequired,
+    getFhmAndLtlInfo: PropTypes.func.isRequired,
+    navigate: PropTypes.func.isRequired,
+    setDate: PropTypes.func.isRequired,
+    symptomHeight: PropTypes.number.isRequired,
+    symptomRowSymptoms: PropTypes.array,
+    xAxisHeight: PropTypes.number
+  }
+
   constructor(props) {
     super()
 

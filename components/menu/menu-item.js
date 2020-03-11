@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { Text, TouchableOpacity } from 'react-native'
 
 import styles, { iconStyles, secondaryColor } from '../../styles'
@@ -11,13 +12,11 @@ const menuTitlesLowerCase = Object.keys(menuTitles).reduce((acc, curr) => {
   return acc
 }, {})
 
-const MenuItem = ({ icon, label, active, onPress }) => {
+export default function MenuItem({ active, icon, label, onPress }) {
   const styleActive = active ? { color: secondaryColor } : null
+
   return (
-    <TouchableOpacity
-      style={styles.menuItem}
-      onPress={onPress}
-    >
+    <TouchableOpacity style={styles.menuItem} onPress={onPress} >
       <Icon name={icon} {...iconStyles.menuIcon} {...styleActive} />
       <Text
         testID={active ? 'activeMenuItem' : `menuItem${label}`}
@@ -29,4 +28,9 @@ const MenuItem = ({ icon, label, active, onPress }) => {
   )
 }
 
-export default MenuItem
+MenuItem.propTypes = {
+  active: PropTypes.bool,
+  icon: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  onPress: PropTypes.func.isRequired
+}

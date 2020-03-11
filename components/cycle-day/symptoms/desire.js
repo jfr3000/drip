@@ -21,7 +21,7 @@ class Desire extends Component {
     const symptom = 'desire'
     const { cycleDay } = props
 
-    const defaultSymptomData = { value: '' }
+    const defaultSymptomData = { value: null }
 
     const symptomData =
       cycleDay && cycleDay[symptom] ? cycleDay[symptom] : defaultSymptomData

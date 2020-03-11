@@ -29,7 +29,8 @@ export default function Header({
 
 Header.propTypes = {
   handleBack: PropTypes.func,
+  handleDelete: PropTypes.func,
   handleNext: PropTypes.func,
-  title: PropTypes.string,
   subtitle: PropTypes.string,
+  title: PropTypes.string.isRequired
 }
