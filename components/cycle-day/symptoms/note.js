@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { TextInput } from 'react-native'
 
 import SymptomSection from './symptom-section'
@@ -9,6 +10,11 @@ import SymptomView from './symptom-view'
 import { saveSymptom } from '../../../db'
 
 class Note extends Component {
+  static propTypes = {
+    cycleDay: PropTypes.object.isRequired,
+    date: PropTypes.string.isRequired
+  }
+
   constructor(props) {
     super(props)
     const symptom = 'note'
@@ -41,16 +47,12 @@ class Note extends Component {
         values={this.state}
         date={this.props.date}
       >
-        <SymptomSection
-          explainer={noteExplainer}
-        >
+        <SymptomSection explainer={noteExplainer} >
           <TextInput
             autoFocus={true}
             multiline={true}
             placeholder={sharedLabels.enter}
-            onChangeText={(val) => {
-              this.setState({ value: val })
-            }}
+            onChangeText={(val) => { this.setState({ value: val })}}
             value={this.state.value}
             testID='noteInput'
           />

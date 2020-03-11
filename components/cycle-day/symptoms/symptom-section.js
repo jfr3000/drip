@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
-import AppText, { SymptomSectionHeader } from '../../app-text'
+import AppText from '../../app-text'
 import styles from '../../../styles'
 
 export default class SymptomSection extends Component {
@@ -16,7 +16,7 @@ export default class SymptomSection extends Component {
     return (
       <View style={[placeHeadingInline, styles.symptomSection]}>
         { p.header &&
-          <SymptomSectionHeader flex={1}>{p.header}</SymptomSectionHeader>
+          <AppText style={styles.symptomViewHeading}>{p.header}</AppText>
         }
         <View
           flexDirection={p.inline ? 'row' : null}

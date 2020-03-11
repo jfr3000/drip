@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { ScrollView, View, BackHandler } from 'react-native'
 import AppText from './app-text'
 import { shared } from '../i18n/en/labels'
@@ -36,4 +37,8 @@ export default function License({setLicense}) {
       </View>
     </ScrollView>
   )
+}
+
+License.propTypes = {
+  setLicense: PropTypes.func.isRequired
 }

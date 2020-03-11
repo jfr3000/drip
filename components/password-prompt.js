@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { View, TextInput, TouchableOpacity, Alert } from 'react-native'
 import nodejs from 'nodejs-mobile-react-native'
 import { saveEncryptionFlag } from '../local-storage'
@@ -9,6 +10,10 @@ import { passwordPrompt as labels, shared, menuTitles } from '../i18n/en/labels'
 import { requestHash, deleteDbAndOpenNew, openDb } from '../db'
 
 export default class PasswordPrompt extends Component {
+  static propTypes = {
+    enableShowApp: PropTypes.func.isRequired
+  }
+
   constructor(props) {
     super(props)
     this.state = {

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { TouchableOpacity, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 
@@ -21,7 +22,7 @@ const menu = [
   {title: labels.license, component: 'License'}
 ]
 
-const SettingsMenu = (props) => {
+const SettingsMenu = ({ navigate }) => {
   return (
     <ScrollView>
       { menu.map(menuItem)}
@@ -33,12 +34,16 @@ const SettingsMenu = (props) => {
       <TouchableOpacity
         style={styles.framedSegment}
         key={item.title}
-        onPress={() => props.navigate(item.component)}
+        onPress={() => navigate(item.component)}
       >
         <AppText>{item.title.toLowerCase()}</AppText>
       </TouchableOpacity>
     )
   }
+}
+
+SettingsMenu.propTypes = {
+  navigate: PropTypes.func.isRequired
 }
 
 const mapDispatchToProps = (dispatch) => {

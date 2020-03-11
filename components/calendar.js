@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { CalendarList } from 'react-native-calendars'
 import { connect } from 'react-redux'
 
@@ -13,6 +14,11 @@ import styles from '../styles/index'
 import nothingChanged from '../db/db-unchanged'
 
 class CalendarView extends Component {
+  static propTypes = {
+    setDate: PropTypes.func.isRequired,
+    navigate: PropTypes.func.isRequired
+  }
+
   constructor(props) {
     super(props)
     this.bleedingDays = getBleedingDaysSortedByDate()

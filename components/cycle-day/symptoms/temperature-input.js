@@ -102,3 +102,7 @@ const OutOfRangeWarning = ({ temperature }) => {
 
   return <AppText style={styles.hint}>{warningMsg}</AppText>
 }
+
+OutOfRangeWarning.propTypes = {
+  temperature: PropTypes.string.isRequired
+}

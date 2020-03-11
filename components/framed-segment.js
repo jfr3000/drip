@@ -5,21 +5,24 @@ import { View } from 'react-native'
 import AppText from './app-text'
 import styles from '../styles'
 
-const FramedSegment = ({children, ...props}) => {
-  const style = [styles.framedSegment, props.style]
-  if (props.last) style.push(styles.framedSegmentLast)
+const FramedSegment = ({ children, last, style, title }) => {
+  const viewStyle = [styles.framedSegment, style]
+  if (last) viewStyle.push(styles.framedSegmentLast)
   return (
-    <View style={[style]}>
-      {
-        props.title
-        && <AppText style={styles.framedSegmentTitle}>{props.title}</AppText>
-      }
+    <View style={[viewStyle]}>
+      {title && <AppText style={styles.framedSegmentTitle}>{title}</AppText>}
       {children}
     </View>
   )
 }
 
 FramedSegment.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ]),
+  last: PropTypes.bool,
+  style: PropTypes.object,
   title: PropTypes.string
 }
 

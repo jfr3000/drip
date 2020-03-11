@@ -28,8 +28,11 @@ const SettingsButton = ({ children, style, secondary, ...props }) => {
 }
 
 SettingsButton.propTypes = {
+  children: PropTypes.node,
+  disabled: PropTypes.bool,
   onPress: PropTypes.func.isRequired,
-  disabled: PropTypes.bool
+  secondary: PropTypes.bool,
+  style: PropTypes.object
 }
 
 export default SettingsButton

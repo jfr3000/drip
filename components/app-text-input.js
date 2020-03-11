@@ -18,7 +18,11 @@ export default function AppTextInput({ style, ...props }) {
 }
 
 AppTextInput.propTypes = {
-  secureTextEntry: PropTypes.bool
+  autoFocus: PropTypes.bool,
+  onChangeText: PropTypes.func,
+  placeholder: PropTypes.string,
+  style: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+  value: PropTypes.string,
 }
 
 AppTextInput.defaultProps = {
