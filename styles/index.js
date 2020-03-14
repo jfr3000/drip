@@ -15,8 +15,8 @@ export const periodColor = '#802249'
 
 const headerFont = 'Prompt-ExtraLight'
 
-const textFont = 'OpenSans-Light'
-const textFontBold = 'OpenSans-SemiBold'
+const textFont = 'Jost-400-Book'
+const textFontBold = 'Jost-700-Bold'
 const textFontItalic = 'OpenSans-LightItalic'
 
 const regularSize = 16
