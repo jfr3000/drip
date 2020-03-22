@@ -3,8 +3,8 @@ import { ScrollView } from 'react-native'
 import CreatePassword from './create'
 import ChangePassword from './update'
 import DeletePassword from './delete'
-import FramedSegment from '../../framed-segment'
-import AppText from '../../app-text'
+import FramedSegment from '../../common/framed-segment'
+import AppText from '../../common/app-text'
 import {
   hasEncryptionObservable
 } from '../../../local-storage'

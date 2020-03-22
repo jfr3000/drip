@@ -9,7 +9,7 @@ import styles from '../../styles/index'
 
 import settingsLabels from '../../i18n/en/settings'
 
-import AppText from '../app-text'
+import AppText from '../common/app-text'
 
 const labels = settingsLabels.menuTitles
 

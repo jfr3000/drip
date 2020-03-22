@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { View, TouchableOpacity } from 'react-native'
 
-import AppText from '../app-text'
+import AppText from '../common/app-text'
 
 import styles from '../../styles'
 

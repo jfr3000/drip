@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import AppText from '../app-text'
+import AppText from '../common/app-text'
 
 import styles from './styles'
 

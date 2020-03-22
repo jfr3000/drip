@@ -3,7 +3,7 @@ import {
   View,
   Switch
 } from 'react-native'
-import AppText from '../../app-text'
+import AppText from '../../common/app-text'
 import {
   useCervixObservable,
   saveUseCervix

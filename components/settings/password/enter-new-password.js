@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import nodejs from 'nodejs-mobile-react-native'
 
 import { requestHash, changeEncryptionAndRestartApp } from '../../../db'
-import AppText from '../../app-text'
+import AppText from '../../common/app-text'
 import PasswordField from '../shared/password-field'
 import SettingsButton from '../shared/settings-button'
 

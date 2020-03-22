@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { TextInput } from 'react-native'
-import styles from '../styles'
+import styles from '../../styles'
 
 export default function AppTextInput({ style, ...props }) {
   if (!Array.isArray(style)) style = [style]

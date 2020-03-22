@@ -9,7 +9,7 @@ import { getDate, setDate } from '../slices/date'
 
 import DripHomeIcon from '../assets/drip-home-icons'
 
-import AppText from './app-text'
+import AppText from './common/app-text'
 import IconText from './icon-text'
 import HomeElement from './home-element'
 

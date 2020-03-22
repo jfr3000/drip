@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { View } from 'react-native'
 import AppText from './app-text'
-import styles from '../styles'
+import styles from '../../styles'
 
 const FramedSegment = ({ children, last, style, title }) => {
   const viewStyle = [styles.framedSegment, style]

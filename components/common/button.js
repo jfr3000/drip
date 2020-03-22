@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { TouchableOpacity } from 'react-native'
 import AppText from './app-text'
-import styles from '../styles'
+import styles from '../../styles'
 
 export default function Button({
   backgroundColor,

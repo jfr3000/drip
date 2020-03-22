@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, ScrollView } from 'react-native'
-import AppText from '../app-text'
+import AppText from '../common/app-text'
 import styles from '../../styles/index'
 import labels from '../../i18n/en/settings'
 

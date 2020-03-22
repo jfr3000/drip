@@ -2,7 +2,7 @@ import React from 'react'
 import { View } from 'react-native'
 import PropTypes from 'prop-types'
 
-import Button from './button'
+import Button from './common/button'
 
 import styles from '../styles'
 

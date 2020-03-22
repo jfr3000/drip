@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import AppTextInput from '../../app-text-input'
+import AppTextInput from '../../common/app-text-input'
 
 import styles from '../../../styles'
 

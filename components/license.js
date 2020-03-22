@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { ScrollView, View, BackHandler } from 'react-native'
-import AppText from './app-text'
+import AppText from './common/app-text'
 import { shared } from '../i18n/en/labels'
 import settingsLabels from '../i18n/en/settings'
 import styles,{secondaryColor} from '../styles'
-import Button from './button'
+import Button from './common/button'
 import { saveLicenseFlag } from '../local-storage'
 
 const labels = settingsLabels.license

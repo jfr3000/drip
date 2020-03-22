@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import { View } from 'react-native'
-import AppText from '../../app-text'
-import AppTextInput from '../../app-text-input'
+import AppText from '../../common/app-text'
+import AppTextInput from '../../common/app-text-input'
 
 import { temperature as labels } from '../../../i18n/en/cycle-day'
 

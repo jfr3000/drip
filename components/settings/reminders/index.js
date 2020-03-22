@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {
   ScrollView,
 } from 'react-native'
-import FramedSegment from '../../framed-segment'
+import FramedSegment from '../../common/framed-segment'
 import TempReminderPicker from './temp-reminder-picker'
 import PeriodReminderPicker from './period-reminder'
 

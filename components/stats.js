@@ -8,8 +8,8 @@ import styles from '../styles/index'
 import cycleModule from '../lib/cycle'
 import {getCycleLengthStats as getCycleInfo} from '../lib/cycle-length'
 import {stats as labels} from '../i18n/en/labels'
-import AppText from './app-text'
-import FramedSegment from './framed-segment'
+import AppText from './common/app-text'
+import FramedSegment from './common/framed-segment'
 
 export default class Stats extends Component {
   render() {

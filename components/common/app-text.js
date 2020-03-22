@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Text } from 'react-native'
-import styles from "../styles"
+import styles from "../../styles"
 import Link from './link'
 
 export default function AppText({ children, onPress, numberOfLines, style}) {

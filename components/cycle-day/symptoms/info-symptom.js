@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { ScrollView, View, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/SimpleLineIcons'
-import AppText from '../../app-text'
+import AppText from '../../common/app-text'
 import labels from '../../../i18n/en/symptom-info.js'
 import styles, {iconStyles} from '../../../styles/index'
 

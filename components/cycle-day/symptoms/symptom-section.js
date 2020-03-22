@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
-import AppText from '../../app-text'
+import AppText from '../../common/app-text'
 import styles from '../../../styles'
 
 export default class SymptomSection extends Component {

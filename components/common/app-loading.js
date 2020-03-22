@@ -3,7 +3,7 @@ import React from 'react'
 import { View } from 'react-native'
 
 import AppText from './app-text'
-import { shared } from '../i18n/en/labels'
+import { shared } from '../../i18n/en/labels'
 
 const AppLoadingView = () => {
   return (

@@ -6,7 +6,7 @@ import { LocalTime, ChronoUnit } from 'js-joda'
 import { temperature as labels } from '../../../i18n/en/cycle-day'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
 
-import AppTextInput from '../../app-text-input'
+import AppTextInput from '../../common/app-text-input'
 import SymptomSection from './symptom-section'
 import SymptomView from './symptom-view'
 import TimeInput from './time-input'

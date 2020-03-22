@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { ScrollView } from 'react-native'
-import AppText from '../app-text'
+import AppText from '../common/app-text'
 import labels from '../../i18n/en/settings'
 import links from '../../i18n/en/links'
-import FramedSegment from '../framed-segment'
+import FramedSegment from '../common/framed-segment'
 
 export default class AboutSection extends Component {
   render() {
