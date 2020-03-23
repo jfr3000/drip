@@ -17,13 +17,6 @@ export default {
     fontFamily: fonts.main,
     fontSize: sizes.base
   },
-  pageTitle: {
-    alignSelf: 'center',
-    fontFamily: fonts.bold,
-    fontWeight: '700',
-    fontSize: sizes.title,
-    marginHorizontal: Spacing.base,
-  },
   title: {
     color: Colors.purple,
     marginVertical: Spacing.large
