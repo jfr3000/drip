@@ -6,24 +6,16 @@ const fonts = {
   bold : 'Jost-700-Bold',
 }
 
-const sizes = {
-  mainMedium: 18,
-  mainLarge: 20,
-  titleSmall: 22,
-  titleMedium: 24,
-  titleLarge: 28
+export const sizes = {
+  base: 18,
+  subtitle: 22,
+  title: 24
 }
 
 const button = {
   paddingHorizontal: Spacing.large,
   paddingVertical: Spacing.base,
   textTransform: 'uppercase'
-}
-
-const title = {
-  color: Colors.purple,
-  marginHorizontal: Spacing.base,
-  marginVertical: Spacing.large
 }
 
 export default {
@@ -37,18 +29,18 @@ export default {
   },
   mainText: {
     fontFamily: fonts.main,
-    fontSize: sizes.mainMedium
+    fontSize: sizes.base
   },
   pageTitle: {
     alignSelf: 'center',
     fontFamily: fonts.bold,
     fontWeight: '700',
-    fontSize: sizes.titleMedium,
-    ...title
+    fontSize: sizes.title,
+    marginHorizontal: Spacing.base,
   },
-  titleSmall: {
-    fontSize: sizes.titleSmall,
-    ...title
+  title: {
+    color: Colors.purple,
+    marginVertical: Spacing.large
   },
   underline: { textDecorationLine: 'underline' }
 }

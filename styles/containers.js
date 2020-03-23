@@ -1,13 +1,6 @@
 import Colors from './colors'
-import Spacing from './spacing'
 
 export default {
-  bottomBorder: {
-    borderStyle: 'solid',
-    borderBottomWidth: 2,
-    borderBottomColor: Colors.grey,
-    paddingBottom: Spacing.base
-  },
   centerItems: {
     alignItems: 'center',
     flex: 1,
@@ -19,7 +12,6 @@ export default {
     borderStyle: 'solid',
     borderWidth: 1,
   },
-  marginBottom: { marginBottom: Spacing.base },
   orangeButton: {
     backgroundColor: Colors.orange,
     borderRadius: 25
@@ -27,6 +19,5 @@ export default {
   page: {
     backgroundColor: Colors.tourquiseLight,
     flex: 1
-  },
-  segmentContainer: { marginHorizontal: Spacing.base }
+  }
 }

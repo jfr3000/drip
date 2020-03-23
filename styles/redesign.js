@@ -1,5 +1,6 @@
 import Colors from './colors'
 import Containers from './containers'
-import Typography from './typography'
+import Spacing from './spacing'
+import Typography, { sizes as Sizes } from './typography'
 
-export { Colors, Containers, Typography }
+export { Colors, Containers, Spacing, Sizes, Typography }
