@@ -1,18 +1,24 @@
 import React from 'react'
-
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 import AppText from './app-text'
+
+import { Containers } from '../../styles/redesign'
+
 import { shared } from '../../i18n/en/labels'
 
 const AppLoadingView = () => {
   return (
-    <View flex={1}>
-      <View style={{flex:1, justifyContent: 'center'}}>
-        <AppText style={{alignSelf: 'center'}}>{shared.loading}</AppText>
-      </View>
+    <View style={styles.container}>
+      <AppText>{shared.loading}</AppText>
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    ...Containers.centerItems
+  }
+})
 
 export default AppLoadingView

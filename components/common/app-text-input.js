@@ -1,17 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { TextInput } from 'react-native'
-import styles from '../../styles'
+import { StyleSheet, TextInput } from 'react-native'
 
-export default function AppTextInput({ style, ...props }) {
+import { Containers } from '../../styles/redesign'
+
+const AppTextInput = ({
+  autoFocus,
+  onChangeText,
+  placeholder,
+  value,
+  style,
+  ...props
+}) => {
   if (!Array.isArray(style)) style = [style]
+
   return (
     <TextInput
-      style={[styles.textInputField, ...style]}
-      autoFocus={props.autoFocus}
-      onChangeText={props.onChangeText}
-      value={props.value}
-      placeholder={props.placeholder}
+      autoFocus={autoFocus}
+      onChangeText={onChangeText}
+      placeholder={placeholder}
+      style={[styles.input, ...style]}
+      value={value}
       {...props}
     />
   )
@@ -28,3 +37,11 @@ AppTextInput.propTypes = {
 AppTextInput.defaultProps = {
   style: []
 }
+
+const styles = StyleSheet.create({
+  input: {
+    ...Containers.greyBorder
+  }
+})
+
+export default AppTextInput

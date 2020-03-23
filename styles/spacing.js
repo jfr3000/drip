@@ -1,3 +1,4 @@
 export default {
-  base: 16
+  base: 16,
+  large: 20
 }

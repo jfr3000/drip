@@ -14,15 +14,29 @@ const sizes = {
   titleLarge: 28
 }
 
+const button = {
+  paddingHorizontal: Spacing.large,
+  paddingVertical: Spacing.base,
+  textTransform: 'uppercase'
+}
+
 export default {
+  buttonTextBold: {
+    fontFamily: fonts.bold,
+    ...button
+  },
+  buttonTextRegular: {
+    fontFamily: fonts.main,
+    ...button
+  },
   mainText: {
     fontFamily: fonts.main,
     fontSize: sizes.mainMedium
   },
-  underline: { textDecorationLine: 'underline' },
   titleSmall: {
     color: Colors.purple,
     fontSize: sizes.titleSmall,
     marginVertical: Spacing.base
-  }
+  },
+  underline: { textDecorationLine: 'underline' }
 }
