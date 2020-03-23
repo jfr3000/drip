@@ -1,5 +1,5 @@
 import labels from './settings'
-const settingsTitles = labels.menuTitles
+const settingsTitles = labels.menuItems
 
 export const shared = {
   cancel: 'Cancel',
@@ -27,12 +27,12 @@ export const headerTitles = {
   Chart: 'Chart',
   Stats: 'Statistics',
   SettingsMenu: 'Settings',
-  Reminders: settingsTitles.reminders,
-  NfpSettings: settingsTitles.nfpSettings,
-  DataManagement: settingsTitles.dataManagement,
-  Password: settingsTitles.password,
-  About: settingsTitles.about,
-  License: settingsTitles.license,
+  Reminders: settingsTitles.reminders.name,
+  NfpSettings: settingsTitles.nfpSettings.name,
+  DataManagement: settingsTitles.dataManagement.name,
+  Password: settingsTitles.password.name,
+  About: 'About',
+  License: 'License',
   bleeding: 'Bleeding',
   temperature: 'Temperature',
   mucus: 'Cervical Mucus',

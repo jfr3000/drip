@@ -1,50 +1,82 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { TouchableOpacity, ScrollView } from 'react-native'
-import { connect } from 'react-redux'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 
-import { navigate } from '../../slices/navigation'
-
-import styles from '../../styles/index'
-
-import settingsLabels from '../../i18n/en/settings'
-
+import AppIcon from '../common/app-icon'
+import AppPage from '../common/app-page'
 import AppText from '../common/app-text'
 
-const labels = settingsLabels.menuTitles
+import { connect } from 'react-redux'
+import { navigate } from '../../slices/navigation'
 
+import { Colors, Containers, Sizes, Spacing } from '../../styles/redesign'
+import settingsLabels from '../../i18n/en/settings'
+
+const { menuItems } = settingsLabels
 const menu = [
-  {title: labels.reminders, component: 'Reminders'},
-  {title: labels.nfpSettings, component: 'NfpSettings'},
-  {title: labels.dataManagement, component: 'DataManagement'},
-  {title: labels.password, component: 'Password'},
-  {title: labels.about, component: 'About'},
-  {title: labels.license, component: 'License'}
+  { ...menuItems.reminders, component: 'Reminders'},
+  { ...menuItems.nfpSettings, component: 'NfpSettings'},
+  { ...menuItems.dataManagement, component: 'DataManagement'},
+  { ...menuItems.password, component: 'Password'}
 ]
 
 const SettingsMenu = ({ navigate }) => {
   return (
-    <ScrollView>
-      { menu.map(menuItem)}
-    </ScrollView>
+    <AppPage title={settingsLabels.title}>
+      {menu.map((menuItem, i) =>
+        <MenuItem item={menuItem} i={i} navigate={navigate} key={i}/>
+      )}
+    </AppPage>
   )
-
-  function menuItem(item) {
-    return (
-      <TouchableOpacity
-        style={styles.framedSegment}
-        key={item.title}
-        onPress={() => navigate(item.component)}
-      >
-        <AppText>{item.title.toLowerCase()}</AppText>
-      </TouchableOpacity>
-    )
-  }
 }
 
 SettingsMenu.propTypes = {
   navigate: PropTypes.func.isRequired
 }
+
+const MenuItem = ({ i, item, navigate }) => {
+  const isLast = (menu.length === i + 1)
+  const containerStyle = isLast ? styles.containerLast : styles.container
+
+  return (
+    <TouchableOpacity
+      style={containerStyle}
+      key={item.name}
+      onPress={() => navigate(item.component)}
+    >
+      <View>
+        <AppText style={styles.title}>{item.name}</AppText>
+        {item.text.length > 0 && <AppText>{item.text}</AppText>}
+      </View>
+      <AppIcon name={'chevron-right'} isCTA/>
+    </TouchableOpacity>
+  )
+}
+
+MenuItem.propTypes = {
+  i: PropTypes.number.isRequired,
+  item: PropTypes.object.isRequired,
+  navigate: PropTypes.func.isRequired
+}
+
+const menuItemContainer = {
+  margin: Spacing.base,
+  ...Containers.rowContainer
+}
+
+const styles = StyleSheet.create({
+  container: {
+    ...menuItemContainer,
+    ...Containers.bottomBorder
+  },
+  containerLast: {
+    ...menuItemContainer
+  },
+  title: {
+    color: Colors.purple,
+    fontSize: Sizes.subtitle
+  },
+})
 
 const mapDispatchToProps = (dispatch) => {
   return({

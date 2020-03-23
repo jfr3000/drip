@@ -2,7 +2,7 @@ import symptomViews from './cycle-day/symptoms'
 import settingsViews from './settings'
 
 import settingsLabels from '../i18n/en/settings'
-const labels = settingsLabels.menuTitles
+const labels = settingsLabels.menuItems
 
 const symptomsPages = Object.keys(symptomViews).map(symptomView => ({
   component: symptomView,
@@ -53,32 +53,32 @@ export const pages = [
   },
   {
     component: 'Reminders',
-    label: labels.reminders,
+    label: labels.reminders.name,
     parent: 'SettingsMenu',
   },
   {
     component: 'NfpSettings',
-    label: labels.nfpSettings,
+    label: labels.nfpSettings.name,
     parent: 'SettingsMenu',
   },
   {
     component: 'DataManagement',
-    label: labels.dataManagement,
+    label: labels.dataManagement.name,
     parent: 'SettingsMenu',
   },
   {
     component: 'Password',
-    label: labels.password,
+    label: labels.password.name,
     parent: 'SettingsMenu',
   },
   {
     component: 'About',
-    label: labels.about,
+    label: 'About',
     parent: 'SettingsMenu',
   },
   {
     component: 'License',
-    label: labels.license,
+    label: 'License',
     parent: 'SettingsMenu',
   },
   {
