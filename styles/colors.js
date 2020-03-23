@@ -1,11 +1,11 @@
 export default {
-  greenSuperLight: '#E9F2ED',
-  grey: '#A5A5A5',
-  greyLight: '#D2D2D2',
-  greySuperLight: '#F2F2F2',
+  greyDark: '#A5A5A5',
+  grey: '#D2D2D2',
+  greyLight: '#F2F2F2',
   orange: '#F38337',
   purple: '#3A2671',
   purpleLight: '#5D4F8A',
-  tourquise: '#69CBC1',
-  tourquiseLight: '#CFECEA',
+  tourquiseDark: '#69CBC1',
+  tourquise: '#CFECEA',
+  tourquiseLight: '#E9F2ED',
 }

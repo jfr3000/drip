@@ -5,7 +5,7 @@ export default {
   bottomBorder: {
     borderStyle: 'solid',
     borderBottomWidth: 2,
-    borderBottomColor: Colors.greyLight,
+    borderBottomColor: Colors.grey,
     paddingBottom: Spacing.base
   },
   centerItems: {
@@ -14,7 +14,7 @@ export default {
     justifyContent: 'center'
   },
   greyBorder: {
-    borderColor: Colors.greyLight,
+    borderColor: Colors.grey,
     borderRadius: 5,
     borderStyle: 'solid',
     borderWidth: 1,
@@ -25,7 +25,7 @@ export default {
     borderRadius: 25
   },
   page: {
-    backgroundColor: Colors.greenSuperLight,
+    backgroundColor: Colors.tourquiseLight,
     flex: 1
   },
   segmentContainer: { marginHorizontal: Spacing.base }

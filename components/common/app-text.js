@@ -29,7 +29,7 @@ AppText.propTypes = {
 
 const styles = StyleSheet.create({
   text: {
-    color: Colors.grey,
+    color: Colors.greyDark,
     ...Typography.mainText
   }
 })
