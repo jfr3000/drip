@@ -6,21 +6,20 @@ import AppText from './app-text'
 
 import { Containers, Typography } from '../../styles/redesign'
 
-const FramedSegment = ({ children, last, style, title }) => {
+const Segment = ({ children, last, title }) => {
   const containerStyle = last ? styles.containerLast : styles.container
 
   return (
-    <View style={[containerStyle, style]}>
+    <View style={containerStyle}>
       {title && <AppText style={styles.title}>{title}</AppText>}
       {children}
     </View>
   )
 }
 
-FramedSegment.propTypes = {
+Segment.propTypes = {
   children: PropTypes.node,
   last: PropTypes.bool,
-  style: PropTypes.object,
   title: PropTypes.string
 }
 
@@ -38,4 +37,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default FramedSegment
+export default Segment

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {
   ScrollView,
 } from 'react-native'
-import FramedSegment from '../../common/framed-segment'
+import Segment from '../../common/segment'
 import TempReminderPicker from './temp-reminder-picker'
 import PeriodReminderPicker from './period-reminder'
 
@@ -17,12 +17,12 @@ export default class Settings extends Component {
   render() {
     return (
       <ScrollView>
-        <FramedSegment title={labels.tempReminder.title}>
+        <Segment title={labels.tempReminder.title}>
           <TempReminderPicker/>
-        </FramedSegment>
-        <FramedSegment title={labels.periodReminder.title}>
+        </Segment>
+        <Segment title={labels.periodReminder.title}>
           <PeriodReminderPicker/>
-        </FramedSegment>
+        </Segment>
       </ScrollView>
     )
   }

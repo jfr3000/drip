@@ -2,7 +2,7 @@ import React from 'react'
 
 import AppPage from '../common/app-page'
 import AppText from '../common/app-text'
-import FramedSegment from '../common/framed-segment'
+import Segment from '../common/segment'
 
 import labels from '../../i18n/en/settings'
 import links from '../../i18n/en/links'
@@ -10,24 +10,24 @@ import links from '../../i18n/en/links'
 const AboutSection = () => {
   return (
     <AppPage title={labels.aboutSection.title} >
-      <FramedSegment>
+      <Segment>
         <AppText>{labels.aboutSection.text}</AppText>
-      </FramedSegment>
-      <FramedSegment title={labels.philosophy.title}>
+      </Segment>
+      <Segment title={labels.philosophy.title}>
         <AppText>{labels.philosophy.text}</AppText>
-      </FramedSegment>
-      <FramedSegment title={labels.credits.title}>
+      </Segment>
+      <Segment title={labels.credits.title}>
         <AppText>{labels.credits.note}</AppText>
-      </FramedSegment>
-      <FramedSegment title={labels.donate.title}>
+      </Segment>
+      <Segment title={labels.donate.title}>
         <AppText>{labels.donate.note}</AppText>
-      </FramedSegment>
-      <FramedSegment title={labels.website.title}>
+      </Segment>
+      <Segment title={labels.website.title}>
         <AppText>{links.website.url}</AppText>
-      </FramedSegment>
-      <FramedSegment title={labels.version.title} last>
+      </Segment>
+      <Segment title={labels.version.title} last>
         <AppText>{require('../../package.json').version}</AppText>
-      </FramedSegment>
+      </Segment>
     </AppPage>
   )
 }

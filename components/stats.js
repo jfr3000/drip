@@ -9,7 +9,7 @@ import cycleModule from '../lib/cycle'
 import {getCycleLengthStats as getCycleInfo} from '../lib/cycle-length'
 import {stats as labels} from '../i18n/en/labels'
 import AppText from './common/app-text'
-import FramedSegment from './common/framed-segment'
+import Segment from './common/segment'
 
 export default class Stats extends Component {
   render() {
@@ -25,7 +25,7 @@ export default class Stats extends Component {
     }
     return (
       <ScrollView>
-        <FramedSegment
+        <Segment
           style={styles.framedSegmentLast}
           title={labels.cycleLengthTitle}
         >
@@ -70,7 +70,7 @@ export default class Stats extends Component {
               <AppText>{labels.basisOfStatsEnd}</AppText>
             </View>
           </View>}
-        </FramedSegment>
+        </Segment>
       </ScrollView>
     )
   }
