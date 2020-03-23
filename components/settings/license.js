@@ -8,8 +8,8 @@ import labels from '../../i18n/en/settings'
 
 const License = () => {
   return (
-    <AppPage title={labels.license.title} >
-      <Segment last >
+    <AppPage title={labels.license.title}>
+      <Segment last>
         <AppText>{labels.license.text}</AppText>
       </Segment>
     </AppPage>
