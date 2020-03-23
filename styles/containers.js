@@ -12,10 +12,6 @@ export default {
     borderStyle: 'solid',
     borderWidth: 1,
   },
-  orangeButton: {
-    backgroundColor: Colors.orange,
-    borderRadius: 25
-  },
   page: {
     backgroundColor: Colors.tourquiseLight,
     flex: 1

@@ -1,7 +1,7 @@
 import Colors from './colors'
 import Spacing from './spacing'
 
-const fonts = {
+export const fonts = {
   main: 'Jost-400-Book',
   bold : 'Jost-700-Bold',
 }
@@ -12,21 +12,7 @@ export const sizes = {
   title: 24
 }
 
-const button = {
-  paddingHorizontal: Spacing.large,
-  paddingVertical: Spacing.base,
-  textTransform: 'uppercase'
-}
-
 export default {
-  buttonTextBold: {
-    fontFamily: fonts.bold,
-    ...button
-  },
-  buttonTextRegular: {
-    fontFamily: fonts.main,
-    ...button
-  },
   mainText: {
     fontFamily: fonts.main,
     fontSize: sizes.base

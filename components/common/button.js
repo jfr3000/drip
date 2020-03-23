@@ -4,11 +4,11 @@ import { StyleSheet, TouchableOpacity } from 'react-native'
 
 import AppText from './app-text'
 
-import { Containers, Typography } from '../../styles/redesign'
+import { Colors, Fonts, Spacing } from '../../styles/redesign'
 
-const Button = ({ children, isOrange, onPress, testID }) => {
-  const buttonStyle = isOrange ? styles.orange : {}
-  const textStyle = isOrange ? styles.buttonTextBold : styles.buttonTextRegular
+const Button = ({ children, isCTA, onPress, testID }) => {
+  const buttonStyle = isCTA ? styles.orange : {}
+  const textStyle = isCTA ? styles.buttonTextBold : styles.buttonTextRegular
   return (
     <TouchableOpacity onPress={onPress} style={buttonStyle} testID={testID}>
       <AppText style={textStyle}>{children}</AppText>
@@ -18,20 +18,29 @@ const Button = ({ children, isOrange, onPress, testID }) => {
 
 Button.propTypes = {
   children: PropTypes.node,
-  isOrange: PropTypes.bool,
+  isCTA: PropTypes.bool,
   onPress: PropTypes.func,
   testID: PropTypes.string
 }
 
+const button = {
+  paddingHorizontal: Spacing.large,
+  paddingVertical: Spacing.base,
+  textTransform: 'uppercase'
+}
+
 const styles = StyleSheet.create({
   orange: {
-    ...Containers.orangeButton
+    backgroundColor: Colors.orange,
+    borderRadius: 25
   },
   buttonTextBold: {
-    ...Typography.buttonTextBold
+    fontFamily: Fonts.main,
+    ...button
   },
   buttonTextRegular: {
-    ...Typography.buttonTextRegular
+    fontFamily: Fonts.bold,
+    ...button
   }
 })
 
