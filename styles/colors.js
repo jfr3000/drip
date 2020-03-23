@@ -1,4 +1,5 @@
 export default {
+  greenSuperLight: '#E9F2ED',
   grey: '#A5A5A5',
   greyLight: '#D2D2D2',
   greySuperLight: '#F2F2F2',

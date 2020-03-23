@@ -20,6 +20,12 @@ const button = {
   textTransform: 'uppercase'
 }
 
+const title = {
+  color: Colors.purple,
+  marginHorizontal: Spacing.base,
+  marginVertical: Spacing.large
+}
+
 export default {
   buttonTextBold: {
     fontFamily: fonts.bold,
@@ -33,10 +39,16 @@ export default {
     fontFamily: fonts.main,
     fontSize: sizes.mainMedium
   },
+  pageTitle: {
+    alignSelf: 'center',
+    fontFamily: fonts.bold,
+    fontWeight: '700',
+    fontSize: sizes.titleMedium,
+    ...title
+  },
   titleSmall: {
-    color: Colors.purple,
     fontSize: sizes.titleSmall,
-    marginVertical: Spacing.base
+    ...title
   },
   underline: { textDecorationLine: 'underline' }
 }

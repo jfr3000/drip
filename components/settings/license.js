@@ -1,18 +1,19 @@
-import React, { Component } from 'react'
-import { View, ScrollView } from 'react-native'
+import React from 'react'
+
+import AppPage from '../common/app-page'
 import AppText from '../common/app-text'
-import styles from '../../styles/index'
+import FramedSegment from '../common/framed-segment'
+
 import labels from '../../i18n/en/settings'
 
-export default class License extends Component {
-  render() {
-    return (
-      <ScrollView>
-        <View style={styles.framedSegment}>
-          <AppText style={styles.framedSegmentTitle}>{`${labels.license.title} `}</AppText>
-          <AppText>{`${labels.license.text} `}</AppText>
-        </View>
-      </ScrollView>
-    )
-  }
+const License = () => {
+  return (
+    <AppPage title={labels.license.title} >
+      <FramedSegment last >
+        <AppText>{labels.license.text}</AppText>
+      </FramedSegment>
+    </AppPage>
+  )
 }
+
+export default License

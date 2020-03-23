@@ -5,7 +5,7 @@ export default {
   bottomBorder: {
     borderStyle: 'solid',
     borderBottomWidth: 2,
-    borderBottomColor: Colors.greySuperLight,
+    borderBottomColor: Colors.greyLight,
     paddingBottom: Spacing.base
   },
   centerItems: {
@@ -23,6 +23,10 @@ export default {
   orangeButton: {
     backgroundColor: Colors.orange,
     borderRadius: 25
+  },
+  page: {
+    backgroundColor: Colors.greenSuperLight,
+    flex: 1
   },
   segmentContainer: { marginHorizontal: Spacing.base }
 }
