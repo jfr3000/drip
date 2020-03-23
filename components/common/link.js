@@ -26,8 +26,8 @@ Link.propTypes = {
 const styles = StyleSheet.create({
   link: {
     color: Colors.purple,
+    textDecorationLine: 'underline',
     ...Typography.mainText,
-    ...Typography.underline,
   }
 })
 

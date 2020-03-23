@@ -41,6 +41,5 @@ export default {
   title: {
     color: Colors.purple,
     marginVertical: Spacing.large
-  },
-  underline: { textDecorationLine: 'underline' }
+  }
 }
