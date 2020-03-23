@@ -1,29 +1,41 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { StyleSheet, View } from 'react-native'
 
-import { View } from 'react-native'
 import AppText from './app-text'
-import styles from '../../styles'
+
+import { Containers, Typography } from '../../styles/redesign'
 
 const FramedSegment = ({ children, last, style, title }) => {
-  const viewStyle = [styles.framedSegment, style]
-  if (last) viewStyle.push(styles.framedSegmentLast)
+  const containerStyle = last ? styles.containerLast : styles.container
+
   return (
-    <View style={[viewStyle]}>
-      {title && <AppText style={styles.framedSegmentTitle}>{title}</AppText>}
+    <View style={[containerStyle, style]}>
+      {title && <AppText style={styles.title}>{title}</AppText>}
       {children}
     </View>
   )
 }
 
 FramedSegment.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]),
+  children: PropTypes.node,
   last: PropTypes.bool,
   style: PropTypes.object,
   title: PropTypes.string
 }
+
+const styles = StyleSheet.create({
+  container: {
+    ...Containers.segmentContainer,
+    ...Containers.bottomBorder
+  },
+  containerLast: {
+    ...Containers.segmentContainer,
+    ...Containers.marginBottom
+  },
+  title: {
+    ...Typography.titleSmall
+  }
+})
 
 export default FramedSegment
