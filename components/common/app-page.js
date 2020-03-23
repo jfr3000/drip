@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet } from 'react-native'
 
 import AppText from '../common/app-text'
 
-import { Colors, Fonts, Sizes, Spacing, Typography } from '../../styles/redesign'
+import { Colors, Typography } from '../../styles/redesign'
 
 const AppPage = ({ children, title }) => {
   return(
@@ -26,11 +26,6 @@ const styles = StyleSheet.create({
     flex: 1
   },
   title: {
-    alignSelf: 'center',
-    fontFamily: Fonts.bold,
-    fontWeight: '700',
-    fontSize: Sizes.title,
-    marginHorizontal: Spacing.base,
     ...Typography.title
   }
 })

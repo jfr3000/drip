@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native'
 
 import AppText from './app-text'
 
-import { Containers, Spacing, Sizes, Typography } from '../../styles/redesign'
+import { Containers, Spacing, Typography } from '../../styles/redesign'
 
 const Segment = ({ children, last, title }) => {
   const containerStyle = last ? styles.containerLast : styles.container
@@ -37,8 +37,7 @@ const styles = StyleSheet.create({
     ...segmentContainer
   },
   title: {
-    fontSize: Sizes.subtitle,
-    ...Typography.title
+    ...Typography.subtitle
   }
 })
 

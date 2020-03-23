@@ -12,13 +12,26 @@ export const sizes = {
   title: 24
 }
 
+const title = {
+  color: Colors.purple,
+  marginVertical: Spacing.large
+}
+
 export default {
   mainText: {
     fontFamily: fonts.main,
     fontSize: sizes.base
   },
+  subtitle: {
+    fontSize: sizes.subtitle,
+    ...title
+  },
   title: {
-    color: Colors.purple,
-    marginVertical: Spacing.large
+    alignSelf: 'center',
+    fontFamily: fonts.bold,
+    fontWeight: '700',
+    fontSize: sizes.title,
+    marginHorizontal: Spacing.base,
+    ...title
   }
 }
