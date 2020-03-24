@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native'
 
 import AppText from './app-text'
 
-import { Containers, Spacing, Typography } from '../../styles/redesign'
+import { Colors, Spacing, Typography } from '../../styles/redesign'
 
 const Segment = ({ children, last, title }) => {
   const containerStyle = last ? styles.containerLast : styles.container
@@ -30,8 +30,11 @@ const segmentContainer = {
 
 const styles = StyleSheet.create({
   container: {
-    ...segmentContainer,
-    ...Containers.bottomBorder
+    borderStyle: 'solid',
+    borderBottomWidth: 2,
+    borderBottomColor: Colors.grey,
+    paddingBottom: Spacing.base,
+    ...segmentContainer
   },
   containerLast: {
     ...segmentContainer
