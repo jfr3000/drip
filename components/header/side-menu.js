@@ -31,7 +31,11 @@ const SideMenu = ({ shouldShowMenu, toggleMenu }) => {
           transparent={true}
           visible={shouldShowMenu}
         >
-          <View style={styles.blackBackground}></View>
+          <TouchableOpacity
+            onPress={toggleMenu}
+            style={styles.blackBackground}
+          >
+          </TouchableOpacity>
           <View style={styles.menu}>
             <TouchableOpacity onPress={toggleMenu} style={styles.iconContainer}>
               <AppIcon name='cross' color='black'/>
