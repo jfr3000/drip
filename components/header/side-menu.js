@@ -3,52 +3,44 @@ import { Modal, StyleSheet, TouchableOpacity, View } from 'react-native'
 import PropTypes from 'prop-types'
 
 import AppIcon from '../common/app-icon'
-import AppText from '../common/app-text'
+import MenuItem from './menu-item'
 
-import { connect } from 'react-redux'
-import { navigate } from '../../slices/navigation'
-
-import { Sizes, Typography } from '../../styles/redesign'
+import { Sizes } from '../../styles/redesign'
 import settingsLabels from '../../i18n/en/settings'
 
 const { menuItems } = settingsLabels
 
 const settingsMenuItems = [
-  {name: menuItems.settings, component: 'SettingsMenu'},
-  {name: menuItems.about, component: 'About'},
-  {name: menuItems.license, component: 'License'},
+  { name: menuItems.settings, component: 'SettingsMenu' },
+  { name: menuItems.about, component: 'About' },
+  { name: menuItems.license, component: 'License' },
 ]
 
-const SideMenu = ({ navigate, onPress, shouldShowMenu }) => {
-  const navigateMenuItem = (page) => {
-    onPress()
-    navigate(page)
-  }
-
+const SideMenu = ({ shouldShowMenu, toggleMenu }) => {
   return(
     <React.Fragment>
       {!shouldShowMenu &&
-        <TouchableOpacity onPress={onPress}>
+        <TouchableOpacity onPress={toggleMenu}>
           <AppIcon name={'dots-three-vertical'} isCTA/>
         </TouchableOpacity>
       }
       {shouldShowMenu &&
         <Modal
           animationType='fade'
-          onRequestClose={onPress}
+          onRequestClose={toggleMenu}
           transparent={true}
           visible={shouldShowMenu}
         >
           <View style={styles.blackBackground}></View>
           <View style={styles.menu}>
-            <TouchableOpacity onPress={onPress} style={styles.iconContainer}>
-              <AppIcon name={'cross'}/>
+            <TouchableOpacity onPress={toggleMenu} style={styles.iconContainer}>
+              <AppIcon name={'cross'} isCTA={false}/>
             </TouchableOpacity>
             {settingsMenuItems.map(item =>
               <MenuItem
                 item={item}
                 key={item.name}
-                navigate={navigateMenuItem}
+                closeMenu={toggleMenu}
               />
             )}
           </View>
@@ -59,24 +51,8 @@ const SideMenu = ({ navigate, onPress, shouldShowMenu }) => {
 }
 
 SideMenu.propTypes = {
-  navigate: PropTypes.func.isRequired,
-  onPress: PropTypes.func,
-  shouldShowMenu: PropTypes.bool.isRequired
-}
-
-const MenuItem = ({ item, navigate }) => {
-  return(
-    <View style={styles.menuItem}>
-      <TouchableOpacity onPress={() => navigate(item.component)}>
-        <AppText style={styles.text}>{item.name}</AppText>
-      </TouchableOpacity>
-    </View>
-  )
-}
-
-MenuItem.propTypes = {
-  item: PropTypes.object.isRequired,
-  navigate: PropTypes.func.isRequired,
+  shouldShowMenu: PropTypes.bool.isRequired,
+  toggleMenu: PropTypes.func
 }
 
 const styles = StyleSheet.create({
@@ -96,19 +72,7 @@ const styles = StyleSheet.create({
     padding: Sizes.base,
     position: 'absolute',
     width: '60%'
-  },
-  text: {
-    ...Typography.subtitle
   }
 })
 
-const mapDispatchToProps = (dispatch) => {
-  return({
-    navigate: (page) => dispatch(navigate(page)),
-  })
-}
-
-export default connect(
-  null,
-  mapDispatchToProps,
-)(SideMenu)
+export default SideMenu

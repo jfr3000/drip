@@ -23,7 +23,7 @@ export default class Header extends Component {
     return (
       <View style={styles.header}>
         <Logo />
-        <SideMenu shouldShowMenu={shouldShowMenu} onPress={this.toggleMenu}/>
+        <SideMenu shouldShowMenu={shouldShowMenu} toggleMenu={this.toggleMenu}/>
       </View >
     )
   }
