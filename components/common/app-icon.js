@@ -3,30 +3,25 @@ import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/Entypo'
 
-import { Colors, Sizes } from '../../styles/redesign'
+import { Sizes } from '../../styles/redesign'
 
-const AppIcon = ({ isCTA, name }) => {
-  const style = isCTA ? styles.iconCTA : styles.icon
+const AppIcon = ({ color, name }) => {
+  const style = [styles.icon, { color }]
 
   return <Icon name={name} style={style}/>
 }
 
 AppIcon.propTypes = {
-  isCTA: PropTypes.bool,
+  color: PropTypes.string,
   name: PropTypes.string.isRequired
 }
 
 AppIcon.defaultProps = {
-  isCTA: true
+  isCTA: 'black'
 }
 
 const styles = StyleSheet.create({
   icon: {
-    color: 'black',
-    fontSize: Sizes.subtitle
-  },
-  iconCTA: {
-    color: Colors.orange,
     fontSize: Sizes.subtitle
   }
 })

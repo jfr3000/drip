@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import AppIcon from '../common/app-icon'
 import MenuItem from './menu-item'
 
-import { Sizes } from '../../styles/redesign'
+import { Colors, Sizes } from '../../styles/redesign'
 import settingsLabels from '../../i18n/en/settings'
 
 const { menuItems } = settingsLabels
@@ -21,7 +21,7 @@ const SideMenu = ({ shouldShowMenu, toggleMenu }) => {
     <React.Fragment>
       {!shouldShowMenu &&
         <TouchableOpacity onPress={toggleMenu}>
-          <AppIcon name={'dots-three-vertical'} isCTA/>
+          <AppIcon name={'dots-three-vertical'} color={Colors.orange}/>
         </TouchableOpacity>
       }
       {shouldShowMenu &&
@@ -34,7 +34,7 @@ const SideMenu = ({ shouldShowMenu, toggleMenu }) => {
           <View style={styles.blackBackground}></View>
           <View style={styles.menu}>
             <TouchableOpacity onPress={toggleMenu} style={styles.iconContainer}>
-              <AppIcon name={'cross'} isCTA={false}/>
+              <AppIcon name={'cross'} color={'black'}/>
             </TouchableOpacity>
             {settingsMenuItems.map(item =>
               <MenuItem
