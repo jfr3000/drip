@@ -7,9 +7,11 @@ export const fonts = {
 }
 
 export const sizes = {
+  small: 14,
   base: 18,
   subtitle: 22,
-  title: 24
+  title: 24,
+  icon: 40
 }
 
 const title = {
