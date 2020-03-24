@@ -1,54 +1,51 @@
-import { LocalDate } from 'js-joda'
 import React, { Component } from 'react'
-import { ScrollView, View } from 'react-native'
-import { connect } from 'react-redux'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import PropTypes from 'prop-types'
 
+import { LocalDate } from 'js-joda'
+
+import { connect } from 'react-redux'
 import { navigate } from '../slices/navigation'
 import { getDate, setDate } from '../slices/date'
 
-import DripHomeIcon from '../assets/drip-home-icons'
-
 import AppText from './common/app-text'
-import IconText from './icon-text'
-import HomeElement from './home-element'
-
-import { home as labels } from '../i18n/en/labels'
-import links from '../i18n/en/links'
+import Button from './common/button'
 
 import cycleModule from '../lib/cycle'
 import { getFertilityStatusForDay } from '../lib/sympto-adapter'
-import {
-  determinePredictionText,
-  getBleedingPredictionRange
-} from './helpers/home'
+import { determinePredictionText, dateEnding } from './helpers/home'
 
-import styles, { cycleDayColor, periodColor, secondaryColor } from '../styles'
+import { Colors, Fonts, Sizes, Spacing } from '../styles/redesign'
+import { homeRedesign as labels, home as cycle } from '../i18n/en/labels'
 
 class Home extends Component {
 
   static propTypes = {
     navigate: PropTypes.func,
-    setDate: PropTypes.func,
-    // The following are not being used,
-    // we could see if it's possible to not pass them from the <App />
-    cycleDay: PropTypes.object,
-    date: PropTypes.string,
+    setDate: PropTypes.func
   }
 
   constructor(props) {
     super(props)
 
+    const today = LocalDate.now()
+    this.todayDateString = today.toString()
     const { getCycleDayNumber, getPredictedMenses } = cycleModule()
-
-    this.todayDateString = LocalDate.now().toString()
     this.cycleDayNumber = getCycleDayNumber(this.todayDateString)
-
+    const {status, phase, statusText} =
+      getFertilityStatusForDay(this.todayDateString)
     const prediction = getPredictedMenses()
-    this.predictionText = determinePredictionText(prediction)
-    this.bleedingPredictionRange = getBleedingPredictionRange(prediction)
 
-    this.fertilityStatus = getFertilityStatusForDay(this.todayDateString)
+    this.cycleDayText = !this.cycleDayNumber ? cycle.cycleDayNotEnoughInfo
+      : `${this.cycleDayNumber}${dateEnding[this.cycleDayNumber] || dateEnding['default']}`
+    this.phase = phase
+    this.phaseText = !phase ? statusText
+      : `${phase}${dateEnding[phase] || dateEnding['default']}`
+    this.prediction = determinePredictionText(prediction)
+    this.status = status
+    this.statusText = statusText
+    this.title = `${today.dayOfMonth()} ${today.month()}`
+
   }
 
   navigateToCycleDayView = () => {
@@ -56,87 +53,91 @@ class Home extends Component {
     this.props.navigate('CycleDay')
   }
 
-  navigateToBleedingEditView = () => {
-    this.props.setDate(this.todayDateString)
-    this.props.navigate('BleedingEditView')
-  }
-
-  navigateToChart = () => {
-    this.props.navigate('Chart')
-  }
-
   render() {
     const {
-      cycleDayNumber,
-      predictionText,
-      bleedingPredictionRange,
+      cycleDayText,
+      phase,
+      phaseText,
+      prediction,
+      status,
+      statusText,
+      title
     } = this
 
-    const { phase, status, statusText } = this.fertilityStatus
-
-    const cycleDayMoreText = cycleDayNumber ?
-      labels.cycleDayKnown(cycleDayNumber) :
-      labels.cycleDayNotEnoughInfo
-
     return (
-      <View flex={1}>
-        <ScrollView>
-          <View style={styles.homeView}>
-            <HomeElement
-              onPress={this.navigateToCycleDayView}
-              buttonColor={ cycleDayColor }
-              buttonLabel={ labels.editToday }
-            >
-              <View>
-                <DripHomeIcon name="circle" size={80} color={cycleDayColor}/>
-              </View>
-              <IconText>{cycleDayNumber || labels.unknown}</IconText>
-
-              <AppText style={styles.homeDescriptionText}>
-                {cycleDayMoreText}
-              </AppText>
-            </HomeElement>
-
-            <HomeElement
-              onPress={this.navigateToBleedingEditView}
-              buttonColor={ periodColor }
-              buttonLabel={ labels.trackPeriod }
-            >
-              <DripHomeIcon name="drop" size={100} color={periodColor} />
-
-              <IconText wrapperStyles={{ top: '45%' }}>
-                {bleedingPredictionRange}
-              </IconText>
-
-              <AppText style={styles.homeDescriptionText}>
-                {predictionText}
-              </AppText>
-            </HomeElement>
-
-            <HomeElement
-              onPress={this.navigateToChart}
-              buttonColor={ secondaryColor }
-              buttonLabel={ labels.checkFertility }
-            >
-              <View style={styles.homeCircle}/>
-
-              <IconText>{ phase ? phase.toString() : labels.unknown }</IconText>
-
-              { phase &&
-                <AppText style={styles.homeDescriptionText}>
-                  {`${labels.phase(phase)} (${status})`}
-                </AppText>
-              }
-              <AppText style={styles.homeDescriptionText}>
-                { `${statusText} Visit ${links.wiki.url}.` }
-              </AppText>
-            </HomeElement>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+      >
+        <AppText style={styles.title}>{title}</AppText>
+        <View style={styles.line}>
+          {this.cycleDayNumber && (
+            <React.Fragment>
+              <AppText style={styles.whiteText}>{cycleDayText}</AppText>
+              <AppText>{labels.cycleDay}</AppText>
+            </React.Fragment>
+          )}
+          {!this.cycleDayNumber && <AppText>{cycleDayText}</AppText>}
+        </View>
+        <View style={styles.line}>
+          {!phase && <AppText>{phaseText}</AppText>}
+          {phase && (
+            <React.Fragment>
+              <AppText style={styles.whiteText}>{phaseText}</AppText>
+              <AppText>{labels.cyclePhase}</AppText>
+              <AppText>{status}</AppText>
+              <Asterisk />
+            </React.Fragment>
+          )}
+        </View>
+        <View style={styles.line}>
+          <AppText>{prediction}</AppText>
+        </View>
+        <Button onPress={this.navigateToCycleDayView} isCTA>
+          {labels.addData}
+        </Button>
+        {phase && (
+          <View style={styles.line}>
+            <Asterisk />
+            <AppText linkStyle={styles.whiteText}>{statusText}</AppText>
           </View>
-        </ScrollView>
-      </View>
+        )}
+      </ScrollView>
     )
   }
 }
+
+const Asterisk = () => {
+  return <AppText style={styles.asterisk}>*</AppText>
+}
+
+const styles = StyleSheet.create({
+  asterisk: {
+    color: Colors.orange,
+    paddingRight: Spacing.base
+  },
+  container: {
+    backgroundColor: Colors.purple,
+    flex: 1
+  },
+  contentContainer: {
+    padding: Spacing.base
+  },
+  line: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    marginBottom: Spacing.tiny
+  },
+  title: {
+    color: Colors.purpleLight,
+    fontFamily: Fonts.bold,
+    fontSize: Sizes.huge,
+    marginVertical: Spacing.base,
+  },
+  whiteText: {
+    color: 'white'
+  }
+})
 
 const mapStateToProps = (state) => {
   return({

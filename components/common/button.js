@@ -7,7 +7,7 @@ import AppText from './app-text'
 import { Colors, Fonts, Spacing } from '../../styles/redesign'
 
 const Button = ({ children, isCTA, onPress, testID }) => {
-  const buttonStyle = isCTA ? styles.orange : {}
+  const buttonStyle = isCTA ? styles.cta : styles.regular
   const textStyle = isCTA ? styles.buttonTextBold : styles.buttonTextRegular
   return (
     <TouchableOpacity onPress={onPress} style={buttonStyle} testID={testID}>
@@ -23,24 +23,35 @@ Button.propTypes = {
   testID: PropTypes.string
 }
 
-const button = {
-  paddingHorizontal: Spacing.large,
-  paddingVertical: Spacing.base,
+const text = {
+  padding: Spacing.base,
   textTransform: 'uppercase'
 }
 
+const button = {
+  alignItems: 'center',
+  justifyContent: 'center',
+  margin: Spacing.base
+}
+
 const styles = StyleSheet.create({
-  orange: {
+  regular: {
+    ...button
+  },
+  cta: {
     backgroundColor: Colors.orange,
-    borderRadius: 25
+    borderRadius: 25,
+    ...button
   },
   buttonTextBold: {
-    fontFamily: Fonts.main,
-    ...button
+    color: 'white',
+    fontFamily: Fonts.bold,
+    ...text
   },
   buttonTextRegular: {
-    fontFamily: Fonts.bold,
-    ...button
+    color: Colors.greyDark,
+    fontFamily: Fonts.main,
+    ...text
   }
 })
 

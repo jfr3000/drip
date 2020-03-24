@@ -62,3 +62,10 @@ export function getBleedingPredictionRange(prediction) {
   }
   return (daysToEnd === 0 ? '0' : `0 - ${daysToEnd}`)
 }
+
+export const dateEnding = {
+  '1': 'st',
+  '2': 'nd',
+  '3': 'rd',
+  'default': 'th'
+}

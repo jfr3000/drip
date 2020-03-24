@@ -7,10 +7,10 @@ import { Colors, Typography } from '../../styles/redesign'
 
 import links from '../../i18n/en/links'
 
-const Link = ({ children }) => {
+const Link = ({ children, style }) => {
   return (
     <Hyperlink
-      linkStyle={styles.link}
+      linkStyle={[styles.link, style]}
       linkText={replaceUrlWithText}
       linkDefault
     >
@@ -20,7 +20,8 @@ const Link = ({ children }) => {
 }
 
 Link.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
+  style: PropTypes.object
 }
 
 const styles = StyleSheet.create({

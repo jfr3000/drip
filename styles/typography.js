@@ -11,7 +11,7 @@ export const sizes = {
   base: 18,
   subtitle: 22,
   title: 24,
-  icon: 40
+  huge: 40
 }
 
 const title = {
