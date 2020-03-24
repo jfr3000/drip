@@ -21,7 +21,7 @@ const SideMenu = ({ shouldShowMenu, toggleMenu }) => {
     <React.Fragment>
       {!shouldShowMenu &&
         <TouchableOpacity onPress={toggleMenu}>
-          <AppIcon name={'dots-three-vertical'} color={Colors.orange}/>
+          <AppIcon name='dots-three-vertical' color={Colors.orange}/>
         </TouchableOpacity>
       }
       {shouldShowMenu &&
@@ -34,7 +34,7 @@ const SideMenu = ({ shouldShowMenu, toggleMenu }) => {
           <View style={styles.blackBackground}></View>
           <View style={styles.menu}>
             <TouchableOpacity onPress={toggleMenu} style={styles.iconContainer}>
-              <AppIcon name={'cross'} color={'black'}/>
+              <AppIcon name='cross' color='black'/>
             </TouchableOpacity>
             {settingsMenuItems.map(item =>
               <MenuItem

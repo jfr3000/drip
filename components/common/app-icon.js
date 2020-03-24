@@ -17,7 +17,7 @@ AppIcon.propTypes = {
 }
 
 AppIcon.defaultProps = {
-  isCTA: 'black'
+  color: 'black'
 }
 
 const styles = StyleSheet.create({

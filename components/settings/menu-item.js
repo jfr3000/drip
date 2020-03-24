@@ -23,7 +23,7 @@ const MenuItem = ({ item, last, navigate }) => {
           <AppText style={styles.title}>{item.name}</AppText>
           {item.text.length > 0 && <AppText>{item.text}</AppText>}
         </View>
-        <AppIcon name={'chevron-right'} color={Colors.orange}/>
+        <AppIcon name='chevron-right' color={Colors.orange}/>
       </TouchableOpacity>
     </Segment>
   )
