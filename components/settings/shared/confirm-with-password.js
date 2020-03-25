@@ -1,27 +1,22 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, Alert } from 'react-native'
-
+import { Alert, StyleSheet, View } from 'react-native'
 import nodejs from 'nodejs-mobile-react-native'
+
+import AppTextInput from '../../common/app-text-input'
+import Button from '../../common/button'
+
 import { requestHash, openDb } from '../../../db'
-
-import PasswordField from './password-field'
-import SettingsButton from '../shared/settings-button'
-
+import { Containers } from '../../../styles/redesign'
 import settings from '../../../i18n/en/settings'
 import { shared } from '../../../i18n/en/labels'
 
 export default class ConfirmWithPassword extends Component {
   constructor() {
     super()
-    this.state = {
-      password: null
-    }
-    nodejs.channel.addListener(
-      'password-check',
-      this.checkPassword,
-      this
-    )
+
+    this.state = { password: null }
+    nodejs.channel.addListener('password-check', this.checkPassword, this)
   }
 
   componentWillUnmount() {
@@ -67,36 +62,24 @@ export default class ConfirmWithPassword extends Component {
   render() {
     const { password } = this.state
     const labels = settings.passwordSettings
+    const isCTA = password !== null
 
     return (
-      <View>
-        <PasswordField
+      <React.Fragment>
+        <AppTextInput
+          onChangeText={this.handlePasswordInput}
           placeholder={labels.enterCurrent}
           value={password}
-          onChangeText={this.handlePasswordInput}
         />
-        <View style={{
-          flex: 1,
-          flexDirection: 'row',
-          justifyContent: 'space-between'
-        }}>
-          <SettingsButton
-            onPress={this.props.onCancel}
-            secondary
-          >
+        <View style={styles.container}>
+          <Button isSmall onPress={this.props.onCancel}>
             {shared.cancel}
-          </SettingsButton>
-          <SettingsButton
-            onPress={this.initPasswordCheck}
-            disabled={!password}
-            style={{
-              flex: 1,
-            }}
-          >
+          </Button>
+          <Button isCTA={isCTA} isSmall onPress={this.initPasswordCheck}>
             {shared.confirmToProceed}
-          </SettingsButton>
+          </Button>
         </View>
-      </View>
+      </React.Fragment>
     )
 
   }
@@ -106,3 +89,9 @@ ConfirmWithPassword.propTypes = {
   onSuccess: PropTypes.func,
   onCancel: PropTypes.func
 }
+
+const styles = StyleSheet.create({
+  container: {
+    ...Containers.rowContainer
+  }
+})

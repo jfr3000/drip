@@ -1,16 +1,23 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import settings from '../../../i18n/en/settings'
+import Button from '../../common/button'
+
 import EnterNewPassword from './enter-new-password'
-import SettingsButton from '../shared/settings-button'
 import showBackUpReminder from './show-backup-reminder'
 import ConfirmWithPassword from '../shared/confirm-with-password'
 
+import settings from '../../../i18n/en/settings'
 
 export default class ChangePassword extends Component {
+  static propTypes = {
+    onStartChange: PropTypes.func,
+    onCancelChange: PropTypes.func
+  }
+
   constructor() {
     super()
+
     this.state = {
       currentPassword: null,
       enteringCurrentPassword: false,
@@ -48,14 +55,13 @@ export default class ChangePassword extends Component {
   }
 
   render() {
-
     const {
       enteringCurrentPassword,
       enteringNewPassword,
       currentPassword
     } = this.state
-
     const labels = settings.passwordSettings
+    const isDisabled = currentPassword !== null
 
     if (enteringCurrentPassword) {
       return (
@@ -71,17 +77,9 @@ export default class ChangePassword extends Component {
     }
 
     return (
-      <SettingsButton
-        onPress={this.startChangingPassword}
-        disabled={currentPassword}
-      >
+      <Button disabled={isDisabled} isCTA onPress={this.startChangingPassword}>
         {labels.changePassword}
-      </SettingsButton>
+      </Button>
     )
   }
-}
-
-ChangePassword.propTypes = {
-  onStartChange: PropTypes.func,
-  onCancelChange: PropTypes.func
 }
