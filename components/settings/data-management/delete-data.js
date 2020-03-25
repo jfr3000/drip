@@ -3,12 +3,13 @@ import RNFS from 'react-native-fs'
 import { Alert, ToastAndroid } from 'react-native'
 import PropTypes from 'prop-types'
 
-import { clearDb, isDbEmpty } from '../../../db'
-import { hasEncryptionObservable } from '../../../local-storage'
-import SettingsButton from '../shared/settings-button'
+import Button from '../../common/button'
+
 import ConfirmWithPassword from '../shared/confirm-with-password'
 import alertError from '../shared/alert-error'
 
+import { clearDb, isDbEmpty } from '../../../db'
+import { hasEncryptionObservable } from '../../../local-storage'
 import settings from '../../../i18n/en/settings'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
 import { EXPORT_FILE_NAME } from './constants'
@@ -18,6 +19,7 @@ const exportedFilePath = `${RNFS.DocumentDirectoryPath}/${EXPORT_FILE_NAME}`
 export default class DeleteData extends Component {
   constructor() {
     super()
+
     this.state = {
       isPasswordSet: hasEncryptionObservable.value,
       isConfirmingWithPassword: false
@@ -92,9 +94,9 @@ export default class DeleteData extends Component {
     }
 
     return (
-      <SettingsButton onPress={this.alertBeforeDeletion}>
+      <Button isCTA onPress={this.alertBeforeDeletion}>
         {settings.deleteSegment.title}
-      </SettingsButton>
+      </Button>
     )
   }
 }
