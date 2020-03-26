@@ -161,9 +161,13 @@ export const symptomColorMethods = {
     const colorIndex = value
     return colorIndex
   },
-  'default': () => { // desire, pain, mood, note
-    const colorIndex = 0
+  'desire': (symptomData) => {
+    const { value } = symptomData
+    const colorIndex = value
     return colorIndex
+  },
+  'default': () => { //pain, mood, note
+    return 0
   }
 }
 
