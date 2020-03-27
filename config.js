@@ -9,6 +9,7 @@ const config = {
     defaultHigh: 38,
     min: 34,
     max: 40,
+    step: 0.5,
     units: 0.1,
     verticalPadding: 0.03
   },

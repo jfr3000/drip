@@ -7,6 +7,7 @@ export const fonts = {
 }
 
 export const sizes = {
+  tiny: 7,
   small: 14,
   base: 18,
   subtitle: 22,

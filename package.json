@@ -27,7 +27,7 @@
     "postinstall": "npx jetify"
   },
   "dependencies": {
-    "@ptomasroos/react-native-multi-slider": "^1.0.0",
+    "@ptomasroos/react-native-multi-slider": "^2.2.0",
     "ajv": "^5.5.2",
     "assert": "^1.4.1",
     "csvtojson": "^2.0.8",

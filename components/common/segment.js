@@ -3,15 +3,21 @@ import PropTypes from 'prop-types'
 import { StyleSheet, View } from 'react-native'
 
 import AppText from './app-text'
+import AppIcon from './app-icon'
 
-import { Colors, Spacing, Typography } from '../../styles/redesign'
+import { Colors, Containers, Spacing, Typography } from '../../styles/redesign'
 
-const Segment = ({ children, last, title }) => {
+const Segment = ({ children, icon, last, title }) => {
   const containerStyle = last ? styles.containerLast : styles.container
 
   return (
     <View style={containerStyle}>
-      {title && <AppText style={styles.title}>{title}</AppText>}
+      {title &&
+        <View style={styles.line}>
+          {icon && <AppIcon name={icon} color={Colors.purple} />}
+          <AppText style={styles.title}>{title}</AppText>
+        </View>
+      }
       {children}
     </View>
   )
@@ -19,6 +25,7 @@ const Segment = ({ children, last, title }) => {
 
 Segment.propTypes = {
   children: PropTypes.node,
+  icon: PropTypes.string,
   last: PropTypes.bool,
   title: PropTypes.string
 }
@@ -38,6 +45,10 @@ const styles = StyleSheet.create({
   },
   containerLast: {
     ...segmentContainer
+  },
+  line: {
+    alignItems: 'center',
+    flexDirection: 'row'
   },
   title: {
     ...Typography.subtitle

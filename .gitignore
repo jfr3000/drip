@@ -65,6 +65,7 @@ android/app/.project
 
 ios/Podfile.lock
 android/app/src/main/res/drawable-*
+android/app/src/main/assets/*
 
 # nodejs-mobile creates these with every npm install
 nodejs-assets/nodejs-project/sample-*
