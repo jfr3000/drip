@@ -20,7 +20,7 @@ const CycleDayLabel = ({ height, date }) => {
   const boldDateLabel = isFirstDayOfMonth ? {fontWeight: 'bold'} : {}
 
   return (
-    <View style={{ height }}>
+    <View style={[styles.chartLegend, { height }]}>
       <Text style={label.number}>
         {cycleDayNumber ? cycleDayNumber : ' '}
       </Text>

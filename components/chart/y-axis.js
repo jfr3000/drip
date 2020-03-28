@@ -8,8 +8,15 @@ import ChartLegend from './chart-legend'
 
 import styles from './styles'
 
-const YAxis = ({ height, symptomsToDisplay, symptomsSectionHeight }) => {
+const YAxis = ({
+  height,
+  symptomsToDisplay,
+  symptomsSectionHeight,
+  shouldShowTemperatureColumn,
+  xAxisHeight
+}) => {
   const symptomIconHeight = symptomsSectionHeight / symptomsToDisplay.length
+
   return (
     <View>
       <View style={[styles.yAxis, {height: symptomsSectionHeight}]}>
@@ -22,8 +29,8 @@ const YAxis = ({ height, symptomsToDisplay, symptomsSectionHeight }) => {
         )
         )}
       </View>
-      <TickList height={height} />
-      <ChartLegend />
+      {shouldShowTemperatureColumn && <TickList height={height} />}
+      <ChartLegend xAxisHeight={xAxisHeight} />
     </View>
   )
 }
@@ -32,6 +39,8 @@ YAxis.propTypes = {
   height: PropTypes.number,
   symptomsToDisplay: PropTypes.array,
   symptomsSectionHeight: PropTypes.number,
+  shouldShowTemperatureColumn: PropTypes.bool,
+  xAxisHeight: PropTypes.number.isRequired
 }
 
 export default YAxis

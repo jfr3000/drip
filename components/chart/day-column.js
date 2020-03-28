@@ -26,9 +26,10 @@ class DayColumn extends Component {
     getFhmAndLtlInfo: PropTypes.func.isRequired,
     navigate: PropTypes.func.isRequired,
     setDate: PropTypes.func.isRequired,
+    shouldShowTemperatureColumn: PropTypes.bool,
     symptomHeight: PropTypes.number.isRequired,
     symptomRowSymptoms: PropTypes.array,
-    xAxisHeight: PropTypes.number
+    xAxisHeight: PropTypes.number,
   }
 
   constructor(props) {
@@ -77,10 +78,13 @@ class DayColumn extends Component {
   }
 
   render() {
-    const { dateString,
+    const { columnHeight,
+      dateString,
+      shouldShowTemperatureColumn,
+      symptomHeight,
       symptomRowSymptoms,
-      columnHeight,
-      xAxisHeight } = this.props
+      xAxisHeight
+    } = this.props
 
     return (
       <TouchableOpacity
@@ -98,17 +102,17 @@ class DayColumn extends Component {
               isSymptomDataComplete={
                 hasSymptomData && isSymptomDataComplete(symptom, dateString)
               }
-              height={this.props.symptomHeight}
+              height={symptomHeight}
             />)
         }
         )}
 
-        <TemperatureColumn
+        {shouldShowTemperatureColumn && <TemperatureColumn
           horizontalLinePosition={this.fhmAndLtl.drawLtlAt}
           isVerticalLine={this.fhmAndLtl.drawFhmLine}
           data={this.data && this.data.temperature}
           columnHeight={columnHeight}
-        />
+        />}
 
         <CycleDayLabel
           height={xAxisHeight}

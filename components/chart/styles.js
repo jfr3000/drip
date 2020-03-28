@@ -25,9 +25,14 @@ const orangeColor = '#bc6642'
 const mintColor = '#6ca299'
 
 const styles = {
-  container: {
-    flexDirection: 'row',
-    flex: 1,
+  container: { flex: 1 },
+  chartContainer: { flexDirection: 'column' },
+  chartArea: { flexDirection: 'row' },
+  centerItem: {
+    flex:1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 25,
   },
   curve: {
     stroke: colorTemperature,
@@ -137,7 +142,7 @@ const styles = {
   },
   chartLegend: {
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
   },
   boldTick: {
     fontWeight: 'bold',
