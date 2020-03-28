@@ -15,7 +15,10 @@ export const shared = {
   date: 'Date',
   cycleDayWithLinebreak: 'Cycle\nday',
   loading: 'Loading ...',
-  enter: 'Enter'
+  noDataWarning: 'You haven\'t entered any data yet.',
+  noTemperatureWarning: 'You haven\'t entered any temperature data yet.',
+  noDataButtonText: 'Start entering data now',
+  enter: 'Enter',
 }
 
 export const headerTitles = {

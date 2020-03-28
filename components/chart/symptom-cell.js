@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { View } from 'react-native'
 
 import styles from './styles'
+import config from '../../config'
 
 const SymptomCell = ({
   height,
@@ -12,7 +13,7 @@ const SymptomCell = ({
 }) => {
 
   const shouldDrawDot = symptomValue !== false
-  const styleParent = [styles.symptomRow, { height }]
+  const styleParent = [styles.symptomRow, { height, width: config.columnWidth }]
   let styleChild
 
   if (shouldDrawDot) {
