@@ -21,7 +21,7 @@
     "tag-release": "node ./tools/bin/tag-release.js",
     "update-changelog": "node ./tools/bin/update-changelog.js",
     "release": "node ./tools/release-wizard.js",
-    "clear": ". scripts/Clear.sh"
+    "clear": ". scripts/clear.sh"
   },
   "dependencies": {
     "@ptomasroos/react-native-multi-slider": "^1.0.0",
