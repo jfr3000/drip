@@ -14,12 +14,12 @@ So good to see you here, hello :wave\_tone1: :wave\_tone2: :wave\_tone3: :wave\_
 
 ## TL;DR
 
-You just want to say hello? Send us a [nice email](mailto:bl00dyhealth@mailbox.org?Subject=Nice%20incoming%20mail) :postbox: or tweet :bird: at us [@bl00dyhealth](https://twitter.com/bl00dyhealth).
+You just want to say hello? Send us a [nice email](mailto:drip@mailbox.org?Subject=Nice%20incoming%20mail) :postbox: or tweet :bird: at us [@bl00dyhealth](https://twitter.com/bl00dyhealth).
 
 ## What should I know before I get started?
 
 We have prepared something for **you**: check out our [README](https://gitlab.com/bloodyhealth/drip/blob/master/README.md) for more information on how to set up and install everything you'll need.
-[Ping us](mailto:bl00dyhealth@mailbox.org) if you could need some help :helmet\_with\_cross: !
+[Ping us](mailto:drip@mailbox.org) if you could need some help :helmet\_with\_cross: !
 
 Let us know if you want to suggest improvements for the README and open a merge request (which is just like Github's pull request)
 
