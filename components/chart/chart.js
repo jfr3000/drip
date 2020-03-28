@@ -10,6 +10,9 @@ import DayColumn from './day-column'
 import HorizontalGrid from './horizontal-grid'
 import AppText from '../app-text'
 
+import { connect } from 'react-redux'
+import { navigate } from '../../slices/navigation'
+
 import { getCycleDaysSortedByDate } from '../../db'
 import nothingChanged from '../../db/db-unchanged'
 import { scaleObservable } from '../../local-storage'
@@ -19,7 +22,7 @@ import config from '../../config'
 import { shared } from '../../i18n/en/labels'
 import styles from './styles'
 
-export default class CycleChart extends Component {
+class CycleChart extends Component {
   static propTypes = {
     navigate: PropTypes.func,
     end: PropTypes.bool
@@ -187,3 +190,14 @@ function LoadingMoreView({ end }) {
 LoadingMoreView.propTypes = {
   end: PropTypes.bool
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return({
+    navigate: (page) => dispatch(navigate(page)),
+  })
+}
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(CycleChart)
