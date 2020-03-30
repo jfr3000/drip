@@ -97,7 +97,7 @@ class CycleDayOverView extends Component {
                     symptom={symptom}
                     symptomData={symptomData}
                     onPress={() => this.props.navigate(symptomEditView)}
-                    disabled={dateInFuture}
+                    disabled={dateInFuture && symptom !== 'note'}
                   />)
               })
             }
