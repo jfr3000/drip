@@ -5,15 +5,16 @@ import Icon from 'react-native-vector-icons/Entypo'
 
 import { Sizes } from '../../styles/redesign'
 
-const AppIcon = ({ color, name }) => {
-  const style = [styles.icon, { color }]
+const AppIcon = ({ color, name, style, ...props }) => {
+  const iconStyle = [styles.icon, style, { color }]
 
-  return <Icon name={name} style={style}/>
+  return <Icon name={name} style={iconStyle} {...props} />
 }
 
 AppIcon.propTypes = {
   color: PropTypes.string,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  style: PropTypes.object
 }
 
 AppIcon.defaultProps = {

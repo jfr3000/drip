@@ -1,87 +1,58 @@
 import React, { Component } from 'react'
 import { StyleSheet, View } from 'react-native'
-import Slider from '@ptomasroos/react-native-multi-slider'
 
-import alertError from '../shared/alert-error'
+import AppIcon from '../../common/app-icon'
 import AppPage from '../../common/app-page'
 import AppSwitch from '../../common/app-switch'
 import AppText from '../../common/app-text'
-import Label from './label'
+import TemperatureSlider from './temperature-slider'
 import Segment from '../../common/segment'
 
-import { useCervixObservable,
-  saveUseCervix,
-  scaleObservable,
-  saveTempScale
-} from '../../../local-storage'
-import { Colors, Sizes } from '../../../styles/redesign'
+import { useCervixObservable, saveUseCervix } from '../../../local-storage'
+import { Colors, Spacing, Typography } from '../../../styles/redesign'
 import labels from '../../../i18n/en/settings'
-import config from '../../../config'
 
 export default class Settings extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      useCervix: useCervixObservable.value,
-      temperatureScale: { ...scaleObservable.value }
+      shouldUseCervix: useCervixObservable.value
     }
   }
 
   onCervixToggle = (value) => {
-    this.setState({ useCervix: value })
+    this.setState({ shouldUseCervix: value })
     saveUseCervix(value)
   }
 
-  onSliderChange = (values) => {
-    this.setState({ min: values[0], max: values[1] })
-  }
-
-  onSliderChangeFinish = (values) => {
-    this.setState({ min: values[0], max: values[1] })
-
-    try {
-      saveTempScale({ min: values[0], max: values[1] })
-    } catch(err) {
-      alertError(labels.tempScale.saveError)
-    }
-  }
-
   render() {
-    const { useCervix } = this.state
-    const cervixText = useCervix ?
+    const { shouldUseCervix } = this.state
+    const cervixText = shouldUseCervix ?
       labels.useCervix.cervixModeOn : labels.useCervix.cervixModeOff
-    const { min, max } = this.state.temperatureScale
+
     return (
       <AppPage>
         <Segment title={labels.useCervix.title}>
           <AppSwitch
             onToggle={this.onCervixToggle}
             text={cervixText}
-            value={useCervix}
+            value={shouldUseCervix}
           />
         </Segment>
         <Segment title={labels.tempScale.segmentTitle}>
           <AppText>{labels.tempScale.segmentExplainer}</AppText>
-          <View style={styles.container}>
-            <Slider
-              customLabel={Label}
-              enableLabel={true}
-              markerStyle={styles.marker}
-              markerOffsetY={Sizes.tiny}
-              max={config.temperatureScale.max}
-              min={config.temperatureScale.min}
-              onValuesChange={this.onSliderChange}
-              onValuesChangeFinish={this.onSliderChangeFinish}
-              selectedStyle={styles.sliderAccentBackground}
-              step={config.temperatureScale.step}
-              trackStyle={styles.slider}
-              unselectedStyle={styles.sliderBackground}
-              values={[min, max]}
-            />
-          </View>
+          <TemperatureSlider />
         </Segment>
-        <Segment icon="info-with-circle" last title={labels.preOvu.title}>
+        <Segment last>
+          <View style={styles.line}>
+            <AppIcon
+              color={Colors.purple}
+              name="info-with-circle"
+              style={styles.icon}
+            />
+            <AppText style={styles.title}>{labels.preOvu.title}</AppText>
+          </View>
           <AppText>{labels.preOvu.note}</AppText>
         </Segment>
       </AppPage>
@@ -90,25 +61,14 @@ export default class Settings extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    paddingTop: Sizes.base
+  icon: {
+    marginRight: Spacing.base
   },
-  marker: {
-    backgroundColor: Colors.tourquiseDark,
-    borderRadius: 50,
-    elevation: 4,
-    height: Sizes.subtitle,
-    width: Sizes.subtitle
+  line: {
+    flexDirection: 'row',
+    alignItems: 'center'
   },
-  slider: {
-    borderRadius: 25,
-    height: Sizes.small
-  },
-  sliderAccentBackground: {
-    backgroundColor: Colors.tourquiseDark
-  },
-  sliderBackground: {
-    backgroundColor: Colors.tourquise
-  },
+  title: {
+    ...Typography.subtitle
+  }
 })
