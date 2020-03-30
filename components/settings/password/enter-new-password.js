@@ -60,7 +60,7 @@ export default class EnterNewPassword extends Component {
     } = this.state
     const labels = settings.passwordSettings
     const isButtonActive =
-      Boolean(password.length && passwordConfirmation.length)
+      (password.length > 0) && (passwordConfirmation.length > 0)
 
     return (
       <React.Fragment>
