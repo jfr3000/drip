@@ -1,4 +1,4 @@
-import Reminders from './reminders'
+import Reminders from './reminders/reminders'
 import NfpSettings from './nfp-settings'
 import DataManagement from './data-management'
 import Password from './password'
