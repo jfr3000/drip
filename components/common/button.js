@@ -9,7 +9,7 @@ import { Colors, Fonts, Spacing } from '../../styles/redesign'
 const Button = ({ children, isCTA, isSmall, onPress, testID }) => {
   const buttonStyle = isCTA ? styles.cta : styles.regular
   const textCTA = isCTA ? styles.buttonTextBold : styles.buttonTextRegular
-  const textStyle = isSmall ? [ textCTA, textSmall ] : [textCTA, text]
+  const textStyle = [ textCTA, isSmall ? textSmall : text]
 
   return (
     <TouchableOpacity onPress={onPress} style={buttonStyle} testID={testID}>
