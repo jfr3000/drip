@@ -71,7 +71,7 @@ export default class DataManagement extends Component {
             </Segment>
             <Segment title={labels.import.button}>
               <AppText>{labels.import.segmentExplainer}</AppText>
-              <Button isCTA onPress= {this.startImport}>
+              <Button isCTA onPress={this.startImport}>
                 {labels.import.button}
               </Button>
             </Segment>
