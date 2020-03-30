@@ -61,7 +61,7 @@ export default class ChangePassword extends Component {
       currentPassword
     } = this.state
     const labels = settings.passwordSettings
-    const isDisabled = currentPassword !== null
+    const isPasswordSet = currentPassword !== null
 
     if (enteringCurrentPassword) {
       return (
@@ -77,7 +77,11 @@ export default class ChangePassword extends Component {
     }
 
     return (
-      <Button disabled={isDisabled} isCTA onPress={this.startChangingPassword}>
+      <Button
+        disabled={isPasswordSet}
+        isCTA
+        onPress={this.startChangingPassword}
+      >
         {labels.changePassword}
       </Button>
     )
