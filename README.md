@@ -3,6 +3,13 @@
 A menstrual cycle tracking app that's open-source and leaves your data on your phone. Use it to track your menstrual cycle and/or for fertility awareness!
 Find more information on [our website](https://bloodyhealth.gitlab.io/).
 
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="80">](https://f-droid.org/packages/com.drip/)
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+     alt="Get it on Google Play"
+     height="80">](https://play.google.com/store/apps/details?id=com.drip)
+
 The app is built in React Native and currently developed for Android.
 
 Here --> you will find our [contributing guide](https://gitlab.com/bloodyhealth/drip/blob/master/CONTRIBUTING.md).
