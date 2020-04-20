@@ -8,7 +8,7 @@ import { Containers } from '../../styles/redesign'
 
 const AppSwitch = ({ onToggle, text, value }) => {
   return (
-    <View style={styles.line}>
+    <View style={styles.container}>
       <View style={styles.textContainer}>
         <AppText>{text}</AppText>
       </View>
@@ -24,7 +24,7 @@ AppSwitch.propTypes = {
 }
 
 const styles = StyleSheet.create({
-  line: {
+  container: {
     ...Containers.rowContainer
   },
   switch: {

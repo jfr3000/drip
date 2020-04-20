@@ -6,13 +6,18 @@ import AppText from './app-text'
 
 import { Colors, Fonts, Spacing } from '../../styles/redesign'
 
-const Button = ({ children, isCTA, isSmall, onPress, testID }) => {
+const Button = ({ children, isCTA, isSmall, onPress, testID, ...props }) => {
   const buttonStyle = isCTA ? styles.cta : styles.regular
   const textCTA = isCTA ? styles.buttonTextBold : styles.buttonTextRegular
   const textStyle = [ textCTA, isSmall ? textSmall : text]
 
   return (
-    <TouchableOpacity onPress={onPress} style={buttonStyle} testID={testID}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={buttonStyle}
+      testID={testID}
+      {...props}
+    >
       <AppText style={textStyle}>{children}</AppText>
     </TouchableOpacity>
   )

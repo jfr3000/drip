@@ -75,7 +75,11 @@ export default class ConfirmWithPassword extends Component {
           <Button onPress={this.props.onCancel}>
             {shared.cancel}
           </Button>
-          <Button isCTA={isPassword} onPress={this.initPasswordCheck}>
+          <Button
+            disabled={!isPassword}
+            isCTA={isPassword}
+            onPress={this.initPasswordCheck}
+          >
             {shared.confirmToProceed}
           </Button>
         </View>
