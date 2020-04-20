@@ -27,4 +27,8 @@ const config = {
 
 config.columnMiddle = config.columnWidth / 2
 
+export const ACTION_DELETE = 'delete'
+export const ACTION_EXPORT = 'export'
+export const ACTION_IMPORT = 'import'
+
 export default config

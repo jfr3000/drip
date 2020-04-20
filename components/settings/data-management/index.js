@@ -11,6 +11,7 @@ import openShareDialogAndExport from './export-dialog'
 import DeleteData from './delete-data'
 
 import labels from '../../../i18n/en/settings'
+import { ACTION_DELETE, ACTION_EXPORT, ACTION_IMPORT } from '../../../config'
 
 export default class DataManagement extends Component {
 
@@ -41,12 +42,12 @@ export default class DataManagement extends Component {
   }
 
   startExport = () => {
-    this.setCurrentAction('export')
+    this.setCurrentAction(ACTION_EXPORT)
     openShareDialogAndExport()
   }
 
   startImport = () => {
-    this.setCurrentAction('import')
+    this.setCurrentAction(ACTION_IMPORT)
     openImportDialog(this.startImportFlow)
   }
 
@@ -56,7 +57,7 @@ export default class DataManagement extends Component {
 
   render() {
     const { currentAction, isLoading } = this.state
-    const isDeletingData = currentAction === 'delete'
+    const isDeletingData = currentAction === ACTION_DELETE
 
     return (
       <AppPage>
@@ -65,13 +66,13 @@ export default class DataManagement extends Component {
           <React.Fragment>
             <Segment title={labels.export.button}>
               <AppText>{labels.export.segmentExplainer}</AppText>
-              <Button isCTA onPress={this.startExport}>
+              <Button isCTA isSmall={false} onPress={this.startExport}>
                 {labels.export.button}
               </Button>
             </Segment>
             <Segment title={labels.import.button}>
               <AppText>{labels.import.segmentExplainer}</AppText>
-              <Button isCTA onPress={this.startImport}>
+              <Button isCTA isSmall={false} onPress={this.startImport}>
                 {labels.import.button}
               </Button>
             </Segment>
@@ -79,7 +80,7 @@ export default class DataManagement extends Component {
               <AppText>{labels.deleteSegment.explainer}</AppText>
               <DeleteData
                 isDeletingData = {isDeletingData}
-                onStartDeletion = {() => this.setCurrentAction('delete')}
+                onStartDeletion = {() => this.setCurrentAction(ACTION_DELETE)}
               />
             </Segment>
           </React.Fragment>

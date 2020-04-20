@@ -62,7 +62,7 @@ export default class ConfirmWithPassword extends Component {
   render() {
     const { password } = this.state
     const labels = settings.passwordSettings
-    const isCTA = password !== null
+    const isPassword = password !== null
 
     return (
       <React.Fragment>
@@ -72,10 +72,10 @@ export default class ConfirmWithPassword extends Component {
           value={password}
         />
         <View style={styles.container}>
-          <Button isSmall onPress={this.props.onCancel}>
+          <Button onPress={this.props.onCancel}>
             {shared.cancel}
           </Button>
-          <Button isCTA={isCTA} isSmall onPress={this.initPasswordCheck}>
+          <Button isCTA={isPassword} onPress={this.initPasswordCheck}>
             {shared.confirmToProceed}
           </Button>
         </View>

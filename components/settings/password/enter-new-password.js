@@ -79,7 +79,7 @@ export default class EnterNewPassword extends Component {
         {shouldShowErrorMessage &&
           <AppText style={styles.error}>{labels.passwordsDontMatch}</AppText>
         }
-        <Button isCTA={isButtonActive} isSmall onPress={this.savePassword}>
+        <Button isCTA={isButtonActive} onPress={this.savePassword}>
           {labels.savePassword}
         </Button>
       </React.Fragment>

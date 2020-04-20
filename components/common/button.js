@@ -26,6 +26,10 @@ Button.propTypes = {
   testID: PropTypes.string
 }
 
+Button.defaultProps = {
+  isSmall: true
+}
+
 const text = {
   padding: Spacing.base,
   textTransform: 'uppercase'

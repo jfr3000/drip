@@ -93,7 +93,7 @@ class Home extends Component {
         <View style={styles.line}>
           <AppText>{prediction}</AppText>
         </View>
-        <Button onPress={this.navigateToCycleDayView} isCTA>
+        <Button isCTA isSmall={false} onPress={this.navigateToCycleDayView}>
           {labels.addData}
         </Button>
         {phase && (
