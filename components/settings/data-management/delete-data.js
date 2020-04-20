@@ -94,7 +94,7 @@ export default class DeleteData extends Component {
     }
 
     return (
-      <Button isCTA onPress={this.alertBeforeDeletion}>
+      <Button isCTA isSmall={false} onPress={this.alertBeforeDeletion}>
         {settings.deleteSegment.title}
       </Button>
     )
