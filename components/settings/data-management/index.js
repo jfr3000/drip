@@ -60,10 +60,10 @@ export default class DataManagement extends Component {
     const isDeletingData = currentAction === ACTION_DELETE
 
     return (
-      <AppPage>
+      <React.Fragment>
         {isLoading && <AppLoadingView />}
         {!isLoading &&
-          <React.Fragment>
+          <AppPage>
             <Segment title={labels.export.button}>
               <AppText>{labels.export.segmentExplainer}</AppText>
               <Button isCTA isSmall={false} onPress={this.startExport}>
@@ -83,9 +83,9 @@ export default class DataManagement extends Component {
                 onStartDeletion = {() => this.setCurrentAction(ACTION_DELETE)}
               />
             </Segment>
-          </React.Fragment>
+          </AppPage>
         }
-      </AppPage>
+      </React.Fragment>
     )
   }
 }
