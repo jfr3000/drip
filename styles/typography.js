@@ -12,7 +12,9 @@ export const sizes = {
   base: 18,
   subtitle: 22,
   title: 24,
-  huge: 40
+  big: 30,
+  huge: 40,
+  giant: 50
 }
 
 const title = {
@@ -20,7 +22,49 @@ const title = {
   marginVertical: Spacing.large
 }
 
+const accentText = {
+  fontFamily: fonts.bold,
+  textAlignVertical: 'center',
+  textTransform: 'uppercase'
+}
+
+const accentTextBig = {
+  ...accentText,
+  fontSize: sizes.big,
+}
+
+const accentTextGiant = {
+  ...accentText,
+  fontSize: sizes.giant,
+}
+
+const accentTextHuge = {
+  ...accentText,
+  fontSize: sizes.huge,
+}
+
+const accentTextSmall = {
+  ...accentText,
+  fontSize: sizes.small
+}
+
 export default {
+  accentOrange: {
+    ...accentTextSmall,
+    color: Colors.orange
+  },
+  accentPurpleBig: {
+    ...accentTextBig,
+    color: Colors.purple
+  },
+  accentPurpleGiant: {
+    ...accentTextGiant,
+    color: Colors.purple
+  },
+  accentPurpleHuge: {
+    ...accentTextHuge,
+    color: Colors.purple
+  },
   mainText: {
     fontFamily: fonts.main,
     fontSize: sizes.base

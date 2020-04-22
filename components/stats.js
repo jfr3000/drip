@@ -1,77 +1,114 @@
-import React, { Component } from 'react'
-import {
-  View,
-  ScrollView
-} from 'react-native'
+import React from 'react'
+import { ImageBackground, StyleSheet, View } from 'react-native'
 
-import styles from '../styles/index'
+import AppPage from './common/app-page'
+import AppText from './common/app-text'
+import Segment from './common/segment'
+import Table from './common/table'
+
 import cycleModule from '../lib/cycle'
 import {getCycleLengthStats as getCycleInfo} from '../lib/cycle-length'
 import {stats as labels} from '../i18n/en/labels'
-import AppText from './common/app-text'
-import Segment from './common/segment'
 
-export default class Stats extends Component {
-  render() {
-    const cycleLengths = cycleModule().getAllCycleLengths()
-    const atLeastOneCycle = cycleLengths.length >= 1
-    let numberOfCycles
-    let cycleInfo
-    if (atLeastOneCycle) {
-      numberOfCycles = cycleLengths.length
-      if (numberOfCycles > 1) {
-        cycleInfo = getCycleInfo(cycleLengths)
-      }
-    }
-    return (
-      <ScrollView>
-        <Segment
-          style={styles.framedSegmentLast}
-          title={labels.cycleLengthTitle}
-        >
-          <AppText style={styles.paragraph}>
-            {labels.cycleLengthExplainer}
-          </AppText>
+import { Sizes, Spacing, Typography } from '../styles/redesign'
 
-          {!atLeastOneCycle &&
-            <AppText>{labels.emptyStats}</AppText>
-          }
-          {atLeastOneCycle && numberOfCycles === 1 &&
-            <View style={[styles.statsRow, styles.paragraph]}>
-              <AppText>{labels.oneCycleStats}</AppText>
-              <AppText style={styles.emphasis}> {cycleLengths[0]} </AppText>
-              <AppText>{labels.daysLabel}.</AppText>
-            </View>
-          }
-          {atLeastOneCycle && numberOfCycles > 1 && <View>
-            <View style={styles.paragraph}>
-              <AppText style={styles.emphasis}>
-                {labels.averageLabel}: {cycleInfo.mean} {labels.daysLabel}
-              </AppText>
-            </View>
-            <View>
-              <AppText>
-                {labels.minLabel}: {cycleInfo.minimum} {labels.daysLabel}
-              </AppText>
-            </View>
-            <View>
-              <AppText>
-                {labels.maxLabel}: {cycleInfo.maximum} {labels.daysLabel}
-              </AppText>
-            </View>
-            <View style={styles.paragraph}>
-              <AppText>
-                {labels.stdLabel}: {cycleInfo.stdDeviation} {labels.daysLabel}
-              </AppText>
-            </View>
-            <View style={styles.statsRow}>
-              <AppText>{labels.basisOfStatsBeginning}</AppText>
-              <AppText style={styles.emphasis}> {numberOfCycles} </AppText>
-              <AppText>{labels.basisOfStatsEnd}</AppText>
-            </View>
-          </View>}
-        </Segment>
-      </ScrollView>
-    )
+const image = require('../assets/cycle-icon.png')
+
+const Stats = () => {
+  const cycleLengths = cycleModule().getAllCycleLengths()
+  const atLeastOneCycle = cycleLengths.length >= 1
+  const numberOfCycles = cycleLengths.length
+  let cycleData
+  if (atLeastOneCycle) {
+    cycleData = getCycleInfo(cycleLengths)
   }
+
+  const statsData = [
+    [atLeastOneCycle ? cycleData.minimum : 0, labels.minLabel],
+    [atLeastOneCycle ? cycleData.maximum : 0, labels.maxLabel],
+    [atLeastOneCycle && cycleData.stdDeviation ? cycleData.stdDeviation : '—', labels.stdLabel],
+    [numberOfCycles, labels.basisOfStatsEnd]
+  ]
+  return (
+    <AppPage>
+      <Segment last style={styles.pageContainer}>
+        <AppText>{labels.cycleLengthExplainer}</AppText>
+        {!atLeastOneCycle && <AppText>{labels.emptyStats}</AppText>}
+        {atLeastOneCycle &&
+          <View style={styles.container}>
+            <View style={styles.columnLeft}>
+              <ImageBackground
+                source={image}
+                imageStyle={styles.image}
+                style={styles.imageContainter}
+              >
+                <AppText
+                  numberOfLines={1}
+                  ellipsizeMode="clip"
+                  style={styles.accentPurpleGiant}
+                >
+                  {cycleData.mean}
+                </AppText>
+                <AppText style={styles.accentPurpleHuge}>
+                  {labels.daysLabel}
+                </AppText>
+              </ImageBackground>
+              <AppText style={styles.accentOrange}>
+                {labels.averageLabel}
+              </AppText>
+            </View>
+            <View style={styles.columnRight}>
+              <Table tableContent={statsData} />
+            </View>
+          </View>
+        }
+      </Segment>
+    </AppPage>
+  )
 }
+
+const column = {
+  flexDirection: 'column'
+}
+
+const styles = StyleSheet.create({
+  accentOrange: {
+    ...Typography.accentOrange
+  },
+  accentPurpleGiant: {
+    ...Typography.accentPurpleGiant,
+    marginVertical: Sizes.giant * (-0.5)
+  },
+  accentPurpleHuge: {
+    ...Typography.accentPurpleHuge,
+    marginRight: Spacing.base
+  },
+  container: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  columnLeft: {
+    ...column,
+    flex: 4
+  },
+  columnRight: {
+    ...column,
+    flex: 5
+  },
+  image: {
+    height: Sizes.huge * 3,
+    marginLeft: Sizes.huge / 2,
+    resizeMode: 'contain',
+    width: Sizes.huge * 3
+  },
+  imageContainter: {
+    paddingTop: Sizes.huge,
+    marginBottom: Sizes.huge / 4
+  },
+  pageContainer: {
+    marginVertical: Spacing.large
+  }
+})
+
+export default Stats
