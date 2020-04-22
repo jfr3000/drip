@@ -6,20 +6,11 @@ import Link from './link'
 
 import { Colors, Typography } from '../../styles/redesign'
 
-export default function AppText({
-  children,
-  linkStyle,
-  onPress,
-  numberOfLines,
-  style
-}) {
+const AppText = ({ children, linkStyle, style, ...props }) => {
   // we parse for links in case the text contains any
   return (
     <Link style={linkStyle}>
-      <Text style={[styles.text, style]}
-        onPress={onPress}
-        numberOfLines={numberOfLines}
-      >
+      <Text style={[styles.text, style]} {...props}>
         {children}
       </Text>
     </Link>
@@ -29,8 +20,6 @@ export default function AppText({
 AppText.propTypes = {
   children: PropTypes.node,
   linkStyle: PropTypes.object,
-  onPress: PropTypes.func,
-  numberOfLines: PropTypes.number,
   style: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 }
 
@@ -40,3 +29,5 @@ const styles = StyleSheet.create({
     ...Typography.mainText
   }
 })
+
+export default AppText

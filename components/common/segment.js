@@ -20,6 +20,7 @@ const Segment = ({ children, last, title }) => {
 Segment.propTypes = {
   children: PropTypes.node,
   last: PropTypes.bool,
+  style: PropTypes.object,
   title: PropTypes.string
 }
 
