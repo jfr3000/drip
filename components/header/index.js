@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, View } from 'react-native'
+import PropTypes from 'prop-types'
 
 import Logo from './logo'
 import SideMenu from './side-menu'
@@ -7,6 +8,10 @@ import SideMenu from './side-menu'
 import { Colors, Containers, Sizes } from '../../styles/redesign'
 
 export default class Header extends Component {
+  static propTypes = {
+    isSideMenuEnabled: PropTypes.bool
+  }
+
   constructor(props) {
     super(props)
 
@@ -18,15 +23,25 @@ export default class Header extends Component {
   }
 
   render() {
+    const { isSideMenuEnabled } = this.props
     const { shouldShowMenu } = this.state
 
     return (
       <View style={styles.header}>
         <Logo />
-        <SideMenu shouldShowMenu={shouldShowMenu} toggleMenu={this.toggleMenu}/>
+        {isSideMenuEnabled &&
+          <SideMenu
+            shouldShowMenu={shouldShowMenu}
+            toggleMenu={this.toggleMenu}
+          />
+        }
       </View >
     )
   }
+}
+
+Header.defaultProps = {
+  isSideMenuEnabled: true
 }
 
 const styles = StyleSheet.create({
