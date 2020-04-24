@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
+import PropTypes from 'prop-types'
+
 import AppText from '../../common/app-text'
 import styles from '../../../styles'
 
@@ -33,4 +35,11 @@ export default class SymptomSection extends Component {
       </View>
     )
   }
+}
+
+SymptomSection.propTypes = {
+  children: PropTypes.node,
+  explainer: PropTypes.string,
+  header: PropTypes.string,
+  inline: PropTypes.bool
 }
