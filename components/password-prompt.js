@@ -1,13 +1,19 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, TextInput, TouchableOpacity, Alert } from 'react-native'
+import { Alert, StyleSheet, View } from 'react-native'
 import nodejs from 'nodejs-mobile-react-native'
-import { saveEncryptionFlag } from '../local-storage'
-import AppText from './common/app-text'
+
+import AppPage from './common/app-page'
+import AppTextInput from './common/app-text-input'
+import Button from './common/button'
 import Header from './header'
-import styles from '../styles'
-import { passwordPrompt as labels, shared, menuTitles } from '../i18n/en/labels'
+
+import { saveEncryptionFlag } from '../local-storage'
 import { requestHash, deleteDbAndOpenNew, openDb } from '../db'
+import { passwordPrompt as labels, shared } from '../i18n/en/labels'
+import { Containers, Spacing } from '../styles/redesign'
+
+const cancelButton = { text: shared.cancel, style: 'cancel' }
 
 export default class PasswordPrompt extends Component {
   static propTypes = {
@@ -16,15 +22,38 @@ export default class PasswordPrompt extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      password: null
-    }
+    this.state = { password: null }
 
-    nodejs.channel.addListener(
-      'check-pw',
-      this.passHashToDb,
-      this
+    nodejs.channel.addListener('check-pw', this.passHashToDb, this)
+  }
+
+  componentWillUnmount() {
+    nodejs.channel.removeListener('check-pw', this.passHashToDb)
+  }
+
+  onConfirmDeletion = async () => {
+    Alert.alert(
+      labels.deleteDatabaseTitle,
+      labels.deleteDatabaseExplainer,
+      [cancelButton, { text: labels.deleteData, onPress: this.onDeleteData}]
     )
+  }
+
+  onDeleteData = () => {
+    Alert.alert(
+      labels.areYouSureTitle,
+      labels.areYouSure,
+      [cancelButton, {
+        text: labels.reallyDeleteData,
+        onPress: this.onDeleteDataConfirmation
+      }]
+    )
+  }
+
+  onDeleteDataConfirmation = async () => {
+    await deleteDbAndOpenNew()
+    await saveEncryptionFlag(false)
+    this.props.enableShowApp()
   }
 
   passHashToDb = async hash => {
@@ -35,7 +64,7 @@ export default class PasswordPrompt extends Component {
         shared.incorrectPasswordMessage,
         [{
           text: shared.tryAgain,
-          onPress: () => this.setState({ password: null })
+          onPress: this.setPassword(null)
         }]
       )
       return
@@ -43,71 +72,53 @@ export default class PasswordPrompt extends Component {
     this.props.enableShowApp()
   }
 
-  confirmDeletion = async () => {
-    Alert.alert(
-      labels.deleteDatabaseTitle,
-      labels.deleteDatabaseExplainer,
-      [{
-        text: shared.cancel,
-        style: 'cancel'
-      }, {
-        text: labels.deleteData,
-        onPress: () => {
-          Alert.alert(
-            labels.areYouSureTitle,
-            labels.areYouSure,
-            [{
-              text: shared.cancel,
-              style: 'cancel'
-            }, {
-              text: labels.reallyDeleteData,
-              onPress: async () => {
-                await deleteDbAndOpenNew()
-                await saveEncryptionFlag(false)
-                this.props.enableShowApp()
-              }
-            }]
-          )
-        }
-      }]
-    )
+  setPassword = (password) => {
+    this.setState({ password })
   }
 
-  componentWillUnmount() {
-    nodejs.channel.removeListener('check-pw', this.passHashToDb)
+  unlockApp = () => {
+    requestHash('check-pw', this.state.password)
   }
 
   render() {
+    const { password } = this.state
+    const isPasswordEntered = password && password.length > 0
+
     return (
-      <View flex={1}>
-        <Header title={menuTitles.PasswordPrompt.toLowerCase()} />
-        <View style={styles.passwordPromptPage}>
-          <TextInput
-            onChangeText={val => this.setState({ password: val })}
-            style={styles.passwordPromptField}
+      <React.Fragment>
+        <Header isSideMenuEnabled={false} />
+        <AppPage contentContainerStyle={styles.contentContainer}>
+          <AppTextInput
+            onChangeText={this.setPassword}
             secureTextEntry={true}
             placeholder={labels.enterPassword}
           />
-          <TouchableOpacity
-            style={styles.passwordPromptButton}
-            onPress={() => {
-              requestHash('check-pw', this.state.password)
-            }}
-            disabled={!this.state.password}
-          >
-            <AppText style={styles.passwordPromptButtonText}>
+          <View style={styles.containerButtons}>
+            <Button
+              disabled={!isPasswordEntered}
+              isCTA={isPasswordEntered}
+              onPress={this.unlockApp}
+            >
               {labels.title}
-            </AppText>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={this.confirmDeletion}
-          >
-            <AppText style={styles.passwordPromptForgotPasswordText}>
+            </Button>
+            <Button onPress={this.onConfirmDeletion}>
               {labels.forgotPassword}
-            </AppText>
-          </TouchableOpacity>
-        </View>
-      </View>
+            </Button>
+          </View>
+        </AppPage>
+      </React.Fragment>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  contentContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    marginHorizontal: Spacing.base
+  },
+  containerButtons: {
+    ...Containers.rowContainer,
+    justifyContent: 'space-around'
+  }
+})
