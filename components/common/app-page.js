@@ -6,9 +6,12 @@ import AppText from '../common/app-text'
 
 import { Colors, Typography } from '../../styles/redesign'
 
-const AppPage = ({ children, title }) => {
+const AppPage = ({ children, contentContainerStyle, title }) => {
   return(
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={contentContainerStyle}
+    >
       {title && <AppText style={styles.title}>{title}</AppText>}
       {children}
     </ScrollView>
@@ -17,6 +20,7 @@ const AppPage = ({ children, title }) => {
 
 AppPage.propTypes = {
   children: PropTypes.node,
+  contentContainerStyle: PropTypes.object,
   title: PropTypes.string
 }
 
