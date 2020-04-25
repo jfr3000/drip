@@ -54,8 +54,12 @@ class Sex extends Component {
   toggleState = (key) => {
     const curr = this.state[key]
     this.setState({[key]: !curr})
-    if (key === 'other' && !curr) {
-      this.setState({focusTextArea: true})
+    if (key === 'other'){
+      if (curr){
+        this.setState({note: ""})
+      } else {
+        this.setState({focusTextArea: true})
+      }
     }
   }
 
