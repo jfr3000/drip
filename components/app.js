@@ -14,7 +14,7 @@ import { isSymptomView, isSettingsView } from './pages'
 
 import { headerTitles } from '../i18n/en/labels'
 import setupNotifications from '../lib/notifications'
-import { getCycleDay } from '../db'
+import { getCycleDay, closeDb } from '../db'
 
 class App extends Component {
 
@@ -30,10 +30,23 @@ class App extends Component {
 
     this.backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
-      props.goBack
+      this.goBack
     )
 
     setupNotifications(this.props.navigate)
+  }
+
+  goBack = () => {
+    const { currentPage } = this.props.navigation
+
+    if (currentPage === 'Home') {
+      closeDb()
+      BackHandler.exitApp()
+    } else {
+      this.props.goBack()
+    }
+
+    return true
   }
 
   componentWillUnmount() {
