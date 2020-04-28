@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { View } from 'react-native'
 
-import AppText from '../app-text'
+import AppText from '../common/app-text'
 import SettingsButton from '../settings/shared/settings-button'
 
 import { shared } from '../../i18n/en/labels'
