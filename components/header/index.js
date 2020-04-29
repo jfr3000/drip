@@ -1,43 +1,24 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import PropTypes from 'prop-types'
 
 import Logo from './logo'
-import SideMenu from './side-menu'
+import HamburgerMenu from './hamburger-menu'
 
 import { Colors, Containers, Sizes } from '../../styles/redesign'
 
-export default class Header extends Component {
-  static propTypes = {
-    isSideMenuEnabled: PropTypes.bool
-  }
+const Header = ({ isSideMenuEnabled }) => {
 
-  constructor(props) {
-    super(props)
+  return (
+    <View style={styles.header}>
+      <Logo />
+      {isSideMenuEnabled && <HamburgerMenu />}
+    </View >
+  )
+}
 
-    this.state = { shouldShowMenu: false }
-  }
-
-  toggleMenu = () => {
-    this.setState({ shouldShowMenu: !this.state.shouldShowMenu})
-  }
-
-  render() {
-    const { isSideMenuEnabled } = this.props
-    const { shouldShowMenu } = this.state
-
-    return (
-      <View style={styles.header}>
-        <Logo />
-        {isSideMenuEnabled &&
-          <SideMenu
-            shouldShowMenu={shouldShowMenu}
-            toggleMenu={this.toggleMenu}
-          />
-        }
-      </View >
-    )
-  }
+Header.propTypes = {
+  isSideMenuEnabled: PropTypes.bool
 }
 
 Header.defaultProps = {
@@ -51,3 +32,5 @@ const styles = StyleSheet.create({
     ...Containers.rowContainer
   }
 })
+
+export default Header

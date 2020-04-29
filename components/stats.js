@@ -16,25 +16,23 @@ const image = require('../assets/cycle-icon.png')
 
 const Stats = () => {
   const cycleLengths = cycleModule().getAllCycleLengths()
-  const atLeastOneCycle = cycleLengths.length >= 1
   const numberOfCycles = cycleLengths.length
-  let cycleData
-  if (atLeastOneCycle) {
-    cycleData = getCycleInfo(cycleLengths)
-  }
+  const hasAtLeastOneCycle = numberOfCycles >= 1
+  const cycleData = hasAtLeastOneCycle ? getCycleInfo(cycleLengths)
+    : { minimum: '—', maximum: '—', stdDeviation: '—' }
 
   const statsData = [
-    [atLeastOneCycle ? cycleData.minimum : 0, labels.minLabel],
-    [atLeastOneCycle ? cycleData.maximum : 0, labels.maxLabel],
-    [atLeastOneCycle && cycleData.stdDeviation ? cycleData.stdDeviation : '—', labels.stdLabel],
+    [cycleData.minimum, labels.minLabel],
+    [cycleData.maximum, labels.maxLabel],
+    [cycleData.stdDeviation ? cycleData.stdDeviation : '—', labels.stdLabel],
     [numberOfCycles, labels.basisOfStatsEnd]
   ]
   return (
     <AppPage>
       <Segment last style={styles.pageContainer}>
         <AppText>{labels.cycleLengthExplainer}</AppText>
-        {!atLeastOneCycle && <AppText>{labels.emptyStats}</AppText>}
-        {atLeastOneCycle &&
+        {!hasAtLeastOneCycle && <AppText>{labels.emptyStats}</AppText>}
+        {hasAtLeastOneCycle &&
           <View style={styles.container}>
             <View style={styles.columnLeft}>
               <ImageBackground
@@ -77,7 +75,7 @@ const styles = StyleSheet.create({
   },
   accentPurpleGiant: {
     ...Typography.accentPurpleGiant,
-    marginVertical: Sizes.giant * (-0.5)
+    marginVertical: -25
   },
   accentPurpleHuge: {
     ...Typography.accentPurpleHuge,

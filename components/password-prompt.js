@@ -64,16 +64,12 @@ export default class PasswordPrompt extends Component {
         shared.incorrectPasswordMessage,
         [{
           text: shared.tryAgain,
-          onPress: this.setPassword(null)
+          onPress: () => this.setState({ password: null })
         }]
       )
       return
     }
     this.props.enableShowApp()
-  }
-
-  setPassword = (password) => {
-    this.setState({ password })
   }
 
   unlockApp = () => {

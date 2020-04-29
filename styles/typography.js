@@ -12,9 +12,7 @@ export const sizes = {
   base: 18,
   subtitle: 22,
   title: 24,
-  big: 30,
-  huge: 40,
-  giant: 50
+  huge: 40
 }
 
 const title = {
@@ -30,12 +28,12 @@ const accentText = {
 
 const accentTextBig = {
   ...accentText,
-  fontSize: sizes.big,
+  fontSize: 30,
 }
 
 const accentTextGiant = {
   ...accentText,
-  fontSize: sizes.giant,
+  fontSize: 50,
 }
 
 const accentTextHuge = {

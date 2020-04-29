@@ -22,14 +22,14 @@ export default function License({ setLicense }) {
   }
 
   return (
-    <AppPage testID='licensePage'>
-      <Segment last testID='test' title={labels.title}>
-        <AppText testID='test'>{labels.text}</AppText>
+    <AppPage testID="licensePage">
+      <Segment last testID="test" title={labels.title}>
+        <AppText testID="test">{labels.text}</AppText>
         <View style={styles.container}>
-          <Button onPress={BackHandler.exitApp} testID='licenseCancelButton'>
+          <Button onPress={BackHandler.exitApp} testID="licenseCancelButton">
             {shared.cancel}
           </Button>
-          <Button isCTA onPress={onAcceptLicense} testID='licenseOkButton'>
+          <Button isCTA onPress={onAcceptLicense} testID="licenseOkButton">
             {shared.ok}
           </Button>
         </View>
