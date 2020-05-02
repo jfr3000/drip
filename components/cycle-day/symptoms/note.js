@@ -11,7 +11,7 @@ import { saveSymptom } from '../../../db'
 
 class Note extends Component {
   static propTypes = {
-    cycleDay: PropTypes.object.isRequired,
+    cycleDay: PropTypes.object,
     date: PropTypes.string.isRequired
   }
 
