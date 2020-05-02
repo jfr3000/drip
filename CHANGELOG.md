@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file.
 
+## v0.20-05-02.beta
+
+### Added
+* Feature allowing app chart not to show temperature part, when temperature is not tracked and corresponding refactoring
+* Detox support for e2e testing and addition of the e2e tests 
+* Introduction of Redux global state (date and navigation are stored locally now)
+* Introduction of clear.sh script to the project automising clearing project caches and packages reinstallation
+
+### Changed
+* Update of chart shades for bleeding
+* Eslint rule cleanup and addition of new rules (checks for PropTypes definition for React components, multi spaces)
+* sympto library upgrade to version 2.2.0
+* Preparation for support of drip on iOS devices
+* Updates representation of the incomplete mucus and cervix values on chart
+* React Native update to 0.59.10
+* Refactoring of header, cycle day overview, temperature edit view pages
+* Setting minimum SDK version to 23 to allow using drip on earlier versions of Android
+
+### Fixes
+* Fixes adding notes to the future dates
+* Fixes app exiting with error when hitting back button on device
+* Fixes Sex symptom showing on y axis of chart even though the contraception method was deleted 
+* Fix of the clear.sh file name in package.json
+* Fix of navigation from chart to the cycle day overview
+* Bug fix for maximum value of mucus not showing on chart
+* Fixes delete button bug on symptom edit page
+* Fix closing app on back button press
+* Fix of home screen centering
+
+### Security
+* Update of node.js to fix security issue
+
 ## v0.1905.29-beta
 
 ### Changes
