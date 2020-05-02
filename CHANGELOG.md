@@ -2,15 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
-## v0.20-05-02.beta
+## v0.20-05-2.beta
 
-### Added
+### Adds
 * Feature allowing app chart not to show temperature part, when temperature is not tracked and corresponding refactoring
 * Detox support for e2e testing and addition of the e2e tests 
 * Introduction of Redux global state (date and navigation are stored locally now)
 * Introduction of clear.sh script to the project automising clearing project caches and packages reinstallation
 
-### Changed
+### Changes
 * Update of chart shades for bleeding
 * Eslint rule cleanup and addition of new rules (checks for PropTypes definition for React components, multi spaces)
 * sympto library upgrade to version 2.2.0
@@ -28,7 +28,6 @@ All notable changes to this project will be documented in this file.
 * Fix of navigation from chart to the cycle day overview
 * Bug fix for maximum value of mucus not showing on chart
 * Fixes delete button bug on symptom edit page
-* Fix closing app on back button press
 * Fix of home screen centering
 
 ### Security
