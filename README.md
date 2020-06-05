@@ -27,12 +27,17 @@ Here --> you will find our [contributing guide](https://gitlab.com/bloodyhealth/
 
 1.  Clone this repository:
 
+with SSH
     ```
     $ git clone git@gitlab.com:bloodyhealth/drip.git
+    ```
+or with HTTPS
+    ``
+    $ git clone https://gitlab.com/bloodyhealth/drip.git
+    ```
+and run
+    ```
     $ cd drip
-    ```
-    and run
-    ```
     $ npm install
     ```
 
