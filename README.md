@@ -20,50 +20,50 @@ Here --> you will find our [contributing guide](https://gitlab.com/bloodyhealth/
 
 1.  Make sure you are running Node 10 (newer versions won’t work). It's easiest to switch Node versions using `nvm`, here’s how to do it:
 
-    ```
-    $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
-    $ nvm install v10
-    ```
+```
+$ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
+$ nvm install v10
+```
 
 1.  Clone this repository:
 
 with SSH
 
-    ```
-    $ git clone git@gitlab.com:bloodyhealth/drip.git
-    ```
+```
+$ git clone git@gitlab.com:bloodyhealth/drip.git
+```
 
 or with HTTPS
 
-    ```
-    $ git clone https://gitlab.com/bloodyhealth/drip.git
-    ```
+```
+$ git clone https://gitlab.com/bloodyhealth/drip.git
+```
 
 and run
 
-    ```
-    $ cd drip
-    $ npm install
-    ```
+```
+$ cd drip
+$ npm install
+```
 
 1.  Open Android Studio and click on "Open an existing Android Studio project". Navigate to the drip repository you cloned and double click the android folder. It detects, downloads and cofigures requirements that might be missing, like the NDK and CMake to build the native code part of the project. Also see the [nodejs-mobile repository](https://github.com/janeasystems/nodejs-mobile) for the necessary prerequisites for your system.
 
 1.  Either start a [virtual device in Android Studio](https://developer.android.com/studio/run/emulator) or [set your physical device like your Android phone up](https://developer.android.com/training/basics/firstapp/running-app) to run the app.
 
 1.  Open a terminal and run
-    ```
-    $ npm run android
-    ```
+```
+$ npm run android
+```
 
 1.  To see logging output, run the following command in another tab: 
-    ```
-    $ npm run log
-    ```
+```
+$ npm run log
+```
 
 1.  Run the following command and select enable hot reloading (see https://facebook.github.io/react-native/docs/debugging.html):
-    ```
-    $ adb shell input keyevent 82
-    ```
+```
+$ adb shell input keyevent 82
+```
 
 1.  We recommend installing an [ESLint plugin in your editor](https://eslint.org/docs/user-guide/integrations#editors). There's an `.eslintrc` file in this project which will be used by the plugin to check your code for style errors and potential bugs.
 
@@ -82,15 +82,15 @@ Now, `which java` should output `/Applications/Android Studio.app/Contents/jre/j
 
 #### [MacOS] Ninja
 If `npm` says `CMake was unable to find a build program corresponding to "Ninja".`:
-    ```
-    $ brew install ninja
-    ```
+```
+$ brew install ninja
+```
 
 ### [MacOS] adb not on the path
 If you get error messages about `adb` not being found on your path:
-    ```
-    $ ln -s ~/Library/Android/sdk/platform-tools/adb /usr/local/bin/adb
-    ```
+```
+$ ln -s ~/Library/Android/sdk/platform-tools/adb /usr/local/bin/adb
+```
 
 ## Tests
 
@@ -143,7 +143,7 @@ More information about how the app calculates fertility status and bleeding pred
 2.  Download webfont from fontello
 3.  Copy both the content of `config.json` and `font.tff` into `assets/fonts`, replacing it with the current content of `config-drip-icon-font.json` and `drip-icon-font.tff`.
 4.  Now run the following command in your console:
-    ```
-    $ react-native link
-    ```
+```
+$ react-native link
+```
 5.  You should be able to use the icon now within drip, e.g. in Cycle Day Overview and on the chart.
