@@ -32,11 +32,13 @@ with SSH
     ```
     $ git clone git@gitlab.com:bloodyhealth/drip.git
     ```
+
 or with HTTPS
 
     ```
     $ git clone https://gitlab.com/bloodyhealth/drip.git
     ```
+
 and run
 
     ```
