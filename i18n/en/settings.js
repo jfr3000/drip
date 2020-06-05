@@ -1,4 +1,7 @@
 import links from './links'
+import moment from 'moment'
+
+const year = moment().year()
 
 export default {
   menuTitles: {
@@ -104,7 +107,7 @@ export default {
   },
   license: {
     title: 'drip is an open-source cycle tracking app',
-    text: `Copyright (C) 2019 Bloody Health GbR
+    text: `Copyright (C) ${year} Bloody Health GbR
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details: https://www.gnu.org/licenses/gpl-3.0.html
 
