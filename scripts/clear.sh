@@ -23,3 +23,6 @@ rm -rf $TMPDIR/react-*
 
 echo "rm -rf $TMPDIR/haste-map-react-native-packager-*..."
 rm -rf $TMPDIR/haste-map-react-native-packager-*
+
+echo "rm -rf $TMPDIR/metro-*..."
+rm -rf $TMPDIR/metro-*
