@@ -20,3 +20,5 @@ cd android && ./gradlew bundleRelease
 ```
 
 This command creates an `app.aab` file in the folder `/android/app/build/outputs/bundle/release`.
+
+[More on Android App Bundle](https://blog.swmansion.com/make-your-react-native-app-3x-smaller-44c993eda2c9)
