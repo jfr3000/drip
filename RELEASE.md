@@ -5,7 +5,7 @@ Note: You need the release-key to bundle a release that can be uploaded to Googl
 Run the release wizard that takes you through all the steps necessary to prepare a new release:
 
 ```
-./tools/release-wizard.js
+npm run release
 ```
 This will trigger the following:
 * update version number
