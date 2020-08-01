@@ -22,3 +22,12 @@ cd android && ./gradlew bundleRelease
 This command creates an `app.aab` file in the folder `/android/app/build/outputs/bundle/release`.
 
 [More on Android App Bundle](https://blog.swmansion.com/make-your-react-native-app-3x-smaller-44c993eda2c9)
+
+You need to manually push the created tag to Gitlab:
+
+```
+git push origin <tagname>
+```
+Also don't forget to push your branch to Gitlab and review and merge it if ready!
+
+Yay, done (have a scoop of ice cream, I suggest coconut 🍦)!
