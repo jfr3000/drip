@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## v0.20-05-2.beta
+## v0.2007-12.beta
 
 ### Adds
 * Feature allowing app chart not to show temperature part, when temperature is not tracked and corresponding refactoring
