@@ -92,6 +92,18 @@ class DayColumn extends Component {
         activeOpacity={1}
       >
 
+        {shouldShowTemperatureColumn && <TemperatureColumn
+          horizontalLinePosition={this.fhmAndLtl.drawLtlAt}
+          isVerticalLine={this.fhmAndLtl.drawFhmLine}
+          data={this.data && this.data.temperature}
+          columnHeight={columnHeight}
+        />}
+
+        <CycleDayLabel
+          height={xAxisHeight}
+          date={dateString}
+        />
+
         { symptomRowSymptoms.map(symptom => {
           const hasSymptomData = this.data.hasOwnProperty(symptom)
           return (
@@ -106,18 +118,6 @@ class DayColumn extends Component {
             />)
         }
         )}
-
-        {shouldShowTemperatureColumn && <TemperatureColumn
-          horizontalLinePosition={this.fhmAndLtl.drawLtlAt}
-          isVerticalLine={this.fhmAndLtl.drawFhmLine}
-          data={this.data && this.data.temperature}
-          columnHeight={columnHeight}
-        />}
-
-        <CycleDayLabel
-          height={xAxisHeight}
-          date={dateString}
-        />
 
       </TouchableOpacity>
     )

@@ -1,26 +1,33 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, FlatList, ActivityIndicator } from 'react-native'
+import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native'
 
-import NoData from './no-data'
 import AppLoadingView from '../common/app-loading'
-import YAxis from './y-axis'
-import nfpLines from './nfp-lines'
+import AppPage from '../common/app-page'
+import AppText from '../common/app-text'
+
 import DayColumn from './day-column'
 import HorizontalGrid from './horizontal-grid'
-import AppText from '../common/app-text'
+import NoData from './no-data'
+import Tutorial from './tutorial'
+import YAxis from './y-axis'
 
 import { connect } from 'react-redux'
 import { navigate } from '../../slices/navigation'
 
 import { getCycleDaysSortedByDate } from '../../db'
 import nothingChanged from '../../db/db-unchanged'
-import { scaleObservable } from '../../local-storage'
-import { makeColumnInfo } from '../helpers/chart'
+import { getChartFlag, scaleObservable, setChartFlag } from '../../local-storage'
+import { makeColumnInfo, nfpLines } from '../helpers/chart'
 
-import config from '../../config'
+import {
+  CHART_COLUMN_WIDTH,
+  SYMPTOMS,
+  CHART_SYMPTOM_HEIGHT_RATIO,
+  CHART_XAXIS_HEIGHT_RATIO
+} from '../../config'
 import { shared } from '../../i18n/en/labels'
-import styles from './styles'
+import { Colors, Spacing } from '../../styles/redesign'
 
 class CycleChart extends Component {
   static propTypes = {
@@ -36,11 +43,35 @@ class CycleChart extends Component {
     this.getFhmAndLtlInfo = nfpLines()
     this.shouldShowTemperatureColumn = false
 
+    this.checkShouldShowHint()
     this.prepareSymptomData()
   }
 
+  componentWillUnmount() {
+    this.cycleDaysSortedByDate.removeListener(this.handleDbChange)
+    this.removeObvListener()
+  }
+
+  checkShouldShowHint = async () => {
+    const flag = await getChartFlag()
+    const shouldShowHint = flag === 'true' ? true : false
+    this.setState({ shouldShowHint })
+  }
+
+  setShouldShowHint = async () => {
+    await setChartFlag()
+    this.setState({ shouldShowHint: false })
+  }
+
+  onLayout = ({ nativeEvent }) => {
+    if (this.state.chartHeight) return false
+
+    this.reCalculateChartInfo(nativeEvent)
+    this.updateListeners(this.reCalculateChartInfo)
+  }
+
   prepareSymptomData = () => {
-    this.symptomRowSymptoms = config.symptoms.filter((symptomName) => {
+    this.symptomRowSymptoms = SYMPTOMS.filter((symptomName) => {
       return this.cycleDaysSortedByDate.some(cycleDay => {
         return cycleDay[symptomName]
       })
@@ -71,31 +102,19 @@ class CycleChart extends Component {
 
   reCalculateChartInfo = (nativeEvent) => {
     const { height, width } = nativeEvent.layout
-    const xAxisCoefficient = this.shouldShowTemperatureColumn ?
-      config.xAxisHeightPercentage : config.xAxisHeightPercentageLarge
-    const symptomCoefficient = this.shouldShowTemperatureColumn ?
-      config.symptomHeightPercentage : config.symptomHeightPercentageLarge
 
-    this.xAxisHeight = height * xAxisCoefficient
+    this.xAxisHeight = height * CHART_XAXIS_HEIGHT_RATIO
     const remainingHeight = height - this.xAxisHeight
-    this.symptomHeight = remainingHeight * symptomCoefficient
+    this.symptomHeight = remainingHeight * CHART_SYMPTOM_HEIGHT_RATIO
     this.symptomRowHeight = this.symptomRowSymptoms.length *
       this.symptomHeight
     this.columnHeight = remainingHeight - this.symptomRowHeight
     const chartHeight = this.shouldShowTemperatureColumn ?
       height : (this.symptomRowHeight + this.xAxisHeight)
-
-    const numberOfColumnsToRender = Math.round(width / config.columnWidth)
+    const numberOfColumnsToRender = Math.round(width / CHART_COLUMN_WIDTH)
     const columns = makeColumnInfo()
 
     this.setState({ columns, chartHeight, numberOfColumnsToRender })
-  }
-
-  onLayout = ({ nativeEvent }) => {
-    if (this.state.chartHeight) return
-
-    this.reCalculateChartInfo(nativeEvent)
-    this.updateListeners(this.reCalculateChartInfo)
   }
 
   updateListeners(dataUpdateHandler) {
@@ -114,38 +133,47 @@ class CycleChart extends Component {
     this.removeObvListener = scaleObservable(dataUpdateHandler, false)
   }
 
-  componentWillUnmount() {
-    this.cycleDaysSortedByDate.removeListener(this.handleDbChange)
-    this.removeObvListener()
-  }
-
   render() {
-    const { chartHeight, chartLoaded, numberOfColumnsToRender } = this.state
-    const shouldShowChart = this.chartSymptoms.length > 0 ? true : false
+    const {
+      chartHeight,
+      chartLoaded,
+      shouldShowHint,
+      numberOfColumnsToRender
+    } = this.state
+    const hasDataToDisplay = this.chartSymptoms.length > 0
 
     return (
-      <View onLayout={this.onLayout} style={styles.container}>
-        {!shouldShowChart && <NoData navigate={this.props.navigate}/>}
-        {shouldShowChart && !chartHeight && !chartLoaded && <AppLoadingView />}
+      <AppPage
+        contentContainerStyle={styles.pageContainer}
+        onLayout={this.onLayout}
+        scrollViewStyle={styles.page}
+      >
+        {!hasDataToDisplay && <NoData />}
+        {hasDataToDisplay && !chartHeight && !chartLoaded && <AppLoadingView />}
         <View style={styles.chartContainer}>
-          {shouldShowChart && (
+          {shouldShowHint && chartLoaded &&
+            <Tutorial onClose={this.setShouldShowHint} />
+          }
+          {hasDataToDisplay && chartLoaded &&
+            !this.shouldShowTemperatureColumn &&
+            <View style={styles.centerItem}>
+              <AppText style={styles.warning}>
+                {shared.noTemperatureWarning}
+              </AppText>
+            </View>
+          }
+          {hasDataToDisplay && (
             <View style={styles.chartArea}>
 
               {chartHeight && chartLoaded && (
-                <React.Fragment>
-                  <YAxis
-                    height={this.columnHeight}
-                    symptomsToDisplay={this.symptomRowSymptoms}
-                    symptomsSectionHeight={this.symptomRowHeight}
-                    shouldShowTemperatureColumn=
-                      {this.shouldShowTemperatureColumn}
-                    xAxisHeight={this.xAxisHeight}
-                  />
-                  {this.shouldShowTemperatureColumn && (<HorizontalGrid
-                    height={this.columnHeight}
-                    startPosition={this.symptomRowHeight}
-                  />)}
-                </React.Fragment>
+                <YAxis
+                  height={this.columnHeight}
+                  symptomsToDisplay={this.symptomRowSymptoms}
+                  symptomsSectionHeight={this.symptomRowHeight}
+                  shouldShowTemperatureColumn=
+                    {this.shouldShowTemperatureColumn}
+                  xAxisHeight={this.xAxisHeight}
+                />
               )}
 
               {chartHeight &&
@@ -162,27 +190,28 @@ class CycleChart extends Component {
                  onEndReached={() => this.setState({end: true})}
                  ListFooterComponent={<LoadingMoreView end={this.state.end}/>}
                  updateCellsBatchingPeriod={800}
-                 contentContainerStyle={{height: chartHeight}}
+                 contentContainerStyle={{ height: chartHeight }}
                />
               }
+              {chartHeight && chartLoaded && (
+                <React.Fragment>
+                  {this.shouldShowTemperatureColumn &&
+                    <HorizontalGrid height={this.columnHeight} />
+                  }
+                </React.Fragment>
+              )}
             </View>
           )}
         </View>
-        {shouldShowChart && chartLoaded && !this.shouldShowTemperatureColumn
-          && (
-            <View style={styles.centerItem}>
-              <AppText style={{textAlign: 'center'}}>{shared.noTemperatureWarning}</AppText>
-            </View>
-          )}
-      </View>
+      </AppPage>
     )
   }
 }
 
 function LoadingMoreView({ end }) {
   return (
-    <View style={styles.loadingMore}>
-      {!end && <ActivityIndicator size={'large'} color={'white'}/>}
+    <View style={styles.loadingContainer}>
+      {!end && <ActivityIndicator size={'large'} color={Colors.orange}/>}
     </View>
   )
 }
@@ -190,6 +219,29 @@ function LoadingMoreView({ end }) {
 LoadingMoreView.propTypes = {
   end: PropTypes.bool
 }
+
+const styles = StyleSheet.create({
+  chartArea: {
+    flexDirection: 'row'
+  },
+  chartContainer: {
+    flexDirection: 'column'
+  },
+  loadingContainer: {
+    height: '100%',
+    backgroundColor: Colors.tourquiseLight,
+    justifyContent: 'center'
+  },
+  page: {
+    marginVertical: Spacing.small
+  },
+  pageContainer: {
+    paddingHorizontal: Spacing.base
+  },
+  warning: {
+    padding: Spacing.large
+  }
+})
 
 const mapDispatchToProps = (dispatch) => {
   return({

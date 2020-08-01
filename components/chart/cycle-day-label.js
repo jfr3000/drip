@@ -1,32 +1,33 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
-import { Text, View } from 'react-native'
-
-import moment from 'moment'
+import { StyleSheet, View } from 'react-native'
 import { LocalDate } from 'js-joda'
+import moment from 'moment'
 
-import styles from './styles'
+import AppText from '../common/app-text'
+
 import cycleModule from '../../lib/cycle'
+import { dateEnding } from '../helpers/home'
+import { Containers, Typography } from '../../styles/redesign'
 
 const CycleDayLabel = ({ height, date }) => {
-  const { label } = styles.column
   const dayDate = LocalDate.parse(date)
   const cycleDayNumber = cycleModule().getCycleDayNumber(date)
 
   const isFirstDayOfMonth = dayDate.dayOfMonth() === 1
-  const dateFormatting = isFirstDayOfMonth ? 'MMM' : 'Do'
+  const dateFormatting = isFirstDayOfMonth ? 'MMM' : 'D'
   const shortDate = moment(date, "YYYY-MM-DD").format(dateFormatting)
-  const boldDateLabel = isFirstDayOfMonth ? {fontWeight: 'bold'} : {}
+  const ending = isFirstDayOfMonth ?
+    '' : dateEnding[this.cycleDayNumber] || dateEnding['default']
+  const cycleDayLabel = cycleDayNumber ? cycleDayNumber : ' '
 
   return (
-    <View style={[styles.chartLegend, { height }]}>
-      <Text style={label.number}>
-        {cycleDayNumber ? cycleDayNumber : ' '}
-      </Text>
-      <Text style={[label.date, boldDateLabel]}>
-        {shortDate}
-      </Text>
+    <View style={[styles.container, { height }]}>
+      <AppText style={styles.textBold}>{cycleDayLabel}</AppText>
+      <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
+        <AppText style={styles.text}>{shortDate}</AppText>
+        <AppText style={styles.textLight}>{ending}</AppText>
+      </View>
     </View>
   )
 }
@@ -35,5 +36,25 @@ CycleDayLabel.propTypes = {
   height: PropTypes.number,
   date: PropTypes.string,
 }
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'flex-start',
+    justifyContent: 'flex-end',
+    left: 4,
+  },
+  containerRow: {
+    ...Containers.rowContainer
+  },
+  text: {
+    ...Typography.label
+  },
+  textBold: {
+    ...Typography.labelBold
+  },
+  textLight: {
+    ...Typography.labelLight
+  }
+})
 
 export default CycleDayLabel

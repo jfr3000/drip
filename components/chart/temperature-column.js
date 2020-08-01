@@ -1,13 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { StyleSheet } from 'react-native'
 
 import { Surface , Path } from 'react-native/Libraries/ART/ReactNativeART'
 
 import ChartLine from './chart-line'
 import DotAndLine from './dot-and-line'
 
-import styles from './styles'
-import config from '../../config'
+import { CHART_COLUMN_WIDTH, CHART_STROKE_WIDTH } from '../../config'
 
 const TemperatureColumn = ({
   horizontalLinePosition,
@@ -15,20 +15,21 @@ const TemperatureColumn = ({
   data,
   columnHeight
 }) => {
-
-  const x = styles.nfpLine.strokeWidth / 2
+  const x = CHART_STROKE_WIDTH / 2
 
   return (
-    <Surface width={config.columnWidth} height={columnHeight}>
+    <Surface
+      width={CHART_COLUMN_WIDTH}
+      height={columnHeight}
+      style={styles.container}
+    >
 
-      <ChartLine
-        path={new Path().lineTo(0, columnHeight)}
-      />
+      <ChartLine path={new Path().lineTo(0, columnHeight)}/>
 
       {horizontalLinePosition && <ChartLine
         path={new Path()
           .moveTo(0, horizontalLinePosition)
-          .lineTo(config.columnWidth, horizontalLinePosition)
+          .lineTo(CHART_COLUMN_WIDTH, horizontalLinePosition)
         }
         isNfpLine={true}
         key='ltl'
@@ -60,5 +61,11 @@ TemperatureColumn.propTypes = {
   data: PropTypes.object,
   columnHeight: PropTypes.number,
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'white'
+  }
+})
 
 export default TemperatureColumn

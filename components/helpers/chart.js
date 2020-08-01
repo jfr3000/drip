@@ -1,9 +1,8 @@
 import { LocalDate } from 'js-joda'
 
 import { scaleObservable, unitObservable } from '../../local-storage'
+import { getCycleStatusForDay } from '../../lib/sympto-adapter'
 import { getCycleDay, getAmountOfCycleDays } from '../../db'
-
-import config from '../../config'
 
 //YAxis helpers
 
@@ -14,17 +13,21 @@ export function normalizeToScale(temp, columnHeight) {
 }
 
 function getAbsoluteValue(relative, columnHeight) {
-  // we add some height to have some breathing room
-  const verticalPadding = columnHeight * config.temperatureScale.verticalPadding
-  const scaleHeight = columnHeight - 2 * verticalPadding
-  return scaleHeight * relative + verticalPadding
+  return columnHeight * relative
+}
+
+function getTickConfig() {
+  const unit = unitObservable.value
+  //Add 1 tick above the max value to display on chart
+  const scaleMax = scaleObservable.value.max + unit
+  const scaleMin = scaleObservable.value.min - unit
+  const numberOfTicks = (scaleMax - scaleMin) / unit + 1
+
+  return { numberOfTicks, scaleMax, scaleMin, unit }
 }
 
 export function getTickPositions(columnHeight) {
-  const units = unitObservable.value
-  const scaleMin = scaleObservable.value.min
-  const scaleMax = scaleObservable.value.max
-  const numberOfTicks = (scaleMax - scaleMin) * (1 / units) + 1
+  const { numberOfTicks } = getTickConfig()
   const tickDistance = 1 / (numberOfTicks - 1)
   const tickPositions = []
   for (let i = 0; i < numberOfTicks; i++) {
@@ -35,13 +38,12 @@ export function getTickPositions(columnHeight) {
 }
 
 export function getTickList(columnHeight) {
-
-  const units = unitObservable.value
-  const scaleMax = scaleObservable.value.max
+  const { numberOfTicks, scaleMax, unit } = getTickConfig()
+  const tickHeight = columnHeight / numberOfTicks
 
   return getTickPositions(columnHeight).map((tickPosition, i) => {
 
-    const tick = scaleMax - i * units
+    const tick = scaleMax - i * unit
     let isBold, label, shouldShowLabel
 
     if (Number.isInteger(tick)) {
@@ -52,10 +54,10 @@ export function getTickList(columnHeight) {
       label = tick.toString()
     }
 
-    // when temp range <= 3, units === 0.1 we show temp values with step 0.2
-    // when temp range > 3, units === 0.5 we show temp values with step 0.5
+    // when temp range <= 2, units === 0.1 we show temp values with step 0.2
+    // when temp range > 2, units === 0.5 we show temp values with step 0.5
 
-    if (units === 0.1) {
+    if (unit === 0.1) {
       // show label with step 0.2
       shouldShowLabel = !(tick * 10 % 2)
     } else {
@@ -63,11 +65,17 @@ export function getTickList(columnHeight) {
       shouldShowLabel = !(tick * 10 % 5)
     }
 
+    // don't show label, if first or last tick
+    if ( i === 0 || i === (numberOfTicks - 1) ) {
+      shouldShowLabel = false
+    }
+
     return {
       position: tickPosition,
       label,
       isBold,
       shouldShowLabel,
+      tickHeight
     }
   })
 }
@@ -201,4 +209,87 @@ function getTodayAndPreviousDays(n) {
   }
 
   return getDaysInRange(today, [])
+}
+
+export function nfpLines() {
+  const cycle = {
+    status: null
+  }
+
+  function updateCurrentCycle(dateString) {
+    // for the NFP lines, we don't care about potentially extending the
+    // preOvu phase, so we don't include all earlier cycles, as that is
+    // an expensive db operation at the moment
+    cycle.status = getCycleStatusForDay(
+      dateString, { excludeEarlierCycles: true }
+    )
+    if(!cycle.status) {
+      cycle.noMoreCycles = true
+      return
+    }
+    if (cycle.status.phases.preOvulatory) {
+      cycle.startDate = cycle.status.phases.preOvulatory.start.date
+    } else {
+      cycle.startDate = cycle.status.phases.periOvulatory.start.date
+    }
+  }
+
+  function dateIsInPeriOrPostPhase(dateString) {
+    return (
+      dateString >= cycle.status.phases.periOvulatory.start.date
+    )
+  }
+
+  function precededByAnotherTempValue(dateString) {
+    return (
+      // we are only interested in days that have a preceding
+      // temp
+      Object.keys(cycle.status.phases).some(phaseName => {
+        return cycle.status.phases[phaseName].cycleDays.some(day => {
+          return day.temperature && day.date < dateString
+        })
+      })
+      // and also a following temp, so we don't draw the line
+      // longer than necessary
+      &&
+      cycle.status.phases.postOvulatory.cycleDays.some(day => {
+        return day.temperature && day.date > dateString
+      })
+    )
+  }
+
+  function isInTempMeasuringPhase(temperature, dateString) {
+    return (
+      temperature || precededByAnotherTempValue(dateString)
+    )
+  }
+
+  return function(dateString, temperature, columnHeight) {
+    const ret = {
+      drawLtlAt: null,
+      drawFhmLine: false
+    }
+    if (!cycle.status && !cycle.noMoreCycles) updateCurrentCycle(dateString)
+    if (cycle.noMoreCycles) return ret
+
+    if (dateString < cycle.startDate) updateCurrentCycle(dateString)
+    if (cycle.noMoreCycles) return ret
+
+    const tempShift = cycle.status.temperatureShift
+
+    if (tempShift) {
+      if (tempShift.firstHighMeasurementDay.date === dateString) {
+        ret.drawFhmLine = true
+      }
+
+      if (
+        dateIsInPeriOrPostPhase(dateString) &&
+        isInTempMeasuringPhase(temperature, dateString)
+      ) {
+        ret.drawLtlAt = normalizeToScale(tempShift.ltl, columnHeight)
+      }
+    }
+
+    return ret
+  }
 }

@@ -8,7 +8,7 @@ import SliderLabel from './slider-label'
 import { scaleObservable, saveTempScale } from '../../../local-storage'
 import { Colors, Sizes } from '../../../styles/redesign'
 import labels from '../../../i18n/en/settings'
-import config from '../../../config'
+import { TEMP_MIN, TEMP_MAX, TEMP_SLIDER_STEP } from '../../../config'
 
 export default class TemperatureSlider extends Component {
   constructor(props) {
@@ -41,11 +41,11 @@ export default class TemperatureSlider extends Component {
           enableLabel={true}
           markerStyle={styles.marker}
           markerOffsetY={Sizes.tiny}
-          max={config.temperatureScale.max}
-          min={config.temperatureScale.min}
+          max={TEMP_MAX}
+          min={TEMP_MIN}
           onValuesChange={this.onTemperatureSliderChange}
           selectedStyle={styles.sliderAccentBackground}
-          step={config.temperatureScale.step}
+          step={TEMP_SLIDER_STEP}
           trackStyle={styles.slider}
           unselectedStyle={styles.sliderBackground}
           values={[minTemperature, maxTemperature]}

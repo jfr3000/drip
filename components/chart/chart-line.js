@@ -3,26 +3,26 @@ import PropTypes from 'prop-types'
 
 import { Shape } from 'react-native/Libraries/ART/ReactNativeART'
 
-import styles from './styles'
+import { Colors } from '../../styles/redesign'
+import { CHART_STROKE_WIDTH, CHART_GRID_LINE_HORIZONTAL_WIDTH } from '../../config'
 
-const ChartLine = ({ path, isNfpLine = false }) => {
-  const strokeStyle =
-    isNfpLine ? styles.nfpLine.stroke : styles.column.stroke.color
-  const strokeWidth =
-    isNfpLine ? styles.nfpLine.strokeWidth : styles.column.stroke.width
+const ChartLine = ({ path, isNfpLine }) => {
+  const color = isNfpLine ? Colors.orange : Colors.grey
+  const width = isNfpLine
+    ? CHART_STROKE_WIDTH : CHART_GRID_LINE_HORIZONTAL_WIDTH
 
   return (
-    <Shape
-      stroke={strokeStyle}
-      strokeWidth={strokeWidth}
-      d={path}
-    />
+    <Shape d={path} stroke={color} strokeWidth={width} />
   )
 }
 
 ChartLine.propTypes = {
   path: PropTypes.object,
   isNfpLine: PropTypes.bool,
+}
+
+ChartLine.defaultProps = {
+  isNfpLine: false
 }
 
 export default ChartLine

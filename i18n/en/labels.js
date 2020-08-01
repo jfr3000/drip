@@ -7,6 +7,10 @@ export const homeRedesign = {
   addData: 'add data for today'
 }
 
+export const chart = {
+  tutorial: 'You can swipe the chart to view more dates.'
+}
+
 export const shared = {
   cancel: 'Cancel',
   save: 'Save',

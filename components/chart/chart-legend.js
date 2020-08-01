@@ -1,32 +1,38 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 import AppText from '../common/app-text'
-import DripHomeIcon from '../../assets/drip-home-icons'
 
-import styles from './styles'
-import { cycleDayColor } from '../../styles'
-
+import { Typography } from '../../styles/redesign'
+import { CHART_YAXIS_WIDTH } from '../../config'
 import { shared as labels } from '../../i18n/en/labels'
 
-const ChartLegend = ({ xAxisHeight }) => {
+const ChartLegend = ({ height }) => {
   return (
-    <View style={[styles.yAxis, styles.chartLegend, {height: xAxisHeight}]}>
-      <DripHomeIcon
-        name="circle"
-        size={styles.yAxis.width - 7}
-        color={cycleDayColor}
-      />
-      <AppText style={styles.yAxisLabels.dateLabel}>
-        {labels.date.toLowerCase()}
-      </AppText>
+    <View style={[styles.container, { height }]}>
+      <AppText style={styles.textBold}>#</AppText>
+      <AppText style={styles.text}>{labels.date}</AppText>
     </View>
   )
 }
 
 ChartLegend.propTypes = {
-  xAxisHeight: PropTypes.number.isRequired
+  height: PropTypes.number.isRequired
 }
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    width: CHART_YAXIS_WIDTH
+  },
+  text: {
+    ...Typography.label
+  },
+  textBold: {
+    ...Typography.labelBold
+  }
+})
 
 export default ChartLegend

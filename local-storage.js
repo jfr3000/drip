@@ -1,18 +1,16 @@
 import { AsyncStorage } from 'react-native'
 import Observable from 'obv'
-import config from './config'
+import { TEMP_SCALE_MIN, TEMP_SCALE_MAX, TEMP_SCALE_UNITS } from './config'
 
 export const scaleObservable = Observable()
-setObvWithInitValue('tempScale', scaleObservable, {
-  min: config.temperatureScale.defaultLow,
-  max: config.temperatureScale.defaultHigh
-})
+setObvWithInitValue('tempScale',
+  scaleObservable, { min: TEMP_SCALE_MIN, max: TEMP_SCALE_MAX })
 
 export const unitObservable = Observable()
-unitObservable.set(config.temperatureScale.units)
+unitObservable.set(TEMP_SCALE_UNITS)
 scaleObservable((scale) => {
   const scaleRange = scale.max - scale.min
-  if (scaleRange <= 3) {
+  if (scaleRange <= 2) {
     unitObservable.set(0.1)
   } else {
     unitObservable.set(0.5)
@@ -67,6 +65,15 @@ export async function getLicenseFlag() {
 
 export async function saveLicenseFlag() {
   await AsyncStorage.setItem('agreedToLicense', JSON.stringify(true))
+}
+
+export async function getChartFlag() {
+  const isFirstChartView = await AsyncStorage.getItem('isFirstChartView')
+  return isFirstChartView === null ? 'true' : isFirstChartView
+}
+
+export async function setChartFlag() {
+  await AsyncStorage.setItem('isFirstChartView', JSON.stringify(false))
 }
 
 async function setObvWithInitValue(key, obv, defaultValue) {

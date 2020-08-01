@@ -1,31 +1,44 @@
 import React from 'react'
+import { StyleSheet, View } from 'react-native'
 import PropTypes from 'prop-types'
-import { View } from 'react-native'
 
 import AppText from '../common/app-text'
-import SettingsButton from '../settings/shared/settings-button'
+import Button from '../common/button'
 
+import { connect } from 'react-redux'
+import { navigate } from '../../slices/navigation'
+
+import { Containers } from '../../styles/redesign'
 import { shared } from '../../i18n/en/labels'
-import styles from './styles'
 
 const NoData = ({ navigate }) => {
   return (
-    <View flex={1}>
-      <View style={styles.centerItem}>
-        <AppText>{shared.noDataWarning}</AppText>
-        <SettingsButton
-          onPress={() => {navigate('CycleDay')}}
-          style={{marginHorizontal: 40}}
-        >
-          {shared.noDataButtonText}
-        </SettingsButton>
-      </View>
+    <View style={styles.container}>
+      <AppText>{shared.noDataWarning}</AppText>
+      <Button isCTA onPress={() => {navigate('CycleDay')}}>
+        {shared.noDataButtonText}
+      </Button>
     </View>
   )
 }
 
 NoData.propTypes = {
-  navigate: PropTypes.func,
+  navigate: PropTypes.func.isRequired,
 }
 
-export default NoData
+const styles = StyleSheet.create({
+  container: {
+    ...Containers.centerItems
+  }
+})
+
+const mapDispatchToProps = (dispatch) => {
+  return({
+    navigate: (page) => dispatch(navigate(page)),
+  })
+}
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(NoData)

@@ -11,7 +11,7 @@ import styles from '../../../styles'
 
 import { getPreviousTemperature } from '../../../db'
 import { scaleObservable } from '../../../local-storage'
-import config from '../../../config'
+import { TEMP_MAX, TEMP_MIN } from '../../../config'
 
 export default class TemperatureInput extends Component {
 
@@ -86,8 +86,7 @@ const OutOfRangeWarning = ({ temperature }) => {
   }
 
   const value = Number(temperature)
-  const { min, max } = config.temperatureScale
-  const range = { min, max }
+  const range = { min: TEMP_MIN, max: TEMP_MAX }
   const scale = scaleObservable.value
 
   let warningMsg
