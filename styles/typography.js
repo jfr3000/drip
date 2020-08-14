@@ -96,5 +96,12 @@ export default {
     fontSize: sizes.title,
     marginHorizontal: Spacing.base,
     ...title
+  },
+  titleWithoutMargin: {
+    alignSelf: 'center',
+    color: Colors.purple,
+    fontFamily: fonts.bold,
+    fontWeight: '700',
+    fontSize: sizes.title,
   }
 }

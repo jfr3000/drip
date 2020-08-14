@@ -4,6 +4,7 @@ export const ACTION_IMPORT = 'import'
 
 export const SYMPTOMS = [
   'bleeding',
+  'temperature',
   'mucus',
   'cervix',
   'sex',

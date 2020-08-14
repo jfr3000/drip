@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, View } from 'react-native'
 
-import AppIcon from '../common/app-icon'
 import AppText from '../common/app-text'
+import CloseIcon from '../common/close-icon'
 
-import { Colors, Containers, Sizes, Spacing } from '../../styles/redesign'
+import { Containers, Spacing } from '../../styles/redesign'
 import { chart } from '../../i18n/en/labels'
 
 const image = require('../../assets/swipe.png')
@@ -17,9 +17,7 @@ const Tutorial = ({ onClose }) => {
       <View style={styles.textContainer}>
         <AppText>{chart.tutorial}</AppText>
       </View>
-      <TouchableOpacity onPress={onClose} style={styles.iconContainer}>
-        <AppIcon name='cross' color={Colors.orange} />
-      </TouchableOpacity>
+      <CloseIcon onClose={onClose} />
     </View>
   )
 }
@@ -32,10 +30,6 @@ const styles = StyleSheet.create({
   container: {
     ...Containers.rowContainer,
     padding: Spacing.large
-  },
-  iconContainer: {
-    alignSelf: 'flex-start',
-    marginBottom: Sizes.base
   },
   image: {
     height: 40

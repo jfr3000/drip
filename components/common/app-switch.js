@@ -20,7 +20,7 @@ const AppSwitch = ({ onToggle, text, value }) => {
 AppSwitch.propTypes = {
   onToggle: PropTypes.func.isRequired,
   text: PropTypes.string,
-  value: PropTypes.bool.isRequired
+  value: PropTypes.bool
 }
 
 const styles = StyleSheet.create({

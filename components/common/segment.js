@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   container: {
     borderStyle: 'solid',
     borderBottomWidth: 2,
-    borderBottomColor: Colors.grey,
+    borderBottomColor: Colors.greyLight,
     paddingBottom: Spacing.base,
     ...segmentContainer
   },

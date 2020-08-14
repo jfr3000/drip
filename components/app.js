@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, BackHandler } from 'react-native'
+import { BackHandler, StyleSheet, View } from 'react-native'
 import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
@@ -10,7 +10,7 @@ import { getNavigation, navigate, goBack } from '../slices/navigation'
 import Header from './header'
 import Menu from './menu'
 import { viewsList } from './views'
-import { isSymptomView, isSettingsView } from './pages'
+import { isSettingsView } from './pages'
 
 import { headerTitles } from '../i18n/en/labels'
 import setupNotifications from '../lib/notifications'
@@ -64,9 +64,7 @@ class App extends Component {
     const Page = viewsList[currentPage]
     const title = headerTitles[currentPage]
 
-    const isSymptomEditView = isSymptomView(currentPage)
     const isSettingsSubView = isSettingsView(currentPage)
-    const isCycleDayView = currentPage === 'CycleDay'
 
     const headerProps = {
       title,
@@ -79,20 +77,20 @@ class App extends Component {
     }
 
     return (
-      <View style={{ flex: 1 }}>
-        {
-          !isSymptomEditView &&
-          !isCycleDayView &&
-          <Header { ...headerProps } />
-        }
-
+      <View style={styles.container}>
+        <Header { ...headerProps } />
         <Page { ...pageProps } />
-
-        { !isSymptomEditView && <Menu /> }
+        <Menu />
       </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
+})
 
 const mapStateToProps = (state) => {
   return({

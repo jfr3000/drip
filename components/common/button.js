@@ -2,14 +2,23 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, TouchableOpacity } from 'react-native'
 
+import AppIcon from './app-icon'
 import AppText from './app-text'
 
 import { Colors, Fonts, Spacing } from '../../styles/redesign'
 
-const Button = ({ children, isCTA, isSmall, onPress, testID, ...props }) => {
+const Button = ({
+  children,
+  iconName,
+  isCTA,
+  isSmall,
+  onPress,
+  testID,
+  ...props
+}) => {
   const buttonStyle = isCTA ? styles.cta : styles.regular
   const textCTA = isCTA ? styles.buttonTextBold : styles.buttonTextRegular
-  const textStyle = [ textCTA, isSmall ? textSmall : text]
+  const textStyle = [textCTA, isSmall ? textSmall : text]
 
   return (
     <TouchableOpacity
@@ -19,12 +28,14 @@ const Button = ({ children, isCTA, isSmall, onPress, testID, ...props }) => {
       {...props}
     >
       <AppText style={textStyle}>{children}</AppText>
+      {iconName && <AppIcon color={Colors.orange} name={iconName} />}
     </TouchableOpacity>
   )
 }
 
 Button.propTypes = {
   children: PropTypes.node,
+  iconName: PropTypes.string,
   isCTA: PropTypes.bool,
   isSmall: PropTypes.bool,
   onPress: PropTypes.func,
@@ -48,8 +59,10 @@ const textSmall = {
 
 const button = {
   alignItems: 'center',
+  flexDirection: 'row',
   justifyContent: 'center',
-  margin: Spacing.base
+  margin: Spacing.base,
+  minWidth: '15%'
 }
 
 const styles = StyleSheet.create({

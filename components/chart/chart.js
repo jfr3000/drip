@@ -73,7 +73,7 @@ class CycleChart extends Component {
   prepareSymptomData = () => {
     this.symptomRowSymptoms = SYMPTOMS.filter((symptomName) => {
       return this.cycleDaysSortedByDate.some(cycleDay => {
-        return cycleDay[symptomName]
+        return (symptomName !== 'temperature') && cycleDay[symptomName]
       })
     })
     this.chartSymptoms = [...this.symptomRowSymptoms]
