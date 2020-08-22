@@ -4,7 +4,7 @@ import { Modal, StyleSheet, TouchableOpacity, View } from 'react-native'
 import AppIcon from '../common/app-icon'
 import MenuItem from './menu-item'
 
-import { Colors, Sizes } from '../../styles/redesign'
+import { Colors, Sizes } from '../../styles'
 import settingsLabels from '../../i18n/en/settings'
 
 const { menuItems } = settingsLabels

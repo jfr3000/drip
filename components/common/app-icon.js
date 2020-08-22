@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/Entypo'
 
-import { Sizes } from '../../styles/redesign'
+import { Sizes } from '../../styles'
 
 const AppIcon = ({ color, name, style, ...props }) => {
   const iconStyle = [styles.icon, style, { color }]

@@ -5,7 +5,7 @@ import Button from '../../common/button'
 
 import EnterNewPassword from './enter-new-password'
 import showBackUpReminder from './show-backup-reminder'
-import ConfirmWithPassword from '../shared/confirm-with-password'
+import ConfirmWithPassword from '../common/confirm-with-password'
 
 import settings from '../../../i18n/en/settings'
 

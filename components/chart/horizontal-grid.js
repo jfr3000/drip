@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native'
 
 import { getTickPositions } from '../helpers/chart'
 
-import { Colors } from '../../styles/redesign'
+import { Colors } from '../../styles'
 import { CHART_GRID_LINE_HORIZONTAL_WIDTH, CHART_YAXIS_WIDTH } from '../../config'
 
 const HorizontalGrid = ({ height }) => {

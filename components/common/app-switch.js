@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import AppText from './app-text'
 
-import { Containers } from '../../styles/redesign'
+import { Containers } from '../../styles'
 
 const AppSwitch = ({ onToggle, text, value }) => {
   return (

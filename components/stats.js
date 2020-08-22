@@ -10,7 +10,7 @@ import cycleModule from '../lib/cycle'
 import {getCycleLengthStats as getCycleInfo} from '../lib/cycle-length'
 import {stats as labels} from '../i18n/en/labels'
 
-import { Sizes, Spacing, Typography } from '../styles/redesign'
+import { Sizes, Spacing, Typography } from '../styles'
 
 const image = require('../assets/cycle-icon.png')
 

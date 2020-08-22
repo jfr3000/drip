@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, View } from 'react-native'
 
-import { Colors, Containers } from '../../styles/redesign'
+import { Colors, Containers } from '../../styles'
 import {
   CHART_COLUMN_WIDTH,
   CHART_DOT_RADIUS,

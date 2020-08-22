@@ -5,7 +5,7 @@ import { Image, StyleSheet, View } from 'react-native'
 import AppText from '../common/app-text'
 import CloseIcon from '../common/close-icon'
 
-import { Containers, Spacing } from '../../styles/redesign'
+import { Containers, Spacing } from '../../styles'
 import { chart } from '../../i18n/en/labels'
 
 const image = require('../../assets/swipe.png')

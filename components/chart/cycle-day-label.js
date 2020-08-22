@@ -8,7 +8,7 @@ import AppText from '../common/app-text'
 
 import cycleModule from '../../lib/cycle'
 import { dateEnding } from '../helpers/home'
-import { Containers, Typography } from '../../styles/redesign'
+import { Containers, Typography } from '../../styles'
 
 const CycleDayLabel = ({ height, date }) => {
   const dayDate = LocalDate.parse(date)

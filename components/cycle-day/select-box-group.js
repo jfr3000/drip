@@ -4,7 +4,7 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native'
 
 import AppText from '../common/app-text'
 
-import { Colors, Containers } from '../../styles/redesign'
+import { Colors, Containers } from '../../styles'
 
 const SelectBoxGroup = ({ labels, optionsState, onSelect }) => {
   return (

@@ -14,7 +14,7 @@ import {
   isTomorrowInFuture,
   isYesterdayInFuture
 } from '../helpers/cycle-day'
-import { Colors, Containers, Spacing, Typography } from '../../styles/redesign'
+import { Colors, Containers, Spacing, Typography } from '../../styles'
 
 const SymptomPageTitle = ({
   date,

@@ -9,7 +9,7 @@ import Segment from '../common/segment'
 import { connect } from 'react-redux'
 import { navigate } from '../../slices/navigation'
 
-import { Colors, Containers, Sizes } from '../../styles/redesign'
+import { Colors, Containers, Sizes } from '../../styles'
 
 const MenuItem = ({ item, last, navigate }) => {
   return (

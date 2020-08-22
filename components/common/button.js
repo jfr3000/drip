@@ -5,7 +5,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native'
 import AppIcon from './app-icon'
 import AppText from './app-text'
 
-import { Colors, Fonts, Spacing } from '../../styles/redesign'
+import { Colors, Fonts, Spacing } from '../../styles'
 
 const Button = ({
   children,

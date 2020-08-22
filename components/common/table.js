@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import AppText from './app-text'
 
-import { Spacing, Typography } from '../../styles/redesign'
+import { Spacing, Typography } from '../../styles'
 
 const Table = ({ tableContent }) => {
   return (

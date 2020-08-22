@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native'
 
 import AppText from './app-text'
 
-import { Containers } from '../../styles/redesign'
+import { Containers } from '../../styles'
 
 import { shared } from '../../i18n/en/labels'
 

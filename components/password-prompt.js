@@ -11,7 +11,7 @@ import Header from './header'
 import { saveEncryptionFlag } from '../local-storage'
 import { requestHash, deleteDbAndOpenNew, openDb } from '../db'
 import { passwordPrompt as labels, shared } from '../i18n/en/labels'
-import { Containers, Spacing } from '../styles/redesign'
+import { Containers, Spacing } from '../styles'
 
 const cancelButton = { text: shared.cancel, style: 'cancel' }
 

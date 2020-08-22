@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { Dimensions, ScrollView, StyleSheet, View } from 'react-native'
 
 import AppModal from '../common/app-modal'
 import AppSwitch from '../common/app-switch'
@@ -19,7 +19,7 @@ import { blank, save, shouldShow, symtomPage } from '../helpers/cycle-day'
 
 import { shared as sharedLabels } from '../../i18n/en/labels'
 import info from '../../i18n/en/symptom-info'
-import { Containers, Sizes } from '../../styles/redesign'
+import { Colors, Containers, Sizes, Spacing } from '../../styles'
 
 class SymptomEditView extends Component {
 
@@ -151,7 +151,6 @@ class SymptomEditView extends Component {
       <AppModal onClose={onClose}>
         <ScrollView
           contentContainerStyle={styles.modalContainer}
-          pagingEnabled={true}
           style={styles.modalWindow}
         >
           <View style={styles.headerContainer}>
@@ -165,7 +164,7 @@ class SymptomEditView extends Component {
           }
           {shouldTabGroup && symtomPage[symptom].selectTabGroups.map(group => {
             return (
-              <Segment key={group.key}>
+              <Segment key={group.key} style={styles.segmentBorder}>
                 <AppText style={styles.title}>{group.title}</AppText>
                 <SelectTabGroup
                   activeButton={data[group.key]}
@@ -183,7 +182,7 @@ class SymptomEditView extends Component {
               && Object.keys(group.options).includes('other')
 
             return (
-              <Segment key={group.key}>
+              <Segment key={group.key} style={styles.segmentBorder} >
                 <AppText style={styles.title}>{group.title}</AppText>
                 <SelectBoxGroup
                   labels={group.options}
@@ -203,7 +202,7 @@ class SymptomEditView extends Component {
           })
           }
           {shouldShowExclude &&
-            <Segment>
+            <Segment style={styles.segmentBorder} >
               <AppSwitch
                 onToggle={this.onExcludeToggle}
                 text={symtomPage[symptom].excludeText}
@@ -212,7 +211,7 @@ class SymptomEditView extends Component {
             </Segment>
           }
           {shouldShowNote &&
-            <Segment>
+            <Segment style={styles.segmentBorder} >
               <AppText>{symtomPage[symptom].note}</AppText>
               <AppTextInput
                 multiline={true}
@@ -225,15 +224,17 @@ class SymptomEditView extends Component {
           }
           <View style={styles.buttonsContainer}>
             <Button iconName={iconName} isSmall onPress={this.onPressLearnMore}>
-              learn more
+              {sharedLabels.learnMore}
             </Button>
             <Button isSmall onPress={this.onRemove}>
-              remove
+              {sharedLabels.remove}
             </Button>
-            <Button isCTA isSmall onPress={this.onSave}>save</Button>
+            <Button isCTA isSmall onPress={this.onSave}>
+              {sharedLabels.save}
+            </Button>
           </View>
           {shouldShowInfo &&
-            <Segment last>
+            <Segment last style={styles.segmentBorder} >
               <AppText>{info[symptom].text}</AppText>
             </Segment>
           }
@@ -250,19 +251,23 @@ const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    paddingVertical: Sizes.tiny,
+    paddingVertical: Spacing.tiny,
   },
   modalContainer: {
-    flexGrow: 1,
-    padding: Sizes.small
+    flex: 1,
+    padding: Spacing.small,
+    paddingBottom: Spacing.base
   },
   modalWindow: {
     backgroundColor: 'white',
     borderRadius: 10,
     marginVertical: Sizes.huge * 2,
+    position: 'absolute',
     minHeight: '40%',
-    height: '70%',
-    position: 'absolute'
+    maxHeight: Dimensions.get('window').height * 0.7
+  },
+  segmentBorder: {
+    borderBottomColor: Colors.greyLight
   },
   title: {
     fontSize: Sizes.subtitle

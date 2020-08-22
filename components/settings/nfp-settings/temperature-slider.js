@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { StyleSheet, View } from 'react-native'
 import Slider from '@ptomasroos/react-native-multi-slider'
 
-import alertError from '../shared/alert-error'
+import alertError from '../common/alert-error'
 import SliderLabel from './slider-label'
 
 import { scaleObservable, saveTempScale } from '../../../local-storage'
-import { Colors, Sizes } from '../../../styles/redesign'
+import { Colors, Sizes } from '../../../styles'
 import labels from '../../../i18n/en/settings'
 import { TEMP_MIN, TEMP_MAX, TEMP_SLIDER_STEP } from '../../../config'
 

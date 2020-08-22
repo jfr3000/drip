@@ -11,22 +11,22 @@
     </style>
 
     <style name="AlertDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
-      <item name="android:buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+      <item name="android:buttonBarButtonStyle">@style/ButtonBarStyle</item>
       <item name="android:buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
       <item name="android:fontFamily">@font/jost_normal</item>
       <item name="android:textColorPrimary">@color/grey</item>
       <item name="android:windowTitleStyle">@style/TitleStyle</item>
     </style>
 
-    <style name="NegativeButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+    <style name="ButtonBarStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+      <item name="android:textSize">16sp</item>
       <item name="android:textColor">@color/grey</item>
-      <item name="android:textSize">18sp</item>
     </style>
 
     <style name="PositiveButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
-      <item name="android:textColor">@color/orange</item>
-      <item name="android:textSize">18sp</item>
+      <item name="android:textSize">16sp</item>
       <item name="android:textStyle">bold</item>
+      <item name="android:textColor">@color/orange</item>
     </style>
 
     <style name="TitleStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">

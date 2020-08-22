@@ -27,7 +27,7 @@ import {
   CHART_XAXIS_HEIGHT_RATIO
 } from '../../config'
 import { shared } from '../../i18n/en/labels'
-import { Colors, Spacing } from '../../styles/redesign'
+import { Colors, Spacing } from '../../styles'
 
 class CycleChart extends Component {
   static propTypes = {

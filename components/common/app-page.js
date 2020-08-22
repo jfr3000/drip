@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet, View } from 'react-native'
 
 import AppText from '../common/app-text'
 
-import { Colors, Typography } from '../../styles/redesign'
+import { Colors, Typography } from '../../styles'
 
 const AppPage = ({
   children,

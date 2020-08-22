@@ -1,7 +1,10 @@
 import labels from './settings'
 const settingsTitles = labels.menuItems
 
-export const homeRedesign = {
+export const home = {
+  cycleDayNotEnoughInfo: "We don't have enough information to know what your current cycle day is.",
+  unknown: '?',
+  phase: n => `${['1st', '2nd', '3rd'][n - 1]} cycle phase`,
   cycleDay: ' day of your cycle',
   cyclePhase: ' cycle phase - ',
   addData: 'add data for today'
@@ -23,12 +26,13 @@ export const shared = {
   ok: 'OK',
   confirmToProceed: 'Confirm to proceed',
   date: 'Date',
-  cycleDayWithLinebreak: 'Cycle\nday',
   loading: 'Loading ...',
   noDataWarning: 'You haven\'t entered any data yet.',
   noTemperatureWarning: 'You haven\'t entered any temperature data yet.',
   noDataButtonText: 'Start entering data now',
   enter: 'Enter',
+  remove: 'Remove',
+  learnMore: 'Learn more'
 }
 
 export const headerTitles = {
@@ -51,17 +55,7 @@ export const headerTitles = {
   desire: 'Desire',
   sex: 'Sex',
   pain: 'Pain',
-  mood: 'Mood',
-  InfoSymptom: 'Info'
-}
-
-export const menuTitles = {
-  Home: 'Home',
-  Calendar: 'Calendar',
-  Chart: 'Chart',
-  Stats: 'Stats',
-  Settings: 'Settings',
-  PasswordPrompt: 'Drip'
+  mood: 'Mood'
 }
 
 export const stats = {
@@ -94,22 +88,6 @@ export const passwordPrompt = {
   areYouSureTitle: 'Are you sure?',
   areYouSure: 'Are you absolutely sure you want to permanently delete all your data?',
   reallyDeleteData: 'Yes, I am sure'
-}
-
-export const home = {
-  editToday: 'add data for today',
-  cycleDayNotEnoughInfo: "We don't have enough information to know what your current cycle day is.",
-  unknown: '?',
-  cycleDayKnown: d => `Your last period started ${getDaysDescriptor(d)}.`,
-  trackPeriod: 'track your period',
-  checkFertility: 'check your fertility',
-  phase: n => `${['1st', '2nd', '3rd'][n - 1]} cycle phase`,
-}
-
-const getDaysDescriptor = cycleDayNumber => {
-  if (cycleDayNumber === 1) return 'today'
-  if (cycleDayNumber === 2) return 'yesterday'
-  return `${cycleDayNumber - 1} days ago`
 }
 
 export const fertilityStatus = {

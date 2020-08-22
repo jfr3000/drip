@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import AppText from '../common/app-text'
 
-import { Sizes } from '../../styles/redesign'
+import { Sizes } from '../../styles'
 
 const Tick = ({ yPosition, height, isBold, shouldShowLabel, label }) => {
   const top = yPosition - height / 2

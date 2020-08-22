@@ -7,7 +7,7 @@ import AppText from '../common/app-text'
 import { connect } from 'react-redux'
 import { navigate } from '../../slices/navigation'
 
-import { Typography } from '../../styles/redesign'
+import { Typography } from '../../styles'
 
 const MenuItem = ({ item, navigate, closeMenu }) => {
   const { component, name } = item

@@ -7,7 +7,7 @@ import AppTextInput from '../../common/app-text-input'
 import Button from '../../common/button'
 
 import { requestHash, changeEncryptionAndRestartApp } from '../../../db'
-import { Colors, Spacing } from '../../../styles/redesign'
+import { Colors, Spacing } from '../../../styles'
 import settings from '../../../i18n/en/settings'
 
 const LISTENER_TYPE = 'create-or-change-pw'

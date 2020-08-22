@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import Button from '../../common/button'
-import ConfirmWithPassword from '../shared/confirm-with-password'
+import ConfirmWithPassword from '../common/confirm-with-password'
 
 import { changeEncryptionAndRestartApp } from '../../../db'
 import labels from '../../../i18n/en/settings'

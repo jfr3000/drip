@@ -4,7 +4,7 @@ import { StyleSheet , View } from 'react-native'
 
 import DripIcon from '../../assets/drip-icons'
 
-import { Colors, Containers } from '../../styles/redesign'
+import { Colors, Containers } from '../../styles'
 import { CHART_YAXIS_WIDTH, CHART_ICON_SIZE } from '../../config'
 
 const SymptomIcon = ({ symptom, height }) => {

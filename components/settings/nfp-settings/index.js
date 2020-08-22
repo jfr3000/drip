@@ -9,7 +9,7 @@ import TemperatureSlider from './temperature-slider'
 import Segment from '../../common/segment'
 
 import { useCervixObservable, saveUseCervix } from '../../../local-storage'
-import { Colors, Spacing, Typography } from '../../../styles/redesign'
+import { Colors, Spacing, Typography } from '../../../styles'
 import labels from '../../../i18n/en/settings'
 
 export default class Settings extends Component {

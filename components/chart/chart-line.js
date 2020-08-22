@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { Shape } from 'react-native/Libraries/ART/ReactNativeART'
 
-import { Colors } from '../../styles/redesign'
+import { Colors } from '../../styles'
 import { CHART_STROKE_WIDTH, CHART_GRID_LINE_HORIZONTAL_WIDTH } from '../../config'
 
 const ChartLine = ({ path, isNfpLine }) => {

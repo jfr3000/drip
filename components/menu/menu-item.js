@@ -7,7 +7,7 @@ import Icon from '../common/menu-icon'
 import { connect } from 'react-redux'
 import { getNavigation, navigate } from '../../slices/navigation'
 
-import { Colors, Containers, Fonts, Sizes, Spacing } from '../../styles/redesign'
+import { Colors, Containers, Fonts, Sizes, Spacing } from '../../styles'
 
 const MenuItem = ({ component, icon, label, navigate, navigation }) => {
   const isActive = (component === navigation.currentPage)

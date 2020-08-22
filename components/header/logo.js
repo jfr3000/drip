@@ -7,7 +7,7 @@ import AppText from '../common/app-text'
 import { connect } from 'react-redux'
 import { navigate } from '../../slices/navigation'
 
-import { Colors, Fonts, Sizes } from '../../styles/redesign'
+import { Colors, Fonts, Sizes } from '../../styles'
 
 const Logo = ({ navigate }) => {
   return(

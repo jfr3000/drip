@@ -15,7 +15,7 @@ import { isTemperatureOutOfRange, isPreviousTemperature } from '../helpers/cycle
 
 import { temperature as labels } from '../../i18n/en/cycle-day'
 
-import { Colors, Containers, Sizes, Spacing } from '../../styles/redesign'
+import { Colors, Containers, Sizes, Spacing } from '../../styles'
 
 const formatTemperature = value => value === null
   ? value

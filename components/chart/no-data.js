@@ -8,7 +8,7 @@ import Button from '../common/button'
 import { connect } from 'react-redux'
 import { navigate } from '../../slices/navigation'
 
-import { Containers } from '../../styles/redesign'
+import { Containers } from '../../styles'
 import { shared } from '../../i18n/en/labels'
 
 const NoData = ({ navigate }) => {

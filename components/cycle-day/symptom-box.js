@@ -10,7 +10,7 @@ import { connect } from 'react-redux'
 import { getDate } from '../../slices/date'
 import { isDateInFuture } from '../helpers/cycle-day'
 
-import { Colors, Sizes, Spacing } from '../../styles/redesign'
+import { Colors, Sizes, Spacing } from '../../styles'
 import { headerTitles as symptomTitles } from '../../i18n/en/labels'
 
 class SymptomBox extends Component {

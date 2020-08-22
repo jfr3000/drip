@@ -4,7 +4,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native'
 
 import AppIcon from './app-icon'
 
-import { Colors, Sizes } from '../../styles/redesign'
+import { Colors, Sizes } from '../../styles'
 
 const CloseIcon = ({ onClose, ...props }) => {
   return (

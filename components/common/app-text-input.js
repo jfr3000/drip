@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, TextInput } from 'react-native'
 import PropTypes from 'prop-types'
 
-import { Colors, Spacing, Typography } from '../../styles/redesign'
+import { Colors, Spacing, Typography } from '../../styles'
 
 const AppTextInput = ({ style, ...props }) => {
   return <TextInput style={[styles.input, style]} {...props} />

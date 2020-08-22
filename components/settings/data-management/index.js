@@ -66,13 +66,13 @@ export default class DataManagement extends Component {
           <AppPage>
             <Segment title={labels.export.button}>
               <AppText>{labels.export.segmentExplainer}</AppText>
-              <Button isCTA isSmall={false} onPress={this.startExport}>
+              <Button isCTA onPress={this.startExport}>
                 {labels.export.button}
               </Button>
             </Segment>
             <Segment title={labels.import.button}>
               <AppText>{labels.import.segmentExplainer}</AppText>
-              <Button isCTA isSmall={false} onPress={this.startImport}>
+              <Button isCTA onPress={this.startImport}>
                 {labels.import.button}
               </Button>
             </Segment>

@@ -16,7 +16,7 @@ import { getCycleDay } from '../../db'
 import { getData } from '../helpers/cycle-day'
 
 import { general as labels} from '../../i18n/en/cycle-day'
-import { Spacing } from '../../styles/redesign'
+import { Spacing } from '../../styles'
 import { SYMPTOMS } from '../../config'
 
 class CycleDayOverView extends Component {

@@ -4,7 +4,7 @@ import { StyleSheet, Text } from 'react-native'
 
 import Link from './link'
 
-import { Colors, Typography } from '../../styles/redesign'
+import { Colors, Typography } from '../../styles'
 
 const AppText = ({ children, linkStyle, style, ...props }) => {
   // we parse for links in case the text contains any

@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native'
 
 import AppText from '../../common/app-text'
 
-import { Fonts, Sizes } from '../../../styles/redesign'
+import { Fonts, Sizes } from '../../../styles'
 
 const sliderRadius = 5
 const width = 50

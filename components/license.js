@@ -11,7 +11,7 @@ import { saveLicenseFlag } from '../local-storage'
 
 import { shared } from '../i18n/en/labels'
 import settingsLabels from '../i18n/en/settings'
-import { Containers } from '../styles/redesign'
+import { Containers } from '../styles'
 
 const labels = settingsLabels.license
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Hyperlink from 'react-native-hyperlink'
 import { StyleSheet } from 'react-native'
 
-import { Colors, Typography } from '../../styles/redesign'
+import { Colors, Typography } from '../../styles'
 
 import links from '../../i18n/en/links'
 

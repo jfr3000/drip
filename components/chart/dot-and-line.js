@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Path, Shape } from 'react-native/Libraries/ART/ReactNativeART'
 
-import { Colors } from '../../styles/redesign'
+import { Colors } from '../../styles'
 
 import {
   CHART_COLUMN_WIDTH,

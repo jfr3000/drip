@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons'
 import iconConfig from '../../selection.json'
 
-import { Colors, Sizes } from '../../styles/redesign'
+import { Colors, Sizes } from '../../styles'
 
 const Icon = createIconSetFromIcoMoon(iconConfig, '', 'Menu')
 

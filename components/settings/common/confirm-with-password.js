@@ -7,7 +7,7 @@ import AppTextInput from '../../common/app-text-input'
 import Button from '../../common/button'
 
 import { requestHash, openDb } from '../../../db'
-import { Containers } from '../../../styles/redesign'
+import { Containers } from '../../../styles'
 import settings from '../../../i18n/en/settings'
 import { shared } from '../../../i18n/en/labels'
 

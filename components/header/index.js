@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import Logo from './logo'
 import HamburgerMenu from './hamburger-menu'
 
-import { Colors, Containers, Sizes } from '../../styles/redesign'
+import { Colors, Containers, Sizes } from '../../styles'
 
 const Header = ({ isSideMenuEnabled }) => {
 

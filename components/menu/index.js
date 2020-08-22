@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native'
 
 import MenuItem from './menu-item'
 
-import { Containers } from '../../styles/redesign'
+import { Containers } from '../../styles'
 import { pages } from '../pages'
 
 const Menu = () => {

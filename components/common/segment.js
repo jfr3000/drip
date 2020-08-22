@@ -4,13 +4,14 @@ import { StyleSheet, View } from 'react-native'
 
 import AppText from './app-text'
 
-import { Colors, Spacing, Typography } from '../../styles/redesign'
+import { Colors, Spacing, Typography } from '../../styles'
 
 const Segment = ({ children, last, title }) => {
   const containerStyle = last ? styles.containerLast : styles.container
+  const commonStyle = Object.assign({}, containerStyle)
 
   return (
-    <View style={containerStyle}>
+    <View style={commonStyle}>
       {title && <AppText style={styles.title}>{title}</AppText>}
       {children}
     </View>
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
   container: {
     borderStyle: 'solid',
     borderBottomWidth: 2,
-    borderBottomColor: Colors.greyLight,
+    borderBottomColor: Colors.grey,
     paddingBottom: Spacing.base,
     ...segmentContainer
   },
