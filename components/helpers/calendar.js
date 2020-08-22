@@ -1,6 +1,6 @@
 import { LocalDate } from 'js-joda'
 
-import { Colors, Fonts } from '../../styles'
+import { Colors, Fonts, Sizes } from '../../styles'
 
 const { shades } = Colors.iconColors.bleeding
 
@@ -64,4 +64,17 @@ const styles = {
     fontFamily: Fonts.bold,
     color: Colors.purple
   },
+}
+
+const calendarTheme = {
+  calendarBackground: Colors.tourquiseLight,
+  dayTextColor: Colors.greyDark,
+  monthTextColor: Colors.purple,
+  textDayFontFamily: Fonts.main,
+  textMonthFontFamily: Fonts.bold,
+  textDayHeaderFontFamily: Fonts.bold,
+  textDayFontSize: Sizes.small,
+  textMonthFontSize: Sizes.subtitle,
+  textDayHeaderFontSize: Sizes.small,
+  textSectionTitleColor: Colors.orange,
 }

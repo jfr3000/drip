@@ -11,12 +11,11 @@ import { getBleedingDaysSortedByDate } from '../db'
 import cycleModule from '../lib/cycle'
 import nothingChanged from '../db/db-unchanged'
 import {
+  calendarTheme,
   predictionToCalFormat,
   toCalFormat,
   todayToCalFormat
 } from './helpers/calendar'
-
-import { Colors, Fonts, Sizes } from '../../styles'
 
 class CalendarView extends Component {
   static propTypes = {
@@ -86,19 +85,6 @@ class CalendarView extends Component {
 
 const styles = StyleSheet.create({
   container: { flex: 1 }
-})
-
-const calendarTheme = StyleSheet.create({
-  calendarBackground: Colors.tourquiseLight,
-  dayTextColor: Colors.greyDark,
-  monthTextColor: Colors.purple,
-  textDayFontFamily: Fonts.main,
-  textMonthFontFamily: Fonts.bold,
-  textDayHeaderFontFamily: Fonts.bold,
-  textDayFontSize: Sizes.small,
-  textMonthFontSize: Sizes.subtitle,
-  textDayHeaderFontSize: Sizes.small,
-  textSectionTitleColor: Colors.orange,
 })
 
 const mapDispatchToProps = (dispatch) => {
