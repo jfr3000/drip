@@ -66,7 +66,7 @@ const styles = {
   },
 }
 
-const calendarTheme = {
+export const calendarTheme = {
   calendarBackground: Colors.tourquiseLight,
   dayTextColor: Colors.greyDark,
   monthTextColor: Colors.purple,
