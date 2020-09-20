@@ -76,6 +76,10 @@ export default class PasswordPrompt extends Component {
     requestHash('check-pw', this.state.password)
   }
 
+  setPassword = (password) => {
+    this.setState({ password })
+  }
+
   render() {
     const { password } = this.state
     const isPasswordEntered = password && password.length > 0
