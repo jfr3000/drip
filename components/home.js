@@ -74,24 +74,24 @@ class Home extends Component {
           {this.cycleDayNumber && (
             <React.Fragment>
               <AppText style={styles.whiteText}>{cycleDayText}</AppText>
-              <AppText>{labels.cycleDay}</AppText>
+              <AppText style={styles.tourquiseText}>{labels.cycleDay}</AppText>
             </React.Fragment>
           )}
           {!this.cycleDayNumber && <AppText>{cycleDayText}</AppText>}
         </View>
         <View style={styles.line}>
-          {!phase && <AppText>{phaseText}</AppText>}
+          {!phase && <AppText style={styles.tourquiseText}>{phaseText}</AppText>}
           {phase && (
             <React.Fragment>
               <AppText style={styles.whiteText}>{phaseText}</AppText>
-              <AppText>{labels.cyclePhase}</AppText>
-              <AppText>{status}</AppText>
+              <AppText style={styles.tourquiseText}>{labels.cyclePhase}</AppText>
+              <AppText style={styles.tourquiseText}>{status}</AppText>
               <Asterisk />
             </React.Fragment>
           )}
         </View>
         <View style={styles.line}>
-          <AppText>{prediction}</AppText>
+          <AppText style={styles.tourquiseText}>{prediction}</AppText>
         </View>
         <Button isCTA isSmall={false} onPress={this.navigateToCycleDayView}>
           {labels.addData}
@@ -99,7 +99,7 @@ class Home extends Component {
         {phase && (
           <View style={styles.line}>
             <Asterisk />
-            <AppText linkStyle={styles.whiteText}>{statusText}</AppText>
+            <AppText style={styles.tourquiseText} linkStyle={styles.whiteText}>{statusText}</AppText>
           </View>
         )}
       </ScrollView>
@@ -133,6 +133,9 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.bold,
     fontSize: Sizes.huge,
     marginVertical: Spacing.base,
+  },
+  tourquiseText: {
+    color: Colors.tourquise,
   },
   whiteText: {
     color: 'white'

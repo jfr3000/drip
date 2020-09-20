@@ -13,12 +13,12 @@ const orangeColor = '#bc6642'
 const mintColor = '#6ca299'
 
 export default {
-  greyDark: '#A5A5A5',
-  grey: '#D2D2D2',
-  greyLight: '#F2F2F2',
+  greyDark: '#555',
+  grey: '#888',
+  greyLight: '#CCC',
   orange: '#F38337',
   purple: '#3A2671',
-  purpleLight: '#5D4F8A',
+  purpleLight: '#938EB2',
   tourquiseDark: '#69CBC1',
   tourquise: '#CFECEA',
   tourquiseLight: '#E9F2ED',
