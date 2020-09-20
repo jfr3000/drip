@@ -77,6 +77,8 @@ class CalendarView extends Component {
           markedDates={markedDates}
           markingType={'custom'}
           theme={calendarTheme}
+          // Max amount of months allowed to scroll to the past.
+          pastScrollRange={120}
         />
       </View>
     )
