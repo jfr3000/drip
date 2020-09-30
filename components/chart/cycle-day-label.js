@@ -7,7 +7,7 @@ import moment from 'moment'
 import AppText from '../common/app-text'
 
 import cycleModule from '../../lib/cycle'
-import { dateEnding } from '../helpers/home'
+import { getOrdinalSuffix } from '../helpers/home'
 import { Containers, Typography } from '../../styles'
 
 const CycleDayLabel = ({ height, date }) => {
@@ -18,13 +18,13 @@ const CycleDayLabel = ({ height, date }) => {
   const dateFormatting = isFirstDayOfMonth ? 'MMM' : 'D'
   const shortDate = moment(date, "YYYY-MM-DD").format(dateFormatting)
   const ending = isFirstDayOfMonth ?
-    '' : dateEnding[this.cycleDayNumber] || dateEnding['default']
+    '' : getOrdinalSuffix(this.cycleDayNumber)
   const cycleDayLabel = cycleDayNumber ? cycleDayNumber : ' '
 
   return (
     <View style={[styles.container, { height }]}>
       <AppText style={styles.textBold}>{cycleDayLabel}</AppText>
-      <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center'}}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
         <AppText style={styles.text}>{shortDate}</AppText>
         <AppText style={styles.textLight}>{ending}</AppText>
       </View>

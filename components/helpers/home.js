@@ -12,7 +12,7 @@ function getTimes(prediction) {
   const predictedBleedingStart = LocalDate.parse(prediction[0][0])
   /* the range of predicted bleeding days can be either 3 or 5 */
   const predictedBleedingEnd =
-    LocalDate.parse(prediction[0][ prediction[0].length - 1 ])
+    LocalDate.parse(prediction[0][prediction[0].length - 1])
   const daysToEnd = todayDate.until(predictedBleedingEnd, ChronoUnit.DAYS)
   return { todayDate, predictedBleedingStart, predictedBleedingEnd, daysToEnd }
 }
@@ -63,9 +63,15 @@ export function getBleedingPredictionRange(prediction) {
   return (daysToEnd === 0 ? '0' : `0 - ${daysToEnd}`)
 }
 
-export const dateEnding = {
-  '1': 'st',
-  '2': 'nd',
-  '3': 'rd',
-  'default': 'th'
+export function getOrdinalSuffix(num) {
+  const suffixes = {
+    1: 'st',
+    2: 'nd',
+    3: 'rd',
+    default: 'th'
+  }
+
+  const numAsString = num.toString()
+  const lastNumber = numAsString[numAsString.length - 1]
+  return suffixes[lastNumber] || suffixes.default
 }
