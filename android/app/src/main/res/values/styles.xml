@@ -6,16 +6,6 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-
-        <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
-    </style>
-
-    <style name="AlertDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
-      <item name="android:buttonBarButtonStyle">@style/ButtonBarStyle</item>
-      <item name="android:buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
-      <item name="android:fontFamily">@font/jost_normal</item>
-      <item name="android:textColorPrimary">@color/grey</item>
-      <item name="android:windowTitleStyle">@style/TitleStyle</item>
     </style>
 
     <style name="ButtonBarStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
