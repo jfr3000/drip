@@ -13,7 +13,7 @@ import Button from './common/button'
 
 import cycleModule from '../lib/cycle'
 import { getFertilityStatusForDay } from '../lib/sympto-adapter'
-import { determinePredictionText, getOrdinalSuffix } from './helpers/home'
+import { determinePredictionText, formatWithOrdinalSuffix } from './helpers/home'
 
 import { Colors, Fonts, Sizes, Spacing } from '../styles'
 import { home as labels } from '../i18n/en/labels'
@@ -37,10 +37,9 @@ class Home extends Component {
     const prediction = getPredictedMenses()
 
     this.cycleDayText = !this.cycleDayNumber ? labels.cycleDayNotEnoughInfo
-      : `${this.cycleDayNumber}${getOrdinalSuffix(this.cycleDayNumber)}`
+      : formatWithOrdinalSuffix(this.cycleDayNumber)
     this.phase = phase
-    this.phaseText = !phase ? statusText
-      : `${phase}${getOrdinalSuffix(phase)}`
+    this.phaseText = !phase ? statusText : formatWithOrdinalSuffix(phase)
     this.prediction = determinePredictionText(prediction)
     this.status = status
     this.statusText = statusText
