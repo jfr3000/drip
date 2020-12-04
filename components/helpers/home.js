@@ -64,14 +64,24 @@ export function getBleedingPredictionRange(prediction) {
 }
 
 export function getOrdinalSuffix(num) {
-  const suffixes = {
-    1: 'st',
-    2: 'nd',
-    3: 'rd',
-    default: 'th'
+  const j = num % 10
+  const k = num % 100
+
+  if (j === 1 && k !== 11) {
+    return 'st'
   }
 
-  const numAsString = num.toString()
-  const lastNumber = numAsString[numAsString.length - 1]
-  return suffixes[lastNumber] || suffixes.default
+  if (j === 2 && k !== 12) {
+    return 'nd'
+  }
+
+  if (j === 3 && k !== 13) {
+    return 'rd'
+  }
+
+  return 'th'
+}
+
+export function formatWithOrdinalSuffix(num) {
+  return num + getOrdinalSuffix(num)
 }
