@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, View } from 'react-native'
-import { LocalDate } from 'js-joda'
 import moment from 'moment'
 
 import AppText from '../common/app-text'
@@ -11,22 +10,25 @@ import { getOrdinalSuffix } from '../helpers/home'
 import { Containers, Typography } from '../../styles'
 
 const CycleDayLabel = ({ height, date }) => {
-  const dayDate = LocalDate.parse(date)
   const cycleDayNumber = cycleModule().getCycleDayNumber(date)
-
-  const isFirstDayOfMonth = dayDate.dayOfMonth() === 1
-  const dateFormatting = isFirstDayOfMonth ? 'MMM' : 'D'
-  const shortDate = moment(date, "YYYY-MM-DD").format(dateFormatting)
-  const ending = isFirstDayOfMonth ?
-    '' : getOrdinalSuffix(this.cycleDayNumber)
   const cycleDayLabel = cycleDayNumber ? cycleDayNumber : ' '
+
+  const momentDate = moment(date)
+  const dayOfMonth = momentDate.date()
+  const isFirstDayOfMonth = dayOfMonth === 1
 
   return (
     <View style={[styles.container, { height }]}>
       <AppText style={styles.textBold}>{cycleDayLabel}</AppText>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
-        <AppText style={styles.text}>{shortDate}</AppText>
-        <AppText style={styles.textLight}>{ending}</AppText>
+      <View style={styles.dateLabel}>
+        <AppText style={styles.text}>
+          {isFirstDayOfMonth ? momentDate.format('MMM') : dayOfMonth}
+        </AppText>
+        {!isFirstDayOfMonth &&
+          <AppText style={styles.textLight}>
+            {getOrdinalSuffix(dayOfMonth)}
+          </AppText>
+        }
       </View>
     </View>
   )
@@ -47,13 +49,19 @@ const styles = StyleSheet.create({
     ...Containers.rowContainer
   },
   text: {
-    ...Typography.label
+    ...Typography.label,
+    fontSize: 12
   },
   textBold: {
     ...Typography.labelBold
   },
   textLight: {
-    ...Typography.labelLight
+    ...Typography.labelLight,
+  },
+  dateLabel: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
   }
 })
 
