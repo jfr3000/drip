@@ -12,16 +12,17 @@ import {
   nextDate,
   prevDate,
   isTomorrowInFuture,
-  isYesterdayInFuture
+  isYesterdayInFuture,
 } from '../helpers/cycle-day'
 import { Colors, Containers, Spacing, Typography } from '../../styles'
+import { HIT_SLOP } from '../../config'
 
 const SymptomPageTitle = ({
   date,
   reloadSymptomData,
   setDate,
   subtitle,
-  title
+  title,
 }) => {
   const rightArrowColor = isTomorrowInFuture(date) ? Colors.grey : Colors.orange
   const leftArrowColor = isYesterdayInFuture(date) ? Colors.grey : Colors.orange
@@ -33,15 +34,15 @@ const SymptomPageTitle = ({
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => navigate(false)}>
-        <AppIcon name='chevron-left' color={leftArrowColor}/>
+      <TouchableOpacity onPress={() => navigate(false)} hitSlop={HIT_SLOP}>
+        <AppIcon name='chevron-left' color={leftArrowColor} />
       </TouchableOpacity>
       <View style={styles.textContainer}>
         <AppText style={styles.title}>{title}</AppText>
         {subtitle && <AppText style={styles.subtitle}>{subtitle}</AppText>}
       </View>
-      <TouchableOpacity onPress={() => navigate(true)}>
-        <AppIcon name='chevron-right' color={rightArrowColor}/>
+      <TouchableOpacity onPress={() => navigate(true)} hitSlop={HIT_SLOP}>
+        <AppIcon name='chevron-right' color={rightArrowColor} />
       </TouchableOpacity>
     </View>
   )
@@ -52,37 +53,34 @@ SymptomPageTitle.propTypes = {
   reloadSymptomData: PropTypes.func.isRequired,
   setDate: PropTypes.func.isRequired,
   subtitle: PropTypes.string,
-  title: PropTypes.string
+  title: PropTypes.string,
 }
 
 const styles = StyleSheet.create({
   container: {
-    height: (Spacing.base * 4),
+    height: Spacing.base * 4,
     marginHorizontal: Spacing.base,
     marginTop: Spacing.base,
-    ...Containers.rowContainer
+    ...Containers.rowContainer,
   },
   textContainer: {
-    alignItems: 'center'
+    alignItems: 'center',
   },
   title: {
-    ...Typography.titleWithoutMargin
-  }
+    ...Typography.titleWithoutMargin,
+  },
 })
 
 const mapStateToProps = (state) => {
-  return({
+  return {
     date: getDate(state),
-  })
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return({
+  return {
     setDate: (date) => dispatch(setDate(date)),
-  })
+  }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(SymptomPageTitle)
+export default connect(mapStateToProps, mapDispatchToProps)(SymptomPageTitle)

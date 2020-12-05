@@ -11,7 +11,7 @@ export const SYMPTOMS = [
   'desire',
   'pain',
   'mood',
-  'note'
+  'note',
 ]
 
 export const CHART_COLUMN_WIDTH = 32
@@ -30,3 +30,5 @@ export const TEMP_SCALE_UNITS = 0.1
 export const TEMP_MAX = 40
 export const TEMP_MIN = 34
 export const TEMP_SLIDER_STEP = 0.5
+
+export const HIT_SLOP = { top: 20, bottom: 20, left: 20, right: 20 }
