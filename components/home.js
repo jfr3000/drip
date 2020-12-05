@@ -80,11 +80,15 @@ class Home extends Component {
           {!this.cycleDayNumber && <AppText>{cycleDayText}</AppText>}
         </View>
         <View style={styles.line}>
-          {!phase && <AppText style={styles.tourquiseText}>{phaseText}</AppText>}
+          {!phase &&
+            <AppText style={styles.tourquiseText}>{phaseText}</AppText>
+          }
           {phase && (
             <React.Fragment>
               <AppText style={styles.whiteText}>{phaseText}</AppText>
-              <AppText style={styles.tourquiseText}>{labels.cyclePhase}</AppText>
+              <AppText style={styles.tourquiseText}>
+                {labels.cyclePhase}
+              </AppText>
               <AppText style={styles.tourquiseText}>{status}</AppText>
               <Asterisk />
             </React.Fragment>
@@ -99,7 +103,9 @@ class Home extends Component {
         {phase && (
           <View style={styles.line}>
             <Asterisk />
-            <AppText style={styles.tourquiseText} linkStyle={styles.whiteText}>{statusText}</AppText>
+            <AppText style={styles.tourquiseText} linkStyle={styles.whiteText}>
+              {statusText}
+            </AppText>
           </View>
         )}
       </ScrollView>

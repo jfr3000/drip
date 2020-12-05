@@ -8,12 +8,7 @@ import AppText from '../common/app-text'
 import { connect } from 'react-redux'
 import { getDate, setDate } from '../../slices/date'
 
-import {
-  nextDate,
-  prevDate,
-  isTomorrowInFuture,
-  isYesterdayInFuture,
-} from '../helpers/cycle-day'
+import { nextDate, prevDate } from '../helpers/cycle-day'
 import { Colors, Containers, Spacing, Typography } from '../../styles'
 import { HIT_SLOP } from '../../config'
 
@@ -24,8 +19,6 @@ const SymptomPageTitle = ({
   subtitle,
   title,
 }) => {
-  const rightArrowColor = isTomorrowInFuture(date) ? Colors.grey : Colors.orange
-  const leftArrowColor = isYesterdayInFuture(date) ? Colors.grey : Colors.orange
   const navigate = (isForward) => {
     const nextDay = isForward ? nextDate(date) : prevDate(date)
     reloadSymptomData(nextDay)
@@ -35,14 +28,14 @@ const SymptomPageTitle = ({
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigate(false)} hitSlop={HIT_SLOP}>
-        <AppIcon name='chevron-left' color={leftArrowColor} />
+        <AppIcon name='chevron-left' color={Colors.orange}/>
       </TouchableOpacity>
       <View style={styles.textContainer}>
         <AppText style={styles.title}>{title}</AppText>
         {subtitle && <AppText style={styles.subtitle}>{subtitle}</AppText>}
       </View>
       <TouchableOpacity onPress={() => navigate(true)} hitSlop={HIT_SLOP}>
-        <AppIcon name='chevron-right' color={rightArrowColor} />
+        <AppIcon name='chevron-right' color={Colors.orange}/>
       </TouchableOpacity>
     </View>
   )
