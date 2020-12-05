@@ -11,13 +11,16 @@ import {
 
 const SymptomCell = ({
   height,
+  index,
   symptom,
   symptomValue,
   isSymptomDataComplete
 }) => {
 
   const shouldDrawDot = symptomValue !== false
-  const styleCell = [styles.cell, { height, width: CHART_COLUMN_WIDTH }]
+  const styleCell = index !== 0
+    ? [styles.cell, { height, width: CHART_COLUMN_WIDTH }]
+    : [styles.cell, { height, width: CHART_COLUMN_WIDTH }, styles.topBorder]
   let styleDot
 
   if (shouldDrawDot) {
@@ -40,6 +43,7 @@ const SymptomCell = ({
 
 SymptomCell.propTypes = {
   height: PropTypes.number,
+  index: PropTypes.number.isRequired,
   symptom: PropTypes.string,
   symptomValue: PropTypes.oneOfType([
     PropTypes.bool,
@@ -51,9 +55,15 @@ SymptomCell.propTypes = {
 const styles = StyleSheet.create({
   cell: {
     backgroundColor: 'white',
-    borderColor: Colors.greyLight,
-    borderWidth: CHART_GRID_LINE_HORIZONTAL_WIDTH,
+    borderBottomColor: Colors.grey,
+    borderBottomWidth: CHART_GRID_LINE_HORIZONTAL_WIDTH,
+    borderLeftColor: Colors.grey,
+    borderLeftWidth: CHART_GRID_LINE_HORIZONTAL_WIDTH,
     ...Containers.centerItems
+  },
+  topBorder: {
+    borderTopColor: Colors.grey,
+    borderTopWidth: CHART_GRID_LINE_HORIZONTAL_WIDTH,
   },
   dot: {
     width: CHART_DOT_RADIUS * 2,

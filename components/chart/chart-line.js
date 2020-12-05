@@ -9,7 +9,7 @@ import { CHART_STROKE_WIDTH, CHART_GRID_LINE_HORIZONTAL_WIDTH } from '../../conf
 const ChartLine = ({ path, isNfpLine }) => {
   const color = isNfpLine ? Colors.orange : Colors.grey
   const width = isNfpLine
-    ? CHART_STROKE_WIDTH : CHART_GRID_LINE_HORIZONTAL_WIDTH
+    ? CHART_STROKE_WIDTH : CHART_GRID_LINE_HORIZONTAL_WIDTH * 2.5
 
   return (
     <Shape d={path} stroke={color} strokeWidth={width} />

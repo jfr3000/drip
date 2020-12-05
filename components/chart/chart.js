@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native'
+import { ActivityIndicator, FlatList, Dimensions, StyleSheet, View } from 'react-native'
 
 import AppLoadingView from '../common/app-loading'
 import AppPage from '../common/app-page'
@@ -63,10 +63,10 @@ class CycleChart extends Component {
     this.setState({ shouldShowHint: false })
   }
 
-  onLayout = ({ nativeEvent }) => {
+  onLayout = () => {
     if (this.state.chartHeight) return false
 
-    this.reCalculateChartInfo(nativeEvent)
+    this.reCalculateChartInfo()
     this.updateListeners(this.reCalculateChartInfo)
   }
 
@@ -100,17 +100,17 @@ class CycleChart extends Component {
     )
   }
 
-  reCalculateChartInfo = (nativeEvent) => {
-    const { height, width } = nativeEvent.layout
+  reCalculateChartInfo = () => {
+    const { width, height } = Dimensions.get('window')
 
-    this.xAxisHeight = height * CHART_XAXIS_HEIGHT_RATIO
-    const remainingHeight = height - this.xAxisHeight
+    this.xAxisHeight = height * 0.7 * CHART_XAXIS_HEIGHT_RATIO
+    const remainingHeight = height * 0.7 - this.xAxisHeight
     this.symptomHeight = remainingHeight * CHART_SYMPTOM_HEIGHT_RATIO
     this.symptomRowHeight = this.symptomRowSymptoms.length *
       this.symptomHeight
     this.columnHeight = remainingHeight - this.symptomRowHeight
     const chartHeight = this.shouldShowTemperatureColumn ?
-      height : (this.symptomRowHeight + this.xAxisHeight)
+      height * 0.7 : (this.symptomRowHeight + this.xAxisHeight)
     const numberOfColumnsToRender = Math.round(width / CHART_COLUMN_WIDTH)
     const columns = makeColumnInfo()
 
