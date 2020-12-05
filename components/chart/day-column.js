@@ -104,10 +104,11 @@ class DayColumn extends Component {
           date={dateString}
         />
 
-        { symptomRowSymptoms.map(symptom => {
+        { symptomRowSymptoms.map((symptom, i) => {
           const hasSymptomData = this.data.hasOwnProperty(symptom)
           return (
             <SymptomCell
+              index={i}
               key={symptom}
               symptom={symptom}
               symptomValue={hasSymptomData && this.data[symptom]}
