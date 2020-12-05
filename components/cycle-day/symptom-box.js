@@ -97,10 +97,6 @@ class SymptomBox extends Component {
   }
 }
 
-const excluded = {
-  textDecorationLine: 'line-through'
-}
-
 const hint = {
   fontSize: Sizes.small,
   fontStyle: 'italic'
@@ -136,7 +132,6 @@ const styles = StyleSheet.create({
   },
   symptomNameExcluded: {
     color: Colors.greyDark,
-    ...excluded
   },
   textContainer: {
     flexDirection: 'column',
@@ -151,7 +146,6 @@ const styles = StyleSheet.create({
   },
   textExcluded: {
     color: Colors.grey,
-    ...excluded
   }
 })
 
