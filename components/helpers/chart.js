@@ -44,25 +44,19 @@ export function getTickList(columnHeight) {
   return getTickPositions(columnHeight).map((tickPosition, i) => {
 
     const tick = scaleMax - i * unit
-    let isBold, label, shouldShowLabel
-
-    if (Number.isInteger(tick)) {
-      isBold = true
-      label = tick.toString() + '.0'
-    } else {
-      isBold = false
-      label = tick.toString()
-    }
+    const isBold = Number.isInteger(tick) ? true : false
+    const label = tick.toFixed(1)
+    let shouldShowLabel
 
     // when temp range <= 2, units === 0.1 we show temp values with step 0.2
     // when temp range > 2, units === 0.5 we show temp values with step 0.5
 
     if (unit === 0.1) {
       // show label with step 0.2
-      shouldShowLabel = !(tick * 10 % 2)
+      shouldShowLabel = !(label * 10 % 2)
     } else {
       // show label with step 0.5
-      shouldShowLabel = !(tick * 10 % 5)
+      shouldShowLabel = !(label * 10 % 5)
     }
 
     // don't show label, if first or last tick
