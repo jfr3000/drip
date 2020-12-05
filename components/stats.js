@@ -10,7 +10,7 @@ import cycleModule from '../lib/cycle'
 import {getCycleLengthStats as getCycleInfo} from '../lib/cycle-length'
 import {stats as labels} from '../i18n/en/labels'
 
-import { Sizes, Spacing, Typography } from '../styles'
+import { Spacing, Typography } from '../styles'
 
 const image = require('../assets/cycle-icon.png')
 
@@ -28,7 +28,7 @@ const Stats = () => {
     [numberOfCycles, labels.basisOfStatsEnd]
   ]
   return (
-    <AppPage>
+    <AppPage contentContainerStyle={styles.pageContainer}>
       <Segment last style={styles.pageContainer}>
         <AppText>{labels.cycleLengthExplainer}</AppText>
         {!hasAtLeastOneCycle && <AppText>{labels.emptyStats}</AppText>}
@@ -66,20 +66,21 @@ const Stats = () => {
 }
 
 const column = {
-  flexDirection: 'column'
+  flexDirection: 'column',
 }
 
 const styles = StyleSheet.create({
   accentOrange: {
-    ...Typography.accentOrange
+    ...Typography.accentOrange,
+    fontSize: 20,
   },
   accentPurpleGiant: {
     ...Typography.accentPurpleGiant,
-    marginVertical: -25
   },
   accentPurpleHuge: {
     ...Typography.accentPurpleHuge,
-    marginRight: Spacing.base
+    marginRight: Spacing.base,
+    marginTop: -15,
   },
   container: {
     alignItems: 'center',
@@ -88,24 +89,26 @@ const styles = StyleSheet.create({
   },
   columnLeft: {
     ...column,
-    flex: 4
+    flex: 4,
   },
   columnRight: {
     ...column,
-    flex: 5
+    flex: 5,
+    paddingTop: Spacing.small,
   },
   image: {
-    height: Sizes.huge * 3,
-    marginLeft: Sizes.huge / 2,
+    height: 120,
+    marginLeft: 20,
+    marginTop: 20,
     resizeMode: 'contain',
-    width: Sizes.huge * 3
+    width: 120,
   },
   imageContainter: {
-    paddingTop: Sizes.huge,
-    marginBottom: Sizes.huge / 4
+    paddingTop: 40,
+    marginBottom: 20,
   },
   pageContainer: {
-    marginVertical: Spacing.large
+    marginVertical: Spacing.base,
   }
 })
 

@@ -50,29 +50,30 @@ const Cell = ({ content, isLeft }) => {
 
 Cell.propTypes = {
   content: PropTypes.node.isRequired,
-  isLeft: PropTypes.bool
+  isLeft: PropTypes.bool,
 }
 
 const styles = StyleSheet.create({
   accentOrange: {
-    ...Typography.accentOrange
+    ...Typography.accentOrange,
+    fontSize: 18,
   },
   accentPurpleBig: {
     ...Typography.accentPurpleBig,
-    marginRight: Spacing.base
+    marginRight: Spacing.base,
   },
   cellLeft: {
     alignItems: 'flex-end',
     flex: 5,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   cellRight: {
     flex: 6,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   row: {
     flexDirection: 'row',
-    marginBottom: Spacing.tiny
+    marginBottom: Spacing.tiny,
   }
 })
 
