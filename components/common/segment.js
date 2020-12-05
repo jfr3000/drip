@@ -22,7 +22,7 @@ Segment.propTypes = {
   children: PropTypes.node,
   last: PropTypes.bool,
   style: PropTypes.object,
-  title: PropTypes.string
+  title: PropTypes.string,
 }
 
 const segmentContainer = {
@@ -33,16 +33,16 @@ const segmentContainer = {
 const styles = StyleSheet.create({
   container: {
     borderStyle: 'solid',
-    borderBottomWidth: 2,
-    borderBottomColor: Colors.grey,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.greyLight,
     paddingBottom: Spacing.base,
-    ...segmentContainer
+    ...segmentContainer,
   },
   containerLast: {
-    ...segmentContainer
+    ...segmentContainer,
   },
   title: {
-    ...Typography.subtitle
+    ...Typography.subtitle,
   }
 })
 
