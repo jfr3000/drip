@@ -20,5 +20,5 @@ export function dateToTitle(dateString) {
   const dateToDisplay = LocalDate.parse(dateString)
   return today.equals(dateToDisplay) ?
     labels.today :
-    moment(dateString).format('MMMM Do')
+    moment(dateString).format('dddd, Do MMM YYYY')
 }

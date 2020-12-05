@@ -425,13 +425,3 @@ export const nextDate = (dateString) => {
 export const isDateInFuture = (dateString) => {
   return LocalDate.now().isBefore(LocalDate.parse(dateString))
 }
-
-export const isTomorrowInFuture = (dateString) => {
-  const tomorrow = nextDate(dateString)
-  return LocalDate.now().isBefore(LocalDate.parse(tomorrow))
-}
-
-export const isYesterdayInFuture = (dateString) => {
-  const yesterday = prevDate(dateString)
-  return LocalDate.now().isBefore(LocalDate.parse(yesterday))
-}
