@@ -13,7 +13,7 @@ import Button from './common/button'
 
 import cycleModule from '../lib/cycle'
 import { getFertilityStatusForDay } from '../lib/sympto-adapter'
-import { determinePredictionText, dateEnding } from './helpers/home'
+import { determinePredictionText, formatWithOrdinalSuffix } from './helpers/home'
 
 import { Colors, Fonts, Sizes, Spacing } from '../styles'
 import { home as labels } from '../i18n/en/labels'
@@ -32,15 +32,14 @@ class Home extends Component {
     this.todayDateString = today.toString()
     const { getCycleDayNumber, getPredictedMenses } = cycleModule()
     this.cycleDayNumber = getCycleDayNumber(this.todayDateString)
-    const {status, phase, statusText} =
+    const { status, phase, statusText } =
       getFertilityStatusForDay(this.todayDateString)
     const prediction = getPredictedMenses()
 
     this.cycleDayText = !this.cycleDayNumber ? labels.cycleDayNotEnoughInfo
-      : `${this.cycleDayNumber}${dateEnding[this.cycleDayNumber] || dateEnding['default']}`
+      : formatWithOrdinalSuffix(this.cycleDayNumber)
     this.phase = phase
-    this.phaseText = !phase ? statusText
-      : `${phase}${dateEnding[phase] || dateEnding['default']}`
+    this.phaseText = !phase ? statusText : formatWithOrdinalSuffix(phase)
     this.prediction = determinePredictionText(prediction)
     this.status = status
     this.statusText = statusText
@@ -149,13 +148,13 @@ const styles = StyleSheet.create({
 })
 
 const mapStateToProps = (state) => {
-  return({
+  return ({
     date: getDate(state),
   })
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return({
+  return ({
     navigate: (page) => dispatch(navigate(page)),
     setDate: (date) => dispatch(setDate(date)),
   })
