@@ -17,16 +17,23 @@ class SymptomBox extends Component {
 
   static propTypes = {
     date: PropTypes.string.isRequired,
+    isSymptomEdited: PropTypes.bool,
     symptom: PropTypes.string.isRequired,
     symptomData: PropTypes.object,
     symptomDataToDisplay: PropTypes.string,
-    updateCycleDayData: PropTypes.func.isRequired
+    updateCycleDayData: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    isSymptomEdited: false,
   }
 
   constructor(props) {
     super(props)
 
-    this.state = { isSymptomEdited: false }
+    this.state = {
+      isSymptomEdited: props.isSymptomEdited
+    }
   }
 
   onFinishEditing = () => {

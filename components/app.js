@@ -65,6 +65,7 @@ class App extends Component {
     const title = headerTitles[currentPage]
 
     const isSettingsSubView = isSettingsView(currentPage)
+    const isTemperatureEditView = currentPage === 'TemperatureEditView'
 
     const headerProps = {
       title,
@@ -74,6 +75,7 @@ class App extends Component {
     const pageProps = {
       cycleDay: date && getCycleDay(date),
       date,
+      isTemperatureEditView,
     }
 
     return (

@@ -10,8 +10,9 @@ export const viewsList = {
   Home,
   Calendar,
   CycleDay,
+  TemperatureEditView: CycleDay,
   Chart,
   SettingsMenu,
   ...settingsViews,
-  Stats
+  Stats,
 }
