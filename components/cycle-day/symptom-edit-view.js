@@ -215,10 +215,11 @@ class SymptomEditView extends Component {
               <AppText>{symtomPage[symptom].note}</AppText>
               <AppTextInput
                 multiline={true}
-                placeholder={sharedLabels.enter}
+                numberOfLines={3}
                 onChangeText={this.onEditNote}
-                value={noteText !== null ? noteText : ''}
+                placeholder={sharedLabels.enter}
                 testID='noteInput'
+                value={noteText !== null ? noteText : ''}
               />
             </Segment>
           }

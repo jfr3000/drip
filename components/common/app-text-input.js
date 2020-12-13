@@ -1,11 +1,18 @@
 import React from 'react'
-import { StyleSheet, TextInput } from 'react-native'
+import { KeyboardAvoidingView, StyleSheet, TextInput } from 'react-native'
 import PropTypes from 'prop-types'
 
 import { Colors, Spacing, Typography } from '../../styles'
 
 const AppTextInput = ({ style, ...props }) => {
-  return <TextInput style={[styles.input, style]} {...props} />
+  return (
+    <KeyboardAvoidingView
+      behavior="padding"
+      keyboardVerticalOffset={250}
+    >
+      <TextInput style={[styles.input, style]} {...props} />
+    </KeyboardAvoidingView>
+  )
 }
 
 AppTextInput.propTypes = {
