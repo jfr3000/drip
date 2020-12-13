@@ -86,7 +86,7 @@ class SymptomBox extends Component {
               {symptomTitles[symptom].toLowerCase()}
             </AppText>
             {symptomDataToDisplay &&
-              <AppText style={textStyle}>
+              <AppText style={textStyle} numberOfLines={4}>
                 {symptomDataToDisplay}
               </AppText>
             }
