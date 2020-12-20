@@ -1,3 +1,5 @@
+import { fontRatio } from '../config'
+
 import Colors from './colors'
 import Spacing from './spacing'
 
@@ -7,13 +9,13 @@ export const fonts = {
 }
 
 export const sizes = {
-  tiny: 7,
-  footnote: 10,
-  small: 14,
-  base: 18,
-  subtitle: 22,
-  title: 24,
-  huge: 40
+  tiny: 7 / fontRatio,
+  footnote: 10 / fontRatio,
+  small: 14 / fontRatio,
+  base: 18 / fontRatio,
+  subtitle: 22 / fontRatio,
+  title: 24 / fontRatio,
+  huge: 32 / fontRatio,
 }
 
 const accentText = {
@@ -24,12 +26,12 @@ const accentText = {
 
 const accentTextBig = {
   ...accentText,
-  fontSize: 30,
+  fontSize: 30 / fontRatio,
 }
 
 const accentTextGiant = {
   ...accentText,
-  fontSize: 50,
+  fontSize: 50 / fontRatio,
 }
 
 const accentTextHuge = {
