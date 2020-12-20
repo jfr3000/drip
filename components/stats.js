@@ -1,5 +1,5 @@
 import React from 'react'
-import { ImageBackground, StyleSheet, View } from 'react-native'
+import { Dimensions, ImageBackground, StyleSheet, View } from 'react-native'
 
 import AppPage from './common/app-page'
 import AppText from './common/app-text'
@@ -10,9 +10,11 @@ import cycleModule from '../lib/cycle'
 import {getCycleLengthStats as getCycleInfo} from '../lib/cycle-length'
 import {stats as labels} from '../i18n/en/labels'
 
-import { Spacing, Typography } from '../styles'
+import { Sizes, Spacing, Typography } from '../styles'
+import { fontRatio } from '../config'
 
 const image = require('../assets/cycle-icon.png')
+const screen = Dimensions.get('screen')
 
 const Stats = () => {
   const cycleLengths = cycleModule().getAllCycleLengths()
@@ -20,13 +22,15 @@ const Stats = () => {
   const hasAtLeastOneCycle = numberOfCycles >= 1
   const cycleData = hasAtLeastOneCycle ? getCycleInfo(cycleLengths)
     : { minimum: '—', maximum: '—', stdDeviation: '—' }
-
   const statsData = [
     [cycleData.minimum, labels.minLabel],
     [cycleData.maximum, labels.maxLabel],
     [cycleData.stdDeviation ? cycleData.stdDeviation : '—', labels.stdLabel],
     [numberOfCycles, labels.basisOfStatsEnd]
   ]
+  const height = screen.height * 0.2
+  const marginTop = (height / 8 - Sizes.icon / fontRatio) / 4
+
   return (
     <AppPage contentContainerStyle={styles.pageContainer}>
       <Segment last style={styles.pageContainer}>
@@ -38,12 +42,12 @@ const Stats = () => {
               <ImageBackground
                 source={image}
                 imageStyle={styles.image}
-                style={styles.imageContainter}
+                style={[styles.imageContainter, { height }]}
               >
                 <AppText
                   numberOfLines={1}
                   ellipsizeMode="clip"
-                  style={styles.accentPurpleGiant}
+                  style={[styles.accentPurpleGiant, { marginTop }]}
                 >
                   {cycleData.mean}
                 </AppText>
@@ -72,15 +76,14 @@ const column = {
 const styles = StyleSheet.create({
   accentOrange: {
     ...Typography.accentOrange,
-    fontSize: 20,
+    fontSize: Sizes.small,
   },
   accentPurpleGiant: {
     ...Typography.accentPurpleGiant,
   },
   accentPurpleHuge: {
     ...Typography.accentPurpleHuge,
-    marginRight: Spacing.base,
-    marginTop: -15,
+    marginTop: Spacing.base * (-1),
   },
   container: {
     alignItems: 'center',
@@ -97,15 +100,14 @@ const styles = StyleSheet.create({
     paddingTop: Spacing.small,
   },
   image: {
-    height: 120,
-    marginLeft: 20,
-    marginTop: 20,
+    marginLeft: Spacing.large,
+    marginTop: Spacing.large,
     resizeMode: 'contain',
-    width: 120,
+
   },
   imageContainter: {
-    paddingTop: 40,
-    marginBottom: 20,
+    paddingTop: Spacing.large * 2,
+    marginBottom: Spacing.large,
   },
   pageContainer: {
     marginVertical: Spacing.base,

@@ -16,6 +16,7 @@ export const sizes = {
   subtitle: 22 / fontRatio,
   title: 24 / fontRatio,
   huge: 32 / fontRatio,
+  icon: 40 / fontRatio,
 }
 
 const accentText = {
@@ -31,7 +32,7 @@ const accentTextBig = {
 
 const accentTextGiant = {
   ...accentText,
-  fontSize: 50 / fontRatio,
+  fontSize: sizes.icon / fontRatio,
 }
 
 const accentTextHuge = {

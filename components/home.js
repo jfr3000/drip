@@ -99,7 +99,7 @@ class Home extends Component {
         {phase && (
           <View style={styles.line}>
             <Asterisk />
-            <AppText linkStyle={styles.whiteText}>
+            <AppText linkStyle={styles.whiteText} style={styles.greyText}>
               {statusText}
             </AppText>
           </View>
@@ -147,6 +147,9 @@ const styles = StyleSheet.create({
   },
   whiteText: {
     color: 'white',
+  },
+  greyText: {
+    color: Colors.greyLight,
   }
 })
 

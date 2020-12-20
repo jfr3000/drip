@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import AppText from './app-text'
 
-import { Spacing, Typography } from '../../styles'
+import { Sizes, Spacing, Typography } from '../../styles'
 
 const Table = ({ tableContent }) => {
   return (
@@ -56,11 +56,11 @@ Cell.propTypes = {
 const styles = StyleSheet.create({
   accentOrange: {
     ...Typography.accentOrange,
-    fontSize: 18,
+    fontSize: Sizes.small,
   },
   accentPurpleBig: {
     ...Typography.accentPurpleBig,
-    marginRight: Spacing.base,
+    marginRight: Spacing.small,
   },
   cellLeft: {
     alignItems: 'flex-end',
