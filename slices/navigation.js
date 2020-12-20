@@ -7,23 +7,15 @@ const navigationSlice = createSlice({
     currentPage: 'Home',
   },
   reducers: {
-    navigate: (state, action) => {
+    navigate: (_state, action) => {
       return {
         currentPage: action.payload,
-        previousPage: state.currentPage,
       }
     },
-    goBack: ({ currentPage, previousPage }) => {
-      if (currentPage === 'CycleDay' && !!previousPage) {
-        return {
-          currentPage: previousPage,
-        }
-      }
-
+    goBack: ({ currentPage }) => {
       const page = pages.find((p) => p.component === currentPage)
       return {
         currentPage: page.parent,
-        previousPage: currentPage,
       }
     },
   },
