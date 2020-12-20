@@ -8,7 +8,7 @@ const AppTextInput = ({ style, ...props }) => {
   return (
     <KeyboardAvoidingView
       behavior="padding"
-      keyboardVerticalOffset={250}
+      keyboardVerticalOffset={300}
     >
       <TextInput style={[styles.input, style]} {...props} />
     </KeyboardAvoidingView>
