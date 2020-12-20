@@ -69,12 +69,14 @@ export default class EnterNewPassword extends Component {
           placeholder={labels.enterNew}
           textContentType="password"
           value={password}
+          secureTextEntry={true}
         />
         <AppTextInput
           onChangeText={this.handleConfirmationInput}
           placeholder={labels.confirmPassword}
           textContentType="password"
           value={passwordConfirmation}
+          secureTextEntry={true}
         />
         {shouldShowErrorMessage &&
           <AppText style={styles.error}>{labels.passwordsDontMatch}</AppText>
