@@ -1,3 +1,5 @@
+import { PixelRatio } from 'react-native'
+
 export const ACTION_DELETE = 'delete'
 export const ACTION_EXPORT = 'export'
 export const ACTION_IMPORT = 'import'
@@ -14,6 +16,7 @@ export const SYMPTOMS = [
   'note',
 ]
 
+export const fontRatio = PixelRatio.getFontScale()
 export const CHART_COLUMN_WIDTH = 32
 export const CHART_COLUMN_MIDDLE = CHART_COLUMN_WIDTH / 2
 export const CHART_DOT_RADIUS = 6

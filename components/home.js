@@ -35,16 +35,19 @@ class Home extends Component {
     const { status, phase, statusText } =
       getFertilityStatusForDay(this.todayDateString)
     const prediction = getPredictedMenses()
-
-    this.cycleDayText = !this.cycleDayNumber ? labels.cycleDayNotEnoughInfo
-      : formatWithOrdinalSuffix(this.cycleDayNumber)
-    this.phase = phase
-    this.phaseText = !phase ? statusText : formatWithOrdinalSuffix(phase)
     this.prediction = determinePredictionText(prediction)
-    this.status = status
-    this.statusText = statusText
-    this.title = `${today.dayOfMonth()} ${today.month()}`
+    this.title = `${today.dayOfMonth()} ${today.month()} ${today.year()}`
 
+    if (this.cycleDayNumber) {
+      this.cycleDayText = formatWithOrdinalSuffix(this.cycleDayNumber)
+    }
+
+    if (phase) {
+      this.phase = phase
+      this.phaseText = formatWithOrdinalSuffix(phase)
+      this.status = status
+      this.statusText = statusText
+    }
   }
 
   navigateToCycleDayView = () => {
@@ -54,6 +57,7 @@ class Home extends Component {
 
   render() {
     const {
+      cycleDayNumber,
       cycleDayText,
       phase,
       phaseText,
@@ -69,30 +73,23 @@ class Home extends Component {
         contentContainerStyle={styles.contentContainer}
       >
         <AppText style={styles.title}>{title}</AppText>
-        <View style={styles.line}>
-          {this.cycleDayNumber && (
-            <React.Fragment>
-              <AppText style={styles.whiteText}>{cycleDayText}</AppText>
-              <AppText style={styles.tourquiseText}>{labels.cycleDay}</AppText>
-            </React.Fragment>
-          )}
-          {!this.cycleDayNumber && <AppText>{cycleDayText}</AppText>}
-        </View>
-        <View style={styles.line}>
-          {!phase &&
-            <AppText style={styles.tourquiseText}>{phaseText}</AppText>
-          }
-          {phase && (
-            <React.Fragment>
-              <AppText style={styles.whiteText}>{phaseText}</AppText>
-              <AppText style={styles.tourquiseText}>
-                {labels.cyclePhase}
-              </AppText>
-              <AppText style={styles.tourquiseText}>{status}</AppText>
-              <Asterisk />
-            </React.Fragment>
-          )}
-        </View>
+
+        {cycleDayNumber &&
+          <View style={styles.line}>
+            <AppText style={styles.whiteSubtitle}>{cycleDayText}</AppText>
+            <AppText style={styles.tourquiseText}>{labels.cycleDay}</AppText>
+          </View>
+        }
+        {phase &&
+          <View style={styles.line}>
+            <AppText style={styles.whiteSubtitle}>{phaseText}</AppText>
+            <AppText style={styles.tourquiseText}>
+              {labels.cyclePhase}
+            </AppText>
+            <AppText style={styles.tourquiseText}>{status}</AppText>
+            <Asterisk />
+          </View>
+        }
         <View style={styles.line}>
           <AppText style={styles.tourquiseText}>{prediction}</AppText>
         </View>
@@ -102,7 +99,7 @@ class Home extends Component {
         {phase && (
           <View style={styles.line}>
             <Asterisk />
-            <AppText style={styles.tourquiseText} linkStyle={styles.whiteText}>
+            <AppText linkStyle={styles.whiteText}>
               {statusText}
             </AppText>
           </View>
@@ -119,19 +116,20 @@ const Asterisk = () => {
 const styles = StyleSheet.create({
   asterisk: {
     color: Colors.orange,
-    paddingRight: Spacing.base
+    paddingRight: Spacing.base,
   },
   container: {
     backgroundColor: Colors.purple,
-    flex: 1
+    flex: 1,
   },
   contentContainer: {
-    padding: Spacing.base
+    padding: Spacing.base,
   },
   line: {
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    marginBottom: Spacing.tiny
+    marginBottom: Spacing.tiny,
+    marginTop: Spacing.small,
   },
   title: {
     color: Colors.purpleLight,
@@ -141,9 +139,14 @@ const styles = StyleSheet.create({
   },
   tourquiseText: {
     color: Colors.tourquise,
+    fontSize: Sizes.subtitle,
+  },
+  whiteSubtitle: {
+    color: 'white',
+    fontSize: Sizes.subtitle,
   },
   whiteText: {
-    color: 'white'
+    color: 'white',
   }
 })
 
