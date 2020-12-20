@@ -10,7 +10,7 @@ const Icon = createIconSetFromIcoMoon(iconConfig, '', 'Menu')
 const MenuIcon = ({ isActive, name }) => {
   const color = isActive ? Colors.greyDark : Colors.grey
 
-  return <Icon name={name} size={Sizes.huge} color={color} />
+  return <Icon name={name} size={Sizes.icon} color={color} />
 }
 
 MenuIcon.propTypes = {
