@@ -70,6 +70,7 @@ export default class ConfirmWithPassword extends Component {
           onChangeText={this.handlePasswordInput}
           placeholder={labels.enterCurrent}
           value={password}
+          secureTextEntry={true}
         />
         <View style={styles.container}>
           <Button onPress={this.props.onCancel}>
