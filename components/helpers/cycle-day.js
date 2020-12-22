@@ -33,7 +33,7 @@ export const isPreviousTemperature = (temperature) => {
 }
 
 export const isTemperatureOutOfRange = (temperature) => {
-  if (temperature === null) return null
+  if (!temperature) return null
 
   const value = Number(temperature)
   const range = { min: TEMP_MIN, max: TEMP_MAX }
