@@ -77,21 +77,21 @@ class Home extends Component {
         {cycleDayNumber &&
           <View style={styles.line}>
             <AppText style={styles.whiteSubtitle}>{cycleDayText}</AppText>
-            <AppText style={styles.tourquiseText}>{labels.cycleDay}</AppText>
+            <AppText style={styles.turquoiseText}>{labels.cycleDay}</AppText>
           </View>
         }
         {phase &&
           <View style={styles.line}>
             <AppText style={styles.whiteSubtitle}>{phaseText}</AppText>
-            <AppText style={styles.tourquiseText}>
+            <AppText style={styles.turquoiseText}>
               {labels.cyclePhase}
             </AppText>
-            <AppText style={styles.tourquiseText}>{status}</AppText>
+            <AppText style={styles.turquoiseText}>{status}</AppText>
             <Asterisk />
           </View>
         }
         <View style={styles.line}>
-          <AppText style={styles.tourquiseText}>{prediction}</AppText>
+          <AppText style={styles.turquoiseText}>{prediction}</AppText>
         </View>
         <Button isCTA isSmall={false} onPress={this.navigateToCycleDayView}>
           {labels.addData}
@@ -137,8 +137,8 @@ const styles = StyleSheet.create({
     fontSize: Sizes.huge,
     marginVertical: Spacing.base,
   },
-  tourquiseText: {
-    color: Colors.tourquise,
+  turquoiseText: {
+    color: Colors.turquoise,
     fontSize: Sizes.subtitle,
   },
   whiteSubtitle: {

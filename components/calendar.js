@@ -14,13 +14,13 @@ import {
   calendarTheme,
   predictionToCalFormat,
   toCalFormat,
-  todayToCalFormat
+  todayToCalFormat,
 } from './helpers/calendar'
 
 class CalendarView extends Component {
   static propTypes = {
     setDate: PropTypes.func.isRequired,
-    navigate: PropTypes.func.isRequired
+    navigate: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -30,7 +30,7 @@ class CalendarView extends Component {
     this.state = {
       bleedingDaysInCalFormat: toCalFormat(this.bleedingDays),
       predictedBleedingDaysInCalFormat: predictionToCalFormat(predictedMenses),
-      todayInCalFormat: todayToCalFormat()
+      todayInCalFormat: todayToCalFormat(),
     }
 
     this.bleedingDays.addListener(this.setStateWithCalFormattedDays)
@@ -42,7 +42,7 @@ class CalendarView extends Component {
     this.setState({
       bleedingDaysInCalFormat: toCalFormat(this.bleedingDays),
       predictedBleedingDaysInCalFormat: predictionToCalFormat(predictedMenses),
-      todayInCalFormat: todayToCalFormat()
+      todayInCalFormat: todayToCalFormat(),
     })
   }
 
@@ -59,7 +59,7 @@ class CalendarView extends Component {
     const {
       todayInCalFormat,
       bleedingDaysInCalFormat,
-      predictedBleedingDaysInCalFormat
+      predictedBleedingDaysInCalFormat,
     } = this.state
     const markedDates = Object.assign(
       {},
@@ -75,7 +75,7 @@ class CalendarView extends Component {
           firstDay={1}
           onDayPress={this.passDateToDayView.bind(this)}
           markedDates={markedDates}
-          markingType={'custom'}
+          markingType='custom'
           theme={calendarTheme}
           // Max amount of months allowed to scroll to the past.
           pastScrollRange={120}
@@ -86,17 +86,14 @@ class CalendarView extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1 }
+  container: { flex: 1 },
 })
 
 const mapDispatchToProps = (dispatch) => {
-  return({
+  return {
     setDate: (date) => dispatch(setDate(date)),
     navigate: (page) => dispatch(navigate(page)),
-  })
+  }
 }
 
-export default connect(
-  null,
-  mapDispatchToProps,
-)(CalendarView)
+export default connect(null, mapDispatchToProps)(CalendarView)

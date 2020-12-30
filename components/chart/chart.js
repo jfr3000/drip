@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
   },
   loadingContainer: {
     height: '100%',
-    backgroundColor: Colors.tourquiseLight,
+    backgroundColor: Colors.turquoiseLight,
     justifyContent: 'center'
   },
   page: {

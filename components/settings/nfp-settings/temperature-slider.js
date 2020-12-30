@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     paddingTop: Sizes.base
   },
   marker: {
-    backgroundColor: Colors.tourquiseDark,
+    backgroundColor: Colors.turquoiseDark,
     borderRadius: 50,
     elevation: 4,
     height: Sizes.subtitle,
@@ -72,9 +72,9 @@ const styles = StyleSheet.create({
     height: Sizes.small
   },
   sliderAccentBackground: {
-    backgroundColor: Colors.tourquiseDark
+    backgroundColor: Colors.turquoiseDark
   },
   sliderBackground: {
-    backgroundColor: Colors.tourquise
+    backgroundColor: Colors.turquoise
   },
 })

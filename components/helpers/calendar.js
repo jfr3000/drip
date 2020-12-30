@@ -12,11 +12,13 @@ export const toCalFormat = (bleedingDaysSortedByDate) => {
       customStyles: {
         container: {
           backgroundColor: shades[day.bleeding.value],
-        }
-      }
-    }
-    if (day.date === todayDateString) {
-      acc[day.date].customStyles.text = styles.calendarToday
+          paddingTop: 2,
+        },
+        text: {
+          color: Colors.turquoiseLight,
+          ...(day.date === todayDateString && styles.calendarToday),
+        },
+      },
     }
     return acc
   }, {})
@@ -31,12 +33,11 @@ export const predictionToCalFormat = (predictedDays) => {
       accSet[day] = {
         customStyles: {
           container: {
-            borderColor: (i === middleIndex) ? shades[3] : shades[0],
-            borderStyle: (i === middleIndex) ? 'solid' : 'dashed',
+            borderColor: i === middleIndex ? shades[3] : shades[0],
+            borderStyle: i === middleIndex ? 'solid' : 'dashed',
             borderWidth: 1,
           },
-
-        }
+        },
       }
       if (day === todayDateString) {
         accSet[day].customStyles.text = styles.calendarToday
@@ -50,24 +51,24 @@ export const predictionToCalFormat = (predictedDays) => {
 
 export const todayToCalFormat = () => {
   const todayDateString = LocalDate.now().toString()
-  const todayFormated = {}
-  todayFormated[todayDateString] = {
-    customStyles: {
-      text: styles.calendarToday
-    }
+  return {
+    [todayDateString]: {
+      customStyles: {
+        text: styles.calendarToday,
+      },
+    },
   }
-  return todayFormated
 }
 
 const styles = {
   calendarToday: {
     fontFamily: Fonts.bold,
-    color: Colors.purple
+    color: Colors.purple,
   },
 }
 
 export const calendarTheme = {
-  calendarBackground: Colors.tourquiseLight,
+  calendarBackground: Colors.turquoiseLight,
   dayTextColor: Colors.greyDark,
   monthTextColor: Colors.purple,
   textDayFontFamily: Fonts.main,

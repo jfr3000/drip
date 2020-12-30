@@ -19,9 +19,9 @@ export default {
   orange: '#F38337',
   purple: '#3A2671',
   purpleLight: '#938EB2',
-  tourquiseDark: '#69CBC1',
-  tourquise: '#CFECEA',
-  tourquiseLight: '#E9F2ED',
+  turquoiseDark: '#69CBC1',
+  turquoise: '#CFECEA',
+  turquoiseLight: '#E9F2ED',
   iconColors: {
     'bleeding': {
       color: redColor,

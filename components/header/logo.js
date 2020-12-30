@@ -23,7 +23,7 @@ Logo.propTypes = {
 
 const styles = StyleSheet.create({
   logo: {
-    color: Colors.tourquiseDark,
+    color: Colors.turquoiseDark,
     fontFamily: Fonts.bold,
     fontSize: Sizes.title
   }
