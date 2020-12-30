@@ -41,7 +41,7 @@ const TemperatureColumn = ({
         key='fhm'
       />}
 
-      {data && data.y && <DotAndLine
+      {data && typeof(data.y) !== 'undefined' && <DotAndLine
         y={data.y}
         exclude={data.temperatureExclude}
         rightY={data.rightY}
