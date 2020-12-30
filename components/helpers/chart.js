@@ -21,7 +21,7 @@ function getTickConfig() {
   //Add 1 tick above the max value to display on chart
   const scaleMax = scaleObservable.value.max + unit
   const scaleMin = scaleObservable.value.min - unit
-  const numberOfTicks = (scaleMax - scaleMin) / unit + 1
+  const numberOfTicks = Math.round((scaleMax - scaleMin) / unit + 1)
 
   return { numberOfTicks, scaleMax, scaleMin, unit }
 }
