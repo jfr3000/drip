@@ -36,11 +36,11 @@ AppPage.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: Colors.tourquiseLight,
+    backgroundColor: Colors.turquoiseLight,
     flex: 1
   },
   scrollView: {
-    backgroundColor: Colors.tourquiseLight,
+    backgroundColor: Colors.turquoiseLight,
     flexGrow: 1
   },
   title: {

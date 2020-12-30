@@ -54,11 +54,11 @@ export default class DotAndLine extends Component {
     const dot = new Path().moveTo(CHART_COLUMN_MIDDLE , y - CHART_DOT_RADIUS)
       .arc(0, CHART_DOT_RADIUS * 2, CHART_DOT_RADIUS)
       .arc(0, CHART_DOT_RADIUS * -2, CHART_DOT_RADIUS)
-    const dotColor = exclude ? Colors.tourquise : Colors.tourquiseDark
+    const dotColor = exclude ? Colors.turquoise : Colors.turquoiseDark
     const lineColorLeft = excludeLeftLine ?
-      Colors.tourquise : Colors.tourquiseDark
+      Colors.turquoise : Colors.turquoiseDark
     const lineColorRight = excludeRightLine ?
-      Colors.tourquise : Colors.tourquiseDark
+      Colors.turquoise : Colors.turquoiseDark
 
     return(
       <React.Fragment>
