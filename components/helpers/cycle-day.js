@@ -7,6 +7,8 @@ import * as labels from '../../i18n/en/cycle-day'
 import { getLabelsList } from './labels'
 import { TEMP_MAX, TEMP_MIN } from '../../config'
 
+import computeNfpValue from '../../lib/nfp-mucus'
+
 const bleedingLabels = labels.bleeding.labels
 const cervixLabels = labels.cervix
 const contraceptiveLabels = labels.contraceptives.categories
@@ -263,7 +265,7 @@ export const save = {
     const isDataEntered = ['feeling', 'texture'].some(
       value => isNumber(data[value]))
     const valuesToSave = shouldDeleteData || !isDataEntered
-      ? null : { feeling, texture, exclude }
+      ? null : { feeling, texture, value: computeNfpValue(feeling, texture), exclude }
 
     saveSymptom('mucus', date, valuesToSave)
   },
