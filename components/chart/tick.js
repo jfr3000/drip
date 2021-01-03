@@ -28,13 +28,13 @@ Tick.propTypes = {
 
 
 const text = {
-  right: 4,
   lineHeight: Sizes.base,
-  textAlign: 'right',
-  textAlignVertical: 'center'
+  right: 4,
+  textAlign: 'right'
 }
 const styles = StyleSheet.create({
   container: {
+    justifyContent: 'center',
     position: 'absolute',
     right: 0,
     width: 40

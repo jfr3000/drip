@@ -7,7 +7,7 @@ import AppText from '../common/app-text'
 
 import cycleModule from '../../lib/cycle'
 import { getOrdinalSuffix } from '../helpers/home'
-import { Containers, Typography } from '../../styles'
+import { Containers, Typography, Sizes } from '../../styles'
 
 const CycleDayLabel = ({ height, date }) => {
   const cycleDayNumber = cycleModule().getCycleDayNumber(date)
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   text: {
     ...Typography.label,
-    fontSize: 12
+    fontSize: Sizes.small,
   },
   textBold: {
     ...Typography.labelBold
