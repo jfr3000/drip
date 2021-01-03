@@ -7,8 +7,11 @@ import { getCycleDay, getAmountOfCycleDays } from '../../db'
 //YAxis helpers
 
 export function normalizeToScale(temp, columnHeight) {
-  const scale = scaleObservable.value
-  const valueRelativeToScale = (scale.max - temp) / (scale.max - scale.min)
+  const unit = unitObservable.value
+  //Add 1 tick above the max value to display on chart
+  const scaleMax = scaleObservable.value.max + unit
+  const scaleMin = scaleObservable.value.min - unit
+  const valueRelativeToScale = (scaleMax - temp) / (scaleMax - scaleMin)
   return getAbsoluteValue(valueRelativeToScale, columnHeight)
 }
 

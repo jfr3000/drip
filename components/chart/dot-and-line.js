@@ -40,14 +40,14 @@ export default class DotAndLine extends Component {
       const middleY = ((leftY - y) / 2) + y
       excludeLeftLine = leftTemperatureExclude || exclude
       lineLeft = new Path()
-        .moveTo(CHART_COLUMN_MIDDLE - CHART_DOT_RADIUS, y)
+        .moveTo(CHART_COLUMN_MIDDLE, y)
         .lineTo(0, middleY)
     }
     if (rightY) {
       const middleY = ((y - rightY) / 2) + rightY
       excludeRightLine = rightTemperatureExclude || exclude
       lineRight = new Path()
-        .moveTo(CHART_COLUMN_MIDDLE + CHART_DOT_RADIUS, y)
+        .moveTo(CHART_COLUMN_MIDDLE, y)
         .lineTo(CHART_COLUMN_WIDTH, middleY)
     }
 
@@ -74,7 +74,13 @@ export default class DotAndLine extends Component {
           strokeWidth={CHART_STROKE_WIDTH}
           key={y + CHART_DOT_RADIUS}
         />
-        <Shape d={dot} stroke={dotColor} strokeWidth={CHART_STROKE_WIDTH} key='dot' />
+        <Shape
+          d={dot}
+          stroke={dotColor}
+          strokeWidth={CHART_STROKE_WIDTH}
+          fill="white"
+          key='dot'
+        />
       </React.Fragment>
     )
   }
