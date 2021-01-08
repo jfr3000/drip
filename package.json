@@ -6,7 +6,8 @@
     "Marie Kochsiek",
     "Tina Baumann",
     "Sofiya Tepikin",
-    "Mariya Zadnepryanets"
+    "Mariya Zadnepryanets",
+    "Lisa Hillebrand"
   ],
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
