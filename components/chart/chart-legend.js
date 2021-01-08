@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     width: CHART_YAXIS_WIDTH
   },
   text: {
-    ...Typography.label
+    ...Typography.label,
   },
   textBold: {
     ...Typography.labelBold

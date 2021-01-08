@@ -116,7 +116,6 @@ const Asterisk = () => {
 const styles = StyleSheet.create({
   asterisk: {
     color: Colors.orange,
-    paddingRight: Spacing.base,
   },
   container: {
     backgroundColor: Colors.purple,
@@ -150,6 +149,7 @@ const styles = StyleSheet.create({
   },
   greyText: {
     color: Colors.greyLight,
+    paddingLeft: Spacing.base,
   }
 })
 

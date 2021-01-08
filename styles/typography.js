@@ -11,7 +11,7 @@ export const fonts = {
 export const sizes = {
   tiny: 7 / fontRatio,
   footnote: 10 / fontRatio,
-  small: 14 / fontRatio,
+  small: 13 / fontRatio,
   base: 18 / fontRatio,
   subtitle: 22 / fontRatio,
   title: 24 / fontRatio,
