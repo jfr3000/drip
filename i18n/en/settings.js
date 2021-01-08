@@ -138,7 +138,7 @@ You can contact us by bloodyhealth@mailbox.org.`
   },
   credits: {
     title: 'Credits',
-    note: 'Thanks and lots of <3 to all of our contributors as well as Susanne Umscheid for the wonderful design, and Paula Härtel for the symptom icons.'
+    note: `We love the drip team. Thanks and lots of <3 to all of our condributors. Thanks to Paula Härtel for the symptom tracking icons. All the other icons are made by ${links.smashicons.url}, ${links.pause08.url}, ${links.kazachek.url} & ${links.freepik.url} from ${links.flaticon.url}.`
   },
   donate: {
     title: 'Buy us a coffee!',
