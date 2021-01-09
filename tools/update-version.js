@@ -25,10 +25,10 @@ module.exports = () => {
       const mm = leftPad(today.getMonth() + 1, 2, '0')
       const d = today.getDate()
       if (attempt === 0) {
-        return `0.${yy}${mm}.${d}-beta`
+        return `1.${yy}${mm}.${d}`
       } else {
         const letter = String.fromCharCode(96 + attempt) // 0=a, 1=b, 2=c, ...
-        return `0.${yy}${mm}.${d}-beta.${letter}`
+        return `1.${yy}${mm}.${d}.${letter}`
       }
     }
 
