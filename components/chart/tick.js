@@ -1,29 +1,53 @@
 import React from 'react'
+import { StyleSheet, View } from 'react-native'
 import PropTypes from 'prop-types'
 
-import AppText from '../app-text'
+import AppText from '../common/app-text'
 
-import styles from './styles'
+import { Sizes } from '../../styles'
 
-const Tick = ({ yPosition, isBold, shouldShowLabel, label }) => {
-  // this eyeballing is sadly necessary because RN does not
-  // support percentage values for transforms, which we'd need
-  // to reliably place the label vertically centered to the grid
-  const topPosition = yPosition - 8
-  const style = [
-    styles.yAxisLabels.tempScale,
-    {top: topPosition},
-    isBold && styles.boldTick
-  ]
+const Tick = ({ yPosition, height, isBold, shouldShowLabel, label }) => {
+  const top = yPosition - height / 2
+  const containerStyle = [ styles.container, { flexBasis: height, height, top }]
+  const textStyle = isBold ? styles.textBold : styles.textNormal
 
-  return <AppText style={style}>{shouldShowLabel && label}</AppText>
+  return(
+    <View style={containerStyle}>
+      <AppText style={textStyle}>{shouldShowLabel && label}</AppText>
+    </View>
+  )
 }
 
 Tick.propTypes = {
   yPosition: PropTypes.number,
+  height: PropTypes.number.isRequired,
   isBold: PropTypes.bool,
   shouldShowLabel: PropTypes.bool,
   label: PropTypes.string,
 }
+
+
+const text = {
+  lineHeight: Sizes.base,
+  right: 4,
+  textAlign: 'right'
+}
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    position: 'absolute',
+    right: 0,
+    width: 40
+  },
+  textBold: {
+    fontSize: Sizes.base,
+    fontWeight: 'bold',
+    ...text
+  },
+  textNormal: {
+    fontSize: Sizes.small,
+    ...text
+  }
+})
 
 export default Tick

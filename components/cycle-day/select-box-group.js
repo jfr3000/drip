@@ -1,29 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, TouchableOpacity } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 
-import AppText from '../app-text'
+import AppText from '../common/app-text'
 
-import styles from '../../styles'
+import { Colors, Containers } from '../../styles'
 
-export default function SelectBoxGroup({ labels, onSelect, optionsState }) {
+const SelectBoxGroup = ({ labels, optionsState, onSelect }) => {
   return (
-    <View style={styles.selectBoxSection}>
+    <View style={styles.container}>
       {Object.keys(labels).map(key => {
-        const style = [styles.selectBox]
-        const textStyle = []
-        if (optionsState[key]) {
-          style.push(styles.selectBoxActive)
-          textStyle.push(styles.selectBoxTextActive)
-        }
+        const isActive = optionsState[key]
+        const boxStyle = [styles.box, isActive && styles.boxActive]
+        const textStyle = [styles.text, isActive && styles.textActive]
+
         return (
           <TouchableOpacity
-            onPress={() => onSelect(key)}
             key={key}
+            onPress={() => onSelect(key)}
+            style={boxStyle}
           >
-            <View style={style}>
-              <AppText style={textStyle}>{labels[key]}</AppText>
-            </View>
+            <AppText style={textStyle}>{labels[key]}</AppText>
           </TouchableOpacity>
         )
       })}
@@ -36,3 +33,23 @@ SelectBoxGroup.propTypes = {
   onSelect: PropTypes.func.isRequired,
   optionsState: PropTypes.object.isRequired
 }
+
+const styles = StyleSheet.create({
+  box: {
+    ...Containers.box
+  },
+  boxActive: {
+    ...Containers.boxActive
+  },
+  container: {
+    ...Containers.selectGroupContainer
+  },
+  text: {
+    color: Colors.orange
+  },
+  textActive: {
+    color: 'white'
+  }
+})
+
+export default SelectBoxGroup

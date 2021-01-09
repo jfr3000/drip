@@ -1,58 +1,29 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { TouchableOpacity, ScrollView } from 'react-native'
-import { connect } from 'react-redux'
 
-import { navigate } from '../../slices/navigation'
-
-import styles from '../../styles/index'
+import AppPage from '../common/app-page'
+import MenuItem from './menu-item'
 
 import settingsLabels from '../../i18n/en/settings'
 
-import AppText from '../app-text'
-
-const labels = settingsLabels.menuTitles
-
+const { menuItems } = settingsLabels
 const menu = [
-  {title: labels.reminders, component: 'Reminders'},
-  {title: labels.nfpSettings, component: 'NfpSettings'},
-  {title: labels.dataManagement, component: 'DataManagement'},
-  {title: labels.password, component: 'Password'},
-  {title: labels.about, component: 'About'},
-  {title: labels.license, component: 'License'}
+  { ...menuItems.reminders, component: 'Reminders'},
+  { ...menuItems.nfpSettings, component: 'NfpSettings'},
+  { ...menuItems.dataManagement, component: 'DataManagement'},
+  { ...menuItems.password, component: 'Password'}
 ]
 
-const SettingsMenu = ({ navigate }) => {
+const SettingsMenu = () => {
   return (
-    <ScrollView>
-      { menu.map(menuItem)}
-    </ScrollView>
+    <AppPage title={settingsLabels.title}>
+      {menu.map((menuItem, i) => {
+        const last = (menu.length === i + 1)
+
+        return <MenuItem item={menuItem} key={i} last={last}/>
+      }
+      )}
+    </AppPage>
   )
-
-  function menuItem(item) {
-    return (
-      <TouchableOpacity
-        style={styles.framedSegment}
-        key={item.title}
-        onPress={() => navigate(item.component)}
-      >
-        <AppText>{item.title.toLowerCase()}</AppText>
-      </TouchableOpacity>
-    )
-  }
 }
 
-SettingsMenu.propTypes = {
-  navigate: PropTypes.func.isRequired
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return({
-    navigate: (page) => dispatch(navigate(page)),
-  })
-}
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(SettingsMenu)
+export default SettingsMenu

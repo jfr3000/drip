@@ -1,5 +1,17 @@
 import labels from './settings'
-const settingsTitles = labels.menuTitles
+const settingsTitles = labels.menuItems
+
+export const home = {
+  unknown: '?',
+  phase: n => `${['1st', '2nd', '3rd'][n - 1]} cycle phase`,
+  cycleDay: ' day of your cycle',
+  cyclePhase: ' cycle phase - ',
+  addData: 'add data for today'
+}
+
+export const chart = {
+  tutorial: 'You can swipe the chart to view more dates.'
+}
 
 export const shared = {
   cancel: 'Cancel',
@@ -13,12 +25,13 @@ export const shared = {
   ok: 'OK',
   confirmToProceed: 'Confirm to proceed',
   date: 'Date',
-  cycleDayWithLinebreak: 'Cycle\nday',
   loading: 'Loading ...',
   noDataWarning: 'You haven\'t entered any data yet.',
   noTemperatureWarning: 'You haven\'t entered any temperature data yet.',
   noDataButtonText: 'Start entering data now',
   enter: 'Enter',
+  remove: 'Remove',
+  learnMore: 'Learn more'
 }
 
 export const headerTitles = {
@@ -27,12 +40,12 @@ export const headerTitles = {
   Chart: 'Chart',
   Stats: 'Statistics',
   SettingsMenu: 'Settings',
-  Reminders: settingsTitles.reminders,
-  NfpSettings: settingsTitles.nfpSettings,
-  DataManagement: settingsTitles.dataManagement,
-  Password: settingsTitles.password,
-  About: settingsTitles.about,
-  License: settingsTitles.license,
+  Reminders: settingsTitles.reminders.name,
+  NfpSettings: settingsTitles.nfpSettings.name,
+  DataManagement: settingsTitles.dataManagement.name,
+  Password: settingsTitles.password.name,
+  About: 'About',
+  License: 'License',
   bleeding: 'Bleeding',
   temperature: 'Temperature',
   mucus: 'Cervical Mucus',
@@ -41,39 +54,24 @@ export const headerTitles = {
   desire: 'Desire',
   sex: 'Sex',
   pain: 'Pain',
-  mood: 'Mood',
-  InfoSymptom: 'Info'
-}
-
-export const menuTitles = {
-  Home: 'Home',
-  Calendar: 'Calendar',
-  Chart: 'Chart',
-  Stats: 'Stats',
-  Settings: 'Settings',
-  PasswordPrompt: 'Drip'
+  mood: 'Mood'
 }
 
 export const stats = {
-  cycleLengthTitle: 'Cycle length',
   cycleLengthExplainer: 'Basic statistics about the length of your cycles.',
   emptyStats: 'At least one completed cycle is needed to display stats.',
-  //oneCycleStats: (number) => `You have documented one cycle of ${number} days.`,
-  oneCycleStats: 'You have documented one cycle of',
   daysLabel: 'days',
-  //getBasisOfStats: (numberOfCycles) => `Stats are based on ${numberOfCycles} completed cycles.`,
-  basisOfStatsBeginning: 'Stats are based on',
-  basisOfStatsEnd: 'completed cycles.',
-  averageLabel: 'Average cycle length',
-  minLabel: 'Shortest cycle',
-  maxLabel: 'Longest cycle',
-  stdLabel: 'Standard deviation'
+  basisOfStatsEnd: 'completed\ncycles',
+  averageLabel: 'Average cycle',
+  minLabel: `Shortest`,
+  maxLabel: `Longest`,
+  stdLabel: `Standard\ndeviation`
 }
 
 export const bleedingPrediction = {
-  noPrediction: 'There is not enough period data to predict the next one.',
+  noPrediction: `As soon as you have tracked 3 menstrual cycles, drip will make predictions for the next ones.`,
   predictionInFuture: (startDays, endDays) => `Your next period is likely to start in ${startDays} to ${endDays} days.`,
-  predictionStartedXDaysLeft: (numberOfDays) => `Your period is likely to start today or during the next ${numberOfDays} days.`,
+  predictionStartedXDaysLeft: (numberOfDays) => `Your period is likely to start today or within the next ${numberOfDays} days.`,
   predictionStarted1DayLeft: 'Your period is likely to start today or tomorrow.',
   predictionStartedNoDaysLeft: 'Your period is likely to start today.',
   predictionInPast: (startDate, endDate) => `Based on your documented data, your period was likely to start between ${startDate} and ${endDate}.`
@@ -91,29 +89,13 @@ export const passwordPrompt = {
   reallyDeleteData: 'Yes, I am sure'
 }
 
-export const home = {
-  editToday: 'add data for today',
-  cycleDayNotEnoughInfo: "We don't have enough information to know what your current cycle day is.",
-  unknown: '?',
-  cycleDayKnown: d => `Your last period started ${getDaysDescriptor(d)}.`,
-  trackPeriod: 'track your period',
-  checkFertility: 'check your fertility',
-  phase: n => `${['1st', '2nd', '3rd'][n - 1]} cycle phase`,
-}
-
-const getDaysDescriptor = cycleDayNumber => {
-  if (cycleDayNumber === 1) return 'today'
-  if (cycleDayNumber === 2) return 'yesterday'
-  return `${cycleDayNumber - 1} days ago`
-}
-
 export const fertilityStatus = {
   fertile: 'fertile',
   infertile: 'infertile',
   fertileUntilEvening: 'Fertile phase ends in the evening',
   unknown: 'We cannot show any cycle information because no period data has been added.',
   preOvuText: "With NFP rules, you may assume 5 days of infertility at the beginning of your cycle, provided you don't observe any fertile cervical mucus or cervix values.",
-  periOvuText: "We have not been able to detect both a temperature shift and cervical mucus or cervix shift. Please find more information on NFP rules here:",
+  periOvuText: "We have not been able to detect both a temperature shift and cervical mucus or cervix shift. Please find more information on NFP rules here: https://gitlab.com/bloodyhealth/drip/wikis/home",
   postOvuText: tempRule => {
     return (
       'We have detected a temperature shift (' + ['regular', '1st exception', '2nd exception'][tempRule] +

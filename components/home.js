@@ -1,54 +1,53 @@
-import { LocalDate } from 'js-joda'
 import React, { Component } from 'react'
-import { ScrollView, View } from 'react-native'
-import { connect } from 'react-redux'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import PropTypes from 'prop-types'
 
+import { LocalDate } from 'js-joda'
+
+import { connect } from 'react-redux'
 import { navigate } from '../slices/navigation'
 import { getDate, setDate } from '../slices/date'
 
-import DripHomeIcon from '../assets/drip-home-icons'
-
-import AppText from './app-text'
-import IconText from './icon-text'
-import HomeElement from './home-element'
-
-import { home as labels } from '../i18n/en/labels'
-import links from '../i18n/en/links'
+import AppText from './common/app-text'
+import Button from './common/button'
 
 import cycleModule from '../lib/cycle'
 import { getFertilityStatusForDay } from '../lib/sympto-adapter'
-import {
-  determinePredictionText,
-  getBleedingPredictionRange
-} from './helpers/home'
+import { determinePredictionText, formatWithOrdinalSuffix } from './helpers/home'
 
-import styles, { cycleDayColor, periodColor, secondaryColor } from '../styles'
+import { Colors, Fonts, Sizes, Spacing } from '../styles'
+import { home as labels } from '../i18n/en/labels'
 
 class Home extends Component {
 
   static propTypes = {
     navigate: PropTypes.func,
-    setDate: PropTypes.func,
-    // The following are not being used,
-    // we could see if it's possible to not pass them from the <App />
-    cycleDay: PropTypes.object,
-    date: PropTypes.string,
+    setDate: PropTypes.func
   }
 
   constructor(props) {
     super(props)
 
+    const today = LocalDate.now()
+    this.todayDateString = today.toString()
     const { getCycleDayNumber, getPredictedMenses } = cycleModule()
-
-    this.todayDateString = LocalDate.now().toString()
     this.cycleDayNumber = getCycleDayNumber(this.todayDateString)
-
+    const { status, phase, statusText } =
+      getFertilityStatusForDay(this.todayDateString)
     const prediction = getPredictedMenses()
-    this.predictionText = determinePredictionText(prediction)
-    this.bleedingPredictionRange = getBleedingPredictionRange(prediction)
+    this.prediction = determinePredictionText(prediction)
+    this.title = `${today.dayOfMonth()} ${today.month()} ${today.year()}`
 
-    this.fertilityStatus = getFertilityStatusForDay(this.todayDateString)
+    if (this.cycleDayNumber) {
+      this.cycleDayText = formatWithOrdinalSuffix(this.cycleDayNumber)
+    }
+
+    if (phase) {
+      this.phase = phase
+      this.phaseText = formatWithOrdinalSuffix(phase)
+      this.status = status
+      this.statusText = statusText
+    }
   }
 
   navigateToCycleDayView = () => {
@@ -56,96 +55,112 @@ class Home extends Component {
     this.props.navigate('CycleDay')
   }
 
-  navigateToBleedingEditView = () => {
-    this.props.setDate(this.todayDateString)
-    this.props.navigate('BleedingEditView')
-  }
-
-  navigateToChart = () => {
-    this.props.navigate('Chart')
-  }
-
   render() {
     const {
       cycleDayNumber,
-      predictionText,
-      bleedingPredictionRange,
+      cycleDayText,
+      phase,
+      phaseText,
+      prediction,
+      status,
+      statusText,
+      title
     } = this
 
-    const { phase, status, statusText } = this.fertilityStatus
-
-    const cycleDayMoreText = cycleDayNumber ?
-      labels.cycleDayKnown(cycleDayNumber) :
-      labels.cycleDayNotEnoughInfo
-
     return (
-      <View flex={1}>
-        <ScrollView>
-          <View style={styles.homeView}>
-            <HomeElement
-              onPress={this.navigateToCycleDayView}
-              buttonColor={ cycleDayColor }
-              buttonLabel={ labels.editToday }
-            >
-              <View>
-                <DripHomeIcon name="circle" size={80} color={cycleDayColor}/>
-              </View>
-              <IconText>{cycleDayNumber || labels.unknown}</IconText>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+      >
+        <AppText style={styles.title}>{title}</AppText>
 
-              <AppText style={styles.homeDescriptionText}>
-                {cycleDayMoreText}
-              </AppText>
-            </HomeElement>
-
-            <HomeElement
-              onPress={this.navigateToBleedingEditView}
-              buttonColor={ periodColor }
-              buttonLabel={ labels.trackPeriod }
-            >
-              <DripHomeIcon name="drop" size={100} color={periodColor} />
-
-              <IconText wrapperStyles={{ top: '45%' }}>
-                {bleedingPredictionRange}
-              </IconText>
-
-              <AppText style={styles.homeDescriptionText}>
-                {predictionText}
-              </AppText>
-            </HomeElement>
-
-            <HomeElement
-              onPress={this.navigateToChart}
-              buttonColor={ secondaryColor }
-              buttonLabel={ labels.checkFertility }
-            >
-              <View style={styles.homeCircle}/>
-
-              <IconText>{ phase ? phase.toString() : labels.unknown }</IconText>
-
-              { phase &&
-                <AppText style={styles.homeDescriptionText}>
-                  {`${labels.phase(phase)} (${status})`}
-                </AppText>
-              }
-              <AppText style={styles.homeDescriptionText}>
-                { `${statusText} Visit ${links.wiki.url}.` }
-              </AppText>
-            </HomeElement>
+        {cycleDayNumber &&
+          <View style={styles.line}>
+            <AppText style={styles.whiteSubtitle}>{cycleDayText}</AppText>
+            <AppText style={styles.turquoiseText}>{labels.cycleDay}</AppText>
           </View>
-        </ScrollView>
-      </View>
+        }
+        {phase &&
+          <View style={styles.line}>
+            <AppText style={styles.whiteSubtitle}>{phaseText}</AppText>
+            <AppText style={styles.turquoiseText}>
+              {labels.cyclePhase}
+            </AppText>
+            <AppText style={styles.turquoiseText}>{status}</AppText>
+            <Asterisk />
+          </View>
+        }
+        <View style={styles.line}>
+          <AppText style={styles.turquoiseText}>{prediction}</AppText>
+        </View>
+        <Button isCTA isSmall={false} onPress={this.navigateToCycleDayView}>
+          {labels.addData}
+        </Button>
+        {phase && (
+          <View style={styles.line}>
+            <Asterisk />
+            <AppText linkStyle={styles.whiteText} style={styles.greyText}>
+              {statusText}
+            </AppText>
+          </View>
+        )}
+      </ScrollView>
     )
   }
 }
 
+const Asterisk = () => {
+  return <AppText style={styles.asterisk}>*</AppText>
+}
+
+const styles = StyleSheet.create({
+  asterisk: {
+    color: Colors.orange,
+  },
+  container: {
+    backgroundColor: Colors.purple,
+    flex: 1,
+  },
+  contentContainer: {
+    padding: Spacing.base,
+  },
+  line: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    marginBottom: Spacing.tiny,
+    marginTop: Spacing.small,
+  },
+  title: {
+    color: Colors.purpleLight,
+    fontFamily: Fonts.bold,
+    fontSize: Sizes.huge,
+    marginVertical: Spacing.base,
+  },
+  turquoiseText: {
+    color: Colors.turquoise,
+    fontSize: Sizes.subtitle,
+  },
+  whiteSubtitle: {
+    color: 'white',
+    fontSize: Sizes.subtitle,
+  },
+  whiteText: {
+    color: 'white',
+  },
+  greyText: {
+    color: Colors.greyLight,
+    paddingLeft: Spacing.base,
+  }
+})
+
 const mapStateToProps = (state) => {
-  return({
+  return ({
     date: getDate(state),
   })
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return({
+  return ({
     navigate: (page) => dispatch(navigate(page)),
     setDate: (date) => dispatch(setDate(date)),
   })

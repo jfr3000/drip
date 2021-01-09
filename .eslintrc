@@ -4,10 +4,7 @@
     "mocha": true,
     "es6": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
-  ],
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
   "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module",
@@ -16,31 +13,18 @@
     },
     "ecmaVersion": 2018
   },
-  "plugins": [
-    "react"
-  ],
+  "plugins": ["react"],
   "settings": {
     "react": {
-      "version": require('./package.json').dependencies.react,
-    },
+      "version": require("./package.json").dependencies.react
+    }
   },
   "rules": {
-    "indent": [
-      "error",
-      2
-    ],
-    "no-console": [
-      "error",
-      { allow: ["warn", "error"] }
-    ],
+    "indent": ["error", 2],
+    "no-console": ["error", { "allow": ["warn", "error"] }],
     "space-before-function-paren": 0,
-    "semi": [
-      "warn",
-      "never"
-    ],
-    "space-infix-ops": [
-      "warn"
-    ],
+    "semi": ["warn", "never"],
+    "space-infix-ops": ["warn"],
     "no-var": "error",
     "prefer-const": "error",
     "no-trailing-spaces": "error",
@@ -53,6 +37,6 @@
         "ignoreTemplateLiterals": true
       }
     ],
-    "no-multi-spaces": 2,
+    "no-multi-spaces": 2
   }
 }

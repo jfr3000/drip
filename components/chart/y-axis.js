@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 import SymptomIcon from './symptom-icon'
 import TickList from './tick-list'
 import ChartLegend from './chart-legend'
 
-import styles from './styles'
+import { CHART_YAXIS_WIDTH } from '../../config'
 
 const YAxis = ({
   height,
@@ -19,6 +19,8 @@ const YAxis = ({
 
   return (
     <View>
+      {shouldShowTemperatureColumn && <TickList height={height} />}
+      <ChartLegend height={xAxisHeight} />
       <View style={[styles.yAxis, {height: symptomsSectionHeight}]}>
         {symptomsToDisplay.map(symptom => (
           <SymptomIcon
@@ -29,8 +31,6 @@ const YAxis = ({
         )
         )}
       </View>
-      {shouldShowTemperatureColumn && <TickList height={height} />}
-      <ChartLegend xAxisHeight={xAxisHeight} />
     </View>
   )
 }
@@ -42,5 +42,11 @@ YAxis.propTypes = {
   shouldShowTemperatureColumn: PropTypes.bool,
   xAxisHeight: PropTypes.number.isRequired
 }
+
+const styles = StyleSheet.create({
+  yAxis: {
+    width: CHART_YAXIS_WIDTH
+  }
+})
 
 export default YAxis

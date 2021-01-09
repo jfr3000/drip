@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import nodejs from 'nodejs-mobile-react-native'
 
-import { requestHash, changeEncryptionAndRestartApp } from '../../../db'
-import AppText from '../../app-text'
-import PasswordField from '../shared/password-field'
-import SettingsButton from '../shared/settings-button'
+import AppText from '../../common/app-text'
+import AppTextInput from '../../common/app-text-input'
+import Button from '../../common/button'
 
-import styles from '../../../styles'
+import { requestHash, changeEncryptionAndRestartApp } from '../../../db'
+import { Colors, Spacing } from '../../../styles'
 import settings from '../../../i18n/en/settings'
 
 const LISTENER_TYPE = 'create-or-change-pw'
@@ -36,9 +36,7 @@ export default class EnterNewPassword extends Component {
     if (this.comparePasswords()) {
       requestHash(LISTENER_TYPE, this.state.password)
     } else {
-      this.setState({
-        shouldShowErrorMessage: true
-      })
+      this.setState({ shouldShowErrorMessage: true })
     }
   }
 
@@ -58,40 +56,42 @@ export default class EnterNewPassword extends Component {
     const {
       password,
       passwordConfirmation,
-      shouldShowErrorMessage,
+      shouldShowErrorMessage
     } = this.state
     const labels = settings.passwordSettings
-
-    const isSaveButtonDisabled =
-      !password.length ||
-      !passwordConfirmation.length
+    const isButtonActive =
+      (password.length > 0) && (passwordConfirmation.length > 0)
 
     return (
-      <View>
-        <PasswordField
-          placeholder={labels.enterNew}
-          value={password}
+      <React.Fragment>
+        <AppTextInput
           onChangeText={this.handlePasswordInput}
+          placeholder={labels.enterNew}
+          textContentType="password"
+          value={password}
+          secureTextEntry={true}
         />
-        <PasswordField
-          autoFocus={false}
-          placeholder={labels.confirmPassword}
-          value={passwordConfirmation}
+        <AppTextInput
           onChangeText={this.handleConfirmationInput}
+          placeholder={labels.confirmPassword}
+          textContentType="password"
+          value={passwordConfirmation}
+          secureTextEntry={true}
         />
-        {
-          shouldShowErrorMessage &&
-          <AppText style={styles.errorMessage}>
-            {labels.passwordsDontMatch}
-          </AppText>
+        {shouldShowErrorMessage &&
+          <AppText style={styles.error}>{labels.passwordsDontMatch}</AppText>
         }
-        <SettingsButton
-          onPress={this.savePassword}
-          disabled={isSaveButtonDisabled}
-        >
+        <Button isCTA={isButtonActive} onPress={this.savePassword}>
           {labels.savePassword}
-        </SettingsButton>
-      </View>
+        </Button>
+      </React.Fragment>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  error: {
+    color: Colors.orange,
+    marginTop: Spacing.base
+  }
+})

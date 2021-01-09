@@ -1,33 +1,35 @@
-import React, { Component } from 'react'
-import { ScrollView } from 'react-native'
-import AppText from '../app-text'
+import React from 'react'
+
+import AppPage from '../common/app-page'
+import AppText from '../common/app-text'
+import Segment from '../common/segment'
+
 import labels from '../../i18n/en/settings'
 import links from '../../i18n/en/links'
-import FramedSegment from '../framed-segment'
 
-export default class AboutSection extends Component {
-  render() {
-    return (
-      <ScrollView>
-        <FramedSegment title={labels.aboutSection.title}>
-          <AppText>{labels.aboutSection.text}</AppText>
-        </FramedSegment>
-        <FramedSegment title={labels.philosophy.title}>
-          <AppText>{labels.philosophy.text}</AppText>
-        </FramedSegment>
-        <FramedSegment title={labels.credits.title}>
-          <AppText>{labels.credits.note}</AppText>
-        </FramedSegment>
-        <FramedSegment title={labels.donate.title}>
-          <AppText>{labels.donate.note}</AppText>
-        </FramedSegment>
-        <FramedSegment title={labels.website.title}>
-          <AppText>{links.website.url}</AppText>
-        </FramedSegment>
-        <FramedSegment title={labels.version.title} last>
-          <AppText>{require('../../package.json').version}</AppText>
-        </FramedSegment>
-      </ScrollView>
-    )
-  }
+const AboutSection = () => {
+  return (
+    <AppPage title={labels.aboutSection.title} >
+      <Segment>
+        <AppText>{labels.aboutSection.text}</AppText>
+      </Segment>
+      <Segment title={labels.philosophy.title}>
+        <AppText>{labels.philosophy.text}</AppText>
+      </Segment>
+      <Segment title={labels.credits.title}>
+        <AppText>{labels.credits.note}</AppText>
+      </Segment>
+      <Segment title={labels.donate.title}>
+        <AppText>{labels.donate.note}</AppText>
+      </Segment>
+      <Segment title={labels.website.title}>
+        <AppText>{links.website.url}</AppText>
+      </Segment>
+      <Segment title={labels.version.title} last>
+        <AppText>{require('../../package.json').version}</AppText>
+      </Segment>
+    </AppPage>
+  )
 }
+
+export default AboutSection

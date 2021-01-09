@@ -92,21 +92,6 @@ class DayColumn extends Component {
         activeOpacity={1}
       >
 
-        { symptomRowSymptoms.map(symptom => {
-          const hasSymptomData = this.data.hasOwnProperty(symptom)
-          return (
-            <SymptomCell
-              key={symptom}
-              symptom={symptom}
-              symptomValue={hasSymptomData && this.data[symptom]}
-              isSymptomDataComplete={
-                hasSymptomData && isSymptomDataComplete(symptom, dateString)
-              }
-              height={symptomHeight}
-            />)
-        }
-        )}
-
         {shouldShowTemperatureColumn && <TemperatureColumn
           horizontalLinePosition={this.fhmAndLtl.drawLtlAt}
           isVerticalLine={this.fhmAndLtl.drawFhmLine}
@@ -118,6 +103,22 @@ class DayColumn extends Component {
           height={xAxisHeight}
           date={dateString}
         />
+
+        { symptomRowSymptoms.map((symptom, i) => {
+          const hasSymptomData = this.data.hasOwnProperty(symptom)
+          return (
+            <SymptomCell
+              index={i}
+              key={symptom}
+              symptom={symptom}
+              symptomValue={hasSymptomData && this.data[symptom]}
+              isSymptomDataComplete={
+                hasSymptomData && isSymptomDataComplete(symptom, dateString)
+              }
+              height={symptomHeight}
+            />)
+        }
+        )}
 
       </TouchableOpacity>
     )

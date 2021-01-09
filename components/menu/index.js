@@ -1,30 +1,23 @@
 import React from 'react'
-import { View } from 'react-native'
-import PropTypes from 'prop-types'
+import { StyleSheet, View } from 'react-native'
 
 import MenuItem from './menu-item'
 
-import { connect } from 'react-redux'
-import { getNavigation, navigate } from '../../slices/navigation'
-
+import { Containers } from '../../styles'
 import { pages } from '../pages'
 
-import styles from '../../styles'
-
-const Menu = ({ navigate, navigation }) => {
+const Menu = () => {
   const menuItems = pages.filter(page => page.isInMenu)
+
   return (
-    <View style={styles.menu}>
-      { menuItems.map(({ icon, label, component, children }) => {
-        const isActive = (component === navigation.currentPage) ||
-          (children && children.indexOf(navigation.currentPage) !== -1)
+    <View style={styles.container}>
+      { menuItems.map(({ icon, label, component }) => {
         return (
           <MenuItem
+            component={component}
+            icon={icon}
             key={label}
             label={label}
-            icon={icon}
-            active={isActive}
-            onPress={() => navigate(component)}
           />
         )}
       )}
@@ -32,24 +25,11 @@ const Menu = ({ navigate, navigation }) => {
   )
 }
 
-Menu.propTypes = {
-  navigation: PropTypes.object,
-  navigate: PropTypes.func,
-}
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'white',
+    ...Containers.rowContainer
+  }
+})
 
-const mapStateToProps = (state) => {
-  return({
-    navigation: getNavigation(state),
-  })
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return({
-    navigate: (page) => dispatch(navigate(page)),
-  })
-}
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Menu)
+export default Menu

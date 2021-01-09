@@ -1,18 +1,20 @@
 import React, { Component } from 'react'
-import { ScrollView } from 'react-native'
+
+import AppPage from '../../common/app-page'
+import AppText from '../../common/app-text'
+import Segment from '../../common/segment'
+
 import CreatePassword from './create'
 import ChangePassword from './update'
 import DeletePassword from './delete'
-import FramedSegment from '../../framed-segment'
-import AppText from '../../app-text'
-import {
-  hasEncryptionObservable
-} from '../../../local-storage'
+
+import { hasEncryptionObservable } from '../../../local-storage'
 import labels from '../../../i18n/en/settings'
 
 export default class PasswordSetting extends Component {
   constructor(props) {
     super(props)
+
     this.state = {
       isPasswordSet: hasEncryptionObservable.value,
       isChangingPassword: false,
@@ -51,29 +53,29 @@ export default class PasswordSetting extends Component {
     } = labels.passwordSettings
 
     return (
-      <ScrollView>
-        <FramedSegment title={title}>
+      <AppPage>
+        <Segment title={title} last>
           <AppText>
-            { isPasswordSet ? explainerEnabled : explainerDisabled }
+            {isPasswordSet ? explainerEnabled : explainerDisabled}
           </AppText>
 
-          { !isPasswordSet && <CreatePassword/> }
+          {!isPasswordSet && <CreatePassword/>}
 
-          { (isPasswordSet && !isDeletingPassword) && (
+          {(isPasswordSet && !isDeletingPassword) && (
             <ChangePassword
               onStartChange = {this.onChangingPassword}
               onCancelChange = {this.onCancelChangingPassword}
             />
           )}
 
-          { (isPasswordSet && !isChangingPassword) && (
+          {(isPasswordSet && !isChangingPassword) && (
             <DeletePassword
               onStartDelete = {this.onDeletingPassword}
               onCancelDelete = {this.onCancelDeletingPassword}
             />
           )}
-        </FramedSegment>
-      </ScrollView>
+        </Segment>
+      </AppPage>
     )
   }
 }

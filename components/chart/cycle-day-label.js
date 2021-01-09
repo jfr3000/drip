@@ -1,32 +1,35 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-
-import { Text, View } from 'react-native'
-
+import { StyleSheet, View } from 'react-native'
 import moment from 'moment'
-import { LocalDate } from 'js-joda'
 
-import styles from './styles'
+import AppText from '../common/app-text'
+
 import cycleModule from '../../lib/cycle'
+import { getOrdinalSuffix } from '../helpers/home'
+import { Containers, Typography, Sizes } from '../../styles'
 
 const CycleDayLabel = ({ height, date }) => {
-  const { label } = styles.column
-  const dayDate = LocalDate.parse(date)
   const cycleDayNumber = cycleModule().getCycleDayNumber(date)
+  const cycleDayLabel = cycleDayNumber ? cycleDayNumber : ' '
 
-  const isFirstDayOfMonth = dayDate.dayOfMonth() === 1
-  const dateFormatting = isFirstDayOfMonth ? 'MMM' : 'Do'
-  const shortDate = moment(date, "YYYY-MM-DD").format(dateFormatting)
-  const boldDateLabel = isFirstDayOfMonth ? {fontWeight: 'bold'} : {}
+  const momentDate = moment(date)
+  const dayOfMonth = momentDate.date()
+  const isFirstDayOfMonth = dayOfMonth === 1
 
   return (
-    <View style={[styles.chartLegend, { height }]}>
-      <Text style={label.number}>
-        {cycleDayNumber ? cycleDayNumber : ' '}
-      </Text>
-      <Text style={[label.date, boldDateLabel]}>
-        {shortDate}
-      </Text>
+    <View style={[styles.container, { height }]}>
+      <AppText style={styles.textBold}>{cycleDayLabel}</AppText>
+      <View style={styles.dateLabel}>
+        <AppText style={styles.text}>
+          {isFirstDayOfMonth ? momentDate.format('MMM') : dayOfMonth}
+        </AppText>
+        {!isFirstDayOfMonth &&
+          <AppText style={styles.textLight}>
+            {getOrdinalSuffix(dayOfMonth)}
+          </AppText>
+        }
+      </View>
     </View>
   )
 }
@@ -35,5 +38,31 @@ CycleDayLabel.propTypes = {
   height: PropTypes.number,
   date: PropTypes.string,
 }
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'flex-start',
+    justifyContent: 'flex-end',
+    left: 4,
+  },
+  containerRow: {
+    ...Containers.rowContainer
+  },
+  text: {
+    ...Typography.label,
+    fontSize: Sizes.small,
+  },
+  textBold: {
+    ...Typography.labelBold
+  },
+  textLight: {
+    ...Typography.labelLight,
+  },
+  dateLabel: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  }
+})
 
 export default CycleDayLabel

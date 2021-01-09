@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
-import settings from '../../../i18n/en/settings'
+
+import Button from '../../common/button'
+
 import EnterNewPassword from './enter-new-password'
-import SettingsButton from '../shared/settings-button'
 import showBackUpReminder from './show-backup-reminder'
+
+import settings from '../../../i18n/en/settings'
 
 export default class CreatePassword extends Component {
   constructor() {
     super()
-    this.state = {
-      isSettingPassword: false
-    }
+
+    this.state = { isSettingPassword: false }
   }
 
   toggleSettingPassword = () => {
@@ -23,18 +24,14 @@ export default class CreatePassword extends Component {
   }
 
   render () {
-    const {
-      isSettingPassword
-    } = this.state
+    const { isSettingPassword } = this.state
     const labels = settings.passwordSettings
 
     if (!isSettingPassword) {
       return (
-        <View>
-          <SettingsButton onPress={this.startSettingPassword}>
-            {labels.setPassword}
-          </SettingsButton>
-        </View>
+        <Button isCTA onPress={this.startSettingPassword}>
+          {labels.setPassword}
+        </Button>
       )
     } else {
       return <EnterNewPassword />

@@ -9,4 +9,9 @@
 
     <!--   a secondary color for controls like checkboxes and text fields -->
     <color name="colorAccent">#4FAFA7</color>
+
+    <!--   custom colors -->
+    <color name="grey">#A5A5A5</color>
+    <color name="orange">#F38337</color>
+    <color name="purple">#3A2671</color>
 </resources>

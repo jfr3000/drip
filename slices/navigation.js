@@ -1,5 +1,5 @@
 import { createSlice } from 'redux-starter-kit'
-import { pages, isSymptomView } from '../components/pages'
+import { pages } from '../components/pages'
 
 const navigationSlice = createSlice({
   slice: 'navigation',
@@ -7,29 +7,18 @@ const navigationSlice = createSlice({
     currentPage: 'Home',
   },
   reducers: {
-    navigate: (state, action) => {
+    navigate: (_state, action) => {
       return {
         currentPage: action.payload,
-        previousPage: state.currentPage,
       }
     },
-    goBack: ({ currentPage, previousPage }) => {
-
-      if (currentPage === 'CycleDay' || isSymptomView(currentPage)) {
-        if (previousPage) {
-          return {
-            currentPage: previousPage
-          }
-        }
-      }
-
-      const page = pages.find(p => p.component === currentPage)
+    goBack: ({ currentPage }) => {
+      const page = pages.find((p) => p.component === currentPage)
       return {
         currentPage: page.parent,
-        previousPage: currentPage,
       }
-    }
-  }
+    },
+  },
 })
 
 // Extract the action creators object and the reducer

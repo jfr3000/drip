@@ -1,7 +1,6 @@
 import Home from './home'
 import Calendar from './calendar'
 import CycleDay from './cycle-day/cycle-day-overview'
-import symptomViews from './cycle-day/symptoms'
 import Chart from './chart/chart'
 import SettingsMenu from './settings/settings-menu'
 import settingsViews from './settings'
@@ -11,9 +10,9 @@ export const viewsList = {
   Home,
   Calendar,
   CycleDay,
+  TemperatureEditView: CycleDay,
   Chart,
   SettingsMenu,
   ...settingsViews,
   Stats,
-  ...symptomViews
 }

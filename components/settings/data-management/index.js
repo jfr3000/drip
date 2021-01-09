@@ -1,18 +1,23 @@
 import React, { Component } from 'react'
-import { ScrollView, View } from 'react-native'
-import AppText from '../../app-text'
-import FramedSegment from '../../framed-segment'
-import AppLoadingView from '../../app-loading'
-import SettingsButton from '../shared/settings-button'
+
+import AppLoadingView from '../../common/app-loading'
+import AppPage from '../../common/app-page'
+import AppText from '../../common/app-text'
+import Button from '../../common/button'
+import Segment from '../../common/segment'
+
 import { openImportDialog, getFileContent, importData } from './import-dialog'
 import openShareDialogAndExport from './export-dialog'
 import DeleteData from './delete-data'
+
 import labels from '../../../i18n/en/settings'
+import { ACTION_DELETE, ACTION_EXPORT, ACTION_IMPORT } from '../../../config'
 
 export default class DataManagement extends Component {
 
   constructor(props) {
     super(props)
+
     this.state = {
       isLoading: false,
       currentAction: null
@@ -37,12 +42,12 @@ export default class DataManagement extends Component {
   }
 
   startExport = () => {
-    this.setCurrentAction('export')
+    this.setCurrentAction(ACTION_EXPORT)
     openShareDialogAndExport()
   }
 
   startImport = () => {
-    this.setCurrentAction('import')
+    this.setCurrentAction(ACTION_IMPORT)
     openImportDialog(this.startImportFlow)
   }
 
@@ -51,41 +56,36 @@ export default class DataManagement extends Component {
   }
 
   render() {
-    const { currentAction } = this.state
+    const { currentAction, isLoading } = this.state
+    const isDeletingData = currentAction === ACTION_DELETE
+
     return (
-      <View flex={1}>
-        {this.state.isLoading && <AppLoadingView />}
-        {!this.state.isLoading &&
-          <ScrollView>
-            <View>
-              <FramedSegment title={labels.export.button}>
-                <AppText>{labels.export.segmentExplainer}</AppText>
-                <SettingsButton onPress={this.startExport}>
-                  {labels.export.button}
-                </SettingsButton>
-              </FramedSegment>
-              <FramedSegment title={labels.import.button}>
-                <AppText>{labels.import.segmentExplainer}</AppText>
-                <SettingsButton
-                  onPress= {this.startImport}
-                >
-                  {labels.import.button}
-                </SettingsButton>
-              </FramedSegment>
-              <FramedSegment
-                title={labels.deleteSegment.title}
-                last
-              >
-                <AppText>{labels.deleteSegment.explainer}</AppText>
-                <DeleteData
-                  isDeletingData = { currentAction === 'delete' }
-                  onStartDeletion = {() => this.setCurrentAction('delete')}
-                />
-              </FramedSegment>
-            </View>
-          </ScrollView>
+      <React.Fragment>
+        {isLoading && <AppLoadingView />}
+        {!isLoading &&
+          <AppPage>
+            <Segment title={labels.export.button}>
+              <AppText>{labels.export.segmentExplainer}</AppText>
+              <Button isCTA onPress={this.startExport}>
+                {labels.export.button}
+              </Button>
+            </Segment>
+            <Segment title={labels.import.button}>
+              <AppText>{labels.import.segmentExplainer}</AppText>
+              <Button isCTA onPress={this.startImport}>
+                {labels.import.button}
+              </Button>
+            </Segment>
+            <Segment title={labels.deleteSegment.title} last>
+              <AppText>{labels.deleteSegment.explainer}</AppText>
+              <DeleteData
+                isDeletingData = {isDeletingData}
+                onStartDeletion = {() => this.setCurrentAction(ACTION_DELETE)}
+              />
+            </Segment>
+          </AppPage>
         }
-      </View>
+      </React.Fragment>
     )
   }
 }

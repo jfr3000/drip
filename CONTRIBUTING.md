@@ -1,4 +1,4 @@
-# Contributing to drip aka CONDRIBUTING
+# Contributing to drip aka CONDRIPUTING
 So good to see you here, hello :wave\_tone1: :wave\_tone2: :wave\_tone3: :wave\_tone4: :wave\_tone5:
 
 
@@ -8,7 +8,7 @@ So good to see you here, hello :wave\_tone1: :wave\_tone2: :wave\_tone3: :wave\_
 
 [What should I know before I get started?](#what-should-i-know-before-i-get-started)
 
-[How can I condribute?](#how-can-i-condribute)
+[How can I condripute?](#how-can-i-condripute)
 
 [Thank you](#thank-you)
 
@@ -23,9 +23,9 @@ We have prepared something for **you**: check out our [README](https://gitlab.co
 
 Let us know if you want to suggest improvements for the README and open a merge request (which is just like Github's pull request)
 
-## How can I condribute?
+## How can I condripute?
 
-### Your First Code Condribution
+### Your First Code Condripution
 
 We are fans of labels, at least for our issues. You can find a list of `newbie` issues [here](https://gitlab.com/bloodyhealth/drip/issues?label_name%5B%5D=Newbie).
 If you decide to work on an issue, please click on `Create branch` based on that issue. You can find this as a dropdown option right under `Create merge request`.
@@ -54,5 +54,5 @@ To send us a new issue you can also use our [gitlab email](mailto:incoming+blood
 
 ![](https://media.giphy.com/media/kPA88elN9kYco/giphy.gif)
 
-Thank you for condributing to open source, thank you for condributing to drip!
+Thank you for condriputing to open source, thank you for condriputing to drip!
 Much love from Bloody Health :heart\_exclamation:

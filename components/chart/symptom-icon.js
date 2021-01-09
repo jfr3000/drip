@@ -1,18 +1,19 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View } from 'react-native'
+import { StyleSheet , View } from 'react-native'
 
 import DripIcon from '../../assets/drip-icons'
 
-import styles from './styles'
+import { Colors, Containers } from '../../styles'
+import { CHART_YAXIS_WIDTH, CHART_ICON_SIZE } from '../../config'
 
 const SymptomIcon = ({ symptom, height }) => {
   return (
-    <View style={styles.symptomIcon} width={styles.yAxis.width} height={height}>
+    <View style={styles.container} width={CHART_YAXIS_WIDTH} height={height}>
       <DripIcon
-        size={16}
+        size={CHART_ICON_SIZE}
         name={`drip-icon-${symptom}`}
-        color={styles.iconColors[symptom].color}
+        color={Colors.iconColors[symptom].color}
       />
     </View>
   )
@@ -22,5 +23,11 @@ SymptomIcon.propTypes = {
   height: PropTypes.number,
   symptom: PropTypes.string,
 }
+
+const styles = StyleSheet.create({
+  container: {
+    ...Containers.centerItems
+  }
+})
 
 export default SymptomIcon

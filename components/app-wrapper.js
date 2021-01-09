@@ -7,7 +7,7 @@ import { openDb } from '../db'
 import App from './app'
 import PasswordPrompt from './password-prompt'
 import License from './license'
-import AppLoadingView from './app-loading'
+import AppLoadingView from './common/app-loading'
 
 import store from "../store"
 import { Provider } from 'react-redux'

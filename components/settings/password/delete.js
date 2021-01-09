@@ -1,17 +1,22 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import labels from '../../../i18n/en/settings'
+import Button from '../../common/button'
+import ConfirmWithPassword from '../common/confirm-with-password'
+
 import { changeEncryptionAndRestartApp } from '../../../db'
-import ConfirmWithPassword from '../shared/confirm-with-password'
-import SettingsButton from '../shared/settings-button'
+import labels from '../../../i18n/en/settings'
 
 export default class DeletePassword extends Component {
+  static propTypes = {
+    onStartDelete: PropTypes.func,
+    onCancelDelete: PropTypes.func
+  }
+
   constructor() {
     super()
-    this.state = {
-      enteringCurrentPassword: false
-    }
+
+    this.state = { enteringCurrentPassword: false }
   }
 
   startConfirmWithPassword = () => {
@@ -29,7 +34,6 @@ export default class DeletePassword extends Component {
   }
 
   render() {
-
     const { enteringCurrentPassword } = this.state
 
     if (enteringCurrentPassword) {
@@ -42,14 +46,9 @@ export default class DeletePassword extends Component {
     }
 
     return (
-      <SettingsButton onPress={this.startConfirmWithPassword} >
+      <Button isCTA onPress={this.startConfirmWithPassword}>
         {labels.passwordSettings.deletePassword}
-      </SettingsButton>
+      </Button>
     )
   }
-}
-
-DeletePassword.propTypes = {
-  onStartDelete: PropTypes.func,
-  onCancelDelete: PropTypes.func
 }

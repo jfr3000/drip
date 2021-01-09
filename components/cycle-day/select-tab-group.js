@@ -1,40 +1,27 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { View, TouchableOpacity } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 
-import AppText from '../app-text'
+import AppText from '../common/app-text'
 
-import styles from '../../styles'
+import { Colors, Containers } from '../../styles'
 
-export default function SelectTabGroup({ active, buttons, onSelect }) {
+export default function SelectTabGroup({ activeButton, buttons, onSelect }) {
   return (
-    <View style={styles.selectTabGroup}>
+    <View style={styles.container}>
       {
         buttons.map(({ label, value }, i) => {
-          let firstOrLastStyle
-          if (i === buttons.length - 1) {
-            firstOrLastStyle = styles.selectTabLast
-          } else if (i === 0) {
-            firstOrLastStyle = styles.selectTabFirst
-          }
-          let activeStyle
-          const isActive = value === active
-          if (isActive) activeStyle = styles.selectTabActive
+          const isActive = value === activeButton
+          const boxStyle = [styles.box, isActive && styles.boxActive]
+          const textStyle = [styles.text, isActive && styles.textActive]
+
           return (
             <TouchableOpacity
-              onPress={() => onSelect(isActive ? null : value)}
+              onPress={() => onSelect(value)}
               key={i}
-              activeOpacity={1}
+              style={boxStyle}
             >
-              <View>
-                <View style={[
-                  styles.selectTab,
-                  firstOrLastStyle,
-                  activeStyle
-                ]}>
-                  <AppText style={activeStyle}>{label}</AppText>
-                </View>
-              </View>
+              <AppText style={textStyle}>{label}</AppText>
             </TouchableOpacity>
           )
         })
@@ -44,7 +31,25 @@ export default function SelectTabGroup({ active, buttons, onSelect }) {
 }
 
 SelectTabGroup.propTypes = {
-  active: PropTypes.number,
+  activeButton: PropTypes.number,
   buttons: PropTypes.array.isRequired,
   onSelect: PropTypes.func.isRequired
 }
+
+const styles = StyleSheet.create({
+  box: {
+    ...Containers.box
+  },
+  boxActive: {
+    ...Containers.boxActive
+  },
+  container: {
+    ...Containers.selectGroupContainer
+  },
+  text: {
+    color: Colors.orange
+  },
+  textActive: {
+    color: 'white'
+  }
+})
