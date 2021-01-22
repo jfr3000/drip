@@ -50,7 +50,12 @@ class Temperature extends Component {
   }
 
   onChangeTemperature = (value) => {
-    this.setState({ value, shouldShowSuggestion: false })
+    if (!Number(value)) return false
+
+    this.setState({
+      value: value.trim(),
+      shouldShowSuggestion: false
+    })
   }
 
   onShowTimePicker = () => {
