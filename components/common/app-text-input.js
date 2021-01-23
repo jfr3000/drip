@@ -4,11 +4,14 @@ import PropTypes from 'prop-types'
 
 import { Colors, Spacing, Typography } from '../../styles'
 
-const AppTextInput = ({ style, ...props }) => {
+const AppTextInput = ({ style, isKeyboardOffset, ...props }) => {
+  const behavior = isKeyboardOffset ? "padding" : "height"
+  const keyboardVerticalOffset = isKeyboardOffset ? 300 : 0
+
   return (
     <KeyboardAvoidingView
-      behavior="padding"
-      keyboardVerticalOffset={300}
+      behavior={behavior}
+      keyboardVerticalOffset={keyboardVerticalOffset}
     >
       <TextInput style={[styles.input, style]} {...props} />
     </KeyboardAvoidingView>
@@ -16,7 +19,12 @@ const AppTextInput = ({ style, ...props }) => {
 }
 
 AppTextInput.propTypes = {
-  style: PropTypes.object
+  style: PropTypes.object,
+  isKeyboardOffset: PropTypes.bool,
+}
+
+AppTextInput.defultProps = {
+  isKeyboardOffset: true,
 }
 
 const styles = StyleSheet.create({
