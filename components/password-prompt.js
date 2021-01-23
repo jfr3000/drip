@@ -82,7 +82,7 @@ export default class PasswordPrompt extends Component {
 
   render() {
     const { password } = this.state
-    const isPasswordEntered = password && password.length > 0
+    const isPasswordEntered = Boolean(password)
 
     return (
       <React.Fragment>
@@ -95,15 +95,15 @@ export default class PasswordPrompt extends Component {
             placeholder={labels.enterPassword}
           />
           <View style={styles.containerButtons}>
+            <Button onPress={this.onConfirmDeletion}>
+              {labels.forgotPassword}
+            </Button>
             <Button
               disabled={!isPasswordEntered}
               isCTA={isPasswordEntered}
               onPress={this.unlockApp}
             >
               {labels.title}
-            </Button>
-            <Button onPress={this.onConfirmDeletion}>
-              {labels.forgotPassword}
             </Button>
           </View>
         </AppPage>
