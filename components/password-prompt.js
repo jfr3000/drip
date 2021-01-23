@@ -89,6 +89,7 @@ export default class PasswordPrompt extends Component {
         <Header isSideMenuEnabled={false} />
         <AppPage contentContainerStyle={styles.contentContainer}>
           <AppTextInput
+            isKeyboardOffset={false}
             onChangeText={this.setPassword}
             secureTextEntry={true}
             placeholder={labels.enterPassword}

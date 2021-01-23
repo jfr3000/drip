@@ -65,6 +65,7 @@ export default class EnterNewPassword extends Component {
     return (
       <React.Fragment>
         <AppTextInput
+          isKeyboardOffset={false}
           onChangeText={this.handlePasswordInput}
           placeholder={labels.enterNew}
           textContentType="password"
@@ -72,6 +73,7 @@ export default class EnterNewPassword extends Component {
           secureTextEntry={true}
         />
         <AppTextInput
+          isKeyboardOffset={false}
           onChangeText={this.handleConfirmationInput}
           placeholder={labels.confirmPassword}
           textContentType="password"
