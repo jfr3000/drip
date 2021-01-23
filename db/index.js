@@ -23,10 +23,12 @@ export async function openDb (hash) {
   try {
     tempConnection = await Realm.open(realmConfig)
   } catch(err) {
-    // wrong password provided
-    if (hash && err.toString().includes('decrypt')) return false
-    // tried to open without password, but is encrypted
-    if (!hash && err.toString().includes('Invalid mnemonic')) return false
+    const isErrorDecrypting = err.toString().includes('decrypt')
+    const isErrorMnemonic = err.toString().includes('Invalid mnemonic')
+    // tried to open without password, but is encrypted or incorrect pwd
+    if (isErrorMnemonic) return false
+    // cannot decrypt db with given pwd
+    if (hash && isErrorDecrypting) return false
 
     throw err
   }
