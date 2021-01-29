@@ -27,7 +27,7 @@ Install [Android Studio](https://developer.android.com/studio/) - you'll need it
 
 #### 2. Node version
 
-Make sure you are running Node 10 (newer versions won’t work). It's easiest to switch Node versions using `nvm`, here’s how to do it:
+Make sure you are running Node 10 (newer versions won't work). It's easiest to switch Node versions using `nvm`, here's how to do it:
 
 
     $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
@@ -111,10 +111,9 @@ You can run the tests with:
 1. Check what testing device is specified in [package.json](https://gitlab.com/bloodyhealth/drip/blob/master/package.json) under:
     ```
     {"detox":
-     {"configurations":
-      {"name": "NEXUS_DEVICE_OR_WHATEVER_SPECIFIED_DEVICE"}
+      {"configurations":
+        {"name": "NEXUS_DEVICE_OR_WHATEVER_SPECIFIED_DEVICE"}
       }
-     }
     }
     ```
 2. Check if the current device is already installed on your machine. Go to `cd ~/Android/sdk/emulator/` or wherever you have Android installed on your machine. Here you can run `./emulator -list-avds` and compare the devices with the one you found in step 1.
@@ -142,12 +141,12 @@ or just a random string to check if this piece of code is actually running:
 `console.log("HELLO")`.
 
 ## NFP rules
-More information about how the app calculates fertility status and bleeding predictions in the [wiki on Gitlab](https://gitlab.com/bloodyhealth/drip/wikis/home)
+More information about how the app calculates fertility status and bleeding predictions in the [wiki on Gitlab](https://gitlab.com/bloodyhealth/drip/wikis/home).
 
 ## Adding a new tracking icon
 
 1.  We use [fontello](http://fontello.com/) to create icon fonts for us. You need to upload the complete set of tracking icons (bleeding, cervical mucus, ...) including the new icon you wish to add, all in SVG.
-2.  Download webfont from fontello
+2.  Download webfont from fontello.
 3.  Copy both the content of `config.json` and `font.tff` into `assets/fonts`, replacing it with the current content of `config-drip-icon-font.json` and `drip-icon-font.tff`.
 4.  Now run the following command in your console:
     ```
