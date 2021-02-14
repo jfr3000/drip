@@ -65,7 +65,6 @@
     "babel-jest": "^24.8.0",
     "basic-changelog": "gitlab:bloodyhealth/basic-changelog",
     "chai": "^4.1.2",
-    "detox": "^13.1.1",
     "dirty-chai": "^2.0.1",
     "eslint": "^5.16.0",
     "eslint-plugin-react": "^7.8.2",
