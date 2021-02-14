@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingTop: Spacing.base,
   },
   columnLeft: {
     ...column,
@@ -100,8 +101,6 @@ const styles = StyleSheet.create({
     paddingTop: Spacing.small,
   },
   image: {
-    marginLeft: Spacing.large,
-    marginTop: Spacing.large,
     resizeMode: 'contain',
 
   },
@@ -110,7 +109,7 @@ const styles = StyleSheet.create({
     marginBottom: Spacing.large,
   },
   pageContainer: {
-    marginVertical: Spacing.base,
+    marginTop: Spacing.base * 2,
   }
 })
 
