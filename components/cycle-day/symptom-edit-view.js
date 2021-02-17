@@ -256,10 +256,10 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     flex: 1,
-    padding: Spacing.small,
-    paddingBottom: Spacing.base
+    padding: Spacing.base,
   },
   modalWindow: {
+    alignSelf: 'center',
     backgroundColor: 'white',
     borderRadius: 10,
     marginVertical: Sizes.huge * 2,
