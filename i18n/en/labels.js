@@ -93,9 +93,9 @@ export const fertilityStatus = {
   fertile: 'fertile',
   infertile: 'infertile',
   fertileUntilEvening: 'Fertile phase ends in the evening',
-  unknown: 'We cannot show any cycle information because no period data has been added.',
+  unknown: "We cannot show any cycle information because no period data has been added.",
   preOvuText: "With NFP rules, you may assume 5 days of infertility at the beginning of your cycle, provided you don't observe any fertile cervical mucus or cervix values.",
-  periOvuText: "We have not been able to detect both a temperature shift and cervical mucus or cervix shift. Please find more information on NFP rules here: https://gitlab.com/bloodyhealth/drip/wikis/home",
+  periOvuText: "We were not able to detect both a temperature shift and cervical mucus or cervix shift.",
   periOvuUntilEveningText: tempRule => {
     return (
       'We detected a temperature shift (' + ['regular', '1st exception', '2nd exception'][tempRule] +
