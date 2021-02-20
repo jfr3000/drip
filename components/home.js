@@ -123,6 +123,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     padding: Spacing.base,
+    paddingTop: 0,
   },
   line: {
     flexDirection: 'row',
@@ -134,7 +135,7 @@ const styles = StyleSheet.create({
     color: Colors.purpleLight,
     fontFamily: Fonts.bold,
     fontSize: Sizes.huge,
-    marginVertical: Spacing.base,
+    marginVertical: Spacing.small,
   },
   turquoiseText: {
     color: Colors.turquoise,
