@@ -2,8 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.2102.28
+
+### Changes
+- Temperature range is now between 35 - 39°C and its default values are now set to 35.5 - 37.5°C
+
+### Fixed
+- Blocks invalid input of temperature value
+- Error message for incorrect password on login screen
+- Phase text on home screen for last fertile day
+- Styling improvements
+
 ## v1.2101.9
+
 ### Adds
+
 - Introduces complete redesign of all sections of the app
 - Adds new font
 - Adds Lisa as condriputor
@@ -13,6 +26,7 @@ All notable changes to this project will be documented in this file.
 - Adds limit line length on text of symptom box
 
 ### Changes
+
 - Updates createVersion tag for production releases
 - Better wording for prediction text
 - Changes the icon
@@ -29,6 +43,7 @@ All notable changes to this project will be documented in this file.
 - Updates sdk 28 -> 29 and migrate to androidx
 
 ### Fixed
+
 - Fixed drip typo
 - Fixed the date label on chart from breaking
 - Fixed chart dots and lines
@@ -176,8 +191,8 @@ All notable changes to this project will be documented in this file.
 - Adds release wizard
 - Updates nodejs-mobile to fix security issue
 
-
 ## v0.1905.29-beta
+
 ### Changes
 
 - Auto save functionality for all symptoms
@@ -190,6 +205,7 @@ All notable changes to this project will be documented in this file.
 - Nicer formatting for past bleeding prediction
 - Removes permissions not required for debug or production
 - Temperature screen styling update
+
 ### Fixed
 
 - Styling
@@ -297,14 +313,17 @@ All notable changes to this project will be documented in this file.
 - temperature screen styling update
 
 ## v0.0.3 - 2019-04-17
+
 ### Changes
 
 - Removes Google services from notification library and use fork of react-native-push-notification: <https://github.com/github:jfr3000/react-native-push-notification>
+
 ### Fixed
 
 - Button functionality in settings for password
 
 ## v0.0.2 - 2019-04-09
+
 ## Second updated beta release version
 
 ### Changes
@@ -320,6 +339,7 @@ All notable changes to this project will be documented in this file.
 - Dates on chart
 
 ## v0.0.1 - 2019-02-15
+
 ## First beta release version
 
 ### Added (list of core functionality)
