@@ -97,7 +97,7 @@ class Home extends Component {
           {labels.addData}
         </Button>
         {phase && (
-          <View style={styles.line}>
+          <View style={styles.asteriskLine}>
             <Asterisk />
             <AppText linkStyle={styles.whiteText} style={styles.greyText}>
               {statusText}
@@ -127,7 +127,14 @@ const styles = StyleSheet.create({
   },
   line: {
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    flexWrap: 'wrap',
+    alignContent: 'flex-start',
+    marginBottom: Spacing.tiny,
+    marginTop: Spacing.small,
+  },
+  asteriskLine: {
+    flexDirection: 'row',
+    alignContent: 'flex-start',
     marginBottom: Spacing.tiny,
     marginTop: Spacing.small,
   },
