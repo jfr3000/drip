@@ -1,1 +1,1 @@
-export const EXPORT_FILE_NAME = 'data.csv'
+export const EXPORT_FILE_NAME = 'drip-data.csv'
