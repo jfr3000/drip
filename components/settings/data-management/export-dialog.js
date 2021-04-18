@@ -33,7 +33,8 @@ export default async function exportData() {
       url: `file://${path}`,
       subject: labels.subject,
       type: 'text/csv',
-      showAppsToView: true
+      showAppsToView: true,
+      failOnCancel: false,
     })
 
   } catch (err) {

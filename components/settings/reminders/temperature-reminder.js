@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import DateTimePicker from 'react-native-modal-datetime-picker-nevo'
+import DateTimePicker from 'react-native-modal-datetime-picker'
 
 import AppSwitch from '../../common/app-switch'
 
