@@ -1,5 +1,5 @@
 import { Alert } from 'react-native'
-import { DocumentPicker, DocumentPickerUtil } from 'react-native-document-picker'
+import DocumentPicker from 'react-native-document-picker'
 import rnfs from 'react-native-fs'
 import importCsv from '../../../lib/import-export/import-from-csv'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
@@ -25,17 +25,16 @@ export function openImportDialog(onImportData) {
 export async function getFileContent() {
   let fileInfo
   try {
-    fileInfo = await new Promise((resolve, reject) => {
-      DocumentPicker.show({
-        filetype: [DocumentPickerUtil.allFiles()],
-      }, (err, res) => {
-        if (err) return reject(err)
-        resolve(res)
-      })
+    fileInfo = await DocumentPicker.pick({
+      type: [DocumentPicker.types.csv, 'text/comma-separated-values'],
     })
-  } catch (err) {
-    // because cancelling also triggers an error, we do nothing here
-    return
+  } catch (error) {
+    if (DocumentPicker.isCancel(error)) {
+      // User cancelled the picker, exit any dialogs or menus and move on
+      return
+    } else {
+      importError(error)
+    }
   }
 
   let fileContent

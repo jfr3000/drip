@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, View } from 'react-native'
 import PropTypes from 'prop-types'
 import { Keyboard } from 'react-native'
-import DateTimePicker from 'react-native-modal-datetime-picker-nevo'
+import DateTimePicker from 'react-native-modal-datetime-picker'
 import moment from 'moment'
 
 import AppText from '../common/app-text'

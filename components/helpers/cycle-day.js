@@ -265,7 +265,8 @@ export const save = {
     const isDataEntered = ['feeling', 'texture'].some(
       value => isNumber(data[value]))
     const valuesToSave = shouldDeleteData || !isDataEntered
-      ? null : { feeling, texture, value: computeNfpValue(feeling, texture), exclude }
+      ? null
+      : { feeling, texture, value: computeNfpValue(feeling, texture), exclude }
 
     saveSymptom('mucus', date, valuesToSave)
   },
