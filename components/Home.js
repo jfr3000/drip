@@ -1,7 +1,7 @@
 import React from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import PropTypes from 'prop-types'
-import moment from 'moment';
+import moment from 'moment'
 
 import { connect } from 'react-redux'
 import { navigate } from '../slices/navigation'
@@ -18,9 +18,9 @@ import { Colors, Fonts, Sizes, Spacing } from '../styles'
 import { LocalDate } from 'js-joda'
 import useComponentTranslation from '../hooks/useComponentTranslation'
 
-const Home = ({ navigate, setDate }) => {  
+const Home = ({ navigate, setDate }) => {
 
-  const { t } = useComponentTranslation('components.Home');
+  const { t } = useComponentTranslation('components.Home')
 
   function navigateToCycleDayView() {
     setDate(todayDateString)
@@ -34,7 +34,7 @@ const Home = ({ navigate, setDate }) => {
     getFertilityStatusForDay(todayDateString)
   const prediction = determinePredictionText(getPredictedMenses(), t)
 
-  const cycleDayText =  cycleDayNumber ? formatWithOrdinalSuffix(cycleDayNumber) : ''
+  const cycleDayText = cycleDayNumber ? formatWithOrdinalSuffix(cycleDayNumber) : ''
 
   return (
     <ScrollView
@@ -51,7 +51,9 @@ const Home = ({ navigate, setDate }) => {
       }
       {phase &&
         <View style={styles.line}>
-          <AppText style={styles.whiteSubtitle}>{formatWithOrdinalSuffix(phase)}</AppText>
+          <AppText style={styles.whiteSubtitle}>
+            {formatWithOrdinalSuffix(phase)}
+          </AppText>
           <AppText style={styles.turquoiseText}>
             {t('cyclePhase')}
           </AppText>
