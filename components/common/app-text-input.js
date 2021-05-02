@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     marginTop: Spacing.base,
     minWidth: '80%',
     paddingHorizontal: Spacing.base,
+    paddingVertical: Spacing.tiny,
     ...Typography.mainText
   }
 })

@@ -1,7 +1,14 @@
 import React, { Component } from 'react'
-import { Modal, StyleSheet, TouchableOpacity, View } from 'react-native'
+import {
+  Modal,
+  Platform,
+  StyleSheet,
+  TouchableOpacity,
+  View
+} from 'react-native'
 
 import AppIcon from '../common/app-icon'
+import CloseIcon from '../common/close-icon'
 import MenuItem from './menu-item'
 
 import { Colors, Sizes } from '../../styles'
@@ -49,12 +56,9 @@ export default class HamburgerMenu extends Component {
               style={styles.blackBackground}
             ></TouchableOpacity>
             <View style={styles.menu}>
-              <TouchableOpacity
-                onPress={this.toggleMenu}
-                style={styles.iconContainer}
-              >
-                <AppIcon name='cross' color='black' />
-              </TouchableOpacity>
+              <View style={styles.iconContainer}>
+                <CloseIcon color={'black'} onClose={() => this.toggleMenu()} />
+              </View>
               {settingsMenuItems.map((item) => (
                 <MenuItem
                   item={item}
@@ -85,6 +89,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     height: '100%',
     padding: Sizes.base,
+    paddingTop: Platform.OS === 'ios' ? Sizes.huge : Sizes.base,
     position: 'absolute',
     width: '60%',
   },

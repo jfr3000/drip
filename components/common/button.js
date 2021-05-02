@@ -5,7 +5,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native'
 import AppIcon from './app-icon'
 import AppText from './app-text'
 
-import { Colors, Fonts, Spacing } from '../../styles'
+import { Colors, Fonts, Sizes, Spacing } from '../../styles'
 
 const Button = ({
   children,
@@ -52,7 +52,7 @@ const text = {
 }
 
 const textSmall = {
-  fontSize: Fonts.small,
+  fontSize: Sizes.small,
   padding: Spacing.small,
   textTransform: 'uppercase'
 }

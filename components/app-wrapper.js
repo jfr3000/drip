@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
+import { StyleSheet, View } from 'react-native'
+import { Provider } from 'react-redux'
 import nodejs from 'nodejs-mobile-react-native'
 
 import { getLicenseFlag, saveEncryptionFlag } from '../local-storage'
 import { openDb } from '../db'
 
 import App from './app'
-import PasswordPrompt from './password-prompt'
-import License from './license'
 import AppLoadingView from './common/app-loading'
+import AppStatusBar from './common/app-status-bar'
+import License from './license'
+import PasswordPrompt from './password-prompt'
 
 import store from "../store"
-import { Provider } from 'react-redux'
 
 export default class AppWrapper extends Component {
   constructor() {
@@ -84,7 +86,19 @@ export default class AppWrapper extends Component {
       initialView = <App />
     }
 
-    return <Provider store={store}>{initialView}</Provider>
-
+    return (
+      <Provider store={store}>
+        <View style={styles.container}>
+          <AppStatusBar />
+          {initialView}
+        </View>
+      </Provider>
+    )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  }
+})

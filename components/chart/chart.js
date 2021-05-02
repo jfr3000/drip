@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { ActivityIndicator, FlatList, Dimensions, StyleSheet, View } from 'react-native'
+import {
+  ActivityIndicator,
+  Dimensions,
+  FlatList,
+  PixelRatio,
+  StyleSheet,
+  View
+} from 'react-native'
 
 import AppLoadingView from '../common/app-loading'
 import AppPage from '../common/app-page'
@@ -22,9 +29,10 @@ import { makeColumnInfo, nfpLines } from '../helpers/chart'
 
 import {
   CHART_COLUMN_WIDTH,
-  SYMPTOMS,
+  CHART_GRID_LINE_HORIZONTAL_WIDTH,
   CHART_SYMPTOM_HEIGHT_RATIO,
-  CHART_XAXIS_HEIGHT_RATIO
+  CHART_XAXIS_HEIGHT_RATIO,
+  SYMPTOMS
 } from '../../config'
 import { shared } from '../../i18n/en/labels'
 import { Colors, Spacing } from '../../styles'
@@ -105,9 +113,13 @@ class CycleChart extends Component {
 
     this.xAxisHeight = height * 0.7 * CHART_XAXIS_HEIGHT_RATIO
     const remainingHeight = height * 0.7 - this.xAxisHeight
-    this.symptomHeight = remainingHeight * CHART_SYMPTOM_HEIGHT_RATIO
-    this.symptomRowHeight = this.symptomRowSymptoms.length *
-      this.symptomHeight
+    this.symptomHeight = PixelRatio.roundToNearestPixel(
+      remainingHeight
+      * CHART_SYMPTOM_HEIGHT_RATIO
+    )
+    this.symptomRowHeight = PixelRatio.roundToNearestPixel(
+      this.symptomRowSymptoms.length * this.symptomHeight
+    ) + CHART_GRID_LINE_HORIZONTAL_WIDTH
     this.columnHeight = remainingHeight - this.symptomRowHeight
     const chartHeight = this.shouldShowTemperatureColumn ?
       height * 0.7 : (this.symptomRowHeight + this.xAxisHeight)

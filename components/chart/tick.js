@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import AppText from '../common/app-text'
 
 import { Sizes } from '../../styles'
+import { CHART_TICK_WIDTH } from '../../config'
 
 const Tick = ({ yPosition, height, isBold, shouldShowLabel, label }) => {
   const top = yPosition - height / 2
@@ -28,16 +29,14 @@ Tick.propTypes = {
 
 
 const text = {
-  lineHeight: Sizes.base,
-  right: 4,
-  textAlign: 'right'
+  textAlign: 'right',
 }
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     position: 'absolute',
     right: 0,
-    width: 40
+    width: CHART_TICK_WIDTH
   },
   textBold: {
     fontSize: Sizes.base,

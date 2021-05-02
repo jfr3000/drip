@@ -1,11 +1,13 @@
+import { Platform } from 'react-native'
+
 import { fontRatio } from '../config'
 
 import Colors from './colors'
 import Spacing from './spacing'
 
 export const fonts = {
-  main: 'Jost-400-Book',
-  bold : 'Jost-700-Bold',
+  main: Platform.OS === 'ios' ? 'Jost-Book' : 'Jost-400-Book',
+  bold : Platform.OS === 'ios' ? 'Jost-Bold' : 'Jost-700-Bold',
 }
 
 export const sizes = {
