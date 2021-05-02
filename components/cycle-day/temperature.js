@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { Platform, StyleSheet, View } from 'react-native'
 import PropTypes from 'prop-types'
 import { Keyboard } from 'react-native'
 import DateTimePicker from 'react-native-modal-datetime-picker'
@@ -127,6 +127,7 @@ class Temperature extends Component {
             mode="time"
             onConfirm={this.setTime}
             onCancel={this.onCancelTimePicker}
+            display={Platform.OS === "ios" ? "spinner" : "default"}
           />
         </Segment>
       </React.Fragment>
