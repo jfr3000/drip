@@ -1,4 +1,4 @@
-import Home from './home'
+import Home from './Home'
 import Calendar from './calendar'
 import CycleDay from './cycle-day/cycle-day-overview'
 import Chart from './chart/chart'
