@@ -1,0 +1,8 @@
+{
+  "components": {
+    "Home": {
+      "addDataForToday": "add data for today",
+      "noPrediction": "As soon as you have tracked 3 menstrual cycles, drip will make predictions for the next ones."
+    }
+  }  
+}
