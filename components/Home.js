@@ -15,10 +15,12 @@ import { getFertilityStatusForDay } from '../lib/sympto-adapter'
 import { determinePredictionText, formatWithOrdinalSuffix } from './helpers/home'
 
 import { Colors, Fonts, Sizes, Spacing } from '../styles'
-import { home as labels } from '../i18n/en/labels'
 import { LocalDate } from 'js-joda'
+import { useTranslation } from 'react-i18next'
 
-const Home = ({navigate, setDate}) => {  
+const Home = ({ navigate, setDate }) => {  
+
+  const { t } = useTranslation();
 
   function navigateToCycleDayView() {
     setDate(todayDateString)
@@ -30,7 +32,7 @@ const Home = ({navigate, setDate}) => {
   const cycleDayNumber = getCycleDayNumber(todayDateString)
   const { status, phase, statusText } =
     getFertilityStatusForDay(todayDateString)
-  const prediction = determinePredictionText(getPredictedMenses())
+  const prediction = determinePredictionText(getPredictedMenses(), t)
 
   const cycleDayText =  cycleDayNumber ? formatWithOrdinalSuffix(cycleDayNumber) : ''
 
@@ -44,14 +46,14 @@ const Home = ({navigate, setDate}) => {
       {cycleDayNumber &&
         <View style={styles.line}>
           <AppText style={styles.whiteSubtitle}>{cycleDayText}</AppText>
-          <AppText style={styles.turquoiseText}>{labels.cycleDay}</AppText>
+          <AppText style={styles.turquoiseText}>{t('components.Home.cycleDay')}</AppText>
         </View>
       }
       {phase &&
         <View style={styles.line}>
           <AppText style={styles.whiteSubtitle}>{formatWithOrdinalSuffix(phase)}</AppText>
           <AppText style={styles.turquoiseText}>
-            {labels.cyclePhase}
+            {t('components.Home.cyclePhase')}
           </AppText>
           <AppText style={styles.turquoiseText}>{status}</AppText>
           <Asterisk />
@@ -61,7 +63,7 @@ const Home = ({navigate, setDate}) => {
         <AppText style={styles.turquoiseText}>{prediction}</AppText>
       </View>
       <Button isCTA isSmall={false} onPress={navigateToCycleDayView}>
-        {labels.addData}
+        {t('components.Home.addDataForToday')}
       </Button>
       {phase && (
         <View style={styles.asteriskLine}>
