@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import PropTypes from 'prop-types'
-
-import { LocalDate } from 'js-joda'
+import moment from 'moment';
 
 import { connect } from 'react-redux'
 import { navigate } from '../slices/navigation'
@@ -17,96 +16,63 @@ import { determinePredictionText, formatWithOrdinalSuffix } from './helpers/home
 
 import { Colors, Fonts, Sizes, Spacing } from '../styles'
 import { home as labels } from '../i18n/en/labels'
+import { LocalDate } from 'js-joda'
 
-class Home extends Component {
+const Home = ({navigate, setDate}) => {  
 
-  static propTypes = {
-    navigate: PropTypes.func,
-    setDate: PropTypes.func
+  function navigateToCycleDayView() {
+    setDate(todayDateString)
+    navigate('CycleDay')
   }
 
-  constructor(props) {
-    super(props)
+  const todayDateString = LocalDate.now().toString()
+  const { getCycleDayNumber, getPredictedMenses } = cycleModule()
+  const cycleDayNumber = getCycleDayNumber(todayDateString)
+  const { status, phase, statusText } =
+    getFertilityStatusForDay(todayDateString)
+  const prediction = determinePredictionText(getPredictedMenses())
 
-    const today = LocalDate.now()
-    this.todayDateString = today.toString()
-    const { getCycleDayNumber, getPredictedMenses } = cycleModule()
-    this.cycleDayNumber = getCycleDayNumber(this.todayDateString)
-    const { status, phase, statusText } =
-      getFertilityStatusForDay(this.todayDateString)
-    const prediction = getPredictedMenses()
-    this.prediction = determinePredictionText(prediction)
-    this.title = `${today.dayOfMonth()} ${today.month()} ${today.year()}`
+  const cycleDayText =  cycleDayNumber ? formatWithOrdinalSuffix(cycleDayNumber) : ''
 
-    if (this.cycleDayNumber) {
-      this.cycleDayText = formatWithOrdinalSuffix(this.cycleDayNumber)
-    }
+  return (
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.contentContainer}
+    >
+      <AppText style={styles.title}>{moment().format("MMM Do YYYY")}</AppText>
 
-    if (phase) {
-      this.phase = phase
-      this.phaseText = formatWithOrdinalSuffix(phase)
-      this.status = status
-      this.statusText = statusText
-    }
-  }
-
-  navigateToCycleDayView = () => {
-    this.props.setDate(this.todayDateString)
-    this.props.navigate('CycleDay')
-  }
-
-  render() {
-    const {
-      cycleDayNumber,
-      cycleDayText,
-      phase,
-      phaseText,
-      prediction,
-      status,
-      statusText,
-      title
-    } = this
-
-    return (
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}
-      >
-        <AppText style={styles.title}>{title}</AppText>
-
-        {cycleDayNumber &&
-          <View style={styles.line}>
-            <AppText style={styles.whiteSubtitle}>{cycleDayText}</AppText>
-            <AppText style={styles.turquoiseText}>{labels.cycleDay}</AppText>
-          </View>
-        }
-        {phase &&
-          <View style={styles.line}>
-            <AppText style={styles.whiteSubtitle}>{phaseText}</AppText>
-            <AppText style={styles.turquoiseText}>
-              {labels.cyclePhase}
-            </AppText>
-            <AppText style={styles.turquoiseText}>{status}</AppText>
-            <Asterisk />
-          </View>
-        }
+      {cycleDayNumber &&
         <View style={styles.line}>
-          <AppText style={styles.turquoiseText}>{prediction}</AppText>
+          <AppText style={styles.whiteSubtitle}>{cycleDayText}</AppText>
+          <AppText style={styles.turquoiseText}>{labels.cycleDay}</AppText>
         </View>
-        <Button isCTA isSmall={false} onPress={this.navigateToCycleDayView}>
-          {labels.addData}
-        </Button>
-        {phase && (
-          <View style={styles.asteriskLine}>
-            <Asterisk />
-            <AppText linkStyle={styles.whiteText} style={styles.greyText}>
-              {statusText}
-            </AppText>
-          </View>
-        )}
-      </ScrollView>
-    )
-  }
+      }
+      {phase &&
+        <View style={styles.line}>
+          <AppText style={styles.whiteSubtitle}>{formatWithOrdinalSuffix(phase)}</AppText>
+          <AppText style={styles.turquoiseText}>
+            {labels.cyclePhase}
+          </AppText>
+          <AppText style={styles.turquoiseText}>{status}</AppText>
+          <Asterisk />
+        </View>
+      }
+      <View style={styles.line}>
+        <AppText style={styles.turquoiseText}>{prediction}</AppText>
+      </View>
+      <Button isCTA isSmall={false} onPress={navigateToCycleDayView}>
+        {labels.addData}
+      </Button>
+      {phase && (
+        <View style={styles.asteriskLine}>
+          <Asterisk />
+          <AppText linkStyle={styles.whiteText} style={styles.greyText}>
+            {statusText}
+          </AppText>
+        </View>
+      )}
+    </ScrollView>
+  )
 }
 
 const Asterisk = () => {
@@ -172,6 +138,11 @@ const mapDispatchToProps = (dispatch) => {
     navigate: (page) => dispatch(navigate(page)),
     setDate: (date) => dispatch(setDate(date)),
   })
+}
+
+Home.propTypes = {
+  navigate: PropTypes.func,
+  setDate: PropTypes.func
 }
 
 export default connect(
