@@ -1,10 +1,12 @@
 {
-  "components": {
-    "Home": {
-      "addDataForToday": "add data for today",
-      "noPrediction": "As soon as you have tracked 3 menstrual cycles, drip will make predictions for the next ones.",
+  "labels": {
+    "home": {
       "cycleDay": " day of your cycle",
-      "cyclePhase": " cycle phase - "
+      "cyclePhase": " cycle phase - ",
+      "addDataForToday": "add data for today"
+    },
+    "bleedingPrediction": {
+      "noPrediction": "As soon as you have tracked 3 menstrual cycles, drip will make predictions for the next ones."
     }
-  }  
+  }
 }

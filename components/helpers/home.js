@@ -18,7 +18,7 @@ function getTimes(prediction) {
 }
 
 export function determinePredictionText(bleedingPrediction, t) {
-  if (!bleedingPrediction.length) return t('noPrediction')
+  if (!bleedingPrediction.length) return t('labels.bleedingPrediction.noPrediction')
   const {
     todayDate,
     predictedBleedingStart,

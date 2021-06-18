@@ -16,11 +16,11 @@ import { determinePredictionText, formatWithOrdinalSuffix } from './helpers/home
 
 import { Colors, Fonts, Sizes, Spacing } from '../styles'
 import { LocalDate } from 'js-joda'
-import useComponentTranslation from '../hooks/useComponentTranslation'
+import { useTranslation } from 'react-i18next'
 
 const Home = ({ navigate, setDate }) => {
 
-  const { t } = useComponentTranslation('components.Home')
+  const { t } = useTranslation()
 
   function navigateToCycleDayView() {
     setDate(todayDateString)
@@ -46,7 +46,7 @@ const Home = ({ navigate, setDate }) => {
       {cycleDayNumber &&
         <View style={styles.line}>
           <AppText style={styles.whiteSubtitle}>{cycleDayText}</AppText>
-          <AppText style={styles.turquoiseText}>{t('cycleDay')}</AppText>
+          <AppText style={styles.turquoiseText}>{t('labels.home.cycleDay')}</AppText>
         </View>
       }
       {phase &&
@@ -55,7 +55,7 @@ const Home = ({ navigate, setDate }) => {
             {formatWithOrdinalSuffix(phase)}
           </AppText>
           <AppText style={styles.turquoiseText}>
-            {t('cyclePhase')}
+            {t('labels.home.cyclePhase')}
           </AppText>
           <AppText style={styles.turquoiseText}>{status}</AppText>
           <Asterisk />
@@ -65,7 +65,7 @@ const Home = ({ navigate, setDate }) => {
         <AppText style={styles.turquoiseText}>{prediction}</AppText>
       </View>
       <Button isCTA isSmall={false} onPress={navigateToCycleDayView}>
-        {t('addDataForToday')}
+        {t('labels.home.addDataForToday')}
       </Button>
       {phase && (
         <View style={styles.asteriskLine}>
