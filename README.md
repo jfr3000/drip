@@ -37,7 +37,7 @@ Make sure you are running Node 10 (newer versions won't work). It's easiest to s
 #### 3. Get this repository
 
 Clone it with SSH
-    
+
     $ git clone git@gitlab.com:bloodyhealth/drip.git
 
 or clone it with HTTPS
@@ -53,7 +53,7 @@ and run
 
 Open Android Studio and click on "Open an existing Android Studio project". Navigate to the drip repository you cloned and double click the android folder. It detects, downloads and cofigures requirements that might be missing, like the NDK and CMake to build the native code part of the project. Also see the [nodejs-mobile repository](https://github.com/janeasystems/nodejs-mobile) for the necessary prerequisites for your system.
 
-#### 5. Run the app
+#### 5. Run the app on Android
 
 Either start a [virtual device in Android Studio](https://developer.android.com/studio/run/emulator) or [set your physical device like your Android phone up](https://developer.android.com/training/basics/firstapp/running-app) to run the app.
 
@@ -73,6 +73,23 @@ Either start a [virtual device in Android Studio](https://developer.android.com/
     ```
 
 1.  We recommend installing an [ESLint plugin in your editor](https://eslint.org/docs/user-guide/integrations#editors). There's an `.eslintrc` file in this project which will be used by the plugin to check your code for style errors and potential bugs.
+
+#### 6. Run app on iOS
+
+Minimum system requirements to run iOS app are as follows:
+- MacOS 10.15.7 for Mac users
+- Xcode 12.3 (I assume, that only command line tools might be enough)
+
+1. Install XCode dependencies by running the following command from the root project directory:
+```
+$ cd ios && pod install && cd ..
+```
+2. To run app either open drip workspace ('drip.xcworkspace' file) with XCode and run "Build" or run the following command:
+```
+$ npm run ios
+```
+3. If you are building the app with XCode make sure you are running this as well:
+`$ npm start`
 
 ### Troubleshooting
 #### [MacOS] Java problems
