@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import RNFS from 'react-native-fs'
-import { Alert, ToastAndroid } from 'react-native'
+import { Alert } from 'react-native'
 import PropTypes from 'prop-types'
+import Toast from 'react-native-simple-toast'
 
 import Button from '../../common/button'
 
@@ -69,7 +70,7 @@ export default class DeleteData extends Component {
         clearDb()
       }
       await this.deleteExportedFile()
-      ToastAndroid.show(success.message, ToastAndroid.LONG)
+      Toast.show(success.message, Toast.LONG)
     } catch (err) {
       alertError(errors.couldNotDeleteFile)
     }
