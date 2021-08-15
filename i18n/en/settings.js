@@ -1,7 +1,5 @@
 import links from './links'
 
-const currentYear = new Date().getFullYear()
-
 export default {
   title: 'Settings',
   menuItems: {
@@ -117,14 +115,6 @@ export default {
   philosophy: {
     title: 'Remember to think for yourself',
     text: `drip makes period predictions for you and helps you apply NFP fertility awareness rules. But please remember that this app is made by humans, and humans make mistakes. Always think for yourself: "Does this make sense?" Remember, you don't need an app to understand your cycle! However, drip wants to support you and make period tracking easier, more transparent and secure.`,
-  },
-  license: {
-    title: 'drip is an open-source cycle tracking app',
-    text: `Copyright (C) ${currentYear} Bloody Health GbR
-
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details: https://www.gnu.org/licenses/gpl-3.0.html
-
-You can contact us by bloodyhealth@mailbox.org.`
   },
   version: {
     title: 'Version'

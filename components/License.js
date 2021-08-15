@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { BackHandler, StyleSheet, View } from 'react-native'
+import { useTranslation } from 'react-i18next'
 
 import AppPage from './common/app-page'
 import AppText from './common/app-text'
@@ -9,11 +10,7 @@ import Segment from './common/segment'
 
 import { saveLicenseFlag } from '../local-storage'
 
-import { shared } from '../i18n/en/labels'
-import settingsLabels from '../i18n/en/settings'
 import { Containers } from '../styles'
-
-const labels = settingsLabels.license
 
 export default function License({ setLicense }) {
   const onAcceptLicense = async () => {
@@ -21,16 +18,19 @@ export default function License({ setLicense }) {
     setLicense()
   }
 
+  const { t } = useTranslation()
+  const currentYear = new Date().getFullYear()
+
   return (
     <AppPage testID="licensePage">
-      <Segment last testID="test" title={labels.title}>
-        <AppText testID="test">{labels.text}</AppText>
+      <Segment last testID="test" title={t("settings.license.title")}>
+        <AppText testID="test">{t("settings.license.text", { currentYear })}</AppText>
         <View style={styles.container}>
           <Button onPress={BackHandler.exitApp} testID="licenseCancelButton">
-            {shared.cancel}
+            {t("labels.shared.cancel")}
           </Button>
           <Button isCTA onPress={onAcceptLicense} testID="licenseOkButton">
-            {shared.ok}
+            {t("labels.shared.ok")}
           </Button>
         </View>
       </Segment>
