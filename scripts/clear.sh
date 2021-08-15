@@ -1,37 +1,77 @@
 #!/bin/bash
 
-echo "rm -rf ios/build..."
-rm -rf ios/build
+# if user provided argument all, all caches are cleared
 
-echo "rm -rf android/app/build..."
-rm -rf android/app/build
+if [[ -z "$1" ]];
+then
+  if [[ -z "$TMPDIR" ]];
+  then
+    echo "\x1b[35;01m""Your current TMPDIR variable is not set. Please set it before running the script.""\x1b[39;49;00m"
+    exit
+  fi
 
-echo "Removed all Xcode derived data..."
-rm -rf ~/Library/Developer/Xcode/DerivedData
+  echo "\x1b[35;01m""Do you want to clear ios project(y/n)?""\x1b[39;49;00m"
+  read ios
 
-echo "Removed iOS Pods data..."
-rm -rf ios/Pods/*
+  echo "\x1b[35;01m""Do you want to clear android project(y/n)?""\x1b[39;49;00m"
+  read android
 
-echo "Removed Podfile.lock..."
-rm Podfile.lock
+  echo "\x1b[35;01m""Do you want to clear general cache(y/n)?""\x1b[39;49;00m"
+  read cache
 
-echo "watchman watch-del-all..."
-watchman watch-del-all
+  echo "\x1b[35;01m""Do you want to re-install project libraries?""\x1b[39;49;00m"
+  read libraries
+else
+  while [[ $# -gt 0 ]]; do
+    key="$1"
 
-echo "rm -rf node_modules..."
-rm -rf node_modules
+    case $key in
+      ios)
+        ios="y"
+        shift
+        ;;
+      android)
+        android="y"
+        shift
+        ;;
+      cache)
+        cache="y"
+        shift
+        ;;
+      npm)
+        libraries="y"
+        shift
+        ;;
+      *)
+        shift
+        ;;
+    esac
+  done
+fi
 
-echo "npm install..."
-npm install
+echo "ios " $ios
+echo "android " $android
+echo "cache " $cache
+echo "npm " $libraries
 
-echo "Pods install..."
-cd ios && pod install && cd ..
+if [[ $ios == "y" ]] || [[ $1 == "all" ]];
+then
+  . scripts/clear-ios.sh
+fi
 
-echo "rm -rf $TMPDIR/react-*..."
-rm -rf $TMPDIR/react-*
+if [[ $android == "y" ]] || [[ $1 == "all" ]];
+then
+  . scripts/clear-android.sh
+fi
 
-echo "rm -rf $TMPDIR/haste-map-react-native-packager-*..."
-rm -rf $TMPDIR/haste-map-react-native-packager-*
+if [[ $cache == "y" ]] || [[ $1 == "all" ]];
+then
+  . scripts/clear-cache.sh
+fi
 
-echo "rm -rf $TMPDIR/metro-*..."
-rm -rf $TMPDIR/metro-*
+if [[ $libraries == "y" ]] || [[ $1 == "all" ]];
+then
+  . scripts/reinstall-project.sh
+fi
+
+echo "\x1b[35;01m""Clearing is completed. You're ready to go!""\x1b[39;49;00m"

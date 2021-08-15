@@ -97,7 +97,6 @@ $ npm run ios
 Make sure that you have Java 1.8 by running `java -version`.
 
 If you don't have Java installed, or your Java version is different, the app may not work. You can try just using Android Studio's Java by prepending it to your `$PATH` in your shell profile:
-
     ```
     $ export PATH="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home/bin:${PATH}"
     ```
@@ -115,6 +114,22 @@ If you get error messages about `adb` not being found on your path:
     ```
     $ ln -s ~/Library/Android/sdk/platform-tools/adb /usr/local/bin/adb
     ```
+
+### Clearing project cache
+If you would like to clear project cache and/or re-install project libraries, you can run clear script as follows:
+
+    $ npm run clear
+
+Script accepts the following options:
+"none" - script will delete all caches and re-install project libraries,
+"ios" - script will delete ios-related cache
+"android" - script will delete android-related cache
+"cache" - script will purge Watchman, Metrobundler, Pachager and React caches
+"npm" - script will reinstall project libraries.
+
+For example, if you would like to clear android part of the project and re-install project libraries, you can run the following command:
+
+    $ npm run clear android npm
 
 ## Tests
 
