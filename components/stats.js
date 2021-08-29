@@ -1,5 +1,6 @@
 import React from 'react'
-import { Dimensions, ImageBackground, StyleSheet, View } from 'react-native'
+import { Dimensions, ImageBackground, View } from 'react-native'
+import { ScaledSheet } from 'react-native-size-matters'
 
 import AppPage from './common/app-page'
 import AppText from './common/app-text'
@@ -28,8 +29,6 @@ const Stats = () => {
     [cycleData.stdDeviation ? cycleData.stdDeviation : '—', labels.stdLabel],
     [numberOfCycles, labels.basisOfStatsEnd]
   ]
-  const height = screen.height * 0.2
-  const marginTop = (height / 8 - Sizes.icon / fontRatio) / 4
 
   return (
     <AppPage contentContainerStyle={styles.pageContainer}>
@@ -42,12 +41,12 @@ const Stats = () => {
               <ImageBackground
                 source={image}
                 imageStyle={styles.image}
-                style={[styles.imageContainter, { height }]}
+                style={styles.imageContainter}
               >
                 <AppText
                   numberOfLines={1}
                   ellipsizeMode="clip"
-                  style={[styles.accentPurpleGiant, { marginTop }]}
+                  style={styles.accentPurpleGiant}
                 >
                   {cycleData.mean}
                 </AppText>
@@ -73,13 +72,14 @@ const column = {
   flexDirection: 'column',
 }
 
-const styles = StyleSheet.create({
+const styles = ScaledSheet.create({
   accentOrange: {
     ...Typography.accentOrange,
     fontSize: Sizes.small,
   },
   accentPurpleGiant: {
     ...Typography.accentPurpleGiant,
+    marginTop: Spacing.base * (-2),
   },
   accentPurpleHuge: {
     ...Typography.accentPurpleHuge,
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingTop: Spacing.base,
+    paddingTop: Spacing.base
   },
   columnLeft: {
     ...column,
@@ -102,10 +102,9 @@ const styles = StyleSheet.create({
   },
   image: {
     resizeMode: 'contain',
-
   },
   imageContainter: {
-    paddingTop: Spacing.large * 2,
+    paddingTop: Spacing.large * 2.5,
     marginBottom: Spacing.large,
   },
   pageContainer: {

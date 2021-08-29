@@ -1,10 +1,12 @@
+import { moderateScale } from 'react-native-size-matters'
+
 import { fontRatio } from '../config'
 
 export default {
-  tiny: 4 / fontRatio,
-  small: 10 / fontRatio,
-  base: 16 / fontRatio,
-  large: 20 / fontRatio,
+  tiny: moderateScale(4 / fontRatio),
+  small: moderateScale(10 / fontRatio),
+  base: moderateScale(16 / fontRatio),
+  large: moderateScale(20 / fontRatio),
   symptomTileWidth: '48%',
   textWidth: '70%'
 }
