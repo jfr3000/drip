@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dimensions, ImageBackground, View } from 'react-native'
+import { ImageBackground, View } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
 
 import AppPage from './common/app-page'
@@ -12,10 +12,8 @@ import {getCycleLengthStats as getCycleInfo} from '../lib/cycle-length'
 import {stats as labels} from '../i18n/en/labels'
 
 import { Sizes, Spacing, Typography } from '../styles'
-import { fontRatio } from '../config'
 
 const image = require('../assets/cycle-icon.png')
-const screen = Dimensions.get('screen')
 
 const Stats = () => {
   const cycleLengths = cycleModule().getAllCycleLengths()
