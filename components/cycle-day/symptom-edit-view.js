@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Dimensions, ScrollView, StyleSheet, View } from 'react-native'
+import { connect } from 'react-redux'
 
 import AppModal from '../common/app-modal'
 import AppSwitch from '../common/app-switch'
@@ -13,9 +14,9 @@ import SelectBoxGroup from './select-box-group'
 import SelectTabGroup from './select-tab-group'
 import Temperature from './temperature'
 
-import { connect } from 'react-redux'
 import { getDate } from '../../slices/date'
 import { blank, save, shouldShow, symtomPage } from '../helpers/cycle-day'
+import { showToast } from '../helpers/general'
 
 import { shared as sharedLabels } from '../../i18n/en/labels'
 import info from '../../i18n/en/symptom-info'
@@ -84,11 +85,13 @@ class SymptomEditView extends Component {
 
   onRemove = () => {
     this.saveData(true)
+    showToast(sharedLabels.dataDeleted)
     this.props.onClose()
   }
 
   onSave = () => {
     this.saveData()
+    showToast(sharedLabels.dataSaved)
     this.props.onClose()
   }
 
@@ -135,8 +138,15 @@ class SymptomEditView extends Component {
     save[symptom](data, date, shouldDeleteData)
   }
 
+  closeView = () => {
+    const { onClose } = this.props
+
+    showToast(sharedLabels.dataSaved)
+    onClose()
+  }
+
   render() {
-    const { onClose, symptom } = this.props
+    const { symptom } = this.props
     const { data,
       shouldShowExclude,
       shouldShowInfo,
@@ -148,13 +158,13 @@ class SymptomEditView extends Component {
     const noteText = symptom === 'note' ? data.value : data.note
 
     return (
-      <AppModal onClose={onClose}>
+      <AppModal onClose={this.closeView}>
         <ScrollView
           contentContainerStyle={styles.modalContainer}
           style={styles.modalWindow}
         >
           <View style={styles.headerContainer}>
-            <CloseIcon onClose={onClose} />
+            <CloseIcon onClose={this.closeView} />
           </View>
           {symptom === 'temperature' &&
             <Temperature
