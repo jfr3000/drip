@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
+import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
 
 import AppText from '../common/app-text'
 import DripIcon from '../../assets/drip-icons'
@@ -86,7 +87,7 @@ class SymptomBox extends Component {
             color={iconColor}
             isActive={!isSymptomDisabled}
             name={iconName}
-            size={40}
+            size={Sizes.icon}
           />
           <View style={styles.textContainer}>
             <AppText style={symptomNameStyle}>
@@ -111,9 +112,9 @@ const hint = {
 
 const main = {
   fontSize: Sizes.base,
-  height: Sizes.base * 2,
+  height: Sizes.icon,
   lineHeight: Sizes.base,
-  marginBottom: (-1) * Sizes.tiny,
+  marginBottom: (-1) * Sizes.title,
   textAlignVertical: 'center'
 }
 
@@ -121,13 +122,13 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     backgroundColor: 'white',
-    borderRadius: 10,
+    borderRadius: moderateScale(10),
     elevation: 4,
     flexDirection: 'row',
-    height: 110,
-    marginBottom: Spacing.base,
-    paddingHorizontal: Spacing.small,
-    paddingVertical: Spacing.base,
+    height: verticalScale(110),
+    marginBottom: verticalScale(Spacing.base),
+    paddingHorizontal: scale(Spacing.small),
+    paddingVertical: verticalScale(Spacing.base),
     width: Spacing.symptomTileWidth
   },
   symptomName: {
