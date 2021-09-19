@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import RNFS from 'react-native-fs'
-import { Alert, ToastAndroid } from 'react-native'
+import { Alert } from 'react-native'
 import PropTypes from 'prop-types'
 
 import Button from '../../common/button'
@@ -9,6 +9,7 @@ import ConfirmWithPassword from '../common/confirm-with-password'
 import alertError from '../common/alert-error'
 
 import { clearDb, isDbEmpty } from '../../../db'
+import { showToast } from '../../helpers/general'
 import { hasEncryptionObservable } from '../../../local-storage'
 import settings from '../../../i18n/en/settings'
 import { shared as sharedLabels } from '../../../i18n/en/labels'
@@ -69,7 +70,7 @@ export default class DeleteData extends Component {
         clearDb()
       }
       await this.deleteExportedFile()
-      ToastAndroid.show(success.message, ToastAndroid.LONG)
+      showToast(success.message)
     } catch (err) {
       alertError(errors.couldNotDeleteFile)
     }

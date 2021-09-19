@@ -13,6 +13,8 @@ export const chart = {
 export const shared = {
   cancel: 'Cancel',
   save: 'Save',
+  dataSaved: 'Symptom data was saved',
+  dataDeleted: 'Symptom data was deleted',
   errorTitle: 'Error',
   successTitle: 'Success',
   warning: 'Warning',
