@@ -1,0 +1,16 @@
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    open-pull-requests-limit: 3
+    reviewers:
+      - "bl00dymarie"
+      - "mariyaz"
+      - "sdvig"
+      - "LisaHill"
+    allow:
+      - dependency-type: direct
+      - dependency-type: production
+    rebase-strategy: "auto"
