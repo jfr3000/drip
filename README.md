@@ -15,19 +15,19 @@ Find more information on [our website](https://bloodyhealth.gitlab.io/).
 
 The app is built in React Native and currently developed for Android.
 
-▶ [How to contribute to the project](https://gitlab.com/bloodyhealth/drip/blob/master/CONTRIBUTING.md) 
+▶ [How to contribute to the project](https://gitlab.com/bloodyhealth/drip/blob/master/CONTRIBUTING.md)
 
 ▶ [How to release a new version](https://gitlab.com/bloodyhealth/drip/blob/master/RELEASE.md)
 
 ## Development setup
 
 #### 1. Android Studio
-    
+
 Install [Android Studio](https://developer.android.com/studio/) - you'll need it to install some dependencies.
 
-#### 2. Node version
+#### 2. Node & npm version
 
-Make sure you are running Node 10 (newer versions won't work). It's easiest to switch Node versions using `nvm`, here's how to do it:
+Make sure you are running Node 10 and npm 6.x (newer versions won't work). It's easiest to switch Node versions using `nvm`, here's how to do it:
 
 
     $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
@@ -41,11 +41,11 @@ Clone it with SSH
     $ git clone git@gitlab.com:bloodyhealth/drip.git
 
 or clone it with HTTPS
-    
+
     $ git clone https://gitlab.com/bloodyhealth/drip.git
-    
+
 and run
-    
+
     $ cd drip
     $ npm install
 
@@ -57,22 +57,22 @@ Open Android Studio and click on "Open an existing Android Studio project". Navi
 
 Either start a [virtual device in Android Studio](https://developer.android.com/studio/run/emulator) or [set your physical device like your Android phone up](https://developer.android.com/training/basics/firstapp/running-app) to run the app.
 
-1.  Open a terminal and run
+1. Open a terminal and run
     ```
     $ npm run android
     ```
 
-1.  To see logging output, run the following command in another tab: 
+2.  To see logging output, run the following command in another tab:
     ```
     $ npm run log
     ```
 
-1.  Run the following command and select enable hot reloading (see https://facebook.github.io/react-native/docs/debugging.html):
+3.  Run the following command and select enable hot reloading (see https://facebook.github.io/react-native/docs/debugging.html):
     ```
     $ adb shell input keyevent 82
     ```
 
-1.  We recommend installing an [ESLint plugin in your editor](https://eslint.org/docs/user-guide/integrations#editors). There's an `.eslintrc` file in this project which will be used by the plugin to check your code for style errors and potential bugs.
+4.  We recommend installing an [ESLint plugin in your editor](https://eslint.org/docs/user-guide/integrations#editors). There's an `.eslintrc` file in this project which will be used by the plugin to check your code for style errors and potential bugs.
 
 #### 6. Run app on iOS
 
@@ -115,6 +115,13 @@ If you get error messages about `adb` not being found on your path:
     $ ln -s ~/Library/Android/sdk/platform-tools/adb /usr/local/bin/adb
     ```
 
+### [MacOS] and XCode 12.5
+If you run XCode 12.5, more likely you'll have problems building app for iOS. Please use the following fix: https://stackoverflow.com/a/67320887.
+
+If you experience any further issues, please feel free to check out the following threads:
+- [react-native run-ios build failure on XCode 12.5 beta](https://github.com/react-native-community/cli/issues/1365)
+- [Xcode 12.5 troubleshooting guide (RN 0.61/0.62/0.63/0.64)](https://github.com/facebook/react-native/issues/31480)
+
 ### Clearing project cache
 If you would like to clear project cache and/or re-install project libraries, you can run clear script as follows:
 
@@ -152,7 +159,7 @@ You can run the tests with:
 3. Open Android Studio and go to -> Tools -> AVD manager -> `+Create virtual device` and select the device checked in the previous step
 4. Use the emulator on your machine to run it without heavy Android Studio, e.g. in `~/Android/Sdk/emulator` OR chose to run the emulator within Android Studio
 4.1 Here run: `$ ./emulator -avd NEXUS_DEVICE_OR_WHATEVER_SPECIFIED_DEVICE`
-4.2 You might need to specify the following environment variables in your zsh or bash file according to where you have it installed. You can find exact path in Android Studio (Android Studio Preferences → Appearance and Behavior → System Settings → Android SDK). After adding environment variables, you might need to restart your terminal or source the modified bash profile (i.e. "source ~/.bash_profile"). 
+4.2 You might need to specify the following environment variables in your zsh or bash file according to where you have it installed. You can find exact path in Android Studio (Android Studio Preferences → Appearance and Behavior → System Settings → Android SDK). After adding environment variables, you might need to restart your terminal or source the modified bash profile (i.e. "source ~/.bash_profile").
     ```
     export ANDROID_HOME="/home/myname/Android/Sdk"
     export ANDROID_SDK_ROOT="/home/myname/Android/Sdk"
