@@ -1,9 +1,6 @@
 module.exports = {
   root: true,
-  extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-  ],
+  extends: ['eslint:recommended', 'plugin:react/recommended'],
   env: {
     node: true,
     mocha: true,
@@ -24,23 +21,9 @@ module.exports = {
     },
   },
   rules: {
-    indent: ['error', 2],
-    'no-console': ['error', { 'allow': ['warn', 'error'] }],
-    'space-before-function-paren': 0,
-    semi: ['warn', 'never'],
-    'space-infix-ops': ['warn'],
+    'no-console': ['error', { allow: ['warn', 'error'] }],
     'no-var': 'error',
     'prefer-const': 'error',
-    'no-trailing-spaces': 'error',
     'react/prop-types': 2,
-    'max-len': [
-      1,
-      {
-        'ignoreStrings': true,
-        'ignoreComments': true,
-        'ignoreTemplateLiterals': true
-      }
-    ],
-    'no-multi-spaces': 2,
   },
-};
+}
