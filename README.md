@@ -5,7 +5,7 @@ Find more information on [our website](https://bloodyhealth.gitlab.io/).
 
 [<img src="https://bloodyhealth.gitlab.io/assets/get.png"
      alt="Get it here"
-     height="55">](https://bloodyhealth.gitlab.io/release/5.apk)
+     height="55">](https://bloodyhealth.gitlab.io/release/8.apk)
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
      alt="Get it on F-Droid"
      height="80">](https://f-droid.org/packages/com.drip/)
