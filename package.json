@@ -63,10 +63,11 @@
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
+    "@babel/eslint-parser": "^7.16.3",
+    "@babel/preset-react": "^7.16.0",
     "@babel/register": "^7.0.0",
     "@babel/runtime": "^7.6.2",
     "@react-native-community/eslint-config": "^0.0.5",
-    "babel-eslint": "^10.0.1",
     "babel-jest": "^24.9.0",
     "basic-changelog": "gitlab:bloodyhealth/basic-changelog",
     "chai": "^4.1.2",
