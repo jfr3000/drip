@@ -62,8 +62,9 @@ export const todayToCalFormat = () => {
 
 const styles = {
   calendarToday: {
-    fontFamily: Fonts.bold,
-    color: Colors.purple,
+    fontFamily: 'Jost-Bold',
+    fontWeight: 'bold',
+    color: Colors.purple
   },
 }
 
@@ -73,6 +74,7 @@ export const calendarTheme = {
   monthTextColor: Colors.purple,
   textDayFontFamily: Fonts.main,
   textMonthFontFamily: Fonts.bold,
+  textMonthFontWeight: 'bold',
   textDayHeaderFontFamily: Fonts.bold,
   textDayFontSize: Sizes.small,
   textMonthFontSize: Sizes.subtitle,
