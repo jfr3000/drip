@@ -16,7 +16,7 @@
     "log": "react-native log-android",
     "test": "mocha --recursive --require @babel/register test && npm run lint",
     "test-watch": "mocha --recursive --require @babel/register --watch test",
-    "lint": "eslint components lib test",
+    "lint": "eslint components lib test styles slices db",
     "devtool": "adb shell input keyevent 82",
     "build-android-release": "cd android && ./gradlew clean && ./gradlew assembleRelease && cd ..",
     "update-version": "node ./tools/bin/update-version.js",
