@@ -6,8 +6,12 @@ module.exports = {
     mocha: true,
     es6: true,
   },
-  parser: 'babel-eslint',
+  parser: '@babel/eslint-parser',
   parserOptions: {
+    requireConfigFile: false,
+    babelOptions: {
+      presets: ['@babel/preset-react'],
+    },
     sourceType: 'module',
     ecmaFeatures: {
       jsx: true,
