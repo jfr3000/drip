@@ -105,19 +105,6 @@ class SymptomBox extends Component {
   }
 }
 
-const hint = {
-  fontSize: Sizes.small,
-  fontStyle: 'italic'
-}
-
-const main = {
-  fontSize: Sizes.base,
-  height: Sizes.icon,
-  lineHeight: Sizes.base,
-  marginBottom: (-1) * Sizes.title,
-  textAlignVertical: 'center'
-}
-
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
@@ -133,7 +120,8 @@ const styles = StyleSheet.create({
   },
   symptomName: {
     color: Colors.purple,
-    ...main
+    fontSize: Sizes.base,
+    lineHeight: Sizes.base
   },
   symptomNameDisabled: {
     color: Colors.grey
@@ -143,11 +131,14 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flexDirection: 'column',
+    justifyContent: 'center',
     marginLeft: Spacing.small,
     maxWidth: Spacing.textWidth
   },
   text: {
-    ...hint
+    fontSize: Sizes.small,
+    fontStyle: 'italic',
+    lineHeight: 14
   },
   textDisabled: {
     color: Colors.greyLight
