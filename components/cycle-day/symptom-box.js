@@ -94,7 +94,7 @@ class SymptomBox extends Component {
               {symptomTitles[symptom].toLowerCase()}
             </AppText>
             {symptomDataToDisplay &&
-              <AppText style={textStyle} numberOfLines={4}>
+              <AppText style={textStyle} numberOfLines={3} >
                 {symptomDataToDisplay}
               </AppText>
             }
@@ -132,13 +132,13 @@ const styles = StyleSheet.create({
   textContainer: {
     flexDirection: 'column',
     justifyContent: 'center',
-    marginLeft: Spacing.small,
+    marginLeft: Spacing.tiny,
     maxWidth: Spacing.textWidth
   },
   text: {
     fontSize: Sizes.small,
     fontStyle: 'italic',
-    lineHeight: 14
+    lineHeight: scale(14)
   },
   textDisabled: {
     color: Colors.greyLight

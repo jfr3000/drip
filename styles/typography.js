@@ -1,4 +1,6 @@
 import { Platform } from 'react-native'
+import { scale } from 'react-native-size-matters'
+
 
 import { fontRatio } from '../config'
 
@@ -11,14 +13,14 @@ export const fonts = {
 }
 
 export const sizes = {
-  tiny: 7 / fontRatio,
-  footnote: 10 / fontRatio,
-  small: 13 / fontRatio,
-  base: 18 / fontRatio,
-  subtitle: 22 / fontRatio,
-  title: 24 / fontRatio,
-  huge: 32 / fontRatio,
-  icon: 40 / fontRatio,
+  tiny: scale(7 / fontRatio),
+  footnote: scale(10 / fontRatio),
+  small: scale(13 / fontRatio),
+  base: scale(18 / fontRatio),
+  subtitle: scale(22 / fontRatio),
+  title: scale(24 / fontRatio),
+  huge: scale(32 / fontRatio),
+  icon: scale(40 / fontRatio),
 }
 
 const accentText = {
@@ -29,12 +31,12 @@ const accentText = {
 
 const accentTextBig = {
   ...accentText,
-  fontSize: 30 / fontRatio,
+  fontSize: scale(30 / fontRatio),
 }
 
 const accentTextGiant = {
   ...accentText,
-  fontSize: sizes.icon / fontRatio,
+  fontSize: sizes.icon,
 }
 
 const accentTextHuge = {
