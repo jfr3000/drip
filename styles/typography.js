@@ -16,7 +16,7 @@ export const sizes = {
   tiny: scale(7 / fontRatio),
   footnote: scale(10 / fontRatio),
   small: scale(13 / fontRatio),
-  base: scale(18 / fontRatio),
+  base: scale(16 / fontRatio),
   subtitle: scale(22 / fontRatio),
   title: scale(24 / fontRatio),
   huge: scale(32 / fontRatio),
