@@ -41,7 +41,8 @@ target 'drip' do
 
   use_native_modules!
   use_frameworks!
-
+  # This is fix to make ios build see images, should be removed after upgrade to rn 0.63.2
+  # https://stackoverflow.com/questions/63949851/react-native-ios-not-showing-images-pods-issue
   post_install do |installer|
     find_and_replace("../node_modules/react-native/Libraries/Image/RCTUIImageViewAnimated.m",
       "_currentFrame.CGImage;","_currentFrame.CGImage ;} else { [super displayLayer:layer];")
