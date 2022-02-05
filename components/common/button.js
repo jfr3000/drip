@@ -61,7 +61,7 @@ const button = {
   alignItems: 'center',
   flexDirection: 'row',
   justifyContent: 'center',
-  margin: Spacing.base,
+  marginVertical: Spacing.base,
   minWidth: '15%'
 }
 
