@@ -24,6 +24,9 @@ const SymptomPageTitle = ({
     reloadSymptomData(nextDay)
     setDate(nextDay)
   }
+  const formattedTitle = title.length > 21
+    ? title.substring(0, 18) + '...'
+    : title
 
   return (
     <View style={styles.container}>
@@ -31,7 +34,7 @@ const SymptomPageTitle = ({
         <AppIcon name='chevron-left' color={Colors.orange}/>
       </TouchableOpacity>
       <View style={styles.textContainer}>
-        <AppText style={styles.title}>{title}</AppText>
+        <AppText style={styles.title}>{formattedTitle}</AppText>
         {subtitle && <AppText style={styles.subtitle}>{subtitle}</AppText>}
       </View>
       <TouchableOpacity onPress={() => navigate(true)} hitSlop={HIT_SLOP}>
