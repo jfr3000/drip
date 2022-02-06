@@ -17,7 +17,6 @@ export const SYMPTOMS = [
   'note',
 ]
 
-export const fontRatio = PixelRatio.getFontScale()
 export const CHART_COLUMN_WIDTH = 32
 export const CHART_COLUMN_MIDDLE = CHART_COLUMN_WIDTH / 2
 export const CHART_DOT_RADIUS = moderateScale(6)
