@@ -1,4 +1,5 @@
 import { LocalDate } from 'js-joda'
+import { verticalScale } from 'react-native-size-matters'
 
 import { Colors, Fonts, Sizes } from '../../styles'
 
@@ -12,7 +13,7 @@ export const toCalFormat = (bleedingDaysSortedByDate) => {
       customStyles: {
         container: {
           backgroundColor: shades[day.bleeding.value],
-          paddingTop: 2,
+          paddingTop: verticalScale(2),
         },
         text: {
           color: Colors.turquoiseLight,

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
-import { moderateScale, scale, verticalScale } from 'react-native-size-matters'
+import { scale } from 'react-native-size-matters'
 
 import AppText from '../common/app-text'
 import DripIcon from '../../assets/drip-icons'
@@ -109,13 +109,13 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     backgroundColor: 'white',
-    borderRadius: moderateScale(10),
+    borderRadius: scale(10),
     elevation: 4,
     flexDirection: 'row',
-    height: verticalScale(110),
-    marginBottom: verticalScale(Spacing.base),
-    paddingHorizontal: scale(Spacing.small),
-    paddingVertical: verticalScale(Spacing.base),
+    height: scale(110),
+    marginBottom: Spacing.base,
+    paddingHorizontal: Spacing.small,
+    paddingVertical: Spacing.base,
     width: Spacing.symptomTileWidth
   },
   symptomName: {
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: Sizes.small,
     fontStyle: 'italic',
-    lineHeight: scale(14)
+    lineHeight: Sizes.small
   },
   textDisabled: {
     color: Colors.greyLight

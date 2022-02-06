@@ -1,5 +1,5 @@
 import { PixelRatio, StatusBar } from 'react-native'
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters'
+import { scale, verticalScale } from 'react-native-size-matters'
 
 export const ACTION_DELETE = 'delete'
 export const ACTION_EXPORT = 'export'
@@ -19,13 +19,13 @@ export const SYMPTOMS = [
 
 export const CHART_COLUMN_WIDTH = 32
 export const CHART_COLUMN_MIDDLE = CHART_COLUMN_WIDTH / 2
-export const CHART_DOT_RADIUS = moderateScale(6)
+export const CHART_DOT_RADIUS = scale(6)
 export const CHART_GRID_LINE_HORIZONTAL_WIDTH =
   PixelRatio.roundToNearestPixel(0.3)
-export const CHART_ICON_SIZE = moderateScale(20)
+export const CHART_ICON_SIZE = scale(20)
 export const CHART_STROKE_WIDTH = scale(3)
-export const CHART_SYMPTOM_HEIGHT_RATIO = verticalScale(0.08)
-export const CHART_XAXIS_HEIGHT_RATIO = verticalScale(0.1)
+export const CHART_SYMPTOM_HEIGHT_RATIO = scale(0.08)
+export const CHART_XAXIS_HEIGHT_RATIO = scale(0.1)
 export const CHART_YAXIS_WIDTH = scale(32)
 export const CHART_TICK_WIDTH = scale(44)
 
