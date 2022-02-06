@@ -58,10 +58,11 @@ const textSmall = {
 }
 
 const button = {
-  alignItems: 'center',
+  alignSelf: 'center',
   flexDirection: 'row',
   justifyContent: 'center',
-  marginVertical: Spacing.base,
+  marginTop: Spacing.base,
+  paddingHorizontal: Spacing.base,
   minWidth: '15%'
 }
 
