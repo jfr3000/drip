@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
     width: Spacing.symptomTileWidth
   },
   symptomName: {
+    paddingTop: Sizes.tiny,
     color: Colors.purple,
     fontSize: Sizes.base,
     lineHeight: Sizes.base
