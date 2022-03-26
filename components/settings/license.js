@@ -1,16 +1,18 @@
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import AppPage from '../common/app-page'
 import AppText from '../common/app-text'
 import Segment from '../common/segment'
 
-import labels from '../../i18n/en/settings'
-
 const License = () => {
+  const { t } = useTranslation()
+  const currentYear = new Date().getFullYear()
+
   return (
-    <AppPage title={labels.license.title}>
+    <AppPage title={t("settings.license.title")}>
       <Segment last>
-        <AppText>{labels.license.text}</AppText>
+        <AppText>{t("settings.license.text", { currentYear })}</AppText>
       </Segment>
     </AppPage>
   )

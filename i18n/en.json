@@ -1,12 +1,22 @@
 {
   "labels": {
+    "bleedingPrediction": {
+      "noPrediction": "As soon as you have tracked 3 menstrual cycles, drip will make predictions for the next ones."
+    },
     "home": {
       "cycleDay": " day of your cycle",
       "cyclePhase": " cycle phase - ",
       "addDataForToday": "add data for today"
-    },
-    "bleedingPrediction": {
-      "noPrediction": "As soon as you have tracked 3 menstrual cycles, drip will make predictions for the next ones."
+    },    
+    "shared": {
+      "cancel": "Cancel",
+      "ok": "OK"
+    }
+  },
+  "settings": {
+    "license": {
+      "title": "drip is an open-source cycle tracking app",
+      "text": "Copyright (C) {{currentYear}} Bloody Health GbR\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details: https://www.gnu.org/licenses/gpl-3.0.html\n\nYou can contact us by drip@mailbox.org."
     }
   }
 }

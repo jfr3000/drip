@@ -9,7 +9,7 @@ import { openDb } from '../db'
 import App from './app'
 import AppLoadingView from './common/app-loading'
 import AppStatusBar from './common/app-status-bar'
-import License from './license'
+import License from './License'
 import PasswordPrompt from './password-prompt'
 
 import store from "../store"
