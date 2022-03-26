@@ -23,7 +23,7 @@ const AboutSection = () => {
               isSmall
               onPress={() => Linking.openURL(link.url)}
             >
-              {link['text']}
+              {link.text}
             </Button>
           ))}
         </ButtonRow>
