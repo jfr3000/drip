@@ -16,7 +16,7 @@
   "settings": {
     "license": {
       "title": "drip is an open-source cycle tracking app",
-      "text": "Copyright (C) {{currentYear}} Bloody Health GbR\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details: https://www.gnu.org/licenses/gpl-3.0.html\n\nYou can contact us by bloodyhealth@mailbox.org."
+      "text": "Copyright (C) {{currentYear}} Bloody Health GbR\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details: https://www.gnu.org/licenses/gpl-3.0.html\n\nYou can contact us by drip@mailbox.org."
     }
   }
 }
