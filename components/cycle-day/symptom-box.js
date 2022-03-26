@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, View, TouchableOpacity } from 'react-native'
+import { scale } from 'react-native-size-matters'
 
 import AppText from '../common/app-text'
 import DripIcon from '../../assets/drip-icons'
@@ -86,14 +87,14 @@ class SymptomBox extends Component {
             color={iconColor}
             isActive={!isSymptomDisabled}
             name={iconName}
-            size={40}
+            size={Sizes.icon}
           />
           <View style={styles.textContainer}>
             <AppText style={symptomNameStyle}>
               {symptomTitles[symptom].toLowerCase()}
             </AppText>
             {symptomDataToDisplay &&
-              <AppText style={textStyle} numberOfLines={4}>
+              <AppText style={textStyle} numberOfLines={4} >
                 {symptomDataToDisplay}
               </AppText>
             }
@@ -104,35 +105,24 @@ class SymptomBox extends Component {
   }
 }
 
-const hint = {
-  fontSize: Sizes.small,
-  fontStyle: 'italic'
-}
-
-const main = {
-  fontSize: Sizes.base,
-  height: Sizes.base * 2,
-  lineHeight: Sizes.base,
-  marginBottom: (-1) * Sizes.tiny,
-  textAlignVertical: 'center'
-}
-
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     backgroundColor: 'white',
-    borderRadius: 10,
+    borderRadius: scale(10),
     elevation: 4,
     flexDirection: 'row',
-    height: 110,
+    height: scale(120),
     marginBottom: Spacing.base,
     paddingHorizontal: Spacing.small,
     paddingVertical: Spacing.base,
     width: Spacing.symptomTileWidth
   },
   symptomName: {
+    paddingTop: Sizes.tiny,
     color: Colors.purple,
-    ...main
+    fontSize: Sizes.base,
+    lineHeight: Sizes.base
   },
   symptomNameDisabled: {
     color: Colors.grey
@@ -142,11 +132,14 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     flexDirection: 'column',
-    marginLeft: Spacing.small,
+    justifyContent: 'center',
+    marginLeft: Spacing.tiny,
     maxWidth: Spacing.textWidth
   },
   text: {
-    ...hint
+    fontSize: Sizes.small,
+    fontStyle: 'italic',
+    lineHeight: Sizes.small
   },
   textDisabled: {
     color: Colors.greyLight
