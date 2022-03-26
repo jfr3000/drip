@@ -21,7 +21,7 @@ const AboutSection = () => {
               key={link.url}
               isCTA
               isSmall
-              onPress={() => Linking.openURL(link['url'])}
+              onPress={() => Linking.openURL(link.url)}
             >
               {link['text']}
             </Button>
