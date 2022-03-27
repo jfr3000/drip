@@ -57,7 +57,7 @@
     "react-native-size-matters": "^0.4.0",
     "react-native-vector-icons": "^7.1.0",
     "react-redux": "^6.0.0",
-    "realm": "^5.0.0",
+    "realm": "^3.6.5",
     "redux": "^4.0.1",
     "redux-starter-kit": "^0.6.3",
     "sympto": "2.0.0"
