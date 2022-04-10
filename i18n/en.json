@@ -7,10 +7,11 @@
       "cycleDay": " day of your cycle",
       "cyclePhase": " cycle phase - ",
       "addDataForToday": "add data for today"
-    },    
+    },
     "shared": {
       "cancel": "Cancel",
-      "ok": "OK"
+      "ok": "OK",
+      "dateTimePickerTitle": "Pick a time"
     }
   },
   "settings": {

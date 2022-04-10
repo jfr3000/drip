@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
+import { Platform } from 'react-native'
 import DateTimePicker from 'react-native-modal-datetime-picker'
 
 import AppSwitch from '../../common/app-switch'
 
-import { saveTempReminder, tempReminderObservable } from '../../../local-storage'
+import {
+  saveTempReminder,
+  tempReminderObservable,
+} from '../../../local-storage'
 import padWithZeros from '../../helpers/pad-time-with-zeros'
 
 import labels from '../../../i18n/en/settings'
@@ -43,8 +47,10 @@ export default class TemperatureReminder extends Component {
   render() {
     const { isEnabled, isTimePickerVisible, time } = this.state
 
-    const tempReminderText = time && isEnabled ?
-      labels.tempReminder.timeSet(time) : labels.tempReminder.noTimeSet
+    const tempReminderText =
+      time && isEnabled
+        ? labels.tempReminder.timeSet(time)
+        : labels.tempReminder.noTimeSet
 
     return (
       <React.Fragment>
@@ -58,6 +64,8 @@ export default class TemperatureReminder extends Component {
           mode="time"
           onConfirm={this.onPickDate}
           onCancel={this.onPickDateCancel}
+          display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+          headerTextIOS="Pick a time"
         />
       </React.Fragment>
     )
