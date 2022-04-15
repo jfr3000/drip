@@ -35,22 +35,17 @@ export const getPreviousTemperature = (date) => {
   return formatTemperature(previousTemperature)
 }
 
-export const isTemperatureOutOfRange = (temperature) => {
+export const getTemperatureOutOfRangeMessage = (temperature) => {
   if (!temperature) return null
 
   const value = Number(temperature)
-  const range = { min: TEMP_MIN, max: TEMP_MAX }
   const scale = scaleObservable.value
 
-  let warningMsg = null
-
-  if (value < range.min || value > range.max) {
-    warningMsg = labels.temperature.outOfAbsoluteRangeWarning
-  } else if (value < scale.min || value > scale.max) {
-    warningMsg = labels.temperature.outOfRangeWarning
-  }
-
-  return warningMsg
+  return value < TEMP_MIN || value > TEMP_MAX
+    ? labels.temperature.outOfAbsoluteRangeWarning
+    : value < scale.min || value > scale.max
+    ? labels.temperature.outOfRangeWarning
+    : ''
 }
 
 export const blank = {
