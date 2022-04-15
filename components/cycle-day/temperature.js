@@ -11,22 +11,23 @@ import Segment from '../common/segment'
 
 import { connect } from 'react-redux'
 import { getDate } from '../../slices/date'
-import { isTemperatureOutOfRange, isPreviousTemperature } from '../helpers/cycle-day'
+import {
+  isTemperatureOutOfRange,
+  getPreviousTemperature,
+} from '../helpers/cycle-day'
 
 import { temperature as labels } from '../../i18n/en/cycle-day'
 
 import { Colors, Containers, Sizes, Spacing } from '../../styles'
 
-const formatTemperature = value => value === null
-  ? value
-  : Number.parseFloat(value).toFixed(2)
+const formatTemperature = (value) =>
+  value === null ? value : Number.parseFloat(value).toFixed(2)
 
 class Temperature extends Component {
-
   static propTypes = {
     data: PropTypes.object,
     date: PropTypes.string.isRequired,
-    save: PropTypes.func
+    save: PropTypes.func,
   }
 
   constructor(props) {
@@ -35,13 +36,13 @@ class Temperature extends Component {
     const { data, date } = this.props
     const { value } = data
     const { shouldShowSuggestion, suggestedTemperature } =
-      isPreviousTemperature(date)
+      getPreviousTemperature(date)
 
     this.state = {
       isTimePickerVisible: false,
       shouldShowSuggestion,
       suggestedTemperature: formatTemperature(suggestedTemperature),
-      value: formatTemperature(value)
+      value: formatTemperature(value),
     }
   }
 
@@ -54,7 +55,7 @@ class Temperature extends Component {
 
     this.setState({
       value: value.trim(),
-      shouldShowSuggestion: false
+      shouldShowSuggestion: false,
     })
   }
 
@@ -80,9 +81,10 @@ class Temperature extends Component {
     const { shouldShowSuggestion, suggestedTemperature, value } = this.state
     const { time } = this.props.data
 
-    const inputStyle = (shouldShowSuggestion && value === null)
-      ? { color: Colors.grey }
-      : {color: Colors.greyDark}
+    const inputStyle =
+      shouldShowSuggestion && value === null
+        ? { color: Colors.grey }
+        : { color: Colors.greyDark }
     const outOfRangeWarning = isTemperatureOutOfRange(value)
     let temperatureToShow = null
 
@@ -109,17 +111,17 @@ class Temperature extends Component {
             />
             <AppText>°C</AppText>
           </View>
-          { outOfRangeWarning !== null &&
+          {outOfRangeWarning !== null && (
             <View style={styles.hintContainer}>
               <AppText style={styles.hint}>{outOfRangeWarning}</AppText>
             </View>
-          }
+          )}
         </Segment>
         <Segment>
           <AppText style={styles.title}>{labels.time}</AppText>
           <AppTextInput
             onFocus={this.onShowTimePicker}
-            testID='timeInput'
+            testID="timeInput"
             value={time}
           />
           <DateTimePicker
@@ -127,7 +129,7 @@ class Temperature extends Component {
             mode="time"
             onConfirm={this.setTime}
             onCancel={this.onCancelTimePicker}
-            display={Platform.OS === "ios" ? "spinner" : "default"}
+            display={Platform.OS === 'ios' ? 'spinner' : 'default'}
           />
         </Segment>
       </React.Fragment>
@@ -137,28 +139,24 @@ class Temperature extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    ...Containers.rowContainer
+    ...Containers.rowContainer,
   },
   hint: {
     fontStyle: 'italic',
-    fontSize: Sizes.small
+    fontSize: Sizes.small,
   },
   hintContainer: {
-    marginVertical: Spacing.tiny
+    marginVertical: Spacing.tiny,
   },
   title: {
-    fontSize: Sizes.subtitle
-  }
+    fontSize: Sizes.subtitle,
+  },
 })
 
-
 const mapStateToProps = (state) => {
-  return({
+  return {
     date: getDate(state),
-  })
+  }
 }
 
-export default connect(
-  mapStateToProps,
-  null,
-)(Temperature)
+export default connect(mapStateToProps, null)(Temperature)
