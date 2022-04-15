@@ -154,7 +154,7 @@ class SymptomEditView extends Component {
       shouldBoxGroup,
       shouldTabGroup
     } = this.state
-    const iconName = shouldShowInfo ? "chevron-down" : "chevron-up"
+    const iconName = shouldShowInfo ? 'chevron-up' : 'chevron-down'
     const noteText = symptom === 'note' ? data.value : data.note
 
     return (
