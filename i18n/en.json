@@ -10,8 +10,8 @@
     },
     "shared": {
       "cancel": "Cancel",
-      "ok": "OK",
-      "dateTimePickerTitle": "Pick a time"
+      "dateTimePickerTitle": "Pick a time",
+      "ok": "OK"
     }
   },
   "settings": {
