@@ -23,12 +23,11 @@ import info from '../../i18n/en/symptom-info'
 import { Colors, Containers, Sizes, Spacing } from '../../styles'
 
 class SymptomEditView extends Component {
-
   static propTypes = {
     date: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
     symptom: PropTypes.string.isRequired,
-    symptomData: PropTypes.object
+    symptomData: PropTypes.object,
   }
 
   constructor(props) {
@@ -49,7 +48,7 @@ class SymptomEditView extends Component {
       shouldShowInfo: false,
       shouldShowNote,
       shouldBoxGroup,
-      shouldTabGroup
+      shouldTabGroup,
     }
   }
 
@@ -97,8 +96,8 @@ class SymptomEditView extends Component {
 
   onSaveTemperature = (value, field) => {
     const data = this.getParsedData()
-    const dataToSave = field === 'value'
-      ? { [field]: Number(value) } : { [field]: value }
+    const dataToSave =
+      field === 'value' ? { [field]: Number(value) } : { [field]: value }
     Object.assign(data, { ...dataToSave })
 
     this.setState({ data })
@@ -106,10 +105,10 @@ class SymptomEditView extends Component {
 
   onSelectBox = (key) => {
     const data = this.getParsedData()
-    if (key === "other") {
+    if (key === 'other') {
       Object.assign(data, {
         note: null,
-        [key]: !this.state.data[key]
+        [key]: !this.state.data[key],
       })
     } else {
       Object.assign(data, { [key]: !this.state.data[key] })
@@ -118,7 +117,7 @@ class SymptomEditView extends Component {
     this.setState({ data })
   }
 
-  onSelectBoxNote= (value) => {
+  onSelectBoxNote = (value) => {
     const data = this.getParsedData()
     Object.assign(data, { note: value !== '' ? value : null })
 
@@ -147,12 +146,13 @@ class SymptomEditView extends Component {
 
   render() {
     const { symptom } = this.props
-    const { data,
+    const {
+      data,
       shouldShowExclude,
       shouldShowInfo,
       shouldShowNote,
       shouldBoxGroup,
-      shouldTabGroup
+      shouldTabGroup,
     } = this.state
     const iconName = shouldShowInfo ? 'chevron-up' : 'chevron-down'
     const noteText = symptom === 'note' ? data.value : data.note
@@ -166,73 +166,73 @@ class SymptomEditView extends Component {
           <View style={styles.headerContainer}>
             <CloseIcon onClose={this.closeView} />
           </View>
-          {symptom === 'temperature' &&
+          {symptom === 'temperature' && (
             <Temperature
               data={data}
               save={(value, field) => this.onSaveTemperature(value, field)}
             />
-          }
-          {shouldTabGroup && symtomPage[symptom].selectTabGroups.map(group => {
-            return (
-              <Segment key={group.key} style={styles.segmentBorder}>
-                <AppText style={styles.title}>{group.title}</AppText>
-                <SelectTabGroup
-                  activeButton={data[group.key]}
-                  buttons={group.options}
-                  onSelect={value => this.onSelectTab(group, value)}
-                />
-              </Segment>
-            )
-          })
-          }
-          {shouldBoxGroup && symtomPage[symptom].selectBoxGroups.map(group => {
-            const isOtherSelected =
-              data['other'] !== null
-              && data['other'] !== false
-              && Object.keys(group.options).includes('other')
-
-            return (
-              <Segment key={group.key} style={styles.segmentBorder} >
-                <AppText style={styles.title}>{group.title}</AppText>
-                <SelectBoxGroup
-                  labels={group.options}
-                  onSelect={value => this.onSelectBox(value)}
-                  optionsState={data}
-                />
-                {isOtherSelected &&
-                  <AppTextInput
-                    multiline={true}
-                    placeholder={sharedLabels.enter}
-                    value={data.note}
-                    onChangeText={value => this.onSelectBoxNote(value)}
+          )}
+          {shouldTabGroup &&
+            symtomPage[symptom].selectTabGroups.map((group) => {
+              return (
+                <Segment key={group.key} style={styles.segmentBorder}>
+                  <AppText style={styles.title}>{group.title}</AppText>
+                  <SelectTabGroup
+                    activeButton={data[group.key]}
+                    buttons={group.options}
+                    onSelect={(value) => this.onSelectTab(group, value)}
                   />
-                }
-              </Segment>
-            )
-          })
-          }
-          {shouldShowExclude &&
-            <Segment style={styles.segmentBorder} >
+                </Segment>
+              )
+            })}
+          {shouldBoxGroup &&
+            symtomPage[symptom].selectBoxGroups.map((group) => {
+              const isOtherSelected =
+                data['other'] !== null &&
+                data['other'] !== false &&
+                Object.keys(group.options).includes('other')
+
+              return (
+                <Segment key={group.key} style={styles.segmentBorder}>
+                  <AppText style={styles.title}>{group.title}</AppText>
+                  <SelectBoxGroup
+                    labels={group.options}
+                    onSelect={(value) => this.onSelectBox(value)}
+                    optionsState={data}
+                  />
+                  {isOtherSelected && (
+                    <AppTextInput
+                      multiline={true}
+                      placeholder={sharedLabels.enter}
+                      value={data.note}
+                      onChangeText={(value) => this.onSelectBoxNote(value)}
+                    />
+                  )}
+                </Segment>
+              )
+            })}
+          {shouldShowExclude && (
+            <Segment style={styles.segmentBorder}>
               <AppSwitch
                 onToggle={this.onExcludeToggle}
                 text={symtomPage[symptom].excludeText}
                 value={data.exclude}
               />
             </Segment>
-          }
-          {shouldShowNote &&
-            <Segment style={styles.segmentBorder} >
+          )}
+          {shouldShowNote && (
+            <Segment style={styles.segmentBorder}>
               <AppText>{symtomPage[symptom].note}</AppText>
               <AppTextInput
                 multiline={true}
                 numberOfLines={3}
                 onChangeText={this.onEditNote}
                 placeholder={sharedLabels.enter}
-                testID='noteInput'
+                testID="noteInput"
                 value={noteText !== null ? noteText : ''}
               />
             </Segment>
-          }
+          )}
           <View style={styles.buttonsContainer}>
             <Button iconName={iconName} isSmall onPress={this.onPressLearnMore}>
               {sharedLabels.learnMore}
@@ -244,11 +244,11 @@ class SymptomEditView extends Component {
               {sharedLabels.save}
             </Button>
           </View>
-          {shouldShowInfo &&
-            <Segment last style={styles.segmentBorder} >
+          {shouldShowInfo && (
+            <Segment last style={styles.segmentBorder}>
               <AppText>{info[symptom].text}</AppText>
             </Segment>
-          }
+          )}
         </ScrollView>
       </AppModal>
     )
@@ -257,7 +257,7 @@ class SymptomEditView extends Component {
 
 const styles = StyleSheet.create({
   buttonsContainer: {
-    ...Containers.rowContainer
+    ...Containers.rowContainer,
   },
   headerContainer: {
     flexDirection: 'row',
@@ -275,23 +275,20 @@ const styles = StyleSheet.create({
     marginVertical: Sizes.huge * 2,
     position: 'absolute',
     minHeight: '40%',
-    maxHeight: Dimensions.get('window').height * 0.7
+    maxHeight: Dimensions.get('window').height * 0.7,
   },
   segmentBorder: {
-    borderBottomColor: Colors.greyLight
+    borderBottomColor: Colors.greyLight,
   },
   title: {
-    fontSize: Sizes.subtitle
-  }
+    fontSize: Sizes.subtitle,
+  },
 })
 
 const mapStateToProps = (state) => {
-  return({
+  return {
     date: getDate(state),
-  })
+  }
 }
 
-export default connect(
-  mapStateToProps,
-  null,
-)(SymptomEditView)
+export default connect(mapStateToProps, null)(SymptomEditView)

@@ -11,7 +11,7 @@ let db
 let checkIsMensesStart
 let getMensesDaysRightAfter
 
-export async function openDb (hash) {
+export async function openDb(hash) {
   const realmConfig = {}
   if (hash) {
     realmConfig.encryptionKey = hashToInt8Array(hash)
@@ -22,7 +22,7 @@ export async function openDb (hash) {
   let tempConnection
   try {
     tempConnection = await Realm.open(realmConfig)
-  } catch(err) {
+  } catch (err) {
     const isErrorDecrypting = err.toString().includes('decrypt')
     const isErrorMnemonic = err.toString().includes('Invalid mnemonic')
     // tried to open without password, but is encrypted or incorrect pwd
@@ -36,20 +36,16 @@ export async function openDb (hash) {
   let nextSchemaIndex = Realm.schemaVersion(Realm.defaultPath)
   tempConnection.close()
   while (nextSchemaIndex < schemas.length - 1) {
-    const tempConfig = Object.assign(
-      realmConfig,
-      schemas[nextSchemaIndex++]
-    )
+    const tempConfig = Object.assign(realmConfig, schemas[nextSchemaIndex++])
     const migratedRealm = new Realm(tempConfig)
     migratedRealm.close()
   }
 
   // open the Realm with the latest schema
   realmConfig.schema = schemas[schemas.length - 1]
-  const connection = await Realm.open(Object.assign(
-    realmConfig,
-    schemas[schemas.length - 1]
-  ))
+  const connection = await Realm.open(
+    Object.assign(realmConfig, schemas[schemas.length - 1])
+  )
 
   db = connection
   const cycle = cycleModule()
@@ -63,17 +59,26 @@ export function closeDb() {
 }
 
 export function getBleedingDaysSortedByDate() {
-  return db.objects('CycleDay').filtered('bleeding != null').sorted('date', true)
+  return db
+    .objects('CycleDay')
+    .filtered('bleeding != null')
+    .sorted('date', true)
 }
 export function getTemperatureDaysSortedByDate() {
-  return db.objects('CycleDay').filtered('temperature != null').sorted('date', true)
+  return db
+    .objects('CycleDay')
+    .filtered('temperature != null')
+    .sorted('date', true)
 }
 export function getCycleDaysSortedByDate() {
   return db.objects('CycleDay').sorted('date', true)
 }
 
 export function getCycleStartsSortedByDate() {
-  return db.objects('CycleDay').filtered('isCycleStart = true').sorted('date', true)
+  return db
+    .objects('CycleDay')
+    .filtered('isCycleStart = true')
+    .sorted('date', true)
 }
 export function saveSymptom(symptom, date, val) {
   let cycleDay = getCycleDay(date)
@@ -83,7 +88,10 @@ export function saveSymptom(symptom, date, val) {
     if (symptom === 'bleeding') {
       const mensesDaysAfter = getMensesDaysRightAfter(cycleDay)
       maybeSetNewCycleStart({
-        val, cycleDay, mensesDaysAfter, checkIsMensesStart
+        val,
+        cycleDay,
+        mensesDaysAfter,
+        checkIsMensesStart,
       })
     } else {
       cycleDay[symptom] = val
@@ -93,7 +101,7 @@ export function saveSymptom(symptom, date, val) {
 
 export function updateCycleStartsForAllCycleDays() {
   db.write(() => {
-    getBleedingDaysSortedByDate().forEach(day => {
+    getBleedingDaysSortedByDate().forEach((day) => {
       if (checkIsMensesStart(day)) {
         day.isCycleStart = true
       }
@@ -106,7 +114,7 @@ export function createCycleDay(dateString) {
   db.write(() => {
     result = db.create('CycleDay', {
       date: dateString,
-      isCycleStart: false
+      isCycleStart: false,
     })
   })
   return result
@@ -116,9 +124,9 @@ export function getCycleDay(dateString) {
   return db.objectForPrimaryKey('CycleDay', dateString)
 }
 
-export function getPreviousTemperature(date) {
+export function getPreviousTemperatureForDate(date) {
   const targetDate = LocalDate.parse(date)
-  const winner = getTemperatureDaysSortedByDate().find(candidate => {
+  const winner = getTemperatureDaysSortedByDate().find((candidate) => {
     return LocalDate.parse(candidate.date).isBefore(targetDate)
   })
   if (!winner) return null
@@ -171,10 +179,13 @@ export function tryToImportWithoutDelete(cycleDays) {
 }
 
 export function requestHash(type, pw) {
-  nodejs.channel.post('request-SHA512', JSON.stringify({
-    type: type,
-    message: pw
-  }))
+  nodejs.channel.post(
+    'request-SHA512',
+    JSON.stringify({
+      type: type,
+      message: pw,
+    })
+  )
 }
 
 export async function changeEncryptionAndRestartApp(hash) {
@@ -199,7 +210,7 @@ export async function changeEncryptionAndRestartApp(hash) {
   restart.Restart()
 }
 
-export function isDbEmpty () {
+export function isDbEmpty() {
   return db.empty
 }
 
