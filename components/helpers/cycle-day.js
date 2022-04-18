@@ -353,7 +353,7 @@ const label = {
       })
       .join(', ')
 
-    if (isNumber(mucus.value)) label += `\n => ${labels.mucusNFP[mucus.value]}`
+    if (isNumber(mucus.value)) label += ` => ${labels.mucusNFP[mucus.value]}`
     if (mucus.exclude) label = `(${label})`
 
     return label
