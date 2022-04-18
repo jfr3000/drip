@@ -91,11 +91,11 @@ const styles = ScaledSheet.create({
   },
   columnLeft: {
     ...column,
-    flex: 4,
+    flex: 2,
   },
   columnRight: {
     ...column,
-    flex: 5,
+    flex: 3,
     paddingTop: Spacing.small,
   },
   image: {
