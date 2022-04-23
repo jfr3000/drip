@@ -57,7 +57,7 @@
     "react-native-size-matters": "^0.4.0",
     "react-native-vector-icons": "^7.1.0",
     "react-redux": "^6.0.0",
-    "realm": "^3.6.5",
+    "realm": "^10.16.0",
     "redux": "^4.0.1",
     "redux-starter-kit": "^0.6.3",
     "sympto": "2.0.0"
@@ -107,9 +107,5 @@
   "bugs": {
     "url": "https://gitlab.com/bloodyhealth/drip/issues"
   },
-  "homepage": "https://gitlab.com/bloodyhealth/drip#README",
-  "engines": {
-    "node": ">=10.0.0 <11",
-    "npm": ">=6.0.0 <7"
-  }
+  "homepage": "https://gitlab.com/bloodyhealth/drip#README"
 }
