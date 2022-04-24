@@ -58,7 +58,7 @@ export function closeDb() {
   db.close()
 }
 
-function mapRealmObjToJsObj(realmObj) {
+export function mapRealmObjToJsObj(realmObj) {
   return realmObj ? JSON.parse(JSON.stringify(realmObj)) : realmObj
 }
 

@@ -1,6 +1,10 @@
 import { ChronoUnit, LocalDate, LocalTime } from 'js-joda'
 
-import { getPreviousTemperatureForDate, saveSymptom } from '../../db'
+import {
+  getPreviousTemperatureForDate,
+  saveSymptom,
+  mapRealmObjToJsObj,
+} from '../../db'
 import { scaleObservable } from '../../local-storage'
 
 import * as labels from '../../i18n/en/cycle-day'
@@ -383,6 +387,7 @@ const label = {
     }
   },
   sex: (sex) => {
+    sex = mapRealmObjToJsObj(sex)
     const sexLabel = []
     if (sex && Object.values({ ...sex }).some((val) => val)) {
       Object.keys(sex).forEach((key) => {
@@ -401,6 +406,7 @@ const label = {
     }
   },
   pain: (pain) => {
+    pain = mapRealmObjToJsObj(pain)
     const painLabel = []
     if (pain && Object.values({ ...pain }).some((val) => val)) {
       Object.keys(pain).forEach((key) => {
@@ -419,6 +425,7 @@ const label = {
     }
   },
   mood: (mood) => {
+    mood = mapRealmObjToJsObj(mood)
     const moodLabel = []
     if (mood && Object.values({ ...mood }).some((val) => val)) {
       Object.keys(mood).forEach((key) => {
