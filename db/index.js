@@ -59,7 +59,7 @@ export function closeDb() {
 }
 
 function mapRealmObjToJsObj(realmObj) {
-  return JSON.parse(JSON.stringify(realmObj))
+  return realmObj ? JSON.parse(JSON.stringify(realmObj)) : realmObj
 }
 
 export function getBleedingDaysSortedByDate() {
