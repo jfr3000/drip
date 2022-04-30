@@ -57,10 +57,11 @@ const styles = StyleSheet.create({
   accentOrange: {
     ...Typography.accentOrange,
     fontSize: Sizes.small,
+    margin: Sizes.tiny,
   },
   accentPurpleBig: {
     ...Typography.accentPurpleBig,
-    marginRight: Spacing.small,
+    marginRight: Spacing.tiny
   },
   cellLeft: {
     alignItems: 'flex-end',
@@ -68,12 +69,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   cellRight: {
-    flex: 6,
+    flex: 5,
     justifyContent: 'center',
   },
   row: {
     flexDirection: 'row',
     marginBottom: Spacing.tiny,
+    marginLeft: Spacing.tiny
   }
 })
 

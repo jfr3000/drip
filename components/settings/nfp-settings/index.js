@@ -5,7 +5,7 @@ import AppIcon from '../../common/app-icon'
 import AppPage from '../../common/app-page'
 import AppSwitch from '../../common/app-switch'
 import AppText from '../../common/app-text'
-import TemperatureSlider from './temperature-slider'
+// import TemperatureSlider from './temperature-slider'
 import Segment from '../../common/segment'
 
 import { useCervixObservable, saveUseCervix } from '../../../local-storage'
@@ -40,10 +40,11 @@ export default class Settings extends Component {
             value={shouldUseCervix}
           />
         </Segment>
-        <Segment title={labels.tempScale.segmentTitle}>
+        {/* disabled temporarily, TODO https://gitlab.com/bloodyhealth/drip/-/issues/545 */}
+        {/* <Segment title={labels.tempScale.segmentTitle}>
           <AppText>{labels.tempScale.segmentExplainer}</AppText>
           <TemperatureSlider />
-        </Segment>
+        </Segment> */}
         <Segment last>
           <View style={styles.line}>
             <AppIcon
