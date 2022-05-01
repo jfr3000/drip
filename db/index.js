@@ -77,7 +77,7 @@ export function getTemperatureDaysSortedByDate() {
 
 export function getCycleDaysSortedByDate() {
   const cycleDays = db.objects('CycleDay').sorted('date', true)
-  return mapRealmObjToJsObj(cycleDays)
+  return cycleDays
 }
 
 export function getCycleStartsSortedByDate() {
