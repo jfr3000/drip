@@ -158,7 +158,7 @@ Making any changes to your password setting will keep your data as it was before
     note: `We love the drip. team. Thanks and lots of <3 to all of our condriputors. Thanks to Paula Härtel for the symptom tracking icons. All the other icons are made by ${links.smashicons.url}, ${links.pause08.url}, ${links.kazachek.url} & ${links.freepik.url} from ${links.flaticon.url}.`,
   },
   donate: {
-    title: 'Buy us a coffee!',
-    note: `The drips are always grateful for donations, big or small, that help us maintain this app and develop new features. You can donate via Ko-fi. Thank you! You're awesome.`,
+    title: 'Support us',
+    note: `The drips are developing this app on a volunteer basis. We are always grateful for support. This could mean condriputing to the code, giving feedback, suggesting improvements or features, testing or donating. It helps and motivates us maintaining this app and developing new features. Thank you for your support!`,
   },
 }
