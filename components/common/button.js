@@ -11,19 +11,21 @@ const Button = ({
   children,
   iconName,
   isCTA,
+  isVisible,
   isSmall,
   onPress,
   testID,
   ...props
 }) => {
   const buttonStyle = isCTA ? styles.cta : styles.regular
+  const buttonDisplay = isVisible ? styles.isVisible : null
   const textCTA = isCTA ? styles.buttonTextBold : styles.buttonTextRegular
   const textStyle = [textCTA, isSmall ? textSmall : text]
 
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={buttonStyle}
+      style={[buttonStyle, buttonDisplay]}
       testID={testID}
       {...props}
     >
@@ -37,24 +39,25 @@ Button.propTypes = {
   children: PropTypes.node,
   iconName: PropTypes.string,
   isCTA: PropTypes.bool,
+  isVisible: PropTypes.bool,
   isSmall: PropTypes.bool,
   onPress: PropTypes.func,
-  testID: PropTypes.string
+  testID: PropTypes.string,
 }
 
 Button.defaultProps = {
-  isSmall: true
+  isSmall: true,
 }
 
 const text = {
   padding: Spacing.base,
-  textTransform: 'uppercase'
+  textTransform: 'uppercase',
 }
 
 const textSmall = {
   fontSize: Sizes.small,
   padding: Spacing.small,
-  textTransform: 'uppercase'
+  textTransform: 'uppercase',
 }
 
 const button = {
@@ -64,26 +67,30 @@ const button = {
   justifyContent: 'center',
   marginTop: Spacing.base,
   paddingHorizontal: Spacing.tiny,
-  minWidth: '15%'
+  minWidth: '15%',
 }
 
 const styles = StyleSheet.create({
   regular: {
-    ...button
+    ...button,
   },
   cta: {
     backgroundColor: Colors.orange,
     borderRadius: 25,
-    ...button
+    ...button,
+  },
+  isVisible: {
+    display: 'none',
+    ...button,
   },
   buttonTextBold: {
     color: 'white',
-    fontFamily: Fonts.bold
+    fontFamily: Fonts.bold,
   },
   buttonTextRegular: {
     color: Colors.greyDark,
-    fontFamily: Fonts.main
-  }
+    fontFamily: Fonts.main,
+  },
 })
 
 export default Button

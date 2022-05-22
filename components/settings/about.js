@@ -1,5 +1,5 @@
 import React from 'react'
-import { Linking } from 'react-native'
+import { Platform, Linking } from 'react-native'
 
 import AppPage from '../common/app-page'
 import AppText from '../common/app-text'
@@ -36,7 +36,12 @@ const AboutSection = () => {
       </Segment>
       <Segment title={labels.donate.title}>
         <AppText>{labels.donate.note}</AppText>
-        <Button isCTA isSmall onPress={() => Linking.openURL(links.donate.url)}>
+        <Button
+          isVisible={Platform.OS === 'ios' ? true : false}
+          isCTA
+          isSmall
+          onPress={() => Linking.openURL(links.donate.url)}
+        >
           {links.donate.text}
         </Button>
       </Segment>
