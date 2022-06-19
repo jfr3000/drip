@@ -4,7 +4,7 @@ import {
   Platform,
   StyleSheet,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native'
 
 import AppIcon from '../common/app-icon'
@@ -21,6 +21,7 @@ const settingsMenuItems = [
   { name: menuItems.settings, component: 'SettingsMenu' },
   { name: menuItems.about, component: 'About' },
   { name: menuItems.license, component: 'License' },
+  { name: menuItems.privacyPolicy, component: 'PrivacyPolicy' },
 ]
 
 export default class HamburgerMenu extends Component {
@@ -41,12 +42,12 @@ export default class HamburgerMenu extends Component {
       <React.Fragment>
         {!shouldShowMenu && (
           <TouchableOpacity onPress={this.toggleMenu} hitSlop={HIT_SLOP}>
-            <AppIcon name='dots-three-vertical' color={Colors.orange} />
+            <AppIcon name="dots-three-vertical" color={Colors.orange} />
           </TouchableOpacity>
         )}
         {shouldShowMenu && (
           <Modal
-            animationType='fade'
+            animationType="fade"
             onRequestClose={this.toggleMenu}
             transparent={true}
             visible={shouldShowMenu}

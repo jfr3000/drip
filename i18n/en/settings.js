@@ -22,6 +22,7 @@ export default {
     about: 'About',
     license: 'License',
     settings: 'Settings',
+    privacyPolicy: 'Privacy Policy',
   },
   export: {
     errors: {
