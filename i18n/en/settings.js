@@ -114,10 +114,10 @@ export default {
     passwordsDontMatch: "Password and confirmation don't match",
     backupReminderTitle: 'Read this before making changes to your password',
     backupReminder:
-      'Just to be safe, please backup your data using the export function before making changes to your password.\n\nLonger passwords are better! Consider using a passphrase.\n\nPlease also make sure you do not lose your password. There is no way to recover your data if you do.\n\nMaking any changes to your password setting will keep your data as it was before and restart the app.',
+      'Just to be safe, please backup your data using the export function before making changes to your password.\n\nLonger passwords are better! Consider using a passphrase.\n\nPlease also make sure you do not lose your password. There is no way to recover your data if you do.\n\nMaking any changes to your password setting will keep your data as it was before. After the password is updated the app will automatically close. At the new app launch please use the new password.',
     deleteBackupReminderTitle: 'Read this before deleting your password',
     deleteBackupReminder:
-      'Deleting your password means your data will no longer be encrypted.\n\nJust to be safe, please backup your data using the export function before deleting your password.\n\nMaking any changes to your password setting will keep your data as it was before and restart the app.',
+      'Deleting your password means your data will no longer be encrypted.\n\nJust to be safe, please backup your data using the export function before deleting your password.\n\nMaking any changes to your password setting will keep your data as it was before and restart the app. . After the password is updated the app will automatically close. At the new app launch you will not be prompted to enter the password.',
   },
   aboutSection: {
     title: 'About',
