@@ -7,19 +7,21 @@ import labels from '../../../i18n/en/settings'
 import alertError from '../common/alert-error'
 
 export function openImportDialog(onImportData) {
-  Alert.alert(
-    labels.import.title,
-    labels.import.message,
-    [{
-      text: sharedLabels.cancel, style: 'cancel', onPress: () => { }
-    }, {
-      text: labels.import.deleteOption,
-      onPress: () => onImportData(true)
-    }, {
+  Alert.alert(labels.import.title, labels.import.message, [
+    {
+      text: sharedLabels.cancel,
+      style: 'cancel',
+      onPress: () => {},
+    },
+    {
       text: labels.import.replaceOption,
-      onPress: () => onImportData(false)
-    }]
-  )
+      onPress: () => onImportData(false),
+    },
+    {
+      text: labels.import.deleteOption,
+      onPress: () => onImportData(true),
+    },
+  ])
 }
 
 export async function getFileContent() {
@@ -48,11 +50,10 @@ export async function getFileContent() {
 }
 
 export async function importData(shouldDeleteExistingData, fileContent) {
-
   try {
     await importCsv(fileContent, shouldDeleteExistingData)
     Alert.alert(sharedLabels.successTitle, labels.import.success.message)
-  } catch(err) {
+  } catch (err) {
     importError(err.message)
   }
 }
