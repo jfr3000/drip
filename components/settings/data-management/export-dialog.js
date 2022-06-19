@@ -1,6 +1,6 @@
 import Share from 'react-native-share'
 
-import { getCycleDaysSortedByDate } from '../../../db'
+import { getCycleDaysSortedByDate, mapRealmObjToJsObj } from '../../../db'
 import getDataAsCsvDataUri from '../../../lib/import-export/export-to-csv'
 import alertError from '../common/alert-error'
 import settings from '../../../i18n/en/settings'
@@ -10,7 +10,7 @@ import RNFS from 'react-native-fs'
 export default async function exportData() {
   let data
   const labels = settings.export
-  const cycleDaysByDate = getCycleDaysSortedByDate()
+  const cycleDaysByDate = mapRealmObjToJsObj(getCycleDaysSortedByDate())
 
   if (!cycleDaysByDate.length) return alertError(labels.errors.noData)
 
@@ -36,10 +36,8 @@ export default async function exportData() {
       showAppsToView: true,
       failOnCancel: false,
     })
-
   } catch (err) {
     console.error(err)
     return alertError(labels.errors.problemSharing)
   }
 }
-

@@ -45,7 +45,11 @@ target 'drip' do
   # https://stackoverflow.com/questions/63949851/react-native-ios-not-showing-images-pods-issue
   post_install do |installer|
     find_and_replace("../node_modules/react-native/Libraries/Image/RCTUIImageViewAnimated.m",
-      "_currentFrame.CGImage;","_currentFrame.CGImage ;} else { [super displayLayer:layer];")
+    "_currentFrame.CGImage;","_currentFrame.CGImage ;} else { [super displayLayer:layer];")
+    find_and_replace("../node_modules/react-native/React/CxxBridge/RCTCxxBridge.mm",
+    "_initializeModules:(NSArray<id<RCTBridgeModule>> *)modules", "_initializeModules:(NSArray<Class> *)modules")
+    find_and_replace("../node_modules/react-native/ReactCommon/turbomodule/core/platform/ios/RCTTurboModuleManager.mm",
+    "RCTBridgeModuleNameForClass(module))", "RCTBridgeModuleNameForClass(Class(module)))")
   end
 
   def find_and_replace(dir, findstr, replacestr)

@@ -58,6 +58,10 @@ export function closeDb() {
   db.close()
 }
 
+export function mapRealmObjToJsObj(realmObj) {
+  return realmObj ? JSON.parse(JSON.stringify(realmObj)) : realmObj
+}
+
 export function getBleedingDaysSortedByDate() {
   return db
     .objects('CycleDay')
@@ -70,8 +74,10 @@ export function getTemperatureDaysSortedByDate() {
     .filtered('temperature != null')
     .sorted('date', true)
 }
+
 export function getCycleDaysSortedByDate() {
-  return db.objects('CycleDay').sorted('date', true)
+  const cycleDays = db.objects('CycleDay').sorted('date', true)
+  return cycleDays
 }
 
 export function getCycleStartsSortedByDate() {
