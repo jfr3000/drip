@@ -27,7 +27,7 @@
       },
       "dataUse": {
         "title": "Data use",
-        "text": `Drip respects and celebrates your privacy. There is no collection of usage data or personal information, no ads, no spyware. Drip can store data related to menstrual health locally on your device.
+        "text": `Drip. respects and celebrates your privacy. There is no collection of usage data or personal information, no ads, no spyware. Drip. can store data related to menstrual health locally on your device.
 
 This includes:
 • settings
@@ -39,11 +39,11 @@ If you wish to delete all your app data you can do so by navigating to Settings,
       },
       "permissions": {
         "title": "Permissions",
-        "text": "For using reminders in drip you need to allow push notifications. If you don't want to use this feature you simply don't allow notifications for the app."
+        "text": "For using reminders in drip. you need to allow push notifications. If you don't want to use this feature you simply don't allow notifications for the app."
       },
       "transparency": {
         "title": "Transparency",
-        "text": "You can read through the source code of drip to ensure the given information is correct. The source code is like a recipe: It tells you how much and what kind of ingredients you need and how you prepare them to cook a tasty meal or program a funky app.\n\nBuon appetito!"
+        "text": "You can read through the source code of drip. to ensure the given information is correct. The source code is like a recipe: It tells you how much and what kind of ingredients you need and how you prepare them to cook a tasty meal or program a funky app.\n\nBuon appetito!"
       }
     }
   }
