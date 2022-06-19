@@ -29,8 +29,8 @@ export default {
       couldNotConvert: 'Could not convert data to CSV',
       problemSharing: 'There was a problem sharing the data export file',
     },
-    title: 'My drip data export',
-    subject: 'My drip data export',
+    title: 'My drip. data export',
+    subject: 'My drip. data export',
     button: 'Export data',
     segmentExplainer:
       'Export data in CSV format for backup or so you can use it elsewhere',
@@ -125,7 +125,7 @@ export default {
   },
   philosophy: {
     title: 'Remember to think for yourself',
-    text: `drip makes period predictions for you and helps you apply NFP fertility awareness rules. But please remember that this app is made by humans, and humans make mistakes. Always think for yourself: "Does this make sense?" Remember, you don't need an app to understand your cycle! However, drip wants to support you and make period tracking easier, more transparent and secure.`,
+    text: `drip. makes period predictions for you and helps you apply NFP fertility awareness rules. But please remember that this app is made by humans, and humans make mistakes. Always think for yourself: "Does this make sense?" Remember, you don't need an app to understand your cycle! However, drip. wants to support you and make period tracking easier, more transparent and secure.`,
   },
   version: {
     title: 'Version',
@@ -135,11 +135,11 @@ export default {
   },
   preOvu: {
     title: 'Infertile days at cycle start',
-    note: `drip applies NFP's rules for calculating infertile days at the start of the cycle (see ${links.wiki.url} for more info). However, drip does not currently apply the so called 20-day-rule, which determines infertile days at the cycle start from past cycle lengths in case no past symptothermal info is available.`,
+    note: `drip. applies NFP's rules for calculating infertile days at the start of the cycle (see ${links.wiki.url} for more info). However, drip. does not currently apply the so called 20-day-rule, which determines infertile days at the cycle start from past cycle lengths in case no past symptothermal info is available.`,
   },
   credits: {
     title: 'Credits',
-    note: `We love the drip team. Thanks and lots of <3 to all of our condriputors. Thanks to Paula Härtel for the symptom tracking icons. All the other icons are made by ${links.smashicons.url}, ${links.pause08.url}, ${links.kazachek.url} & ${links.freepik.url} from ${links.flaticon.url}.`,
+    note: `We love the drip. team. Thanks and lots of <3 to all of our condriputors. Thanks to Paula Härtel for the symptom tracking icons. All the other icons are made by ${links.smashicons.url}, ${links.pause08.url}, ${links.kazachek.url} & ${links.freepik.url} from ${links.flaticon.url}.`,
   },
   donate: {
     title: 'Buy us a coffee!',

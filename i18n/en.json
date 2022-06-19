@@ -1,7 +1,7 @@
 {
   "labels": {
     "bleedingPrediction": {
-      "noPrediction": "As soon as you have tracked 3 menstrual cycles, drip will make predictions for the next ones."
+      "noPrediction": "As soon as you have tracked 3 menstrual cycles, drip. will make predictions for the next ones."
     },
     "home": {
       "cycleDay": " day of your cycle",
@@ -16,8 +16,35 @@
   },
   "settings": {
     "license": {
-      "title": "drip is an open-source cycle tracking app",
-      "text": "Copyright (C) {{currentYear}} Bloody Health GbR\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details: https://www.gnu.org/licenses/gpl-3.0.html\n\nYou can contact us by drip@mailbox.org."
+      "title": "drip. an open-source cycle tracking app",
+      "text": "Copyright (C) {{currentYear}} Heart of Code e.V.\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details: https://www.gnu.org/licenses/gpl-3.0.html\n\nYou can contact us at drip@mailbox.org."
+    },
+    "privacyPolicy": {
+      "title": "Privacy Policy",
+      "intro": {
+        "title": "Introduction",
+        "text": `This Privacy Policy sets out how the iOS app 'drip.' uses and protects your personal data that you generate and store within the app.`
+      },
+      "dataUse": {
+        "title": "Data use",
+        "text": `Drip. respects and celebrates your privacy. There is no collection of usage data or personal information, no ads, no spyware. Drip. can store data related to menstrual health locally on your device.
+
+This includes:
+• settings
+• menstrual cycle tracking data
+
+The data is used to display statistics and apply fertility awareness rules. This data cannot be accessed by other apps.
+
+If you wish to delete all your app data you can do so by navigating to Settings, Data and Delete app data. This can also be done by uninstalling the app.`
+      },
+      "permissions": {
+        "title": "Permissions",
+        "text": "For using reminders in drip. you need to allow push notifications. If you don't want to use this feature you simply don't allow notifications for the app."
+      },
+      "transparency": {
+        "title": "Transparency",
+        "text": "You can read through the source code of drip. to ensure the given information is correct. The source code is like a recipe: It tells you how much and what kind of ingredients you need and how you prepare them to cook a tasty meal or program a funky app.\n\nBuon appetito!"
+      }
     }
   }
 }
