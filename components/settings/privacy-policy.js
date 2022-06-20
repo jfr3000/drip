@@ -16,7 +16,7 @@ const PrivacyPolicy = () => {
     <AppPage title={t('settings.privacyPolicy.title')}>
       {sections.map((sectionItem) => {
         return (
-          <Segment last>
+          <Segment last key={sectionItem.id}>
             <AppText style={styles.title}>
               {t(`settings.privacyPolicy.${sectionItem}.title`)}
             </AppText>
