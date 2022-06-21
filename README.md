@@ -25,6 +25,13 @@ The app is built in React Native and currently developed for Android.
 
 Install [Android Studio](https://developer.android.com/studio/) - you'll need it to install some dependencies.
 
+#### 2. Node & npm version
+
+Make sure you are running Node 14 and npm 6.14.17. It's easiest to switch Node versions using `nvm`, here's how to do it:
+
+    $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
+    $ nvm install v14.19.3
+
 #### 3. Get this repository
 
 Clone it with SSH
@@ -97,19 +104,19 @@ $ npm run ios
 Make sure that you have Java 1.8 by running `java -version`.
 
 If you don't have Java installed, or your Java version is different, the app may not work. You can try just using Android Studio's Java by prepending it to your `$PATH` in your shell profile:
-` $ export PATH="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home/bin:${PATH}" `
+`$ export PATH="/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home/bin:${PATH}"`
 
 Now, `which java` should output `/Applications/Android Studio.app/Contents/jre/jdk/Contents/Home/bin/java`, and the correct Java version should be used.
 
 #### [MacOS] Ninja
 
 If `npm` says `CMake was unable to find a build program corresponding to "Ninja".`:
-` $ brew install ninja `
+`$ brew install ninja`
 
 ### [MacOS] adb not on the path
 
 If you get error messages about `adb` not being found on your path:
-` $ ln -s ~/Library/Android/sdk/platform-tools/adb /usr/local/bin/adb `
+`$ ln -s ~/Library/Android/sdk/platform-tools/adb /usr/local/bin/adb`
 
 ### [MacOS] and XCode 12.5
 
@@ -142,7 +149,7 @@ For example, if you would like to clear android part of the project and re-insta
 ### Unit tests
 
 You can run the tests with:
-` $ npm test `
+`$ npm test`
 
 ### End to end tests
 
@@ -159,7 +166,7 @@ You can run the tests with:
 4. Use the emulator on your machine to run it without heavy Android Studio, e.g. in `~/Android/Sdk/emulator` OR chose to run the emulator within Android Studio
    4.1 Here run: `$ ./emulator -avd NEXUS_DEVICE_OR_WHATEVER_SPECIFIED_DEVICE`
    4.2 You might need to specify the following environment variables in your zsh or bash file according to where you have it installed. You can find exact path in Android Studio (Android Studio Preferences → Appearance and Behavior → System Settings → Android SDK). After adding environment variables, you might need to restart your terminal or source the modified bash profile (i.e. "source ~/.bash_profile").
-   ` export ANDROID_HOME="/home/myname/Android/Sdk" export ANDROID_SDK_ROOT="/home/myname/Android/Sdk" export ANDROID_AVD_HOME="/home/myname/.android/avd" `
+   `export ANDROID_HOME="/home/myname/Android/Sdk" export ANDROID_SDK_ROOT="/home/myname/Android/Sdk" export ANDROID_AVD_HOME="/home/myname/.android/avd"`
 5. For the first time you need to get the app on the phone or if you run into this error:
    `'app-debug-androidTest.apk' could not be found`
    --> open a new 2nd tab and run (in your drip folder): `cd android and ./gradlew assembleAndroidTest`
