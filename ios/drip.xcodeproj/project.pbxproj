@@ -13,29 +13,20 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		391104775EE3784E57FE4EF3 /* Pods_drip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A2844C0BAD8FC5464A8A33A /* Pods_drip.framework */; };
-		540918AB25AB726000086AE1 /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5409189625AB725F00086AE1 /* OpenSans-LightItalic.ttf */; };
-		540918AF25AB726000086AE1 /* Prompt-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 540918A225AB725F00086AE1 /* Prompt-ExtraLight.ttf */; };
 		540918B325AB726000086AE1 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 540918A325AB725F00086AE1 /* OpenSans-Light.ttf */; };
 		540918B725AB726000086AE1 /* Jost-700-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 540918A425AB725F00086AE1 /* Jost-700-Bold.otf */; };
 		540918BB25AB726000086AE1 /* Menu.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 540918A525AB725F00086AE1 /* Menu.ttf */; };
 		540918BF25AB726000086AE1 /* drip-home-icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 540918A625AB726000086AE1 /* drip-home-icons.ttf */; };
 		540918C325AB726000086AE1 /* Jost-400-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 540918A725AB726000086AE1 /* Jost-400-Book.otf */; };
-		540918C725AB726000086AE1 /* drip-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 540918A825AB726000086AE1 /* drip-icon-font.ttf */; };
 		540918CB25AB726000086AE1 /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 540918A925AB726000086AE1 /* OpenSans-SemiBold.ttf */; };
 		5472A44A25BB7806005E81DE /* drip-home-icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5472A44125BB7806005E81DE /* drip-home-icons.ttf */; };
-		5472A44B25BB7806005E81DE /* drip-home-icons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5472A44125BB7806005E81DE /* drip-home-icons.ttf */; };
 		5472A44C25BB7807005E81DE /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5472A44225BB7806005E81DE /* OpenSans-Light.ttf */; };
-		5472A44D25BB7807005E81DE /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5472A44225BB7806005E81DE /* OpenSans-Light.ttf */; };
 		5472A44E25BB7807005E81DE /* Prompt-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5472A44325BB7806005E81DE /* Prompt-ExtraLight.ttf */; };
 		5472A44F25BB7807005E81DE /* Prompt-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5472A44325BB7806005E81DE /* Prompt-ExtraLight.ttf */; };
 		5472A45025BB7807005E81DE /* Jost-400-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5472A44425BB7806005E81DE /* Jost-400-Book.otf */; };
-		5472A45125BB7807005E81DE /* Jost-400-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5472A44425BB7806005E81DE /* Jost-400-Book.otf */; };
 		5472A45225BB7807005E81DE /* Jost-700-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5472A44525BB7806005E81DE /* Jost-700-Bold.otf */; };
-		5472A45325BB7807005E81DE /* Jost-700-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5472A44525BB7806005E81DE /* Jost-700-Bold.otf */; };
 		5472A45425BB7807005E81DE /* Menu.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5472A44625BB7806005E81DE /* Menu.ttf */; };
-		5472A45525BB7807005E81DE /* Menu.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5472A44625BB7806005E81DE /* Menu.ttf */; };
 		5472A45625BB7807005E81DE /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5472A44725BB7806005E81DE /* OpenSans-SemiBold.ttf */; };
-		5472A45725BB7807005E81DE /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5472A44725BB7806005E81DE /* OpenSans-SemiBold.ttf */; };
 		5472A45825BB7807005E81DE /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5472A44825BB7806005E81DE /* OpenSans-LightItalic.ttf */; };
 		5472A45925BB7807005E81DE /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5472A44825BB7806005E81DE /* OpenSans-LightItalic.ttf */; };
 		5472A45A25BB7807005E81DE /* drip-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5472A44925BB7806005E81DE /* drip-icon-font.ttf */; };
@@ -47,12 +38,12 @@
 		54DFE73D25D94DED0025C3FC /* cycle-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 54DFE73C25D94DED0025C3FC /* cycle-icon.png */; };
 		54DFE73E25D94DED0025C3FC /* cycle-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 54DFE73C25D94DED0025C3FC /* cycle-icon.png */; };
 		54E1D49923E7588F003FA37B /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54E1D49823E7588F003FA37B /* JavaScriptCore.framework */; };
+		5C4C9DDE2824847500B72CBE /* NodeMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C225FC4966694B9FBD32E946 /* NodeMobile.framework */; };
 		62F2A4645AC84CDC9506FF27 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AEBF0735214455AAEDF56D5 /* libc++.tbd */; };
 		933D8701A95E8E4DE86B81C5 /* Pods_dripTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AF24CA7E00CF7BB37FEAE9A /* Pods_dripTests.framework */; };
 		A16B351C3F3644CF95F104D2 /* builtin_modules in Resources */ = {isa = PBXBuildFile; fileRef = 36F1B55D0DEE47AA9AF4BBDD /* builtin_modules */; };
 		BD7041F2826E4A2CBE6CB87D /* RealmJSTests.xctest in Frameworks */ = {isa = PBXBuildFile; fileRef = F79F72C5390646E0A06AAE68 /* RealmJSTests.xctest */; };
 		D91133DCE120440893E2FD2E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = CD8C8B91E0A747B3883A0D56 /* libz.tbd */; };
-		E43EF009AC8C4698AB322190 /* NodeMobile.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C225FC4966694B9FBD32E946 /* NodeMobile.framework */; };
 		E4584E55EEC24302A3E84A23 /* nodejs-project in Resources */ = {isa = PBXBuildFile; fileRef = 6466AE2461BE4FA88B8372F0 /* nodejs-project */; };
 /* End PBXBuildFile section */
 
@@ -118,6 +109,7 @@
 		54DFE73C25D94DED0025C3FC /* cycle-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cycle-icon.png"; path = "../assets/cycle-icon.png"; sourceTree = "<group>"; };
 		54E1D49823E7588F003FA37B /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		5ABC2C1190B4D25AC0398D09 /* Pods-dripTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dripTests.release.xcconfig"; path = "Target Support Files/Pods-dripTests/Pods-dripTests.release.xcconfig"; sourceTree = "<group>"; };
+		5C649EDC281151BC005FED46 /* dripRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = dripRelease.entitlements; path = drip/dripRelease.entitlements; sourceTree = "<group>"; };
 		6466AE2461BE4FA88B8372F0 /* nodejs-project */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "nodejs-project"; path = "../nodejs-assets/nodejs-project"; sourceTree = "<group>"; };
 		6B7C2A0A7AAA83BBEFBD0B6A /* libPods-drip-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-drip-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A2844C0BAD8FC5464A8A33A /* Pods_drip.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_drip.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,8 +147,8 @@
 				54E1D49923E7588F003FA37B /* JavaScriptCore.framework in Frameworks */,
 				62F2A4645AC84CDC9506FF27 /* libc++.tbd in Frameworks */,
 				D91133DCE120440893E2FD2E /* libz.tbd in Frameworks */,
-				E43EF009AC8C4698AB322190 /* NodeMobile.framework in Frameworks */,
 				BD7041F2826E4A2CBE6CB87D /* RealmJSTests.xctest in Frameworks */,
+				5C4C9DDE2824847500B72CBE /* NodeMobile.framework in Frameworks */,
 				391104775EE3784E57FE4EF3 /* Pods_drip.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -203,6 +195,7 @@
 		13B07FAE1A68108700A75B9A /* drip */ = {
 			isa = PBXGroup;
 			children = (
+				5C649EDC281151BC005FED46 /* dripRelease.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -333,7 +326,6 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				2B572382D4504B8FB4B9D251 /* Embed Frameworks */,
 				DE9DD9049EBE47E5A1EA3F5D /* Build NodeJS Mobile Native Modules */,
 				6C10CEE2CE544C7F9400F1B4 /* Sign NodeJS Mobile Native Modules */,
 				B93B657279074F0DB95BCDE2 /* Remove NodeJS Mobile Framework Simulator Strips */,
@@ -358,7 +350,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 610;
+				LastUpgradeCheck = 1330;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -366,16 +358,15 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = NLN65U2B6Z;
+						DevelopmentTeam = 6AD72X6W26;
 					};
 				};
 			};
 			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "drip" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -399,23 +390,14 @@
 				540918CB25AB726000086AE1 /* OpenSans-SemiBold.ttf in Resources */,
 				540918C325AB726000086AE1 /* Jost-400-Book.otf in Resources */,
 				540918BB25AB726000086AE1 /* Menu.ttf in Resources */,
-				5472A45725BB7807005E81DE /* OpenSans-SemiBold.ttf in Resources */,
 				54DFE73E25D94DED0025C3FC /* cycle-icon.png in Resources */,
 				5472A44F25BB7807005E81DE /* Prompt-ExtraLight.ttf in Resources */,
 				5472A45E25BB7C43005E81DE /* Entypo.ttf in Resources */,
-				540918AF25AB726000086AE1 /* Prompt-ExtraLight.ttf in Resources */,
-				5472A45525BB7807005E81DE /* Menu.ttf in Resources */,
 				5472A45925BB7807005E81DE /* OpenSans-LightItalic.ttf in Resources */,
 				540918BF25AB726000086AE1 /* drip-home-icons.ttf in Resources */,
 				540918B725AB726000086AE1 /* Jost-700-Bold.otf in Resources */,
 				54DFE73B25D94D6E0025C3FC /* swipe.png in Resources */,
-				5472A44B25BB7806005E81DE /* drip-home-icons.ttf in Resources */,
-				540918AB25AB726000086AE1 /* OpenSans-LightItalic.ttf in Resources */,
 				5472A45B25BB7807005E81DE /* drip-icon-font.ttf in Resources */,
-				5472A45325BB7807005E81DE /* Jost-700-Bold.otf in Resources */,
-				5472A45125BB7807005E81DE /* Jost-400-Book.otf in Resources */,
-				5472A44D25BB7807005E81DE /* OpenSans-Light.ttf in Resources */,
-				540918C725AB726000086AE1 /* drip-icon-font.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -742,7 +724,7 @@
 					"$(SRCROOT)/../node_modules/realm/src/**",
 				);
 				INFOPLIST_FILE = dripTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -755,6 +737,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/drip.app/drip";
 			};
@@ -785,7 +768,7 @@
 					"$(SRCROOT)/../node_modules/realm/src/**",
 				);
 				INFOPLIST_FILE = dripTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
@@ -798,6 +781,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/drip.app/drip";
 			};
@@ -810,8 +794,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = NLN65U2B6Z;
+				DEVELOPMENT_TEAM = 6AD72X6W26;
 				ENABLE_BITCODE = "$(inherited)";
+				EXCLUDED_ARCHS = "";
+				"EXCLUDED_ARCHS[sdk=*]" = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"../node_modules/nodejs-mobile-react-native/ios\"",
@@ -833,6 +819,7 @@
 					"$(SRCROOT)/../node_modules/realm/src/**",
 				);
 				INFOPLIST_FILE = drip/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/DoubleConversion\"",
@@ -868,11 +855,13 @@
 					"\"${PODS_ROOT}/../../node_modules/realm/vendor/realm-ios\"",
 					"$(inherited)",
 				);
+				MARKETING_VERSION = 1.2206.19;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
 					"$(inherited)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.heartofcode.drip.cycle.tracking;
 				PRODUCT_NAME = drip;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -883,9 +872,11 @@
 			baseConfigurationReference = E1C5175D0AEA2ABCC690D6E2 /* Pods-drip.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = drip/dripRelease.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = NLN65U2B6Z;
+				DEVELOPMENT_TEAM = 6AD72X6W26;
 				ENABLE_BITCODE = "$(inherited)";
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"../node_modules/nodejs-mobile-react-native/ios\"",
@@ -907,6 +898,7 @@
 					"$(SRCROOT)/../node_modules/realm/src/**",
 				);
 				INFOPLIST_FILE = drip/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/DoubleConversion\"",
@@ -942,11 +934,13 @@
 					"\"${PODS_ROOT}/../../node_modules/realm/vendor/realm-ios\"",
 					"$(inherited)",
 				);
+				MARKETING_VERSION = 1.2206.19;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
 					"$(inherited)",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.heartofcode.drip.cycle.tracking;
 				PRODUCT_NAME = drip;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -956,25 +950,39 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_BITCODE = "$(inherited)";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -987,7 +995,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -999,17 +1007,29 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1018,13 +1038,14 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
