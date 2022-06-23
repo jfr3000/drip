@@ -112,12 +112,27 @@ export default {
     enterNew: 'Please enter a new password',
     confirmPassword: 'Please confirm your password',
     passwordsDontMatch: "Password and confirmation don't match",
-    backupReminderTitle: 'Read this before making changes to your password',
-    backupReminder:
-      'Just to be safe, please backup your data using the export function before making changes to your password.\n\nLonger passwords are better! Consider using a passphrase.\n\nPlease also make sure you do not lose your password. There is no way to recover your data if you do.\n\nMaking any changes to your password setting will keep your data as it was before. After the password is updated the app will automatically close. At the new app launch please use the new password.',
-    deleteBackupReminderTitle: 'Read this before deleting your password',
-    deleteBackupReminder:
-      'Deleting your password means your data will no longer be encrypted.\n\nJust to be safe, please backup your data using the export function before deleting your password.\n\nMaking any changes to your password setting will keep your data as it was before and restart the app. . After the password is updated the app will automatically close. At the new app launch you will not be prompted to enter the password.',
+    backupReminder: {
+      title: 'Read this before making changes to your password',
+      message: `
+Just to be safe, please backup your data using the export function before making any changes to your password.\n
+Longer passwords are better! Consider using a passphrase.\n
+Please also make sure you do not lose your password. There is no way to recover your data if you do.\n
+Making any changes to your password setting will keep your data as it was before.\n`,
+    },
+    deleteBackupReminder: {
+      title: 'Read this before deleting your password',
+      message: `
+Deleting your password means your data will no longer be encrypted.\n
+Just to be safe, please backup your data using the export function before deleting your password.\n
+Making any changes to your password setting will keep your data as it was before and restart the app.\n    
+    `,
+    },
+    backupReminderAppendix: {
+      android:
+        'After the password is updated the app will automatically restart.',
+      ios: 'After the password is updated the app will automatically close. Please reopen it manually.',
+    },
   },
   aboutSection: {
     title: 'About',

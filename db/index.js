@@ -2,10 +2,8 @@ import Realm from 'realm'
 import { LocalDate, ChronoUnit } from 'js-joda'
 import nodejs from 'nodejs-mobile-react-native'
 import fs from 'react-native-fs'
-// Current version of react-native-restart doesn't work with our ios setup
-// therefore react-native-exit-app-v2 is used to close the app after setting pwd
-// import restart from 'react-native-restart'
-import RNExitApp from 'react-native-exit-app-v2'
+import { restartApp } from './restart-app'
+
 import schemas from './schemas'
 import cycleModule from '../lib/cycle'
 import maybeSetNewCycleStart from '../lib/set-new-cycle-start'
@@ -216,10 +214,7 @@ export async function changeEncryptionAndRestartApp(hash) {
   db.close()
   await fs.unlink(defaultPath)
   await fs.moveFile(copyPath, defaultPath)
-  // Current version of react-native-restart doesn't work with our ios setup
-  // therefore react-native-exit-app-v2 is used to close the app after setting pwd
-  // restart.Restart()
-  RNExitApp.exitApp()
+  restartApp()
 }
 
 export function isDbEmpty() {
