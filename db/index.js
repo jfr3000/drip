@@ -2,7 +2,8 @@ import Realm from 'realm'
 import { LocalDate, ChronoUnit } from 'js-joda'
 import nodejs from 'nodejs-mobile-react-native'
 import fs from 'react-native-fs'
-import restart from 'react-native-restart'
+import { restartApp } from './restart-app'
+
 import schemas from './schemas'
 import cycleModule from '../lib/cycle'
 import maybeSetNewCycleStart from '../lib/set-new-cycle-start'
@@ -213,7 +214,7 @@ export async function changeEncryptionAndRestartApp(hash) {
   db.close()
   await fs.unlink(defaultPath)
   await fs.moveFile(copyPath, defaultPath)
-  restart.Restart()
+  restartApp()
 }
 
 export function isDbEmpty() {
