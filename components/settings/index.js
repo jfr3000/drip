@@ -4,7 +4,14 @@ import DataManagement from './data-management'
 import Password from './password'
 import About from './about'
 import License from './license'
+import PrivacyPolicy from './privacy-policy'
 
 export default {
-  Reminders, NfpSettings, DataManagement, Password, About, License
+  Reminders,
+  NfpSettings,
+  DataManagement,
+  Password,
+  About,
+  License,
+  PrivacyPolicy,
 }
