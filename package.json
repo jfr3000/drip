@@ -76,7 +76,7 @@
     "dirty-chai": "^2.0.1",
     "eslint": "^6.4.0",
     "eslint-plugin-react": "^7.8.2",
-    "husky": "^6.0.0",
+    "husky": "^8.0.0",
     "jase": "^1.2.0",
     "jest": "^24.9.0",
     "jetifier": "^1.6.6",
