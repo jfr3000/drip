@@ -23,19 +23,11 @@
       "title": "Privacy Policy",
       "intro": {
         "title": "Introduction",
-        "text": `This Privacy Policy sets out how the iOS app 'drip.' uses and protects your personal data that you generate and store within the app.`
+        "text": "This Privacy Policy sets out how the iOS app 'drip.' uses and protects your personal data that you generate and store within the app."
       },
       "dataUse": {
         "title": "Data use",
-        "text": `Drip. respects and celebrates your privacy. There is no collection of usage data or personal information, no ads, no spyware. Drip. can store data related to menstrual health locally on your device.
-
-This includes:
-• settings
-• menstrual cycle tracking data
-
-The data is used to display statistics and apply fertility awareness rules. This data cannot be accessed by other apps.
-
-If you wish to delete all your app data you can do so by navigating to Settings, Data and Delete app data. This can also be done by uninstalling the app.`
+        "text": "Drip. respects and celebrates your privacy. There is no collection of usage data or personal information, no ads, no spyware. Drip. can store data related to menstrual health locally on your device.\n\nThis includes:\n• settings\n• menstrual cycle tracking data\n\nThe data is used to display statistics and apply fertility awareness rules. This data cannot be accessed by other apps.\n\nIf you wish to delete all your app data you can do so by navigating to Settings, Data and Delete app data. This can also be done by uninstalling the app."
       },
       "permissions": {
         "title": "Permissions",
