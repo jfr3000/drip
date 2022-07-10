@@ -1,11 +1,11 @@
 # drip, the open-source cycle tracking app
 
 A menstrual cycle tracking app that's open-source and leaves your data on your phone. Use it to track your menstrual cycle and/or for fertility awareness!
-Find more information on [our website](http://dripapp.org/).
+Find more information on [our website](https://dripapp.org/).
 
-[<img src="http://dripapp.org/assets/get.png"
+[<img src="https://dripapp.org/assets/get.png"
      alt="Get it here"
-     height="55">](http://dripapp.org/release/8.apk)
+     height="55">](https://dripapp.org/release/8.apk)
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
      alt="Get it on F-Droid"
      height="80">](https://f-droid.org/packages/com.drip/)

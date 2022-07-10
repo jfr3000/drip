@@ -12,7 +12,7 @@ export default {
     text: 'our wiki',
   },
   website: {
-    url: 'http://dripapp.org/',
+    url: 'https://dripapp.org/',
     text: 'Website',
   },
   donate: {
