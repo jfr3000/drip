@@ -12,7 +12,7 @@ export default {
     text: 'our wiki',
   },
   website: {
-    url: 'https://bloodyhealth.gitlab.io/',
+    url: 'http://dripapp.org/',
     text: 'Website',
   },
   donate: {
