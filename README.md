@@ -83,7 +83,7 @@ iv. We recommend installing an [ESLint plugin in your editor](https://eslint.org
 Minimum system requirements to run iOS app are as follows:
 
 - MacOS 10.15.7 for Mac users
-- Xcode 12.3 (command line tools only might be enough)
+- Xcode 13 (command line tools only might be enough)
 
 i. Install XCode dependencies by running the following command from the root project directory:
 
@@ -119,15 +119,6 @@ If `npm` says `CMake was unable to find a build program corresponding to "Ninja"
 If you get error messages about `adb` not being found on your path:
 
     ln -s ~/Library/Android/sdk/platform-tools/adb /usr/local/bin/adb
-
-### [MacOS] and XCode 12.5
-
-If you run XCode 12.5, more likely you'll have problems building app for iOS. Please use the following fix: https://stackoverflow.com/a/67320887.
-
-If you experience any further issues, please feel free to check out the following threads:
-
-- [react-native run-ios build failure on XCode 12.5 beta](https://github.com/react-native-community/cli/issues/1365)
-- [Xcode 12.5 troubleshooting guide (RN 0.61/0.62/0.63/0.64)](https://github.com/facebook/react-native/issues/31480)
 
 ### Clearing project cache
 
