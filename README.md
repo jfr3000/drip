@@ -76,7 +76,7 @@ iv. We recommend installing an [ESLint plugin in your editor](https://eslint.org
 
 "CocoaPods manages library dependencies for your Xcode projects"
 
-    sudo gem install cocoapods
+    brew install cocoapods
 
 ### 4.2 Run app on iOS
 
