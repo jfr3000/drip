@@ -42,60 +42,60 @@ and then run
     cd drip
     npm install
 
-### Android
+## for Android
 
-#### 3.1 Android Studio
+### 3.1 Android Studio
 
 Install [Android Studio](https://developer.android.com/studio/) - you'll need it to install some dependencies.
 
-#### 3.2 More requirements from Android Studio
+### 3.2 More requirements from Android Studio
 
 Open Android Studio and click on "Open an existing Android Studio project". Navigate to the drip repository you cloned and double click the android folder. It detects, downloads and cofigures requirements that might be missing, like the NDK and CMake to build the native code part of the project. Also see the [nodejs-mobile repository](https://github.com/janeasystems/nodejs-mobile) for the necessary prerequisites for your system.
 
-#### 3.3 Run the app on Android
+### 3.3 Run the app on Android
 
 Either start a [virtual device in Android Studio](https://developer.android.com/studio/run/emulator) or [set your physical device like your Android phone up](https://developer.android.com/training/basics/firstapp/running-app) to run the app.
 
-1. Open a terminal and run
+i. Open a terminal and run
 
-   npm run android
+    npm run android
 
-2. To see logging output, run the following command in another tab:
+ii. To see logging output, run the following command in another tab:
 
-   npm run log
+    npm run log
 
-3. Run the following command and select enable hot reloading (see https://facebook.github.io/react-native/docs/debugging.html):
+iii. Run the following command and select enable hot reloading (see https://facebook.github.io/react-native/docs/debugging.html):
 
-   adb shell input keyevent 82
+    adb shell input keyevent 82
 
-4. We recommend installing an [ESLint plugin in your editor](https://eslint.org/docs/user-guide/integrations#editors). There's an `.eslintrc` file in this project which will be used by the plugin to check your code for style errors and potential bugs.
+iv. We recommend installing an [ESLint plugin in your editor](https://eslint.org/docs/user-guide/integrations#editors). There's an `.eslintrc` file in this project which will be used by the plugin to check your code for style errors and potential bugs.
 
-### iOS
+## for iOS
 
-#### 4.1 Install Cocoapods
+### 4.1 Install Cocoapods
 
 "CocoaPods manages library dependencies for your Xcode projects"
 
     sudo gem install cocoapods
 
-#### 4.2 Run app on iOS
+### 4.2 Run app on iOS
 
 Minimum system requirements to run iOS app are as follows:
 
 - MacOS 10.15.7 for Mac users
 - Xcode 12.3 (command line tools only might be enough)
 
-1. Install XCode dependencies by running the following command from the root project directory:
+i. Install XCode dependencies by running the following command from the root project directory:
 
-   cd ios && pod install && cd ..
+    cd ios && pod install && cd ..
 
-2. To run app either open drip workspace ('drip.xcworkspace' file) with XCode and run "Build" or run the following command:
+ii. To run app either open drip workspace ('drip.xcworkspace' file) with XCode and run "Build" or run the following command:
 
-   npm run ios
+    npm run ios
 
-3. If you are building the app with XCode make sure you are running this as well:
+iii. If you are building the app with XCode make sure you are running this as well:
 
-   npm start
+    npm start
 
 ### Troubleshooting
 
@@ -195,9 +195,9 @@ More information about how the app calculates fertility status and bleeding pred
 2.  Download webfont from fontello.
 3.  Copy both the content of `config.json` and `font.tff` into `assets/fonts`, replacing it with the current content of `config-drip-icon-font.json` and `drip-icon-font.tff`.
 4.  Now run the following command in your console:
-    ```
-    $ react-native link
-    ```
+
+        react-native link
+
 5.  You should be able to use the icon now within drip, e.g. in Cycle Day Overview and on the chart.
 
 ## Translation
