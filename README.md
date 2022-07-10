@@ -31,15 +31,13 @@ or clone it with HTTPS
 
     git clone https://gitlab.com/bloodyhealth/drip.git
 
-
 ### 2. Node & npm version
 
-Make sure you are running Node 14 and npm 6.14.17. It's easiest to switch Node versions using `nvm`, here's how to do it:
+Make sure you are running Node 14 and npm 6.14.17. It's easiest to switch Node versions using `nvm`, here's how to install NVM: https://github.com/nvm-sh/nvm#installing-and-updating. Once you have nvm you can install node 14:
 
-    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
     nvm install v14.19.3
 
-and run
+and then run
 
     cd drip
     npm install
@@ -60,15 +58,15 @@ Either start a [virtual device in Android Studio](https://developer.android.com/
 
 1. Open a terminal and run
 
-    npm run android
+   npm run android
 
 2. To see logging output, run the following command in another tab:
 
-    npm run log
+   npm run log
 
 3. Run the following command and select enable hot reloading (see https://facebook.github.io/react-native/docs/debugging.html):
 
-    adb shell input keyevent 82
+   adb shell input keyevent 82
 
 4. We recommend installing an [ESLint plugin in your editor](https://eslint.org/docs/user-guide/integrations#editors). There's an `.eslintrc` file in this project which will be used by the plugin to check your code for style errors and potential bugs.
 
@@ -89,15 +87,15 @@ Minimum system requirements to run iOS app are as follows:
 
 1. Install XCode dependencies by running the following command from the root project directory:
 
-    cd ios && pod install && cd ..
+   cd ios && pod install && cd ..
 
 2. To run app either open drip workspace ('drip.xcworkspace' file) with XCode and run "Build" or run the following command:
 
-    npm run ios
+   npm run ios
 
 3. If you are building the app with XCode make sure you are running this as well:
 
-    npm start
+   npm start
 
 ### Troubleshooting
 
