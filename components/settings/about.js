@@ -36,14 +36,15 @@ const AboutSection = () => {
       </Segment>
       <Segment title={labels.donate.title}>
         <AppText>{labels.donate.note}</AppText>
-        <Button
-          isVisible={Platform.OS === 'ios' ? true : false}
-          isCTA
-          isSmall
-          onPress={() => Linking.openURL(links.donate.url)}
-        >
-          {links.donate.text}
-        </Button>
+        {Platform.OS !== 'ios' && (
+          <Button
+            isCTA
+            isSmall
+            onPress={() => Linking.openURL(links.donate.url)}
+          >
+            {links.donate.text}
+          </Button>
+        )}
       </Segment>
       <Segment title={labels.version.title} last>
         <AppText>{require('../../package.json').version}</AppText>

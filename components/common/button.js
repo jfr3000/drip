@@ -11,21 +11,19 @@ const Button = ({
   children,
   iconName,
   isCTA,
-  isVisible,
   isSmall,
   onPress,
   testID,
   ...props
 }) => {
   const buttonStyle = isCTA ? styles.cta : styles.regular
-  const buttonDisplay = isVisible ? styles.isVisible : null
   const textCTA = isCTA ? styles.buttonTextBold : styles.buttonTextRegular
   const textStyle = [textCTA, isSmall ? textSmall : text]
 
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={[buttonStyle, buttonDisplay]}
+      style={buttonStyle}
       testID={testID}
       {...props}
     >
@@ -39,7 +37,6 @@ Button.propTypes = {
   children: PropTypes.node,
   iconName: PropTypes.string,
   isCTA: PropTypes.bool,
-  isVisible: PropTypes.bool,
   isSmall: PropTypes.bool,
   onPress: PropTypes.func,
   testID: PropTypes.string,
@@ -77,10 +74,6 @@ const styles = StyleSheet.create({
   cta: {
     backgroundColor: Colors.orange,
     borderRadius: 25,
-    ...button,
-  },
-  isVisible: {
-    display: 'none',
     ...button,
   },
   buttonTextBold: {
