@@ -21,81 +21,81 @@ The app is built in React Native and currently developed for Android.
 
 ## Development setup
 
-#### 1. Android Studio
-
-Install [Android Studio](https://developer.android.com/studio/) - you'll need it to install some dependencies.
-
-#### 2. Node & npm version
-
-Make sure you are running Node 14 and npm 6.14.17. It's easiest to switch Node versions using `nvm`, here's how to do it:
-
-    $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
-    $ nvm install v14.19.3
-
-#### 3. Get this repository
+### 1. Get this repository
 
 Clone it with SSH
 
-    $ git clone git@gitlab.com:bloodyhealth/drip.git
+    git clone git@gitlab.com:bloodyhealth/drip.git
 
 or clone it with HTTPS
 
-    $ git clone https://gitlab.com/bloodyhealth/drip.git
+    git clone https://gitlab.com/bloodyhealth/drip.git
 
-and run
+### 2. Node & npm version
 
-    $ cd drip
-    $ npm install
+Make sure you are running Node 14 and npm 6.14.17. It's easiest to switch Node versions using `nvm`, here's how to install NVM: https://github.com/nvm-sh/nvm#installing-and-updating. Once you have nvm you can install node 14:
 
-#### 4. More requirements from Android Studio
+    nvm install v14.19.3
+
+and then run
+
+    cd drip
+    npm install
+
+## for Android
+
+### 3.1 Android Studio
+
+Install [Android Studio](https://developer.android.com/studio/) - you'll need it to install some dependencies.
+
+### 3.2 More requirements from Android Studio
 
 Open Android Studio and click on "Open an existing Android Studio project". Navigate to the drip repository you cloned and double click the android folder. It detects, downloads and cofigures requirements that might be missing, like the NDK and CMake to build the native code part of the project. Also see the [nodejs-mobile repository](https://github.com/janeasystems/nodejs-mobile) for the necessary prerequisites for your system.
 
-#### 5. Run the app on Android
+### 3.3 Run the app on Android
 
 Either start a [virtual device in Android Studio](https://developer.android.com/studio/run/emulator) or [set your physical device like your Android phone up](https://developer.android.com/training/basics/firstapp/running-app) to run the app.
 
-1. Open a terminal and run
+i. Open a terminal and run
 
-   ```
-   $ npm run android
-   ```
+    npm run android
 
-2. To see logging output, run the following command in another tab:
+ii. To see logging output, run the following command in another tab:
 
-   ```
-   $ npm run log
-   ```
+    npm run log
 
-3. Run the following command and select enable hot reloading (see https://facebook.github.io/react-native/docs/debugging.html):
+iii. Run the following command and select enable hot reloading (see https://facebook.github.io/react-native/docs/debugging.html):
 
-   ```
-   $ adb shell input keyevent 82
-   ```
+    adb shell input keyevent 82
 
-4. We recommend installing an [ESLint plugin in your editor](https://eslint.org/docs/user-guide/integrations#editors). There's an `.eslintrc` file in this project which will be used by the plugin to check your code for style errors and potential bugs.
+iv. We recommend installing an [ESLint plugin in your editor](https://eslint.org/docs/user-guide/integrations#editors). There's an `.eslintrc` file in this project which will be used by the plugin to check your code for style errors and potential bugs.
 
-#### 6. Run app on iOS
+## for iOS
+
+### 4.1 Install Cocoapods
+
+"CocoaPods manages library dependencies for your Xcode projects"
+
+    brew install cocoapods
+
+### 4.2 Run app on iOS
 
 Minimum system requirements to run iOS app are as follows:
 
 - MacOS 10.15.7 for Mac users
-- Xcode 12.3 (I assume, that only command line tools might be enough)
+- Xcode 13 (command line tools only might be enough)
 
-1. Install XCode dependencies by running the following command from the root project directory:
+i. Install XCode dependencies by running the following command from the root project directory:
 
-```
-$ cd ios && pod install && cd ..
-```
+    cd ios && pod install && cd ..
 
-2. To run app either open drip workspace ('drip.xcworkspace' file) with XCode and run "Build" or run the following command:
+ii. To run app either open drip workspace ('drip.xcworkspace' file) with XCode and run "Build" or run the following command:
 
-```
-$ npm run ios
-```
+    npm run ios
 
-3. If you are building the app with XCode make sure you are running this as well:
-   `$ npm start`
+iii. If you are building the app with XCode make sure you are running this as well:
+
+    npm start
 
 ### Troubleshooting
 
@@ -111,27 +111,20 @@ Now, `which java` should output `/Applications/Android Studio.app/Contents/jre/j
 #### [MacOS] Ninja
 
 If `npm` says `CMake was unable to find a build program corresponding to "Ninja".`:
-`$ brew install ninja`
+
+    brew install ninja
 
 ### [MacOS] adb not on the path
 
 If you get error messages about `adb` not being found on your path:
-`$ ln -s ~/Library/Android/sdk/platform-tools/adb /usr/local/bin/adb`
 
-### [MacOS] and XCode 12.5
-
-If you run XCode 12.5, more likely you'll have problems building app for iOS. Please use the following fix: https://stackoverflow.com/a/67320887.
-
-If you experience any further issues, please feel free to check out the following threads:
-
-- [react-native run-ios build failure on XCode 12.5 beta](https://github.com/react-native-community/cli/issues/1365)
-- [Xcode 12.5 troubleshooting guide (RN 0.61/0.62/0.63/0.64)](https://github.com/facebook/react-native/issues/31480)
+    ln -s ~/Library/Android/sdk/platform-tools/adb /usr/local/bin/adb
 
 ### Clearing project cache
 
 If you would like to clear project cache and/or re-install project libraries, you can run clear script as follows:
 
-    $ npm run clear
+    npm run clear
 
 Script accepts the following options:
 "none" - script will delete all caches and re-install project libraries,
@@ -142,14 +135,15 @@ Script accepts the following options:
 
 For example, if you would like to clear android part of the project and re-install project libraries, you can run the following command:
 
-    $ npm run clear android npm
+    npm run clear android npm
 
 ## Tests
 
 ### Unit tests
 
 You can run the tests with:
-`$ npm test`
+
+    npm test
 
 ### End to end tests
 
@@ -192,9 +186,9 @@ More information about how the app calculates fertility status and bleeding pred
 2.  Download webfont from fontello.
 3.  Copy both the content of `config.json` and `font.tff` into `assets/fonts`, replacing it with the current content of `config-drip-icon-font.json` and `drip-icon-font.tff`.
 4.  Now run the following command in your console:
-    ```
-    $ react-native link
-    ```
+
+        react-native link
+
 5.  You should be able to use the icon now within drip, e.g. in Cycle Day Overview and on the chart.
 
 ## Translation
