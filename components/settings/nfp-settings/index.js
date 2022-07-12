@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { Platform, StyleSheet, View } from 'react-native'
 
 import AppIcon from '../../common/app-icon'
 import AppPage from '../../common/app-page'
 import AppSwitch from '../../common/app-switch'
 import AppText from '../../common/app-text'
-// import TemperatureSlider from './temperature-slider'
+import TemperatureSlider from './temperature-slider'
 import Segment from '../../common/segment'
 
 import { useCervixObservable, saveUseCervix } from '../../../local-storage'
@@ -17,7 +17,7 @@ export default class Settings extends Component {
     super(props)
 
     this.state = {
-      shouldUseCervix: useCervixObservable.value
+      shouldUseCervix: useCervixObservable.value,
     }
   }
 
@@ -28,8 +28,9 @@ export default class Settings extends Component {
 
   render() {
     const { shouldUseCervix } = this.state
-    const cervixText = shouldUseCervix ?
-      labels.useCervix.cervixModeOn : labels.useCervix.cervixModeOff
+    const cervixText = shouldUseCervix
+      ? labels.useCervix.cervixModeOn
+      : labels.useCervix.cervixModeOff
 
     return (
       <AppPage>
@@ -40,11 +41,13 @@ export default class Settings extends Component {
             value={shouldUseCervix}
           />
         </Segment>
-        {/* disabled temporarily, TODO https://gitlab.com/bloodyhealth/drip/-/issues/545 */}
-        {/* <Segment title={labels.tempScale.segmentTitle}>
-          <AppText>{labels.tempScale.segmentExplainer}</AppText>
-          <TemperatureSlider />
-        </Segment> */}
+        {/* for iOS disabled temporarily, TODO https://gitlab.com/bloodyhealth/drip/-/issues/545 */}
+        {Platform.OS !== 'ios' && (
+          <Segment title={labels.tempScale.segmentTitle}>
+            <AppText>{labels.tempScale.segmentExplainer}</AppText>
+            <TemperatureSlider />
+          </Segment>
+        )}
         <Segment last>
           <View style={styles.line}>
             <AppIcon
@@ -63,13 +66,13 @@ export default class Settings extends Component {
 
 const styles = StyleSheet.create({
   icon: {
-    marginRight: Spacing.base
+    marginRight: Spacing.base,
   },
   line: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   title: {
-    ...Typography.subtitle
-  }
+    ...Typography.subtitle,
+  },
 })
