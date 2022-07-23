@@ -12,33 +12,25 @@ import { nextDate, prevDate } from '../helpers/cycle-day'
 import { Colors, Containers, Spacing, Typography } from '../../styles'
 import { HIT_SLOP } from '../../config'
 
-const SymptomPageTitle = ({
-  date,
-  reloadSymptomData,
-  setDate,
-  subtitle,
-  title,
-}) => {
+const SymptomPageTitle = ({ date, setDate, subtitle, title }) => {
   const navigate = (isForward) => {
-    const nextDay = isForward ? nextDate(date) : prevDate(date)
-    reloadSymptomData(nextDay)
-    setDate(nextDay)
+    const newDate = isForward ? nextDate(date) : prevDate(date)
+    setDate(newDate)
   }
-  const formattedTitle = title.length > 21
-    ? title.substring(0, 18) + '...'
-    : title
+  const formattedTitle =
+    title.length > 21 ? title.substring(0, 18) + '...' : title
 
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigate(false)} hitSlop={HIT_SLOP}>
-        <AppIcon name='chevron-left' color={Colors.orange}/>
+        <AppIcon name="chevron-left" color={Colors.orange} />
       </TouchableOpacity>
       <View style={styles.textContainer}>
         <AppText style={styles.title}>{formattedTitle}</AppText>
         {subtitle && <AppText style={styles.subtitle}>{subtitle}</AppText>}
       </View>
       <TouchableOpacity onPress={() => navigate(true)} hitSlop={HIT_SLOP}>
-        <AppIcon name='chevron-right' color={Colors.orange}/>
+        <AppIcon name="chevron-right" color={Colors.orange} />
       </TouchableOpacity>
     </View>
   )
@@ -46,7 +38,6 @@ const SymptomPageTitle = ({
 
 SymptomPageTitle.propTypes = {
   date: PropTypes.string.isRequired,
-  reloadSymptomData: PropTypes.func.isRequired,
   setDate: PropTypes.func.isRequired,
   subtitle: PropTypes.string,
   title: PropTypes.string,
