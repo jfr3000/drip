@@ -1,16 +1,14 @@
+# Configuration taken from this article:
+# https://paperless.blog/dependabot-on-gitlab
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: gitsubmodule
+    directory: /
     schedule:
-      interval: "monthly"
+      interval: daily
     open-pull-requests-limit: 3
-    reviewers:
-      - "bl00dymarie"
-      - "mariyaz"
-      - "sdvig"
-      - "LisaHill"
-    allow:
-      - dependency-type: direct
-      - dependency-type: production
-    rebase-strategy: "auto"
+  - package-ecosystem: pip
+    directory: /
+    schedule:
+      interval: daily
+    open-pull-requests-limit: 3
