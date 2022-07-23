@@ -2,12 +2,7 @@
 # https://paperless.blog/dependabot-on-gitlab
 version: 2
 updates:
-  - package-ecosystem: gitsubmodule
-    directory: /
-    schedule:
-      interval: daily
-    open-pull-requests-limit: 3
-  - package-ecosystem: pip
+  - package-ecosystem: npm
     directory: /
     schedule:
       interval: daily
