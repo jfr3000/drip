@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@ptomasroos/react-native-multi-slider": "^2.2.0",
-    "@react-native-community/datetimepicker": "^3.0.9",
+    "@react-native-community/datetimepicker": "^6.2.0",
     "@react-native-community/push-notification-ios": "^1.8.0",
     "assert": "^1.4.1",
     "csvtojson": "^2.0.8",
