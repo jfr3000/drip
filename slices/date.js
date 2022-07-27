@@ -5,8 +5,8 @@ const dateSlice = createSlice({
   slice: 'date',
   initialState: LocalDate.now().toString(),
   reducers: {
-    setDate: (state, action) => action.payload
-  }
+    setDate: (state, action) => action.payload,
+  },
 })
 
 // Extract the action creators object and the reducer
