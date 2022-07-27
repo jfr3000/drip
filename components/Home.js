@@ -12,14 +12,16 @@ import Button from './common/button'
 
 import cycleModule from '../lib/cycle'
 import { getFertilityStatusForDay } from '../lib/sympto-adapter'
-import { determinePredictionText, formatWithOrdinalSuffix } from './helpers/home'
+import {
+  determinePredictionText,
+  formatWithOrdinalSuffix,
+} from './helpers/home'
 
 import { Colors, Fonts, Sizes, Spacing } from '../styles'
 import { LocalDate } from 'js-joda'
 import { useTranslation } from 'react-i18next'
 
 const Home = ({ navigate, setDate }) => {
-
   const { t } = useTranslation()
 
   function navigateToCycleDayView() {
@@ -34,22 +36,26 @@ const Home = ({ navigate, setDate }) => {
     getFertilityStatusForDay(todayDateString)
   const prediction = determinePredictionText(getPredictedMenses(), t)
 
-  const cycleDayText = cycleDayNumber ? formatWithOrdinalSuffix(cycleDayNumber) : ''
+  const cycleDayText = cycleDayNumber
+    ? formatWithOrdinalSuffix(cycleDayNumber)
+    : ''
 
   return (
     <ScrollView
       style={styles.container}
       contentContainerStyle={styles.contentContainer}
     >
-      <AppText style={styles.title}>{moment().format("MMM Do YYYY")}</AppText>
+      <AppText style={styles.title}>{moment().format('MMM Do YYYY')}</AppText>
 
-      {cycleDayNumber &&
+      {cycleDayNumber && (
         <View style={styles.line}>
           <AppText style={styles.whiteSubtitle}>{cycleDayText}</AppText>
-          <AppText style={styles.turquoiseText}>{t('labels.home.cycleDay')}</AppText>
+          <AppText style={styles.turquoiseText}>
+            {t('labels.home.cycleDay')}
+          </AppText>
         </View>
-      }
-      {phase &&
+      )}
+      {phase && (
         <View style={styles.line}>
           <AppText style={styles.whiteSubtitle}>
             {formatWithOrdinalSuffix(phase)}
@@ -60,7 +66,7 @@ const Home = ({ navigate, setDate }) => {
           <AppText style={styles.turquoiseText}>{status}</AppText>
           <Asterisk />
         </View>
-      }
+      )}
       <View style={styles.line}>
         <AppText style={styles.turquoiseText}>{prediction}</AppText>
       </View>
@@ -128,28 +134,25 @@ const styles = StyleSheet.create({
   greyText: {
     color: Colors.greyLight,
     paddingLeft: Spacing.base,
-  }
+  },
 })
 
 const mapStateToProps = (state) => {
-  return ({
+  return {
     date: getDate(state),
-  })
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return ({
+  return {
     navigate: (page) => dispatch(navigate(page)),
     setDate: (date) => dispatch(setDate(date)),
-  })
+  }
 }
 
 Home.propTypes = {
   navigate: PropTypes.func,
-  setDate: PropTypes.func
+  setDate: PropTypes.func,
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

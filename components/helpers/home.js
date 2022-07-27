@@ -11,20 +11,18 @@ function getTimes(prediction) {
   const todayDate = LocalDate.now()
   const predictedBleedingStart = LocalDate.parse(prediction[0][0])
   /* the range of predicted bleeding days can be either 3 or 5 */
-  const predictedBleedingEnd =
-    LocalDate.parse(prediction[0][prediction[0].length - 1])
+  const predictedBleedingEnd = LocalDate.parse(
+    prediction[0][prediction[0].length - 1]
+  )
   const daysToEnd = todayDate.until(predictedBleedingEnd, ChronoUnit.DAYS)
   return { todayDate, predictedBleedingStart, predictedBleedingEnd, daysToEnd }
 }
 
 export function determinePredictionText(bleedingPrediction, t) {
-  if (!bleedingPrediction.length) return t('labels.bleedingPrediction.noPrediction')
-  const {
-    todayDate,
-    predictedBleedingStart,
-    predictedBleedingEnd,
-    daysToEnd
-  } = getTimes(bleedingPrediction)
+  if (!bleedingPrediction.length)
+    return t('labels.bleedingPrediction.noPrediction')
+  const { todayDate, predictedBleedingStart, predictedBleedingEnd, daysToEnd } =
+    getTimes(bleedingPrediction)
   if (todayDate.isBefore(predictedBleedingStart)) {
     return predictLabels.predictionInFuture(
       todayDate.until(predictedBleedingStart, ChronoUnit.DAYS),
@@ -48,19 +46,18 @@ export function determinePredictionText(bleedingPrediction, t) {
 
 export function getBleedingPredictionRange(prediction) {
   if (!prediction.length) return labels.unknown
-  const {
-    todayDate,
-    predictedBleedingStart,
-    predictedBleedingEnd,
-    daysToEnd
-  } = getTimes(prediction)
+  const { todayDate, predictedBleedingStart, predictedBleedingEnd, daysToEnd } =
+    getTimes(prediction)
   if (todayDate.isBefore(predictedBleedingStart)) {
-    return `${todayDate.until(predictedBleedingStart, ChronoUnit.DAYS)}-${todayDate.until(predictedBleedingEnd, ChronoUnit.DAYS)}`
+    return `${todayDate.until(
+      predictedBleedingStart,
+      ChronoUnit.DAYS
+    )}-${todayDate.until(predictedBleedingEnd, ChronoUnit.DAYS)}`
   }
   if (todayDate.isAfter(predictedBleedingEnd)) {
     return labels.unknown
   }
-  return (daysToEnd === 0 ? '0' : `0 - ${daysToEnd}`)
+  return daysToEnd === 0 ? '0' : `0 - ${daysToEnd}`
 }
 
 export function getOrdinalSuffix(num) {

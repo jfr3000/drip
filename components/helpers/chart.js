@@ -45,7 +45,6 @@ export function getTickList(columnHeight) {
   const tickHeight = columnHeight / numberOfTicks
 
   return getTickPositions(columnHeight).map((tickPosition, i) => {
-
     const tick = scaleMax - i * unit
     const isBold = Number.isInteger(tick) ? true : false
     const label = tick.toFixed(1)
@@ -56,14 +55,14 @@ export function getTickList(columnHeight) {
 
     if (unit === 0.1) {
       // show label with step 0.2
-      shouldShowLabel = !(label * 10 % 2)
+      shouldShowLabel = !((label * 10) % 2)
     } else {
       // show label with step 0.5
-      shouldShowLabel = !(label * 10 % 5)
+      shouldShowLabel = !((label * 10) % 5)
     }
 
     // don't show label, if first or last tick
-    if ( i === 0 || i === (numberOfTicks - 1) ) {
+    if (i === 0 || i === numberOfTicks - 1) {
       shouldShowLabel = false
     }
 
@@ -72,7 +71,7 @@ export function getTickList(columnHeight) {
       label,
       isBold,
       shouldShowLabel,
-      tickHeight
+      tickHeight,
     }
   })
 }
@@ -84,17 +83,17 @@ export function isSymptomDataComplete(symptom, dateString) {
   const symptomData = cycleDayData[symptom]
 
   const dataCompletenessCheck = {
-    'cervix': () => {
+    cervix: () => {
       const { opening, firmness } = symptomData
-      return (opening !== null) && (firmness !== null)
+      return opening !== null && firmness !== null
     },
-    'mucus': () => {
+    mucus: () => {
       const { feeling, texture } = symptomData
-      return (feeling !== null) && (texture !== null)
+      return feeling !== null && texture !== null
     },
-    'default': () => {
+    default: () => {
       return true
-    }
+    },
   }
   return (dataCompletenessCheck[symptom] || dataCompletenessCheck['default'])()
 }
@@ -104,7 +103,7 @@ function getInfoForNeighborColumns(dateString, columnHeight) {
     rightY: null,
     rightTemperatureExclude: null,
     leftY: null,
-    leftTemperatureExclude: null
+    leftTemperatureExclude: null,
   }
   const target = LocalDate.parse(dateString)
   const dayBefore = target.minusDays(1).toString()
@@ -127,53 +126,57 @@ function getInfoForNeighborColumns(dateString, columnHeight) {
 export function getTemperatureProps(symptomData, columnHeight, dateString) {
   const extractedData = {}
   const { value, exclude } = symptomData
-  const neighborTemperatureGraphPoints =
-    getInfoForNeighborColumns(dateString, columnHeight)
+  const neighborTemperatureGraphPoints = getInfoForNeighborColumns(
+    dateString,
+    columnHeight
+  )
 
   for (const key in neighborTemperatureGraphPoints) {
     extractedData[key] = neighborTemperatureGraphPoints[key]
   }
-  return Object.assign({
-    value,
-    y: normalizeToScale(value, columnHeight),
-    temperatureExclude: exclude,
-  }, extractedData)
+  return Object.assign(
+    {
+      value,
+      y: normalizeToScale(value, columnHeight),
+      temperatureExclude: exclude,
+    },
+    extractedData
+  )
 }
 
 export const symptomColorMethods = {
-  'mucus': (symptomData) => {
+  mucus: (symptomData) => {
     const { feeling, texture } = symptomData
     const colorIndex = feeling + texture
     return colorIndex
   },
-  'cervix': (symptomData) => {
+  cervix: (symptomData) => {
     const { opening, firmness } = symptomData
     const isDataComplete = opening !== null && firmness !== null
-    const isClosedAndHard =
-      isDataComplete &&
-      (opening === 0 && firmness === 0)
+    const isClosedAndHard = isDataComplete && opening === 0 && firmness === 0
     const colorIndex = isClosedAndHard ? 0 : 2
     return colorIndex
   },
-  'sex': (symptomData) => {
+  sex: (symptomData) => {
     const { solo, partner } = symptomData
-    const colorIndex = (solo !== null && partner !== null) ?
-      (solo + 2 * partner - 1) : 0
+    const colorIndex =
+      solo !== null && partner !== null ? solo + 2 * partner - 1 : 0
     return colorIndex
   },
-  'bleeding': (symptomData) => {
+  bleeding: (symptomData) => {
     const { value } = symptomData
     const colorIndex = value
     return colorIndex
   },
-  'desire': (symptomData) => {
+  desire: (symptomData) => {
     const { value } = symptomData
     const colorIndex = value
     return colorIndex
   },
-  'default': () => { //pain, mood, note
+  default: () => {
+    //pain, mood, note
     return 0
-  }
+  },
 }
 
 // Chart helpers
@@ -188,7 +191,7 @@ export function makeColumnInfo() {
     amountOfCycleDays += 5
   }
   const localDates = getTodayAndPreviousDays(amountOfCycleDays)
-  return localDates.map(localDate => localDate.toString())
+  return localDates.map((localDate) => localDate.toString())
 }
 
 function getTodayAndPreviousDays(n) {
@@ -210,17 +213,17 @@ function getTodayAndPreviousDays(n) {
 
 export function nfpLines() {
   const cycle = {
-    status: null
+    status: null,
   }
 
   function updateCurrentCycle(dateString) {
     // for the NFP lines, we don't care about potentially extending the
     // preOvu phase, so we don't include all earlier cycles, as that is
     // an expensive db operation at the moment
-    cycle.status = getCycleStatusForDay(
-      dateString, { excludeEarlierCycles: true }
-    )
-    if(!cycle.status) {
+    cycle.status = getCycleStatusForDay(dateString, {
+      excludeEarlierCycles: true,
+    })
+    if (!cycle.status) {
       cycle.noMoreCycles = true
       return
     }
@@ -232,39 +235,34 @@ export function nfpLines() {
   }
 
   function dateIsInPeriOrPostPhase(dateString) {
-    return (
-      dateString >= cycle.status.phases.periOvulatory.start.date
-    )
+    return dateString >= cycle.status.phases.periOvulatory.start.date
   }
 
   function precededByAnotherTempValue(dateString) {
     return (
       // we are only interested in days that have a preceding
       // temp
-      Object.keys(cycle.status.phases).some(phaseName => {
-        return cycle.status.phases[phaseName].cycleDays.some(day => {
+      Object.keys(cycle.status.phases).some((phaseName) => {
+        return cycle.status.phases[phaseName].cycleDays.some((day) => {
           return day.temperature && day.date < dateString
         })
-      })
+      }) &&
       // and also a following temp, so we don't draw the line
       // longer than necessary
-      &&
-      cycle.status.phases.postOvulatory.cycleDays.some(day => {
+      cycle.status.phases.postOvulatory.cycleDays.some((day) => {
         return day.temperature && day.date > dateString
       })
     )
   }
 
   function isInTempMeasuringPhase(temperature, dateString) {
-    return (
-      temperature || precededByAnotherTempValue(dateString)
-    )
+    return temperature || precededByAnotherTempValue(dateString)
   }
 
-  return function(dateString, temperature, columnHeight) {
+  return function (dateString, temperature, columnHeight) {
     const ret = {
       drawLtlAt: null,
-      drawFhmLine: false
+      drawFhmLine: false,
     }
     if (!cycle.status && !cycle.noMoreCycles) updateCurrentCycle(dateString)
     if (cycle.noMoreCycles) return ret
