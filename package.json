@@ -32,7 +32,6 @@
     "@ptomasroos/react-native-multi-slider": "^2.2.0",
     "@react-native-community/datetimepicker": "^6.2.0",
     "@react-native-community/push-notification-ios": "^1.8.0",
-    "assert": "^1.4.1",
     "csvtojson": "^2.0.8",
     "i18next": "^21.8.14",
     "isobject": "^3.0.1",
@@ -61,7 +60,7 @@
     "realm": "^10.16.0",
     "redux": "^4.0.1",
     "redux-starter-kit": "^0.6.3",
-    "sympto": "2.0.0"
+    "sympto": "3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
