@@ -1,4 +1,4 @@
-import { LocalDate } from 'js-joda'
+import { LocalDate } from '@js-joda/core'
 import { verticalScale } from 'react-native-size-matters'
 
 import { Colors, Fonts, Sizes } from '../../styles'
@@ -65,7 +65,7 @@ const styles = {
   calendarToday: {
     fontFamily: 'Jost-Bold',
     fontWeight: 'bold',
-    color: Colors.purple
+    color: Colors.purple,
   },
 }
 
