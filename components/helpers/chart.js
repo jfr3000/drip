@@ -1,4 +1,4 @@
-import { LocalDate } from 'js-joda'
+import { LocalDate } from '@js-joda/core'
 
 import { scaleObservable, unitObservable } from '../../local-storage'
 import { getCycleStatusForDay } from '../../lib/sympto-adapter'

@@ -1,5 +1,5 @@
 import { createSlice } from 'redux-starter-kit'
-import { LocalDate } from 'js-joda'
+import { LocalDate } from '@js-joda/core'
 
 const dateSlice = createSlice({
   slice: 'date',

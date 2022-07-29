@@ -1,4 +1,4 @@
-import { LocalDate } from 'js-joda'
+import { LocalDate } from '@js-joda/core'
 import moment from 'moment'
 
 import { general as labels } from '../../i18n/en/cycle-day'

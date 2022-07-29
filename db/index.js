@@ -1,5 +1,5 @@
 import Realm from 'realm'
-import { LocalDate, ChronoUnit } from 'js-joda'
+import { LocalDate, ChronoUnit } from '@js-joda/core'
 import nodejs from 'nodejs-mobile-react-native'
 import fs from 'react-native-fs'
 import { restartApp } from './restart-app'

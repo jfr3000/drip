@@ -18,7 +18,7 @@ import {
 } from './helpers/home'
 
 import { Colors, Fonts, Sizes, Spacing } from '../styles'
-import { LocalDate } from 'js-joda'
+import { LocalDate } from '@js-joda/core'
 import { useTranslation } from 'react-i18next'
 
 const Home = ({ navigate, setDate }) => {

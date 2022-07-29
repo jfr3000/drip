@@ -1,4 +1,4 @@
-import { ChronoUnit, LocalDate } from 'js-joda'
+import { ChronoUnit, LocalDate } from '@js-joda/core'
 
 import { formatDateForShortText } from './format-date'
 

@@ -1,4 +1,4 @@
-import { ChronoUnit, LocalDate, LocalTime } from 'js-joda'
+import { ChronoUnit, LocalDate, LocalTime } from '@js-joda/core'
 
 import {
   getPreviousTemperatureForDate,
