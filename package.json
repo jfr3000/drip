@@ -70,7 +70,6 @@
     "babel-jest": "^24.9.0",
     "basic-changelog": "gitlab:bloodyhealth/basic-changelog",
     "chai": "^4.1.2",
-    "dirty-chai": "^2.0.1",
     "eslint": "^6.4.0",
     "eslint-plugin-react": "^7.8.2",
     "husky": "^8.0.0",

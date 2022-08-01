@@ -1,9 +1,5 @@
-import chai from 'chai'
-import dirtyChai from 'dirty-chai'
+import { expect } from 'chai'
 import cycleModule from '../lib/cycle'
-
-const { expect } = chai
-chai.use(dirtyChai)
 
 const mayCycle = [
   { date: '2018-05-05' },
@@ -30,7 +26,6 @@ const cycleStartsSortedByDate = [
 
 describe('getPreviousCycle', () => {
   it('gets previous cycle', () => {
-
     const { getPreviousCycle } = cycleModule({
       cycleDaysSortedByDate,
       cycleStartsSortedByDate,
@@ -40,7 +35,6 @@ describe('getPreviousCycle', () => {
   })
 
   it('returns null when target day is not in a cyle', () => {
-
     const { getPreviousCycle } = cycleModule({
       cycleDaysSortedByDate,
       cycleStartsSortedByDate: [],
@@ -50,7 +44,6 @@ describe('getPreviousCycle', () => {
   })
 
   it('returns null when there is no previous cycle', () => {
-
     const { getPreviousCycle } = cycleModule({
       cycleDaysSortedByDate,
       cycleStartsSortedByDate,
@@ -60,7 +53,6 @@ describe('getPreviousCycle', () => {
   })
 
   it('returns null when the previous cycle > maxcyclelength', () => {
-
     const { getPreviousCycle } = cycleModule({
       cycleDaysSortedByDate,
       cycleStartsSortedByDate,

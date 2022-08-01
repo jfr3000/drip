@@ -1,16 +1,12 @@
-import chai from 'chai'
-import dirtyChai from 'dirty-chai'
-
-const expect = chai.expect
-chai.use(dirtyChai)
+import { expect } from 'chai'
 
 import getSensiplanMucus from '../lib/nfp-mucus'
 
 describe('getSensiplanMucus', () => {
   it('returns null if there is no value for feeling or texture', () => {
-    expect(getSensiplanMucus()).to.be.null()
-    expect(getSensiplanMucus(undefined, 3)).to.be.null()
-    expect(getSensiplanMucus(2, undefined)).to.be.null()
+    expect(getSensiplanMucus()).to.be.null
+    expect(getSensiplanMucus(undefined, 3)).to.be.null
+    expect(getSensiplanMucus(2, undefined)).to.be.null
   })
 
   describe('results in t for:', () => {

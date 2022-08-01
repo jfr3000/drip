@@ -1,9 +1,5 @@
-import chai from 'chai'
-import dirtyChai from 'dirty-chai'
+import { expect } from 'chai'
 import cycleModule from '../lib/cycle'
-
-const expect = chai.expect
-chai.use(dirtyChai)
 
 describe('getMensesDaysRightAfter', () => {
   it('works for simple menses start', () => {
@@ -13,35 +9,35 @@ describe('getMensesDaysRightAfter', () => {
       },
       {
         date: '2018-05-03',
-        bleeding: { value: 1 }
+        bleeding: { value: 1 },
       },
       {
         date: '2018-05-02',
-        bleeding: { value: 1 }
+        bleeding: { value: 1 },
       },
       {
         date: '2018-05-01',
-        bleeding: { value: 1 }
+        bleeding: { value: 1 },
       },
       {
         date: '2018-04-30',
-      }
+      },
     ]
 
     const { getMensesDaysRightAfter } = cycleModule({
       cycleDaysSortedByDate,
-      bleedingDaysSortedByDate: cycleDaysSortedByDate.filter(d => d.bleeding)
+      bleedingDaysSortedByDate: cycleDaysSortedByDate.filter((d) => d.bleeding),
     })
     const days = getMensesDaysRightAfter(cycleDaysSortedByDate[3])
     expect(days).to.eql([
       {
         date: '2018-05-03',
-        bleeding: { value: 1 }
+        bleeding: { value: 1 },
       },
       {
         date: '2018-05-02',
-        bleeding: { value: 1 }
-      }
+        bleeding: { value: 1 },
+      },
     ])
   })
 
@@ -52,40 +48,40 @@ describe('getMensesDaysRightAfter', () => {
       },
       {
         date: '2018-05-03',
-        bleeding: { value: 1 }
+        bleeding: { value: 1 },
       },
       {
         date: '2018-05-02',
-        bleeding: { value: 1 }
+        bleeding: { value: 1 },
       },
       {
         date: '2018-05-01',
-        bleeding: { value: 1 }
+        bleeding: { value: 1 },
       },
       {
         date: '2018-04-30',
-        bleeding: null
-      }
+        bleeding: null,
+      },
     ]
 
     const { getMensesDaysRightAfter } = cycleModule({
       cycleDaysSortedByDate,
-      bleedingDaysSortedByDate: cycleDaysSortedByDate.filter(d => d.bleeding)
+      bleedingDaysSortedByDate: cycleDaysSortedByDate.filter((d) => d.bleeding),
     })
     const days = getMensesDaysRightAfter(cycleDaysSortedByDate[4])
     expect(days).to.eql([
       {
         date: '2018-05-03',
-        bleeding: { value: 1 }
+        bleeding: { value: 1 },
       },
       {
         date: '2018-05-02',
-        bleeding: { value: 1 }
+        bleeding: { value: 1 },
       },
       {
         date: '2018-05-01',
-        bleeding: { value: 1 }
-      }
+        bleeding: { value: 1 },
+      },
     ])
   })
 
@@ -96,31 +92,31 @@ describe('getMensesDaysRightAfter', () => {
       },
       {
         date: '2018-05-03',
-        bleeding: { value: 1 }
+        bleeding: { value: 1 },
       },
       {
         date: '2018-05-02',
-        bleeding: { value: 1, exclude: true }
+        bleeding: { value: 1, exclude: true },
       },
       {
         date: '2018-05-01',
-        bleeding: { value: 1 }
+        bleeding: { value: 1 },
       },
       {
         date: '2018-04-30',
-      }
+      },
     ]
 
     const { getMensesDaysRightAfter } = cycleModule({
       cycleDaysSortedByDate,
-      bleedingDaysSortedByDate: cycleDaysSortedByDate.filter(d => d.bleeding)
+      bleedingDaysSortedByDate: cycleDaysSortedByDate.filter((d) => d.bleeding),
     })
     const days = getMensesDaysRightAfter(cycleDaysSortedByDate[3])
     expect(days).to.eql([
       {
         date: '2018-05-03',
-        bleeding: { value: 1 }
-      }
+        bleeding: { value: 1 },
+      },
     ])
   })
 
@@ -137,16 +133,16 @@ describe('getMensesDaysRightAfter', () => {
       },
       {
         date: '2018-05-01',
-        bleeding: { value: 1 }
+        bleeding: { value: 1 },
       },
       {
         date: '2018-04-30',
-      }
+      },
     ]
 
     const { getMensesDaysRightAfter } = cycleModule({
       cycleDaysSortedByDate,
-      bleedingDaysSortedByDate: cycleDaysSortedByDate.filter(d => d.bleeding)
+      bleedingDaysSortedByDate: cycleDaysSortedByDate.filter((d) => d.bleeding),
     })
     const days = getMensesDaysRightAfter(cycleDaysSortedByDate[3])
     expect(days).to.eql([])
@@ -156,7 +152,7 @@ describe('getMensesDaysRightAfter', () => {
     const cycleDaysSortedByDate = [
       {
         date: '2018-05-04',
-        bleeding: { value: 1 }
+        bleeding: { value: 1 },
       },
       {
         date: '2018-05-03',
@@ -166,16 +162,16 @@ describe('getMensesDaysRightAfter', () => {
       },
       {
         date: '2018-05-01',
-        bleeding: { value: 1 }
+        bleeding: { value: 1 },
       },
       {
         date: '2018-04-30',
-      }
+      },
     ]
 
     const { getMensesDaysRightAfter } = cycleModule({
       cycleDaysSortedByDate,
-      bleedingDaysSortedByDate: cycleDaysSortedByDate.filter(d => d.bleeding)
+      bleedingDaysSortedByDate: cycleDaysSortedByDate.filter((d) => d.bleeding),
     })
     const days = getMensesDaysRightAfter(cycleDaysSortedByDate[3])
     expect(days).to.eql([])
@@ -188,77 +184,83 @@ describe('getMensesDaysRightAfter', () => {
       },
       {
         date: '2018-05-05',
-        bleeding: { value: 1 }
+        bleeding: { value: 1 },
       },
       {
         date: '2018-05-03',
-        bleeding: { value: 1 }
+        bleeding: { value: 1 },
       },
       {
         date: '2018-05-01',
-        bleeding: { value: 1 }
+        bleeding: { value: 1 },
       },
       {
         date: '2018-04-30',
-      }
+      },
     ]
 
     const { getMensesDaysRightAfter } = cycleModule({
       cycleDaysSortedByDate,
-      bleedingDaysSortedByDate: cycleDaysSortedByDate.filter(d => d.bleeding)
+      bleedingDaysSortedByDate: cycleDaysSortedByDate.filter((d) => d.bleeding),
     })
     const days = getMensesDaysRightAfter(cycleDaysSortedByDate[3])
     expect(days).to.eql([
       {
         date: '2018-05-05',
-        bleeding: { value: 1 }
+        bleeding: { value: 1 },
       },
       {
         date: '2018-05-03',
-        bleeding: { value: 1 }
-      }
+        bleeding: { value: 1 },
+      },
     ])
   })
   describe('with cycle thresholds', () => {
     const maxBreakInBleeding = 3
 
     it('disregards bleeding breaks shorter than maxAllowedBleedingBreak in a bleeding period', () => {
-      const bleedingDays = [{
-        date: '2018-05-14',
-        bleeding: {
-          value: 2
-        }
-      }, {
-        date: '2018-05-10',
-        bleeding: {
-          value: 2
-        }
-      }]
+      const bleedingDays = [
+        {
+          date: '2018-05-14',
+          bleeding: {
+            value: 2,
+          },
+        },
+        {
+          date: '2018-05-10',
+          bleeding: {
+            value: 2,
+          },
+        },
+      ]
 
       const getMensesDaysRightAfter = cycleModule({
         bleedingDaysSortedByDate: bleedingDays,
-        maxBreakInBleeding
+        maxBreakInBleeding,
       }).getMensesDaysRightAfter
       const result = getMensesDaysRightAfter(bleedingDays[1])
       expect(result).to.eql([bleedingDays[0]])
     })
 
     it('counts bleeding breaks longer than maxAllowedBleedingBreak in a bleeding period', () => {
-      const bleedingDays = [{
-        date: '2018-05-14',
-        bleeding: {
-          value: 2
-        }
-      }, {
-        date: '2018-05-09',
-        bleeding: {
-          value: 2
-        }
-      }]
+      const bleedingDays = [
+        {
+          date: '2018-05-14',
+          bleeding: {
+            value: 2,
+          },
+        },
+        {
+          date: '2018-05-09',
+          bleeding: {
+            value: 2,
+          },
+        },
+      ]
 
       const getMensesDaysRightAfter = cycleModule({
         bleedingDaysSortedByDate: bleedingDays,
-        maxBreakInBleeding
+        maxBreakInBleeding,
       }).getMensesDaysRightAfter
       const result = getMensesDaysRightAfter(bleedingDays[1])
       expect(result).to.eql([])
