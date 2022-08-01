@@ -1,18 +1,13 @@
-import chai from 'chai'
-import dirtyChai from 'dirty-chai'
+import { expect } from 'chai'
 import maybeSetNewCycleStart from '../lib/set-new-cycle-start'
-
-const expect = chai.expect
-chai.use(dirtyChai)
 
 describe('maybeSetNewCycleStart', () => {
   const deletedBleedingValue = null
 
   const excludedBleedingValue = {
     value: 2,
-    exclude: true
+    exclude: true,
   }
-
 
   function getFixtures() {
     const cycleStartDay = {
@@ -20,8 +15,8 @@ describe('maybeSetNewCycleStart', () => {
       isCycleStart: true,
       bleeding: {
         value: 2,
-        exclude: false
-      }
+        exclude: false,
+      },
     }
 
     const mensesDaysAfter = [
@@ -31,9 +26,9 @@ describe('maybeSetNewCycleStart', () => {
         value: {
           bleeding: {
             value: 2,
-            exclude: false
-          }
-        }
+            exclude: false,
+          },
+        },
       },
       {
         date: '2020-01-03',
@@ -41,9 +36,9 @@ describe('maybeSetNewCycleStart', () => {
         value: {
           bleeding: {
             value: 2,
-            exclude: false
-          }
-        }
+            exclude: false,
+          },
+        },
       },
       {
         date: '2020-01-02',
@@ -51,10 +46,10 @@ describe('maybeSetNewCycleStart', () => {
         value: {
           bleeding: {
             value: 2,
-            exclude: false
-          }
-        }
-      }
+            exclude: false,
+          },
+        },
+      },
     ]
 
     const notCycleStartDay = {
@@ -62,14 +57,14 @@ describe('maybeSetNewCycleStart', () => {
       isCycleStart: false,
       bleeding: {
         value: 2,
-        exclude: false
-      }
+        exclude: false,
+      },
     }
 
     return [cycleStartDay, mensesDaysAfter, notCycleStartDay]
   }
 
-  const checkIsMensesStart = cycleDay => {
+  const checkIsMensesStart = (cycleDay) => {
     if (cycleDay.date === '2020-01-02') return true
   }
 
@@ -80,11 +75,11 @@ describe('maybeSetNewCycleStart', () => {
       val: deletedBleedingValue,
       cycleDay: cycleStartDay,
       mensesDaysAfter,
-      checkIsMensesStart
+      checkIsMensesStart,
     })
-    expect(cycleStartDay.isCycleStart).to.be.false()
-    expect(cycleStartDay.bleeding).to.be.null()
-    expect(mensesDaysAfter[2].isCycleStart).to.be.true()
+    expect(cycleStartDay.isCycleStart).to.be.false
+    expect(cycleStartDay.bleeding).to.be.null
+    expect(mensesDaysAfter[2].isCycleStart).to.be.true
   })
 
   it('sets new cycle start when first day of period excluded', () => {
@@ -94,12 +89,12 @@ describe('maybeSetNewCycleStart', () => {
       val: excludedBleedingValue,
       cycleDay: cycleStartDay,
       mensesDaysAfter,
-      checkIsMensesStart
+      checkIsMensesStart,
     })
 
-    expect(cycleStartDay.isCycleStart).to.be.false()
+    expect(cycleStartDay.isCycleStart).to.be.false
     expect(cycleStartDay.bleeding).to.equal(excludedBleedingValue)
-    expect(mensesDaysAfter[2].isCycleStart).to.be.true()
+    expect(mensesDaysAfter[2].isCycleStart).to.be.true
   })
 
   it('does not set new cycle start when other day of period deleted', () => {
@@ -109,17 +104,17 @@ describe('maybeSetNewCycleStart', () => {
       val: deletedBleedingValue,
       cycleDay: notCycleStartDay,
       mensesDaysAfter,
-      checkIsMensesStart
+      checkIsMensesStart,
     })
 
-    expect(cycleStartDay.isCycleStart).to.be.true()
-    expect(notCycleStartDay.isCycleStart).to.be.false()
+    expect(cycleStartDay.isCycleStart).to.be.true
+    expect(notCycleStartDay.isCycleStart).to.be.false
     expect(notCycleStartDay.bleeding).to.equal(deletedBleedingValue)
   })
   it('does not set new cycle start when other day of period excluded', () => {
     const excludedBleedingValue = {
       value: 2,
-      exclude: true
+      exclude: true,
     }
 
     const [cycleStartDay, mensesDaysAfter, notCycleStartDay] = getFixtures()
@@ -128,11 +123,11 @@ describe('maybeSetNewCycleStart', () => {
       val: excludedBleedingValue,
       cycleDay: notCycleStartDay,
       mensesDaysAfter,
-      checkIsMensesStart
+      checkIsMensesStart,
     })
 
-    expect(cycleStartDay.isCycleStart).to.be.true()
-    expect(notCycleStartDay.isCycleStart).to.be.false()
+    expect(cycleStartDay.isCycleStart).to.be.true
+    expect(notCycleStartDay.isCycleStart).to.be.false
     expect(notCycleStartDay.bleeding).to.equal(excludedBleedingValue)
   })
   it('works when there are no following bleeding days', () => {
@@ -142,10 +137,10 @@ describe('maybeSetNewCycleStart', () => {
       val: deletedBleedingValue,
       cycleDay: cycleStartDay,
       mensesDaysAfter: [],
-      checkIsMensesStart
+      checkIsMensesStart,
     })
 
-    expect(cycleStartDay.isCycleStart).to.be.false()
+    expect(cycleStartDay.isCycleStart).to.be.false
     expect(cycleStartDay.bleeding).to.equal(deletedBleedingValue)
   })
 })
