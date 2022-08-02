@@ -857,7 +857,7 @@
 					"\"${PODS_ROOT}/../../node_modules/realm/vendor/realm-ios\"",
 					"$(inherited)",
 				);
-				MARKETING_VERSION = 1.2207.10;
+				MARKETING_VERSION = 1.2208.2;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -936,7 +936,7 @@
 					"\"${PODS_ROOT}/../../node_modules/realm/vendor/realm-ios\"",
 					"$(inherited)",
 				);
-				MARKETING_VERSION = 1.2207.10;
+				MARKETING_VERSION = 1.2208.2;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
