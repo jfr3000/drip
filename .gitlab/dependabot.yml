@@ -10,3 +10,4 @@ updates:
     ignore:
       - dependency-name: 'realm'
       - dependency-name: 'nodejs-mobile-react-native'
+      - dependency-name: 'react'
