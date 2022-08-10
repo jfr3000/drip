@@ -17,7 +17,6 @@ import setupNotifications from '../lib/notifications'
 import { getCycleDay, closeDb } from '../db'
 
 class App extends Component {
-
   static propTypes = {
     date: PropTypes.string,
     navigation: PropTypes.object.isRequired,
@@ -80,8 +79,8 @@ class App extends Component {
 
     return (
       <View style={styles.container}>
-        <Header { ...headerProps } />
-        <Page { ...pageProps } />
+        <Header {...headerProps} />
+        <Page {...pageProps} />
         <Menu />
       </View>
     )
@@ -90,25 +89,22 @@ class App extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  }
+    flex: 1,
+  },
 })
 
 const mapStateToProps = (state) => {
-  return({
+  return {
     date: getDate(state),
-    navigation: getNavigation(state)
-  })
+    navigation: getNavigation(state),
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return({
+  return {
     navigate: (page) => dispatch(navigate(page)),
     goBack: () => dispatch(goBack()),
-  })
+  }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)
