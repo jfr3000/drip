@@ -53,7 +53,7 @@ class App extends Component {
   }
 
   render() {
-    const { date, navigation, goBack } = this.props
+    const { date, navigation, goBack, restartApp } = this.props
     const { currentPage } = navigation
 
     if (!currentPage) {
@@ -80,7 +80,7 @@ class App extends Component {
     return (
       <View style={styles.container}>
         <Header {...headerProps} />
-        <Page {...pageProps} />
+        <Page {...pageProps} restartApp={restartApp} />
         <Menu />
       </View>
     )

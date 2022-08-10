@@ -195,7 +195,7 @@ export function requestHash(type, pw) {
   )
 }
 
-export async function changeEncryptionAndRestartApp(hash) {
+export async function changeDbEncryption(hash) {
   let key
   if (hash) key = hashToInt8Array(hash)
   const defaultPath = db.path
@@ -209,7 +209,6 @@ export async function changeEncryptionAndRestartApp(hash) {
   db.close()
   await fs.unlink(defaultPath)
   await fs.moveFile(copyPath, defaultPath)
-  restartApp()
 }
 
 export function isDbEmpty() {

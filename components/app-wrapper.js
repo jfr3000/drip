@@ -83,7 +83,7 @@ export default class AppWrapper extends Component {
     } else if (shouldShowPasswordPrompt) {
       initialView = <PasswordPrompt enableShowApp={this.enableShowApp} />
     } else if (shouldShowApp) {
-      initialView = <App />
+      initialView = <App restartApp={() => this.checkDbPasswordSet()} />
     }
 
     return (

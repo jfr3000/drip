@@ -34,7 +34,11 @@ export default class CreatePassword extends Component {
         </Button>
       )
     } else {
-      return <EnterNewPassword />
+      return (
+        <EnterNewPassword
+          changeEncryptionAndRestart={this.props.changeEncryptionAndRestart}
+        />
+      )
     }
   }
 }

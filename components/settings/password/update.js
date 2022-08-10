@@ -70,7 +70,11 @@ export default class ChangePassword extends Component {
     }
 
     if (enteringNewPassword) {
-      return <EnterNewPassword />
+      return (
+        <EnterNewPassword
+          changeEncryptionAndRestart={this.props.changeEncryptionAndRestart}
+        />
+      )
     }
 
     return (
