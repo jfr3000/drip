@@ -23,7 +23,7 @@ export default class CreatePassword extends Component {
     showBackUpReminder(this.toggleSettingPassword, () => {})
   }
 
-  render () {
+  render() {
     const { isSettingPassword } = this.state
     const labels = settings.passwordSettings
 
@@ -36,6 +36,5 @@ export default class CreatePassword extends Component {
     } else {
       return <EnterNewPassword />
     }
-
   }
 }

@@ -12,7 +12,7 @@ import AppStatusBar from './common/app-status-bar'
 import License from './License'
 import PasswordPrompt from './password-prompt'
 
-import store from "../store"
+import store from '../store'
 
 export default class AppWrapper extends Component {
   constructor() {
@@ -51,7 +51,7 @@ export default class AppWrapper extends Component {
   enableShowLicenseAgreement = () => {
     this.setState({
       shouldShowLicenseAgreement: true,
-      isCheckingLicenseAgreement: false
+      isCheckingLicenseAgreement: false,
     })
   }
 
@@ -62,7 +62,7 @@ export default class AppWrapper extends Component {
   enableShowApp = () => {
     this.setState({
       shouldShowApp: true,
-      shouldShowPasswordPrompt: false
+      shouldShowPasswordPrompt: false,
     })
   }
 
@@ -79,7 +79,7 @@ export default class AppWrapper extends Component {
     if (isCheckingLicenseAgreement) {
       initialView = <AppLoadingView />
     } else if (shouldShowLicenseAgreement) {
-      initialView = <License setLicense={this.disableShowLicenseAgreement}/>
+      initialView = <License setLicense={this.disableShowLicenseAgreement} />
     } else if (shouldShowPasswordPrompt) {
       initialView = <PasswordPrompt enableShowApp={this.enableShowApp} />
     } else if (shouldShowApp) {
@@ -100,5 +100,5 @@ export default class AppWrapper extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  }
+  },
 })

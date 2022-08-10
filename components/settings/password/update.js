@@ -12,7 +12,7 @@ import settings from '../../../i18n/en/settings'
 export default class ChangePassword extends Component {
   static propTypes = {
     onStartChange: PropTypes.func,
-    onCancelChange: PropTypes.func
+    onCancelChange: PropTypes.func,
   }
 
   constructor() {
@@ -21,7 +21,7 @@ export default class ChangePassword extends Component {
     this.state = {
       currentPassword: null,
       enteringCurrentPassword: false,
-      enteringNewPassword: false
+      enteringNewPassword: false,
     }
   }
 
@@ -41,7 +41,7 @@ export default class ChangePassword extends Component {
     this.setState({
       currentPassword: null,
       enteringNewPassword: true,
-      enteringCurrentPassword: false
+      enteringCurrentPassword: false,
     })
   }
 
@@ -49,17 +49,14 @@ export default class ChangePassword extends Component {
     this.setState({
       currentPassword: null,
       enteringNewPassword: false,
-      enteringCurrentPassword: false
+      enteringCurrentPassword: false,
     })
     this.props.onCancelChange()
   }
 
   render() {
-    const {
-      enteringCurrentPassword,
-      enteringNewPassword,
-      currentPassword
-    } = this.state
+    const { enteringCurrentPassword, enteringNewPassword, currentPassword } =
+      this.state
     const labels = settings.passwordSettings
     const isPasswordSet = currentPassword !== null
 

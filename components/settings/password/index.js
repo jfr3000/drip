@@ -18,7 +18,7 @@ export default class PasswordSetting extends Component {
     this.state = {
       isPasswordSet: hasEncryptionObservable.value,
       isChangingPassword: false,
-      isDeletingPassword: false
+      isDeletingPassword: false,
     }
   }
 
@@ -39,18 +39,10 @@ export default class PasswordSetting extends Component {
   }
 
   render() {
+    const { isPasswordSet, isChangingPassword, isDeletingPassword } = this.state
 
-    const {
-      isPasswordSet,
-      isChangingPassword,
-      isDeletingPassword,
-    } = this.state
-
-    const {
-      title,
-      explainerEnabled,
-      explainerDisabled
-    } = labels.passwordSettings
+    const { title, explainerEnabled, explainerDisabled } =
+      labels.passwordSettings
 
     return (
       <AppPage>
@@ -59,19 +51,19 @@ export default class PasswordSetting extends Component {
             {isPasswordSet ? explainerEnabled : explainerDisabled}
           </AppText>
 
-          {!isPasswordSet && <CreatePassword/>}
+          {!isPasswordSet && <CreatePassword />}
 
-          {(isPasswordSet && !isDeletingPassword) && (
+          {isPasswordSet && !isDeletingPassword && (
             <ChangePassword
-              onStartChange = {this.onChangingPassword}
-              onCancelChange = {this.onCancelChangingPassword}
+              onStartChange={this.onChangingPassword}
+              onCancelChange={this.onCancelChangingPassword}
             />
           )}
 
-          {(isPasswordSet && !isChangingPassword) && (
+          {isPasswordSet && !isChangingPassword && (
             <DeletePassword
-              onStartDelete = {this.onDeletingPassword}
-              onCancelDelete = {this.onCancelDeletingPassword}
+              onStartDelete={this.onDeletingPassword}
+              onCancelDelete={this.onCancelDeletingPassword}
             />
           )}
         </Segment>
