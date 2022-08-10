@@ -43,7 +43,7 @@
     "react": "16.9.0",
     "react-i18next": "^11.18.3",
     "react-native": "0.61.0",
-    "react-native-calendars": "^1.19.3",
+    "react-native-calendars": "^1.1286.0",
     "react-native-document-picker": "^4.2.0",
     "react-native-exit-app-v2": "^1.2.2",
     "react-native-fs": "^2.19.0",
