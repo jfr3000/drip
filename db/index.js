@@ -205,12 +205,7 @@ export async function changeEncryptionAndRestartApp(hash) {
   const copyPath = dir.join('/')
   const exists = await fs.exists(copyPath)
   if (exists) await fs.unlink(copyPath)
-  // for some reason, realm complains if we give it a key with value undefined
-  if (key) {
-    db.writeCopyTo(copyPath, key)
-  } else {
-    db.writeCopyTo(copyPath)
-  }
+  db.writeCopyTo({ path: copyPath, encryptionKey: key })
   db.close()
   await fs.unlink(defaultPath)
   await fs.moveFile(copyPath, defaultPath)
