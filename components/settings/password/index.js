@@ -1,4 +1,9 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
+import { navigate } from '../../../slices/navigation'
+
+import { changeDbEncryption } from '../../../db'
 
 import AppPage from '../../common/app-page'
 import AppText from '../../common/app-text'
@@ -11,7 +16,7 @@ import DeletePassword from './delete'
 import { hasEncryptionObservable } from '../../../local-storage'
 import labels from '../../../i18n/en/settings'
 
-export default class PasswordSetting extends Component {
+class PasswordSetting extends Component {
   constructor(props) {
     super(props)
 
@@ -38,6 +43,12 @@ export default class PasswordSetting extends Component {
     this.setState({ isDeletingPassword: false })
   }
 
+  changeEncryptionAndRestart = async (hash) => {
+    await changeDbEncryption(hash)
+    await this.props.restartApp()
+    this.props.navigate('Home')
+  }
+
   render() {
     const { isPasswordSet, isChangingPassword, isDeletingPassword } = this.state
 
@@ -51,12 +62,17 @@ export default class PasswordSetting extends Component {
             {isPasswordSet ? explainerEnabled : explainerDisabled}
           </AppText>
 
-          {!isPasswordSet && <CreatePassword />}
+          {!isPasswordSet && (
+            <CreatePassword
+              changeEncryptionAndRestart={this.changeEncryptionAndRestart}
+            />
+          )}
 
           {isPasswordSet && !isDeletingPassword && (
             <ChangePassword
               onStartChange={this.onChangingPassword}
               onCancelChange={this.onCancelChangingPassword}
+              changeEncryptionAndRestart={this.changeEncryptionAndRestart}
             />
           )}
 
@@ -64,6 +80,7 @@ export default class PasswordSetting extends Component {
             <DeletePassword
               onStartDelete={this.onDeletingPassword}
               onCancelDelete={this.onCancelDeletingPassword}
+              changeEncryptionAndRestart={this.changeEncryptionAndRestart}
             />
           )}
         </Segment>
@@ -71,3 +88,11 @@ export default class PasswordSetting extends Component {
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    navigate: (page) => dispatch(navigate(page)),
+  }
+}
+
+export default connect(null, mapDispatchToProps)(PasswordSetting)

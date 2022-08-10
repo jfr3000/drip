@@ -6,14 +6,14 @@ import AppText from '../../common/app-text'
 import AppTextInput from '../../common/app-text-input'
 import Button from '../../common/button'
 
-import { requestHash, changeEncryptionAndRestartApp } from '../../../db'
+import { requestHash } from '../../../db'
 import { Colors, Spacing } from '../../../styles'
 import settings from '../../../i18n/en/settings'
 
 const LISTENER_TYPE = 'create-or-change-pw'
 
 export default class EnterNewPassword extends Component {
-  constructor() {
+  constructor(props) {
     super()
     this.state = {
       password: '',
@@ -22,13 +22,16 @@ export default class EnterNewPassword extends Component {
     }
     nodejs.channel.addListener(
       LISTENER_TYPE,
-      changeEncryptionAndRestartApp,
+      props.changeEncryptionAndRestart,
       this
     )
   }
 
   componentWillUnmount() {
-    nodejs.channel.removeListener(LISTENER_TYPE, changeEncryptionAndRestartApp)
+    nodejs.channel.removeListener(
+      LISTENER_TYPE,
+      this.props.changeEncryptionAndRestart
+    )
   }
 
   savePassword = () => {
