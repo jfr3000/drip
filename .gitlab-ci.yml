@@ -30,7 +30,7 @@ variables:
     - cd /home/dependabot/app
     - bundle exec rake "dependabot:update[$PROJECT_PATH,$PACKAGE_MANAGER,$DIRECTORY]"
 
-npm:
+dependabot:
   extends: .dependabot-gitlab
   rules:
     - if: $DEPENDENCY_UPDATES_DISABLED
