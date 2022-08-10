@@ -13,6 +13,7 @@ export default class ChangePassword extends Component {
   static propTypes = {
     onStartChange: PropTypes.func,
     onCancelChange: PropTypes.func,
+    changeEncryptionAndRestart: PropTypes.func,
   }
 
   constructor() {

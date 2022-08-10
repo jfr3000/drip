@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import { navigate } from '../../../slices/navigation'
 
@@ -17,6 +18,10 @@ import { hasEncryptionObservable } from '../../../local-storage'
 import labels from '../../../i18n/en/settings'
 
 class PasswordSetting extends Component {
+  static propTypes = {
+    navigate: PropTypes.func,
+    restartApp: PropTypes.func,
+  }
   constructor(props) {
     super(props)
 

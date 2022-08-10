@@ -22,6 +22,7 @@ class App extends Component {
     navigation: PropTypes.object.isRequired,
     navigate: PropTypes.func,
     goBack: PropTypes.func,
+    restartApp: PropTypes.func,
   }
 
   constructor(props) {

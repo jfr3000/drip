@@ -10,6 +10,7 @@ export default class DeletePassword extends Component {
   static propTypes = {
     onStartDelete: PropTypes.func,
     onCancelDelete: PropTypes.func,
+    changeEncryptionAndRestart: PropTypes.func,
   }
 
   constructor() {

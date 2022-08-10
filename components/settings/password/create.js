@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import Button from '../../common/button'
 
@@ -8,6 +9,10 @@ import showBackUpReminder from './show-backup-reminder'
 import settings from '../../../i18n/en/settings'
 
 export default class CreatePassword extends Component {
+  static propTypes = {
+    changeEncryptionAndRestart: PropTypes.func,
+  }
+
   constructor() {
     super()
 
