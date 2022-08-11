@@ -1,4 +1,10 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+
+import { navigate } from '../../../slices/navigation'
+
+import { changeDbEncryption } from '../../../db'
 
 import AppPage from '../../common/app-page'
 import AppText from '../../common/app-text'
@@ -11,14 +17,18 @@ import DeletePassword from './delete'
 import { hasEncryptionObservable } from '../../../local-storage'
 import labels from '../../../i18n/en/settings'
 
-export default class PasswordSetting extends Component {
+class PasswordSetting extends Component {
+  static propTypes = {
+    navigate: PropTypes.func,
+    restartApp: PropTypes.func,
+  }
   constructor(props) {
     super(props)
 
     this.state = {
       isPasswordSet: hasEncryptionObservable.value,
       isChangingPassword: false,
-      isDeletingPassword: false
+      isDeletingPassword: false,
     }
   }
 
@@ -38,19 +48,17 @@ export default class PasswordSetting extends Component {
     this.setState({ isDeletingPassword: false })
   }
 
+  changeEncryptionAndRestart = async (hash) => {
+    await changeDbEncryption(hash)
+    await this.props.restartApp()
+    this.props.navigate('Home')
+  }
+
   render() {
+    const { isPasswordSet, isChangingPassword, isDeletingPassword } = this.state
 
-    const {
-      isPasswordSet,
-      isChangingPassword,
-      isDeletingPassword,
-    } = this.state
-
-    const {
-      title,
-      explainerEnabled,
-      explainerDisabled
-    } = labels.passwordSettings
+    const { title, explainerEnabled, explainerDisabled } =
+      labels.passwordSettings
 
     return (
       <AppPage>
@@ -59,19 +67,25 @@ export default class PasswordSetting extends Component {
             {isPasswordSet ? explainerEnabled : explainerDisabled}
           </AppText>
 
-          {!isPasswordSet && <CreatePassword/>}
-
-          {(isPasswordSet && !isDeletingPassword) && (
-            <ChangePassword
-              onStartChange = {this.onChangingPassword}
-              onCancelChange = {this.onCancelChangingPassword}
+          {!isPasswordSet && (
+            <CreatePassword
+              changeEncryptionAndRestart={this.changeEncryptionAndRestart}
             />
           )}
 
-          {(isPasswordSet && !isChangingPassword) && (
+          {isPasswordSet && !isDeletingPassword && (
+            <ChangePassword
+              onStartChange={this.onChangingPassword}
+              onCancelChange={this.onCancelChangingPassword}
+              changeEncryptionAndRestart={this.changeEncryptionAndRestart}
+            />
+          )}
+
+          {isPasswordSet && !isChangingPassword && (
             <DeletePassword
-              onStartDelete = {this.onDeletingPassword}
-              onCancelDelete = {this.onCancelDeletingPassword}
+              onStartDelete={this.onDeletingPassword}
+              onCancelDelete={this.onCancelDeletingPassword}
+              changeEncryptionAndRestart={this.changeEncryptionAndRestart}
             />
           )}
         </Segment>
@@ -79,3 +93,11 @@ export default class PasswordSetting extends Component {
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    navigate: (page) => dispatch(navigate(page)),
+  }
+}
+
+export default connect(null, mapDispatchToProps)(PasswordSetting)
