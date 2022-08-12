@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import cycleModule from '../lib/cycle'
 
 const mayCycle = [
@@ -25,40 +24,40 @@ const cycleStartsSortedByDate = [
 ]
 
 describe('getPreviousCycle', () => {
-  it('gets previous cycle', () => {
+  test('gets previous cycle', () => {
     const { getPreviousCycle } = cycleModule({
       cycleDaysSortedByDate,
       cycleStartsSortedByDate,
     })
 
-    expect(getPreviousCycle('2018-06-08')).to.eql(mayCycle)
+    expect(getPreviousCycle('2018-06-08')).toEqual(mayCycle)
   })
 
-  it('returns null when target day is not in a cyle', () => {
+  test('returns null when target day is not in a cyle', () => {
     const { getPreviousCycle } = cycleModule({
       cycleDaysSortedByDate,
       cycleStartsSortedByDate: [],
     })
 
-    expect(getPreviousCycle('2018-06-08')).to.eql(null)
+    expect(getPreviousCycle('2018-06-08')).toEqual(null)
   })
 
-  it('returns null when there is no previous cycle', () => {
+  test('returns null when there is no previous cycle', () => {
     const { getPreviousCycle } = cycleModule({
       cycleDaysSortedByDate,
       cycleStartsSortedByDate,
     })
 
-    expect(getPreviousCycle('2018-04-18')).to.eql(null)
+    expect(getPreviousCycle('2018-04-18')).toEqual(null)
   })
 
-  it('returns null when the previous cycle > maxcyclelength', () => {
+  test('returns null when the previous cycle > maxcyclelength', () => {
     const { getPreviousCycle } = cycleModule({
       cycleDaysSortedByDate,
       cycleStartsSortedByDate,
       maxCycleLength: 2,
     })
 
-    expect(getPreviousCycle('2018-06-08')).to.eql(null)
+    expect(getPreviousCycle('2018-06-08')).toEqual(null)
   })
 })

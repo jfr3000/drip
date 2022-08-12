@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import cycleModule from '../lib/cycle'
 
 const julyCycle = [{ date: '2018-07-05' }]
@@ -30,18 +29,18 @@ const cycleStartsSortedByDate = [
 ]
 
 describe('getCyclesBefore', () => {
-  it('gets previous cycles', () => {
+  test('gets previous cycles', () => {
     const { getCyclesBefore } = cycleModule({
       cycleDaysSortedByDate,
       cycleStartsSortedByDate,
     })
     const cyclesBeforeJuly = getCyclesBefore(...julyCycle)
 
-    expect(cyclesBeforeJuly.length).to.eql(3)
-    expect(cyclesBeforeJuly).to.eql([juneCycle, mayCycle, aprilCycle])
+    expect(cyclesBeforeJuly.length).toEqual(3)
+    expect(cyclesBeforeJuly).toEqual([juneCycle, mayCycle, aprilCycle])
   })
 
-  it('skips cycles that are longer than max', () => {
+  test('skips cycles that are longer than max', () => {
     const { getCyclesBefore } = cycleModule({
       cycleDaysSortedByDate,
       cycleStartsSortedByDate,
@@ -49,7 +48,7 @@ describe('getCyclesBefore', () => {
     })
     const cyclesBeforeJuly = getCyclesBefore(...julyCycle)
 
-    expect(cyclesBeforeJuly.length).to.eql(1)
-    expect(cyclesBeforeJuly).to.eql([juneCycle])
+    expect(cyclesBeforeJuly.length).toEqual(1)
+    expect(cyclesBeforeJuly).toEqual([juneCycle])
   })
 })

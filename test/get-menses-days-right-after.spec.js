@@ -1,8 +1,7 @@
-import { expect } from 'chai'
 import cycleModule from '../lib/cycle'
 
 describe('getMensesDaysRightAfter', () => {
-  it('works for simple menses start', () => {
+  test('works for simple menses start', () => {
     const cycleDaysSortedByDate = [
       {
         date: '2018-05-04',
@@ -29,7 +28,7 @@ describe('getMensesDaysRightAfter', () => {
       bleedingDaysSortedByDate: cycleDaysSortedByDate.filter((d) => d.bleeding),
     })
     const days = getMensesDaysRightAfter(cycleDaysSortedByDate[3])
-    expect(days).to.eql([
+    expect(days).toEqual([
       {
         date: '2018-05-03',
         bleeding: { value: 1 },
@@ -41,7 +40,7 @@ describe('getMensesDaysRightAfter', () => {
     ])
   })
 
-  it('works when the day is not a bleeding day', () => {
+  test('works when the day is not a bleeding day', () => {
     const cycleDaysSortedByDate = [
       {
         date: '2018-05-04',
@@ -69,7 +68,7 @@ describe('getMensesDaysRightAfter', () => {
       bleedingDaysSortedByDate: cycleDaysSortedByDate.filter((d) => d.bleeding),
     })
     const days = getMensesDaysRightAfter(cycleDaysSortedByDate[4])
-    expect(days).to.eql([
+    expect(days).toEqual([
       {
         date: '2018-05-03',
         bleeding: { value: 1 },
@@ -85,7 +84,7 @@ describe('getMensesDaysRightAfter', () => {
     ])
   })
 
-  it('ignores excluded values', () => {
+  test('ignores excluded values', () => {
     const cycleDaysSortedByDate = [
       {
         date: '2018-05-04',
@@ -112,7 +111,7 @@ describe('getMensesDaysRightAfter', () => {
       bleedingDaysSortedByDate: cycleDaysSortedByDate.filter((d) => d.bleeding),
     })
     const days = getMensesDaysRightAfter(cycleDaysSortedByDate[3])
-    expect(days).to.eql([
+    expect(days).toEqual([
       {
         date: '2018-05-03',
         bleeding: { value: 1 },
@@ -120,7 +119,7 @@ describe('getMensesDaysRightAfter', () => {
     ])
   })
 
-  it('returns empty when there are no bleeding days after', () => {
+  test('returns empty when there are no bleeding days after', () => {
     const cycleDaysSortedByDate = [
       {
         date: '2018-05-04',
@@ -145,10 +144,10 @@ describe('getMensesDaysRightAfter', () => {
       bleedingDaysSortedByDate: cycleDaysSortedByDate.filter((d) => d.bleeding),
     })
     const days = getMensesDaysRightAfter(cycleDaysSortedByDate[3])
-    expect(days).to.eql([])
+    expect(days).toEqual([])
   })
 
-  it('returns empty when there are no bleeding days within threshold', () => {
+  test('returns empty when there are no bleeding days within threshold', () => {
     const cycleDaysSortedByDate = [
       {
         date: '2018-05-04',
@@ -174,10 +173,10 @@ describe('getMensesDaysRightAfter', () => {
       bleedingDaysSortedByDate: cycleDaysSortedByDate.filter((d) => d.bleeding),
     })
     const days = getMensesDaysRightAfter(cycleDaysSortedByDate[3])
-    expect(days).to.eql([])
+    expect(days).toEqual([])
   })
 
-  it('includes days within the treshold', () => {
+  test('includes days within the treshold', () => {
     const cycleDaysSortedByDate = [
       {
         date: '2018-05-04',
@@ -204,7 +203,7 @@ describe('getMensesDaysRightAfter', () => {
       bleedingDaysSortedByDate: cycleDaysSortedByDate.filter((d) => d.bleeding),
     })
     const days = getMensesDaysRightAfter(cycleDaysSortedByDate[3])
-    expect(days).to.eql([
+    expect(days).toEqual([
       {
         date: '2018-05-05',
         bleeding: { value: 1 },
@@ -215,10 +214,11 @@ describe('getMensesDaysRightAfter', () => {
       },
     ])
   })
+
   describe('with cycle thresholds', () => {
     const maxBreakInBleeding = 3
 
-    it('disregards bleeding breaks shorter than maxAllowedBleedingBreak in a bleeding period', () => {
+    test('disregards bleeding breaks shorter than maxAllowedBleedingBreak in a bleeding period', () => {
       const bleedingDays = [
         {
           date: '2018-05-14',
@@ -239,10 +239,10 @@ describe('getMensesDaysRightAfter', () => {
         maxBreakInBleeding,
       }).getMensesDaysRightAfter
       const result = getMensesDaysRightAfter(bleedingDays[1])
-      expect(result).to.eql([bleedingDays[0]])
+      expect(result).toEqual([bleedingDays[0]])
     })
 
-    it('counts bleeding breaks longer than maxAllowedBleedingBreak in a bleeding period', () => {
+    test('counts bleeding breaks longer than maxAllowedBleedingBreak in a bleeding period', () => {
       const bleedingDays = [
         {
           date: '2018-05-14',
@@ -263,7 +263,7 @@ describe('getMensesDaysRightAfter', () => {
         maxBreakInBleeding,
       }).getMensesDaysRightAfter
       const result = getMensesDaysRightAfter(bleedingDays[1])
-      expect(result).to.eql([])
+      expect(result).toEqual([])
     })
   })
 })

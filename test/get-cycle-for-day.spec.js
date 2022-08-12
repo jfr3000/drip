@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import cycleModule from '../lib/cycle'
 
 describe('getCycleForDay', () => {
@@ -49,18 +48,18 @@ describe('getCycleForDay', () => {
     }),
   })
 
-  it('gets cycle that has only one day', () => {
+  test('gets cycle that has only one day', () => {
     const result = getCycleForDay('2018-07-05', '2018-08-01')
-    expect(result.length).to.eql(1)
-    expect(result).to.eql([
+    expect(result.length).toEqual(1)
+    expect(result).toEqual([
       {
         date: '2018-07-05',
         bleeding: { value: 2 },
       },
     ])
     const result2 = getCycleForDay('2018-06-05')
-    expect(result2.length).to.eql(1)
-    expect(result2).to.eql([
+    expect(result2.length).toEqual(1)
+    expect(result2).toEqual([
       {
         date: '2018-06-05',
         bleeding: { value: 2 },
@@ -68,10 +67,10 @@ describe('getCycleForDay', () => {
     ])
   })
 
-  it('for later date gets cycle that has only one day', () => {
+  test('for later date gets cycle that has only one day', () => {
     const result = getCycleForDay('2018-06-20')
-    expect(result.length).to.eql(1)
-    expect(result).to.eql([
+    expect(result.length).toEqual(1)
+    expect(result).toEqual([
       {
         date: '2018-06-05',
         bleeding: { value: 2 },
@@ -79,12 +78,12 @@ describe('getCycleForDay', () => {
     ])
   })
 
-  it('returns null if there is no cycle start for that date', () => {
+  test('returns null if there is no cycle start for that date', () => {
     const result = getCycleForDay('2018-04-01')
-    expect(result).to.eql(null)
+    expect(result).toBeNull()
   })
 
-  it('returns null if the cycle is longer than the max', () => {
+  test('returns null if the cycle is longer than the max', () => {
     const { getCycleForDay } = cycleModule({
       cycleDaysSortedByDate,
       cycleStartsSortedByDate: cycleDaysSortedByDate.filter((d) => {
@@ -93,13 +92,13 @@ describe('getCycleForDay', () => {
       maxCycleLength: 3,
     })
     const result = getCycleForDay('2018-04-04')
-    expect(result).to.eql(null)
+    expect(result).toBeNull()
   })
 
-  it('gets cycle for day', () => {
+  test('gets cycle for day', () => {
     const result = getCycleForDay('2018-04-04')
-    expect(result.length).to.eql(4)
-    expect(result).to.eql([
+    expect(result.length).toEqual(4)
+    expect(result).toEqual([
       {
         date: '2018-04-05',
         mucus: { value: 2 },

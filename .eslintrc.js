@@ -3,7 +3,7 @@ module.exports = {
   extends: ['eslint:recommended', 'plugin:react/recommended'],
   env: {
     node: true,
-    mocha: true,
+    jest: true,
     es6: true,
   },
   parser: '@babel/eslint-parser',
