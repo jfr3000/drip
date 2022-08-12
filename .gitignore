@@ -23,7 +23,6 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
-xcshareddata
 ios/Index/DataStore
 
 # Android/IntelliJ

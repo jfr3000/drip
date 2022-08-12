@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { Path, Shape } from 'react-native/Libraries/ART/ReactNativeART'
+import { Path, Shape } from '@react-native-community/art'
 
 import { Colors } from '../../styles'
 
@@ -8,7 +8,7 @@ import {
   CHART_COLUMN_WIDTH,
   CHART_COLUMN_MIDDLE,
   CHART_DOT_RADIUS,
-  CHART_STROKE_WIDTH
+  CHART_STROKE_WIDTH,
 } from '../../config'
 
 export default class DotAndLine extends Component {
@@ -18,11 +18,11 @@ export default class DotAndLine extends Component {
     leftTemperatureExclude: PropTypes.bool,
     rightY: PropTypes.number,
     rightTemperatureExclude: PropTypes.bool,
-    y: PropTypes.number.isRequired
+    y: PropTypes.number.isRequired,
   }
 
   shouldComponentUpdate(newProps) {
-    return Object.keys(newProps).some(key => newProps[key] != this.props[key])
+    return Object.keys(newProps).some((key) => newProps[key] != this.props[key])
   }
 
   render() {
@@ -32,35 +32,36 @@ export default class DotAndLine extends Component {
       leftY,
       rightTemperatureExclude,
       rightY,
-      y
+      y,
     } = this.props
     let excludeLeftLine, excludeRightLine, lineLeft, lineRight
 
     if (leftY) {
-      const middleY = ((leftY - y) / 2) + y
+      const middleY = (leftY - y) / 2 + y
       excludeLeftLine = leftTemperatureExclude || exclude
-      lineLeft = new Path()
-        .moveTo(CHART_COLUMN_MIDDLE, y)
-        .lineTo(0, middleY)
+      lineLeft = new Path().moveTo(CHART_COLUMN_MIDDLE, y).lineTo(0, middleY)
     }
     if (rightY) {
-      const middleY = ((y - rightY) / 2) + rightY
+      const middleY = (y - rightY) / 2 + rightY
       excludeRightLine = rightTemperatureExclude || exclude
       lineRight = new Path()
         .moveTo(CHART_COLUMN_MIDDLE, y)
         .lineTo(CHART_COLUMN_WIDTH, middleY)
     }
 
-    const dot = new Path().moveTo(CHART_COLUMN_MIDDLE , y - CHART_DOT_RADIUS)
+    const dot = new Path()
+      .moveTo(CHART_COLUMN_MIDDLE, y - CHART_DOT_RADIUS)
       .arc(0, CHART_DOT_RADIUS * 2, CHART_DOT_RADIUS)
       .arc(0, CHART_DOT_RADIUS * -2, CHART_DOT_RADIUS)
     const dotColor = exclude ? Colors.turquoise : Colors.turquoiseDark
-    const lineColorLeft = excludeLeftLine ?
-      Colors.turquoise : Colors.turquoiseDark
-    const lineColorRight = excludeRightLine ?
-      Colors.turquoise : Colors.turquoiseDark
+    const lineColorLeft = excludeLeftLine
+      ? Colors.turquoise
+      : Colors.turquoiseDark
+    const lineColorRight = excludeRightLine
+      ? Colors.turquoise
+      : Colors.turquoiseDark
 
-    return(
+    return (
       <React.Fragment>
         <Shape
           d={lineLeft}
@@ -79,7 +80,7 @@ export default class DotAndLine extends Component {
           stroke={dotColor}
           strokeWidth={CHART_STROKE_WIDTH}
           fill="white"
-          key='dot'
+          key="dot"
         />
       </React.Fragment>
     )
