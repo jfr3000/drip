@@ -1,8 +1,7 @@
-import { expect } from 'chai'
 import cycleModule from '../lib/cycle'
 
 describe('isMensesStart', () => {
-  it('works for simple menses start', () => {
+  test('works for simple menses start', () => {
     const cycleDaysSortedByDate = [
       {
         date: '2018-05-04',
@@ -29,14 +28,14 @@ describe('isMensesStart', () => {
       bleedingDaysSortedByDate: cycleDaysSortedByDate.filter((d) => d.bleeding),
     })
     const start = isMensesStart(cycleDaysSortedByDate[3])
-    expect(start).to.be.true
-    expect(isMensesStart(cycleDaysSortedByDate[0])).to.be.false
-    expect(isMensesStart(cycleDaysSortedByDate[1])).to.be.false
-    expect(isMensesStart(cycleDaysSortedByDate[2])).to.be.false
-    expect(isMensesStart(cycleDaysSortedByDate[4])).to.be.false
+    expect(start).toBeTruthy()
+    expect(isMensesStart(cycleDaysSortedByDate[0])).toBeFalsy()
+    expect(isMensesStart(cycleDaysSortedByDate[1])).toBeFalsy()
+    expect(isMensesStart(cycleDaysSortedByDate[2])).toBeFalsy()
+    expect(isMensesStart(cycleDaysSortedByDate[4])).toBeFalsy()
   })
 
-  it('works with previous excluded value', () => {
+  test('works with previous excluded value', () => {
     const cycleDaysSortedByDate = [
       {
         date: '2018-06-01',
@@ -57,12 +56,12 @@ describe('isMensesStart', () => {
       bleedingDaysSortedByDate: cycleDaysSortedByDate.filter((d) => d.bleeding),
     })
     const start = isMensesStart(cycleDaysSortedByDate[1])
-    expect(start).to.be.true
+    expect(start).toBeTruthy()
     const notStart = isMensesStart(cycleDaysSortedByDate[2])
-    expect(notStart).to.be.false
+    expect(notStart).toBeFalsy()
   })
 
-  it('returns false when day has no bleeding', () => {
+  test('returns false when day has no bleeding', () => {
     const cycleDaysSortedByDate = [
       {
         date: '2018-06-01',
@@ -81,10 +80,10 @@ describe('isMensesStart', () => {
       bleedingDaysSortedByDate: cycleDaysSortedByDate.filter((d) => d.bleeding),
     })
     const start = isMensesStart(cycleDaysSortedByDate[0])
-    expect(start).to.be.false
+    expect(start).toBeFalsy()
   })
 
-  it('returns false when there is a previous bleeding day within the threshold', () => {
+  test('returns false when there is a previous bleeding day within the threshold', () => {
     const cycleDaysSortedByDate = [
       {
         date: '2018-06-01',
@@ -110,10 +109,10 @@ describe('isMensesStart', () => {
       bleedingDaysSortedByDate: cycleDaysSortedByDate.filter((d) => d.bleeding),
     })
     const start = isMensesStart(cycleDaysSortedByDate[2])
-    expect(start).to.be.false
+    expect(start).toBeFalsy()
   })
 
-  it('returns true when there is a previous excluded bleeding day within the threshold', () => {
+  test('returns true when there is a previous excluded bleeding day within the threshold', () => {
     const cycleDaysSortedByDate = [
       {
         date: '2018-06-01',
@@ -139,12 +138,13 @@ describe('isMensesStart', () => {
       bleedingDaysSortedByDate: cycleDaysSortedByDate.filter((d) => d.bleeding),
     })
     const start = isMensesStart(cycleDaysSortedByDate[2])
-    expect(start).to.be.true
+    expect(start).toBeTruthy()
   })
+
   describe('with cycle thresholds', () => {
     const maxBreakInBleeding = 3
 
-    it('disregards bleeding breaks equal to maxAllowedBleedingBreak in a bleeding period', () => {
+    test('disregards bleeding breaks equal to maxAllowedBleedingBreak in a bleeding period', () => {
       const bleedingDays = [
         {
           date: '2018-05-14',
@@ -165,10 +165,10 @@ describe('isMensesStart', () => {
         maxBreakInBleeding,
       }).isMensesStart
       const result = isMensesStart(bleedingDays[0])
-      expect(result).to.be.false
+      expect(result).toBeFalsy()
     })
 
-    it('counts bleeding breaks longer than maxAllowedBleedingBreak in a bleeding period', () => {
+    test('counts bleeding breaks longer than maxAllowedBleedingBreak in a bleeding period', () => {
       const bleedingDays = [
         {
           date: '2018-05-14',
@@ -189,7 +189,7 @@ describe('isMensesStart', () => {
         maxBreakInBleeding,
       }).isMensesStart
       const result = isMensesStart(bleedingDays[0])
-      expect(result).to.be.true
+      expect(result).toBeTruthy()
     })
   })
 })

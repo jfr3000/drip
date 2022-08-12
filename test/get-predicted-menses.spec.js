@@ -1,9 +1,8 @@
-import { expect } from 'chai'
 import cycleModule from '../lib/cycle'
 
 describe('getPredictedMenses', () => {
   describe('cannot predict next menses', () => {
-    it('if no bleeding is documented', () => {
+    test('if no bleeding is documented', () => {
       const cycleDaysSortedByDate = [{}]
       const cycleStarts = []
 
@@ -19,10 +18,10 @@ describe('getPredictedMenses', () => {
         minCyclesForPrediction: 1,
       })
       const result = getPredictedMenses()
-      expect(result).to.eql([])
+      expect(result).toEqual([])
     })
 
-    it('if one bleeding is documented (no completed cycle)', () => {
+    test('if one bleeding is documented (no completed cycle)', () => {
       const cycleDaysSortedByDate = [
         {
           date: '2018-06-02',
@@ -43,10 +42,10 @@ describe('getPredictedMenses', () => {
         minCyclesForPrediction: 1,
       })
       const result = getPredictedMenses()
-      expect(result).to.eql([])
+      expect(result).toEqual([])
     })
 
-    it('if number of cycles is below minCyclesForPrediction', () => {
+    test('if number of cycles is below minCyclesForPrediction', () => {
       const cycleDaysSortedByDate = [
         {
           date: '2018-06-02',
@@ -73,10 +72,10 @@ describe('getPredictedMenses', () => {
         }),
       })
       const result = getPredictedMenses()
-      expect(result).to.eql([])
+      expect(result).toEqual([])
     })
 
-    it('if number of cycles is below minCyclesForPrediction because one of them is too long', () => {
+    test('if number of cycles is below minCyclesForPrediction because one of them is too long', () => {
       const cycleDaysSortedByDate = [
         {
           date: '2018-06-02',
@@ -116,11 +115,12 @@ describe('getPredictedMenses', () => {
         maxCycleLength: 2,
       })
       const result = getPredictedMenses()
-      expect(result).to.eql([])
+      expect(result).toEqual([])
     })
   })
+
   describe('works', () => {
-    it('for one completed cycle with minCyclesForPrediction = 1', () => {
+    test('for one completed cycle with minCyclesForPrediction = 1', () => {
       const cycleDaysSortedByDate = [
         {
           date: '2018-07-15',
@@ -145,10 +145,10 @@ describe('getPredictedMenses', () => {
         ['2018-08-10', '2018-08-11', '2018-08-12', '2018-08-13', '2018-08-14'],
         ['2018-08-24', '2018-08-25', '2018-08-26', '2018-08-27', '2018-08-28'],
       ]
-      expect(result).to.eql(expectedResult)
+      expect(result).toEqual(expectedResult)
     })
 
-    it('if number of cycles is above minCyclesForPrediction', () => {
+    test('if number of cycles is above minCyclesForPrediction', () => {
       const cycleDaysSortedByDate = [
         {
           date: '2018-08-02',
@@ -179,10 +179,10 @@ describe('getPredictedMenses', () => {
         ['2018-10-02', '2018-10-03', '2018-10-04'],
         ['2018-11-02', '2018-11-03', '2018-11-04'],
       ]
-      expect(result).to.eql(expectedResult)
+      expect(result).toEqual(expectedResult)
     })
 
-    it('3 cycles with little standard deviation', () => {
+    test('3 cycles with little standard deviation', () => {
       const cycleDaysSortedByDate = [
         {
           date: '2018-08-01',
@@ -212,10 +212,10 @@ describe('getPredictedMenses', () => {
         ['2018-08-28', '2018-08-29', '2018-08-30'],
         ['2018-09-11', '2018-09-12', '2018-09-13'],
       ]
-      expect(result).to.eql(expectedResult)
+      expect(result).toEqual(expectedResult)
     })
 
-    it('3 cycles with bigger standard deviation', () => {
+    test('3 cycles with bigger standard deviation', () => {
       const cycleDaysSortedByDate = [
         {
           date: '2018-08-01',
@@ -245,10 +245,10 @@ describe('getPredictedMenses', () => {
         ['2018-08-27', '2018-08-28', '2018-08-29', '2018-08-30', '2018-08-31'],
         ['2018-09-10', '2018-09-11', '2018-09-12', '2018-09-13', '2018-09-14'],
       ]
-      expect(result).to.eql(expectedResult)
+      expect(result).toEqual(expectedResult)
     })
 
-    it('does not count cycles longer than max', () => {
+    test('does not count cycles longer than max', () => {
       const cycleDaysSortedByDate = [
         {
           date: '2018-08-01',
@@ -283,7 +283,7 @@ describe('getPredictedMenses', () => {
         ['2018-08-27', '2018-08-28', '2018-08-29', '2018-08-30', '2018-08-31'],
         ['2018-09-10', '2018-09-11', '2018-09-12', '2018-09-13', '2018-09-14'],
       ]
-      expect(result).to.eql(expectedResult)
+      expect(result).toEqual(expectedResult)
     })
   })
 })

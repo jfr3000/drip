@@ -1,4 +1,3 @@
-import { expect } from 'chai'
 import cycleModule from '../lib/cycle'
 
 const cycleStartDay = { date: '2018-05-03' }
@@ -23,12 +22,12 @@ const cycleStartsSortedByDate = [
 ]
 
 describe('getCycleByStartDay', () => {
-  it('gets cycle by cycle start day', () => {
+  test('gets cycle by cycle start day', () => {
     const { getCycleByStartDay } = cycleModule({
       cycleDaysSortedByDate,
       cycleStartsSortedByDate,
     })
 
-    expect(getCycleByStartDay(cycleStartDay)).to.eql(cycle)
+    expect(getCycleByStartDay(cycleStartDay)).toEqual(cycle)
   })
 })
