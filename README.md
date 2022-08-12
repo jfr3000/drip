@@ -169,12 +169,23 @@ You can run the tests with:
 
 Hopefully you see the magic happening clicking through the app and happy test results on your console :sun_with_face: !
 
+### Manual testing
+
+To ensure that core app functionality is working, we developed a [test protocol](https://gitlab.com/bloodyhealth/drip/-/snippets/2283405).
+
 ## Debugging
 
 In order to see logging output from the app, run `npm run log` in a separate terminal. You can output specific code you want to see, with:
 `console.log(theVariableIWantToSeeHere)`
 or just a random string to check if this piece of code is actually running:
 `console.log("HELLO")`.
+
+## Known issues
+
+### Android emulator
+
+- Import/export to the local drive don't work.
+- Email button on the Hamburger menu > About doesn't work - throws a yellow error message "Possible unhandled promise rejection...".
 
 ## NFP rules
 
