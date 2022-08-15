@@ -14,4 +14,4 @@ npm install
 echo "Pods install..."
 cd ios && pod install && cd ..
 
-echo "\x1b[35;01m""Done!""\x1b[39;49;00m"
+echo "\x1b[35;01m""Done re-installing dependencies!""\x1b[39;49;00m"
