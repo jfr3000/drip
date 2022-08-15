@@ -4,13 +4,13 @@ import PropTypes from 'prop-types'
 import Button from '../../common/button'
 import ConfirmWithPassword from '../common/confirm-with-password'
 
-import { changeEncryptionAndRestartApp } from '../../../db'
 import labels from '../../../i18n/en/settings'
 
 export default class DeletePassword extends Component {
   static propTypes = {
     onStartDelete: PropTypes.func,
-    onCancelDelete: PropTypes.func
+    onCancelDelete: PropTypes.func,
+    changeEncryptionAndRestart: PropTypes.func,
   }
 
   constructor() {
@@ -24,10 +24,6 @@ export default class DeletePassword extends Component {
     this.props.onStartDelete()
   }
 
-  startDeletePassword = async () => {
-    await changeEncryptionAndRestartApp()
-  }
-
   cancelConfirmationWithPassword = () => {
     this.setState({ enteringCurrentPassword: false })
     this.props.onCancelDelete()
@@ -39,7 +35,7 @@ export default class DeletePassword extends Component {
     if (enteringCurrentPassword) {
       return (
         <ConfirmWithPassword
-          onSuccess={this.startDeletePassword}
+          onSuccess={this.props.changeEncryptionAndRestart}
           onCancel={this.cancelConfirmationWithPassword}
         />
       )

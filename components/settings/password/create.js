@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 import Button from '../../common/button'
 
@@ -8,6 +9,10 @@ import showBackUpReminder from './show-backup-reminder'
 import settings from '../../../i18n/en/settings'
 
 export default class CreatePassword extends Component {
+  static propTypes = {
+    changeEncryptionAndRestart: PropTypes.func,
+  }
+
   constructor() {
     super()
 
@@ -23,7 +28,7 @@ export default class CreatePassword extends Component {
     showBackUpReminder(this.toggleSettingPassword, () => {})
   }
 
-  render () {
+  render() {
     const { isSettingPassword } = this.state
     const labels = settings.passwordSettings
 
@@ -34,8 +39,11 @@ export default class CreatePassword extends Component {
         </Button>
       )
     } else {
-      return <EnterNewPassword />
+      return (
+        <EnterNewPassword
+          changeEncryptionAndRestart={this.props.changeEncryptionAndRestart}
+        />
+      )
     }
-
   }
 }
