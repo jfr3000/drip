@@ -14,4 +14,4 @@ rm -rf $TMPDIR/haste-map-react-native-packager-*
 echo "Remove Metro bundler temp data..."
 rm -rf $TMPDIR/metro-*
 
-echo "\x1b[35;01m""Done!""\x1b[39;49;00m"
+echo "\x1b[35;01m""Done clearing general cache!""\x1b[39;49;00m"

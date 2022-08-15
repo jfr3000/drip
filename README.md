@@ -127,7 +127,7 @@ If you would like to clear project cache and/or re-install project libraries, yo
     npm run clear
 
 Script accepts the following options:
-"none" - script will delete all caches and re-install project libraries,
+"all" - script will delete all caches and re-install project libraries,
 "ios" - script will delete ios-related cache
 "android" - script will delete android-related cache
 "cache" - script will purge Watchman, Metrobundler, Pachager and React caches
