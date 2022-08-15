@@ -29,7 +29,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@js-joda/core": "^5.2.0",
+    "@js-joda/core": "^5.3.0",
     "@ptomasroos/react-native-multi-slider": "^2.2.0",
     "@react-native-community/art": "^1.2.0",
     "@react-native-community/datetimepicker": "^6.3.1",
