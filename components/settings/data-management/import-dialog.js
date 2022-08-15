@@ -27,7 +27,7 @@ export function openImportDialog(onImportData) {
 export async function getFileContent() {
   let fileInfo
   try {
-    fileInfo = await DocumentPicker.pick({
+    fileInfo = await DocumentPicker.pickSingle({
       type: [DocumentPicker.types.csv, 'text/comma-separated-values'],
     })
   } catch (error) {
