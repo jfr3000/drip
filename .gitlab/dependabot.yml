@@ -12,3 +12,4 @@ updates:
       - dependency-name: 'nodejs-mobile-react-native'
       - dependency-name: 'react'
       - dependency-name: 'react-native'
+      - dependency-name: 'react-native-push-notifications'
