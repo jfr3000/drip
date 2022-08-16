@@ -1,5 +1,4 @@
-import React, { Component } from 'react'
-import { StyleSheet, View } from 'react-native'
+import React, { useState, useEffect } from 'react'
 import { Provider } from 'react-redux'
 import nodejs from 'nodejs-mobile-react-native'
 
@@ -14,91 +13,45 @@ import PasswordPrompt from './password-prompt'
 
 import store from '../store'
 
-export default class AppWrapper extends Component {
-  constructor() {
-    super()
-    this.state = {
-      isCheckingLicenseAgreement: true,
-      shouldShowLicenseAgreement: false,
-      shouldShowPasswordPrompt: false,
-      shouldShowApp: false,
-    }
-    nodejs.start('main.js')
-    this.checkLicenseAgreement()
-    this.checkDbPasswordSet()
-  }
+export default function AppWrapper() {
+  const [isLoading, setIsLoading] = useState(true)
+  const [isLicenseAccepted, setIsLicenseAccepted] = useState(false)
+  const [isDbEncrypted, setIsDbEncrypted] = useState(false)
 
-  async checkLicenseAgreement() {
+  const checkIsLicenseAccepted = async () => {
     const isLicenseFlagSet = await getLicenseFlag()
-    if (!isLicenseFlagSet) {
-      this.enableShowLicenseAgreement()
-    } else {
-      this.setState({ isCheckingLicenseAgreement: false })
-    }
+    setIsLicenseAccepted(isLicenseFlagSet)
+    setIsLoading(false)
   }
 
-  async checkDbPasswordSet() {
-    const canConnectToDb = await openDb()
-    if (canConnectToDb) {
-      this.enableShowApp()
-      await saveEncryptionFlag(false)
-      return false
-    }
-    this.setState({ shouldShowPasswordPrompt: true })
-    await saveEncryptionFlag(true)
+  const checkIsDbEncrypted = async () => {
+    const isEncrypted = !(await openDb())
+    if (isEncrypted) setIsDbEncrypted(true)
+    await saveEncryptionFlag(isEncrypted)
   }
 
-  enableShowLicenseAgreement = () => {
-    this.setState({
-      shouldShowLicenseAgreement: true,
-      isCheckingLicenseAgreement: false,
-    })
+  useEffect(() => {
+    nodejs.start('main.js')
+    checkIsLicenseAccepted()
+    checkIsDbEncrypted()
+  }, [])
+
+  if (isLoading) {
+    return <AppLoadingView />
   }
 
-  disableShowLicenseAgreement = () => {
-    this.setState({ shouldShowLicenseAgreement: false })
+  if (!isLicenseAccepted) {
+    return <License setLicense={() => setIsLicenseAccepted(true)} />
   }
 
-  enableShowApp = () => {
-    this.setState({
-      shouldShowApp: true,
-      shouldShowPasswordPrompt: false,
-    })
-  }
-
-  render() {
-    const {
-      isCheckingLicenseAgreement,
-      shouldShowLicenseAgreement,
-      shouldShowPasswordPrompt,
-      shouldShowApp,
-    } = this.state
-
-    let initialView = null
-
-    if (isCheckingLicenseAgreement) {
-      initialView = <AppLoadingView />
-    } else if (shouldShowLicenseAgreement) {
-      initialView = <License setLicense={this.disableShowLicenseAgreement} />
-    } else if (shouldShowPasswordPrompt) {
-      initialView = <PasswordPrompt enableShowApp={this.enableShowApp} />
-    } else if (shouldShowApp) {
-      initialView = <App restartApp={() => this.checkDbPasswordSet()} />
-    }
-
-    return (
-      <Provider store={store}>
-        <View style={styles.container}>
-          <AppStatusBar />
-          {initialView}
-        </View>
-      </Provider>
-    )
-  }
+  return (
+    <Provider store={store}>
+      <AppStatusBar />
+      {isDbEncrypted ? (
+        <PasswordPrompt enableShowApp={() => setIsDbEncrypted(false)} />
+      ) : (
+        <App restartApp={() => checkIsDbEncrypted()} />
+      )}
+    </Provider>
+  )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-})
