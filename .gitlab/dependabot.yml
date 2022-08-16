@@ -8,6 +8,8 @@ updates:
       interval: daily
     open-pull-requests-limit: 3
     ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-patch']
       - dependency-name: 'realm'
       - dependency-name: 'nodejs-mobile-react-native'
       - dependency-name: 'react'
