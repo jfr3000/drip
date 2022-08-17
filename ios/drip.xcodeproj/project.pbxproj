@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* dripTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* dripTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
-		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		540918B325AB726000086AE1 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 540918A325AB725F00086AE1 /* OpenSans-Light.ttf */; };
@@ -31,6 +30,7 @@
 		5472A45A25BB7807005E81DE /* drip-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5472A44925BB7806005E81DE /* drip-icon-font.ttf */; };
 		5472A45B25BB7807005E81DE /* drip-icon-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5472A44925BB7806005E81DE /* drip-icon-font.ttf */; };
 		5472A45E25BB7C43005E81DE /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5472A45C25BB7C42005E81DE /* Entypo.ttf */; };
+		5488D8D728ABF478008DD66D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5488D8D628ABF478008DD66D /* LaunchScreen.storyboard */; };
 		54DFE73A25D94D6E0025C3FC /* swipe.png in Resources */ = {isa = PBXBuildFile; fileRef = 54DFE73925D94D6E0025C3FC /* swipe.png */; };
 		54DFE73B25D94D6E0025C3FC /* swipe.png in Resources */ = {isa = PBXBuildFile; fileRef = 54DFE73925D94D6E0025C3FC /* swipe.png */; };
 		54DFE73D25D94DED0025C3FC /* cycle-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 54DFE73C25D94DED0025C3FC /* cycle-icon.png */; };
@@ -64,7 +64,6 @@
 		13B07F961A680F5B00A75B9A /* drip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = drip.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = drip/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = drip/AppDelegate.m; sourceTree = "<group>"; };
-		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = drip/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = drip/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = drip/main.m; sourceTree = "<group>"; };
@@ -91,6 +90,7 @@
 		5472A44825BB7806005E81DE /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-LightItalic.ttf"; path = "../assets/fonts/OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
 		5472A44925BB7806005E81DE /* drip-icon-font.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "drip-icon-font.ttf"; path = "../assets/fonts/drip-icon-font.ttf"; sourceTree = "<group>"; };
 		5472A45C25BB7C42005E81DE /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		5488D8D628ABF478008DD66D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = drip/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		548C3D3A2898FB0600013449 /* drip-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "drip-Bridging-Header.h"; sourceTree = "<group>"; };
 		54DFE73925D94D6E0025C3FC /* swipe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = swipe.png; path = ../assets/swipe.png; sourceTree = "<group>"; };
 		54DFE73C25D94DED0025C3FC /* cycle-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "cycle-icon.png"; path = "../assets/cycle-icon.png"; sourceTree = "<group>"; };
@@ -184,13 +184,13 @@
 		13B07FAE1A68108700A75B9A /* drip */ = {
 			isa = PBXGroup;
 			children = (
+				5488D8D628ABF478008DD66D /* LaunchScreen.storyboard */,
 				5C649EDC281151BC005FED46 /* dripRelease.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				548C3D3A2898FB0600013449 /* drip-Bridging-Header.h */,
 			);
@@ -345,7 +345,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1330;
+				LastUpgradeCheck = 1340;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -404,13 +404,13 @@
 				5472A44C25BB7807005E81DE /* OpenSans-Light.ttf in Resources */,
 				5472A45425BB7807005E81DE /* Menu.ttf in Resources */,
 				5472A45A25BB7807005E81DE /* drip-icon-font.ttf in Resources */,
+				5488D8D728ABF478008DD66D /* LaunchScreen.storyboard in Resources */,
 				5472A45825BB7807005E81DE /* OpenSans-LightItalic.ttf in Resources */,
 				5472A45625BB7807005E81DE /* OpenSans-SemiBold.ttf in Resources */,
 				5472A45025BB7807005E81DE /* Jost-400-Book.otf in Resources */,
 				54DFE73D25D94DED0025C3FC /* cycle-icon.png in Resources */,
 				54DFE73A25D94D6E0025C3FC /* swipe.png in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 				5472A44A25BB7806005E81DE /* drip-home-icons.ttf in Resources */,
 				E4584E55EEC24302A3E84A23 /* nodejs-project in Resources */,
 				A16B351C3F3644CF95F104D2 /* builtin_modules in Resources */,
@@ -487,6 +487,7 @@
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -506,6 +507,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -535,6 +537,7 @@
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
+				"${PODS_CONFIGURATION_BUILD_DIR}/React-Core/AccessibilityResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -554,6 +557,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AccessibilityResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -724,18 +728,6 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		13B07FB11A68108700A75B9A /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				13B07FB21A68108700A75B9A /* Base */,
-			);
-			name = LaunchScreen.xib;
-			path = drip;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -861,7 +853,7 @@
 					"$(SRCROOT)/../node_modules/realm/src/**",
 				);
 				INFOPLIST_FILE = drip/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/DoubleConversion\"",
@@ -944,7 +936,7 @@
 					"$(SRCROOT)/../node_modules/realm/src/**",
 				);
 				INFOPLIST_FILE = drip/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"\"${PODS_CONFIGURATION_BUILD_DIR}/DoubleConversion\"",
