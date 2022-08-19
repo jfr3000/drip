@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 
-import { setDate } from '../../slices/date'
 import { navigate } from '../../slices/navigation'
 
 import { getCycleDay } from '../../db'
@@ -15,7 +14,7 @@ import CycleDayLabel from './cycle-day-label'
 import {
   symptomColorMethods,
   getTemperatureProps,
-  isSymptomDataComplete
+  isSymptomDataComplete,
 } from '../helpers/chart'
 
 class DayColumn extends Component {
@@ -40,14 +39,17 @@ class DayColumn extends Component {
     this.data = {}
 
     if (cycleDayData) {
-      this.data = chartSymptoms.reduce((symptomDataToDisplay, symptom, ) => {
+      this.data = chartSymptoms.reduce((symptomDataToDisplay, symptom) => {
         const symptomData = cycleDayData[symptom]
 
         if (symptomData && symptom === 'temperature') {
-          symptomDataToDisplay[symptom] =
-           getTemperatureProps(symptomData, columnHeight, dateString)
+          symptomDataToDisplay[symptom] = getTemperatureProps(
+            symptomData,
+            columnHeight,
+            dateString
+          )
         } else {
-          if (symptomData && ! symptomData.exclude) {
+          if (symptomData && !symptomData.exclude) {
             // if symptomColorMethods entry doesn't exist for given symptom,
             // use 'default'
             const getSymptomColorIndex =
@@ -78,12 +80,13 @@ class DayColumn extends Component {
   }
 
   render() {
-    const { columnHeight,
+    const {
+      columnHeight,
       dateString,
       shouldShowTemperatureColumn,
       symptomHeight,
       symptomRowSymptoms,
-      xAxisHeight
+      xAxisHeight,
     } = this.props
 
     return (
@@ -91,22 +94,22 @@ class DayColumn extends Component {
         onPress={() => this.onDaySelect(dateString)}
         activeOpacity={1}
       >
+        {shouldShowTemperatureColumn && (
+          <TemperatureColumn
+            horizontalLinePosition={this.fhmAndLtl.drawLtlAt}
+            isVerticalLine={this.fhmAndLtl.drawFhmLine}
+            data={this.data && this.data.temperature}
+            columnHeight={columnHeight}
+          />
+        )}
 
-        {shouldShowTemperatureColumn && <TemperatureColumn
-          horizontalLinePosition={this.fhmAndLtl.drawLtlAt}
-          isVerticalLine={this.fhmAndLtl.drawFhmLine}
-          data={this.data && this.data.temperature}
-          columnHeight={columnHeight}
-        />}
+        <CycleDayLabel height={xAxisHeight} date={dateString} />
 
-        <CycleDayLabel
-          height={xAxisHeight}
-          date={dateString}
-        />
-
-        { symptomRowSymptoms.map((symptom, i) => {
-          const hasSymptomData =
-            Object.prototype.hasOwnProperty.call(this.data, symptom)
+        {symptomRowSymptoms.map((symptom, i) => {
+          const hasSymptomData = Object.prototype.hasOwnProperty.call(
+            this.data,
+            symptom
+          )
           return (
             <SymptomCell
               index={i}
@@ -117,23 +120,18 @@ class DayColumn extends Component {
                 hasSymptomData && isSymptomDataComplete(symptom, dateString)
               }
               height={symptomHeight}
-            />)
-        }
-        )}
-
+            />
+          )
+        })}
       </TouchableOpacity>
     )
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return({
-    setDate: (date) => dispatch(setDate(date)),
+  return {
     navigate: (page) => dispatch(navigate(page)),
-  })
+  }
 }
 
-export default connect(
-  null,
-  mapDispatchToProps,
-)(DayColumn)
+export default connect(null, mapDispatchToProps)(DayColumn)
