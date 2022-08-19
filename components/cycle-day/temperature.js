@@ -10,8 +10,6 @@ import AppText from '../common/app-text'
 import AppTextInput from '../common/app-text-input'
 import Segment from '../common/segment'
 
-import { connect } from 'react-redux'
-import { getDate } from '../../slices/date'
 import {
   getTemperatureOutOfRangeMessage,
   getPreviousTemperature,
@@ -125,10 +123,4 @@ Temperature.propTypes = {
   save: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = (state) => {
-  return {
-    date: getDate(state),
-  }
-}
-
-export default connect(mapStateToProps, null)(Temperature)
+export default Temperature

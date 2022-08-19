@@ -6,31 +6,34 @@ import AppPage from '../common/app-page'
 import SymptomBox from './symptom-box'
 import SymptomPageTitle from './symptom-page-title'
 
-import { connect } from 'react-redux'
-import { getDate } from '../../slices/date'
-
-import cycleModule from '../../lib/cycle'
-import { dateToTitle } from '../helpers/format-date'
 import { getCycleDay } from '../../db'
-import { getData } from '../helpers/cycle-day'
+import { getData, nextDate, prevDate } from '../helpers/cycle-day'
 
-import { general as labels } from '../../i18n/en/cycle-day'
 import { Spacing } from '../../styles'
 import { SYMPTOMS } from '../../config'
 
-const CycleDayOverView = ({ date, isTemperatureEditView }) => {
+const CycleDayOverView = ({ date, setDate, isTemperatureEditView }) => {
   const cycleDay = getCycleDay(date)
 
-  const { getCycleDayNumber } = cycleModule()
-  const cycleDayNumber = getCycleDayNumber(date)
-  const subtitle = cycleDayNumber && `${labels.cycleDayNumber}${cycleDayNumber}`
   const [editedSymptom, setEditedSymptom] = useState(
     isTemperatureEditView ? 'temperature' : ''
   )
 
+  const showNextCycleDay = () => {
+    setDate(nextDate(date))
+  }
+
+  const showPrevCycleDay = () => {
+    setDate(prevDate(date))
+  }
+
   return (
     <AppPage>
-      <SymptomPageTitle subtitle={subtitle} title={dateToTitle(date)} />
+      <SymptomPageTitle
+        date={date}
+        onNextCycleDay={showNextCycleDay}
+        onPrevCycleDay={showPrevCycleDay}
+      />
       <View style={styles.container}>
         {SYMPTOMS.map((symptom) => {
           const symptomData =
@@ -38,6 +41,7 @@ const CycleDayOverView = ({ date, isTemperatureEditView }) => {
 
           return (
             <SymptomBox
+              date={date}
               key={symptom}
               symptom={symptom}
               symptomData={symptomData}
@@ -55,6 +59,7 @@ const CycleDayOverView = ({ date, isTemperatureEditView }) => {
 CycleDayOverView.propTypes = {
   cycleDay: PropTypes.object,
   date: PropTypes.string,
+  setDate: PropTypes.func,
   isTemperatureEditView: PropTypes.bool,
 }
 
@@ -67,10 +72,4 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapStateToProps = (state) => {
-  return {
-    date: getDate(state),
-  }
-}
-
-export default connect(mapStateToProps, null)(CycleDayOverView)
+export default CycleDayOverView
