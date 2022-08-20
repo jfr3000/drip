@@ -3,8 +3,8 @@ import { BackHandler, StyleSheet, View } from 'react-native'
 import PropTypes from 'prop-types'
 
 import { connect } from 'react-redux'
-import { LocalDate } from '@js-joda/core'
 
+import { getDate } from '../slices/date'
 import { getNavigation, navigate, goBack } from '../slices/navigation'
 
 import Header from './header'
@@ -14,14 +14,13 @@ import { isSettingsView } from './pages'
 
 import { headerTitles } from '../i18n/en/labels'
 import setupNotifications from '../lib/notifications'
-import { closeDb } from '../db'
+import { getCycleDay, closeDb } from '../db'
 
 class App extends Component {
   static propTypes = {
     date: PropTypes.string,
     navigation: PropTypes.object.isRequired,
     navigate: PropTypes.func,
-    setDate: PropTypes.func,
     goBack: PropTypes.func,
     restartApp: PropTypes.func,
   }
@@ -34,15 +33,7 @@ class App extends Component {
       this.goBack
     )
 
-    this.state = {
-      date: LocalDate.now().toString(),
-    }
-
-    setupNotifications(this.props.navigate, this.props.setDate)
-  }
-
-  setDate = (date) => {
-    this.setState({ date })
+    setupNotifications(this.props.navigate)
   }
 
   goBack = () => {
@@ -63,8 +54,7 @@ class App extends Component {
   }
 
   render() {
-    const { navigation, goBack, restartApp } = this.props
-    const { date } = this.state
+    const { date, navigation, goBack, restartApp } = this.props
     const { currentPage } = navigation
 
     if (!currentPage) {
@@ -83,8 +73,8 @@ class App extends Component {
     }
 
     const pageProps = {
+      cycleDay: date && getCycleDay(date),
       date,
-      setDate: this.setDate,
       isTemperatureEditView,
     }
 
@@ -106,6 +96,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => {
   return {
+    date: getDate(state),
     navigation: getNavigation(state),
   }
 }

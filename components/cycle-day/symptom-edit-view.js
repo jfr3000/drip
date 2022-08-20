@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Dimensions, ScrollView, StyleSheet, View } from 'react-native'
+import { connect } from 'react-redux'
 
 import AppModal from '../common/app-modal'
 import AppSwitch from '../common/app-switch'
@@ -13,6 +14,7 @@ import SelectBoxGroup from './select-box-group'
 import SelectTabGroup from './select-tab-group'
 import Temperature from './temperature'
 
+import { getDate } from '../../slices/date'
 import { blank, save, shouldShow, symtomPage } from '../helpers/cycle-day'
 import { showToast } from '../helpers/general'
 
@@ -166,7 +168,6 @@ class SymptomEditView extends Component {
           </View>
           {symptom === 'temperature' && (
             <Temperature
-              date={this.props.date}
               data={data}
               save={(value, field) => this.onSaveTemperature(value, field)}
             />
@@ -284,4 +285,10 @@ const styles = StyleSheet.create({
   },
 })
 
-export default SymptomEditView
+const mapStateToProps = (state) => {
+  return {
+    date: getDate(state),
+  }
+}
+
+export default connect(mapStateToProps, null)(SymptomEditView)

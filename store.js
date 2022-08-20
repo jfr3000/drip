@@ -1,9 +1,11 @@
-import { combineReducers, createStore } from 'redux'
+import { combineReducers, createStore } from "redux"
 
-import navigation from './slices/navigation'
+import date from "./slices/date"
+import navigation from "./slices/navigation"
 
 const reducer = combineReducers({
-  navigation,
+  date,
+  navigation
 })
 
 const store = createStore(reducer)
