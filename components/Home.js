@@ -5,6 +5,7 @@ import moment from 'moment'
 
 import { connect } from 'react-redux'
 import { navigate } from '../slices/navigation'
+import { getDate, setDate } from '../slices/date'
 
 import AppText from './common/app-text'
 import Button from './common/button'
@@ -136,9 +137,16 @@ const styles = StyleSheet.create({
   },
 })
 
+const mapStateToProps = (state) => {
+  return {
+    date: getDate(state),
+  }
+}
+
 const mapDispatchToProps = (dispatch) => {
   return {
     navigate: (page) => dispatch(navigate(page)),
+    setDate: (date) => dispatch(setDate(date)),
   }
 }
 
@@ -147,4 +155,4 @@ Home.propTypes = {
   setDate: PropTypes.func,
 }
 
-export default connect(null, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
