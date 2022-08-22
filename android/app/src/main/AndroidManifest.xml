@@ -40,7 +40,6 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
       </activity>
-      <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
       <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.drip.provider"
@@ -76,5 +75,4 @@
             </intent-filter>
         </service>
     </application>
-
 </manifest>
