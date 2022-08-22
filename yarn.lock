@@ -6646,10 +6646,10 @@ react-native-push-notification@3.2.1:
   dependencies:
     "@react-native-community/push-notification-ios" "^1.0.1"
 
-react-native-share@^7.8.0:
-  version "7.8.0"
-  resolved "https://registry.yarnpkg.com/react-native-share/-/react-native-share-7.8.0.tgz#93d72202a2ace920e21a1179bc2e0d807c9c71c3"
-  integrity sha512-xD05WIL+F4/sa6AHayeOn+mx7IHHqYhucyehIhzi6SypnzMh69fdg0BBOX9EW3nj0G6cn/mNm0Nbu9on9rP6PA==
+react-native-share@^7.9.0:
+  version "7.9.0"
+  resolved "https://registry.yarnpkg.com/react-native-share/-/react-native-share-7.9.0.tgz#31f28d85201bada5e511c5f14d5935df2166fe93"
+  integrity sha512-I9RPp7Ph7dusPwN+/TgFq2V9vLVCN12gwUzpgM1eCoqTMN54dVWI+9k0loCgANv3CdajiKSOrGh+DTnsmhG9VA==
 
 react-native-simple-toast@^1.1.3:
   version "1.1.3"
