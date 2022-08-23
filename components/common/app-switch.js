@@ -20,19 +20,19 @@ const AppSwitch = ({ onToggle, text, value }) => {
 AppSwitch.propTypes = {
   onToggle: PropTypes.func.isRequired,
   text: PropTypes.string,
-  value: PropTypes.bool
+  value: PropTypes.bool,
 }
 
 const styles = StyleSheet.create({
   container: {
-    ...Containers.rowContainer
+    ...Containers.rowContainer,
   },
   switch: {
     flex: 1,
   },
   textContainer: {
     flex: 4,
-  }
+  },
 })
 
 export default AppSwitch

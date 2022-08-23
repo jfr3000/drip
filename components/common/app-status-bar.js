@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   statusBar: {
     backgroundColor: Colors.purple,
     height: STATUSBAR_HEIGHT,
-  }
+  },
 })
 
 export default AppStatusBar

@@ -21,7 +21,7 @@ const Link = ({ children, style }) => {
 
 Link.propTypes = {
   children: PropTypes.node,
-  style: PropTypes.object
+  style: PropTypes.object,
 }
 
 const styles = StyleSheet.create({
@@ -29,11 +29,11 @@ const styles = StyleSheet.create({
     color: Colors.purple,
     textDecorationLine: 'underline',
     ...Typography.mainText,
-  }
+  },
 })
 
 function replaceUrlWithText(url) {
-  const link = Object.values(links).find(l => l.url === url)
+  const link = Object.values(links).find((l) => l.url === url)
   return (link && link.text) || url
 }
 

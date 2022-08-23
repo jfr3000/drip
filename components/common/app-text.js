@@ -26,8 +26,8 @@ AppText.propTypes = {
 const styles = StyleSheet.create({
   text: {
     color: Colors.greyDark,
-    ...Typography.mainText
-  }
+    ...Typography.mainText,
+  },
 })
 
 export default AppText

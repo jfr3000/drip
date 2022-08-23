@@ -15,7 +15,7 @@ const MenuIcon = ({ isActive, name }) => {
 
 MenuIcon.propTypes = {
   isActive: PropTypes.bool,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
 }
 
 export default MenuIcon

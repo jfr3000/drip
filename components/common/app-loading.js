@@ -17,8 +17,8 @@ const AppLoadingView = () => {
 
 const styles = StyleSheet.create({
   container: {
-    ...Containers.centerItems
-  }
+    ...Containers.centerItems,
+  },
 })
 
 export default AppLoadingView
