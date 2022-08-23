@@ -17,14 +17,14 @@ const SliderLabel = ({
   oneMarkerValue,
   twoMarkerValue,
   oneMarkerLeftPosition,
-  twoMarkerLeftPosition
+  twoMarkerLeftPosition,
 }) => {
   const minCoordinate = getMarkerCoordinate(oneMarkerLeftPosition)
   const maxCoordinate = getMarkerCoordinate(twoMarkerLeftPosition)
-  const isMinNumber = Number.isFinite(oneMarkerLeftPosition) &&
-    Number.isFinite(oneMarkerValue)
-  const isMaxNumber = Number.isFinite(twoMarkerLeftPosition) &&
-    Number.isFinite(twoMarkerValue)
+  const isMinNumber =
+    Number.isFinite(oneMarkerLeftPosition) && Number.isFinite(oneMarkerValue)
+  const isMaxNumber =
+    Number.isFinite(twoMarkerLeftPosition) && Number.isFinite(twoMarkerValue)
   const minStyle = [styles.label, { left: minCoordinate }]
   const maxStyle = [styles.label, { left: maxCoordinate }]
 
@@ -40,15 +40,15 @@ SliderLabel.propTypes = {
   oneMarkerValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   twoMarkerValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   oneMarkerLeftPosition: PropTypes.number,
-  twoMarkerLeftPosition: PropTypes.number
+  twoMarkerLeftPosition: PropTypes.number,
 }
 
 const styles = StyleSheet.create({
   label: {
     fontFamily: Fonts.bold,
     position: 'absolute',
-    marginTop: (-1) * Sizes.base
-  }
+    marginTop: -1 * Sizes.base,
+  },
 })
 
 export default SliderLabel

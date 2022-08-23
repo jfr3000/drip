@@ -12,15 +12,17 @@ const SettingsButton = ({ children, style, secondary, ...props }) => {
         styles.settingsButton,
         secondary ? null : styles.settingsButtonAccent,
         props.disabled ? styles.settingsButtonDisabled : null,
-        style
+        style,
       ]}
-      { ...props }
+      {...props}
     >
-      <AppText style={
-        secondary ?
-          styles.settingsButtonSecondaryText :
-          styles.settingsButtonText
-      }>
+      <AppText
+        style={
+          secondary
+            ? styles.settingsButtonSecondaryText
+            : styles.settingsButtonText
+        }
+      >
         {children}
       </AppText>
     </TouchableOpacity>
@@ -32,7 +34,7 @@ SettingsButton.propTypes = {
   disabled: PropTypes.bool,
   onPress: PropTypes.func.isRequired,
   secondary: PropTypes.bool,
-  style: PropTypes.object
+  style: PropTypes.object,
 }
 
 export default SettingsButton
