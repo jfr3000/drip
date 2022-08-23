@@ -8,29 +8,28 @@ import HamburgerMenu from './hamburger-menu'
 import { Colors, Containers, Sizes } from '../../styles'
 
 const Header = ({ isSideMenuEnabled }) => {
-
   return (
     <View style={styles.header}>
       <Logo />
       {isSideMenuEnabled && <HamburgerMenu />}
-    </View >
+    </View>
   )
 }
 
 Header.propTypes = {
-  isSideMenuEnabled: PropTypes.bool
+  isSideMenuEnabled: PropTypes.bool,
 }
 
 Header.defaultProps = {
-  isSideMenuEnabled: true
+  isSideMenuEnabled: true,
 }
 
 const styles = StyleSheet.create({
   header: {
     backgroundColor: Colors.purple,
     padding: Sizes.base,
-    ...Containers.rowContainer
-  }
+    ...Containers.rowContainer,
+  },
 })
 
 export default Header

@@ -23,14 +23,16 @@ export default function License({ setLicense }) {
 
   return (
     <AppPage testID="licensePage">
-      <Segment last testID="test" title={t("settings.license.title")}>
-        <AppText testID="test">{t("settings.license.text", { currentYear })}</AppText>
+      <Segment last testID="test" title={t('settings.license.title')}>
+        <AppText testID="test">
+          {t('settings.license.text', { currentYear })}
+        </AppText>
         <View style={styles.container}>
           <Button onPress={BackHandler.exitApp} testID="licenseCancelButton">
-            {t("labels.shared.cancel")}
+            {t('labels.shared.cancel')}
           </Button>
           <Button isCTA onPress={onAcceptLicense} testID="licenseOkButton">
-            {t("labels.shared.ok")}
+            {t('labels.shared.ok')}
           </Button>
         </View>
       </Segment>
@@ -39,11 +41,11 @@ export default function License({ setLicense }) {
 }
 
 License.propTypes = {
-  setLicense: PropTypes.func.isRequired
+  setLicense: PropTypes.func.isRequired,
 }
 
 const styles = StyleSheet.create({
   container: {
-    ...Containers.rowContainer
-  }
+    ...Containers.rowContainer,
+  },
 })

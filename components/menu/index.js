@@ -7,11 +7,11 @@ import { Containers } from '../../styles'
 import { pages } from '../pages'
 
 const Menu = () => {
-  const menuItems = pages.filter(page => page.isInMenu)
+  const menuItems = pages.filter((page) => page.isInMenu)
 
   return (
     <View style={styles.container}>
-      { menuItems.map(({ icon, label, component }) => {
+      {menuItems.map(({ icon, label, component }) => {
         return (
           <MenuItem
             component={component}
@@ -19,17 +19,17 @@ const Menu = () => {
             key={label}
             label={label}
           />
-        )}
-      )}
-    </View >
+        )
+      })}
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    ...Containers.rowContainer
-  }
+    ...Containers.rowContainer,
+  },
 })
 
 export default Menu
