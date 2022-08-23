@@ -6632,10 +6632,10 @@ react-native-hyperlink@0.0.19:
     linkify-it "^2.2.0"
     mdurl "^1.0.0"
 
-react-native-modal-datetime-picker@8.0.0:
-  version "8.0.0"
-  resolved "https://registry.yarnpkg.com/react-native-modal-datetime-picker/-/react-native-modal-datetime-picker-8.0.0.tgz#efb97529328b823b9cc67da7f7575e204574cf73"
-  integrity sha512-ymezR+ktEK/YtqH/J5HK3GL78ZA6pClwOxRecZLqp3VWz6PAKOUe+S5vJhLcF7MKY/4e35RAF5cr1Vs5coJQEg==
+react-native-modal-datetime-picker@10.2.0:
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-modal-datetime-picker/-/react-native-modal-datetime-picker-10.2.0.tgz#3ec5c299e8bdc9fd2ec0a1a6642a459c408b910f"
+  integrity sha512-eMQb3EPqHx47WrlLPTrXvmLZDwGwGH//WTWiQBUvJ+6ehDeuTjIn8/v/ANv8wxCCrt4NeHem8FQY3Z5fa4fRgQ==
   dependencies:
     prop-types "^15.7.2"
 

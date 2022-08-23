@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Platform } from 'react-native'
 import DateTimePicker from 'react-native-modal-datetime-picker'
-import PropTypes from 'prop-types'
 
 import AppSwitch from '../../common/app-switch'
 
@@ -12,7 +11,6 @@ import {
 import padWithZeros from '../../helpers/pad-time-with-zeros'
 
 import labels from '../../../i18n/en/settings'
-import { withTranslation } from 'react-i18next'
 
 class TemperatureReminder extends Component {
   constructor(props) {
@@ -48,7 +46,6 @@ class TemperatureReminder extends Component {
 
   render() {
     const { isEnabled, isTimePickerVisible, time } = this.state
-    const { t } = this.props
 
     const tempReminderText =
       time && isEnabled
@@ -68,14 +65,10 @@ class TemperatureReminder extends Component {
           onConfirm={this.onPickDate}
           onCancel={this.onPickDateCancel}
           display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-          headerTextIOS={t('labels.shared.dateTimePickerTitle')}
         />
       </React.Fragment>
     )
   }
 }
 
-TemperatureReminder.propTypes = {
-  t: PropTypes.func.isRequired,
-}
-export default withTranslation()(TemperatureReminder)
+export default TemperatureReminder
