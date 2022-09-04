@@ -7,17 +7,17 @@ import AppText from './app-text'
 import { Sizes, Spacing, Typography } from '../../styles'
 
 const Table = ({ tableContent }) => {
-  return (
-    tableContent.map((rowContent, i) => <Row key={i} rowContent={rowContent} />)
-  )
+  return tableContent.map((rowContent, i) => (
+    <Row key={i} rowContent={rowContent} />
+  ))
 }
 
 Table.propTypes = {
-  tableContent: PropTypes.array.isRequired
+  tableContent: PropTypes.array.isRequired,
 }
 
 const Row = ({ rowContent }) => {
-  return(
+  return (
     <View style={styles.row}>
       <Cell content={rowContent[0]} isLeft />
       <Cell content={rowContent[1]} />
@@ -26,7 +26,7 @@ const Row = ({ rowContent }) => {
 }
 
 Row.propTypes = {
-  rowContent: PropTypes.array.isRequired
+  rowContent: PropTypes.array.isRequired,
 }
 
 const Cell = ({ content, isLeft }) => {
@@ -35,7 +35,7 @@ const Cell = ({ content, isLeft }) => {
   const numberOfLines = isLeft ? 1 : 2
   const ellipsizeMode = isLeft ? 'clip' : 'tail'
 
-  return(
+  return (
     <View style={styleContainer}>
       <AppText
         numberOfLines={numberOfLines}
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
   },
   accentPurpleBig: {
     ...Typography.accentPurpleBig,
-    marginRight: Spacing.tiny
+    marginRight: Spacing.tiny,
   },
   cellLeft: {
     alignItems: 'flex-end',
@@ -75,8 +75,8 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     marginBottom: Spacing.tiny,
-    marginLeft: Spacing.tiny
-  }
+    marginLeft: Spacing.tiny,
+  },
 })
 
 export default Table

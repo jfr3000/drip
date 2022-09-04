@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   title: {
     ...Typography.subtitle,
-  }
+  },
 })
 
 export default Segment

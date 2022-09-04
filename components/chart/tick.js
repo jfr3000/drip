@@ -9,10 +9,10 @@ import { CHART_TICK_WIDTH } from '../../config'
 
 const Tick = ({ yPosition, height, isBold, shouldShowLabel, label }) => {
   const top = yPosition - height / 2
-  const containerStyle = [ styles.container, { flexBasis: height, height, top }]
+  const containerStyle = [styles.container, { flexBasis: height, height, top }]
   const textStyle = isBold ? styles.textBold : styles.textNormal
 
-  return(
+  return (
     <View style={containerStyle}>
       <AppText style={textStyle}>{shouldShowLabel && label}</AppText>
     </View>
@@ -27,7 +27,6 @@ Tick.propTypes = {
   label: PropTypes.string,
 }
 
-
 const text = {
   textAlign: 'right',
 }
@@ -36,17 +35,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     position: 'absolute',
     right: 0,
-    width: CHART_TICK_WIDTH
+    width: CHART_TICK_WIDTH,
   },
   textBold: {
     fontSize: Sizes.base,
     fontWeight: 'bold',
-    ...text
+    ...text,
   },
   textNormal: {
     fontSize: Sizes.small,
-    ...text
-  }
+    ...text,
+  },
 })
 
 export default Tick

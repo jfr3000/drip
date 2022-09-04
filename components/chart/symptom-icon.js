@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { StyleSheet , View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 import DripIcon from '../../assets/drip-icons'
 
@@ -26,8 +26,8 @@ SymptomIcon.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    ...Containers.centerItems
-  }
+    ...Containers.centerItems,
+  },
 })
 
 export default SymptomIcon

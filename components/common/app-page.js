@@ -13,7 +13,7 @@ const AppPage = ({
   title,
   ...props
 }) => {
-  return(
+  return (
     <View style={styles.container}>
       <ScrollView
         contentContainerStyle={[styles.scrollView, contentContainerStyle]}
@@ -31,21 +31,21 @@ AppPage.propTypes = {
   children: PropTypes.node,
   contentContainerStyle: PropTypes.object,
   scrollViewStyle: PropTypes.object,
-  title: PropTypes.string
+  title: PropTypes.string,
 }
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Colors.turquoiseLight,
-    flex: 1
+    flex: 1,
   },
   scrollView: {
     backgroundColor: Colors.turquoiseLight,
-    flexGrow: 1
+    flexGrow: 1,
   },
   title: {
-    ...Typography.title
-  }
+    ...Typography.title,
+  },
 })
 
 export default AppPage

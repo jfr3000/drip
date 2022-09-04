@@ -13,7 +13,7 @@ const image = require('../../assets/swipe.png')
 const Tutorial = ({ onClose }) => {
   return (
     <View style={styles.container}>
-      <Image resizeMode='contain' source={image} style={styles.image} />
+      <Image resizeMode="contain" source={image} style={styles.image} />
       <View style={styles.textContainer}>
         <AppText>{chart.tutorial}</AppText>
       </View>
@@ -23,20 +23,20 @@ const Tutorial = ({ onClose }) => {
 }
 
 Tutorial.propTypes = {
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
 }
 
 const styles = StyleSheet.create({
   container: {
     ...Containers.rowContainer,
-    padding: Spacing.large
+    padding: Spacing.large,
   },
   image: {
-    height: 40
+    height: 40,
   },
   textContainer: {
-    width: '70%'
-  }
+    width: '70%',
+  },
 })
 
 export default Tutorial

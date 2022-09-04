@@ -7,21 +7,20 @@ import settingsLabels from '../../i18n/en/settings'
 
 const { menuItems } = settingsLabels
 const menu = [
-  { ...menuItems.reminders, component: 'Reminders'},
-  { ...menuItems.nfpSettings, component: 'NfpSettings'},
-  { ...menuItems.dataManagement, component: 'DataManagement'},
-  { ...menuItems.password, component: 'Password'}
+  { ...menuItems.reminders, component: 'Reminders' },
+  { ...menuItems.nfpSettings, component: 'NfpSettings' },
+  { ...menuItems.dataManagement, component: 'DataManagement' },
+  { ...menuItems.password, component: 'Password' },
 ]
 
 const SettingsMenu = () => {
   return (
     <AppPage title={settingsLabels.title}>
       {menu.map((menuItem, i) => {
-        const last = (menu.length === i + 1)
+        const last = menu.length === i + 1
 
-        return <MenuItem item={menuItem} key={i} last={last}/>
-      }
-      )}
+        return <MenuItem item={menuItem} key={i} last={last} />
+      })}
     </AppPage>
   )
 }

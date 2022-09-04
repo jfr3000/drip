@@ -14,17 +14,17 @@ const AppIcon = ({ color, name, style, ...props }) => {
 AppIcon.propTypes = {
   color: PropTypes.string,
   name: PropTypes.string.isRequired,
-  style: PropTypes.object
+  style: PropTypes.object,
 }
 
 AppIcon.defaultProps = {
-  color: 'black'
+  color: 'black',
 }
 
 const styles = StyleSheet.create({
   icon: {
-    fontSize: Sizes.subtitle
-  }
+    fontSize: Sizes.subtitle,
+  },
 })
 
 export default AppIcon

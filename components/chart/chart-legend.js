@@ -18,21 +18,21 @@ const ChartLegend = ({ height }) => {
 }
 
 ChartLegend.propTypes = {
-  height: PropTypes.number.isRequired
+  height: PropTypes.number.isRequired,
 }
 
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'flex-end',
-    width: CHART_YAXIS_WIDTH
+    width: CHART_YAXIS_WIDTH,
   },
   text: {
     ...Typography.label,
   },
   textBold: {
-    ...Typography.labelBold
-  }
+    ...Typography.labelBold,
+  },
 })
 
 export default ChartLegend

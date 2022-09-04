@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { Colors, Spacing, Typography } from '../../styles'
 
 const AppTextInput = ({ style, isKeyboardOffset, ...props }) => {
-  const behavior = isKeyboardOffset ? "padding" : "height"
+  const behavior = isKeyboardOffset ? 'padding' : 'height'
   const keyboardVerticalOffset = isKeyboardOffset ? 300 : 0
 
   return (
@@ -39,8 +39,8 @@ const styles = StyleSheet.create({
     minWidth: '80%',
     paddingHorizontal: Spacing.base,
     paddingVertical: Spacing.tiny,
-    ...Typography.mainText
-  }
+    ...Typography.mainText,
+  },
 })
 
 export default AppTextInput

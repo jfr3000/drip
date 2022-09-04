@@ -9,7 +9,7 @@ import { Colors, Containers } from '../../styles'
 const SelectBoxGroup = ({ labels, optionsState, onSelect }) => {
   return (
     <View style={styles.container}>
-      {Object.keys(labels).map(key => {
+      {Object.keys(labels).map((key) => {
         const isActive = optionsState[key]
         const boxStyle = [styles.box, isActive && styles.boxActive]
         const textStyle = [styles.text, isActive && styles.textActive]
@@ -31,25 +31,25 @@ const SelectBoxGroup = ({ labels, optionsState, onSelect }) => {
 SelectBoxGroup.propTypes = {
   labels: PropTypes.object.isRequired,
   onSelect: PropTypes.func.isRequired,
-  optionsState: PropTypes.object.isRequired
+  optionsState: PropTypes.object.isRequired,
 }
 
 const styles = StyleSheet.create({
   box: {
-    ...Containers.box
+    ...Containers.box,
   },
   boxActive: {
-    ...Containers.boxActive
+    ...Containers.boxActive,
   },
   container: {
-    ...Containers.selectGroupContainer
+    ...Containers.selectGroupContainer,
   },
   text: {
-    color: Colors.orange
+    color: Colors.orange,
   },
   textActive: {
-    color: 'white'
-  }
+    color: 'white',
+  },
 })
 
 export default SelectBoxGroup

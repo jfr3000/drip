@@ -10,9 +10,9 @@ const License = () => {
   const currentYear = new Date().getFullYear()
 
   return (
-    <AppPage title={t("settings.license.title")}>
+    <AppPage title={t('settings.license.title')}>
       <Segment last>
-        <AppText>{t("settings.license.text", { currentYear })}</AppText>
+        <AppText>{t('settings.license.text', { currentYear })}</AppText>
       </Segment>
     </AppPage>
   )
