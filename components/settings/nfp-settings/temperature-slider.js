@@ -21,12 +21,12 @@ export default class TemperatureSlider extends Component {
   onTemperatureSliderChange = (values) => {
     this.setState({
       minTemperature: values[0],
-      maxTemperature: values[1]
+      maxTemperature: values[1],
     })
 
     try {
       saveTempScale({ min: values[0], max: values[1] })
-    } catch(err) {
+    } catch (err) {
       alertError(labels.tempScale.saveError)
     }
   }
@@ -58,23 +58,23 @@ export default class TemperatureSlider extends Component {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    paddingTop: Sizes.base
+    paddingTop: Sizes.base,
   },
   marker: {
     backgroundColor: Colors.turquoiseDark,
     borderRadius: 50,
     elevation: 4,
     height: Sizes.subtitle,
-    width: Sizes.subtitle
+    width: Sizes.subtitle,
   },
   slider: {
     borderRadius: 25,
-    height: Sizes.small
+    height: Sizes.small,
   },
   sliderAccentBackground: {
-    backgroundColor: Colors.turquoiseDark
+    backgroundColor: Colors.turquoiseDark,
   },
   sliderBackground: {
-    backgroundColor: Colors.turquoise
+    backgroundColor: Colors.turquoise,
   },
 })

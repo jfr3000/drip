@@ -5,7 +5,10 @@ import AppSwitch from '../../common/app-switch'
 import Segment from '../../common/segment'
 import TemperatureReminder from './temperature-reminder'
 
-import { periodReminderObservable, savePeriodReminder } from '../../../local-storage'
+import {
+  periodReminderObservable,
+  savePeriodReminder,
+} from '../../../local-storage'
 
 import labels from '../../../i18n/en/settings'
 
@@ -14,7 +17,7 @@ export default class Reminders extends Component {
     super(props)
 
     this.state = {
-      isPeriodReminderEnabled: periodReminderObservable.value.enabled
+      isPeriodReminderEnabled: periodReminderObservable.value.enabled,
     }
   }
 

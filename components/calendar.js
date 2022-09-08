@@ -75,7 +75,7 @@ class CalendarView extends Component {
           firstDay={1}
           onDayPress={this.passDateToDayView.bind(this)}
           markedDates={markedDates}
-          markingType='custom'
+          markingType="custom"
           theme={calendarTheme}
           // Max amount of months allowed to scroll to the past.
           pastScrollRange={120}
