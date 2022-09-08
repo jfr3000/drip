@@ -23,7 +23,7 @@ const MenuItem = ({ item, last, navigate }) => {
           <AppText style={styles.title}>{item.name}</AppText>
           {item.text.length > 0 && <AppText>{item.text}</AppText>}
         </View>
-        <AppIcon name='chevron-right' color={Colors.orange}/>
+        <AppIcon name="chevron-right" color={Colors.orange} />
       </TouchableOpacity>
     </Segment>
   )
@@ -32,26 +32,23 @@ const MenuItem = ({ item, last, navigate }) => {
 MenuItem.propTypes = {
   item: PropTypes.object.isRequired,
   last: PropTypes.bool.isRequired,
-  navigate: PropTypes.func.isRequired
+  navigate: PropTypes.func.isRequired,
 }
 
 const styles = StyleSheet.create({
   container: {
-    ...Containers.rowContainer
+    ...Containers.rowContainer,
   },
   title: {
     color: Colors.purple,
-    fontSize: Sizes.subtitle
-  }
+    fontSize: Sizes.subtitle,
+  },
 })
 
 const mapDispatchToProps = (dispatch) => {
-  return({
+  return {
     navigate: (page) => dispatch(navigate(page)),
-  })
+  }
 }
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(MenuItem)
+export default connect(null, mapDispatchToProps)(MenuItem)

@@ -14,13 +14,12 @@ import labels from '../../../i18n/en/settings'
 import { ACTION_DELETE, ACTION_EXPORT, ACTION_IMPORT } from '../../../config'
 
 export default class DataManagement extends Component {
-
   constructor(props) {
     super(props)
 
     this.state = {
       isLoading: false,
-      currentAction: null
+      currentAction: null,
     }
   }
 
@@ -62,7 +61,7 @@ export default class DataManagement extends Component {
     return (
       <React.Fragment>
         {isLoading && <AppLoadingView />}
-        {!isLoading &&
+        {!isLoading && (
           <AppPage>
             <Segment title={labels.export.button}>
               <AppText>{labels.export.segmentExplainer}</AppText>
@@ -79,12 +78,12 @@ export default class DataManagement extends Component {
             <Segment title={labels.deleteSegment.title} last>
               <AppText>{labels.deleteSegment.explainer}</AppText>
               <DeleteData
-                isDeletingData = {isDeletingData}
-                onStartDeletion = {() => this.setCurrentAction(ACTION_DELETE)}
+                isDeletingData={isDeletingData}
+                onStartDeletion={() => this.setCurrentAction(ACTION_DELETE)}
               />
             </Segment>
           </AppPage>
-        }
+        )}
       </React.Fragment>
     )
   }

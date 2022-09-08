@@ -16,7 +16,7 @@ const MenuItem = ({ item, navigate, closeMenu }) => {
     navigate(component)
   }
 
-  return(
+  return (
     <TouchableOpacity onPress={onPress}>
       <AppText style={styles.text}>{name}</AppText>
     </TouchableOpacity>
@@ -26,22 +26,19 @@ const MenuItem = ({ item, navigate, closeMenu }) => {
 MenuItem.propTypes = {
   item: PropTypes.object.isRequired,
   navigate: PropTypes.func.isRequired,
-  closeMenu: PropTypes.func.isRequired
+  closeMenu: PropTypes.func.isRequired,
 }
 
 const styles = StyleSheet.create({
   text: {
-    ...Typography.subtitle
-  }
+    ...Typography.subtitle,
+  },
 })
 
 const mapDispatchToProps = (dispatch) => {
-  return({
+  return {
     navigate: (page) => dispatch(navigate(page)),
-  })
+  }
 }
 
-export default connect(
-  null,
-  mapDispatchToProps,
-)(MenuItem)
+export default connect(null, mapDispatchToProps)(MenuItem)

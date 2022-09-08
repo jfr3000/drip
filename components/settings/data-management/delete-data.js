@@ -23,7 +23,7 @@ export default class DeleteData extends Component {
 
     this.state = {
       isPasswordSet: hasEncryptionObservable.value,
-      isConfirmingWithPassword: false
+      isConfirmingWithPassword: false,
     }
   }
 
@@ -38,21 +38,20 @@ export default class DeleteData extends Component {
 
   alertBeforeDeletion = async () => {
     const { question, message, confirmation, errors } = settings.deleteSegment
-    if (isDbEmpty() && !await RNFS.exists(exportedFilePath)) {
+    if (isDbEmpty() && !(await RNFS.exists(exportedFilePath))) {
       alertError(errors.noData)
     } else {
-      Alert.alert(
-        question,
-        message,
-        [{
+      Alert.alert(question, message, [
+        {
           text: confirmation,
-          onPress: this.onAlertConfirmation
-        }, {
+          onPress: this.onAlertConfirmation,
+        },
+        {
           text: sharedLabels.cancel,
           style: 'cancel',
-          onPress: this.cancelConfirmationWithPassword
-        }]
-      )
+          onPress: this.cancelConfirmationWithPassword,
+        },
+      ])
     }
   }
 
@@ -104,5 +103,5 @@ export default class DeleteData extends Component {
 
 DeleteData.propTypes = {
   isDeletingData: PropTypes.bool,
-  onStartDeletion: PropTypes.func.isRequired
+  onStartDeletion: PropTypes.func.isRequired,
 }

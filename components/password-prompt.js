@@ -17,7 +17,7 @@ const cancelButton = { text: shared.cancel, style: 'cancel' }
 
 export default class PasswordPrompt extends Component {
   static propTypes = {
-    enableShowApp: PropTypes.func.isRequired
+    enableShowApp: PropTypes.func.isRequired,
   }
 
   constructor(props) {
@@ -32,22 +32,20 @@ export default class PasswordPrompt extends Component {
   }
 
   onConfirmDeletion = async () => {
-    Alert.alert(
-      labels.deleteDatabaseTitle,
-      labels.deleteDatabaseExplainer,
-      [cancelButton, { text: labels.deleteData, onPress: this.onDeleteData}]
-    )
+    Alert.alert(labels.deleteDatabaseTitle, labels.deleteDatabaseExplainer, [
+      cancelButton,
+      { text: labels.deleteData, onPress: this.onDeleteData },
+    ])
   }
 
   onDeleteData = () => {
-    Alert.alert(
-      labels.areYouSureTitle,
-      labels.areYouSure,
-      [cancelButton, {
+    Alert.alert(labels.areYouSureTitle, labels.areYouSure, [
+      cancelButton,
+      {
         text: labels.reallyDeleteData,
-        onPress: this.onDeleteDataConfirmation
-      }]
-    )
+        onPress: this.onDeleteDataConfirmation,
+      },
+    ])
   }
 
   onDeleteDataConfirmation = async () => {
@@ -56,17 +54,15 @@ export default class PasswordPrompt extends Component {
     this.props.enableShowApp()
   }
 
-  passHashToDb = async hash => {
+  passHashToDb = async (hash) => {
     const connected = await openDb(hash)
     if (!connected) {
-      Alert.alert(
-        shared.incorrectPassword,
-        shared.incorrectPasswordMessage,
-        [{
+      Alert.alert(shared.incorrectPassword, shared.incorrectPasswordMessage, [
+        {
           text: shared.tryAgain,
-          onPress: () => this.setState({ password: null })
-        }]
-      )
+          onPress: () => this.setState({ password: null }),
+        },
+      ])
       return
     }
     this.props.enableShowApp()
@@ -116,10 +112,10 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex: 1,
     justifyContent: 'center',
-    marginHorizontal: Spacing.base
+    marginHorizontal: Spacing.base,
   },
   containerButtons: {
     ...Containers.rowContainer,
-    justifyContent: 'space-around'
-  }
+    justifyContent: 'space-around',
+  },
 })

@@ -15,7 +15,12 @@ const NoData = ({ navigate }) => {
   return (
     <View style={styles.container}>
       <AppText>{shared.noDataWarning}</AppText>
-      <Button isCTA onPress={() => {navigate('CycleDay')}}>
+      <Button
+        isCTA
+        onPress={() => {
+          navigate('CycleDay')
+        }}
+      >
         {shared.noDataButtonText}
       </Button>
     </View>
@@ -28,17 +33,14 @@ NoData.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    ...Containers.centerItems
-  }
+    ...Containers.centerItems,
+  },
 })
 
 const mapDispatchToProps = (dispatch) => {
-  return({
+  return {
     navigate: (page) => dispatch(navigate(page)),
-  })
+  }
 }
 
-export default connect(
-  null,
-  mapDispatchToProps,
-)(NoData)
+export default connect(null, mapDispatchToProps)(NoData)
