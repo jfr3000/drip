@@ -1,10 +1,12 @@
-import { AsyncStorage } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import Observable from 'obv'
 import { TEMP_SCALE_MIN, TEMP_SCALE_MAX, TEMP_SCALE_UNITS } from './config'
 
 export const scaleObservable = Observable()
-setObvWithInitValue('tempScale',
-  scaleObservable, { min: TEMP_SCALE_MIN, max: TEMP_SCALE_MAX })
+setObvWithInitValue('tempScale', scaleObservable, {
+  min: TEMP_SCALE_MIN,
+  max: TEMP_SCALE_MAX,
+})
 
 export const unitObservable = Observable()
 unitObservable.set(TEMP_SCALE_UNITS)
@@ -24,7 +26,7 @@ export async function saveTempScale(scale) {
 
 export const tempReminderObservable = Observable()
 setObvWithInitValue('tempReminder', tempReminderObservable, {
-  enabled: false
+  enabled: false,
 })
 
 export async function saveTempReminder(reminder) {
@@ -34,7 +36,7 @@ export async function saveTempReminder(reminder) {
 
 export const periodReminderObservable = Observable()
 setObvWithInitValue('periodReminder', periodReminderObservable, {
-  enabled: false
+  enabled: false,
 })
 
 export async function savePeriodReminder(reminder) {
@@ -57,7 +59,6 @@ export async function saveEncryptionFlag(bool) {
   await AsyncStorage.setItem('hasEncryption', JSON.stringify(bool))
   hasEncryptionObservable.set(bool)
 }
-
 
 export async function getLicenseFlag() {
   return AsyncStorage.getItem('agreedToLicense')
