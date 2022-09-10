@@ -58,11 +58,11 @@ Either start a [virtual device in Android Studio](https://developer.android.com/
 
 i. Open a terminal and run
 
-    yarn run android
+    yarn android
 
 ii. To see logging output, run the following command in another tab:
 
-    yarn run log
+    yarn log
 
 iii. Run the following command and select enable hot reloading (see https://facebook.github.io/react-native/docs/debugging.html):
 
@@ -91,7 +91,7 @@ i. Install XCode dependencies by running the following command from the root pro
 
 ii. To run app either open drip workspace ('drip.xcworkspace' file) with XCode and run "Build" or run the following command:
 
-    yarn run ios
+    yarn ios
 
 iii. If you are building the app with XCode make sure you are running this as well:
 
@@ -124,7 +124,7 @@ If you get error messages about `adb` not being found on your path:
 
 If you would like to clear project cache and/or re-install project libraries, you can run clear script as follows:
 
-    yarn run clear
+    yarn clear
 
 Script accepts the following options:
 "all" - script will delete all caches and re-install project libraries,
@@ -135,7 +135,7 @@ Script accepts the following options:
 
 For example, if you would like to clear android part of the project and re-install project libraries, you can run the following command:
 
-    yarn run clear android npm
+    yarn clear android npm
 
 ## Tests
 
@@ -164,7 +164,7 @@ You can run the tests with:
 5. For the first time you need to get the app on the phone or if you run into this error:
    `'app-debug-androidTest.apk' could not be found`
    --> open a new 2nd tab and run (in your drip folder): `cd android and ./gradlew assembleAndroidTest`
-   Otherwise just open a new 2nd tab to run (in your drip folder) `yarn run android`
+   Otherwise just open a new 2nd tab to run (in your drip folder) `yarn android`
 6. Open a new 3rd tab to run `./node_modules/.bin/detox test -c android.emu.debug`
 
 Hopefully you see the magic happening clicking through the app and happy test results on your console :sun_with_face: !
@@ -175,7 +175,7 @@ To ensure that core app functionality is working, we developed a [test protocol]
 
 ## Debugging
 
-In order to see logging output from the app, run `yarn run log` in a separate terminal. You can output specific code you want to see, with:
+In order to see logging output from the app, run `yarn log` in a separate terminal. You can output specific code you want to see, with:
 `console.log(theVariableIWantToSeeHere)`
 or just a random string to check if this piece of code is actually running:
 `console.log("HELLO")`.
