@@ -45,6 +45,7 @@ class CycleChart extends Component {
   static propTypes = {
     navigate: PropTypes.func,
     end: PropTypes.bool,
+    setDate: PropTypes.func,
   }
 
   constructor(props) {
@@ -98,6 +99,7 @@ class CycleChart extends Component {
   renderColumn = ({ item, index }) => {
     return (
       <DayColumn
+        setDate={this.props.setDate}
         dateString={item}
         index={index}
         navigate={this.props.navigate}
