@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { Platform } from 'react-native'
 import DateTimePicker from 'react-native-modal-datetime-picker'
 
@@ -12,63 +12,55 @@ import padWithZeros from '../../helpers/pad-time-with-zeros'
 
 import labels from '../../../i18n/en/settings'
 
-class TemperatureReminder extends Component {
-  constructor(props) {
-    super(props)
+const TemperatureReminder = () => {
+  const [isEnabled, setIsEnabled] = useState(
+    tempReminderObservable.value.enabled
+  )
+  const [isTimePickerVisible, setIsTimePickerVisible] = useState(false)
+  const [time, setTime] = useState(tempReminderObservable.value.time)
 
-    const { time, enabled } = tempReminderObservable.value
-    this.state = {
-      isEnabled: enabled,
-      isTimePickerVisible: false,
-      time,
-    }
-  }
-
-  temperatureReminderToggle = (value) => {
+  const temperatureReminderToggle = (value) => {
     if (value) {
-      this.setState({ isTimePickerVisible: true })
+      setIsTimePickerVisible(true)
     } else {
       saveTempReminder({ enabled: false })
-      this.setState({ isEnabled: false })
+      setIsEnabled(false)
     }
   }
 
-  onPickDate = (date) => {
+  const onPickDate = (date) => {
     const time = padWithZeros(date)
-
-    this.setState({ isEnabled: true, isTimePickerVisible: false, time })
+    setIsEnabled(true)
+    setIsTimePickerVisible(false)
+    setTime(time)
     saveTempReminder({ time, enabled: true })
   }
 
-  onPickDateCancel = () => {
-    this.setState({ isTimePickerVisible: false })
+  const onPickDateCancel = () => {
+    setIsTimePickerVisible(false)
   }
 
-  render() {
-    const { isEnabled, isTimePickerVisible, time } = this.state
+  const tempReminderText =
+    time && isEnabled
+      ? labels.tempReminder.timeSet(time)
+      : labels.tempReminder.noTimeSet
 
-    const tempReminderText =
-      time && isEnabled
-        ? labels.tempReminder.timeSet(time)
-        : labels.tempReminder.noTimeSet
-
-    return (
-      <React.Fragment>
-        <AppSwitch
-          onToggle={this.temperatureReminderToggle}
-          text={tempReminderText}
-          value={isEnabled}
-        />
-        <DateTimePicker
-          isVisible={isTimePickerVisible}
-          mode="time"
-          onConfirm={this.onPickDate}
-          onCancel={this.onPickDateCancel}
-          display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-        />
-      </React.Fragment>
-    )
-  }
+  return (
+    <>
+      <AppSwitch
+        onToggle={temperatureReminderToggle}
+        text={tempReminderText}
+        value={isEnabled}
+      />
+      <DateTimePicker
+        isVisible={isTimePickerVisible}
+        mode="time"
+        onConfirm={onPickDate}
+        onCancel={onPickDateCancel}
+        display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+      />
+    </>
+  )
 }
 
 export default TemperatureReminder
