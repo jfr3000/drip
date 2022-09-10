@@ -6,9 +6,6 @@ import AppIcon from '../common/app-icon'
 import AppText from '../common/app-text'
 import Segment from '../common/segment'
 
-import { connect } from 'react-redux'
-import { navigate } from '../../slices/navigation'
-
 import { Colors, Containers, Sizes } from '../../styles'
 
 const MenuItem = ({ item, last, navigate }) => {
@@ -45,10 +42,4 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    navigate: (page) => dispatch(navigate(page)),
-  }
-}
-
-export default connect(null, mapDispatchToProps)(MenuItem)
+export default MenuItem

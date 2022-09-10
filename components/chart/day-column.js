@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { TouchableOpacity } from 'react-native'
-import { connect } from 'react-redux'
-
-import { navigate } from '../../slices/navigation'
 
 import { getCycleDay } from '../../db'
 
@@ -128,10 +125,4 @@ class DayColumn extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    navigate: (page) => dispatch(navigate(page)),
-  }
-}
-
-export default connect(null, mapDispatchToProps)(DayColumn)
+export default DayColumn

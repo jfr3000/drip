@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import AppPage from '../common/app-page'
 import MenuItem from './menu-item'
@@ -13,16 +14,22 @@ const menu = [
   { ...menuItems.password, component: 'Password' },
 ]
 
-const SettingsMenu = () => {
+const SettingsMenu = ({ navigate }) => {
   return (
     <AppPage title={settingsLabels.title}>
       {menu.map((menuItem, i) => {
         const last = menu.length === i + 1
 
-        return <MenuItem item={menuItem} key={i} last={last} />
+        return (
+          <MenuItem item={menuItem} key={i} last={last} navigate={navigate} />
+        )
       })}
     </AppPage>
   )
+}
+
+SettingsMenu.propTypes = {
+  navigate: PropTypes.func.isRequired,
 }
 
 export default SettingsMenu

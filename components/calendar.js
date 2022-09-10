@@ -3,9 +3,6 @@ import PropTypes from 'prop-types'
 import { StyleSheet, View } from 'react-native'
 import { CalendarList } from 'react-native-calendars'
 
-import { connect } from 'react-redux'
-import { navigate } from '../slices/navigation'
-
 import { getBleedingDaysSortedByDate } from '../db'
 import cycleModule from '../lib/cycle'
 import nothingChanged from '../db/db-unchanged'
@@ -88,10 +85,4 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
 })
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    navigate: (page) => dispatch(navigate(page)),
-  }
-}
-
-export default connect(null, mapDispatchToProps)(CalendarView)
+export default CalendarView
