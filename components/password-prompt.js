@@ -82,7 +82,7 @@ export default class PasswordPrompt extends Component {
 
     return (
       <React.Fragment>
-        <Header isSideMenuEnabled={false} />
+        <Header isStatic />
         <AppPage contentContainerStyle={styles.contentContainer}>
           <AppTextInput
             isKeyboardOffset={false}

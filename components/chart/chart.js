@@ -19,9 +19,6 @@ import NoData from './no-data'
 import Tutorial from './tutorial'
 import YAxis from './y-axis'
 
-import { connect } from 'react-redux'
-import { navigate } from '../../slices/navigation'
-
 import { getCycleDaysSortedByDate } from '../../db'
 import nothingChanged from '../../db/db-unchanged'
 import {
@@ -167,7 +164,7 @@ class CycleChart extends Component {
         onLayout={this.onLayout}
         scrollViewStyle={styles.page}
       >
-        {!hasDataToDisplay && <NoData />}
+        {!hasDataToDisplay && <NoData navigate={this.props.navigate} />}
         {hasDataToDisplay && !chartHeight && !chartLoaded && <AppLoadingView />}
         <View style={styles.chartContainer}>
           {shouldShowHint && chartLoaded && (
@@ -261,10 +258,4 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    navigate: (page) => dispatch(navigate(page)),
-  }
-}
-
-export default connect(null, mapDispatchToProps)(CycleChart)
+export default CycleChart

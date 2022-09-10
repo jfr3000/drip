@@ -5,9 +5,6 @@ import PropTypes from 'prop-types'
 import AppText from '../common/app-text'
 import Button from '../common/button'
 
-import { connect } from 'react-redux'
-import { navigate } from '../../slices/navigation'
-
 import { Containers } from '../../styles'
 import { shared } from '../../i18n/en/labels'
 
@@ -37,10 +34,4 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    navigate: (page) => dispatch(navigate(page)),
-  }
-}
-
-export default connect(null, mapDispatchToProps)(NoData)
+export default NoData

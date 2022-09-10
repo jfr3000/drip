@@ -4,9 +4,6 @@ import PropTypes from 'prop-types'
 
 import AppText from '../common/app-text'
 
-import { connect } from 'react-redux'
-import { navigate } from '../../slices/navigation'
-
 import { Typography } from '../../styles'
 
 const MenuItem = ({ item, navigate, closeMenu }) => {
@@ -35,10 +32,4 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    navigate: (page) => dispatch(navigate(page)),
-  }
-}
-
-export default connect(null, mapDispatchToProps)(MenuItem)
+export default MenuItem

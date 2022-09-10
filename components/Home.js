@@ -3,9 +3,6 @@ import { ScrollView, StyleSheet, View } from 'react-native'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 
-import { connect } from 'react-redux'
-import { navigate } from '../slices/navigation'
-
 import AppText from './common/app-text'
 import Button from './common/button'
 
@@ -136,15 +133,9 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    navigate: (page) => dispatch(navigate(page)),
-  }
-}
-
 Home.propTypes = {
   navigate: PropTypes.func,
   setDate: PropTypes.func,
 }
 
-export default connect(null, mapDispatchToProps)(Home)
+export default Home

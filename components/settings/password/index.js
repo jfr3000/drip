@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-
-import { navigate } from '../../../slices/navigation'
 
 import { changeDbEncryption } from '../../../db'
 
@@ -94,10 +91,4 @@ class PasswordSetting extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    navigate: (page) => dispatch(navigate(page)),
-  }
-}
-
-export default connect(null, mapDispatchToProps)(PasswordSetting)
+export default PasswordSetting

@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
+import PropTypes from 'prop-types'
 
 import AppIcon from '../common/app-icon'
 import CloseIcon from '../common/close-icon'
@@ -39,7 +40,7 @@ export default class HamburgerMenu extends Component {
     const { shouldShowMenu } = this.state
 
     return (
-      <React.Fragment>
+      <>
         {!shouldShowMenu && (
           <TouchableOpacity onPress={this.toggleMenu} hitSlop={HIT_SLOP}>
             <AppIcon name="dots-three-vertical" color={Colors.orange} />
@@ -65,14 +66,19 @@ export default class HamburgerMenu extends Component {
                   item={item}
                   key={item.name}
                   closeMenu={this.toggleMenu}
+                  navigate={this.props.navigate}
                 />
               ))}
             </View>
           </Modal>
         )}
-      </React.Fragment>
+      </>
     )
   }
+}
+
+HamburgerMenu.propTypes = {
+  navigate: PropTypes.func,
 }
 
 const styles = StyleSheet.create({

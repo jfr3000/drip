@@ -2,15 +2,12 @@ import React, { Component } from 'react'
 import { BackHandler, StyleSheet, View } from 'react-native'
 import PropTypes from 'prop-types'
 
-import { connect } from 'react-redux'
 import { LocalDate } from '@js-joda/core'
-
-import { getNavigation, navigate, goBack } from '../slices/navigation'
 
 import Header from './header'
 import Menu from './menu'
 import { viewsList } from './views'
-import { isSettingsView } from './pages'
+import { isSettingsView, pages } from './pages'
 
 import { headerTitles } from '../i18n/en/labels'
 import setupNotifications from '../lib/notifications'
@@ -36,9 +33,14 @@ class App extends Component {
 
     this.state = {
       date: LocalDate.now().toString(),
+      currentPage: 'Home',
     }
 
-    setupNotifications(this.props.navigate, this.props.setDate)
+    setupNotifications(this.navigate, this.setDate)
+  }
+
+  navigate = (page) => {
+    this.setState({ currentPage: page })
   }
 
   setDate = (date) => {
@@ -46,13 +48,14 @@ class App extends Component {
   }
 
   goBack = () => {
-    const { currentPage } = this.props.navigation
+    const { currentPage } = this.state
 
     if (currentPage === 'Home') {
       closeDb()
       BackHandler.exitApp()
     } else {
-      this.props.goBack()
+      const { parent } = pages.find((p) => p.component === currentPage)
+      this.navigate(parent)
     }
 
     return true
@@ -63,9 +66,9 @@ class App extends Component {
   }
 
   render() {
-    const { navigation, goBack, restartApp } = this.props
-    const { date } = this.state
-    const { currentPage } = navigation
+    const { goBack, restartApp } = this.props
+    const { date, currentPage } = this.state
+    const { navigate } = this
 
     if (!currentPage) {
       return false
@@ -80,19 +83,21 @@ class App extends Component {
     const headerProps = {
       title,
       handleBack: isSettingsSubView ? goBack : null,
+      navigate,
     }
 
     const pageProps = {
       date,
       setDate: this.setDate,
       isTemperatureEditView,
+      navigate,
     }
 
     return (
       <View style={styles.container}>
         <Header {...headerProps} />
         <Page {...pageProps} restartApp={restartApp} />
-        <Menu />
+        <Menu currentPage={currentPage} navigate={navigate} />
       </View>
     )
   }
@@ -104,17 +109,4 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapStateToProps = (state) => {
-  return {
-    navigation: getNavigation(state),
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    navigate: (page) => dispatch(navigate(page)),
-    goBack: () => dispatch(goBack()),
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default App
