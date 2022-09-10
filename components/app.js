@@ -16,7 +16,6 @@ import { closeDb } from '../db'
 class App extends Component {
   static propTypes = {
     date: PropTypes.string,
-    navigation: PropTypes.object.isRequired,
     navigate: PropTypes.func,
     setDate: PropTypes.func,
     goBack: PropTypes.func,

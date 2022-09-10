@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import {
   Modal,
   Platform,
@@ -25,57 +25,41 @@ const settingsMenuItems = [
   { name: menuItems.privacyPolicy, component: 'PrivacyPolicy' },
 ]
 
-export default class HamburgerMenu extends Component {
-  constructor(props) {
-    super(props)
+const HamburgerMenu = ({ navigate }) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const closeMenu = () => setIsOpen(false)
 
-    this.state = { shouldShowMenu: false }
-  }
-
-  toggleMenu = () => {
-    this.setState({ shouldShowMenu: !this.state.shouldShowMenu })
-  }
-
-  render() {
-    const { shouldShowMenu } = this.state
-
+  if (!isOpen)
     return (
-      <>
-        {!shouldShowMenu && (
-          <TouchableOpacity onPress={this.toggleMenu} hitSlop={HIT_SLOP}>
-            <AppIcon name="dots-three-vertical" color={Colors.orange} />
-          </TouchableOpacity>
-        )}
-        {shouldShowMenu && (
-          <Modal
-            animationType="fade"
-            onRequestClose={this.toggleMenu}
-            transparent={true}
-            visible={shouldShowMenu}
-          >
-            <TouchableOpacity
-              onPress={this.toggleMenu}
-              style={styles.blackBackground}
-            ></TouchableOpacity>
-            <View style={styles.menu}>
-              <View style={styles.iconContainer}>
-                <CloseIcon color={'black'} onClose={() => this.toggleMenu()} />
-              </View>
-              {settingsMenuItems.map((item) => (
-                <MenuItem
-                  item={item}
-                  key={item.name}
-                  closeMenu={this.toggleMenu}
-                  navigate={this.props.navigate}
-                />
-              ))}
-            </View>
-          </Modal>
-        )}
-      </>
+      <TouchableOpacity onPress={() => setIsOpen(true)} hitSlop={HIT_SLOP}>
+        <AppIcon name="dots-three-vertical" color={Colors.orange} />
+      </TouchableOpacity>
     )
-  }
+
+  return (
+    <Modal animationType="fade" onRequestClose={closeMenu} transparent={true}>
+      <TouchableOpacity
+        onPress={closeMenu}
+        style={styles.blackBackground}
+      ></TouchableOpacity>
+      <View style={styles.menu}>
+        <View style={styles.iconContainer}>
+          <CloseIcon color={'black'} onClose={closeMenu} />
+        </View>
+        {settingsMenuItems.map((item) => (
+          <MenuItem
+            item={item}
+            key={item.name}
+            closeMenu={closeMenu}
+            navigate={navigate}
+          />
+        ))}
+      </View>
+    </Modal>
+  )
 }
+
+export default HamburgerMenu
 
 HamburgerMenu.propTypes = {
   navigate: PropTypes.func,
