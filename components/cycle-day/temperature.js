@@ -4,13 +4,12 @@ import PropTypes from 'prop-types'
 import { Keyboard } from 'react-native'
 import DateTimePicker from 'react-native-modal-datetime-picker'
 import moment from 'moment'
+import { useTranslation } from 'react-i18next'
 
 import AppText from '../common/app-text'
 import AppTextInput from '../common/app-text-input'
 import Segment from '../common/segment'
 
-import { connect } from 'react-redux'
-import { getDate } from '../../slices/date'
 import {
   getTemperatureOutOfRangeMessage,
   getPreviousTemperature,
@@ -22,6 +21,7 @@ import { temperature as labels } from '../../i18n/en/cycle-day'
 import { Colors, Containers, Sizes, Spacing } from '../../styles'
 
 const Temperature = ({ data, date, save }) => {
+  const { t } = useTranslation()
   const [isTimePickerVisible, setIsTimePickerVisible] = useState(false)
   const [temperature, setTemperature] = useState(
     formatTemperature(data.value) || getPreviousTemperature(date)
@@ -94,6 +94,7 @@ const Temperature = ({ data, date, save }) => {
           onConfirm={setTime}
           onCancel={() => setIsTimePickerVisible(false)}
           display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+          headerTextIOS={t('labels.shared.dateTimePickerTitle')}
         />
       </Segment>
     </React.Fragment>
@@ -122,10 +123,4 @@ Temperature.propTypes = {
   save: PropTypes.func.isRequired,
 }
 
-const mapStateToProps = (state) => {
-  return {
-    date: getDate(state),
-  }
-}
-
-export default connect(mapStateToProps, null)(Temperature)
+export default Temperature

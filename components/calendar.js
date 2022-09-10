@@ -4,7 +4,6 @@ import { StyleSheet, View } from 'react-native'
 import { CalendarList } from 'react-native-calendars'
 
 import { connect } from 'react-redux'
-import { setDate } from '../slices/date'
 import { navigate } from '../slices/navigation'
 
 import { getBleedingDaysSortedByDate } from '../db'
@@ -91,7 +90,6 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setDate: (date) => dispatch(setDate(date)),
     navigate: (page) => dispatch(navigate(page)),
   }
 }

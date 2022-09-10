@@ -7,8 +7,6 @@ import AppText from '../common/app-text'
 import DripIcon from '../../assets/drip-icons'
 import SymptomEditView from './symptom-edit-view'
 
-import { connect } from 'react-redux'
-import { getDate } from '../../slices/date'
 import { isDateInFuture } from '../helpers/cycle-day'
 
 import { Colors, Sizes, Spacing } from '../../styles'
@@ -43,6 +41,7 @@ const SymptomBox = ({
     <>
       {isSymptomEdited && (
         <SymptomEditView
+          date={date}
           symptom={symptom}
           symptomData={symptomData}
           onClose={() => setEditedSymptom('')}
@@ -128,10 +127,4 @@ const styles = StyleSheet.create({
   },
 })
 
-const mapStateToProps = (state) => {
-  return {
-    date: getDate(state),
-  }
-}
-
-export default connect(mapStateToProps, null)(SymptomBox)
+export default SymptomBox
