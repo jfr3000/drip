@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import RNFS from 'react-native-fs'
 import { Alert } from 'react-native'
 import PropTypes from 'prop-types'
@@ -17,26 +17,21 @@ import { EXPORT_FILE_NAME } from './constants'
 
 const exportedFilePath = `${RNFS.DocumentDirectoryPath}/${EXPORT_FILE_NAME}`
 
-export default class DeleteData extends Component {
-  constructor() {
-    super()
+const DeleteData = ({ onStartDeletion, isDeletingData }) => {
+  const isPasswordSet = hasEncryptionObservable.value
+  const [isConfirmingWithPassword, setIsConfirmingWithPassword] =
+    useState(false)
 
-    this.state = {
-      isPasswordSet: hasEncryptionObservable.value,
-      isConfirmingWithPassword: false,
-    }
-  }
-
-  onAlertConfirmation = () => {
-    this.props.onStartDeletion()
-    if (this.state.isPasswordSet) {
-      this.setState({ isConfirmingWithPassword: true })
+  const onAlertConfirmation = () => {
+    onStartDeletion()
+    if (isPasswordSet) {
+      setIsConfirmingWithPassword(true)
     } else {
-      this.deleteAppData()
+      deleteAppData()
     }
   }
 
-  alertBeforeDeletion = async () => {
+  const alertBeforeDeletion = async () => {
     const { question, message, confirmation, errors } = settings.deleteSegment
     if (isDbEmpty() && !(await RNFS.exists(exportedFilePath))) {
       alertError(errors.noData)
@@ -44,64 +39,61 @@ export default class DeleteData extends Component {
       Alert.alert(question, message, [
         {
           text: confirmation,
-          onPress: this.onAlertConfirmation,
+          onPress: onAlertConfirmation,
         },
         {
           text: sharedLabels.cancel,
           style: 'cancel',
-          onPress: this.cancelConfirmationWithPassword,
+          onPress: cancelConfirmationWithPassword,
         },
       ])
     }
   }
 
-  deleteExportedFile = async () => {
+  const deleteExportedFile = async () => {
     if (await RNFS.exists(exportedFilePath)) {
       await RNFS.unlink(exportedFilePath)
     }
   }
 
-  deleteAppData = async () => {
+  const deleteAppData = async () => {
     const { errors, success } = settings.deleteSegment
 
     try {
       if (!isDbEmpty()) {
         clearDb()
       }
-      await this.deleteExportedFile()
+      await deleteExportedFile()
       showToast(success.message)
     } catch (err) {
       alertError(errors.couldNotDeleteFile)
     }
-    this.cancelConfirmationWithPassword()
+    cancelConfirmationWithPassword()
   }
 
-  cancelConfirmationWithPassword = () => {
-    this.setState({ isConfirmingWithPassword: false })
+  const cancelConfirmationWithPassword = () => {
+    setIsConfirmingWithPassword(false)
   }
 
-  render() {
-    const { isConfirmingWithPassword } = this.state
-    const { isDeletingData } = this.props
-
-    if (isConfirmingWithPassword && isDeletingData) {
-      return (
-        <ConfirmWithPassword
-          onSuccess={this.deleteAppData}
-          onCancel={this.cancelConfirmationWithPassword}
-        />
-      )
-    }
-
+  if (isConfirmingWithPassword && isDeletingData) {
     return (
-      <Button isCTA onPress={this.alertBeforeDeletion}>
-        {settings.deleteSegment.title}
-      </Button>
+      <ConfirmWithPassword
+        onSuccess={deleteAppData}
+        onCancel={cancelConfirmationWithPassword}
+      />
     )
   }
+
+  return (
+    <Button isCTA onPress={alertBeforeDeletion}>
+      {settings.deleteSegment.title}
+    </Button>
+  )
 }
 
 DeleteData.propTypes = {
   isDeletingData: PropTypes.bool,
   onStartDeletion: PropTypes.func.isRequired,
 }
+
+export default DeleteData

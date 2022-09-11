@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Alert, StyleSheet, View } from 'react-native'
 import nodejs from 'nodejs-mobile-react-native'
@@ -11,78 +11,65 @@ import { Containers } from '../../../styles'
 import settings from '../../../i18n/en/settings'
 import { shared } from '../../../i18n/en/labels'
 
-export default class ConfirmWithPassword extends Component {
-  constructor() {
-    super()
+const ConfirmWithPassword = ({ onSuccess, onCancel }) => {
+  const [password, setPassword] = useState(null)
 
-    this.state = { password: null }
-    nodejs.channel.addListener('password-check', this.checkPassword, this)
+  const checkPassword = async (hash) => {
+    try {
+      await openDb(hash)
+      onSuccess()
+    } catch (err) {
+      onIncorrectPassword()
+    }
   }
 
-  componentWillUnmount() {
-    nodejs.channel.removeListener('password-check', this.checkPassword)
-  }
+  useEffect(() => {
+    nodejs.channel.addListener('password-check', checkPassword, this)
+    return () => {
+      nodejs.channel.removeListener('password-check', checkPassword)
+    }
+  }, [])
 
-  resetPasswordInput = () => {
-    this.setState({ password: null })
-  }
-
-  onIncorrectPassword = () => {
+  const onIncorrectPassword = () => {
     Alert.alert(shared.incorrectPassword, shared.incorrectPasswordMessage, [
       {
         text: shared.cancel,
-        onPress: this.props.onCancel,
+        onPress: onCancel,
       },
       {
         text: shared.tryAgain,
-        onPress: this.resetPasswordInput,
+        onPress: () => setPassword(null),
       },
     ])
   }
 
-  checkPassword = async (hash) => {
-    try {
-      await openDb(hash)
-      this.props.onSuccess()
-    } catch (err) {
-      this.onIncorrectPassword()
-    }
+  const initPasswordCheck = () => {
+    requestHash('password-check', password)
   }
 
-  handlePasswordInput = (password) => {
-    this.setState({ password })
-  }
+  const labels = settings.passwordSettings
+  const isPassword = password !== null
 
-  initPasswordCheck = () => {
-    requestHash('password-check', this.state.password)
-  }
-
-  render() {
-    const { password } = this.state
-    const labels = settings.passwordSettings
-    const isPassword = password !== null
-
-    return (
-      <React.Fragment>
-        <AppTextInput
-          onChangeText={this.handlePasswordInput}
-          placeholder={labels.enterCurrent}
-          value={password}
-          secureTextEntry={true}
-        />
-        <View style={styles.container}>
-          <Button onPress={this.props.onCancel}>{shared.cancel}</Button>
-          <Button
-            disabled={!isPassword}
-            isCTA={isPassword}
-            onPress={this.initPasswordCheck}
-          >
-            {shared.confirmToProceed}
-          </Button>
-        </View>
-      </React.Fragment>
-    )
-  }
+  return (
+    <>
+      <AppTextInput
+        onChangeText={setPassword}
+        placeholder={labels.enterCurrent}
+        value={password}
+        secureTextEntry
+      />
+      <View style={styles.container}>
+        <Button onPress={onCancel}>{shared.cancel}</Button>
+        <Button
+          disabled={!isPassword}
+          isCTA={isPassword}
+          onPress={initPasswordCheck}
+        >
+          {shared.confirmToProceed}
+        </Button>
+      </View>
+    </>
+  )
 }
 
 ConfirmWithPassword.propTypes = {
@@ -95,3 +82,5 @@ const styles = StyleSheet.create({
     ...Containers.rowContainer,
   },
 })
+
+export default ConfirmWithPassword
