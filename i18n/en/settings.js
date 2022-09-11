@@ -135,30 +135,11 @@ Making any changes to your password setting will keep your data as it was before
       ios: 'After the password is updated the app will automatically close. Please reopen it manually.',
     },
   },
-  aboutSection: {
-    title: 'About',
-    text: `Please note that your data is stored locally on your phone and not on a server. This means your data cannot be read by anyone else unless they have access to your phone. We want to ensure that you stay in control of your own data. If you are planning to switch or reset your phone, please remember to export your data before doing so. You can reinstall the app afterwards and import your data.\n\nIf you encounter any technical issues, don't hesitate to contact us via email. You can also contribute to the code base on Gitlab and visit our website.`,
-  },
-  philosophy: {
-    title: 'Remember to think for yourself',
-    text: `drip. makes period predictions for you and helps you apply NFP fertility awareness rules. But please remember that this app is made by humans, and humans make mistakes. Always think for yourself: "Does this make sense?" Remember, you don't need an app to understand your cycle! However, drip. wants to support you and make period tracking easier, more transparent and secure.`,
-  },
-  version: {
-    title: 'Version',
-  },
   website: {
     title: 'Website',
   },
   preOvu: {
     title: 'Infertile days at cycle start',
     note: `drip. applies NFP's rules for calculating infertile days at the start of the cycle (see ${links.wiki.url} for more info). However, drip. does not currently apply the so called 20-day-rule, which determines infertile days at the cycle start from past cycle lengths in case no past symptothermal info is available.`,
-  },
-  credits: {
-    title: 'Credits',
-    note: `We love the drip. team. Thanks and lots of <3 to all of our condriputors. Thanks to Paula Härtel for the symptom tracking icons. All the other icons are made by ${links.smashicons.url}, ${links.pause08.url}, ${links.kazachek.url} & ${links.freepik.url} from ${links.flaticon.url}.`,
-  },
-  donate: {
-    title: 'Support us',
-    note: `The drips are developing this app on a volunteer basis. We are always grateful for support. This could mean condriputing to the code, giving feedback, suggesting improvements or features, testing or donating. It helps and motivates us maintaining this app and developing new features. Thank you for your support!`,
   },
 }
