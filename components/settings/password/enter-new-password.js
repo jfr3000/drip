@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet } from 'react-native'
 import nodejs from 'nodejs-mobile-react-native'
 import PropTypes from 'prop-types'
@@ -13,89 +13,67 @@ import settings from '../../../i18n/en/settings'
 
 const LISTENER_TYPE = 'create-or-change-pw'
 
-export default class EnterNewPassword extends Component {
-  static propTypes = {
-    changeEncryptionAndRestart: PropTypes.func,
-  }
-  constructor(props) {
-    super()
-    this.state = {
-      password: '',
-      passwordConfirmation: '',
-      shouldShowErrorMessage: false,
-    }
-    nodejs.channel.addListener(
+const EnterNewPassword = ({ changeEncryptionAndRestart }) => {
+  const [password, setPassword] = useState('')
+  const [passwordConfirmation, setPasswordConfirmation] = useState('')
+  const [shouldShowErrorMessage, setShouldShowErrorMessage] = useState(false)
+
+  useEffect(() => {
+    const listener = nodejs.channel.addListener(
       LISTENER_TYPE,
-      props.changeEncryptionAndRestart,
+      changeEncryptionAndRestart,
       this
     )
-  }
+    return () => listener.remove()
+  }, [])
 
-  componentWillUnmount() {
-    nodejs.channel.removeListener(
-      LISTENER_TYPE,
-      this.props.changeEncryptionAndRestart
-    )
-  }
-
-  savePassword = () => {
-    if (this.comparePasswords()) {
-      requestHash(LISTENER_TYPE, this.state.password)
+  const savePassword = () => {
+    if (comparePasswords()) {
+      requestHash(LISTENER_TYPE, password)
     } else {
-      this.setState({ shouldShowErrorMessage: true })
+      setShouldShowErrorMessage(true)
     }
   }
 
-  comparePasswords = () => {
-    return this.state.password === this.state.passwordConfirmation
-  }
+  const comparePasswords = () => password === passwordConfirmation
 
-  handlePasswordInput = (password) => {
-    this.setState({ password })
-  }
+  const labels = settings.passwordSettings
+  const isButtonActive = password.length > 0 && passwordConfirmation.length > 0
 
-  handleConfirmationInput = (passwordConfirmation) => {
-    this.setState({ passwordConfirmation })
-  }
+  return (
+    <>
+      <AppTextInput
+        isKeyboardOffset={false}
+        onChangeText={setPassword}
+        placeholder={labels.enterNew}
+        textContentType="password"
+        value={password}
+        secureTextEntry={true}
+      />
+      <AppTextInput
+        isKeyboardOffset={false}
+        onChangeText={setPasswordConfirmation}
+        placeholder={labels.confirmPassword}
+        textContentType="password"
+        value={passwordConfirmation}
+        secureTextEntry={true}
+      />
+      {shouldShowErrorMessage && (
+        <AppText style={styles.error}>{labels.passwordsDontMatch}</AppText>
+      )}
+      <Button
+        isCTA={isButtonActive}
+        disabled={!isButtonActive}
+        onPress={savePassword}
+      >
+        {labels.savePassword}
+      </Button>
+    </>
+  )
+}
 
-  render() {
-    const { password, passwordConfirmation, shouldShowErrorMessage } =
-      this.state
-    const labels = settings.passwordSettings
-    const isButtonActive =
-      password.length > 0 && passwordConfirmation.length > 0
-
-    return (
-      <React.Fragment>
-        <AppTextInput
-          isKeyboardOffset={false}
-          onChangeText={this.handlePasswordInput}
-          placeholder={labels.enterNew}
-          textContentType="password"
-          value={password}
-          secureTextEntry={true}
-        />
-        <AppTextInput
-          isKeyboardOffset={false}
-          onChangeText={this.handleConfirmationInput}
-          placeholder={labels.confirmPassword}
-          textContentType="password"
-          value={passwordConfirmation}
-          secureTextEntry={true}
-        />
-        {shouldShowErrorMessage && (
-          <AppText style={styles.error}>{labels.passwordsDontMatch}</AppText>
-        )}
-        <Button
-          isCTA={isButtonActive}
-          disabled={!isButtonActive}
-          onPress={this.savePassword}
-        >
-          {labels.savePassword}
-        </Button>
-      </React.Fragment>
-    )
-  }
+EnterNewPassword.propTypes = {
+  changeEncryptionAndRestart: PropTypes.func,
 }
 
 const styles = StyleSheet.create({
@@ -104,3 +82,5 @@ const styles = StyleSheet.create({
     marginTop: Spacing.base,
   },
 })
+
+export default EnterNewPassword

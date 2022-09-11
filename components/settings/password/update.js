@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import Button from '../../common/button'
@@ -9,83 +9,71 @@ import ConfirmWithPassword from '../common/confirm-with-password'
 
 import settings from '../../../i18n/en/settings'
 
-export default class ChangePassword extends Component {
-  static propTypes = {
-    onStartChange: PropTypes.func,
-    onCancelChange: PropTypes.func,
-    changeEncryptionAndRestart: PropTypes.func,
-  }
+const ChangePassword = ({
+  changeEncryptionAndRestart,
+  onStartChange,
+  onCancelChange,
+}) => {
+  const [currentPassword, setCurrentPassword] = useState(null)
+  const [enteringCurrentPassword, setEnteringCurrentPassword] = useState(false)
+  const [enteringNewPassword, setEnteringNewPassword] = useState(false)
 
-  constructor() {
-    super()
-
-    this.state = {
-      currentPassword: null,
-      enteringCurrentPassword: false,
-      enteringNewPassword: false,
-    }
-  }
-
-  startChangingPassword = () => {
+  const startChangingPassword = () => {
     showBackUpReminder(
-      this.startEnteringCurrentPassword,
-      this.cancelConfirmationWithPassword
+      startEnteringCurrentPassword,
+      cancelConfirmationWithPassword
     )
   }
 
-  startEnteringCurrentPassword = () => {
-    this.setState({ enteringCurrentPassword: true })
-    this.props.onStartChange()
+  const startEnteringCurrentPassword = () => {
+    setEnteringCurrentPassword(true)
+    onStartChange()
   }
 
-  startEnteringNewPassword = () => {
-    this.setState({
-      currentPassword: null,
-      enteringNewPassword: true,
-      enteringCurrentPassword: false,
-    })
+  const startEnteringNewPassword = () => {
+    setCurrentPassword(null)
+    setEnteringNewPassword(true)
+    setEnteringCurrentPassword(false)
   }
 
-  cancelConfirmationWithPassword = () => {
-    this.setState({
-      currentPassword: null,
-      enteringNewPassword: false,
-      enteringCurrentPassword: false,
-    })
-    this.props.onCancelChange()
+  const cancelConfirmationWithPassword = () => {
+    setCurrentPassword(null)
+    setEnteringNewPassword(false)
+    setEnteringCurrentPassword(false)
+    onCancelChange()
   }
 
-  render() {
-    const { enteringCurrentPassword, enteringNewPassword, currentPassword } =
-      this.state
-    const labels = settings.passwordSettings
-    const isPasswordSet = currentPassword !== null
+  const labels = settings.passwordSettings
+  const isPasswordSet = currentPassword !== null
 
-    if (enteringCurrentPassword) {
-      return (
-        <ConfirmWithPassword
-          onSuccess={this.startEnteringNewPassword}
-          onCancel={this.cancelConfirmationWithPassword}
-        />
-      )
-    }
-
-    if (enteringNewPassword) {
-      return (
-        <EnterNewPassword
-          changeEncryptionAndRestart={this.props.changeEncryptionAndRestart}
-        />
-      )
-    }
-
+  if (enteringCurrentPassword) {
     return (
-      <Button
-        disabled={isPasswordSet}
-        isCTA
-        onPress={this.startChangingPassword}
-      >
-        {labels.changePassword}
-      </Button>
+      <ConfirmWithPassword
+        onSuccess={startEnteringNewPassword}
+        onCancel={cancelConfirmationWithPassword}
+      />
     )
   }
+
+  if (enteringNewPassword) {
+    return (
+      <EnterNewPassword
+        changeEncryptionAndRestart={changeEncryptionAndRestart}
+      />
+    )
+  }
+
+  return (
+    <Button disabled={isPasswordSet} isCTA onPress={startChangingPassword}>
+      {labels.changePassword}
+    </Button>
+  )
+}
+
+export default ChangePassword
+
+ChangePassword.propTypes = {
+  onStartChange: PropTypes.func,
+  onCancelChange: PropTypes.func,
+  changeEncryptionAndRestart: PropTypes.func,
 }

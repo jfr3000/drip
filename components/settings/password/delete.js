@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import Button from '../../common/button'
@@ -6,45 +6,43 @@ import ConfirmWithPassword from '../common/confirm-with-password'
 
 import labels from '../../../i18n/en/settings'
 
-export default class DeletePassword extends Component {
-  static propTypes = {
-    onStartDelete: PropTypes.func,
-    onCancelDelete: PropTypes.func,
-    changeEncryptionAndRestart: PropTypes.func,
+const DeletePassword = ({
+  onStartDelete,
+  onCancelDelete,
+  changeEncryptionAndRestart,
+}) => {
+  const [enteringCurrentPassword, setEnteringCurrentPassword] = useState(false)
+
+  const startConfirmWithPassword = () => {
+    setEnteringCurrentPassword(true)
+    onStartDelete()
   }
 
-  constructor() {
-    super()
-
-    this.state = { enteringCurrentPassword: false }
+  const cancelConfirmationWithPassword = () => {
+    setEnteringCurrentPassword(false)
+    onCancelDelete()
   }
 
-  startConfirmWithPassword = () => {
-    this.setState({ enteringCurrentPassword: true })
-    this.props.onStartDelete()
-  }
-
-  cancelConfirmationWithPassword = () => {
-    this.setState({ enteringCurrentPassword: false })
-    this.props.onCancelDelete()
-  }
-
-  render() {
-    const { enteringCurrentPassword } = this.state
-
-    if (enteringCurrentPassword) {
-      return (
-        <ConfirmWithPassword
-          onSuccess={this.props.changeEncryptionAndRestart}
-          onCancel={this.cancelConfirmationWithPassword}
-        />
-      )
-    }
-
+  if (enteringCurrentPassword) {
     return (
-      <Button isCTA onPress={this.startConfirmWithPassword}>
-        {labels.passwordSettings.deletePassword}
-      </Button>
+      <ConfirmWithPassword
+        onSuccess={changeEncryptionAndRestart}
+        onCancel={cancelConfirmationWithPassword}
+      />
     )
   }
+
+  return (
+    <Button isCTA onPress={startConfirmWithPassword}>
+      {labels.passwordSettings.deletePassword}
+    </Button>
+  )
 }
+
+DeletePassword.propTypes = {
+  onStartDelete: PropTypes.func,
+  onCancelDelete: PropTypes.func,
+  changeEncryptionAndRestart: PropTypes.func,
+}
+
+export default DeletePassword
