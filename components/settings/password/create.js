@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import Button from '../../common/button'
@@ -8,42 +8,35 @@ import showBackUpReminder from './show-backup-reminder'
 
 import settings from '../../../i18n/en/settings'
 
-export default class CreatePassword extends Component {
-  static propTypes = {
-    changeEncryptionAndRestart: PropTypes.func,
+const CreatePassword = ({ changeEncryptionAndRestart }) => {
+  const [isSettingPassword, setIsSettingPassword] = useState(false)
+
+  const startSettingPassword = () => {
+    showBackUpReminder(
+      () => {
+        setIsSettingPassword(true)
+      },
+      () => {}
+    )
   }
 
-  constructor() {
-    super()
+  const labels = settings.passwordSettings
 
-    this.state = { isSettingPassword: false }
+  if (!isSettingPassword) {
+    return (
+      <Button isCTA onPress={startSettingPassword}>
+        {labels.setPassword}
+      </Button>
+    )
   }
 
-  toggleSettingPassword = () => {
-    const { isSettingPassword } = this.state
-    this.setState({ isSettingPassword: !isSettingPassword })
-  }
-
-  startSettingPassword = () => {
-    showBackUpReminder(this.toggleSettingPassword, () => {})
-  }
-
-  render() {
-    const { isSettingPassword } = this.state
-    const labels = settings.passwordSettings
-
-    if (!isSettingPassword) {
-      return (
-        <Button isCTA onPress={this.startSettingPassword}>
-          {labels.setPassword}
-        </Button>
-      )
-    } else {
-      return (
-        <EnterNewPassword
-          changeEncryptionAndRestart={this.props.changeEncryptionAndRestart}
-        />
-      )
-    }
-  }
+  return (
+    <EnterNewPassword changeEncryptionAndRestart={changeEncryptionAndRestart} />
+  )
 }
+
+CreatePassword.propTypes = {
+  changeEncryptionAndRestart: PropTypes.func,
+}
+
+export default CreatePassword
