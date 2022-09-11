@@ -49,7 +49,7 @@
     "react-native-document-picker": "^8.1.1",
     "react-native-fs": "^2.20.0",
     "react-native-hyperlink": "0.0.19",
-    "react-native-modal-datetime-picker": "10.2.0",
+    "react-native-modal-datetime-picker": "14.0.0",
     "react-native-push-notification": "3.2.1",
     "react-native-share": "^7.9.0",
     "react-native-simple-toast": "^1.1.3",
