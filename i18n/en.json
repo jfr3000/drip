@@ -14,6 +14,28 @@
     }
   },
   "settings": {
+    "about": {
+      "credits": {
+        "title": "Credits",
+        "text": "We love the drip. team. Thanks and lots of <3 to all of our condriputors. Thanks to Paula Härtel for the symptom tracking icons. All the other icons are made by {{smashicons}}, {{pause08}}, {{kazachek}} & {{freepik}} from {{flaticon}}."
+      },
+      "donate": {
+        "button": "Donate here",
+        "title": "Support us",
+        "text": "The drips are developing this app on a volunteer basis. We are always grateful for support. This could mean condriputing to the code, giving feedback, suggesting improvements or features, testing or donating. It helps and motivates us maintaining this app and developing new features. Thank you for your support!"
+      },
+      "intro": {
+        "text": "Please note that your data is stored locally on your phone and not on a server. This means your data cannot be read by anyone else unless they have access to your phone. We want to ensure that you stay in control of your own data. If you are planning to switch or reset your phone, please remember to export your data before doing so. You can reinstall the app afterwards and import your data.\n\nIf you encounter any technical issues, don't hesitate to contact us via email. You can also contribute to the code base on Gitlab and visit our website."
+      },
+      "philosophy": {
+        "title": "Remember to think for yourself",
+        "text": "drip. makes period predictions for you and helps you apply NFP fertility awareness rules. But please remember that this app is made by humans, and humans make mistakes. Always think for yourself: \"Does this make sense?\" Remember, you don't need an app to understand your cycle! However, drip. wants to support you and make period tracking easier, more transparent and secure."
+      },
+      "title": "About",
+      "version": {
+        "title": "Version"
+      }
+    },
     "license": {
       "title": "drip. an open-source cycle tracking app",
       "text": "Copyright (C) {{currentYear}} Heart of Code e.V.\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details: https://www.gnu.org/licenses/gpl-3.0.html."
