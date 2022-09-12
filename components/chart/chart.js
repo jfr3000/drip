@@ -1,32 +1,20 @@
-import React, { Component } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import {
-  ActivityIndicator,
-  Dimensions,
-  FlatList,
-  PixelRatio,
-  StyleSheet,
-  View,
-} from 'react-native'
+import { Dimensions, PixelRatio, StyleSheet, View } from 'react-native'
 
-import AppLoadingView from '../common/app-loading'
 import AppPage from '../common/app-page'
-import AppText from '../common/app-text'
 
 import DayColumn from './day-column'
 import HorizontalGrid from './horizontal-grid'
+import MainGrid from './main-grid'
 import NoData from './no-data'
+import NoTemperature from './no-temperature'
 import Tutorial from './tutorial'
 import YAxis from './y-axis'
 
 import { getCycleDaysSortedByDate } from '../../db'
-import nothingChanged from '../../db/db-unchanged'
-import {
-  getChartFlag,
-  scaleObservable,
-  setChartFlag,
-} from '../../local-storage'
-import { makeColumnInfo, nfpLines } from '../helpers/chart'
+import { getChartFlag, setChartFlag } from '../../local-storage'
+import { makeColumnInfo } from '../helpers/chart'
 
 import {
   CHART_COLUMN_WIDTH,
@@ -35,204 +23,108 @@ import {
   CHART_XAXIS_HEIGHT_RATIO,
   SYMPTOMS,
 } from '../../config'
-import { shared } from '../../i18n/en/labels'
-import { Colors, Spacing } from '../../styles'
+import { Spacing } from '../../styles'
 
-class CycleChart extends Component {
-  static propTypes = {
-    navigate: PropTypes.func,
-    end: PropTypes.bool,
-    setDate: PropTypes.func,
-  }
+const getSymptomsFromCycleDays = (cycleDays) =>
+  SYMPTOMS.filter((symptom) => cycleDays.some((cycleDay) => cycleDay[symptom]))
 
-  constructor(props) {
-    super(props)
+const CycleChart = ({ navigate, setDate }) => {
+  const [shouldShowHint, setShouldShowHint] = useState(true)
 
-    this.state = {}
-    this.cycleDaysSortedByDate = getCycleDaysSortedByDate()
-    this.getFhmAndLtlInfo = nfpLines()
-    this.shouldShowTemperatureColumn = false
-
-    this.checkShouldShowHint()
-    this.prepareSymptomData()
-  }
-
-  componentWillUnmount() {
-    this.cycleDaysSortedByDate.removeListener(this.handleDbChange)
-    this.removeObvListener()
-  }
-
-  checkShouldShowHint = async () => {
+  useEffect(async () => {
     const flag = await getChartFlag()
-    const shouldShowHint = flag === 'true' ? true : false
-    this.setState({ shouldShowHint })
+    setShouldShowHint(flag === 'true')
+  }, [])
+
+  const hideHint = () => {
+    setShouldShowHint(false)
+    setChartFlag()
   }
 
-  setShouldShowHint = async () => {
-    await setChartFlag()
-    this.setState({ shouldShowHint: false })
-  }
+  const cycleDaysSortedByDate = getCycleDaysSortedByDate()
 
-  onLayout = () => {
-    if (this.state.chartHeight) return false
+  const chartSymptoms = getSymptomsFromCycleDays(cycleDaysSortedByDate)
+  const symptomRowSymptoms = chartSymptoms.filter(
+    (symptom) => symptom !== 'temperature'
+  )
 
-    this.reCalculateChartInfo()
-    this.updateListeners(this.reCalculateChartInfo)
-  }
+  const shouldShowTemperatureColumn = chartSymptoms.indexOf('temperature') > -1
 
-  prepareSymptomData = () => {
-    this.symptomRowSymptoms = SYMPTOMS.filter((symptomName) => {
-      return this.cycleDaysSortedByDate.some((cycleDay) => {
-        return symptomName !== 'temperature' && cycleDay[symptomName]
-      })
-    })
-    this.chartSymptoms = [...this.symptomRowSymptoms]
-    if (this.cycleDaysSortedByDate.some((day) => day.temperature)) {
-      this.chartSymptoms.push('temperature')
-      this.shouldShowTemperatureColumn = true
-    }
-  }
+  const { width, height } = Dimensions.get('window')
+  const numberOfColumnsToRender = Math.round(width / CHART_COLUMN_WIDTH)
 
-  renderColumn = ({ item, index }) => {
+  const xAxisHeight = height * 0.7 * CHART_XAXIS_HEIGHT_RATIO
+  const remainingHeight = height * 0.7 - xAxisHeight
+  const symptomHeight = PixelRatio.roundToNearestPixel(
+    remainingHeight * CHART_SYMPTOM_HEIGHT_RATIO
+  )
+  const symptomRowHeight =
+    PixelRatio.roundToNearestPixel(symptomRowSymptoms.length * symptomHeight) +
+    CHART_GRID_LINE_HORIZONTAL_WIDTH
+  const columnHeight = remainingHeight - symptomRowHeight
+
+  const chartHeight = shouldShowTemperatureColumn
+    ? height * 0.7
+    : symptomRowHeight + xAxisHeight
+
+  const columns = makeColumnInfo()
+
+  const renderColumn = ({ item }) => {
     return (
       <DayColumn
-        setDate={this.props.setDate}
+        setDate={setDate}
         dateString={item}
-        index={index}
-        navigate={this.props.navigate}
-        symptomHeight={this.symptomHeight}
-        columnHeight={this.columnHeight}
-        symptomRowSymptoms={this.symptomRowSymptoms}
-        chartSymptoms={this.chartSymptoms}
-        shouldShowTemperatureColumn={this.shouldShowTemperatureColumn}
-        getFhmAndLtlInfo={this.getFhmAndLtlInfo}
-        xAxisHeight={this.xAxisHeight}
+        navigate={navigate}
+        symptomHeight={symptomHeight}
+        columnHeight={columnHeight}
+        symptomRowSymptoms={symptomRowSymptoms}
+        chartSymptoms={chartSymptoms}
+        shouldShowTemperatureColumn={shouldShowTemperatureColumn}
+        xAxisHeight={xAxisHeight}
       />
     )
   }
 
-  reCalculateChartInfo = () => {
-    const { width, height } = Dimensions.get('window')
+  const hasDataToDisplay = chartSymptoms.length > 0
 
-    this.xAxisHeight = height * 0.7 * CHART_XAXIS_HEIGHT_RATIO
-    const remainingHeight = height * 0.7 - this.xAxisHeight
-    this.symptomHeight = PixelRatio.roundToNearestPixel(
-      remainingHeight * CHART_SYMPTOM_HEIGHT_RATIO
-    )
-    this.symptomRowHeight =
-      PixelRatio.roundToNearestPixel(
-        this.symptomRowSymptoms.length * this.symptomHeight
-      ) + CHART_GRID_LINE_HORIZONTAL_WIDTH
-    this.columnHeight = remainingHeight - this.symptomRowHeight
-    const chartHeight = this.shouldShowTemperatureColumn
-      ? height * 0.7
-      : this.symptomRowHeight + this.xAxisHeight
-    const numberOfColumnsToRender = Math.round(width / CHART_COLUMN_WIDTH)
-    const columns = makeColumnInfo()
-
-    this.setState({ columns, chartHeight, numberOfColumnsToRender })
+  if (!hasDataToDisplay) {
+    return <NoData navigate={navigate} />
   }
 
-  updateListeners(dataUpdateHandler) {
-    // remove existing listeners
-    if (this.handleDbChange) {
-      this.cycleDaysSortedByDate.removeListener(this.handleDbChange)
-    }
-    if (this.removeObvListener) this.removeObvListener()
-
-    this.handleDbChange = (_, changes) => {
-      if (nothingChanged(changes)) return
-      dataUpdateHandler()
-    }
-
-    this.cycleDaysSortedByDate.addListener(this.handleDbChange)
-    this.removeObvListener = scaleObservable(dataUpdateHandler, false)
-  }
-
-  render() {
-    const {
-      chartHeight,
-      chartLoaded,
-      shouldShowHint,
-      numberOfColumnsToRender,
-    } = this.state
-    const hasDataToDisplay = this.chartSymptoms.length > 0
-
-    return (
-      <AppPage
-        contentContainerStyle={styles.pageContainer}
-        onLayout={this.onLayout}
-        scrollViewStyle={styles.page}
-      >
-        {!hasDataToDisplay && <NoData navigate={this.props.navigate} />}
-        {hasDataToDisplay && !chartHeight && !chartLoaded && <AppLoadingView />}
-        <View style={styles.chartContainer}>
-          {shouldShowHint && chartLoaded && (
-            <Tutorial onClose={this.setShouldShowHint} />
-          )}
-          {hasDataToDisplay &&
-            chartLoaded &&
-            !this.shouldShowTemperatureColumn && (
-              <View style={styles.centerItem}>
-                <AppText style={styles.warning}>
-                  {shared.noTemperatureWarning}
-                </AppText>
-              </View>
-            )}
-          {hasDataToDisplay && (
-            <View style={styles.chartArea}>
-              {chartHeight && chartLoaded && (
-                <YAxis
-                  height={this.columnHeight}
-                  symptomsToDisplay={this.symptomRowSymptoms}
-                  symptomsSectionHeight={this.symptomRowHeight}
-                  shouldShowTemperatureColumn={this.shouldShowTemperatureColumn}
-                  xAxisHeight={this.xAxisHeight}
-                />
-              )}
-
-              {chartHeight && (
-                <FlatList
-                  horizontal={true}
-                  inverted={true}
-                  showsHorizontalScrollIndicator={false}
-                  data={this.state.columns}
-                  renderItem={this.renderColumn}
-                  keyExtractor={(item) => item}
-                  initialNumToRender={numberOfColumnsToRender}
-                  windowSize={30}
-                  onLayout={() => this.setState({ chartLoaded: true })}
-                  onEndReached={() => this.setState({ end: true })}
-                  ListFooterComponent={<LoadingMoreView end={this.state.end} />}
-                  updateCellsBatchingPeriod={800}
-                  contentContainerStyle={{ height: chartHeight }}
-                />
-              )}
-              {chartHeight && chartLoaded && (
-                <React.Fragment>
-                  {this.shouldShowTemperatureColumn && (
-                    <HorizontalGrid height={this.columnHeight} />
-                  )}
-                </React.Fragment>
-              )}
-            </View>
+  return (
+    <AppPage
+      contentContainerStyle={styles.pageContainer}
+      scrollViewStyle={styles.page}
+    >
+      <View style={styles.chartContainer}>
+        {shouldShowHint && <Tutorial onClose={hideHint} />}
+        {!shouldShowTemperatureColumn && <NoTemperature />}
+        <View style={styles.chartArea}>
+          <YAxis
+            height={columnHeight}
+            symptomsToDisplay={symptomRowSymptoms}
+            symptomsSectionHeight={symptomRowHeight}
+            shouldShowTemperatureColumn={shouldShowTemperatureColumn}
+            xAxisHeight={xAxisHeight}
+          />
+          <MainGrid
+            data={columns}
+            renderItem={renderColumn}
+            initialNumToRender={numberOfColumnsToRender}
+            contentContainerStyle={{ height: chartHeight }}
+          />
+          {shouldShowTemperatureColumn && (
+            <HorizontalGrid height={columnHeight} />
           )}
         </View>
-      </AppPage>
-    )
-  }
-}
-
-function LoadingMoreView({ end }) {
-  return (
-    <View style={styles.loadingContainer}>
-      {!end && <ActivityIndicator size={'large'} color={Colors.orange} />}
-    </View>
+      </View>
+    </AppPage>
   )
 }
 
-LoadingMoreView.propTypes = {
-  end: PropTypes.bool,
+CycleChart.propTypes = {
+  navigate: PropTypes.func,
+  setDate: PropTypes.func,
 }
 
 const styles = StyleSheet.create({
@@ -242,19 +134,11 @@ const styles = StyleSheet.create({
   chartContainer: {
     flexDirection: 'column',
   },
-  loadingContainer: {
-    height: '100%',
-    backgroundColor: Colors.turquoiseLight,
-    justifyContent: 'center',
-  },
   page: {
     marginVertical: Spacing.small,
   },
   pageContainer: {
     paddingHorizontal: Spacing.base,
-  },
-  warning: {
-    padding: Spacing.large,
   },
 })
 
