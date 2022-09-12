@@ -12,13 +12,13 @@ import {
   symptomColorMethods,
   getTemperatureProps,
   isSymptomDataComplete,
+  nfpLines,
 } from '../helpers/chart'
 
 const DayColumn = ({
   dateString,
   chartSymptoms,
   columnHeight,
-  getFhmAndLtlInfo,
   setDate,
   navigate,
   shouldShowTemperatureColumn,
@@ -54,7 +54,7 @@ const DayColumn = ({
     }, data)
   }
 
-  const fhmAndLtl = getFhmAndLtlInfo(
+  const fhmAndLtl = nfpLines()(
     dateString,
     data.temperature ? data.temperature.value : null,
     columnHeight
@@ -104,7 +104,6 @@ DayColumn.propTypes = {
   dateString: PropTypes.string.isRequired,
   chartSymptoms: PropTypes.array,
   columnHeight: PropTypes.number.isRequired,
-  getFhmAndLtlInfo: PropTypes.func.isRequired,
   navigate: PropTypes.func.isRequired,
   setDate: PropTypes.func.isRequired,
   shouldShowTemperatureColumn: PropTypes.bool,
