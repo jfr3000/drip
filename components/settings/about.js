@@ -11,11 +11,12 @@ import links from '../../i18n/en/links'
 import { useTranslation } from 'react-i18next'
 
 const AboutSection = () => {
-  const { t } = useTranslation()
+  const { t } = useTranslation(null, { keyPrefix: 'settings.about' })
+
   return (
-    <AppPage title={t('settings.aboutSection.title')}>
+    <AppPage title={t('title')}>
       <Segment>
-        <AppText>{t('settings.aboutSection.text')}</AppText>
+        <AppText>{t('intro.text')}</AppText>
         <ButtonRow>
           {[links.email, links.gitlab, links.website].map((link) => (
             <Button
@@ -29,12 +30,12 @@ const AboutSection = () => {
           ))}
         </ButtonRow>
       </Segment>
-      <Segment title={t('settings.philosophy.title')}>
-        <AppText>{t('settings.philosophy.text')}</AppText>
+      <Segment title={t('philosophy.title')}>
+        <AppText>{t('philosophy.text')}</AppText>
       </Segment>
-      <Segment title={t('settings.credits.title')}>
+      <Segment title={t('credits.title')}>
         <AppText>
-          {t('settings.credits.note', {
+          {t('credits.text', {
             smashicons: links.smashicons.url,
             pause08: links.pause08.url,
             kazachek: links.kazachek.url,
@@ -43,19 +44,19 @@ const AboutSection = () => {
           })}
         </AppText>
       </Segment>
-      <Segment title={t('settings.donate.title')}>
-        <AppText>{t('settings.donate.note')}</AppText>
+      <Segment title={t('donate.title')}>
+        <AppText>{t('donate.text')}</AppText>
         {Platform.OS !== 'ios' && (
           <Button
             isCTA
             isSmall
             onPress={() => Linking.openURL(links.donate.url)}
           >
-            {t('settings.donate.text')}
+            {t('donate.button')}
           </Button>
         )}
       </Segment>
-      <Segment title={t('settings.version.title')} last>
+      <Segment title={t('version.title')} last>
         <AppText>{require('../../package.json').version}</AppText>
       </Segment>
     </AppPage>
