@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Dimensions, ScrollView, StyleSheet, View } from 'react-native'
 
@@ -20,238 +20,199 @@ import { shared as sharedLabels } from '../../i18n/en/labels'
 import info from '../../i18n/en/symptom-info'
 import { Colors, Containers, Sizes, Spacing } from '../../styles'
 
-class SymptomEditView extends Component {
-  static propTypes = {
-    date: PropTypes.string.isRequired,
-    onClose: PropTypes.func.isRequired,
-    symptom: PropTypes.string.isRequired,
-    symptomData: PropTypes.object,
-  }
+const SymptomEditView = ({ date, onClose, symptom, symptomData }) => {
+  const symptomConfig = symtomPage[symptom]
+  const [data, setData] = useState(symptomData ? symptomData : blank[symptom])
+  const [shouldShowInfo, setShouldShowInfo] = useState(false)
+  const getParsedData = () => JSON.parse(JSON.stringify(data))
+  const onPressLearnMore = () => setShouldShowInfo(!shouldShowInfo)
 
-  constructor(props) {
-    super(props)
-
-    const { symptomData, symptom } = this.props
-    const data = symptomData ? symptomData : blank[symptom]
-
-    const symptomConfig = symtomPage[symptom]
-    const shouldShowExclude = shouldShow(symptomConfig.excludeText)
-    const shouldShowNote = shouldShow(symptomConfig.note)
-    const shouldBoxGroup = shouldShow(symptomConfig.selectBoxGroups)
-    const shouldTabGroup = shouldShow(symptomConfig.selectTabGroups)
-
-    this.state = {
-      data,
-      shouldShowExclude,
-      shouldShowInfo: false,
-      shouldShowNote,
-      shouldBoxGroup,
-      shouldTabGroup,
-    }
-  }
-
-  componentDidUpdate() {
-    this.saveData()
-  }
-
-  getParsedData = () => JSON.parse(JSON.stringify(this.state.data))
-
-  onEditNote = (note) => {
-    const data = this.getParsedData()
-    const { symptom } = this.props
+  const onEditNote = (note) => {
+    const parsedData = getParsedData()
 
     if (symptom === 'note') {
-      Object.assign(data, { value: note })
+      Object.assign(parsedData, { value: note })
     } else {
-      data['note'] = note
+      parsedData['note'] = note
     }
 
-    this.setState({ data })
+    setData(parsedData)
   }
 
-  onExcludeToggle = () => {
-    const data = this.getParsedData()
-    Object.assign(data, { exclude: !data.exclude })
+  const onExcludeToggle = () => {
+    const parsedData = getParsedData()
 
-    this.setState({ data })
+    Object.assign(parsedData, { exclude: !parsedData.exclude })
+
+    setData(parsedData)
   }
 
-  onPressLearnMore = () => {
-    this.setState({ shouldShowInfo: !this.state.shouldShowInfo })
-  }
-
-  onRemove = () => {
-    this.saveData(true)
+  const onRemove = () => {
+    save[symptom](data, date, true)
     showToast(sharedLabels.dataDeleted)
-    this.props.onClose()
-  }
-
-  onSave = () => {
-    this.saveData()
-    showToast(sharedLabels.dataSaved)
-    this.props.onClose()
-  }
-
-  onSaveTemperature = (value, field) => {
-    const data = this.getParsedData()
-    const dataToSave =
-      field === 'value' ? { [field]: Number(value) } : { [field]: value }
-    Object.assign(data, { ...dataToSave })
-
-    this.setState({ data })
-  }
-
-  onSelectBox = (key) => {
-    const data = this.getParsedData()
-    if (key === 'other') {
-      Object.assign(data, {
-        note: null,
-        [key]: !this.state.data[key],
-      })
-    } else {
-      Object.assign(data, { [key]: !this.state.data[key] })
-    }
-
-    this.setState({ data })
-  }
-
-  onSelectBoxNote = (value) => {
-    const data = this.getParsedData()
-    Object.assign(data, { note: value !== '' ? value : null })
-
-    this.setState({ data })
-  }
-
-  onSelectTab = (group, value) => {
-    const data = this.getParsedData()
-    Object.assign(data, { [group.key]: value })
-
-    this.setState({ data })
-  }
-
-  saveData = (shouldDeleteData) => {
-    const { date, symptom } = this.props
-    const { data } = this.state
-    save[symptom](data, date, shouldDeleteData)
-  }
-
-  closeView = () => {
-    const { onClose } = this.props
-
-    showToast(sharedLabels.dataSaved)
     onClose()
   }
 
-  render() {
-    const { symptom } = this.props
-    const {
-      data,
-      shouldShowExclude,
-      shouldShowInfo,
-      shouldShowNote,
-      shouldBoxGroup,
-      shouldTabGroup,
-    } = this.state
-    const iconName = shouldShowInfo ? 'chevron-up' : 'chevron-down'
-    const noteText = symptom === 'note' ? data.value : data.note
+  const onSave = () => {
+    const hasDataChanged = () => {
+      const initialData = symptomData ? symptomData : blank[symptom]
 
-    return (
-      <AppModal onClose={this.closeView}>
-        <ScrollView
-          contentContainerStyle={styles.modalContainer}
-          style={styles.modalWindow}
-        >
-          <View style={styles.headerContainer}>
-            <CloseIcon onClose={this.closeView} />
-          </View>
-          {symptom === 'temperature' && (
-            <Temperature
-              date={this.props.date}
-              data={data}
-              save={(value, field) => this.onSaveTemperature(value, field)}
-            />
-          )}
-          {shouldTabGroup &&
-            symtomPage[symptom].selectTabGroups.map((group) => {
-              return (
-                <Segment key={group.key} style={styles.segmentBorder}>
-                  <AppText style={styles.title}>{group.title}</AppText>
-                  <SelectTabGroup
-                    activeButton={data[group.key]}
-                    buttons={group.options}
-                    onSelect={(value) => this.onSelectTab(group, value)}
-                  />
-                </Segment>
-              )
-            })}
-          {shouldBoxGroup &&
-            symtomPage[symptom].selectBoxGroups.map((group) => {
-              const isOtherSelected =
-                data['other'] !== null &&
-                data['other'] !== false &&
-                Object.keys(group.options).includes('other')
+      return JSON.stringify(data) !== JSON.stringify(initialData)
+    }
 
-              return (
-                <Segment key={group.key} style={styles.segmentBorder}>
-                  <AppText style={styles.title}>{group.title}</AppText>
-                  <SelectBoxGroup
-                    labels={group.options}
-                    onSelect={(value) => this.onSelectBox(value)}
-                    optionsState={data}
-                  />
-                  {isOtherSelected && (
-                    <AppTextInput
-                      multiline={true}
-                      placeholder={sharedLabels.enter}
-                      value={data.note}
-                      onChangeText={(value) => this.onSelectBoxNote(value)}
-                    />
-                  )}
-                </Segment>
-              )
-            })}
-          {shouldShowExclude && (
-            <Segment style={styles.segmentBorder}>
-              <AppSwitch
-                onToggle={this.onExcludeToggle}
-                text={symtomPage[symptom].excludeText}
-                value={data.exclude}
-              />
-            </Segment>
-          )}
-          {shouldShowNote && (
-            <Segment style={styles.segmentBorder}>
-              <AppText>{symtomPage[symptom].note}</AppText>
-              <AppTextInput
-                multiline={true}
-                numberOfLines={3}
-                onChangeText={this.onEditNote}
-                placeholder={sharedLabels.enter}
-                testID="noteInput"
-                value={noteText !== null ? noteText : ''}
-              />
-            </Segment>
-          )}
-          <View style={styles.buttonsContainer}>
-            <Button iconName={iconName} isSmall onPress={this.onPressLearnMore}>
-              {sharedLabels.learnMore}
-            </Button>
-            <Button isSmall onPress={this.onRemove}>
-              {sharedLabels.remove}
-            </Button>
-            <Button isCTA isSmall onPress={this.onSave}>
-              {sharedLabels.save}
-            </Button>
-          </View>
-          {shouldShowInfo && (
-            <Segment last style={styles.segmentBorder}>
-              <AppText>{info[symptom].text}</AppText>
-            </Segment>
-          )}
-        </ScrollView>
-      </AppModal>
-    )
+    if (hasDataChanged()) {
+      save[symptom](data, date, false)
+      showToast(sharedLabels.dataSaved)
+    }
+
+    onClose()
   }
+
+  const onSaveTemperature = (value, field) => {
+    const parsedData = getParsedData()
+    const dataToSave =
+      field === 'value' ? { [field]: Number(value) } : { [field]: value }
+
+    Object.assign(parsedData, { ...dataToSave })
+
+    setData(parsedData)
+  }
+
+  const onSelectBox = (key) => {
+    const parsedData = getParsedData()
+    if (key === 'other') {
+      Object.assign(parsedData, {
+        note: null,
+        [key]: !data[key],
+      })
+    } else {
+      Object.assign(parsedData, { [key]: !data[key] })
+    }
+
+    setData(parsedData)
+  }
+
+  const onSelectBoxNote = (value) => {
+    const parsedData = getParsedData()
+
+    Object.assign(parsedData, { note: value !== '' ? value : null })
+
+    setData(parsedData)
+  }
+
+  const onSelectTab = (group, value) => {
+    const parsedData = getParsedData()
+
+    Object.assign(parsedData, { [group.key]: value })
+
+    setData(parsedData)
+  }
+  const iconName = shouldShowInfo ? 'chevron-up' : 'chevron-down'
+  const noteText = symptom === 'note' ? data.value : data.note
+
+  return (
+    <AppModal onClose={onSave}>
+      <ScrollView
+        contentContainerStyle={styles.modalContainer}
+        style={styles.modalWindow}
+      >
+        <View style={styles.headerContainer}>
+          <CloseIcon onClose={onSave} />
+        </View>
+        {symptom === 'temperature' && (
+          <Temperature
+            date={date}
+            data={data}
+            save={(value, field) => onSaveTemperature(value, field)}
+          />
+        )}
+        {shouldShow(symptomConfig.selectTabGroups) &&
+          symtomPage[symptom].selectTabGroups.map((group) => {
+            return (
+              <Segment key={group.key} style={styles.segmentBorder}>
+                <AppText style={styles.title}>{group.title}</AppText>
+                <SelectTabGroup
+                  activeButton={data[group.key]}
+                  buttons={group.options}
+                  onSelect={(value) => onSelectTab(group, value)}
+                />
+              </Segment>
+            )
+          })}
+        {shouldShow(symptomConfig.selectBoxGroups) &&
+          symtomPage[symptom].selectBoxGroups.map((group) => {
+            const isOtherSelected =
+              data['other'] !== null &&
+              data['other'] !== false &&
+              Object.keys(group.options).includes('other')
+
+            return (
+              <Segment key={group.key} style={styles.segmentBorder}>
+                <AppText style={styles.title}>{group.title}</AppText>
+                <SelectBoxGroup
+                  labels={group.options}
+                  onSelect={(value) => onSelectBox(value)}
+                  optionsState={data}
+                />
+                {isOtherSelected && (
+                  <AppTextInput
+                    multiline={true}
+                    placeholder={sharedLabels.enter}
+                    value={data.note}
+                    onChangeText={(value) => onSelectBoxNote(value)}
+                  />
+                )}
+              </Segment>
+            )
+          })}
+        {shouldShow(symptomConfig.excludeText) && (
+          <Segment style={styles.segmentBorder}>
+            <AppSwitch
+              onToggle={onExcludeToggle}
+              text={symtomPage[symptom].excludeText}
+              value={data.exclude}
+            />
+          </Segment>
+        )}
+        {shouldShow(symptomConfig.note) && (
+          <Segment style={styles.segmentBorder}>
+            <AppText>{symtomPage[symptom].note}</AppText>
+            <AppTextInput
+              multiline={true}
+              numberOfLines={3}
+              onChangeText={onEditNote}
+              placeholder={sharedLabels.enter}
+              testID="noteInput"
+              value={noteText !== null ? noteText : ''}
+            />
+          </Segment>
+        )}
+        <View style={styles.buttonsContainer}>
+          <Button iconName={iconName} isSmall onPress={onPressLearnMore}>
+            {sharedLabels.learnMore}
+          </Button>
+          <Button isSmall onPress={onRemove}>
+            {sharedLabels.remove}
+          </Button>
+          <Button isCTA isSmall onPress={onSave}>
+            {sharedLabels.save}
+          </Button>
+        </View>
+        {shouldShowInfo && (
+          <Segment last style={styles.segmentBorder}>
+            <AppText>{info[symptom].text}</AppText>
+          </Segment>
+        )}
+      </ScrollView>
+    </AppModal>
+  )
+}
+
+SymptomEditView.propTypes = {
+  date: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
+  symptom: PropTypes.string.isRequired,
+  symptomData: PropTypes.object,
 }
 
 const styles = StyleSheet.create({
