@@ -36,9 +36,9 @@ const PasswordPrompt = ({ enableShowApp }) => {
   }
 
   useEffect(() => {
-    nodejs.channel.addListener('check-pw', passHashToDb, this)
+    const listener = nodejs.channel.addListener('check-pw', passHashToDb, this)
 
-    return () => nodejs.channel.remove('check-pw', passHashToDb)
+    return () => listener.remove()
   }, [])
 
   const onDeleteDataConfirmation = async () => {

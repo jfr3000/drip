@@ -24,10 +24,12 @@ const ConfirmWithPassword = ({ onSuccess, onCancel }) => {
   }
 
   useEffect(() => {
-    nodejs.channel.addListener('password-check', checkPassword, this)
-    return () => {
-      nodejs.channel.removeListener('password-check', checkPassword)
-    }
+    const listener = nodejs.channel.addListener(
+      'password-check',
+      checkPassword,
+      this
+    )
+    return () => listener.remove()
   }, [])
 
   const onIncorrectPassword = () => {
