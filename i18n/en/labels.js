@@ -1,6 +1,3 @@
-import labels from './settings'
-const settingsTitles = labels.menuItems
-
 export const home = {
   unknown: '?',
   phase: (n) => `${['1st', '2nd', '3rd'][n - 1]} cycle phase`,
@@ -31,30 +28,6 @@ export const shared = {
   enter: 'Enter',
   remove: 'Remove',
   learnMore: 'Learn more',
-}
-
-export const headerTitles = {
-  Home: 'Home',
-  Calendar: 'Calendar',
-  Chart: 'Chart',
-  Stats: 'Statistics',
-  SettingsMenu: 'Settings',
-  Reminders: settingsTitles.reminders.name,
-  NfpSettings: settingsTitles.nfpSettings.name,
-  DataManagement: settingsTitles.dataManagement.name,
-  Password: settingsTitles.password.name,
-  About: 'About',
-  License: 'License',
-  PrivacyPolicy: 'Privacy Policy',
-  bleeding: 'Bleeding',
-  temperature: 'Temperature',
-  mucus: 'Cervical Mucus',
-  cervix: 'Cervix',
-  note: 'Note',
-  desire: 'Desire',
-  sex: 'Sex',
-  pain: 'Pain',
-  mood: 'Mood',
 }
 
 export const stats = {
