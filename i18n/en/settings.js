@@ -1,24 +1,6 @@
 import links from './links'
 
 export default {
-  menuItems: {
-    reminders: {
-      name: 'Reminders',
-      text: 'turn on/off reminders',
-    },
-    nfpSettings: {
-      name: 'NFP settings',
-      text: 'define how you want to use NFP',
-    },
-    dataManagement: {
-      name: 'Data',
-      text: 'import, export or delete your data',
-    },
-    password: {
-      name: 'Password',
-      text: '',
-    },
-  },
   export: {
     errors: {
       noData: 'There is no data to export',
