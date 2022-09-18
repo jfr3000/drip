@@ -7,7 +7,7 @@ import { openDb } from '../db'
 import App from './app'
 import AppLoadingView from './common/app-loading'
 import AppStatusBar from './common/app-status-bar'
-import License from './License'
+import AcceptLicense from './AcceptLicense'
 import PasswordPrompt from './password-prompt'
 
 export default function AppWrapper() {
@@ -38,7 +38,7 @@ export default function AppWrapper() {
   }
 
   if (!isLicenseAccepted) {
-    return <License setLicense={() => setIsLicenseAccepted(true)} />
+    return <AcceptLicense setLicense={() => setIsLicenseAccepted(true)} />
   }
 
   return (
