@@ -109,6 +109,13 @@ const SymptomEditView = ({ date, onClose, symptom, symptomData }) => {
   }
   const iconName = shouldShowInfo ? 'chevron-up' : 'chevron-down'
   const noteText = symptom === 'note' ? data.value : data.note
+  const inputProps = {
+    multiline: true,
+    numberOfLines: 3,
+    scrollEnabled: false,
+    style: styles.input,
+    textAlignVertical: 'top',
+  }
 
   return (
     <AppModal onClose={onSave}>
@@ -157,7 +164,7 @@ const SymptomEditView = ({ date, onClose, symptom, symptomData }) => {
                   />
                   {isOtherSelected && (
                     <AppTextInput
-                      multiline={true}
+                      {...inputProps}
                       placeholder={sharedLabels.enter}
                       value={data.note}
                       onChangeText={(value) => onSelectBoxNote(value)}
@@ -179,8 +186,7 @@ const SymptomEditView = ({ date, onClose, symptom, symptomData }) => {
             <Segment style={styles.segmentBorder}>
               <AppText>{symtomPage[symptom].note}</AppText>
               <AppTextInput
-                multiline={true}
-                numberOfLines={3}
+                {...inputProps}
                 onChangeText={onEditNote}
                 placeholder={sharedLabels.enter}
                 testID="noteInput"
@@ -232,6 +238,9 @@ const styles = StyleSheet.create({
     width: '100%',
     zIndex: 3, // works on ios
     elevation: 3, // works on android
+  },
+  input: {
+    height: Sizes.base * 5,
   },
   modalContainer: {
     paddingHorizontal: Spacing.base,
