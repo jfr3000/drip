@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`License screen It should match the snapshot 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#E9F2ED",
+      "flex": 1,
+    }
+  }
+>
+  <RCTScrollView
+    contentContainerStyle={
+      Array [
+        Object {
+          "backgroundColor": "#E9F2ED",
+          "flexGrow": 1,
+        },
+        undefined,
+      ]
+    }
+  >
+    <View>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#555",
+              "fontFamily": "Jost-Book",
+              "fontSize": 34.285714285714285,
+            },
+            Object {
+              "alignSelf": "center",
+              "color": "#3A2671",
+              "fontFamily": "Jost-Bold",
+              "fontSize": 51.42857142857143,
+              "fontWeight": "700",
+              "marginHorizontal": 34.285714285714285,
+              "marginVertical": 42.857142857142854,
+            },
+          ]
+        }
+      >
+        title
+      </Text>
+      <View
+        style={
+          Object {
+            "marginBottom": 34.285714285714285,
+            "marginHorizontal": 34.285714285714285,
+          }
+        }
+      >
+        <Text
+          style={
+            Array [
+              Object {
+                "color": "#555",
+                "fontFamily": "Jost-Book",
+                "fontSize": 34.285714285714285,
+              },
+              undefined,
+            ]
+          }
+        >
+          text{"currentYear":2022}
+        </Text>
+        <Text
+          onPress={[Function]}
+          style={
+            Object {
+              "color": "#3A2671",
+              "fontFamily": "Jost-Book",
+              "fontSize": 34.285714285714285,
+              "textDecorationLine": "underline",
+            }
+          }
+        >
+          https://www.gnu.org/licenses/gpl-3.0.html
+        </Text>
+      </View>
+    </View>
+  </RCTScrollView>
+</View>
+`;
