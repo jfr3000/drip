@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Alert, KeyboardAvoidingView, StyleSheet, View } from 'react-native'
-import nodejs from 'nodejs-mobile-react-native'
+import { SHA512 } from 'jshashes'
 
 import AppTextInput from '../../common/app-text-input'
 import Button from '../../common/button'
 
-import { requestHash, openDb } from '../../../db'
+import { openDb } from '../../../db'
 import { Containers } from '../../../styles'
 import settings from '../../../i18n/en/settings'
 import { shared } from '../../../i18n/en/labels'
@@ -14,7 +14,8 @@ import { shared } from '../../../i18n/en/labels'
 const ConfirmWithPassword = ({ onSuccess, onCancel }) => {
   const [password, setPassword] = useState(null)
 
-  const checkPassword = async (hash) => {
+  const checkPassword = async () => {
+    const hash = new SHA512().hex(password)
     try {
       await openDb(hash)
       onSuccess()
@@ -22,15 +23,6 @@ const ConfirmWithPassword = ({ onSuccess, onCancel }) => {
       onIncorrectPassword()
     }
   }
-
-  useEffect(() => {
-    const listener = nodejs.channel.addListener(
-      'password-check',
-      checkPassword,
-      this
-    )
-    return () => listener.remove()
-  }, [])
 
   const onIncorrectPassword = () => {
     Alert.alert(shared.incorrectPassword, shared.incorrectPasswordMessage, [
@@ -43,10 +35,6 @@ const ConfirmWithPassword = ({ onSuccess, onCancel }) => {
         onPress: () => setPassword(null),
       },
     ])
-  }
-
-  const initPasswordCheck = () => {
-    requestHash('password-check', password)
   }
 
   const labels = settings.passwordSettings
@@ -65,7 +53,7 @@ const ConfirmWithPassword = ({ onSuccess, onCancel }) => {
         <Button
           disabled={!isPassword}
           isCTA={isPassword}
-          onPress={initPasswordCheck}
+          onPress={checkPassword}
         >
           {shared.confirmToProceed}
         </Button>
