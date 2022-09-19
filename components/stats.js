@@ -2,16 +2,15 @@ import React from 'react'
 import { ImageBackground, View } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
 
-import AppPage from './common/app-page'
 import AppText from './common/app-text'
-import Segment from './common/segment'
-import Table from './common/table'
+import StatsOverview from './common/StatsOverview'
+import StatsTable from './common/StatsTable'
 
 import cycleModule from '../lib/cycle'
-import {getCycleLengthStats as getCycleInfo} from '../lib/cycle-length'
-import {stats as labels} from '../i18n/en/labels'
+import { getCycleLengthStats as getCycleInfo } from '../lib/cycle-length'
+import { stats as labels } from '../i18n/en/labels'
 
-import { Sizes, Spacing, Typography } from '../styles'
+import { Containers, Sizes, Spacing, Typography } from '../styles'
 
 const image = require('../assets/cycle-icon.png')
 
@@ -19,21 +18,22 @@ const Stats = () => {
   const cycleLengths = cycleModule().getAllCycleLengths()
   const numberOfCycles = cycleLengths.length
   const hasAtLeastOneCycle = numberOfCycles >= 1
-  const cycleData = hasAtLeastOneCycle ? getCycleInfo(cycleLengths)
+  const cycleData = hasAtLeastOneCycle
+    ? getCycleInfo(cycleLengths)
     : { minimum: '—', maximum: '—', stdDeviation: '—' }
   const statsData = [
     [cycleData.minimum, labels.minLabel],
     [cycleData.maximum, labels.maxLabel],
     [cycleData.stdDeviation ? cycleData.stdDeviation : '—', labels.stdLabel],
-    [numberOfCycles, labels.basisOfStatsEnd]
+    [numberOfCycles, labels.basisOfStatsEnd],
   ]
 
   return (
-    <AppPage contentContainerStyle={styles.pageContainer}>
-      <Segment last style={styles.pageContainer}>
+    <View style={styles.pageContainer}>
+      <View style={styles.overviewContainer}>
         <AppText>{labels.cycleLengthExplainer}</AppText>
         {!hasAtLeastOneCycle && <AppText>{labels.emptyStats}</AppText>}
-        {hasAtLeastOneCycle &&
+        {hasAtLeastOneCycle && (
           <View style={styles.container}>
             <View style={styles.columnLeft}>
               <ImageBackground
@@ -57,12 +57,13 @@ const Stats = () => {
               </AppText>
             </View>
             <View style={styles.columnRight}>
-              <Table tableContent={statsData} />
+              <StatsOverview data={statsData} />
             </View>
           </View>
-        }
-      </Segment>
-    </AppPage>
+        )}
+      </View>
+      <StatsTable />
+    </View>
   )
 }
 
@@ -77,25 +78,24 @@ const styles = ScaledSheet.create({
   },
   accentPurpleGiant: {
     ...Typography.accentPurpleGiant,
-    marginTop: Spacing.base * (-2),
+    marginTop: Spacing.base * -2,
   },
   accentPurpleHuge: {
     ...Typography.accentPurpleHuge,
-    marginTop: Spacing.base * (-1),
+    marginTop: Spacing.base * -1,
   },
   container: {
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingTop: Spacing.base
   },
   columnLeft: {
     ...column,
-    flex: 2,
+    flex: 3,
   },
   columnRight: {
     ...column,
-    flex: 3,
+    flex: 5,
     paddingTop: Spacing.small,
   },
   image: {
@@ -105,9 +105,13 @@ const styles = ScaledSheet.create({
     paddingTop: Spacing.large * 2.5,
     marginBottom: Spacing.large,
   },
+  overviewContainer: {
+    paddingHorizontal: Spacing.base,
+    paddingTop: Spacing.base,
+  },
   pageContainer: {
-    marginTop: Spacing.base * 2,
-  }
+    ...Containers.pageContainer,
+  },
 })
 
 export default Stats

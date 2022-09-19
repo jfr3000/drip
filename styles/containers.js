@@ -9,7 +9,7 @@ export default {
     marginTop: Spacing.small,
     marginRight: Spacing.small,
     paddingHorizontal: Spacing.small,
-    paddingVertical: Spacing.tiny
+    paddingVertical: Spacing.tiny,
   },
   boxActive: {
     backgroundColor: Colors.orange,
@@ -17,17 +17,25 @@ export default {
   centerItems: {
     alignItems: 'center',
     flex: 1,
-    justifyContent: 'center'
+    justifyContent: 'center',
+  },
+  pageContainer: {
+    backgroundColor: Colors.turquoiseLight,
+    flex: 1,
   },
   rowContainer: {
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   selectGroupContainer: {
     alignItems: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginVertical: Spacing.small
-  }
+    marginVertical: Spacing.small,
+  },
+  segmentContainer: {
+    marginHorizontal: Spacing.base,
+    marginBottom: Spacing.base,
+  },
 }

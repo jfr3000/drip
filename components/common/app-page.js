@@ -4,7 +4,7 @@ import { ScrollView, StyleSheet, View } from 'react-native'
 
 import AppText from '../common/app-text'
 
-import { Colors, Typography } from '../../styles'
+import { Colors, Containers, Typography } from '../../styles'
 
 const AppPage = ({
   children,
@@ -35,10 +35,7 @@ AppPage.propTypes = {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: Colors.turquoiseLight,
-    flex: 1,
-  },
+  container: { ...Containers.pageContainer },
   scrollView: {
     backgroundColor: Colors.turquoiseLight,
     flexGrow: 1,
