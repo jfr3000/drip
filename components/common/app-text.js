@@ -2,24 +2,18 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { StyleSheet, Text } from 'react-native'
 
-import Link from './link'
-
 import { Colors, Typography } from '../../styles'
 
-const AppText = ({ children, linkStyle, style, ...props }) => {
-  // we parse for links in case the text contains any
+const AppText = ({ children, style, ...props }) => {
   return (
-    <Link style={linkStyle}>
-      <Text style={[styles.text, style]} {...props}>
-        {children}
-      </Text>
-    </Link>
+    <Text style={[styles.text, style]} {...props}>
+      {children}
+    </Text>
   )
 }
 
 AppText.propTypes = {
   children: PropTypes.node,
-  linkStyle: PropTypes.object,
   style: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 }
 

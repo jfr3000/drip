@@ -17,7 +17,8 @@
     "about": {
       "credits": {
         "title": "Credits",
-        "text": "We love the drip. team. Thanks and lots of <3 to all of our condriputors. Thanks to Paula Härtel for the symptom tracking icons. All the other icons are made by {{smashicons}}, {{pause08}}, {{kazachek}} & {{freepik}} from {{flaticon}}."
+        "text": "We love the drip. team. Thanks and lots of <3 to all of our condriputors. Thanks to Paula Härtel for the symptom tracking icons. All the other icons from:",
+        "madeBy": "Made by:"
       },
       "donate": {
         "button": "Donate here",
@@ -38,7 +39,7 @@
     },
     "license": {
       "title": "drip. an open-source cycle tracking app",
-      "text": "Copyright (C) {{currentYear}} Heart of Code e.V.\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details: https://www.gnu.org/licenses/gpl-3.0.html."
+      "text": "Copyright (C) {{currentYear}} Heart of Code e.V.\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details:"
     },
     "privacyPolicy": {
       "title": "Privacy Policy",
