@@ -22,3 +22,18 @@ export function dateToTitle(dateString) {
     ? labels.today
     : moment(dateString).format('ddd DD. MMM YY')
 }
+
+export function humanizeDate(dateString) {
+  if (!dateString) return ''
+
+  const today = LocalDate.now()
+
+  try {
+    const dateToDisplay = LocalDate.parse(dateString)
+    return today.equals(dateToDisplay)
+      ? labels.today
+      : moment(dateString).format('DD. MMM YY')
+  } catch (e) {
+    return ''
+  }
+}
