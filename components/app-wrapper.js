@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import nodejs from 'nodejs-mobile-react-native'
 
 import { getLicenseFlag, saveEncryptionFlag } from '../local-storage'
 import { openDb } from '../db'
@@ -28,7 +27,6 @@ export default function AppWrapper() {
   }
 
   useEffect(() => {
-    nodejs.start('main.js')
     checkIsLicenseAccepted()
     checkIsDbEncrypted()
   }, [])
