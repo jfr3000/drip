@@ -12,8 +12,15 @@ jest.mock('react-i18next', () => ({
 
 describe('License screen', () => {
   test('It should have a correct year', async () => {
-    render(<License setLicense={() => {}} />)
+    render(<License />)
     const year = new Date().getFullYear().toString()
+
     screen.getByText(year, { exact: false })
+  })
+
+  test('It should match the snapshot', async () => {
+    const licenseScreen = render(<License />)
+
+    expect(licenseScreen).toMatchSnapshot()
   })
 })
