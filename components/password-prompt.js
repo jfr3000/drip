@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Alert, KeyboardAvoidingView, StyleSheet, View } from 'react-native'
-import nodejs from 'nodejs-mobile-react-native'
+import { SHA512 } from 'jshashes'
 
 import AppPage from './common/app-page'
 import AppTextInput from './common/app-text-input'
@@ -9,7 +9,7 @@ import Button from './common/button'
 import Header from './header'
 
 import { saveEncryptionFlag } from '../local-storage'
-import { requestHash, deleteDbAndOpenNew, openDb } from '../db'
+import { deleteDbAndOpenNew, openDb } from '../db'
 import { passwordPrompt as labels, shared } from '../i18n/en/labels'
 import { Containers, Spacing } from '../styles'
 
@@ -17,9 +17,10 @@ const cancelButton = { text: shared.cancel, style: 'cancel' }
 
 const PasswordPrompt = ({ enableShowApp }) => {
   const [password, setPassword] = useState(null)
-  const unlockApp = () => requestHash('check-pw', password)
   const isPasswordEntered = Boolean(password)
-  const passHashToDb = async (hash) => {
+
+  const unlockApp = async () => {
+    const hash = new SHA512().hex(password)
     const connected = await openDb(hash)
 
     if (!connected) {
@@ -31,15 +32,8 @@ const PasswordPrompt = ({ enableShowApp }) => {
       ])
       return
     }
-
     enableShowApp()
   }
-
-  useEffect(() => {
-    const listener = nodejs.channel.addListener('check-pw', passHashToDb, this)
-
-    return () => listener.remove()
-  }, [])
 
   const onDeleteDataConfirmation = async () => {
     await deleteDbAndOpenNew()
