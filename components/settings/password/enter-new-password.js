@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet } from 'react-native'
+import { KeyboardAvoidingView, StyleSheet } from 'react-native'
 import nodejs from 'nodejs-mobile-react-native'
 import PropTypes from 'prop-types'
 
@@ -41,9 +41,8 @@ const EnterNewPassword = ({ changeEncryptionAndRestart }) => {
   const isButtonActive = password.length > 0 && passwordConfirmation.length > 0
 
   return (
-    <>
+    <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={150}>
       <AppTextInput
-        isKeyboardOffset={false}
         onChangeText={setPassword}
         placeholder={labels.enterNew}
         textContentType="password"
@@ -51,7 +50,6 @@ const EnterNewPassword = ({ changeEncryptionAndRestart }) => {
         secureTextEntry={true}
       />
       <AppTextInput
-        isKeyboardOffset={false}
         onChangeText={setPasswordConfirmation}
         placeholder={labels.confirmPassword}
         textContentType="password"
@@ -68,7 +66,7 @@ const EnterNewPassword = ({ changeEncryptionAndRestart }) => {
       >
         {labels.savePassword}
       </Button>
-    </>
+    </KeyboardAvoidingView>
   )
 }
 

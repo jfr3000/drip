@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Alert, StyleSheet, View } from 'react-native'
+import { Alert, KeyboardAvoidingView, StyleSheet, View } from 'react-native'
 import nodejs from 'nodejs-mobile-react-native'
 
 import AppPage from './common/app-page'
@@ -68,22 +68,23 @@ const PasswordPrompt = ({ enableShowApp }) => {
     <>
       <Header isStatic />
       <AppPage contentContainerStyle={styles.contentContainer}>
-        <AppTextInput
-          isKeyboardOffset={false}
-          onChangeText={setPassword}
-          secureTextEntry={true}
-          placeholder={labels.enterPassword}
-        />
-        <View style={styles.containerButtons}>
-          <Button onPress={onConfirmDeletion}>{labels.forgotPassword}</Button>
-          <Button
-            disabled={!isPasswordEntered}
-            isCTA={isPasswordEntered}
-            onPress={unlockApp}
-          >
-            {labels.title}
-          </Button>
-        </View>
+        <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={150}>
+          <AppTextInput
+            onChangeText={setPassword}
+            secureTextEntry={true}
+            placeholder={labels.enterPassword}
+          />
+          <View style={styles.containerButtons}>
+            <Button onPress={onConfirmDeletion}>{labels.forgotPassword}</Button>
+            <Button
+              disabled={!isPasswordEntered}
+              isCTA={isPasswordEntered}
+              onPress={unlockApp}
+            >
+              {labels.title}
+            </Button>
+          </View>
+        </KeyboardAvoidingView>
       </AppPage>
     </>
   )

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Alert, StyleSheet, View } from 'react-native'
+import { Alert, KeyboardAvoidingView, StyleSheet, View } from 'react-native'
 import nodejs from 'nodejs-mobile-react-native'
 
 import AppTextInput from '../../common/app-text-input'
@@ -53,7 +53,7 @@ const ConfirmWithPassword = ({ onSuccess, onCancel }) => {
   const isPassword = password !== null
 
   return (
-    <>
+    <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={150}>
       <AppTextInput
         onChangeText={setPassword}
         placeholder={labels.enterCurrent}
@@ -70,7 +70,7 @@ const ConfirmWithPassword = ({ onSuccess, onCancel }) => {
           {shared.confirmToProceed}
         </Button>
       </View>
-    </>
+    </KeyboardAvoidingView>
   )
 }
 
