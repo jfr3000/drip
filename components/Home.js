@@ -4,7 +4,9 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 
 import AppText from './common/app-text'
+import Asterisk from './common/Asterisk'
 import Button from './common/button'
+import Footnote from './common/Footnote'
 
 import cycleModule from '../lib/cycle'
 import { getFertilityStatusForDay } from '../lib/sympto-adapter'
@@ -69,26 +71,12 @@ const Home = ({ navigate, setDate }) => {
       <Button isCTA isSmall={false} onPress={navigateToCycleDayView}>
         {t('labels.home.addDataForToday')}
       </Button>
-      {phase && (
-        <View style={styles.asteriskLine}>
-          <Asterisk />
-          <AppText linkStyle={styles.whiteText} style={styles.greyText}>
-            {statusText}
-          </AppText>
-        </View>
-      )}
+      {phase && <Footnote>{statusText}</Footnote>}
     </ScrollView>
   )
 }
 
-const Asterisk = () => {
-  return <AppText style={styles.asterisk}>*</AppText>
-}
-
 const styles = StyleSheet.create({
-  asterisk: {
-    color: Colors.orange,
-  },
   container: {
     backgroundColor: Colors.purple,
     flex: 1,
@@ -100,12 +88,6 @@ const styles = StyleSheet.create({
   line: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    alignContent: 'flex-start',
-    marginBottom: Spacing.tiny,
-    marginTop: Spacing.small,
-  },
-  asteriskLine: {
-    flexDirection: 'row',
     alignContent: 'flex-start',
     marginBottom: Spacing.tiny,
     marginTop: Spacing.small,
@@ -123,13 +105,6 @@ const styles = StyleSheet.create({
   whiteSubtitle: {
     color: 'white',
     fontSize: Sizes.subtitle,
-  },
-  whiteText: {
-    color: 'white',
-  },
-  greyText: {
-    color: Colors.greyLight,
-    paddingLeft: Spacing.base,
   },
 })
 
