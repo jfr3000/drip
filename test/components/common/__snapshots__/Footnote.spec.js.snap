@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footnote component when children are present, renders them 1`] = `
+<View
+  style={
+    Object {
+      "alignContent": "flex-start",
+      "flexDirection": "row",
+      "marginBottom": 8.571428571428571,
+      "marginTop": 21.428571428571427,
+    }
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#555",
+          "fontFamily": "Jost-Book",
+          "fontSize": 34.285714285714285,
+        },
+        Object {
+          "color": "#F38337",
+        },
+      ]
+    }
+  >
+    *
+  </Text>
+  <Text
+    linkStyle={
+      Object {
+        "color": "white",
+      }
+    }
+    style={
+      Array [
+        Object {
+          "color": "#555",
+          "fontFamily": "Jost-Book",
+          "fontSize": 34.285714285714285,
+        },
+        Object {
+          "color": "#CCC",
+          "paddingLeft": 34.285714285714285,
+        },
+      ]
+    }
+  >
+    Some footnote text
+  </Text>
+</View>
+`;
+
+exports[`Footnote component when no children, renders nothing 1`] = `null`;
