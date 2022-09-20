@@ -3,7 +3,7 @@ import { FlatList, StyleSheet, View } from 'react-native'
 import PropTypes from 'prop-types'
 import { useTranslation } from 'react-i18next'
 
-import AppText from './app-text'
+import AppText from '../common/app-text'
 
 import cycleModule from '../../lib/cycle'
 import { Spacing, Typography, Colors } from '../../styles'

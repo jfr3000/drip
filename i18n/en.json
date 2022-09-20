@@ -61,6 +61,25 @@
       }
     }
   },
+  "stats": {
+    "noData": "At least one completed cycle is needed to display stats.",
+    "intro": "Basic statistics about the length of your cycles.",
+    "overview": {
+      "average": "Average cycle",
+      "days": "days",
+      "min": "Shortest",
+      "max": "Longest",
+      "standardDeviation": "Standard\ndeviation",
+      "completedCycles": "completed\ncycles"
+    },
+    "showStats": "Show period details",
+    "details": {
+      "cycleStart": "Cycle start",
+      "cycleLength": "Cycle length",
+      "bleedingDays": "Bleeding"
+    },
+    "footnote": "Based on the standard deviation of all your tracked periods drip. calculates a range for the starting day of the upcoming 3 periods. The range will be 3 days if your standard deviation is smaller than 1.5 and 5 days if the value is bigger.\n\nThe standard deviation tells you how much the length of your periods vary, 0 means all your periods are exactly the same length and the bigger the value the more the period length varies."
+  },
   "plurals": {
     "day": "{{count}} day",
     "day_plural": "{{count}} days"
