@@ -10,7 +10,7 @@ import SymptomEditView from './symptom-edit-view'
 import { isDateInFuture } from '../helpers/cycle-day'
 
 import { Colors, Sizes, Spacing } from '../../styles'
-import { headerTitles as symptomTitles } from '../../i18n/en/labels'
+import { useTranslation } from 'react-i18next'
 
 const SymptomBox = ({
   date,
@@ -20,6 +20,7 @@ const SymptomBox = ({
   editedSymptom,
   setEditedSymptom,
 }) => {
+  const { t } = useTranslation()
   const isSymptomEdited = editedSymptom === symptom
   const isSymptomDisabled = isDateInFuture(date) && symptom !== 'note'
   const isExcluded = symptomData !== null ? symptomData.exclude : false
@@ -62,7 +63,7 @@ const SymptomBox = ({
         />
         <View style={styles.textContainer}>
           <AppText style={symptomNameStyle}>
-            {symptomTitles[symptom].toLowerCase()}
+            {t(`cycleDay.symptomBox.${symptom}`)}
           </AppText>
           {symptomDataToDisplay && (
             <AppText style={textStyle} numberOfLines={4}>

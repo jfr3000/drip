@@ -1,4 +1,17 @@
 {
+  "cycleDay": {
+    "symptomBox": {
+      "bleeding": "Bleeding",
+      "temperature": "Temperature",
+      "mucus": "Cervical Mucus",
+      "cervix": "Cervix",
+      "note": "Note",
+      "desire": "Desire",
+      "sex": "Sex",
+      "pain": "Pain",
+      "mood": "Mood"
+    }
+  },
   "labels": {
     "bleedingPrediction": {
       "noPrediction": "As soon as you have tracked 3 menstrual cycles, drip. will make predictions for the next ones."
