@@ -11,7 +11,6 @@ updates:
       - dependency-name: '*'
         update-types: ['version-update:semver-patch']
       - dependency-name: 'realm'
-      - dependency-name: 'nodejs-mobile-react-native'
       - dependency-name: 'react'
       - dependency-name: 'react-native'
       - dependency-name: 'react-native-push-notifications'

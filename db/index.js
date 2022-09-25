@@ -1,6 +1,5 @@
 import Realm from 'realm'
 import { LocalDate, ChronoUnit } from '@js-joda/core'
-import nodejs from 'nodejs-mobile-react-native'
 import fs from 'react-native-fs'
 
 import schemas from './schemas'
@@ -182,16 +181,6 @@ export function tryToImportWithoutDelete(cycleDays) {
       tryToCreateCycleDayFromImport(day, i)
     })
   })
-}
-
-export function requestHash(type, pw) {
-  nodejs.channel.post(
-    'request-SHA512',
-    JSON.stringify({
-      type: type,
-      message: pw,
-    })
-  )
 }
 
 export async function changeDbEncryption(hash) {
