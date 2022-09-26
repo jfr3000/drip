@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Dimensions, ScrollView, StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 
 import AppModal from '../common/app-modal'
 import AppSwitch from '../common/app-switch'
 import AppText from '../common/app-text'
 import AppTextInput from '../common/app-text-input'
 import Button from '../common/button'
-import CloseIcon from '../common/close-icon'
 import Segment from '../common/segment'
 import SelectBoxGroup from './select-box-group'
 import SelectTabGroup from './select-tab-group'
@@ -119,99 +118,94 @@ const SymptomEditView = ({ date, onClose, symptom, symptomData }) => {
 
   return (
     <AppModal onClose={onSave}>
-      <View style={styles.modalWindow}>
-        <View style={styles.headerContainer}>
-          <CloseIcon onClose={onSave} />
-        </View>
-        <ScrollView
-          contentContainerStyle={styles.modalContainer}
-          keyboardDismissMode="on-drag"
-        >
-          {symptom === 'temperature' && (
-            <Temperature
-              date={date}
-              data={data}
-              save={(value, field) => onSaveTemperature(value, field)}
-            />
-          )}
-          {shouldShow(symptomConfig.selectTabGroups) &&
-            symtomPage[symptom].selectTabGroups.map((group) => {
-              return (
-                <Segment key={group.key} style={styles.segmentBorder}>
-                  <AppText style={styles.title}>{group.title}</AppText>
-                  <SelectTabGroup
-                    activeButton={data[group.key]}
-                    buttons={group.options}
-                    onSelect={(value) => onSelectTab(group, value)}
-                  />
-                </Segment>
-              )
-            })}
-          {shouldShow(symptomConfig.selectBoxGroups) &&
-            symtomPage[symptom].selectBoxGroups.map((group) => {
-              const isOtherSelected =
-                data['other'] !== null &&
-                data['other'] !== false &&
-                Object.keys(group.options).includes('other')
+      <ScrollView
+        contentContainerStyle={styles.modalContainer}
+        keyboardDismissMode="on-drag"
+      >
+        {symptom === 'temperature' && (
+          <Temperature
+            date={date}
+            data={data}
+            save={(value, field) => onSaveTemperature(value, field)}
+          />
+        )}
+        {shouldShow(symptomConfig.selectTabGroups) &&
+          symtomPage[symptom].selectTabGroups.map((group) => {
+            return (
+              <Segment key={group.key} style={styles.segmentBorder}>
+                <AppText style={styles.title}>{group.title}</AppText>
+                <SelectTabGroup
+                  activeButton={data[group.key]}
+                  buttons={group.options}
+                  onSelect={(value) => onSelectTab(group, value)}
+                />
+              </Segment>
+            )
+          })}
+        {shouldShow(symptomConfig.selectBoxGroups) &&
+          symtomPage[symptom].selectBoxGroups.map((group) => {
+            const isOtherSelected =
+              data['other'] !== null &&
+              data['other'] !== false &&
+              Object.keys(group.options).includes('other')
 
-              return (
-                <Segment key={group.key} style={styles.segmentBorder}>
-                  <AppText style={styles.title}>{group.title}</AppText>
-                  <SelectBoxGroup
-                    labels={group.options}
-                    onSelect={(value) => onSelectBox(value)}
-                    optionsState={data}
+            return (
+              <Segment key={group.key} style={styles.segmentBorder}>
+                <AppText style={styles.title}>{group.title}</AppText>
+                <SelectBoxGroup
+                  labels={group.options}
+                  onSelect={(value) => onSelectBox(value)}
+                  optionsState={data}
+                />
+                {isOtherSelected && (
+                  <AppTextInput
+                    {...inputProps}
+                    placeholder={sharedLabels.enter}
+                    value={data.note}
+                    onChangeText={(value) => onSelectBoxNote(value)}
                   />
-                  {isOtherSelected && (
-                    <AppTextInput
-                      {...inputProps}
-                      placeholder={sharedLabels.enter}
-                      value={data.note}
-                      onChangeText={(value) => onSelectBoxNote(value)}
-                    />
-                  )}
-                </Segment>
-              )
-            })}
-          {shouldShow(symptomConfig.excludeText) && (
-            <Segment style={styles.segmentBorder}>
-              <AppSwitch
-                onToggle={onExcludeToggle}
-                text={symtomPage[symptom].excludeText}
-                value={data.exclude}
-              />
-            </Segment>
-          )}
-          {shouldShow(symptomConfig.note) && (
-            <Segment style={styles.segmentBorder}>
-              <AppText>{symtomPage[symptom].note}</AppText>
-              <AppTextInput
-                {...inputProps}
-                onChangeText={onEditNote}
-                placeholder={sharedLabels.enter}
-                testID="noteInput"
-                value={noteText !== null ? noteText : ''}
-              />
-            </Segment>
-          )}
-          <View style={styles.buttonsContainer}>
-            <Button iconName={iconName} isSmall onPress={onPressLearnMore}>
-              {sharedLabels.learnMore}
-            </Button>
-            <Button isSmall onPress={onRemove}>
-              {sharedLabels.remove}
-            </Button>
-            <Button isCTA isSmall onPress={onSave}>
-              {sharedLabels.save}
-            </Button>
-          </View>
-          {shouldShowInfo && (
-            <Segment last style={styles.segmentBorder}>
-              <AppText>{info[symptom].text}</AppText>
-            </Segment>
-          )}
-        </ScrollView>
-      </View>
+                )}
+              </Segment>
+            )
+          })}
+        {shouldShow(symptomConfig.excludeText) && (
+          <Segment style={styles.segmentBorder}>
+            <AppSwitch
+              onToggle={onExcludeToggle}
+              text={symtomPage[symptom].excludeText}
+              value={data.exclude}
+            />
+          </Segment>
+        )}
+        {shouldShow(symptomConfig.note) && (
+          <Segment style={styles.segmentBorder}>
+            <AppText>{symtomPage[symptom].note}</AppText>
+            <AppTextInput
+              {...inputProps}
+              onChangeText={onEditNote}
+              placeholder={sharedLabels.enter}
+              testID="noteInput"
+              value={noteText !== null ? noteText : ''}
+            />
+          </Segment>
+        )}
+        <View style={styles.buttonsContainer}>
+          <Button iconName={iconName} isSmall onPress={onPressLearnMore}>
+            {sharedLabels.learnMore}
+          </Button>
+          <Button isSmall onPress={onRemove}>
+            {sharedLabels.remove}
+          </Button>
+          <Button isCTA isSmall onPress={onSave}>
+            {sharedLabels.save}
+          </Button>
+        </View>
+        {shouldShowInfo && (
+          <Segment last style={styles.segmentBorder}>
+            <AppText>{info[symptom].text}</AppText>
+          </Segment>
+        )}
+      </ScrollView>
     </AppModal>
   )
 }
@@ -229,31 +223,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.base,
     paddingBottom: Spacing.base,
   },
-  headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    paddingTop: Spacing.base,
-    paddingHorizontal: Spacing.base,
-    position: 'absolute',
-    width: '100%',
-    zIndex: 3, // works on ios
-    elevation: 3, // works on android
-  },
   input: {
     height: Sizes.base * 5,
   },
   modalContainer: {
     paddingHorizontal: Spacing.base,
-  },
-  modalWindow: {
-    alignSelf: 'center',
-    backgroundColor: 'white',
-    borderRadius: 10,
-    marginTop: Sizes.huge * 2,
-    paddingTop: Spacing.large * 2,
-    position: 'absolute',
-    minHeight: '40%',
-    maxHeight: Dimensions.get('window').height * 0.7,
   },
   segmentBorder: {
     borderBottomColor: Colors.greyLight,

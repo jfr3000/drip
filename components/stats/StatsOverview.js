@@ -15,10 +15,12 @@ StatsOverview.propTypes = {
 }
 
 const Row = ({ rowContent }) => {
+  const isStandardDeviation = rowContent[1].includes('deviation')
+
   return (
     <View style={styles.row}>
       <Cell content={rowContent[0]} isLeft />
-      <Cell content={rowContent[1]} />
+      <Cell content={rowContent[1]} hasAsterisk={isStandardDeviation} />
     </View>
   )
 }
@@ -27,7 +29,7 @@ Row.propTypes = {
   rowContent: PropTypes.array.isRequired,
 }
 
-const Cell = ({ content, isLeft }) => {
+const Cell = ({ content, isLeft, hasAsterisk }) => {
   const styleContainer = isLeft ? styles.cellLeft : styles.cellRight
   const styleText = isLeft ? styles.accentPurpleBig : styles.accentOrange
   const numberOfLines = isLeft ? 1 : 2
@@ -41,6 +43,7 @@ const Cell = ({ content, isLeft }) => {
         style={styleText}
       >
         {content}
+        {hasAsterisk && <AppText style={styles.accentOrange}>*</AppText>}
       </AppText>
     </View>
   )
@@ -49,6 +52,7 @@ const Cell = ({ content, isLeft }) => {
 Cell.propTypes = {
   content: PropTypes.node.isRequired,
   isLeft: PropTypes.bool,
+  hasAsterisk: PropTypes.bool,
 }
 
 const styles = StyleSheet.create({
