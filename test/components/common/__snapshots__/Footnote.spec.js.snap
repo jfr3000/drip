@@ -7,7 +7,7 @@ exports[`Footnote component when children are present, renders them 1`] = `
       "alignContent": "flex-start",
       "flexDirection": "row",
       "marginBottom": 8.571428571428571,
-      "marginTop": 21.428571428571427,
+      "marginTop": 34.285714285714285,
     }
   }
 >
@@ -41,8 +41,8 @@ exports[`Footnote component when children are present, renders them 1`] = `
           "fontSize": 34.285714285714285,
         },
         Object {
-          "color": "#CCC",
-          "paddingLeft": 34.285714285714285,
+          "color": "#555",
+          "paddingLeft": 21.428571428571427,
         },
       ]
     }

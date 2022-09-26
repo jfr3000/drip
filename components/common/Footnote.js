@@ -7,13 +7,16 @@ import Asterisk from '../common/Asterisk'
 
 import { Colors, Spacing } from '../../styles'
 
-const Footnote = ({ children }) => {
+const Footnote = ({ children, colorLabel }) => {
   if (!children) return false
 
   return (
     <View style={styles.container}>
       <Asterisk />
-      <AppText linkStyle={styles.link} style={styles.text}>
+      <AppText
+        linkStyle={styles.link}
+        style={{ ...styles.text, color: Colors[colorLabel] }}
+      >
         {children}
       </AppText>
     </View>
@@ -22,6 +25,11 @@ const Footnote = ({ children }) => {
 
 Footnote.propTypes = {
   children: PropTypes.node,
+  colorLabel: PropTypes.string,
+}
+
+Footnote.defaultProps = {
+  colorLabel: 'greyDark',
 }
 
 const styles = StyleSheet.create({
@@ -29,14 +37,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignContent: 'flex-start',
     marginBottom: Spacing.tiny,
-    marginTop: Spacing.small,
+    marginTop: Spacing.base,
   },
   link: {
     color: 'white',
   },
   text: {
-    color: Colors.greyLight,
-    paddingLeft: Spacing.base,
+    paddingLeft: Spacing.small,
   },
 })
 

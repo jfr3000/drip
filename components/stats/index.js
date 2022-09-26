@@ -1,11 +1,13 @@
-import React from 'react'
-import { ImageBackground, View } from 'react-native'
+import React, { useState } from 'react'
+import { ImageBackground, SafeAreaView, ScrollView, View } from 'react-native'
 import { ScaledSheet } from 'react-native-size-matters'
 import { useTranslation } from 'react-i18next'
 
 import AppText from '../common/app-text'
+import Button from '../common/button'
+import Footnote from '../common/Footnote'
 import StatsOverview from './StatsOverview'
-import StatsTable from './StatsTable'
+import PeriodDetailsModal from './PeriodDetailsModal'
 
 import cycleModule from '../../lib/cycle'
 import { getCycleLengthStats as getCycleInfo } from '../../lib/cycle-length'
@@ -15,6 +17,8 @@ import { Containers, Sizes, Spacing, Typography } from '../../styles'
 const image = require('../../assets/cycle-icon.png')
 
 const Stats = () => {
+  const [isStatsVisible, setIsStatsVisible] = useState(false)
+
   const { t } = useTranslation(null, { keyPrefix: 'stats' })
 
   const cycleLengths = cycleModule().getAllCycleLengths()
@@ -34,42 +38,50 @@ const Stats = () => {
   ]
 
   return (
-    <View style={styles.pageContainer}>
-      <View style={styles.overviewContainer}>
+    <SafeAreaView style={styles.pageContainer}>
+      <ScrollView contentContainerStyle={styles.overviewContainer}>
         <AppText>{t('intro')}</AppText>
         {numberOfCycles === 0 ? (
           <AppText>{t('noData')}</AppText>
         ) : (
-          <View style={styles.container}>
-            <View style={styles.columnLeft}>
-              <ImageBackground
-                source={image}
-                imageStyle={styles.image}
-                style={styles.imageContainter}
-              >
-                <AppText
-                  numberOfLines={1}
-                  ellipsizeMode="clip"
-                  style={styles.accentPurpleGiant}
+          <>
+            <View style={styles.container}>
+              <View style={styles.columnLeft}>
+                <ImageBackground
+                  source={image}
+                  imageStyle={styles.image}
+                  style={styles.imageContainter}
                 >
-                  {cycleData.mean}
+                  <AppText
+                    numberOfLines={1}
+                    ellipsizeMode="clip"
+                    style={styles.accentPurpleGiant}
+                  >
+                    {cycleData.mean}
+                  </AppText>
+                  <AppText style={styles.accentPurpleHuge}>
+                    {t('overview.days')}
+                  </AppText>
+                </ImageBackground>
+                <AppText style={styles.accentOrange}>
+                  {t('overview.average')}
                 </AppText>
-                <AppText style={styles.accentPurpleHuge}>
-                  {t('overview.days')}
-                </AppText>
-              </ImageBackground>
-              <AppText style={styles.accentOrange}>
-                {t('overview.average')}
-              </AppText>
+              </View>
+              <View style={styles.columnRight}>
+                <StatsOverview data={statsData} />
+              </View>
             </View>
-            <View style={styles.columnRight}>
-              <StatsOverview data={statsData} />
-            </View>
-          </View>
+            <Button isCTA onPress={() => setIsStatsVisible(true)}>
+              {t('showStats')}
+            </Button>
+            {isStatsVisible && (
+              <PeriodDetailsModal onClose={() => setIsStatsVisible(false)} />
+            )}
+            <Footnote>{t('footnote')}</Footnote>
+          </>
         )}
-      </View>
-      <StatsTable />
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
