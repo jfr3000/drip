@@ -8,7 +8,7 @@ import AppLink from '../common/AppLink'
 import Segment from '../common/segment'
 
 const License = ({ children }) => {
-  const { t } = useTranslation(null, { keyPrefix: 'settings.license' })
+  const { t } = useTranslation(null, { keyPrefix: 'hamburgerMenu.license' })
   const currentYear = new Date().getFullYear()
   const link = 'https://www.gnu.org/licenses/gpl-3.0.html'
   return (

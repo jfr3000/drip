@@ -1,7 +1,6 @@
 import links from './links'
 
 export default {
-  title: 'Settings',
   menuItems: {
     reminders: {
       name: 'Reminders',
@@ -19,10 +18,6 @@ export default {
       name: 'Password',
       text: '',
     },
-    about: 'About',
-    license: 'License',
-    settings: 'Settings',
-    privacyPolicy: 'Privacy Policy',
   },
   export: {
     errors: {
