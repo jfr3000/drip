@@ -20,7 +20,7 @@ const SymptomBox = ({
   editedSymptom,
   setEditedSymptom,
 }) => {
-  const { t } = useTranslation()
+  const { t } = useTranslation(null, { keyPrefix: 'cycleDay.symptomBox' })
   const isSymptomEdited = editedSymptom === symptom
   const isSymptomDisabled = isDateInFuture(date) && symptom !== 'note'
   const isExcluded = symptomData !== null ? symptomData.exclude : false
@@ -62,9 +62,7 @@ const SymptomBox = ({
           size={Sizes.icon}
         />
         <View style={styles.textContainer}>
-          <AppText style={symptomNameStyle}>
-            {t(`cycleDay.symptomBox.${symptom}`)}
-          </AppText>
+          <AppText style={symptomNameStyle}>{t(symptom)}</AppText>
           {symptomDataToDisplay && (
             <AppText style={textStyle} numberOfLines={4}>
               {symptomDataToDisplay}

@@ -26,7 +26,7 @@
       "ok": "OK"
     }
   },
-  "settings": {
+  "hamburgerMenu": {
     "about": {
       "credits": {
         "title": "Credits",
@@ -54,6 +54,12 @@
       "title": "drip. an open-source cycle tracking app",
       "text": "Copyright (C) {{currentYear}} Heart of Code e.V.\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details:"
     },
+    "menuMain": {
+      "about": "About",
+      "license": "License",
+      "settings": "Settings",
+      "privacyPolicy": "Privacy Policy"
+    },
     "privacyPolicy": {
       "title": "Privacy Policy",
       "intro": {
@@ -72,6 +78,27 @@
         "title": "Transparency",
         "text": "You can read through the source code of drip. to ensure the given information is correct. The source code is like a recipe: It tells you how much and what kind of ingredients you need and how you prepare them to cook a tasty meal or program a funky app.\n\nBuon appetito!"
       }
+    },
+    "settings": {
+      "menuItem": {
+        "dataManagement": {
+          "name": "Data",
+          "text": "import, export or delete your data"
+        },
+        "nfpSettings": {
+          "name": "NFP settings",
+          "text": "define how you want to use NFP"
+        },
+        "password": {
+          "name": "Password",
+          "text": ""
+        },
+        "reminders": {
+          "name": "Reminders",
+          "text": "turn on/off reminders"
+        }
+      },
+      "title": "Settings"
     }
   },
   "stats": {

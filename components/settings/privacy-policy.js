@@ -9,7 +9,9 @@ import Segment from '../common/segment'
 import { Colors, Sizes } from '../../styles'
 
 const PrivacyPolicy = () => {
-  const { t } = useTranslation(null, { keyPrefix: 'settings.privacyPolicy' })
+  const { t } = useTranslation(null, {
+    keyPrefix: 'hamburgerMenu.privacyPolicy',
+  })
   const sections = ['intro', 'dataUse', 'permissions', 'transparency']
 
   return (
