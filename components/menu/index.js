@@ -6,20 +6,23 @@ import MenuItem from './menu-item'
 
 import { Containers } from '../../styles'
 import { pages } from '../pages'
+import { useTranslation } from 'react-i18next'
 
 const Menu = ({ currentPage, navigate }) => {
   const menuItems = pages.filter((page) => page.isInMenu)
 
+  const { t } = useTranslation(null, { keyPrefix: 'bottomMenu' })
+
   return (
     <View style={styles.container}>
-      {menuItems.map(({ icon, label, component }) => {
+      {menuItems.map(({ icon, labelKey, component }) => {
         return (
           <MenuItem
             isActive={component === currentPage}
             onPress={() => navigate(component)}
             icon={icon}
-            key={label}
-            label={label}
+            key={labelKey}
+            label={t(labelKey)}
           />
         )
       })}
