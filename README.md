@@ -201,7 +201,3 @@ More information about how the app calculates fertility status and bleeding pred
         react-native link
 
 5.  You should be able to use the icon now within drip, e.g. in Cycle Day Overview and on the chart.
-
-## Translation
-
-We are using [Weblate](https://weblate.org/) as translation software.
