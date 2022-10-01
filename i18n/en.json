@@ -1,4 +1,9 @@
 {
+  "bottomMenu": {
+    "calendar": "Calendar",
+    "chart": "Chart",
+    "stats": "Stats"
+  },
   "cycleDay": {
     "symptomBox": {
       "bleeding": "Bleeding",
