@@ -17,7 +17,6 @@ i18n
     compatibilityJSON: 'v3', // TODO: migrate json to v4 and afterwards remove it
     resources,
     fallbackLng: 'en',
-    debug: true,
 
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default

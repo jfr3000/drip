@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`License screen It should match the snapshot 1`] = `
+exports[`License screen should match the snapshot 1`] = `
 <View
   style={
-    Object {
+    {
       "backgroundColor": "#E9F2ED",
       "flex": 1,
     }
@@ -11,8 +11,8 @@ exports[`License screen It should match the snapshot 1`] = `
 >
   <RCTScrollView
     contentContainerStyle={
-      Array [
-        Object {
+      [
+        {
           "backgroundColor": "#E9F2ED",
           "flexGrow": 1,
         },
@@ -23,13 +23,13 @@ exports[`License screen It should match the snapshot 1`] = `
     <View>
       <Text
         style={
-          Array [
-            Object {
+          [
+            {
               "color": "#555",
               "fontFamily": "Jost-Book",
               "fontSize": 34.285714285714285,
             },
-            Object {
+            {
               "alignSelf": "center",
               "color": "#3A2671",
               "fontFamily": "Jost-Bold",
@@ -41,11 +41,11 @@ exports[`License screen It should match the snapshot 1`] = `
           ]
         }
       >
-        title
+        drip. an open-source cycle tracking app
       </Text>
       <View
         style={
-          Object {
+          {
             "marginBottom": 34.285714285714285,
             "marginHorizontal": 34.285714285714285,
           }
@@ -53,8 +53,8 @@ exports[`License screen It should match the snapshot 1`] = `
       >
         <Text
           style={
-            Array [
-              Object {
+            [
+              {
                 "color": "#555",
                 "fontFamily": "Jost-Book",
                 "fontSize": 34.285714285714285,
@@ -63,12 +63,14 @@ exports[`License screen It should match the snapshot 1`] = `
             ]
           }
         >
-          text{"currentYear":2022}
+          Copyright (C) 2022 Heart of Code e.V.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details:
         </Text>
         <Text
           onPress={[Function]}
           style={
-            Object {
+            {
               "color": "#3A2671",
               "fontFamily": "Jost-Book",
               "fontSize": 34.285714285714285,

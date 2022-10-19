@@ -5,4 +5,8 @@ module.exports = {
   transformIgnorePatterns: [
     'node_modules/(?!((jest-)?react-native(-.*)?|@react-native(-community)?)/)',
   ],
+  watchPlugins: [
+    'jest-watch-typeahead/filename',
+    'jest-watch-typeahead/testname',
+  ],
 }
