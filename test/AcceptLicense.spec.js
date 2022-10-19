@@ -1,27 +1,19 @@
 import React from 'react'
-import { render, screen, fireEvent } from '@testing-library/react-native'
 import AcceptLicense from '../components/AcceptLicense'
 
 import { saveLicenseFlag } from '../local-storage'
+import { render, screen, fireEvent } from './test-utils'
 
 jest.mock('../local-storage', () => ({
   saveLicenseFlag: jest.fn(() => Promise.resolve()),
 }))
 
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (str, options) => {
-      return str + (options ? JSON.stringify(options) : '')
-    },
-  }),
-}))
-
 describe('AcceptLicense', () => {
-  test('On clicking OK button, the license is accepted', async () => {
+  test('should accept license when clicking ok button', async () => {
     const mockedSetLicense = jest.fn()
     render(<AcceptLicense setLicense={mockedSetLicense} />)
 
-    const okButton = screen.getByText('ok', { exact: false })
+    const okButton = screen.getByText('OK')
 
     fireEvent(okButton, 'click')
 
@@ -29,9 +21,9 @@ describe('AcceptLicense', () => {
     expect(mockedSetLicense).toHaveBeenCalled()
   })
 
-  test('There is a Cancel button', async () => {
+  test('should render cancel button', async () => {
     render(<AcceptLicense setLicense={jest.fn()} />)
 
-    screen.getByText('cancel', { exact: false })
+    screen.getByText('Cancel')
   })
 })

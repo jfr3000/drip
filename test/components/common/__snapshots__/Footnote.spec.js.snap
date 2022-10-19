@@ -3,7 +3,7 @@
 exports[`Footnote component when children are present, renders them 1`] = `
 <View
   style={
-    Object {
+    {
       "alignContent": "flex-start",
       "flexDirection": "row",
       "marginBottom": 8.571428571428571,
@@ -13,13 +13,13 @@ exports[`Footnote component when children are present, renders them 1`] = `
 >
   <Text
     style={
-      Array [
-        Object {
+      [
+        {
           "color": "#555",
           "fontFamily": "Jost-Book",
           "fontSize": 34.285714285714285,
         },
-        Object {
+        {
           "color": "#F38337",
         },
       ]
@@ -29,18 +29,18 @@ exports[`Footnote component when children are present, renders them 1`] = `
   </Text>
   <Text
     linkStyle={
-      Object {
+      {
         "color": "white",
       }
     }
     style={
-      Array [
-        Object {
+      [
+        {
           "color": "#555",
           "fontFamily": "Jost-Book",
           "fontSize": 34.285714285714285,
         },
-        Object {
+        {
           "color": "#555",
           "paddingLeft": 21.428571428571427,
         },

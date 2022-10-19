@@ -1,24 +1,16 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react-native'
 import License from '../components/settings/License'
-
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({
-    t: (str, options) => {
-      return str + (options ? JSON.stringify(options) : '')
-    },
-  }),
-}))
+import { render, screen } from './test-utils'
 
 describe('License screen', () => {
-  test('It should have a correct year', async () => {
+  test('should display license text with correct year', async () => {
     render(<License />)
     const year = new Date().getFullYear().toString()
 
     screen.getByText(year, { exact: false })
   })
 
-  test('It should match the snapshot', async () => {
+  test('should match the snapshot', async () => {
     const licenseScreen = render(<License />)
 
     expect(licenseScreen).toMatchSnapshot()
