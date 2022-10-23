@@ -6,16 +6,17 @@ import AppText from '../common/app-text'
 import CloseIcon from '../common/close-icon'
 
 import { Containers, Spacing } from '../../styles'
-import { chart } from '../../i18n/en/labels'
+import { useTranslation } from 'react-i18next'
 
 const image = require('../../assets/swipe.png')
 
 const Tutorial = ({ onClose }) => {
+  const { t } = useTranslation()
   return (
     <View style={styles.container}>
       <Image resizeMode="contain" source={image} style={styles.image} />
       <View style={styles.textContainer}>
-        <AppText>{chart.tutorial}</AppText>
+        <AppText>{t('chart.tutorial')}</AppText>
       </View>
       <CloseIcon onClose={onClose} />
     </View>
