@@ -1,6 +1,6 @@
 ## Why this change?
 
-Closes ticket #
+Closes #
 
 ## Description
 
