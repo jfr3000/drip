@@ -85,6 +85,29 @@
       }
     },
     "settings": {
+      "data": {
+        "import": {
+          "button": "Import data",
+          "dialog": {
+            "cancel": "Cancel",
+            "delete": "Import and delete existing",
+            "message": "There are two options for the import:\n\n1. Keep existing cycle days and replace only the ones in the import file.\n\n2. Delete all existing cycle days and import cycle days from file",
+            "replace": "Import and replace",
+            "title": "Keep existing data?"
+          },
+          "error": {
+            "couldNotOpenFile": "Could not open file",
+            "futureEdit": "Future dates may only contain a note, no other symptoms",
+            "incorrectColumns": "Expected CSV column titles to be {{incorrectColumns}}",
+            "noDataImported": "{{message}}\n\nNo data was imported or changed"
+          },
+          "segmentExplainer": "Import data in CSV format",
+          "success": {
+            "message": "Data successfully imported",
+            "title": "Success"
+          }
+        }
+      },
       "menuItem": {
         "dataManagement": {
           "name": "Data",

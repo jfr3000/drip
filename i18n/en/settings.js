@@ -13,24 +13,6 @@ export default {
     segmentExplainer:
       'Export data in CSV format for backup or so you can use it elsewhere',
   },
-  import: {
-    button: 'Import data',
-    title: 'Keep existing data?',
-    message: `There are two options for the import:
-1. Keep existing cycle days and replace only the ones in the import file.
-2. Delete all existing cycle days and import cycle days from file.`,
-    replaceOption: 'Import and replace',
-    deleteOption: 'Import and delete existing',
-    errors: {
-      couldNotOpenFile: 'Could not open file',
-      postFix: 'No data was imported or changed',
-      futureEdit: 'Future dates may only contain a note, no other symptoms',
-    },
-    success: {
-      message: 'Data successfully imported',
-    },
-    segmentExplainer: 'Import data in CSV format',
-  },
   deleteSegment: {
     title: 'Delete app data',
     explainer: 'Delete app data from this phone',

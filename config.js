@@ -1,10 +1,6 @@
 import { PixelRatio, StatusBar } from 'react-native'
 import { scale, verticalScale } from 'react-native-size-matters'
 
-export const ACTION_DELETE = 'delete'
-export const ACTION_EXPORT = 'export'
-export const ACTION_IMPORT = 'import'
-
 export const SYMPTOMS = [
   'bleeding',
   'temperature',
@@ -40,7 +36,7 @@ export const HIT_SLOP = {
   top: verticalScale(20),
   bottom: verticalScale(20),
   left: scale(20),
-  right: scale(20)
+  right: scale(20),
 }
 
 export const STATUSBAR_HEIGHT = StatusBar.currentHeight
