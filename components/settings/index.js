@@ -1,6 +1,6 @@
 import Reminders from './reminders/reminders'
 import NfpSettings from './nfp-settings'
-import DataManagement from './data-management'
+import DataManagement from './data-management/DataManagement'
 import Password from './password'
 import About from './About'
 import License from './License'
