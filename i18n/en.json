@@ -4,6 +4,9 @@
     "chart": "Chart",
     "stats": "Stats"
   },
+  "chart": {
+    "tutorial": "You can swipe the chart to view more dates."
+  },
   "cycleDay": {
     "symptomBox": {
       "bleeding": "Bleeding",

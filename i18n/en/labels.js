@@ -3,10 +3,6 @@ export const home = {
   phase: (n) => `${['1st', '2nd', '3rd'][n - 1]} cycle phase`,
 }
 
-export const chart = {
-  tutorial: 'You can swipe the chart to view more dates.',
-}
-
 export const shared = {
   cancel: 'Cancel',
   save: 'Save',

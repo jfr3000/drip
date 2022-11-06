@@ -9,7 +9,7 @@ import HorizontalGrid from './horizontal-grid'
 import MainGrid from './main-grid'
 import NoData from './no-data'
 import NoTemperature from './no-temperature'
-import Tutorial from './tutorial'
+import Tutorial from './Tutorial'
 import YAxis from './y-axis'
 
 import { getCycleDaysSortedByDate } from '../../db'
