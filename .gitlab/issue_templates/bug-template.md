@@ -9,13 +9,13 @@ Short overview how the bug manifests.
 [ ] Android _number_
 [ ] iOS _number_
 
-### which drip version are you using
+### which drip version number are you using
 
-_On your phone go to ➞ menu on the top right ➞ about, scroll to the very bottom and find the number_
+_On your phone go to ➞ menu on the top right ➞ about, scroll to the very bottom and find the version number_
 
 ### how did it happen
 
-_after what, always/sometimes, is it reproducable(how)?_
+_what triggered the bug/behavior, always/sometimes, is it reproducible(how)?_
 
 ### describe how it looks or add screenshot
 
