@@ -46,12 +46,9 @@ allprojects {
 }
 
 ext {
-    googlePlayServicesVersion = "+" // default: "+"
-    firebaseMessagingVersion = "21.1.0" // default: "+"
-
     buildToolsVersion = "30.0.2"
     minSdkVersion = 23
     compileSdkVersion = 30
     targetSdkVersion = 30
-    ndkVersion = "21.4.7075529"       
+    ndkVersion = "21.4.7075529"
 }
