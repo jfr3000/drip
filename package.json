@@ -49,6 +49,7 @@
     "react-native-document-picker": "^8.1.1",
     "react-native-fs": "^2.20.0",
     "react-native-modal-datetime-picker": "14.0.0",
+    "react-native-permissions": "^3.10.0",
     "react-native-push-notification": "github:bl00dymarie/react-native-push-notification",
     "react-native-share": "^7.9.0",
     "react-native-simple-toast": "^1.1.3",
