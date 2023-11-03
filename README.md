@@ -33,14 +33,14 @@ or clone it with HTTPS
 
 ### 2. Node & yarn version
 
-Make sure you are running Node 14 and classic yarn (v.1). It's easiest to switch Node versions using `nvm`, here's how to install NVM: https://github.com/nvm-sh/nvm#installing-and-updating. Once you have nvm you can install node 14:
+Make sure you are running Node 14 and classic yarn (v.1). It's easiest to switch Node versions using `nvm`, here's how to install NVM: https://github.com/nvm-sh/nvm#installing-and-updating. After installing nvm close terminal and open it again to be able to use nvm.
+Once you have nvm running you can install node 14:
 
     nvm install v14.19.3
 
-and then run
+use npm to install yarn:
 
-    cd drip
-    yarn install
+    npm install --global yarn
 
 ## for Android
 
@@ -50,21 +50,40 @@ Install [Android Studio](https://developer.android.com/studio/) - you'll need it
 
 ### 3.2 More requirements from Android Studio
 
-Open Android Studio and click on "Open an existing Android Studio project". Navigate to the drip repository you cloned and double click the android folder. It detects, downloads and cofigures requirements that might be missing, like the NDK and CMake to build the native code part of the project.
+Open Android Studio. If it says "SDK location not found" when you try to start it edit `.bashrc` in your home directory by adding:
+
+    export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
+
+Check with typing in your terminal
+
+    echo $ANDROID_SDK_ROOT
+
+You should see the path of Sdk.
+If you haven't installed `adb tools` before, you will also have to do so and add to the .bashrc
+
+    PATH="$PATH:$HOME/Android/Sdk/platform-tools"
+
+In Android Studio click on "Open an existing Android Studio project". Navigate to the drip repository you cloned and double click the android folder. It detects, downloads and cofigures requirements that might be missing, like the NDK and CMake to build the native code part of the project.
 
 ### 3.3 Run the app on Android
 
-Either start a [virtual device in Android Studio](https://developer.android.com/studio/run/emulator) or [set your physical device like your Android phone up](https://developer.android.com/training/basics/firstapp/running-app) to run the app.
+Either create and start a [virtual device in Android Studio](https://developer.android.com/studio/run/emulator) or [set your physical device like your Android phone up](https://developer.android.com/training/basics/firstapp/running-app) to run the app.
 
-i. Open a terminal and run
+i. Open a terminal, navigate to the drip folder and run
 
+    yarn install
+    yarn start
     yarn android
 
 ii. To see logging output, run the following command in another tab:
 
     yarn log
 
-iii. Run the following command and select enable hot reloading (see https://facebook.github.io/react-native/docs/debugging.html):
+iii. If you had a older version of drip before and you are now trying to run a new drip version, clear cache by running
+
+    yarn clear
+
+iv. Run the following command and select enable hot reloading (see https://facebook.github.io/react-native/docs/debugging.html):
 
     adb shell input keyevent 82
 
