@@ -33,7 +33,7 @@ or clone it with HTTPS
 
 ### 2. Node & yarn version
 
-Make sure you are running Node 14 and classic yarn (v.1). It's easiest to switch Node versions using `nvm`, here's how to install NVM: https://github.com/nvm-sh/nvm#installing-and-updating. After installing nvm close terminal and open it again to be able to use nvm.
+Make sure you are running Node 14 and classic yarn (v.1). It's easiest to switch Node versions using `nvm`, here's how to install NVM: https://github.com/nvm-sh/nvm#installing-and-updating. After installing nvm close the terminal and open it again to be able to use nvm.
 Once you have nvm running you can install node 14:
 
     nvm install v14.19.3
@@ -50,11 +50,11 @@ Install [Android Studio](https://developer.android.com/studio/) - you'll need it
 
 ### 3.2 More requirements from Android Studio
 
-Open Android Studio. If it says "SDK location not found" when you try to start it edit `.bashrc` in your home directory by adding:
+Open Android Studio. If the message "SDK location not found" appears when you try to start it, edit `.bashrc` in your home directory by adding:
 
     export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
 
-Check with typing in your terminal
+Check by typing in your terminal:
 
     echo $ANDROID_SDK_ROOT
 
@@ -79,7 +79,7 @@ ii. To see logging output, run the following command in another tab:
 
     yarn log
 
-iii. If you had a older version of drip before and you are now trying to run a new drip version, clear cache by running
+iii. If you had an older version of drip before and you are now trying to run a new drip version, clear cache by running
 
     yarn clear
 
