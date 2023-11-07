@@ -59,7 +59,7 @@ Check by typing in your terminal:
     echo $ANDROID_SDK_ROOT
 
 You should see the path of Sdk.
-If you haven't installed `adb tools` before, you will also have to do so and add to the .bashrc
+If you haven't installed [adb tools](https://developer.android.com/tools/adb) before, you will also have to do so and add to the .bashrc
 
     PATH="$PATH:$HOME/Android/Sdk/platform-tools"
 
