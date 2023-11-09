@@ -9,15 +9,15 @@
   },
   "cycleDay": {
     "symptomBox": {
-      "bleeding": "Bleeding",
-      "temperature": "Temperature",
-      "mucus": "Cervical Mucus",
-      "cervix": "Cervix",
-      "note": "Note",
-      "desire": "Desire",
-      "sex": "Sex",
-      "pain": "Pain",
-      "mood": "Mood"
+      "bleeding": "bleeding",
+      "temperature": "temperature",
+      "mucus": "cervical mucus",
+      "cervix": "cervix",
+      "note": "note",
+      "desire": "desire",
+      "sex": "sex",
+      "pain": "pain",
+      "mood": "mood"
     }
   },
   "labels": {

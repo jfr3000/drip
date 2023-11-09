@@ -50,14 +50,8 @@ module.exports = () => {
         }
 
         const pkgJSON = JSON.parse(fs.readFileSync('./package.json'))
-        const pkgLockJSON = JSON.parse(fs.readFileSync('./package-lock.json'))
         pkgJSON.version = nextVersion
-        pkgLockJSON.version = nextVersion
         fs.writeFileSync('./package.json', JSON.stringify(pkgJSON, null, 2))
-        fs.writeFileSync(
-          './package-lock.json',
-          JSON.stringify(pkgLockJSON, null, 2)
-        )
 
         await ReactNativeVersion.version(
           {

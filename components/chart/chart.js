@@ -29,7 +29,7 @@ const getSymptomsFromCycleDays = (cycleDays) =>
   SYMPTOMS.filter((symptom) => cycleDays.some((cycleDay) => cycleDay[symptom]))
 
 const CycleChart = ({ navigate, setDate }) => {
-  const [shouldShowHint, setShouldShowHint] = useState(true)
+  const [shouldShowHint, setShouldShowHint] = useState(false)
 
   useEffect(() => {
     let isMounted = true
