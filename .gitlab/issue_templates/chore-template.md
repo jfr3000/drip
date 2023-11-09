@@ -6,16 +6,16 @@ Short overview
 
 ### is it urgent? ⏳
 
-[ ] Yes
-[ ] No
-[ ] something in between
+- [ ] Yes
+- [ ] No
+- [ ] something in between
 
 _Explain the urgency if possible, e.g. is it a security vulnerability for potentially everyone?_
 
 ### which OS
 
-[ ] Android
-[ ] iOS
+- [ ] Android
+- [ ] iOS
 
 ### what shall be the ideal outcome 🎆
 
