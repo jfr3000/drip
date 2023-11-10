@@ -19,7 +19,7 @@ const SymptomCell = ({
 }) => {
   const shouldDrawDot = symptomValue !== false
   // Determine the background color based on isWeekend prop
-  const weekendBackgroundColor = isWeekend ? Colors.greyVeryLight : 'white'
+  const backgroundColor = isWeekend ? Colors.greyVeryLight : 'white'
   const styleCell =
     index !== 0
       ? [
@@ -27,7 +27,7 @@ const SymptomCell = ({
           {
             height,
             width: CHART_COLUMN_WIDTH,
-            backgroundColor: weekendBackgroundColor,
+            backgroundColor: backgroundColor,
           },
         ]
       : [
@@ -35,7 +35,7 @@ const SymptomCell = ({
           {
             height,
             width: CHART_COLUMN_WIDTH,
-            backgroundColor: weekendBackgroundColor,
+            backgroundColor: backgroundColor,
           },
           styles.topBorder,
         ]
@@ -69,7 +69,6 @@ SymptomCell.propTypes = {
 
 const styles = StyleSheet.create({
   cell: {
-    backgroundColor: 'white',
     borderBottomColor: Colors.grey,
     borderBottomWidth: CHART_GRID_LINE_HORIZONTAL_WIDTH,
     borderLeftColor: Colors.grey,

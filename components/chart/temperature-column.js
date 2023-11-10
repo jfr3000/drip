@@ -19,12 +19,12 @@ const TemperatureColumn = ({
 }) => {
   const x = CHART_STROKE_WIDTH / 2
 
-  const weekendBackgroundColor = isWeekend ? Colors.greyVeryLight : 'white'
+  const backgroundColor = isWeekend ? Colors.greyVeryLight : 'white'
   return (
     <Surface
       width={CHART_COLUMN_WIDTH}
       height={columnHeight}
-      style={{ ...styles.container, backgroundColor: weekendBackgroundColor }}
+      style={{ backgroundColor: backgroundColor }}
     >
       <ChartLine path={new Path().lineTo(0, columnHeight)} />
 
@@ -68,11 +68,5 @@ TemperatureColumn.propTypes = {
   columnHeight: PropTypes.number,
   isWeekend: PropTypes.bool,
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-  },
-})
 
 export default TemperatureColumn
