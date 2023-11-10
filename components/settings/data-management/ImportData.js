@@ -66,12 +66,12 @@ export default function ImportData({ resetIsDeletingData, setIsLoading }) {
         onPress: () => {},
       },
       {
-        text: t('dialog.replace'),
-        onPress: () => startImport(false),
-      },
-      {
         text: t('dialog.delete'),
         onPress: () => startImport(true),
+      },
+      {
+        text: t('dialog.replace'),
+        onPress: () => startImport(false),
       },
     ])
   }
