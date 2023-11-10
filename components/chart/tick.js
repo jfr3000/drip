@@ -8,13 +8,15 @@ import { Sizes } from '../../styles'
 import { CHART_TICK_WIDTH } from '../../config'
 
 const Tick = ({ yPosition, height, isBold, shouldShowLabel, label }) => {
-  const top = yPosition - height / 2
+  const top = yPosition - height / 2 - 4
   const containerStyle = [styles.container, { flexBasis: height, height, top }]
   const textStyle = isBold ? styles.textBold : styles.textNormal
 
+  if (!shouldShowLabel) return null
+
   return (
     <View style={containerStyle}>
-      <AppText style={textStyle}>{shouldShowLabel && label}</AppText>
+      <AppText style={textStyle}>{label}</AppText>
     </View>
   )
 }
@@ -36,6 +38,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
     width: CHART_TICK_WIDTH,
+    minHeight: Sizes.base + 2,
   },
   textBold: {
     fontSize: Sizes.base,
