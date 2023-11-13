@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { StyleSheet } from 'react-native'
 import { Colors } from '../../styles'
 
 import { Surface, Path } from '@react-native-community/art'
