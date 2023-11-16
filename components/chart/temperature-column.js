@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { StyleSheet } from 'react-native'
+import { Colors } from '../../styles'
 
 import { Surface, Path } from '@react-native-community/art'
 
@@ -14,14 +14,16 @@ const TemperatureColumn = ({
   isVerticalLine,
   data,
   columnHeight,
+  isWeekend,
 }) => {
   const x = CHART_STROKE_WIDTH / 2
 
+  const backgroundColor = isWeekend ? Colors.greyVeryLight : 'white'
   return (
     <Surface
       width={CHART_COLUMN_WIDTH}
       height={columnHeight}
-      style={styles.container}
+      style={{ backgroundColor: backgroundColor }}
     >
       <ChartLine path={new Path().lineTo(0, columnHeight)} />
 
@@ -63,12 +65,7 @@ TemperatureColumn.propTypes = {
   isVerticalLine: PropTypes.bool,
   data: PropTypes.object,
   columnHeight: PropTypes.number,
+  isWeekend: PropTypes.bool,
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: 'white',
-  },
-})
 
 export default TemperatureColumn

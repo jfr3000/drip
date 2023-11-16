@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { TouchableOpacity } from 'react-native'
+import moment from 'moment'
 
 import { getCycleDay } from '../../db'
 
@@ -26,6 +27,8 @@ const DayColumn = ({
   symptomRowSymptoms,
   xAxisHeight,
 }) => {
+  const momentDate = moment(dateString)
+  const isWeekend = momentDate.day() == 0 || momentDate.day() == 6
   const cycleDayData = getCycleDay(dateString)
   let data = {}
 
@@ -73,6 +76,7 @@ const DayColumn = ({
           isVerticalLine={fhmAndLtl.drawFhmLine}
           data={data && data.temperature}
           columnHeight={columnHeight}
+          isWeekend={isWeekend}
         />
       )}
 
@@ -92,6 +96,7 @@ const DayColumn = ({
             isSymptomDataComplete={
               hasSymptomData && isSymptomDataComplete(symptom, dateString)
             }
+            isWeekend={isWeekend}
             height={symptomHeight}
           />
         )
