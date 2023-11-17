@@ -10,7 +10,6 @@ npm run release
 This will trigger the following:
 * update version number
 * create a new tag for the release
-* update the changelog
 * make a release commit
 
 To then bundle a release run the following command on your branch:

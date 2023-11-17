@@ -22,7 +22,6 @@
     "update-version": "node ./tools/bin/update-version.js",
     "commit-release": "node ./tools/bin/commit-release.js",
     "tag-release": "node ./tools/bin/tag-release.js",
-    "update-changelog": "node ./tools/bin/update-changelog.js",
     "release": "node ./tools/release-wizard.js",
     "clear": ". scripts/clear.sh",
     "postinstall": "npx jetify",
