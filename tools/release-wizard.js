@@ -32,8 +32,8 @@ async function leadThroughRelease() {
   await makeCommitRelease()
 
   console.log(`Groovy. We've created a commit for this release that includes the version and changelog updates, as well as a git tag for the release.
-Please review it, make any necessary changes, and if it's all good, push the commit and the tag up to master by running:
-git push origin master
+Please review it, make any necessary changes, and if it's all good, push the commit and the tag up to 'your-branch' by running:
+git push origin 'your-branch'
 git push origin ${require('../package.json').version}
 
 Don't forget to also run 'npm run build-android-release' to package the apk and upload it to the app stores!

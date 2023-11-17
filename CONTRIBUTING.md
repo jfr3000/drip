@@ -1,6 +1,6 @@
 # Contributing to drip aka CONDRIPUTING
-So good to see you here, hello :wave\_tone1: :wave\_tone2: :wave\_tone3: :wave\_tone4: :wave\_tone5:
 
+So good to see you here, hello :wave_tone1: :wave_tone2: :wave_tone3: :wave_tone4: :wave_tone5:
 
 ## Table Of Contents
 
@@ -18,8 +18,8 @@ You just want to say hello? Send us a [nice email](mailto:drip@mailbox.org?Subje
 
 ## What should I know before I get started?
 
-We have prepared something for **you**: check out our [README](https://gitlab.com/bloodyhealth/drip/blob/master/README.md) for more information on how to set up and install everything you'll need.
-[Ping us](mailto:drip@mailbox.org) if you could need some help :helmet\_with\_cross: !
+We have prepared something for **you**: check out our [README](https://gitlab.com/bloodyhealth/drip/blob/main/README.md) for more information on how to set up and install everything you'll need.
+[Ping us](mailto:drip@mailbox.org) if you could need some help :helmet_with_cross: !
 
 Let us know if you want to suggest improvements for the README and open a merge request (which is just like Github's pull request)
 
@@ -55,4 +55,4 @@ To send us a new issue you can also use our [gitlab email](mailto:incoming+blood
 ![](https://media.giphy.com/media/kPA88elN9kYco/giphy.gif)
 
 Thank you for condriputing to open source, thank you for condriputing to drip!
-Much love from Bloody Health :heart\_exclamation:
+Much love from Bloody Health :heart_exclamation:
