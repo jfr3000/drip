@@ -10,14 +10,16 @@ const fs = require('fs')
 
 module.exports = () => {
   return new Promise((resolve, reject) => {
-    const currentVersion = JSON.parse(fs.readFileSync('./package.json')).version
+    const currentVersionName = JSON.parse(
+      fs.readFileSync('./package.json')
+    ).version
 
     const rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout,
     })
 
-    function createTodaysVersion(attempt) {
+    function createTodaysVersionName(attempt) {
       const today = new Date()
       const yy = today.getFullYear() - 2000 // So it's two digits
       const monthString = (today.getMonth() + 1).toString()
@@ -31,18 +33,20 @@ module.exports = () => {
       }
     }
 
-    let nextVersion
+    let nextVersionName
     for (let i = 0 /* letter a */; i <= 25 /* letter z */; i++) {
-      nextVersion = createTodaysVersion(i)
-      if (nextVersion !== currentVersion) break
+      nextVersionName = createTodaysVersionName(i)
+      if (nextVersionName !== currentVersionName) break
     }
-    if (nextVersion === currentVersion) {
-      console.error('I dont know what else to generate beyond ' + nextVersion)
+    if (nextVersionName === currentVersionName) {
+      console.error(
+        'I dont know what else to generate beyond ' + nextVersionName
+      )
       process.exit(1)
     }
 
     rl.question(
-      'Next version will be `' + nextVersion + '`, okay? y/n ',
+      'Next version name will be `' + nextVersionName + '`, okay? y/n ',
       async (yn) => {
         if (yn !== 'y' && yn !== 'Y') {
           reject('Release cancelled.\n')
@@ -50,7 +54,7 @@ module.exports = () => {
         }
 
         const pkgJSON = JSON.parse(fs.readFileSync('./package.json'))
-        pkgJSON.version = nextVersion
+        pkgJSON.version = nextVersionName
         fs.writeFileSync('./package.json', JSON.stringify(pkgJSON, null, 2))
 
         await ReactNativeVersion.version(
