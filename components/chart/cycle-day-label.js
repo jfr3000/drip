@@ -19,11 +19,20 @@ const CycleDayLabel = ({ height, date }) => {
 
   return (
     <View style={[styles.container, { height }]}>
-      <AppText style={styles.textBold}>{cycleDayLabel}</AppText>
-      <View style={styles.dateLabel}>
-        <AppText style={styles.text}>
-          {isFirstDayOfMonth ? momentDate.format('MMM') : dayOfMonth}
-        </AppText>
+      <View style={{ ...styles.labelRow, height: height / 2 }}>
+        <AppText style={styles.textBold}>{cycleDayLabel}</AppText>
+      </View>
+
+      <View style={{ ...styles.labelRow, height: height / 2 }}>
+        {isFirstDayOfMonth && (
+          <AppText style={styles.textFootnote}>
+            {momentDate.format('MMM')}
+          </AppText>
+        )}
+
+        {!isFirstDayOfMonth && (
+          <AppText style={styles.textSmall}>{dayOfMonth}</AppText>
+        )}
         {!isFirstDayOfMonth && (
           <AppText style={styles.textLight}>
             {getOrdinalSuffix(dayOfMonth)}
@@ -45,9 +54,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     left: 4,
   },
-  text: {
+  textSmall: {
     ...Typography.label,
     fontSize: Sizes.small,
+  },
+  textFootnote: {
+    ...Typography.label,
+    fontSize: Sizes.footnote,
   },
   textBold: {
     ...Typography.labelBold,
@@ -55,7 +68,7 @@ const styles = StyleSheet.create({
   textLight: {
     ...Typography.labelLight,
   },
-  dateLabel: {
+  labelRow: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',

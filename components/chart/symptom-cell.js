@@ -5,7 +5,7 @@ import { StyleSheet, View } from 'react-native'
 import { Colors, Containers } from '../../styles'
 import {
   CHART_COLUMN_WIDTH,
-  CHART_DOT_RADIUS,
+  CHART_DOT_RADIUS_SYMPTOM,
   CHART_GRID_LINE_HORIZONTAL_WIDTH,
 } from '../../config'
 
@@ -15,14 +15,31 @@ const SymptomCell = ({
   symptom,
   symptomValue,
   isSymptomDataComplete,
+  isWeekend,
 }) => {
   const shouldDrawDot = symptomValue !== false
+  // Determine the background color based on isWeekend prop
+  const backgroundColor = isWeekend ? Colors.greyVeryLight : 'white'
   const styleCell =
     index !== 0
-      ? [styles.cell, { height, width: CHART_COLUMN_WIDTH }]
-      : [styles.cell, { height, width: CHART_COLUMN_WIDTH }, styles.topBorder]
+      ? [
+          styles.cell,
+          {
+            height,
+            width: CHART_COLUMN_WIDTH,
+            backgroundColor: backgroundColor,
+          },
+        ]
+      : [
+          styles.cell,
+          {
+            height,
+            width: CHART_COLUMN_WIDTH,
+            backgroundColor: backgroundColor,
+          },
+          styles.topBorder,
+        ]
   let styleDot
-
   if (shouldDrawDot) {
     const styleSymptom = Colors.iconColors[symptom]
     const symptomColor = styleSymptom.shades[symptomValue]
@@ -47,11 +64,11 @@ SymptomCell.propTypes = {
   symptom: PropTypes.string,
   symptomValue: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
   isSymptomDataComplete: PropTypes.bool,
+  isWeekend: PropTypes.bool,
 }
 
 const styles = StyleSheet.create({
   cell: {
-    backgroundColor: 'white',
     borderBottomColor: Colors.grey,
     borderBottomWidth: CHART_GRID_LINE_HORIZONTAL_WIDTH,
     borderLeftColor: Colors.grey,
@@ -63,8 +80,8 @@ const styles = StyleSheet.create({
     borderTopWidth: CHART_GRID_LINE_HORIZONTAL_WIDTH,
   },
   dot: {
-    width: CHART_DOT_RADIUS * 2,
-    height: CHART_DOT_RADIUS * 2,
+    width: CHART_DOT_RADIUS_SYMPTOM * 2,
+    height: CHART_DOT_RADIUS_SYMPTOM * 2,
     borderRadius: 50,
   },
 })

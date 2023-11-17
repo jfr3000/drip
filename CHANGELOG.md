@@ -2,12 +2,80 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.2311.14
+
+### Changes
+
+- Make the app compatible with Android 13
+  - Update Android's targetSdkVersion to 33
+  - Update buildToolsVersion to 33.0.2
+  - Update Android Gradle plugin to 7.0.3
+  - Update Gradle to 7.3.3
+  - Update kotlinVersion to 1.3.40
+- Chart: Improved readability
+  - Finer temperature lines and dots
+  - Enlarge screen space for temperature chart
+  - A very light grey background color for weekend days on the whole chart screen
+- Reminders:
+  - Use new fork of react-native-push-notification: <https://github.com/github:bl00dymarie/react-native-push-notification> without google services
+  - Adding channels after breaking changes in react-native-push-notification
+- Homescreen: date displayed in new format
+- Minor changes in "about" section
+- Updated dependencies:
+  - moment ^2.29.4,
+  - prop-types ^15.8.1,
+  - react v17.0.2,
+  - react-native v0.67.4,
+  - react-native-calendars ^1.1287.0,
+  - react-native-document-picker ^8.1.1,
+  - react-native-fs ^2.20.0,
+  - react-native-modal-datetime-picker v14.0.0,
+  - react-native-share ^7.9.0,
+  - react-native-vector-icons ^9.2.0,
+  - realm ^10.16.0,
+  - sympto v3.0.1
+
+### Adds
+
+- Stats: Show period details, including cycle start, cycle length and amount of days with bleeding
+- Stats: Explainer text for standard deviation
+- Settings: Privacy Policy
+- App asks for permissions for notifications right at the start, which allows you to set reminders (this is a new requirement for Android 13)
+- Buttons can now be displayed as row
+
+- Added dependencies:
+  - @js-joda/core ^5.3.0,
+  - @react-native-async-storage/async-storage ^1.17.9,
+  - @react-native-community/art ^1.2.0,
+  - @react-native-community/datetimepicker ^6.3.1,
+  - @react-native-community/push-notification-ios ^1.11.0,
+  - i18next ^22.0.2,
+  - react-i18next ^12.0.0,
+  - jshashes ^1.0.8,
+  - react-native-permissions ^3.10.0,
+  - react-native-push-notification: github:bl00dymarie/react-native-push-notification,
+  - react-native-simple-toast ^1.1.3,
+  - react-native-size-matters ^0.4.0,
+
+### Fixed
+
+- Password: Disable setting empty passwords
+- After updating the password the app will do a full restart
+- Chart: Grid for symptoms
+- Chart: Horizontal lines in temperature chart
+
+## Unreleased
+
+- Partially implemented translations with react-i18next
+
 ## v1.2102.28
 
 ### Changes
+
 - Temperature range is now between 35 - 39°C and its default values are now set to 35.5 - 37.5°C
 
 ### Fixed
+
 - Blocks invalid input of temperature value
 - Error message for incorrect password on login screen
 - Phase text on home screen for last fertile day
@@ -61,7 +129,7 @@ All notable changes to this project will be documented in this file.
 ### Adds
 
 - Allows chart not to show temperature part, when temperature is not tracked and corresponding refactoring
-- Detox support for e2e testing and addition of the e2e tests 
+- Detox support for e2e testing and addition of the e2e tests
 - Introduces Redux global state (date and navigation are stored locally now)
 - Introduces clear.sh script to the project automising clearing project caches and packages reinstallation
 
@@ -80,7 +148,7 @@ All notable changes to this project will be documented in this file.
 
 - Fixed adding notes to the future dates
 - Fixed app exiting with error when hitting back button on device
-- Fixed Sex symptom showing on y axis of chart even though the contraception method was deleted 
+- Fixed Sex symptom showing on y axis of chart even though the contraception method was deleted
 - Fixed of the clear.sh file name in package.json
 - Fixed of navigation from chart to the cycle day overview
 - Bug fix for maximum value of mucus not showing on chart
