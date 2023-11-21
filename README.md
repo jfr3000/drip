@@ -3,17 +3,20 @@
 A menstrual cycle tracking app that's open-source and leaves your data on your phone. Use it to track your menstrual cycle and/or for fertility awareness!
 Find more information on [our website](https://dripapp.org/).
 
-[<img src="https://dripapp.org/assets/get.png"
+ [<img src="https://dripapp.org/assets/get.png"
      alt="Get it here"
-     height="55">](https://dripapp.org/release/8.apk)
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-     alt="Get it on F-Droid"
-     height="80">](https://f-droid.org/packages/com.drip/)
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+     height="55">](https://dripapp.org/release/v1.2311.14.apk)
+[<img src="https://dripapp.org/assets/badge_google-play.png"
      alt="Get it on Google Play"
-     height="80">](https://play.google.com/store/apps/details?id=com.drip)
+     height="55">](https://dripapp.org/android)
+[<img src="https://dripapp.org/assets/badge_app-store.png"
+    alt="Get drip on the App Store"
+    height="55">](https://dripapp.org/ios)
+[<img src="https://dripapp.org/assets/badge_f-droid.png"
+     alt="Get it on F-Droid"
+     height="55">](https://dripapp.org/fdroid)
 
-The app is built in React Native and currently developed for Android.
+The app is built in React Native and developed for Android and iOS.
 
 ▶ [How to contribute to the project](https://gitlab.com/bloodyhealth/drip/blob/master/CONTRIBUTING.md)
 
