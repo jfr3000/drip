@@ -18,9 +18,9 @@ Find more information on [our website](https://dripapp.org/).
 
 The app is built in React Native and developed for Android and iOS.
 
-▶ [How to contribute to the project](https://gitlab.com/bloodyhealth/drip/blob/master/CONTRIBUTING.md)
+▶ [How to contribute to the project](https://gitlab.com/bloodyhealth/drip/blob/main/CONTRIBUTING.md)
 
-▶ [How to release a new version](https://gitlab.com/bloodyhealth/drip/blob/master/RELEASE.md)
+▶ [How to release a new version](https://gitlab.com/bloodyhealth/drip/blob/main/RELEASE.md)
 
 ## Development setup
 
@@ -169,7 +169,7 @@ You can run the tests with:
 
 ### End to end tests
 
-1. Check what testing device is specified in [package.json](https://gitlab.com/bloodyhealth/drip/blob/master/package.json) under:
+1. Check what testing device is specified in [package.json](https://gitlab.com/bloodyhealth/drip/blob/main/package.json) under:
    ```
    {"detox":
      {"configurations":
