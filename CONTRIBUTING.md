@@ -14,7 +14,7 @@ So good to see you here, hello :wave_tone1: :wave_tone2: :wave_tone3: :wave_tone
 
 ## TL;DR
 
-You just want to say hello? Send us a [nice email](mailto:drip@mailbox.org?Subject=Nice%20incoming%20mail) :postbox:, ask to [join our Slack](mailto:drip@mailbox.org?Subject=Join%20Slack) or tweet :bird: at us [@dripberlin](https://twitter.com/dripberlin).
+You just want to say hello? Send us a [nice email](mailto:drip@mailbox.org?Subject=Nice%20incoming%20mail) :postbox:, ask to [join our Slack](mailto:drip@mailbox.org?Subject=Join%20Slack), toot :mammoth: [@dripapp@mastodon.social](https://mastodon.social/@dripapp) or tweet :bird: at us [@dripberlin](https://twitter.com/dripberlin).
 
 ## What should I know before I get started?
 

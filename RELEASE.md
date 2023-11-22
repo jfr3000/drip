@@ -12,7 +12,7 @@ _Note: You need the release-key for Android to bundle a signed release that can 
 
 ## Version updating
 
-When you are done with a chore, a feature or a bugfix, you may want to share it with testers and eventually publish a release. In order to identify a specific app version we can update the version name, which is created based on the following format: `1.yymm.d` e.g. `1.2311.14`. If you want to upload a new app version to Google Play you also need to update the version code.
+When you are done with a chore, a feature or a bugfix, you may want to share it with testers and eventually publish a release. In order to identify a specific app version we can update the version name, which is created based on the following format: `1.yymm.d` e.g. `1.2311.7`. If you want to upload a new app version to Google Play you also need to update the version code.
 
 The following command will:
 
@@ -92,7 +92,7 @@ If there are visual changes in the app you may want to update the screenshots fo
 
 ### drip website
 
-After a new version has been published on Google Play (or F-Droid) the apk version that is downloadable directly from the [drip website](https://dripapp.org) needs to get updated as well. Therefore you upload a signed apk to the [repository](https://gitlab.com/bloodyhealth/bloodyhealth.gitlab.io/-/merge_requests/new) and adapt the name and link on /index.html.
+After a new version has been published on Google Play (or F-Droid) the apk version that is downloadable directly from the [drip website](https://dripapp.org) needs to get updated as well. Therefore you upload a signed apk to the [repository](https://gitlab.com/bloodyhealth/bloodyhealth.gitlab.io/) and adapt the name and link on /index.html.
 Last time I checked it was [here](f3da9776b1943ffa32458e74ef86eeca98c1891c/index.html#L114).
 
 #### Phone screenshots
