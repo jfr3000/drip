@@ -6,8 +6,8 @@ _Note: You need the release-key for Android to bundle a signed release that can 
 
 1. [version updating](#Version-updating)
 2. [android building](#Building-in-Android)
-  - [APK](#APK)
-  - [AAB](#AAB)
+    - [APK](#APK)
+    - [AAB](#AAB)
 3. [release sharing](#Share-the-release)
 
 ## Version updating
