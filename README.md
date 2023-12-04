@@ -75,7 +75,13 @@ Either create and start a [virtual device in Android Studio](https://developer.a
 i. Open a terminal, navigate to the drip folder and run
 
     yarn install
+
+In a separate tab, that needs to keep running as long as you want to keep the app connected, run
+   
     yarn start
+
+Also run in a new tab
+    
     yarn android
 
 ii. To see logging output, run the following command in another tab:
