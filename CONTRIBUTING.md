@@ -4,7 +4,7 @@ So good to see you here, hello :wave_tone1: :wave_tone2: :wave_tone3: :wave_tone
 
 ## Table Of Contents
 
-[TL;DR](#tl-dr)
+[TL;DR](#tldr)
 
 [What should I know before I get started?](#what-should-i-know-before-i-get-started)
 
@@ -25,25 +25,25 @@ Let us know if you want to suggest improvements for the README and open a merge 
 
 ## How can I condripute?
 
-We are an open source project and we value contribution a lot but please keep some things in mind. :heart:
+We are an open source project and we highly appreciate contributions. At the same time please keep some things in mind: :heart:
 
-- the people maintaining the project are not many (atm 2) and have to do everything from answering press requests to fixing the bugs. Most of this work is done unpaid. (If you write a nice email your chances to get an answer are much higher than if you behave like a tech bro.)
-- we have a plan in which direction drip should evolve. This means, even if it is not super transparent on gitlab all the time, we have a list which features to build and even more important which bugs need fixing and which dependencies need updates. Some of that will be already worked on, some things got stuck...
+- The drip maintainers are usually around 2-3 people and are responsible for everything from developing new features to answering press inquiries or fixing bugs. Most of this work is done unpaid. (If you write a nice email your chances to get an answer are much higher than if you behave like a tech bro.)
+- We have a plan for the direction in which drip should evolve. This means that even if it isn't always transparent on gitlab, we have a list of features that we are building and more importantly, which bugs need to be fixed and which dependencies need to be updated.
 - drips core values are:
-  🔮 open source
-  🩸 feminist and gender inclusive
-  🔒 secure: data entered stays with that person/on their device
-  🔬 science based: we implemented the symptothermal method
-  This means we will never implement anything that opposes those core values. Some examples: we will never do a cloud integration, we will never do fertility prediction with simple day calculation...
-- if you really want to contribute to the project in a sustainable manner, we are happy to join the game...
+  - 🔮 open source
+  - 🩸 feminist and gender inclusive
+  - 🔒 secure: data entered stays with that person/on their device
+  - 🔬 science based: we implemented the symptothermal method
+  This means that we will never implement anything that contradicts these core values. Some examples: We will never build a cloud integration, we will never make an ovulation prediction.
+- If you would like to make a sustainable contribution to the project, we would be happy to join the game.
 
 ### Reporting Bugs or Making Suggestions
 
-If you found a bug or have suggestions, please :one: first review the [list of existing issues](https://gitlab.com/bloodyhealth/drip/issues) to make sure the bug/suggestion is unknown; :two: after that, take time to investigate and write a detailed issue report. Best you use our [templates for bug /chore/ feature](https://gitlab.com/bloodyhealth/drip/-/tree/ca3cf16ff78dfcd32af7437abffe96e7c3213e93/.gitlab/issue_templates) (you can choose when creating a new issue) in gitlab or send us an email to our [gitlab email](mailto:incoming+bloodyhealth/drip@incoming.gitlab.com). It will automagically add a new issue to the list with a description text taken from the body of your email. Please attach screenshots or other helpful things.
+If you found a bug or have suggestions, please :one: first review the [list of existing issues](https://gitlab.com/bloodyhealth/drip/issues) to make sure the bug/suggestion is unknown; :two: after that, take time to investigate and write a detailed issue report. Best you use our [templates for bug /chore/ feature](https://gitlab.com/bloodyhealth/drip/-/tree/main/.gitlab/issue_templates) (you can choose when creating a new issue) in gitlab or send us an email to our [gitlab email](mailto:incoming+bloodyhealth/drip@incoming.gitlab.com). It will automagically add a new issue to the list with a description text taken from the body of your email. Please attach screenshots or other helpful things.
 
 ### Your First Condripution
 
-If you want to contribute to drips code or translation, please get in touch with us. We will be able to tell you if someone is already working on something similar, your idea does (not) comply with drips core values and many more things. Of course you can always build a drip version for your private use with everything you want, but please do not expect that we review and merge code that was not discussed before.
+If you want to contribute to drip's code or translation, please get in touch with us. We can tell you if someone is already working on something similar, if your idea does (not) match drip's core values, etc. Of course, you can always create a drip version for your private use with anything you want, but please don't expect us to review and merge code that has not been discussed before.
 
 ### Thank you
 
