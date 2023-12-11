@@ -43,7 +43,10 @@ If you found a bug or have suggestions, please :one: first review the [list of e
 
 ### Your First Condripution
 
-If you want to contribute to drip's code or translation, please get in touch with us. We can tell you if someone is already working on something similar, if your idea does (not) match drip's core values, etc. Of course, you can always create a drip version for your private use with anything you want, but please don't expect us to review and merge code that has not been discussed before.
+- If you want to contribute to drip's code or translation, please get in touch with us. We can tell you if someone is already working on something similar, if your idea does (not) match drip's core values, etc. Of course, you can always create a drip version for your private use with anything you want, but please don't expect us to review and merge code that has not been discussed before.
+- If you want to open a merge request, yeah :tada: exciting! We are using a template for merge requests to make sure we explain what we have done and why.
+- Keep in mind that people who will review your merge request are more motivated to do so when the merge request is well explained and ideally not too big.
+
 
 ### Thank you
 
