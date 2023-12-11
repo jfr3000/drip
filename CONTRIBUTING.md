@@ -34,7 +34,8 @@ We are an open source project and we highly appreciate contributions. At the sam
   - 🩸 feminist and gender inclusive
   - 🔒 secure: data entered stays with that person/on their device
   - 🔬 science based: we implemented the symptothermal method
-  This means that we will never implement anything that contradicts these core values. Some examples: We will never build a cloud integration, we will never make an ovulation prediction.
+  
+This means that we will never implement anything that contradicts these core values. Some examples: We will never build a cloud integration, we will never make an ovulation prediction.
 - If you would like to make a sustainable contribution to the project, we would be happy to join the game.
 
 ### Reporting Bugs or Making Suggestions
