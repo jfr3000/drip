@@ -65,7 +65,7 @@ const DotAndLine = ({
         d={dot}
         stroke={dotColor}
         strokeWidth={CHART_STROKE_WIDTH}
-        fill={Colors.turquoiseDark}
+        fill={dotColor}
         key="dot"
       />
     </React.Fragment>

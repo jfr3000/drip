@@ -1,7 +1,5 @@
 ## Why this change?
 
-Closes #
-
 ## Description
 
 I have tested this MR:

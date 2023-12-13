@@ -16,7 +16,9 @@ exports[`License screen should match the snapshot 1`] = `
           "backgroundColor": "#E9F2ED",
           "flexGrow": 1,
         },
-        undefined,
+        {
+          "marginTop": 42.857142857142854,
+        },
       ]
     }
   >
