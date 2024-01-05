@@ -65,7 +65,7 @@ exports[`License screen should match the snapshot 1`] = `
             ]
           }
         >
-          Copyright (C) 2023 Heart of Code e.V.
+          Copyright (C) 2024 Heart of Code e.V.
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details:
         </Text>
