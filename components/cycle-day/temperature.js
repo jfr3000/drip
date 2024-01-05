@@ -108,6 +108,7 @@ const styles = StyleSheet.create({
   hint: {
     fontStyle: 'italic',
     fontSize: Sizes.small,
+    color: Colors.orange,
   },
   hintContainer: {
     marginVertical: Spacing.tiny,

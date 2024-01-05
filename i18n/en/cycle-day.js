@@ -113,11 +113,8 @@ export const mood = {
 }
 
 export const temperature = {
-  // disabled temporarily, TODO https://gitlab.com/bloodyhealth/drip/-/issues/545 */}
-  // outOfRangeWarning: 'This temperature value is out of the current range for the temperature chart. You can change the range in the settings.',
-  outOfRangeWarning: 'This temperature value is too high or low to be shown on the temperature chart.',
+  outOfRangeWarning: 'This temperature value is out of the current range for the temperature chart. You can change the range in the settings.',
   outOfAbsoluteRangeWarning: 'This temperature value is too high or low to be shown on the temperature chart.',
-  saveAnyway: 'Save anyway',
   temperature: {
     header: "Temperature",
     explainer: 'Take your temperature right after waking up, before getting out of bed'
