@@ -45,6 +45,10 @@ export const pages = [
     parent: 'SettingsMenu',
   },
   {
+    component: 'Info',
+    parent: 'SettingsMenu',
+  },
+  {
     component: 'Password',
     parent: 'SettingsMenu',
   },

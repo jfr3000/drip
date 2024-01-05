@@ -127,9 +127,16 @@
         "reminders": {
           "name": "Reminders",
           "text": "turn on/off reminders"
+        },
+        "info": {
+          "name": "Info",
+          "text": "Learn more about how drip works"
         }
       },
       "title": "Settings"
+    },
+    "info": {
+      "title": "info"
     }
   },
   "stats": {

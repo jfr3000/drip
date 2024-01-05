@@ -11,6 +11,7 @@ const menuItems = [
   { label: 'reminders', componentName: 'Reminders' },
   { label: 'dataManagement', componentName: 'DataManagement' },
   { label: 'password', componentName: 'Password' },
+  { label: 'info', componentName: 'Info' },
 ]
 
 const SettingsMenu = ({ navigate }) => {
