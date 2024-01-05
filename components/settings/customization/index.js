@@ -6,7 +6,12 @@ import AppText from '../../common/app-text'
 import TemperatureSlider from './temperature-slider'
 import Segment from '../../common/segment'
 
-import { useCervixObservable, saveUseCervix } from '../../../local-storage'
+import {
+  periodPredictionObservable,
+  savePeriodPrediction,
+  useCervixObservable,
+  saveUseCervix,
+} from '../../../local-storage'
 import { Colors } from '../../../styles'
 import labels from '../../../i18n/en/settings'
 
@@ -15,8 +20,21 @@ const Settings = () => {
     useCervixObservable.value
   )
 
-  const [isEnabled, setIsEnabled] = useState(true)
+  const [isPeriodPredictionEnabled, setPeriodPrediction] = useState(
+    periodPredictionObservable.value
+  )
+
+  const [isEnabled, setIsEnabled] = useState(false)
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState)
+
+  const onPeriodPredictionToggle = (value) => {
+    setPeriodPrediction(value)
+    savePeriodPrediction(value)
+  }
+
+  const periodPredictionText = isPeriodPredictionEnabled
+    ? labels.periodPrediction.on
+    : labels.periodPrediction.off
 
   const onCervixToggle = (value) => {
     setShouldUseCervix(value)
@@ -103,13 +121,11 @@ const Settings = () => {
         />
       </Segment>
 
-      <Segment title={'Period prediction'}>
+      <Segment title={labels.periodPrediction.title} last>
         <AppSwitch
-          onToggle={toggleSwitch}
-          text={
-            'If turned on drip will predict your next menstrual bleeding, after you have tracked 3 complete menstrual cycles.'
-          }
-          value={isEnabled}
+          onToggle={onPeriodPredictionToggle}
+          text={periodPredictionText}
+          value={isPeriodPredictionEnabled}
           trackColor={{ true: Colors.turquoiseDark }}
         />
       </Segment>

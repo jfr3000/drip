@@ -58,6 +58,11 @@ export default {
     cervixModeOff:
       'By default, cervical mucus values are being used for symptothermal fertility detection. You can switch here to use cervix values for symptothermal fertility detection',
   },
+  periodPrediction: {
+    title: 'Period prediction',
+    on: 'drip predicts your 3 next menstrual bleedings based on the statistics of your previously tracked cycles, min 3 complete cycles.',
+    off: 'There are no predictions for menstrual cycles displayed. If turned on the calendar and on home period predictions will be displayed.',
+  },
   passwordSettings: {
     title: 'App password',
     explainerDisabled:
