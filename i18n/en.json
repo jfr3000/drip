@@ -116,9 +116,9 @@
           "name": "Data",
           "text": "import, export or delete your data"
         },
-        "nfpSettings": {
-          "name": "NFP settings",
-          "text": "define how you want to use NFP"
+        "customization": {
+          "name": "Customization",
+          "text": "define how you want to use drip"
         },
         "password": {
           "name": "Password",
