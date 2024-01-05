@@ -23,15 +23,15 @@ const Reminders = () => {
 
   return (
     <AppPage>
-      <Segment title={labels.tempReminder.title}>
-        <TemperatureReminder />
-      </Segment>
-      <Segment title={labels.periodReminder.title} last>
+      <Segment title={labels.periodReminder.title}>
         <AppSwitch
           onToggle={periodReminderToggle}
           text={labels.periodReminder.reminderText}
           value={isPeriodReminderEnabled}
         />
+      </Segment>
+      <Segment title={labels.tempReminder.title} last>
+        <TemperatureReminder />
       </Segment>
     </AppPage>
   )
