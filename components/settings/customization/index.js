@@ -15,7 +15,7 @@ const Settings = () => {
     useCervixObservable.value
   )
 
-  const [isEnabled, setIsEnabled] = useState(false)
+  const [isEnabled, setIsEnabled] = useState(true)
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState)
 
   const onCervixToggle = (value) => {
