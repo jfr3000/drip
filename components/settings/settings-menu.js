@@ -7,10 +7,11 @@ import MenuItem from './menu-item'
 import { useTranslation } from 'react-i18next'
 
 const menuItems = [
+  { label: 'customization', componentName: 'Customization' },
   { label: 'reminders', componentName: 'Reminders' },
-  { label: 'nfpSettings', componentName: 'NfpSettings' },
   { label: 'dataManagement', componentName: 'DataManagement' },
   { label: 'password', componentName: 'Password' },
+  { label: 'info', componentName: 'Info' },
 ]
 
 const SettingsMenu = ({ navigate }) => {

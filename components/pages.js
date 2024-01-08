@@ -37,11 +37,15 @@ export const pages = [
     parent: 'SettingsMenu',
   },
   {
-    component: 'NfpSettings',
+    component: 'Customization',
     parent: 'SettingsMenu',
   },
   {
     component: 'DataManagement',
+    parent: 'SettingsMenu',
+  },
+  {
+    component: 'Info',
     parent: 'SettingsMenu',
   },
   {
