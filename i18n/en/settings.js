@@ -61,7 +61,7 @@ export default {
   periodPrediction: {
     title: 'Period prediction',
     on: 'drip predicts your 3 next menstrual bleedings based on the statistics of your previously tracked cycles, min 3 complete cycles.',
-    off: 'There are no predictions for menstrual cycles displayed. If turned on the calendar and on home period predictions will be displayed.',
+    off: 'There are no predictions for menstrual cycles displayed. If turned on the calendar and the home screen will display period predictions.',
   },
   passwordSettings: {
     title: 'App password',
