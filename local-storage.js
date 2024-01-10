@@ -45,13 +45,18 @@ export async function savePeriodReminder(reminder) {
 }
 
 export const periodPredictionObservable = Observable()
-setObvWithInitValue('periodPrediction', periodPredictionObservable, {
-  enabled: true,
-})
+setObvWithInitValue('periodPrediction', periodPredictionObservable, true)
 
 export async function savePeriodPrediction(bool) {
   await AsyncStorage.setItem('periodPrediction', JSON.stringify(bool))
   periodPredictionObservable.set(bool)
+
+  if (!periodPredictionObservable.value) {
+    const result = await AsyncStorage.getItem('periodReminder')
+    if (JSON.parse(result).enabled) {
+      periodReminderObservable.set(false)
+    }
+  }
 }
 
 export const useCervixObservable = Observable()
