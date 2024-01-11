@@ -92,6 +92,14 @@ export async function setChartFlag() {
   await AsyncStorage.setItem('isFirstChartView', JSON.stringify(false))
 }
 
+export const sexTrackingCategoryObservable = Observable()
+setObvWithInitValue('sex', sexTrackingCategoryObservable, true)
+
+export async function saveSexTrackingCategory(bool) {
+  await AsyncStorage.setItem('sex', JSON.stringify(bool))
+  sexTrackingCategoryObservable.set(bool)
+}
+
 async function setObvWithInitValue(key, obv, defaultValue) {
   const result = await AsyncStorage.getItem(key)
   let value
