@@ -9,6 +9,7 @@ import SymptomPageTitle from './symptom-page-title'
 import { getCycleDay } from '../../db'
 import { getData, nextDate, prevDate } from '../helpers/cycle-day'
 
+import { sexTrackingCategoryObservable } from '../../local-storage'
 import { Spacing } from '../../styles'
 import { SYMPTOMS } from '../../config'
 
@@ -27,6 +28,19 @@ const CycleDayOverView = ({ date, setDate, isTemperatureEditView }) => {
     setDate(prevDate(date))
   }
 
+  const isSexEnabled = sexTrackingCategoryObservable.value
+  const allesymptoms = SYMPTOMS.map((symptom) => {
+    if (symptom === 'sex') {
+      if (isSexEnabled) {
+        return symptom
+      }
+    } else {
+      return symptom
+    }
+  })
+
+  const cleanSymptoms = allesymptoms.filter(Boolean)
+
   return (
     <AppPage>
       <SymptomPageTitle
@@ -35,7 +49,7 @@ const CycleDayOverView = ({ date, setDate, isTemperatureEditView }) => {
         onPrevCycleDay={showPrevCycleDay}
       />
       <View style={styles.container}>
-        {SYMPTOMS.map((symptom) => {
+        {cleanSymptoms.map((symptom) => {
           const symptomData =
             cycleDay && cycleDay[symptom] ? cycleDay[symptom] : null
 
