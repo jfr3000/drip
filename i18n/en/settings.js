@@ -50,6 +50,11 @@ export default {
       'Get a notification 3 days before your next period is likely to start.',
     notification: (daysToEndOfPrediction) =>
       `Your next period is likely to start in 3 to ${daysToEndOfPrediction} days.`,
+    alertNoPeriodeReminder: {
+      title: 'Periode Prediction switched off',
+      message:
+        'To use the periode reminder please first enable periode prediction in the customization settings.',
+    },
   },
   useCervix: {
     title: 'Secondary symptom',
