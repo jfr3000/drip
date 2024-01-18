@@ -35,7 +35,7 @@
 		54DFE73B25D94D6E0025C3FC /* swipe.png in Resources */ = {isa = PBXBuildFile; fileRef = 54DFE73925D94D6E0025C3FC /* swipe.png */; };
 		54DFE73D25D94DED0025C3FC /* cycle-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 54DFE73C25D94DED0025C3FC /* cycle-icon.png */; };
 		54DFE73E25D94DED0025C3FC /* cycle-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 54DFE73C25D94DED0025C3FC /* cycle-icon.png */; };
-		54E1D49923E7588F003FA37B /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		54E1D49923E7588F003FA37B /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		62F2A4645AC84CDC9506FF27 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AEBF0735214455AAEDF56D5 /* libc++.tbd */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		BD7041F2826E4A2CBE6CB87D /* RealmJSTests.xctest in Frameworks */ = {isa = PBXBuildFile; fileRef = F79F72C5390646E0A06AAE68 /* RealmJSTests.xctest */; };
@@ -118,7 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54E1D49923E7588F003FA37B /* BuildFile in Frameworks */,
+				54E1D49923E7588F003FA37B /* (null) in Frameworks */,
 				62F2A4645AC84CDC9506FF27 /* libc++.tbd in Frameworks */,
 				D91133DCE120440893E2FD2E /* libz.tbd in Frameworks */,
 				BD7041F2826E4A2CBE6CB87D /* RealmJSTests.xctest in Frameworks */,
@@ -319,7 +319,6 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 6AD72X6W26;
 						LastSwiftMigration = 1120;
 					};
 				};
@@ -624,6 +623,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6AD72X6W26;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = drip/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -650,6 +650,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6AD72X6W26;
 				INFOPLIST_FILE = drip/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -660,7 +661,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = org.heartofcode.drip.cycle.tracking;
 				PRODUCT_NAME = drip;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
