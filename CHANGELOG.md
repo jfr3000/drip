@@ -2,7 +2,42 @@
 
 All notable changes to this project will be documented in this file.
 
-## v1.2311.14
+## v1.2401.17 iOS
+
+### Changes
+
+- Updating React Native to 0.68.3
+- Minor changes in temperature chart
+
+### Adds
+
+- Temperature scale slider
+- out of range warning messages for temperature values
+
+### Fixed
+
+- Order of import buttons
+
+## v1.2312.11 iOS
+
+### Changes
+
+- Chart: Improved readability
+  - Finer temperature lines and dots
+  - Enlarge screen space for temperature chart
+  - A very light grey background color for weekend days on the whole chart screen
+- Homescreen: date displayed in new format
+- Minor changes in "about" section
+
+See more under v1.2311.14 Android
+
+### Adds
+
+- Stats: Show period details, including cycle start, cycle length and amount of days with bleeding
+- Stats: Explainer text for standard deviation
+- App asks for permissions for notifications right at the start, which allows you to set reminders (this is a new requirement for Android 13)
+
+## v1.2311.14 Android
 
 ### Changes
 
@@ -64,11 +99,22 @@ All notable changes to this project will be documented in this file.
 - Chart: Grid for symptoms
 - Chart: Horizontal lines in temperature chart
 
-## Unreleased
+### Unreleased
 
 - Partially implemented translations with react-i18next
 
-## v1.2102.28
+## v1.2208.11 iOS
+
+### Adds
+
+- first iOS Release
+
+### Unreleased
+
+- Temperature scale slider
+- Warning message for out of scope temperature values
+
+## v1.2102.28 Android
 
 ### Changes
 
@@ -81,7 +127,7 @@ All notable changes to this project will be documented in this file.
 - Phase text on home screen for last fertile day
 - Styling improvements
 
-## v1.2101.9
+## v1.2101.9 Android
 
 ### Adds
 
@@ -124,7 +170,7 @@ All notable changes to this project will be documented in this file.
 - Fixed react-native-vector-icon
 - Fixed AppLoadingView component centering
 
-## v0.2007-12.beta
+## v0.2007-12.beta Android
 
 ### Adds
 
@@ -159,7 +205,7 @@ All notable changes to this project will be documented in this file.
 
 - Updates of node.js to fix security issue
 
-## v0.2005.3-beta
+## v0.2005.3-beta Android
 
 - Adds arm64-v8a and x86_64 for supporting 64-bit architecture
 - Adds Mariya & Sofiya as contributors &lt;3
@@ -259,7 +305,7 @@ All notable changes to this project will be documented in this file.
 - Adds release wizard
 - Updates nodejs-mobile to fix security issue
 
-## v0.1905.29-beta
+## v0.1905.29-beta Android
 
 ### Changes
 
@@ -280,7 +326,7 @@ All notable changes to this project will be documented in this file.
 - Line width in chart
 - Prediction range in drop on homescreen
 
-## v0.1905.28-beta
+## v0.1905.28-beta Android
 
 - Displays all the text for Home Elements; Shortens margin btw Home Elements; Adds missing "visit" to text
 - Adds donation section to about
@@ -355,7 +401,7 @@ All notable changes to this project will be documented in this file.
 - Nicer formatting for past bleeding prediction
 - Fixed prediction range in drop on homescreen
 
-## v0.1905.10-beta
+## v0.1905.10-beta Android
 
 - Filter release commits from changelog
 - Adds update-changelog script
@@ -380,7 +426,7 @@ All notable changes to this project will be documented in this file.
 - Delete password button bug fix
 - temperature screen styling update
 
-## v0.0.3 - 2019-04-17
+## v0.0.3 - 2019-04-17 Android
 
 ### Changes
 
@@ -390,9 +436,9 @@ All notable changes to this project will be documented in this file.
 
 - Button functionality in settings for password
 
-## v0.0.2 - 2019-04-09
+## v0.0.2 - 2019-04-09 Android
 
-## Second updated beta release version
+## Second updated beta release version Android
 
 ### Changes
 
@@ -406,9 +452,9 @@ All notable changes to this project will be documented in this file.
 - Delete button for sex, pain and mood
 - Dates on chart
 
-## v0.0.1 - 2019-02-15
+## v0.0.1 - 2019-02-15 Android
 
-## First beta release version
+## First beta release version Android
 
 ### Added (list of core functionality)
 
