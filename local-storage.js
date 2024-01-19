@@ -100,6 +100,38 @@ export async function saveSexTrackingCategory(bool) {
   sexTrackingCategoryObservable.set(bool)
 }
 
+export const desireTrackingCategoryObservable = Observable()
+setObvWithInitValue('desire', desireTrackingCategoryObservable, true)
+
+export async function saveDesireTrackingCategory(bool) {
+  await AsyncStorage.setItem('desire', JSON.stringify(bool))
+  desireTrackingCategoryObservable.set(bool)
+}
+
+export const painTrackingCategoryObservable = Observable()
+setObvWithInitValue('pain', painTrackingCategoryObservable, true)
+
+export async function savePainTrackingCategory(bool) {
+  await AsyncStorage.setItem('pain', JSON.stringify(bool))
+  painTrackingCategoryObservable.set(bool)
+}
+
+export const moodTrackingCategoryObservable = Observable()
+setObvWithInitValue('mood', moodTrackingCategoryObservable, true)
+
+export async function saveMoodTrackingCategory(bool) {
+  await AsyncStorage.setItem('mood', JSON.stringify(bool))
+  moodTrackingCategoryObservable.set(bool)
+}
+
+export const noteTrackingCategoryObservable = Observable()
+setObvWithInitValue('note', noteTrackingCategoryObservable, true)
+
+export async function saveNoteTrackingCategory(bool) {
+  await AsyncStorage.setItem('note', JSON.stringify(bool))
+  noteTrackingCategoryObservable.set(bool)
+}
+
 async function setObvWithInitValue(key, obv, defaultValue) {
   const result = await AsyncStorage.getItem(key)
   let value

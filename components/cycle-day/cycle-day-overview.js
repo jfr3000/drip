@@ -9,7 +9,13 @@ import SymptomPageTitle from './symptom-page-title'
 import { getCycleDay } from '../../db'
 import { getData, nextDate, prevDate } from '../helpers/cycle-day'
 
-import { sexTrackingCategoryObservable } from '../../local-storage'
+import {
+  desireTrackingCategoryObservable,
+  moodTrackingCategoryObservable,
+  noteTrackingCategoryObservable,
+  painTrackingCategoryObservable,
+  sexTrackingCategoryObservable,
+} from '../../local-storage'
 import { Spacing } from '../../styles'
 import { SYMPTOMS } from '../../config'
 
@@ -28,18 +34,22 @@ const CycleDayOverView = ({ date, setDate, isTemperatureEditView }) => {
     setDate(prevDate(date))
   }
 
-  const isSexEnabled = sexTrackingCategoryObservable.value
-  const allesymptoms = SYMPTOMS.map((symptom) => {
+  const allEnabledSymptoms = SYMPTOMS.map((symptom) => {
     if (symptom === 'sex') {
-      if (isSexEnabled) {
-        return symptom
-      }
+      return sexTrackingCategoryObservable.value ? symptom : null
+    } else if (symptom === 'desire') {
+      return desireTrackingCategoryObservable.value ? symptom : null
+    } else if (symptom === 'pain') {
+      return painTrackingCategoryObservable.value ? symptom : null
+    } else if (symptom === 'mood') {
+      return moodTrackingCategoryObservable.value ? symptom : null
+    } else if (symptom === 'note') {
+      return noteTrackingCategoryObservable.value ? symptom : null
     } else {
       return symptom
     }
   })
-
-  const cleanSymptoms = allesymptoms.filter(Boolean)
+  const cleanSymptoms = allEnabledSymptoms.filter(Boolean)
 
   return (
     <AppPage>
