@@ -28,8 +28,8 @@ const Reminders = () => {
   const reminderDisabledPrompt = () => {
     if (!periodPredictionObservable.value) {
       Alert.alert(
-        labels.periodReminder.alertNoPeriodeReminder.title,
-        labels.periodReminder.alertNoPeriodeReminder.message
+        labels.periodReminder.alertNoPeriodReminder.title,
+        labels.periodReminder.alertNoPeriodReminder.message
       )
     }
   }
