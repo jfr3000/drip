@@ -9,7 +9,6 @@ cache:
 test_async:
   script:
     - npm install npm@7.0.1 -g
-    - npm install
     - npm test
 
 variables:
