@@ -27,7 +27,7 @@ After tracking at least 3 menstrual cycles, drip. will give you an overview of
 · whether the length of your cycles varied significantly (in "stats" and in bleeding predictions)
 · and predict your next 3 cycles with a range of 3 or 5 days (on home screen and "calendar").
 
-The app allows you to track different intensities of bleeding. On the chart and on the calendar, bleeding values are colored in different shades of red. The darker, the more intense your bleeding. Every bleeding value that is not excluded is taken into account for fertility calculation and prediction for the start of next cycles.
+The app allows you to track different intensities of bleeding. On the chart and on the calendar, bleeding values are colored in different shades of red. The darker, the more intense your bleeding. Every bleeding value that is not excluded is taken into account for fertility calculation and period predictions.
 
 Excluding bleeding values is for tracking bleeding when it's not marking the start of a new cycle or the continuation of menstrual bleeding the day(s) before, e.g. bleeding caused by ovulation or a miscarriage.
 

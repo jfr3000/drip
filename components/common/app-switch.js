@@ -6,7 +6,7 @@ import AppText from './app-text'
 
 import { Containers } from '../../styles'
 
-const AppSwitch = ({ onToggle, text, value, trackColor }) => {
+const AppSwitch = ({ onToggle, text, value, trackColor, disabled }) => {
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
@@ -17,6 +17,7 @@ const AppSwitch = ({ onToggle, text, value, trackColor }) => {
         style={styles.switch}
         value={value}
         trackColor={trackColor}
+        disabled={disabled}
       />
     </View>
   )
@@ -27,6 +28,7 @@ AppSwitch.propTypes = {
   text: PropTypes.string,
   value: PropTypes.bool,
   trackColor: PropTypes.string,
+  disabled: PropTypes.bool,
 }
 
 const styles = StyleSheet.create({

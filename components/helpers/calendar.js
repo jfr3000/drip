@@ -2,6 +2,7 @@ import { LocalDate } from '@js-joda/core'
 import { verticalScale } from 'react-native-size-matters'
 
 import { Colors, Fonts, Sizes } from '../../styles'
+import { periodPredictionObservable } from '../../local-storage'
 
 const { shades } = Colors.iconColors.bleeding
 
@@ -26,6 +27,7 @@ export const toCalFormat = (bleedingDaysSortedByDate) => {
 }
 
 export const predictionToCalFormat = (predictedDays) => {
+  if (!periodPredictionObservable.value) return {}
   if (!predictedDays.length) return {}
   const todayDateString = LocalDate.now().toString()
   const middleIndex = (predictedDays[0].length - 1) / 2

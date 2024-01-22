@@ -50,6 +50,11 @@ export default {
       'Get a notification 3 days before your next period is likely to start.',
     notification: (daysToEndOfPrediction) =>
       `Your next period is likely to start in 3 to ${daysToEndOfPrediction} days.`,
+    alertNoPeriodReminder: {
+      title: 'Period predictions turned off',
+      message:
+        'To use the period reminder please first enable period predictions in the customization settings.',
+    },
   },
   useCervix: {
     title: 'Secondary symptom',
@@ -57,6 +62,11 @@ export default {
       'Cervix values are being used for symptothermal fertility detection. You can switch here to use cervical mucus values for symptothermal fertility detection',
     cervixModeOff:
       'By default, cervical mucus values are being used for symptothermal fertility detection. You can switch here to use cervix values for symptothermal fertility detection',
+  },
+  periodPrediction: {
+    title: 'Period predictions',
+    on: 'drip predicts your 3 next menstrual bleedings based on the statistics of your previously tracked cycles, min 3 complete cycles.',
+    off: 'There are no predictions for menstrual cycles displayed. If turned on the calendar and the home screen will display period predictions.',
   },
   passwordSettings: {
     title: 'App password',
