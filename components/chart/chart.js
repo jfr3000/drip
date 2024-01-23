@@ -21,6 +21,7 @@ import {
   noteTrackingCategoryObservable,
   painTrackingCategoryObservable,
   sexTrackingCategoryObservable,
+  temperatureTrackingCategoryObservable,
 } from '../../local-storage'
 import { makeColumnInfo } from '../helpers/chart'
 
@@ -84,7 +85,11 @@ const CycleChart = ({ navigate, setDate }) => {
     }
   })
 
-  const shouldShowTemperatureColumn = chartSymptoms.indexOf('temperature') > -1
+  const isTemperatureEnabled = temperatureTrackingCategoryObservable.value
+  const shouldShowTemperatureColumn =
+    isTemperatureEnabled && chartSymptoms.indexOf('temperature') > -1
+  const shouldShowNoDataWarning =
+    isTemperatureEnabled && chartSymptoms.indexOf('temperature') <= -1
 
   const { width, height } = Dimensions.get('window')
   const numberOfColumnsToRender = Math.round(width / CHART_COLUMN_WIDTH)
@@ -135,7 +140,7 @@ const CycleChart = ({ navigate, setDate }) => {
     >
       <View style={styles.chartContainer}>
         {shouldShowHint && <Tutorial onClose={hideHint} />}
-        {!shouldShowTemperatureColumn && <NoTemperature />}
+        {shouldShowNoDataWarning && <NoTemperature />}
         <View style={styles.chartArea}>
           <YAxis
             height={columnHeight}
