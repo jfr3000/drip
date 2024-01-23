@@ -12,12 +12,14 @@ import {
   noteTrackingCategoryObservable,
   painTrackingCategoryObservable,
   sexTrackingCategoryObservable,
+  temperatureTrackingCategoryObservable,
   saveDesireTrackingCategory,
   saveMoodTrackingCategory,
   saveNoteTrackingCategory,
   savePainTrackingCategory,
   savePeriodPrediction,
   saveSexTrackingCategory,
+  saveTemperatureTrackingCategory,
   saveUseCervix,
   periodPredictionObservable,
   useCervixObservable,
@@ -32,6 +34,10 @@ const Settings = () => {
 
   const [isPeriodPredictionEnabled, setPeriodPrediction] = useState(
     periodPredictionObservable.value
+  )
+
+  const [isTemperatureTrackingCategoryEnabled, setTemperatureTrackingCategory] = useState(
+    temperatureTrackingCategoryObservable.value
   )
 
   const [isSexTrackingCategoryEnabled, setSexTrackingCategory] = useState(
@@ -56,6 +62,11 @@ const Settings = () => {
 
   const [isEnabled, setIsEnabled] = useState(false)
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState)
+
+  const temperatureTrackingCategoryToggle = (value) => {
+    setTemperatureTrackingCategory(value)
+    saveTemperatureTrackingCategory(value)
+  }
 
   const sexTrackingCategoryToggle = (value) => {
     setSexTrackingCategory(value)
@@ -100,6 +111,12 @@ const Settings = () => {
   return (
     <AppPage title={'Customization'}>
       <Segment title={'Tracking categories'}>
+        <AppSwitch
+          onToggle={temperatureTrackingCategoryToggle}
+          text={"temperature"}
+          value={isTemperatureTrackingCategoryEnabled}
+          trackColor={{ true: Colors.turquoiseDark }}
+        />
         <AppSwitch
           onToggle={sexTrackingCategoryToggle}
           text={"sex: when turned off it won't show"}
