@@ -7,6 +7,7 @@ import AppSwitch from '../../common/app-switch'
 import {
   saveTempReminder,
   tempReminderObservable,
+  temperatureTrackingCategoryObservable,
 } from '../../../local-storage'
 import padWithZeros from '../../helpers/pad-time-with-zeros'
 
@@ -51,6 +52,7 @@ const TemperatureReminder = () => {
         onToggle={temperatureReminderToggle}
         text={tempReminderText}
         value={isEnabled}
+        disabled={!temperatureTrackingCategoryObservable.value}
       />
       <DateTimePicker
         isVisible={isTimePickerVisible}
