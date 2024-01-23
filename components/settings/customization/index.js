@@ -113,37 +113,37 @@ const Settings = () => {
       <Segment title={'Tracking categories'}>
         <AppSwitch
           onToggle={temperatureTrackingCategoryToggle}
-          text={"temperature"}
+          text={'temperature'}
           value={isTemperatureTrackingCategoryEnabled}
           trackColor={{ true: Colors.turquoiseDark }}
         />
         <AppSwitch
           onToggle={sexTrackingCategoryToggle}
-          text={"sex: when turned off it won't show"}
+          text={'sex'}
           value={isSexTrackingCategoryEnabled}
           trackColor={{ true: Colors.turquoiseDark }}
         />
         <AppSwitch
           onToggle={desireTrackingCategoryToggle}
-          text={"desire: when turned off it won't show"}
+          text={'desire'}
           value={isDesireTrackingCategoryEnabled}
           trackColor={{ true: Colors.turquoiseDark }}
         />
         <AppSwitch
           onToggle={painTrackingCategoryToggle}
-          text={"pain: when turned off it won't show"}
+          text={'pain'}
           value={isPainTrackingCategoryEnabled}
           trackColor={{ true: Colors.turquoiseDark }}
         />
         <AppSwitch
           onToggle={moodTrackingCategoryToggle}
-          text={"mood: when turned off it won't show"}
+          text={'mood'}
           value={isMoodTrackingCategoryEnabled}
           trackColor={{ true: Colors.turquoiseDark }}
         />
         <AppSwitch
           onToggle={noteTrackingCategoryToggle}
-          text={"note: when turned off it won't show"}
+          text={'note'}
           value={isNoteTrackingCategoryEnabled}
           trackColor={{ true: Colors.turquoiseDark }}
         />
