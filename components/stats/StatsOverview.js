@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import PropTypes from 'prop-types'
 
 import AppText from '../common/app-text'
-
+import { formatDecimal } from '../helpers/cycle-day'
 import { Sizes, Spacing, Typography } from '../../styles'
 
 const StatsOverview = ({ data }) => {
@@ -16,7 +16,9 @@ StatsOverview.propTypes = {
 
 const Row = ({ rowContent }) => {
   const isStandardDeviation = rowContent[1].includes('deviation')
-
+  if (isStandardDeviation && rowContent[0] !== '—') {
+    rowContent[0] = formatDecimal(rowContent[0], 1)
+  }
   return (
     <View style={styles.row}>
       <Cell content={rowContent[0]} isLeft />

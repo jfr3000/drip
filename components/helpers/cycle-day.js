@@ -34,6 +34,10 @@ export const formatTemperature = (temperature) =>
     ? temperature
     : Number.parseFloat(temperature.toString()).toFixed(2)
 
+//maximum of precision digits after decimal point, but no x.0
+export const formatDecimal = (num, precision) =>
+  +parseFloat(Number.parseFloat(num).toFixed(precision))
+
 export const getPreviousTemperature = (date) => {
   const previousTemperature = getPreviousTemperatureForDate(date)
   return formatTemperature(previousTemperature)
