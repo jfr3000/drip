@@ -102,8 +102,7 @@ const SymptomEditView = ({ date, onClose, symptom, symptomData }) => {
   const onSelectTab = (group, value) => {
     const parsedData = getParsedData()
 
-    Object.assign(parsedData, { [group.key]: value })
-
+    parsedData[group.key] = parsedData[group.key] !== value ? value : null
     setData(parsedData)
   }
   const iconName = shouldShowInfo ? 'chevron-up' : 'chevron-down'
