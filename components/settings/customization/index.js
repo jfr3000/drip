@@ -27,6 +27,7 @@ import {
 } from '../../../local-storage'
 import { Colors } from '../../../styles'
 import labels from '../../../i18n/en/settings'
+import { SYMPTOMS } from '../../../config'
 
 const Settings = () => {
   const [shouldUseCervix, setShouldUseCervix] = useState(
@@ -118,37 +119,37 @@ const Settings = () => {
       <Segment title={'Tracking categories'}>
         <AppSwitch
           onToggle={temperatureTrackingCategoryToggle}
-          text={'temperature'}
+          text={SYMPTOMS[1]}
           value={isTemperatureTrackingCategoryEnabled}
           trackColor={{ true: Colors.turquoiseDark }}
         />
         <AppSwitch
           onToggle={sexTrackingCategoryToggle}
-          text={'sex'}
+          text={SYMPTOMS[4]}
           value={isSexTrackingCategoryEnabled}
           trackColor={{ true: Colors.turquoiseDark }}
         />
         <AppSwitch
           onToggle={desireTrackingCategoryToggle}
-          text={'desire'}
+          text={SYMPTOMS[5]}
           value={isDesireTrackingCategoryEnabled}
           trackColor={{ true: Colors.turquoiseDark }}
         />
         <AppSwitch
           onToggle={painTrackingCategoryToggle}
-          text={'pain'}
+          text={SYMPTOMS[6]}
           value={isPainTrackingCategoryEnabled}
           trackColor={{ true: Colors.turquoiseDark }}
         />
         <AppSwitch
           onToggle={moodTrackingCategoryToggle}
-          text={'mood'}
+          text={SYMPTOMS[7]}
           value={isMoodTrackingCategoryEnabled}
           trackColor={{ true: Colors.turquoiseDark }}
         />
         <AppSwitch
           onToggle={noteTrackingCategoryToggle}
-          text={'note'}
+          text={SYMPTOMS[8]}
           value={isNoteTrackingCategoryEnabled}
           trackColor={{ true: Colors.turquoiseDark }}
         />
