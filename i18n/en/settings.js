@@ -37,11 +37,11 @@ export default {
     max: 'Max',
     loadError: 'Could not load saved temperature scale settings',
     saveError: 'Could not save temperature scale settings',
-    disabled: {
-      title: 'Temperature scale turned off',
-      message:
-        'To use the temperature scale slider please first enable the temperature tracking category in the customization settings.',
-    },
+  },
+  disabled: {
+    title: 'This feature is turned off',
+    message:
+      'Please first enable the temperature tracking category in the customization settings.',
   },
   tempReminder: {
     title: 'Temperature reminder',

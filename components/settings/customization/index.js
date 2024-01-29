@@ -37,9 +37,8 @@ const Settings = () => {
     periodPredictionObservable.value
   )
 
-  const [isTemperatureTrackingCategoryEnabled, setTemperatureTrackingCategory] = useState(
-    temperatureTrackingCategoryObservable.value
-  )
+  const [isTemperatureTrackingCategoryEnabled, setTemperatureTrackingCategory] =
+    useState(temperatureTrackingCategoryObservable.value)
 
   const [isSexTrackingCategoryEnabled, setSexTrackingCategory] = useState(
     sexTrackingCategoryObservable.value
@@ -111,10 +110,7 @@ const Settings = () => {
 
   const sliderDisabledPrompt = () => {
     if (!isTemperatureTrackingCategoryEnabled) {
-      Alert.alert(
-        labels.tempScale.disabled.title,
-        labels.tempScale.disabled.message
-      )
+      Alert.alert(labels.disabled.title, labels.disabled.message)
     }
   }
   return (
@@ -176,19 +172,26 @@ const Settings = () => {
             </>
           )}
           {!isTemperatureTrackingCategoryEnabled && (
-            <AppText>{labels.tempScale.disabled.message}</AppText>
+            <AppText>{labels.disabled.message}</AppText>
           )}
         </Segment>
       </Pressable>
 
-      <Segment title={labels.useCervix.title}>
-        <AppSwitch
-          onToggle={onCervixToggle}
-          text={cervixText}
-          value={shouldUseCervix}
-          trackColor={{ true: Colors.turquoiseDark }}
-        />
-      </Segment>
+      <Pressable onPress={sliderDisabledPrompt}>
+        <Segment title={labels.useCervix.title}>
+          {isTemperatureTrackingCategoryEnabled && (
+            <AppSwitch
+              onToggle={onCervixToggle}
+              text={cervixText}
+              value={shouldUseCervix}
+              trackColor={{ true: Colors.turquoiseDark }}
+            />
+          )}
+          {!isTemperatureTrackingCategoryEnabled && (
+            <AppText>{labels.disabled.message}</AppText>
+          )}
+        </Segment>
+      </Pressable>
 
       <Segment title={labels.periodPrediction.title} last>
         <AppSwitch
