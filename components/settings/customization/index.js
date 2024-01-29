@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Alert, Pressable } from 'react-native'
 
 import AppPage from '../../common/app-page'
 import AppSwitch from '../../common/app-switch'
@@ -108,6 +109,14 @@ const Settings = () => {
     ? labels.useCervix.cervixModeOn
     : labels.useCervix.cervixModeOff
 
+  const sliderDisabledPrompt = () => {
+    if (!isTemperatureTrackingCategoryEnabled) {
+      Alert.alert(
+        labels.tempScale.disabled.title,
+        labels.tempScale.disabled.message
+      )
+    }
+  }
   return (
     <AppPage title={'Customization'}>
       <Segment title={'Tracking categories'}>
@@ -158,10 +167,19 @@ const Settings = () => {
         />
       </Segment>
 
-      <Segment title={labels.tempScale.segmentTitle}>
-        <AppText>{labels.tempScale.segmentExplainer}</AppText>
-        <TemperatureSlider />
-      </Segment>
+      <Pressable onPress={sliderDisabledPrompt}>
+        <Segment title={labels.tempScale.segmentTitle}>
+          {isTemperatureTrackingCategoryEnabled && (
+            <>
+              <AppText>{labels.tempScale.segmentExplainer}</AppText>
+              <TemperatureSlider />
+            </>
+          )}
+          {!isTemperatureTrackingCategoryEnabled && (
+            <AppText>{labels.tempScale.disabled.message}</AppText>
+          )}
+        </Segment>
+      </Pressable>
 
       <Segment title={labels.useCervix.title}>
         <AppSwitch
