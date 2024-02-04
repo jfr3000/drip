@@ -107,6 +107,22 @@ export async function saveTemperatureTrackingCategory(bool) {
   }
 }
 
+export const mucusTrackingCategoryObservable = Observable()
+setObvWithInitValue('mucus', mucusTrackingCategoryObservable, true)
+
+export async function saveMucusTrackingCategory(bool) {
+  await AsyncStorage.setItem('mucus', JSON.stringify(bool))
+  mucusTrackingCategoryObservable.set(bool)
+}
+
+export const cervixTrackingCategoryObservable = Observable()
+setObvWithInitValue('cervix', cervixTrackingCategoryObservable, true)
+
+export async function saveCervixTrackingCategory(bool) {
+  await AsyncStorage.setItem('cervix', JSON.stringify(bool))
+  cervixTrackingCategoryObservable.set(bool)
+}
+
 export const sexTrackingCategoryObservable = Observable()
 setObvWithInitValue('sex', sexTrackingCategoryObservable, true)
 

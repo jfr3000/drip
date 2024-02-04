@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Alert, Pressable } from 'react-native'
 
 import AppPage from '../../common/app-page'
@@ -14,10 +14,14 @@ import {
   painTrackingCategoryObservable,
   sexTrackingCategoryObservable,
   temperatureTrackingCategoryObservable,
+  mucusTrackingCategoryObservable,
+  cervixTrackingCategoryObservable,
   saveDesireTrackingCategory,
   saveMoodTrackingCategory,
   saveNoteTrackingCategory,
   savePainTrackingCategory,
+  saveMucusTrackingCategory,
+  saveCervixTrackingCategory,
   savePeriodPrediction,
   saveSexTrackingCategory,
   saveTemperatureTrackingCategory,
@@ -41,6 +45,14 @@ const Settings = () => {
   const [isTemperatureTrackingCategoryEnabled, setTemperatureTrackingCategory] =
     useState(temperatureTrackingCategoryObservable.value)
 
+  const [isMucusTrackingCategoryEnabled, setMucusTrackingCategory] = useState(
+    mucusTrackingCategoryObservable.value
+  )
+
+  const [isCervixTrackingCategoryEnabled, setCervixTrackingCategory] = useState(
+    cervixTrackingCategoryObservable.value
+  )
+
   const [isSexTrackingCategoryEnabled, setSexTrackingCategory] = useState(
     sexTrackingCategoryObservable.value
   )
@@ -61,6 +73,9 @@ const Settings = () => {
     noteTrackingCategoryObservable.value
   )
 
+  const [isSecondarySymptomDisabled, setIsSecondarySymptomDisabled] =
+    useState(false)
+
   const [isEnabled, setIsEnabled] = useState(false)
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState)
 
@@ -69,11 +84,44 @@ const Settings = () => {
     saveTemperatureTrackingCategory(value)
   }
 
+  const mucusTrackingCategoryToggle = (value) => {
+    if (!cervixTrackingCategoryObservable.value && value) {
+      setShouldUseCervix(false)
+      setIsSecondarySymptomDisabled(true)
+    } else if (cervixTrackingCategoryObservable.value && value) {
+      setIsSecondarySymptomDisabled(false)
+    } else if (cervixTrackingCategoryObservable.value && !value) {
+      setShouldUseCervix(true)
+      setIsSecondarySymptomDisabled(true)
+    } else if (!cervixTrackingCategoryObservable.value && !value) {
+      setIsSecondarySymptomDisabled(true)
+    }
+    setMucusTrackingCategory(value)
+    saveMucusTrackingCategory(value)
+    saveUseCervix(shouldUseCervix)
+  }
+
+  const cervixTrackingCategoryToggle = (value) => {
+    if (!mucusTrackingCategoryObservable.value && value) {
+      setShouldUseCervix(true)
+      setIsSecondarySymptomDisabled(true)
+    } else if (mucusTrackingCategoryObservable.value && value) {
+      setIsSecondarySymptomDisabled(false)
+    } else if (mucusTrackingCategoryObservable.value && !value) {
+      setShouldUseCervix(false)
+      setIsSecondarySymptomDisabled(true)
+    } else if (!mucusTrackingCategoryObservable.value && !value) {
+      setIsSecondarySymptomDisabled(true)
+    }
+    setCervixTrackingCategory(value)
+    saveCervixTrackingCategory(value)
+    saveUseCervix(shouldUseCervix)
+  }
+
   const sexTrackingCategoryToggle = (value) => {
     setSexTrackingCategory(value)
     saveSexTrackingCategory(value)
   }
-
   const desireTrackingCategoryToggle = (value) => {
     setDesireTrackingCategory(value)
     saveDesireTrackingCategory(value)
@@ -90,12 +138,10 @@ const Settings = () => {
     setNoteTrackingCategory(value)
     saveNoteTrackingCategory(value)
   }
-
   const onPeriodPredictionToggle = (value) => {
     setPeriodPrediction(value)
     savePeriodPrediction(value)
   }
-
   const periodPredictionText = isPeriodPredictionEnabled
     ? labels.periodPrediction.on
     : labels.periodPrediction.off
@@ -103,6 +149,41 @@ const Settings = () => {
   const onCervixToggle = (value) => {
     setShouldUseCervix(value)
     saveUseCervix(value)
+  }
+
+  useEffect(() => {
+    if (
+      !mucusTrackingCategoryObservable.value &&
+      cervixTrackingCategoryObservable.value
+    ) {
+      setShouldUseCervix(true)
+      setIsSecondarySymptomDisabled(false)
+    } else if (
+      mucusTrackingCategoryObservable.value &&
+      cervixTrackingCategoryObservable.value
+    ) {
+      setIsSecondarySymptomDisabled(false)
+    } else if (
+      mucusTrackingCategoryObservable.value &&
+      !cervixTrackingCategoryObservable.value
+    ) {
+      setShouldUseCervix(false)
+      setIsSecondarySymptomDisabled(false)
+    } else if (
+      !mucusTrackingCategoryObservable.value &&
+      !cervixTrackingCategoryObservable.value
+    ) {
+      setIsSecondarySymptomDisabled(true)
+    }
+  }, [])
+
+  const secSymptomDisabledPrompt = () => {
+    if (isSecondarySymptomDisabled) {
+      Alert.alert(
+        labels.periodReminder.alertNoPeriodReminder.title,
+        labels.periodReminder.alertNoPeriodReminder.message
+      )
+    }
   }
 
   const cervixText = shouldUseCervix
@@ -121,6 +202,22 @@ const Settings = () => {
           onToggle={temperatureTrackingCategoryToggle}
           text={SYMPTOMS[1]}
           value={isTemperatureTrackingCategoryEnabled}
+        />
+
+        <AppSwitch
+          onToggle={(enabled) => {
+            mucusTrackingCategoryToggle(enabled)
+          }}
+          text={'mucus'}
+          value={isMucusTrackingCategoryEnabled}
+          trackColor={{ true: Colors.turquoiseDark }}
+        />
+        <AppSwitch
+          onToggle={(enabled) => {
+            cervixTrackingCategoryToggle(enabled)
+          }}
+          text={'cervix'}
+          value={isCervixTrackingCategoryEnabled}
           trackColor={{ true: Colors.turquoiseDark }}
         />
         <AppSwitch
@@ -178,19 +275,15 @@ const Settings = () => {
         </Segment>
       </Pressable>
 
-      <Pressable onPress={sliderDisabledPrompt}>
+      <Pressable onPress={secSymptomDisabledPrompt}>
         <Segment title={labels.useCervix.title}>
-          {isTemperatureTrackingCategoryEnabled && (
-            <AppSwitch
-              onToggle={onCervixToggle}
-              text={cervixText}
-              value={shouldUseCervix}
-              trackColor={{ true: Colors.turquoiseDark }}
-            />
-          )}
-          {!isTemperatureTrackingCategoryEnabled && (
-            <AppText>{labels.disabled.message}</AppText>
-          )}
+          <AppSwitch
+            onToggle={onCervixToggle}
+            text={cervixText}
+            value={shouldUseCervix}
+            trackColor={{ true: Colors.turquoiseDark }}
+            disabled={isSecondarySymptomDisabled}
+          />
         </Segment>
       </Pressable>
 

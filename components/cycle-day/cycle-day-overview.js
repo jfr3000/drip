@@ -16,6 +16,8 @@ import {
   painTrackingCategoryObservable,
   sexTrackingCategoryObservable,
   temperatureTrackingCategoryObservable,
+  mucusTrackingCategoryObservable,
+  cervixTrackingCategoryObservable,
 } from '../../local-storage'
 import { Spacing } from '../../styles'
 import { SYMPTOMS } from '../../config'
@@ -40,6 +42,10 @@ const CycleDayOverView = ({ date, setDate, isTemperatureEditView }) => {
       return temperatureTrackingCategoryObservable.value ? symptom : null
     } else if (symptom === 'sex') {
       return sexTrackingCategoryObservable.value ? symptom : null
+    } else if (symptom === 'mucus') {
+      return mucusTrackingCategoryObservable.value ? symptom : null
+    } else if (symptom === 'cervix') {
+      return cervixTrackingCategoryObservable.value ? symptom : null
     } else if (symptom === 'desire') {
       return desireTrackingCategoryObservable.value ? symptom : null
     } else if (symptom === 'pain') {
