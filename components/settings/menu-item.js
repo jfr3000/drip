@@ -20,11 +20,15 @@ const MenuItem = ({ item, last, navigate }) => {
         key={item.label}
         onPress={() => navigate(item.componentName)}
       >
-        <View>
+        <View style={styles.textContainer}>
           <AppText style={styles.title}>{t(`${item.label}.name`)}</AppText>
           {!!item.label && <AppText>{t(`${item.label}.text`)}</AppText>}
         </View>
-        <AppIcon name="chevron-right" color={Colors.orange} />
+        <AppIcon
+          style={styles.chevronContainer}
+          name="chevron-right"
+          color={Colors.orange}
+        />
       </TouchableOpacity>
     </Segment>
   )
@@ -43,6 +47,13 @@ const styles = StyleSheet.create({
   title: {
     color: Colors.purple,
     fontSize: Sizes.subtitle,
+  },
+  textContainer: {
+    flex: 5,
+  },
+  chevronContainer: {
+    textAlign: 'right',
+    flex: 1,
   },
 })
 
