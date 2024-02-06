@@ -1,22 +1,23 @@
-## This has to be done 🪠
+## 🪠 This has to be done 🪠
 
-### Description what has to be done
+### What has to be done?
 
 Short overview
 
-### is it urgent? ⏳
+### Is it urgent? ⏳
 
 - [ ] Yes
 - [ ] No
-- [ ] something in between
+- [ ] Something in between
 
 _Explain the urgency if possible, e.g. is it a security vulnerability for potentially everyone?_
+If it is a security vulnerability for potentially everyone, please reach out ASAP to drip@mailbox.org.
 
-### which OS
+### Which OS?
 
 - [ ] Android
 - [ ] iOS
 
-### what shall be the ideal outcome 🎆
+### What should the ideal outcome be? 🎆
 
-_You can e.g. specify here the version number for a library update_
+_You can, e.g., specify the version number for a library update_
