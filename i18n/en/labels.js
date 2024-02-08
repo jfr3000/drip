@@ -85,7 +85,7 @@ export const fertilityStatus = {
     return (
       'We detected a temperature shift (' +
       ['regular', '1st exception', '2nd exception'][tempRule] +
-      ' temperature rule), as well as a cervical mucus/cervix shift according to sympto-thermal method. You may assume infertility, but always remember to ' +
+      ' temperature rule), as well as a cervical mucus/cervix shift according to the sympto-thermal method. You may assume infertility, but always remember to ' +
       'double-check for yourself. Make sure the data makes sense to you.'
     )
   },
