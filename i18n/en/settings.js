@@ -38,11 +38,21 @@ export default {
     loadError: 'Could not load saved temperature scale settings',
     saveError: 'Could not save temperature scale settings',
   },
+  disabled: {
+    title: 'This feature is turned off',
+    message:
+      'Please first enable the temperature tracking category in the customization settings.',
+  },
   tempReminder: {
     title: 'Temperature reminder',
     noTimeSet: 'Set a time for a daily reminder to take your temperature',
     timeSet: (time) => `Daily reminder set for ${time}`,
     notification: 'Record your morning temperature',
+    alertNoTempReminder: {
+      title: 'Temperature turned off',
+      message:
+        'To use the temperature reminder please first enable the temperature tracking category in the customization settings.',
+    },
   },
   periodReminder: {
     title: 'Next period reminder',

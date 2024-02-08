@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Alert, Pressable } from 'react-native'
 
 import AppPage from '../../common/app-page'
 import AppSwitch from '../../common/app-switch'
@@ -12,18 +13,21 @@ import {
   noteTrackingCategoryObservable,
   painTrackingCategoryObservable,
   sexTrackingCategoryObservable,
+  temperatureTrackingCategoryObservable,
   saveDesireTrackingCategory,
   saveMoodTrackingCategory,
   saveNoteTrackingCategory,
   savePainTrackingCategory,
   savePeriodPrediction,
   saveSexTrackingCategory,
+  saveTemperatureTrackingCategory,
   saveUseCervix,
   periodPredictionObservable,
   useCervixObservable,
 } from '../../../local-storage'
 import { Colors } from '../../../styles'
 import labels from '../../../i18n/en/settings'
+import { SYMPTOMS } from '../../../config'
 
 const Settings = () => {
   const [shouldUseCervix, setShouldUseCervix] = useState(
@@ -33,6 +37,9 @@ const Settings = () => {
   const [isPeriodPredictionEnabled, setPeriodPrediction] = useState(
     periodPredictionObservable.value
   )
+
+  const [isTemperatureTrackingCategoryEnabled, setTemperatureTrackingCategory] =
+    useState(temperatureTrackingCategoryObservable.value)
 
   const [isSexTrackingCategoryEnabled, setSexTrackingCategory] = useState(
     sexTrackingCategoryObservable.value
@@ -56,6 +63,11 @@ const Settings = () => {
 
   const [isEnabled, setIsEnabled] = useState(false)
   const toggleSwitch = () => setIsEnabled((previousState) => !previousState)
+
+  const temperatureTrackingCategoryToggle = (value) => {
+    setTemperatureTrackingCategory(value)
+    saveTemperatureTrackingCategory(value)
+  }
 
   const sexTrackingCategoryToggle = (value) => {
     setSexTrackingCategory(value)
@@ -97,36 +109,47 @@ const Settings = () => {
     ? labels.useCervix.cervixModeOn
     : labels.useCervix.cervixModeOff
 
+  const sliderDisabledPrompt = () => {
+    if (!isTemperatureTrackingCategoryEnabled) {
+      Alert.alert(labels.disabled.title, labels.disabled.message)
+    }
+  }
   return (
     <AppPage title={'Customization'}>
       <Segment title={'Tracking categories'}>
         <AppSwitch
+          onToggle={temperatureTrackingCategoryToggle}
+          text={SYMPTOMS[1]}
+          value={isTemperatureTrackingCategoryEnabled}
+          trackColor={{ true: Colors.turquoiseDark }}
+        />
+        <AppSwitch
           onToggle={sexTrackingCategoryToggle}
-          text={"sex: when turned off it won't show"}
+          text={SYMPTOMS[4]}
           value={isSexTrackingCategoryEnabled}
           trackColor={{ true: Colors.turquoiseDark }}
         />
         <AppSwitch
           onToggle={desireTrackingCategoryToggle}
-          text={"desire: when turned off it won't show"}
+          text={SYMPTOMS[5]}
           value={isDesireTrackingCategoryEnabled}
           trackColor={{ true: Colors.turquoiseDark }}
         />
         <AppSwitch
           onToggle={painTrackingCategoryToggle}
-          text={"pain: when turned off it won't show"}
+          text={SYMPTOMS[6]}
           value={isPainTrackingCategoryEnabled}
           trackColor={{ true: Colors.turquoiseDark }}
         />
         <AppSwitch
           onToggle={moodTrackingCategoryToggle}
-          text={"mood: when turned off it won't show"}
+          text={SYMPTOMS[7]}
           value={isMoodTrackingCategoryEnabled}
           trackColor={{ true: Colors.turquoiseDark }}
         />
         <AppSwitch
           onToggle={noteTrackingCategoryToggle}
-          text={"note: when turned off it won't show"}
+          text={SYMPTOMS[8]}
           value={isNoteTrackingCategoryEnabled}
           trackColor={{ true: Colors.turquoiseDark }}
         />
@@ -141,19 +164,35 @@ const Settings = () => {
         />
       </Segment>
 
-      <Segment title={labels.tempScale.segmentTitle}>
-        <AppText>{labels.tempScale.segmentExplainer}</AppText>
-        <TemperatureSlider />
-      </Segment>
+      <Pressable onPress={sliderDisabledPrompt}>
+        <Segment title={labels.tempScale.segmentTitle}>
+          {isTemperatureTrackingCategoryEnabled && (
+            <>
+              <AppText>{labels.tempScale.segmentExplainer}</AppText>
+              <TemperatureSlider />
+            </>
+          )}
+          {!isTemperatureTrackingCategoryEnabled && (
+            <AppText>{labels.disabled.message}</AppText>
+          )}
+        </Segment>
+      </Pressable>
 
-      <Segment title={labels.useCervix.title}>
-        <AppSwitch
-          onToggle={onCervixToggle}
-          text={cervixText}
-          value={shouldUseCervix}
-          trackColor={{ true: Colors.turquoiseDark }}
-        />
-      </Segment>
+      <Pressable onPress={sliderDisabledPrompt}>
+        <Segment title={labels.useCervix.title}>
+          {isTemperatureTrackingCategoryEnabled && (
+            <AppSwitch
+              onToggle={onCervixToggle}
+              text={cervixText}
+              value={shouldUseCervix}
+              trackColor={{ true: Colors.turquoiseDark }}
+            />
+          )}
+          {!isTemperatureTrackingCategoryEnabled && (
+            <AppText>{labels.disabled.message}</AppText>
+          )}
+        </Segment>
+      </Pressable>
 
       <Segment title={labels.periodPrediction.title} last>
         <AppSwitch
