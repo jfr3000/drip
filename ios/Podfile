@@ -19,6 +19,5 @@ target 'drip' do
   
   post_install do |installer|
     react_native_post_install(installer)
-    sed -i.bo 's/    node->getLayout()\.hadOverflow() |$/\0|/' ./node_modules/react-native/ReactCommon/yoga/yoga/Yoga.cpp
   end  
 end
