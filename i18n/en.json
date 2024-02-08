@@ -122,7 +122,7 @@
         },
         "password": {
           "name": "Password",
-          "text": ""
+          "text": "set or edit your password"
         },
         "reminders": {
           "name": "Reminders",
