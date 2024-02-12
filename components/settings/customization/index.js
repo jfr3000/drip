@@ -178,10 +178,18 @@ const Settings = () => {
   }, [])
 
   const secSymptomDisabledPrompt = () => {
-    if (isSecondarySymptomDisabled) {
+    if (!isMucusTrackingCategoryEnabled && !isCervixTrackingCategoryEnabled) {
       Alert.alert(
-        labels.periodReminder.alertNoPeriodReminder.title,
-        labels.periodReminder.alertNoPeriodReminder.message
+        labels.useCervix.disabled.title,
+        labels.useCervix.disabled.message
+      )
+    } else if (
+      !isMucusTrackingCategoryEnabled ||
+      !isCervixTrackingCategoryEnabled
+    ) {
+      Alert.alert(
+        labels.useCervix.disabled.title,
+        labels.useCervix.disabled.noSecondaryEnabled
       )
     }
   }
@@ -208,18 +216,20 @@ const Settings = () => {
           onToggle={(enabled) => {
             mucusTrackingCategoryToggle(enabled)
           }}
-          text={'mucus'}
+          text={SYMPTOMS[2]}
           value={isMucusTrackingCategoryEnabled}
           trackColor={{ true: Colors.turquoiseDark }}
         />
+
         <AppSwitch
           onToggle={(enabled) => {
             cervixTrackingCategoryToggle(enabled)
           }}
-          text={'cervix'}
+          text={SYMPTOMS[3]}
           value={isCervixTrackingCategoryEnabled}
           trackColor={{ true: Colors.turquoiseDark }}
         />
+
         <AppSwitch
           onToggle={sexTrackingCategoryToggle}
           text={SYMPTOMS[4]}

@@ -72,6 +72,13 @@ export default {
       'Cervix values are being used for symptothermal fertility detection. You can switch here to use cervical mucus values for symptothermal fertility detection',
     cervixModeOff:
       'By default, cervical mucus values are being used for symptothermal fertility detection. You can switch here to use cervix values for symptothermal fertility detection',
+    disabled: {
+      title: 'Disabled',
+      message:
+        'To set the secondary symptom please first enable the temperature, cervical mucus or cervix tracking category as well as the fertility feature in the customization settings.',
+      noSecondaryEnabled:
+        'To switch the secondary symptom both cervical mucus an cervix need to be enabled in the customization settings.',
+    },
   },
   periodPrediction: {
     title: 'Period predictions',
