@@ -85,37 +85,11 @@ const Settings = () => {
   }
 
   const mucusTrackingCategoryToggle = (value) => {
-    if (!cervixTrackingCategoryObservable.value && value) {
-      setShouldUseCervix(false)
-      setIsSecondarySymptomDisabled(true)
-    } else if (cervixTrackingCategoryObservable.value && value) {
-      setIsSecondarySymptomDisabled(false)
-    } else if (cervixTrackingCategoryObservable.value && !value) {
-      setShouldUseCervix(true)
-      setIsSecondarySymptomDisabled(true)
-    } else if (!cervixTrackingCategoryObservable.value && !value) {
-      setIsSecondarySymptomDisabled(true)
-    }
-    setMucusTrackingCategory(value)
-    saveMucusTrackingCategory(value)
-    saveUseCervix(shouldUseCervix)
+    manageSecondarySymptom(cervixTrackingCategoryObservable.value, value)
   }
 
   const cervixTrackingCategoryToggle = (value) => {
-    if (!mucusTrackingCategoryObservable.value && value) {
-      setShouldUseCervix(true)
-      setIsSecondarySymptomDisabled(true)
-    } else if (mucusTrackingCategoryObservable.value && value) {
-      setIsSecondarySymptomDisabled(false)
-    } else if (mucusTrackingCategoryObservable.value && !value) {
-      setShouldUseCervix(false)
-      setIsSecondarySymptomDisabled(true)
-    } else if (!mucusTrackingCategoryObservable.value && !value) {
-      setIsSecondarySymptomDisabled(true)
-    }
-    setCervixTrackingCategory(value)
-    saveCervixTrackingCategory(value)
-    saveUseCervix(shouldUseCervix)
+    manageSecondarySymptom(value, mucusTrackingCategoryObservable.value)
   }
 
   const sexTrackingCategoryToggle = (value) => {
@@ -154,30 +128,30 @@ const Settings = () => {
   }
 
   useEffect(() => {
-    if (
-      !mucusTrackingCategoryObservable.value &&
-      cervixTrackingCategoryObservable.value
-    ) {
-      setShouldUseCervix(true)
-      setIsSecondarySymptomDisabled(false)
-    } else if (
-      mucusTrackingCategoryObservable.value &&
-      cervixTrackingCategoryObservable.value
-    ) {
-      setIsSecondarySymptomDisabled(false)
-    } else if (
-      mucusTrackingCategoryObservable.value &&
-      !cervixTrackingCategoryObservable.value
-    ) {
+    manageSecondarySymptom(
+      cervixTrackingCategoryObservable.value,
+      mucusTrackingCategoryObservable.value
+    )
+  }, [])
+
+  const manageSecondarySymptom = (cervix, mucus) => {
+    if (!cervix && mucus) {
       setShouldUseCervix(false)
+      setIsSecondarySymptomDisabled(true)
+    } else if (cervix && mucus) {
       setIsSecondarySymptomDisabled(false)
-    } else if (
-      !mucusTrackingCategoryObservable.value &&
-      !cervixTrackingCategoryObservable.value
-    ) {
+    } else if (cervix && !mucus) {
+      setShouldUseCervix(true)
+      setIsSecondarySymptomDisabled(true)
+    } else if (!cervix && !mucus) {
       setIsSecondarySymptomDisabled(true)
     }
-  }, [])
+    setMucusTrackingCategory(mucus)
+    saveMucusTrackingCategory(mucus)
+    setCervixTrackingCategory(cervix)
+    saveCervixTrackingCategory(cervix)
+    saveUseCervix(shouldUseCervix)
+  }
 
   const secSymptomDisabledPrompt = () => {
     if (!isMucusTrackingCategoryEnabled && !isCervixTrackingCategoryEnabled) {
