@@ -147,8 +147,10 @@ const Settings = () => {
     : labels.periodPrediction.off
 
   const onCervixToggle = (value) => {
-    setShouldUseCervix(value)
-    saveUseCervix(value)
+    if (isMucusTrackingCategoryEnabled && isCervixTrackingCategoryEnabled) {
+      setShouldUseCervix(value)
+      saveUseCervix(value)
+    }
   }
 
   useEffect(() => {
