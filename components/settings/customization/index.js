@@ -279,7 +279,6 @@ const Settings = () => {
           {isTemperatureTrackingCategoryEnabled && (
             <>
               <AppText>{cervixText}</AppText>
-
               <SelectTabGroup
                 activeButton={shouldUseCervix}
                 buttons={secondarySymptomButtons}
