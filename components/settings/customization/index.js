@@ -6,6 +6,7 @@ import AppSwitch from '../../common/app-switch'
 import AppText from '../../common/app-text'
 import TemperatureSlider from './temperature-slider'
 import Segment from '../../common/segment'
+import SelectTabGroup from '../../cycle-day/select-tab-group'
 
 import {
   desireTrackingCategoryObservable,
@@ -120,7 +121,16 @@ const Settings = () => {
     ? labels.periodPrediction.on
     : labels.periodPrediction.off
 
-  const onCervixToggle = (value) => {
+  // old
+  // const onCervixToggle = (value) => {
+  //   if (isMucusTrackingCategoryEnabled && isCervixTrackingCategoryEnabled) {
+  //     setShouldUseCervix(value)
+  //     saveUseCervix(value)
+  //   }
+  // }
+
+  // new
+  const onSelectTab = (value) => {
     if (isMucusTrackingCategoryEnabled && isCervixTrackingCategoryEnabled) {
       setShouldUseCervix(value)
       saveUseCervix(value)
@@ -169,6 +179,18 @@ const Settings = () => {
       )
     }
   }
+
+  //new
+  const secondarySymptomButtons = [
+    {
+      label: 'cervical mucus',
+      value: 0,
+    },
+    {
+      label: 'cervix',
+      value: 1,
+    },
+  ]
 
   const cervixText = shouldUseCervix
     ? labels.useCervix.cervixModeOn
@@ -263,13 +285,21 @@ const Settings = () => {
 
       <Pressable onPress={secSymptomDisabledPrompt}>
         <Segment title={labels.useCervix.title}>
-          <AppSwitch
-            onToggle={onCervixToggle}
-            text={cervixText}
-            value={shouldUseCervix}
-            trackColor={{ true: Colors.turquoiseDark }}
-            disabled={isSecondarySymptomDisabled}
-          />
+          {/* hier war vorher der AppSwitch */}
+          {/* noch condition adden */}
+          {isTemperatureTrackingCategoryEnabled && (
+            <>
+              <AppText>{cervixText}</AppText>
+              <SelectTabGroup
+                activeButton={shouldUseCervix}
+                buttons={secondarySymptomButtons}
+                onSelect={(value) => onSelectTab(value)}
+              />
+            </>
+          )}
+          {!isTemperatureTrackingCategoryEnabled && (
+            <AppText>{labels.disabled.message}</AppText>
+          )}
         </Segment>
       </Pressable>
 
