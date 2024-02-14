@@ -121,15 +121,17 @@ const Settings = () => {
     ? labels.periodPrediction.on
     : labels.periodPrediction.off
 
-  // old
-  // const onCervixToggle = (value) => {
-  //   if (isMucusTrackingCategoryEnabled && isCervixTrackingCategoryEnabled) {
-  //     setShouldUseCervix(value)
-  //     saveUseCervix(value)
-  //   }
-  // }
+  const secondarySymptomButtons = [
+    {
+      label: 'cervical mucus',
+      value: 0,
+    },
+    {
+      label: 'cervix',
+      value: 1,
+    },
+  ]
 
-  // new
   const onSelectTab = (value) => {
     if (isMucusTrackingCategoryEnabled && isCervixTrackingCategoryEnabled) {
       setShouldUseCervix(value)
@@ -179,18 +181,6 @@ const Settings = () => {
       )
     }
   }
-
-  //new
-  const secondarySymptomButtons = [
-    {
-      label: 'cervical mucus',
-      value: 0,
-    },
-    {
-      label: 'cervix',
-      value: 1,
-    },
-  ]
 
   const cervixText = shouldUseCervix
     ? labels.useCervix.cervixModeOn
@@ -285,11 +275,11 @@ const Settings = () => {
 
       <Pressable onPress={secSymptomDisabledPrompt}>
         <Segment title={labels.useCervix.title}>
-          {/* hier war vorher der AppSwitch */}
-          {/* noch condition adden */}
+          {/* noch condition adden like isSecondarySymptomDisabled */}
           {isTemperatureTrackingCategoryEnabled && (
             <>
               <AppText>{cervixText}</AppText>
+
               <SelectTabGroup
                 activeButton={shouldUseCervix}
                 buttons={secondarySymptomButtons}
