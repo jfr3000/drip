@@ -66,6 +66,11 @@ export default {
         'To use the period reminder please first enable period predictions in the customization settings.',
     },
   },
+  fertilityTracking: {
+    title: 'Fertility phases calculation',
+    on: 'The quick brown fox jumps over the lazy dog',
+    off: 'No no',
+  },
   secondarySymptom: {
     title: 'Secondary symptom',
     cervixModeOn:

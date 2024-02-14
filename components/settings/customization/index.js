@@ -10,6 +10,7 @@ import SelectTabGroup from '../../cycle-day/select-tab-group'
 
 import {
   desireTrackingCategoryObservable,
+  fertilityTrackingObservable,
   moodTrackingCategoryObservable,
   noteTrackingCategoryObservable,
   painTrackingCategoryObservable,
@@ -18,6 +19,7 @@ import {
   mucusTrackingCategoryObservable,
   cervixTrackingCategoryObservable,
   saveDesireTrackingCategory,
+  saveFertilityTrackingEnabled,
   saveMoodTrackingCategory,
   saveNoteTrackingCategory,
   savePainTrackingCategory,
@@ -75,8 +77,13 @@ const Settings = () => {
   const [isSecondarySymptomDisabled, setIsSecondarySymptomDisabled] =
     useState(false)
 
-  const [isEnabled, setIsEnabled] = useState(false)
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState)
+  const [isFertilityTrackingEnabled, setFertilityTrackingEnabled] = useState(
+    fertilityTrackingObservable.value
+  )
+  const fertilityTrackingToggle = (value) => {
+    setFertilityTrackingEnabled(value)
+    saveFertilityTrackingEnabled(value)
+  }
 
   const temperatureTrackingCategoryToggle = (value) => {
     setTemperatureTrackingCategory(value)
@@ -112,6 +119,11 @@ const Settings = () => {
     setPeriodPrediction(value)
     savePeriodPrediction(value)
   }
+
+  const fertilityTrackingText = isFertilityTrackingEnabled
+    ? labels.fertilityTracking.on
+    : labels.fertilityTracking.off
+
   const periodPredictionText = isPeriodPredictionEnabled
     ? labels.periodPrediction.on
     : labels.periodPrediction.off
@@ -234,12 +246,11 @@ const Settings = () => {
           value={isNoteTrackingCategoryEnabled}
         />
       </Segment>
-
-      <Segment title={'Fertility feature'}>
+      <Segment title={labels.fertilityTracking.title}>
         <AppSwitch
-          onToggle={toggleSwitch}
-          text={'If turned on ...'}
-          value={isEnabled}
+          onToggle={fertilityTrackingToggle}
+          text={fertilityTrackingText}
+          value={isFertilityTrackingEnabled}
         />
       </Segment>
 

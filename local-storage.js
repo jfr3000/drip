@@ -170,6 +170,14 @@ export async function saveNoteTrackingCategory(bool) {
   noteTrackingCategoryObservable.set(bool)
 }
 
+export const fertilityTrackingObservable = Observable()
+setObvWithInitValue('fertilityTracking', fertilityTrackingObservable, true)
+
+export async function saveFertilityTrackingEnabled(bool) {
+  await AsyncStorage.setItem('fertilityTracking', JSON.stringify(bool))
+  fertilityTrackingObservable.set(bool)
+}
+
 async function setObvWithInitValue(key, obv, defaultValue) {
   const result = await AsyncStorage.getItem(key)
   let value
