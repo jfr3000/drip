@@ -8,12 +8,15 @@ import { Colors, Containers } from '../../styles'
 import labels from '../../i18n/en/settings'
 
 export default function SelectTabGroup({ activeButton, buttons, onSelect }) {
+  const oneTimeTransformIntoNumber =
+    typeof activeButton === 'boolean' && Number(activeButton)
   const isSecondarySymptomSwitch =
     buttons[0]['label'] === labels.useCervix.secondarySymptomCervicalMucus
   return (
     <View style={styles.container}>
       {buttons.map(({ label, value }, i) => {
-        const isActive = value === activeButton
+        const isActive =
+          value === activeButton || value === oneTimeTransformIntoNumber
         const boxStyle = [
           styles.box,
           isActive && styles.boxActive,
