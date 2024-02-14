@@ -79,6 +79,8 @@ export default {
       noSecondaryEnabled:
         'To switch the secondary symptom both cervical mucus an cervix need to be enabled in the customization settings.',
     },
+    secondarySymptomCervicalMucus: 'cervical mucus',
+    secondarySymptomCervix: 'cervix',
   },
   periodPrediction: {
     title: 'Period predictions',

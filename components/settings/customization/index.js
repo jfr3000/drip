@@ -123,11 +123,11 @@ const Settings = () => {
 
   const secondarySymptomButtons = [
     {
-      label: 'cervical mucus',
+      label: labels.useCervix.secondarySymptomCervicalMucus,
       value: 0,
     },
     {
-      label: 'cervix',
+      label: labels.useCervix.secondarySymptomCervix,
       value: 1,
     },
   ]
