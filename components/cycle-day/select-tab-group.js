@@ -5,14 +5,26 @@ import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import AppText from '../common/app-text'
 
 import { Colors, Containers } from '../../styles'
+import labels from '../../i18n/en/settings'
 
 export default function SelectTabGroup({ activeButton, buttons, onSelect }) {
+  const isSecondarySymptomSwitch =
+    buttons[0]['label'] === labels.useCervix.secondarySymptomCervicalMucus
   return (
     <View style={styles.container}>
       {buttons.map(({ label, value }, i) => {
         const isActive = value === activeButton
-        const boxStyle = [styles.box, isActive && styles.boxActive]
-        const textStyle = [styles.text, isActive && styles.textActive]
+        const boxStyle = [
+          styles.box,
+          isActive && styles.boxActive,
+          isSecondarySymptomSwitch && styles.purpleBox,
+          isSecondarySymptomSwitch && isActive && styles.activePurpleBox,
+        ]
+        const textStyle = [
+          styles.text,
+          isSecondarySymptomSwitch && styles.purpleText,
+          isActive && styles.textActive,
+        ]
 
         return (
           <TouchableOpacity
@@ -49,5 +61,14 @@ const styles = StyleSheet.create({
   },
   textActive: {
     color: 'white',
+  },
+  purpleBox: {
+    borderColor: Colors.purple,
+  },
+  activePurpleBox: {
+    backgroundColor: Colors.purple,
+  },
+  purpleText: {
+    color: Colors.purple,
   },
 })
