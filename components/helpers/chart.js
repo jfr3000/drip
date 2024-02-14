@@ -1,6 +1,10 @@
 import { LocalDate } from '@js-joda/core'
 
-import { scaleObservable, unitObservable } from '../../local-storage'
+import {
+  fertilityTrackingObservable,
+  scaleObservable,
+  unitObservable,
+} from '../../local-storage'
 import { getCycleStatusForDay } from '../../lib/sympto-adapter'
 import { getCycleDay, getAmountOfCycleDays } from '../../db'
 
@@ -270,7 +274,8 @@ export function nfpLines() {
     if (dateString < cycle.startDate) updateCurrentCycle(dateString)
     if (cycle.noMoreCycles) return ret
 
-    const tempShift = cycle.status.temperatureShift
+    const tempShift =
+      fertilityTrackingObservable.value && cycle.status.temperatureShift
 
     if (tempShift) {
       if (tempShift.firstHighMeasurementDay.date === dateString) {
