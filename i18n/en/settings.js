@@ -38,11 +38,21 @@ export default {
     loadError: 'Could not load saved temperature scale settings',
     saveError: 'Could not save temperature scale settings',
   },
+  disabled: {
+    title: 'This feature is turned off',
+    message:
+      'Please first enable the temperature tracking category in the customization settings.',
+  },
   tempReminder: {
     title: 'Temperature reminder',
     noTimeSet: 'Set a time for a daily reminder to take your temperature',
     timeSet: (time) => `Daily reminder set for ${time}`,
     notification: 'Record your morning temperature',
+    alertNoTempReminder: {
+      title: 'Temperature turned off',
+      message:
+        'To use the temperature reminder please first enable the temperature tracking category in the customization settings.',
+    },
   },
   periodReminder: {
     title: 'Next period reminder',
@@ -109,6 +119,6 @@ Making any changes to your password setting will keep your data as it was before
   },
   preOvu: {
     title: 'Infertile days at cycle start',
-    note: `drip. applies NFP's rules for calculating infertile days at the start of the cycle (see ${links.wiki.url} for more info). However, drip. does not currently apply the so called 20-day-rule, which determines infertile days at the cycle start from past cycle lengths in case no past symptothermal info is available.`,
+    note: `drip. applies the sympto-thermal method for calculating infertile days at the start of the cycle (see ${links.wiki.url} for more info). However, drip. does not currently apply the so called 20-day-rule, which determines infertile days at the cycle start from past cycle lengths in case no past symptothermal info is available.`,
   },
 }

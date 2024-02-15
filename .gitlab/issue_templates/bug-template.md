@@ -1,26 +1,29 @@
-## oh no a bug 🐛
+## 🐛 Oh no, a bug 🐛
 
-### Description what has happened
+### What happened?
 
-Short overview how the bug manifests.
+Short overview of how the bug manifests.
 
-### which OS + version is your device
+### What is the expected behaviour?
+
+_It's supposed to show ... and not ..._
+
+### Which OS + version is your device?
 
 - [ ] Android _number_
 - [ ] iOS _number_
+- [ ] Simulator _number_
 
-### which drip version number are you using
+### Which drip version number are you using?
 
-_On your phone go to ➞ menu on the top right ➞ about, scroll to the very bottom and find the version number_
+_On your phone, go to ➞ menu on the top right ➞ about, scroll to the very bottom, and find the version number_
 
-### how did it happen
+### How did it happen?
 
-_what triggered the bug/behavior, always/sometimes, is it reproducible(how)?_
+_What triggered the bug/behavior, always/sometimes, is it reproducible(how)?_
 
-### describe how it looks or add screenshot
+### Describe how it looks or add a screenshot
 
-feel free to attach a file 📎
+Feel free to attach a file 📎
 
-### any idea to solve it
-
-💡
+### Any ideas on how to solve it? 💡

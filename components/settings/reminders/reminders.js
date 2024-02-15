@@ -9,6 +9,7 @@ import {
   periodReminderObservable,
   savePeriodReminder,
   periodPredictionObservable,
+  temperatureTrackingCategoryObservable,
 } from '../../../local-storage'
 
 import labels from '../../../i18n/en/settings'
@@ -34,6 +35,14 @@ const Reminders = () => {
     }
   }
 
+  const tempReminderDisabledPrompt = () => {
+    if (!temperatureTrackingCategoryObservable.value) {
+      Alert.alert(
+        labels.tempReminder.alertNoTempReminder.title,
+        labels.tempReminder.alertNoTempReminder.message
+      )
+    }
+  }
   return (
     <AppPage>
       <Pressable onPress={reminderDisabledPrompt}>
@@ -46,9 +55,11 @@ const Reminders = () => {
           />
         </Segment>
       </Pressable>
-      <Segment title={labels.tempReminder.title} last>
-        <TemperatureReminder />
-      </Segment>
+      <Pressable onPress={tempReminderDisabledPrompt}>
+        <Segment title={labels.tempReminder.title} last>
+          <TemperatureReminder />
+        </Segment>
+      </Pressable>
     </AppPage>
   )
 }

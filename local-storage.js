@@ -92,6 +92,21 @@ export async function setChartFlag() {
   await AsyncStorage.setItem('isFirstChartView', JSON.stringify(false))
 }
 
+export const temperatureTrackingCategoryObservable = Observable()
+setObvWithInitValue('temperature', temperatureTrackingCategoryObservable, true)
+
+export async function saveTemperatureTrackingCategory(bool) {
+  await AsyncStorage.setItem('temperature', JSON.stringify(bool))
+  temperatureTrackingCategoryObservable.set(bool)
+
+  if (!temperatureTrackingCategoryObservable.value) {
+    const result = await AsyncStorage.getItem('tempReminder')
+    if (JSON.parse(result).enabled) {
+      tempReminderObservable.set(false)
+    }
+  }
+}
+
 export const sexTrackingCategoryObservable = Observable()
 setObvWithInitValue('sex', sexTrackingCategoryObservable, true)
 

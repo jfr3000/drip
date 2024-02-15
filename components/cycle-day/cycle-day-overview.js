@@ -15,6 +15,7 @@ import {
   noteTrackingCategoryObservable,
   painTrackingCategoryObservable,
   sexTrackingCategoryObservable,
+  temperatureTrackingCategoryObservable,
 } from '../../local-storage'
 import { Spacing } from '../../styles'
 import { SYMPTOMS } from '../../config'
@@ -35,7 +36,9 @@ const CycleDayOverView = ({ date, setDate, isTemperatureEditView }) => {
   }
 
   const allEnabledSymptoms = SYMPTOMS.map((symptom) => {
-    if (symptom === 'sex') {
+    if (symptom === 'temperature') {
+      return temperatureTrackingCategoryObservable.value ? symptom : null
+    } else if (symptom === 'sex') {
       return sexTrackingCategoryObservable.value ? symptom : null
     } else if (symptom === 'desire') {
       return desireTrackingCategoryObservable.value ? symptom : null
