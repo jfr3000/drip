@@ -167,7 +167,7 @@ const Settings = () => {
     saveUseCervixAsSecondarySymptom(useCervixAsSecondarySymptom)
   }
 
-  const secSymptomDisabledPrompt = () => {
+  const secondarySymptomDisabledPrompt = () => {
     if (!isMucusTrackingCategoryEnabled == isCervixTrackingCategoryEnabled) {
       Alert.alert(
         labels.secondarySymptom.disabled.title,
@@ -269,7 +269,7 @@ const Settings = () => {
       </Pressable>
 
       {/* used to be switch for onCervixToggle */}
-      <Pressable onPress={secSymptomDisabledPrompt}>
+      <Pressable onPress={secondarySymptomDisabledPrompt}>
         <Segment title={labels.secondarySymptom.title}>
           {!isTemperatureTrackingCategoryEnabled ||
           isSecondarySymptomDisabled ? (
