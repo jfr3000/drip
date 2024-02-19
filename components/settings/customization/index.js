@@ -26,7 +26,7 @@ import {
   savePeriodPrediction,
   saveSexTrackingCategory,
   saveTemperatureTrackingCategory,
-  saveUseCervix,
+  saveUseCervixAsSecondarySymptom,
   periodPredictionObservable,
   useCervixAsSecondarySymptomObservable,
 } from '../../../local-storage'
@@ -124,11 +124,11 @@ const Settings = () => {
   // used to be onCervixToggle
   const secondarySymptomButtons = [
     {
-      label: labels.useCervix.secondarySymptomCervicalMucus,
+      label: labels.useCervixAsSecondarySymptom.mucus,
       value: 0,
     },
     {
-      label: labels.useCervix.secondarySymptomCervix,
+      label: labels.useCervixAsSecondarySymptom.cervix,
       value: 1,
     },
   ]
@@ -136,7 +136,7 @@ const Settings = () => {
   const onSelectTab = (value) => {
     if (isMucusTrackingCategoryEnabled && isCervixTrackingCategoryEnabled) {
       setShouldUseCervix(value)
-      saveUseCervix(value)
+      saveUseCervixAsSecondarySymptom(value)
     }
   }
 
@@ -165,21 +165,21 @@ const Settings = () => {
     saveMucusTrackingCategory(mucus)
     setCervixTrackingCategory(cervix)
     saveCervixTrackingCategory(cervix)
-    saveUseCervix(shouldUseCervix)
+    saveUseCervixAsSecondarySymptom(shouldUseCervix)
   }
 
   const secSymptomDisabledPrompt = () => {
     if (!isMucusTrackingCategoryEnabled == isCervixTrackingCategoryEnabled) {
       Alert.alert(
-        labels.useCervix.disabled.title,
-        labels.useCervix.disabled.noSecondaryEnabled
+        labels.useCervixAsSecondarySymptom.disabled.title,
+        labels.useCervixAsSecondarySymptom.disabled.noSecondaryEnabled
       )
     }
   }
 
   const cervixText = shouldUseCervix
-    ? labels.useCervix.cervixModeOn
-    : labels.useCervix.cervixModeOff
+    ? labels.useCervixAsSecondarySymptom.cervixModeOn
+    : labels.useCervixAsSecondarySymptom.cervixModeOff
 
   const sliderDisabledPrompt = () => {
     if (!isTemperatureTrackingCategoryEnabled) {
@@ -271,10 +271,10 @@ const Settings = () => {
 
       {/* used to be switch for onCervixToggle */}
       <Pressable onPress={secSymptomDisabledPrompt}>
-        <Segment title={labels.useCervix.title}>
+        <Segment title={labels.useCervixAsSecondarySymptom.title}>
           {!isTemperatureTrackingCategoryEnabled ||
           isSecondarySymptomDisabled ? (
-            <AppText>{labels.useCervix.disabled.message}</AppText>
+            <AppText>{labels.useCervixAsSecondarySymptom.disabled.message}</AppText>
           ) : (
             <>
               <AppText>{cervixText}</AppText>

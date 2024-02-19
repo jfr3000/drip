@@ -66,7 +66,7 @@ export default {
         'To use the period reminder please first enable period predictions in the customization settings.',
     },
   },
-  useCervix: {
+  useCervixAsSecondarySymptom: {
     title: 'Secondary symptom',
     cervixModeOn:
       'Cervix values are being used for symptothermal fertility detection. You can switch here to use cervical mucus values for symptothermal fertility detection',
@@ -79,8 +79,8 @@ export default {
       noSecondaryEnabled:
         'To switch the secondary symptom both cervical mucus an cervix need to be enabled in the customization settings.',
     },
-    secondarySymptomCervicalMucus: 'cervical mucus',
-    secondarySymptomCervix: 'cervix',
+    mucus: 'cervical mucus',
+    cervix: 'cervix',
   },
   periodPrediction: {
     title: 'Period predictions',
