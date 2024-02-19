@@ -59,12 +59,12 @@ export async function savePeriodPrediction(bool) {
   }
 }
 
-export const useCervixObservable = Observable()
-setObvWithInitValue('useCervix', useCervixObservable, 0)
+export const useCervixAsSecondarySymptomObservable = Observable()
+setObvWithInitValue('useCervix', useCervixAsSecondarySymptomObservable, 0)
 
 export async function saveUseCervix(value) {
   await AsyncStorage.setItem('useCervix', JSON.stringify(value))
-  useCervixObservable.set(value)
+  useCervixAsSecondarySymptomObservable.set(value)
 }
 
 export const hasEncryptionObservable = Observable()

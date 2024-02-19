@@ -28,7 +28,7 @@ import {
   saveTemperatureTrackingCategory,
   saveUseCervix,
   periodPredictionObservable,
-  useCervixObservable,
+  useCervixAsSecondarySymptomObservable,
 } from '../../../local-storage'
 import { Colors } from '../../../styles'
 import labels from '../../../i18n/en/settings'
@@ -36,7 +36,7 @@ import { SYMPTOMS } from '../../../config'
 
 const Settings = () => {
   const [shouldUseCervix, setShouldUseCervix] = useState(
-    useCervixObservable.value
+    useCervixAsSecondarySymptomObservable.value
   )
 
   const [isPeriodPredictionEnabled, setPeriodPrediction] = useState(
