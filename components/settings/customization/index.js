@@ -121,6 +121,7 @@ const Settings = () => {
     ? labels.periodPrediction.on
     : labels.periodPrediction.off
 
+  // used to be onCervixToggle
   const secondarySymptomButtons = [
     {
       label: labels.useCervix.secondarySymptomCervicalMucus,
@@ -139,6 +140,7 @@ const Settings = () => {
     }
   }
 
+  // is needed so secondary symptom is set correct on load
   useEffect(() => {
     manageSecondarySymptom(
       cervixTrackingCategoryObservable.value,
@@ -146,15 +148,16 @@ const Settings = () => {
     )
   }, [])
 
+  // shoutUseCervix changed to 0/1 instead of false/true
   const manageSecondarySymptom = (cervix, mucus) => {
     if (!cervix && mucus) {
-      setShouldUseCervix(false)
-      setIsSecondarySymptomDisabled(true)
+      setShouldUseCervix(0)
+      setIsSecondarySymptomDisabled(false)
     } else if (cervix && mucus) {
       setIsSecondarySymptomDisabled(false)
     } else if (cervix && !mucus) {
-      setShouldUseCervix(true)
-      setIsSecondarySymptomDisabled(true)
+      setShouldUseCervix(1)
+      setIsSecondarySymptomDisabled(false)
     } else if (!cervix && !mucus) {
       setIsSecondarySymptomDisabled(true)
     }
@@ -166,15 +169,7 @@ const Settings = () => {
   }
 
   const secSymptomDisabledPrompt = () => {
-    if (!isMucusTrackingCategoryEnabled && !isCervixTrackingCategoryEnabled) {
-      Alert.alert(
-        labels.useCervix.disabled.title,
-        labels.useCervix.disabled.message
-      )
-    } else if (
-      !isMucusTrackingCategoryEnabled ||
-      !isCervixTrackingCategoryEnabled
-    ) {
+    if (!isMucusTrackingCategoryEnabled == isCervixTrackingCategoryEnabled) {
       Alert.alert(
         labels.useCervix.disabled.title,
         labels.useCervix.disabled.noSecondaryEnabled
@@ -191,6 +186,7 @@ const Settings = () => {
       Alert.alert(labels.disabled.title, labels.disabled.message)
     }
   }
+
   return (
     <AppPage title={'Customization'}>
       <Segment title={'Tracking categories'}>
@@ -273,10 +269,13 @@ const Settings = () => {
         </Segment>
       </Pressable>
 
+      {/* used to be switch for onCervixToggle */}
       <Pressable onPress={secSymptomDisabledPrompt}>
         <Segment title={labels.useCervix.title}>
-          {/* noch condition adden like isSecondarySymptomDisabled */}
-          {isTemperatureTrackingCategoryEnabled && (
+          {!isTemperatureTrackingCategoryEnabled ||
+          isSecondarySymptomDisabled ? (
+            <AppText>{labels.useCervix.disabled.message}</AppText>
+          ) : (
             <>
               <AppText>{cervixText}</AppText>
               <SelectTabGroup
@@ -285,9 +284,6 @@ const Settings = () => {
                 onSelect={(value) => onSelectTab(value)}
               />
             </>
-          )}
-          {!isTemperatureTrackingCategoryEnabled && (
-            <AppText>{labels.disabled.message}</AppText>
           )}
         </Segment>
       </Pressable>

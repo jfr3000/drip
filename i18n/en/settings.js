@@ -75,7 +75,7 @@ export default {
     disabled: {
       title: 'Disabled',
       message:
-        'To set the secondary symptom please first enable the temperature, cervical mucus or cervix tracking category as well as the fertility feature in the customization settings.',
+        'To set a secondary symptom please first enable the temperature, cervical mucus or cervix tracking category as well as the fertility feature in the customization settings.',
       noSecondaryEnabled:
         'To switch the secondary symptom both cervical mucus an cervix need to be enabled in the customization settings.',
     },
