@@ -11,7 +11,7 @@ export default function SelectTabGroup({ activeButton, buttons, onSelect }) {
   const oneTimeTransformIntoNumber =
     typeof activeButton === 'boolean' && Number(activeButton)
   const isSecondarySymptomSwitch =
-    buttons[0]['label'] === labels.useCervixAsSecondarySymptom.mucus
+    buttons[0]['label'] === labels.secondarySymptom.mucus
   return (
     <View style={styles.container}>
       {buttons.map(({ label, value }, i) => {
