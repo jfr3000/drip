@@ -35,9 +35,8 @@ import labels from '../../../i18n/en/settings'
 import { SYMPTOMS } from '../../../config'
 
 const Settings = () => {
-  const [shouldUseCervix, setShouldUseCervix] = useState(
-    useCervixAsSecondarySymptomObservable.value
-  )
+  const [useCervixAsSecondarySymptom, setUseCervixAsSecondarySymptom] =
+    useState(useCervixAsSecondarySymptomObservable.value)
 
   const [isPeriodPredictionEnabled, setPeriodPrediction] = useState(
     periodPredictionObservable.value
@@ -135,7 +134,7 @@ const Settings = () => {
 
   const onSelectTab = (value) => {
     if (isMucusTrackingCategoryEnabled && isCervixTrackingCategoryEnabled) {
-      setShouldUseCervix(value)
+      setUseCervixAsSecondarySymptom(value)
       saveUseCervixAsSecondarySymptom(value)
     }
   }
@@ -151,12 +150,12 @@ const Settings = () => {
   // shoutUseCervix changed to 0/1 instead of false/true
   const manageSecondarySymptom = (cervix, mucus) => {
     if (!cervix && mucus) {
-      setShouldUseCervix(0)
+      setUseCervixAsSecondarySymptom(0)
       setIsSecondarySymptomDisabled(false)
     } else if (cervix && mucus) {
       setIsSecondarySymptomDisabled(false)
     } else if (cervix && !mucus) {
-      setShouldUseCervix(1)
+      setUseCervixAsSecondarySymptom(1)
       setIsSecondarySymptomDisabled(false)
     } else if (!cervix && !mucus) {
       setIsSecondarySymptomDisabled(true)
@@ -165,7 +164,7 @@ const Settings = () => {
     saveMucusTrackingCategory(mucus)
     setCervixTrackingCategory(cervix)
     saveCervixTrackingCategory(cervix)
-    saveUseCervixAsSecondarySymptom(shouldUseCervix)
+    saveUseCervixAsSecondarySymptom(useCervixAsSecondarySymptom)
   }
 
   const secSymptomDisabledPrompt = () => {
@@ -177,7 +176,7 @@ const Settings = () => {
     }
   }
 
-  const cervixText = shouldUseCervix
+  const cervixText = useCervixAsSecondarySymptom
     ? labels.secondarySymptom.cervixModeOn
     : labels.secondarySymptom.cervixModeOff
 
@@ -279,7 +278,7 @@ const Settings = () => {
             <>
               <AppText>{cervixText}</AppText>
               <SelectTabGroup
-                activeButton={shouldUseCervix}
+                activeButton={useCervixAsSecondarySymptom}
                 buttons={secondarySymptomButtons}
                 onSelect={(value) => onSelectTab(value)}
               />
