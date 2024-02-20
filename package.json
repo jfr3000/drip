@@ -1,6 +1,6 @@
 {
   "name": "drip.",
-  "version": "1.2311.14",
+  "version": "1.2402.15",
   "contributors": [
     "Julia Friesel <julia.friesel@gmail.com>",
     "Marie Kochsiek",
@@ -12,8 +12,8 @@
   "scripts": {
     "start": "react-native start",
     "android": "react-native run-android",
-    "ios": "react-native run-ios --simulator=\"iPhone 8 Plus\"",
-    "ios14": "react-native run-ios --simulator=\"iPhone 14 Plus\"",
+    "ios": "react-native run-ios --simulator=\"iPhone 15\"",
+    "iosSE": "react-native run-ios --simulator=\"iPhone SE (2nd generation)\"",
     "log": "react-native log-android",
     "test": "jest test && yarn lint",
     "test-watch": "jest --watch test",
@@ -47,7 +47,7 @@
     "prop-types": "^15.8.1",
     "react": "17.0.2",
     "react-i18next": "^12.0.0",
-    "react-native": "0.67.4",
+    "react-native": "0.68.3",
     "react-native-calendars": "^1.1287.0",
     "react-native-document-picker": "^8.1.1",
     "react-native-fs": "^2.20.0",
@@ -74,7 +74,7 @@
     "jest": "^29.1.2",
     "jest-watch-typeahead": "^2.2.0",
     "jetifier": "^2.0.0",
-    "metro-react-native-babel-preset": "^0.66.2",
+    "metro-react-native-babel-preset": "^0.67.0",
     "prettier": "2.4.0",
     "pretty-quick": "^3.1.1",
     "react-native-version": "^3.1.0",
