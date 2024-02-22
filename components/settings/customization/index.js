@@ -30,7 +30,6 @@ import {
   periodPredictionObservable,
   useCervixAsSecondarySymptomObservable,
 } from '../../../local-storage'
-import { Colors } from '../../../styles'
 import labels from '../../../i18n/en/settings'
 import { SYMPTOMS } from '../../../config'
 
@@ -217,31 +216,26 @@ const Settings = () => {
           onToggle={sexTrackingCategoryToggle}
           text={SYMPTOMS[4]}
           value={isSexTrackingCategoryEnabled}
-          trackColor={{ true: Colors.turquoiseDark }}
         />
         <AppSwitch
           onToggle={desireTrackingCategoryToggle}
           text={SYMPTOMS[5]}
           value={isDesireTrackingCategoryEnabled}
-          trackColor={{ true: Colors.turquoiseDark }}
         />
         <AppSwitch
           onToggle={painTrackingCategoryToggle}
           text={SYMPTOMS[6]}
           value={isPainTrackingCategoryEnabled}
-          trackColor={{ true: Colors.turquoiseDark }}
         />
         <AppSwitch
           onToggle={moodTrackingCategoryToggle}
           text={SYMPTOMS[7]}
           value={isMoodTrackingCategoryEnabled}
-          trackColor={{ true: Colors.turquoiseDark }}
         />
         <AppSwitch
           onToggle={noteTrackingCategoryToggle}
           text={SYMPTOMS[8]}
           value={isNoteTrackingCategoryEnabled}
-          trackColor={{ true: Colors.turquoiseDark }}
         />
       </Segment>
 
@@ -250,7 +244,6 @@ const Settings = () => {
           onToggle={toggleSwitch}
           text={'If turned on ...'}
           value={isEnabled}
-          trackColor={{ true: Colors.turquoiseDark }}
         />
       </Segment>
 
@@ -292,7 +285,6 @@ const Settings = () => {
           onToggle={onPeriodPredictionToggle}
           text={periodPredictionText}
           value={isPeriodPredictionEnabled}
-          trackColor={{ true: Colors.turquoiseDark }}
         />
       </Segment>
     </AppPage>
