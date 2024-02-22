@@ -200,7 +200,6 @@ const Settings = () => {
           }}
           text={SYMPTOMS[2]}
           value={isMucusTrackingCategoryEnabled}
-          trackColor={{ true: Colors.turquoiseDark }}
         />
 
         <AppSwitch
@@ -209,7 +208,6 @@ const Settings = () => {
           }}
           text={SYMPTOMS[3]}
           value={isCervixTrackingCategoryEnabled}
-          trackColor={{ true: Colors.turquoiseDark }}
         />
 
         <AppSwitch
