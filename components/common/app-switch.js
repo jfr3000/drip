@@ -4,9 +4,10 @@ import PropTypes from 'prop-types'
 
 import AppText from './app-text'
 
-import { Containers } from '../../styles'
+import { Colors, Containers } from '../../styles'
 
-const AppSwitch = ({ onToggle, text, value, trackColor, disabled }) => {
+const AppSwitch = ({ onToggle, text, value, disabled }) => {
+  const trackColor = { true: Colors.turquoiseDark }
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
@@ -27,7 +28,6 @@ AppSwitch.propTypes = {
   onToggle: PropTypes.func.isRequired,
   text: PropTypes.string,
   value: PropTypes.bool,
-  trackColor: PropTypes.string,
   disabled: PropTypes.bool,
 }
 
