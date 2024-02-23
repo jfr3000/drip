@@ -88,6 +88,10 @@ const Settings = () => {
   const temperatureTrackingCategoryToggle = (value) => {
     setTemperatureTrackingCategory(value)
     saveTemperatureTrackingCategory(value)
+    if (!value) {
+      setFertilityTrackingEnabled(false)
+      saveFertilityTrackingEnabled(false)
+    }
   }
   const mucusTrackingCategoryToggle = (value) => {
     manageSecondarySymptom(cervixTrackingCategoryObservable.value, value)
