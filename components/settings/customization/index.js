@@ -246,13 +246,26 @@ const Settings = () => {
           value={isNoteTrackingCategoryEnabled}
         />
       </Segment>
-      <Segment title={labels.fertilityTracking.title}>
-        <AppSwitch
-          onToggle={fertilityTrackingToggle}
-          text={fertilityTrackingText}
-          value={isFertilityTrackingEnabled}
-        />
-      </Segment>
+      <Pressable onPress={sliderDisabledPrompt}>
+
+        <Segment title={labels.fertilityTracking.title}>
+          {isTemperatureTrackingCategoryEnabled &&
+           isMucusTrackingCategoryEnabled ||
+           isCervixTrackingCategoryEnabled ?
+           (
+              <>
+                <AppSwitch
+                  onToggle={fertilityTrackingToggle}
+                  text={fertilityTrackingText}
+                  value={isFertilityTrackingEnabled}
+                />
+              </>
+            ) :
+            (
+            <AppText>{labels.disabled.message}</AppText>
+            )}
+        </Segment>
+      </Pressable>
 
       <Pressable onPress={sliderDisabledPrompt}>
         <Segment title={labels.tempScale.segmentTitle}>
