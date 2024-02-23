@@ -115,7 +115,7 @@ export async function saveTemperatureTrackingCategory(bool) {
 
     // if temperature tracking is turned off, the temperature reminder gets disabled
     const tempReminderResult = await AsyncStorage.getItem('tempReminder')
-    if (JSON.parse(tempReminderResult).enabled) {
+     if (tempReminderResult && JSON.parse(tempReminderResult).enabled) {
       tempReminderObservable.set(false)
     }
   }
