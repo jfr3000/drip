@@ -74,9 +74,6 @@ const Settings = () => {
     noteTrackingCategoryObservable.value
   )
 
-  const [isSecondarySymptomDisabled, setIsSecondarySymptomDisabled] =
-    useState(false)
-
   const [isFertilityTrackingEnabled, setFertilityTrackingEnabled] = useState(
     fertilityTrackingObservable.value
   )
@@ -164,15 +161,11 @@ const Settings = () => {
     if (!cervix && mucus) {
       setUseCervixAsSecondarySymptom(0)
       saveUseCervixAsSecondarySymptom(0)
-      setIsSecondarySymptomDisabled(false)
     } else if (cervix && mucus) {
-      setIsSecondarySymptomDisabled(false)
     } else if (cervix && !mucus) {
       setUseCervixAsSecondarySymptom(1)
       saveUseCervixAsSecondarySymptom(1)
-      setIsSecondarySymptomDisabled(false)
     } else if (!cervix && !mucus) {
-      setIsSecondarySymptomDisabled(true)
       setFertilityTrackingEnabled(false)
       saveFertilityTrackingEnabled(false)
     }
