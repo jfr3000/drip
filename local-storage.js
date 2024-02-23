@@ -107,8 +107,15 @@ export async function saveTemperatureTrackingCategory(bool) {
   temperatureTrackingCategoryObservable.set(bool)
 
   if (!temperatureTrackingCategoryObservable.value) {
-    const result = await AsyncStorage.getItem('tempReminder')
-    if (JSON.parse(result).enabled) {
+    // if temperature tracking is turned off, the fertility tracking gets disabled
+    const fertilityTrackingResult = await AsyncStorage.getItem('fertilityTracking')    
+    if (fertilityTrackingResult) {
+      saveFertilityTrackingEnabled(false)
+    }
+
+    // if temperature tracking is turned off, the temperature reminder gets disabled
+    const tempReminderResult = await AsyncStorage.getItem('tempReminder')
+    if (JSON.parse(tempReminderResult).enabled) {
       tempReminderObservable.set(false)
     }
   }
