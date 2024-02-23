@@ -131,6 +131,8 @@ const Settings = () => {
     if (isMucusTrackingCategoryEnabled && isCervixTrackingCategoryEnabled) {
       setUseCervixAsSecondarySymptom(value)
       saveUseCervixAsSecondarySymptom(value)
+    } else {
+      secondarySymptomDisabledPrompt()
     }
   }
 
