@@ -82,15 +82,12 @@ const Settings = () => {
     setTemperatureTrackingCategory(value)
     saveTemperatureTrackingCategory(value)
   }
-
   const mucusTrackingCategoryToggle = (value) => {
     manageSecondarySymptom(cervixTrackingCategoryObservable.value, value)
   }
-
   const cervixTrackingCategoryToggle = (value) => {
     manageSecondarySymptom(value, mucusTrackingCategoryObservable.value)
   }
-
   const sexTrackingCategoryToggle = (value) => {
     setSexTrackingCategory(value)
     saveSexTrackingCategory(value)
@@ -119,7 +116,6 @@ const Settings = () => {
     ? labels.periodPrediction.on
     : labels.periodPrediction.off
 
-  // used to be onCervixToggle
   const secondarySymptomButtons = [
     {
       label: labels.secondarySymptom.mucus,
@@ -146,15 +142,16 @@ const Settings = () => {
     )
   }, [])
 
-  // shoutUseCervix changed to 0/1 instead of false/true
   const manageSecondarySymptom = (cervix, mucus) => {
     if (!cervix && mucus) {
       setUseCervixAsSecondarySymptom(0)
+      saveUseCervixAsSecondarySymptom(0)
       setIsSecondarySymptomDisabled(false)
     } else if (cervix && mucus) {
       setIsSecondarySymptomDisabled(false)
     } else if (cervix && !mucus) {
       setUseCervixAsSecondarySymptom(1)
+      saveUseCervixAsSecondarySymptom(1)
       setIsSecondarySymptomDisabled(false)
     } else if (!cervix && !mucus) {
       setIsSecondarySymptomDisabled(true)
@@ -163,7 +160,6 @@ const Settings = () => {
     saveMucusTrackingCategory(mucus)
     setCervixTrackingCategory(cervix)
     saveCervixTrackingCategory(cervix)
-    saveUseCervixAsSecondarySymptom(useCervixAsSecondarySymptom)
   }
 
   const secondarySymptomDisabledPrompt = () => {
