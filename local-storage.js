@@ -121,14 +121,6 @@ setObvWithInitValue('mucus', mucusTrackingCategoryObservable, true)
 export async function saveMucusTrackingCategory(bool) {
   await AsyncStorage.setItem('mucus', JSON.stringify(bool))
   mucusTrackingCategoryObservable.set(bool)
-
-  // if mucus and cervix tracking is turned off, the fertility tracking gets disabled
-  if (!mucusTrackingCategoryObservable.value && !cervixTrackingCategoryObservable.value) {
-    const fertilityTrackingResult = await AsyncStorage.getItem('fertilityTracking')    
-    if (fertilityTrackingResult) {
-      saveFertilityTrackingEnabled(false)
-    }
-  }
 }
 
 export const cervixTrackingCategoryObservable = Observable()
@@ -137,14 +129,6 @@ setObvWithInitValue('cervix', cervixTrackingCategoryObservable, true)
 export async function saveCervixTrackingCategory(bool) {
   await AsyncStorage.setItem('cervix', JSON.stringify(bool))
   cervixTrackingCategoryObservable.set(bool)
-
-  // if cervix and mucus tracking is turned off, the fertility tracking gets disabled
-  if (!cervixTrackingCategoryObservable.value && !mucusTrackingCategoryObservable.value) {
-    const fertilityTrackingResult = await AsyncStorage.getItem('fertilityTracking')    
-    if (fertilityTrackingResult) {
-      saveFertilityTrackingEnabled(false)
-    }
-  }
 }
 
 export const sexTrackingCategoryObservable = Observable()

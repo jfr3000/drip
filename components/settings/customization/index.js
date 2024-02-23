@@ -173,6 +173,8 @@ const Settings = () => {
       setIsSecondarySymptomDisabled(false)
     } else if (!cervix && !mucus) {
       setIsSecondarySymptomDisabled(true)
+      setFertilityTrackingEnabled(false)
+      saveFertilityTrackingEnabled(false)
     }
     setMucusTrackingCategory(mucus)
     saveMucusTrackingCategory(mucus)
