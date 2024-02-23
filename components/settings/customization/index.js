@@ -284,8 +284,7 @@ const Settings = () => {
       {/* used to be switch for onCervixToggle */}
       <Pressable onPress={secondarySymptomDisabledPrompt}>
         <Segment title={labels.secondarySymptom.title}>
-          {!isTemperatureTrackingCategoryEnabled ||
-          isSecondarySymptomDisabled ? (
+          {!isFertilityTrackingEnabled ? (
             <AppText>{labels.secondarySymptom.disabled.message}</AppText>
           ) : (
             <>
