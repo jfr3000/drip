@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Alert, Pressable } from 'react-native'
+import { useTranslation } from 'react-i18next'
 
 import AppPage from '../../common/app-page'
 import AppSwitch from '../../common/app-switch'
@@ -36,6 +37,8 @@ import labels from '../../../i18n/en/settings'
 import { SYMPTOMS } from '../../../config'
 
 const Settings = () => {
+  const { t } = useTranslation(null, { keyPrefix: 'symptoms' })
+
   const [useCervixAsSecondarySymptom, setUseCervixAsSecondarySymptom] =
     useState(useCervixAsSecondarySymptomObservable.value)
 
@@ -198,46 +201,46 @@ const Settings = () => {
       <Segment title={'Tracking categories'}>
         <AppSwitch
           onToggle={temperatureTrackingCategoryToggle}
-          text={SYMPTOMS[1]}
+          text={t(SYMPTOMS[1])}
           value={isTemperatureTrackingCategoryEnabled}
         />
         <AppSwitch
           onToggle={(enabled) => {
             mucusTrackingCategoryToggle(enabled)
           }}
-          text={SYMPTOMS[2]}
+          text={t(SYMPTOMS[2])}
           value={isMucusTrackingCategoryEnabled}
         />
         <AppSwitch
           onToggle={(enabled) => {
             cervixTrackingCategoryToggle(enabled)
           }}
-          text={SYMPTOMS[3]}
+          text={t(SYMPTOMS[3])}
           value={isCervixTrackingCategoryEnabled}
         />
         <AppSwitch
           onToggle={sexTrackingCategoryToggle}
-          text={SYMPTOMS[4]}
+          text={t(SYMPTOMS[4])}
           value={isSexTrackingCategoryEnabled}
         />
         <AppSwitch
           onToggle={desireTrackingCategoryToggle}
-          text={SYMPTOMS[5]}
+          text={t(SYMPTOMS[5])}
           value={isDesireTrackingCategoryEnabled}
         />
         <AppSwitch
           onToggle={painTrackingCategoryToggle}
-          text={SYMPTOMS[6]}
+          text={t(SYMPTOMS[6])}
           value={isPainTrackingCategoryEnabled}
         />
         <AppSwitch
           onToggle={moodTrackingCategoryToggle}
-          text={SYMPTOMS[7]}
+          text={t(SYMPTOMS[7])}
           value={isMoodTrackingCategoryEnabled}
         />
         <AppSwitch
           onToggle={noteTrackingCategoryToggle}
-          text={SYMPTOMS[8]}
+          text={t(SYMPTOMS[8])}
           value={isNoteTrackingCategoryEnabled}
         />
       </Segment>
