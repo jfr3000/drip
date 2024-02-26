@@ -14,7 +14,10 @@ import {
   determinePredictionText,
   formatWithOrdinalSuffix,
 } from './helpers/home'
-import { periodPredictionObservable } from '../local-storage'
+import {
+  fertilityTrackingObservable,
+  periodPredictionObservable,
+} from '../local-storage'
 
 import { Colors, Fonts, Sizes, Spacing } from '../styles'
 import { LocalDate } from '@js-joda/core'
@@ -28,11 +31,12 @@ const Home = ({ navigate, setDate }) => {
     navigate('CycleDay')
   }
 
+  const isFertilityTrackingEnabled = fertilityTrackingObservable.value
   const todayDateString = LocalDate.now().toString()
   const { getCycleDayNumber, getPredictedMenses } = cycleModule()
   const cycleDayNumber = getCycleDayNumber(todayDateString)
   const { status, phase, statusText } =
-    getFertilityStatusForDay(todayDateString)
+    isFertilityTrackingEnabled && getFertilityStatusForDay(todayDateString)
   const isPeriodPredictionEnabled = periodPredictionObservable.value
   const prediction = determinePredictionText(getPredictedMenses(), t)
 
@@ -55,7 +59,7 @@ const Home = ({ navigate, setDate }) => {
           </AppText>
         </View>
       )}
-      {phase && (
+      {isFertilityTrackingEnabled && phase && (
         <View style={styles.line}>
           <AppText style={styles.whiteSubtitle}>
             {formatWithOrdinalSuffix(phase)}

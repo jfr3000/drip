@@ -10,6 +10,7 @@ import SelectTabGroup from '../../cycle-day/select-tab-group'
 
 import {
   desireTrackingCategoryObservable,
+  fertilityTrackingObservable,
   moodTrackingCategoryObservable,
   noteTrackingCategoryObservable,
   painTrackingCategoryObservable,
@@ -18,6 +19,7 @@ import {
   mucusTrackingCategoryObservable,
   cervixTrackingCategoryObservable,
   saveDesireTrackingCategory,
+  saveFertilityTrackingEnabled,
   saveMoodTrackingCategory,
   saveNoteTrackingCategory,
   savePainTrackingCategory,
@@ -72,15 +74,21 @@ const Settings = () => {
     noteTrackingCategoryObservable.value
   )
 
-  const [isSecondarySymptomDisabled, setIsSecondarySymptomDisabled] =
-    useState(false)
-
-  const [isEnabled, setIsEnabled] = useState(false)
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState)
+  const [isFertilityTrackingEnabled, setFertilityTrackingEnabled] = useState(
+    fertilityTrackingObservable.value
+  )
+  const fertilityTrackingToggle = (value) => {
+    setFertilityTrackingEnabled(value)
+    saveFertilityTrackingEnabled(value)
+  }
 
   const temperatureTrackingCategoryToggle = (value) => {
     setTemperatureTrackingCategory(value)
     saveTemperatureTrackingCategory(value)
+    if (!value) {
+      setFertilityTrackingEnabled(false)
+      saveFertilityTrackingEnabled(false)
+    }
   }
   const mucusTrackingCategoryToggle = (value) => {
     manageSecondarySymptom(cervixTrackingCategoryObservable.value, value)
@@ -112,6 +120,11 @@ const Settings = () => {
     setPeriodPrediction(value)
     savePeriodPrediction(value)
   }
+
+  const fertilityTrackingText = isFertilityTrackingEnabled
+    ? labels.fertilityTracking.on
+    : labels.fertilityTracking.off
+
   const periodPredictionText = isPeriodPredictionEnabled
     ? labels.periodPrediction.on
     : labels.periodPrediction.off
@@ -148,15 +161,12 @@ const Settings = () => {
     if (!cervix && mucus) {
       setUseCervixAsSecondarySymptom(0)
       saveUseCervixAsSecondarySymptom(0)
-      setIsSecondarySymptomDisabled(false)
-    } else if (cervix && mucus) {
-      setIsSecondarySymptomDisabled(false)
     } else if (cervix && !mucus) {
       setUseCervixAsSecondarySymptom(1)
       saveUseCervixAsSecondarySymptom(1)
-      setIsSecondarySymptomDisabled(false)
     } else if (!cervix && !mucus) {
-      setIsSecondarySymptomDisabled(true)
+      setFertilityTrackingEnabled(false)
+      saveFertilityTrackingEnabled(false)
     }
     setMucusTrackingCategory(mucus)
     saveMucusTrackingCategory(mucus)
@@ -191,7 +201,6 @@ const Settings = () => {
           text={SYMPTOMS[1]}
           value={isTemperatureTrackingCategoryEnabled}
         />
-
         <AppSwitch
           onToggle={(enabled) => {
             mucusTrackingCategoryToggle(enabled)
@@ -199,7 +208,6 @@ const Settings = () => {
           text={SYMPTOMS[2]}
           value={isMucusTrackingCategoryEnabled}
         />
-
         <AppSwitch
           onToggle={(enabled) => {
             cervixTrackingCategoryToggle(enabled)
@@ -207,7 +215,6 @@ const Settings = () => {
           text={SYMPTOMS[3]}
           value={isCervixTrackingCategoryEnabled}
         />
-
         <AppSwitch
           onToggle={sexTrackingCategoryToggle}
           text={SYMPTOMS[4]}
@@ -234,14 +241,24 @@ const Settings = () => {
           value={isNoteTrackingCategoryEnabled}
         />
       </Segment>
-
-      <Segment title={'Fertility feature'}>
-        <AppSwitch
-          onToggle={toggleSwitch}
-          text={'If turned on ...'}
-          value={isEnabled}
-        />
-      </Segment>
+      <Pressable onPress={sliderDisabledPrompt}>
+        <Segment title={labels.fertilityTracking.title}>
+          {isTemperatureTrackingCategoryEnabled &&
+          (isMucusTrackingCategoryEnabled ||
+            isCervixTrackingCategoryEnabled) ? (
+            <>
+              <AppText>{labels.fertilityTracking.message}</AppText>
+              <AppSwitch
+                onToggle={fertilityTrackingToggle}
+                text={fertilityTrackingText}
+                value={isFertilityTrackingEnabled}
+              />
+            </>
+          ) : (
+            <AppText>{labels.disabled.message}</AppText>
+          )}
+        </Segment>
+      </Pressable>
 
       <Pressable onPress={sliderDisabledPrompt}>
         <Segment title={labels.tempScale.segmentTitle}>
@@ -257,11 +274,9 @@ const Settings = () => {
         </Segment>
       </Pressable>
 
-      {/* used to be switch for onCervixToggle */}
       <Pressable onPress={secondarySymptomDisabledPrompt}>
         <Segment title={labels.secondarySymptom.title}>
-          {!isTemperatureTrackingCategoryEnabled ||
-          isSecondarySymptomDisabled ? (
+          {!isFertilityTrackingEnabled ? (
             <AppText>{labels.secondarySymptom.disabled.message}</AppText>
           ) : (
             <>

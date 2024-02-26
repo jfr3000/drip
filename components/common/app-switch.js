@@ -1,10 +1,10 @@
 import React from 'react'
-import { StyleSheet, Switch, View } from 'react-native'
+import { Platform, StyleSheet, Switch, View } from 'react-native'
 import PropTypes from 'prop-types'
 
 import AppText from './app-text'
 
-import { Colors, Containers } from '../../styles'
+import { Colors, Containers, Spacing } from '../../styles'
 
 const AppSwitch = ({ onToggle, text, value, disabled }) => {
   const trackColor = { true: Colors.turquoiseDark }
@@ -34,9 +34,14 @@ AppSwitch.propTypes = {
 const styles = StyleSheet.create({
   container: {
     ...Containers.rowContainer,
+    marginTop: Spacing.tiny,
   },
   switch: {
     flex: 1,
+    transform:
+      Platform.OS === 'ios'
+        ? [{ scaleX: 0.8 }, { scaleY: 0.8 }]
+        : [{ scaleX: 1 }, { scaleY: 1 }],
   },
   textContainer: {
     flex: 4,

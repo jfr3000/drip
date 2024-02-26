@@ -107,8 +107,9 @@ export async function saveTemperatureTrackingCategory(bool) {
   temperatureTrackingCategoryObservable.set(bool)
 
   if (!temperatureTrackingCategoryObservable.value) {
-    const result = await AsyncStorage.getItem('tempReminder')
-    if (JSON.parse(result).enabled) {
+    // if temperature tracking is turned off, the temperature reminder gets disabled
+    const tempReminderResult = await AsyncStorage.getItem('tempReminder')
+     if (tempReminderResult && JSON.parse(tempReminderResult).enabled) {
       tempReminderObservable.set(false)
     }
   }
@@ -168,6 +169,14 @@ setObvWithInitValue('note', noteTrackingCategoryObservable, true)
 export async function saveNoteTrackingCategory(bool) {
   await AsyncStorage.setItem('note', JSON.stringify(bool))
   noteTrackingCategoryObservable.set(bool)
+}
+
+export const fertilityTrackingObservable = Observable()
+setObvWithInitValue('fertilityTracking', fertilityTrackingObservable, true)
+
+export async function saveFertilityTrackingEnabled(bool) {
+  await AsyncStorage.setItem('fertilityTracking', JSON.stringify(bool))
+  fertilityTrackingObservable.set(bool)
 }
 
 async function setObvWithInitValue(key, obv, defaultValue) {
