@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Switch, View } from 'react-native'
+import { Platform, StyleSheet, Switch, View } from 'react-native'
 import PropTypes from 'prop-types'
 
 import AppText from './app-text'

@@ -161,7 +161,6 @@ const Settings = () => {
     if (!cervix && mucus) {
       setUseCervixAsSecondarySymptom(0)
       saveUseCervixAsSecondarySymptom(0)
-    } else if (cervix && mucus) {
     } else if (cervix && !mucus) {
       setUseCervixAsSecondarySymptom(1)
       saveUseCervixAsSecondarySymptom(1)
@@ -202,7 +201,6 @@ const Settings = () => {
           text={SYMPTOMS[1]}
           value={isTemperatureTrackingCategoryEnabled}
         />
-
         <AppSwitch
           onToggle={(enabled) => {
             mucusTrackingCategoryToggle(enabled)
@@ -210,7 +208,6 @@ const Settings = () => {
           text={SYMPTOMS[2]}
           value={isMucusTrackingCategoryEnabled}
         />
-
         <AppSwitch
           onToggle={(enabled) => {
             cervixTrackingCategoryToggle(enabled)
@@ -218,7 +215,6 @@ const Settings = () => {
           text={SYMPTOMS[3]}
           value={isCervixTrackingCategoryEnabled}
         />
-
         <AppSwitch
           onToggle={sexTrackingCategoryToggle}
           text={SYMPTOMS[4]}
@@ -278,7 +274,6 @@ const Settings = () => {
         </Segment>
       </Pressable>
 
-      {/* used to be switch for onCervixToggle */}
       <Pressable onPress={secondarySymptomDisabledPrompt}>
         <Segment title={labels.secondarySymptom.title}>
           {!isFertilityTrackingEnabled ? (
