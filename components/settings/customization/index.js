@@ -197,8 +197,8 @@ const Settings = () => {
   }
 
   return (
-    <AppPage title={'Customization'}>
-      <Segment title={'Tracking categories'}>
+    <AppPage title={labels.customization.title}>
+      <Segment title={labels.customization.trackingCategories}>
         <AppSwitch
           onToggle={temperatureTrackingCategoryToggle}
           text={t(SYMPTOMS[1])}

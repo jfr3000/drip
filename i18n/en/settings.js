@@ -1,6 +1,10 @@
 import links from './links'
 
 export default {
+  customization: {
+    title: 'Customization',
+    trackingCategories: 'Tracking categories',
+  },
   export: {
     errors: {
       noData: 'There is no data to export',
