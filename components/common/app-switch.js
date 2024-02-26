@@ -34,10 +34,10 @@ AppSwitch.propTypes = {
 const styles = StyleSheet.create({
   container: {
     ...Containers.rowContainer,
+    marginTop: Spacing.tiny,
   },
   switch: {
     flex: 1,
-    marginBottom: Spacing.tiny,
     transform:
       Platform.OS === 'ios'
         ? [{ scaleX: 0.8 }, { scaleY: 0.8 }]

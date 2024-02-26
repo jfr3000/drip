@@ -246,23 +246,21 @@ const Settings = () => {
         />
       </Segment>
       <Pressable onPress={sliderDisabledPrompt}>
-
         <Segment title={labels.fertilityTracking.title}>
           {isTemperatureTrackingCategoryEnabled &&
-           isMucusTrackingCategoryEnabled ||
-           isCervixTrackingCategoryEnabled ?
-           (
-              <>
-                <AppSwitch
-                  onToggle={fertilityTrackingToggle}
-                  text={fertilityTrackingText}
-                  value={isFertilityTrackingEnabled}
-                />
-              </>
-            ) :
-            (
+          (isMucusTrackingCategoryEnabled ||
+            isCervixTrackingCategoryEnabled) ? (
+            <>
+              <AppText>{labels.fertilityTracking.message}</AppText>
+              <AppSwitch
+                onToggle={fertilityTrackingToggle}
+                text={fertilityTrackingText}
+                value={isFertilityTrackingEnabled}
+              />
+            </>
+          ) : (
             <AppText>{labels.disabled.message}</AppText>
-            )}
+          )}
         </Segment>
       </Pressable>
 

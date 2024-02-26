@@ -36,6 +36,6 @@ export default {
   },
   segmentContainer: {
     marginHorizontal: Spacing.base,
-    marginBottom: Spacing.tiny,
+    marginBottom: Spacing.base,
   },
 }

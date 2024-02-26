@@ -41,7 +41,7 @@ export default {
   disabled: {
     title: 'This feature is turned off',
     message:
-      'Please first enable the temperature tracking category in the customization settings.',
+      'To use the temperature scale please first enable the temperature tracking category above.',
   },
   tempReminder: {
     title: 'Temperature reminder',
@@ -68,8 +68,10 @@ export default {
   },
   fertilityTracking: {
     title: 'Fertility phases calculation',
-    on: 'The quick brown fox jumps over the lazy dog',
-    off: 'No no',
+    message:
+      'If you enter menstrual bleeding, temperature and cervical mucus or cervix data according to the sympto-thermal rules, drip will calculate cycle phases with the provided data.',
+    on: 'If you switch this off, drip will not show fertility related information.',
+    off: 'If you switch this on, drip will show fertility related information.',
   },
   secondarySymptom: {
     title: 'Secondary symptom',
@@ -80,16 +82,16 @@ export default {
     disabled: {
       title: 'Disabled',
       message:
-        'To set a secondary symptom please first enable the temperature, cervical mucus or cervix tracking category as well as the fertility feature in the customization settings.',
+        'To set a secondary symptom please first enable the temperature, cervical mucus or cervix tracking category as well as the fertility feature above.',
       noSecondaryEnabled:
-        'To switch the secondary symptom both cervical mucus an cervix need to be enabled in the customization settings.',
+        'To switch the secondary symptom both cervical mucus and cervix need to be enabled above.',
     },
     mucus: 'cervical mucus',
     cervix: 'cervix',
   },
   periodPrediction: {
     title: 'Period predictions',
-    on: 'drip predicts your 3 next menstrual bleedings based on the statistics of your previously tracked cycles, min 3 complete cycles.',
+    on: 'drip predicts your 3 next menstrual bleedings based on statistics if you previously tracked at least 3 complete cycles.',
     off: 'There are no predictions for menstrual cycles displayed. If turned on the calendar and the home screen will display period predictions.',
   },
   passwordSettings: {
