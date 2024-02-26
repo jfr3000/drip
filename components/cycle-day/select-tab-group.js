@@ -8,6 +8,7 @@ import { Colors, Containers } from '../../styles'
 import labels from '../../i18n/en/settings'
 
 export default function SelectTabGroup({ activeButton, buttons, onSelect }) {
+// TODO https://gitlab.com/bloodyhealth/drip/-/issues/707
   const oneTimeTransformIntoNumber =
     typeof activeButton === 'boolean' && Number(activeButton)
   const isSecondarySymptomSwitch =
