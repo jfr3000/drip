@@ -36,7 +36,7 @@ export default {
   tempScale: {
     segmentTitle: 'Temperature scale',
     segmentExplainer:
-      'Change the minimum and maximum value for the temperature chart',
+      'Change the minimum and maximum value for the temperature chart.',
     min: 'Min',
     max: 'Max',
     loadError: 'Could not load saved temperature scale settings',
@@ -72,6 +72,8 @@ export default {
   },
   fertilityTracking: {
     title: 'Fertility phases calculation',
+    disabled:
+      'To use this feature please enable temperature tracking and cervical mucus or cervix tracking.',
     message:
       'If you enter menstrual bleeding, temperature and cervical mucus or cervix data according to the sympto-thermal rules, drip will calculate cycle phases with the provided data.',
     on: 'If you switch this off, drip will not show fertility related information.',
@@ -80,13 +82,13 @@ export default {
   secondarySymptom: {
     title: 'Secondary symptom',
     cervixModeOn:
-      'Cervix values are being used for symptothermal fertility detection. You can switch here to use cervical mucus values for symptothermal fertility detection',
+      'Cervix values are being used for fertility detection according to the sympto-thermal rules.',
     cervixModeOff:
-      'By default, cervical mucus values are being used for symptothermal fertility detection. You can switch here to use cervix values for symptothermal fertility detection',
+      'Cervical mucus values are being used for fertility detection according to the sympto-thermal rules.',
     disabled: {
       title: 'Disabled',
       message:
-        'To set a secondary symptom please first enable the temperature, cervical mucus or cervix tracking category as well as the fertility feature above.',
+        'To set a secondary symptom please first enable the cervical mucus or cervix tracking category as well as temperature and fertility phases calculation above.',
       noSecondaryEnabled:
         'To switch the secondary symptom both cervical mucus and cervix need to be enabled above.',
     },

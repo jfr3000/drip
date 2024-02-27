@@ -143,6 +143,7 @@ const Settings = () => {
     },
   ]
 
+  // NOTE: when disabled (!isFertilityTrackingEnabled) button press doesn't yet trigger alert
   const onSelectTab = (value) => {
     if (isMucusTrackingCategoryEnabled && isCervixTrackingCategoryEnabled) {
       setUseCervixAsSecondarySymptom(value)
@@ -178,13 +179,24 @@ const Settings = () => {
   }
 
   const secondarySymptomDisabledPrompt = () => {
-    if (!isMucusTrackingCategoryEnabled == isCervixTrackingCategoryEnabled) {
+    if (!isFertilityTrackingEnabled) {
+      Alert.alert(
+        labels.secondarySymptom.disabled.title,
+        labels.secondarySymptom.disabled.message
+      )
+    } else if (
+      !isMucusTrackingCategoryEnabled == isCervixTrackingCategoryEnabled
+    ) {
       Alert.alert(
         labels.secondarySymptom.disabled.title,
         labels.secondarySymptom.disabled.noSecondaryEnabled
       )
     }
   }
+
+  const manageFertilityFeature =
+    isTemperatureTrackingCategoryEnabled &&
+    (isMucusTrackingCategoryEnabled || isCervixTrackingCategoryEnabled)
 
   const cervixText = useCervixAsSecondarySymptom
     ? labels.secondarySymptom.cervixModeOn
@@ -195,6 +207,14 @@ const Settings = () => {
       Alert.alert(labels.disabled.title, labels.disabled.message)
     }
   }
+
+  const fertilityDisabledPrompt = () => {
+    if (!isFertilityTrackingEnabled) {
+      Alert.alert(labels.disabled.title, labels.fertilityTracking.disabled)
+    }
+  }
+
+  console.log('useCervixAsSecondarySymptom :>> ', useCervixAsSecondarySymptom)
 
   return (
     <AppPage title={labels.customization.title}>
@@ -244,53 +264,42 @@ const Settings = () => {
           value={isNoteTrackingCategoryEnabled}
         />
       </Segment>
-      <Pressable onPress={sliderDisabledPrompt}>
+      <Pressable onPress={fertilityDisabledPrompt}>
         <Segment title={labels.fertilityTracking.title}>
-          {isTemperatureTrackingCategoryEnabled &&
-          (isMucusTrackingCategoryEnabled ||
-            isCervixTrackingCategoryEnabled) ? (
-            <>
-              <AppText>{labels.fertilityTracking.message}</AppText>
-              <AppSwitch
-                onToggle={fertilityTrackingToggle}
-                text={fertilityTrackingText}
-                value={isFertilityTrackingEnabled}
-              />
-            </>
-          ) : (
-            <AppText>{labels.disabled.message}</AppText>
-          )}
+          <AppText>{labels.fertilityTracking.message}</AppText>
+          <AppSwitch
+            onToggle={fertilityTrackingToggle}
+            text={fertilityTrackingText}
+            value={isFertilityTrackingEnabled}
+            disabled={!manageFertilityFeature}
+          />
         </Segment>
       </Pressable>
 
+      {/* NOTE: still needs to be greyed out and not moveable */}
       <Pressable onPress={sliderDisabledPrompt}>
         <Segment title={labels.tempScale.segmentTitle}>
-          {isTemperatureTrackingCategoryEnabled && (
-            <>
-              <AppText>{labels.tempScale.segmentExplainer}</AppText>
-              <TemperatureSlider />
-            </>
-          )}
-          {!isTemperatureTrackingCategoryEnabled && (
-            <AppText>{labels.disabled.message}</AppText>
-          )}
+          {/* {isTemperatureTrackingCategoryEnabled && (
+          <> */}
+          <AppText>{labels.tempScale.segmentExplainer}</AppText>
+          <TemperatureSlider />
+          {/* </>
+        )}
+        {!isTemperatureTrackingCategoryEnabled && (
+          <AppText>{labels.disabled.message}</AppText>
+        )} */}
         </Segment>
       </Pressable>
 
       <Pressable onPress={secondarySymptomDisabledPrompt}>
         <Segment title={labels.secondarySymptom.title}>
-          {!isFertilityTrackingEnabled ? (
-            <AppText>{labels.secondarySymptom.disabled.message}</AppText>
-          ) : (
-            <>
-              <AppText>{cervixText}</AppText>
-              <SelectTabGroup
-                activeButton={useCervixAsSecondarySymptom}
-                buttons={secondarySymptomButtons}
-                onSelect={(value) => onSelectTab(value)}
-              />
-            </>
-          )}
+          <AppText>{cervixText}</AppText>
+          <SelectTabGroup
+            activeButton={useCervixAsSecondarySymptom}
+            buttons={secondarySymptomButtons}
+            onSelect={(value) => onSelectTab(value)}
+            disabled={!isFertilityTrackingEnabled}
+          />
         </Segment>
       </Pressable>
 

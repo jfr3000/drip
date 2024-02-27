@@ -7,12 +7,18 @@ import AppText from '../common/app-text'
 import { Colors, Containers } from '../../styles'
 import labels from '../../i18n/en/settings'
 
-export default function SelectTabGroup({ activeButton, buttons, onSelect }) {
-// TODO https://gitlab.com/bloodyhealth/drip/-/issues/707
+export default function SelectTabGroup({
+  activeButton,
+  buttons,
+  onSelect,
+  disabled,
+}) {
+  // TODO https://gitlab.com/bloodyhealth/drip/-/issues/707
   const oneTimeTransformIntoNumber =
     typeof activeButton === 'boolean' && Number(activeButton)
   const isSecondarySymptomSwitch =
     buttons[0]['label'] === labels.secondarySymptom.mucus
+
   return (
     <View style={styles.container}>
       {buttons.map(({ label, value }, i) => {
@@ -23,16 +29,18 @@ export default function SelectTabGroup({ activeButton, buttons, onSelect }) {
           isActive && styles.boxActive,
           isSecondarySymptomSwitch && styles.purpleBox,
           isSecondarySymptomSwitch && isActive && styles.activePurpleBox,
+          disabled && styles.inActiveBox,
         ]
         const textStyle = [
           styles.text,
           isSecondarySymptomSwitch && styles.purpleText,
           isActive && styles.textActive,
+          disabled && styles.greyText,
         ]
 
         return (
           <TouchableOpacity
-            onPress={() => onSelect(value)}
+            onPress={() => !disabled && onSelect(value)}
             key={i}
             style={boxStyle}
           >
@@ -74,5 +82,12 @@ const styles = StyleSheet.create({
   },
   purpleText: {
     color: Colors.purple,
+  },
+  greyText: {
+    color: Colors.grey,
+  },
+  inActiveBox: {
+    borderColor: Colors.grey,
+    backgroundColor: Colors.turquoiseLight,
   },
 })
