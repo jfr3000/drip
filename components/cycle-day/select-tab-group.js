@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
+import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native'
 
 import AppText from '../common/app-text'
 
@@ -18,6 +18,16 @@ export default function SelectTabGroup({
     typeof activeButton === 'boolean' && Number(activeButton)
   const isSecondarySymptomSwitch =
     buttons[0]['label'] === labels.secondarySymptom.mucus
+
+  // Disable is only used for secondarySymptom in customization, if more come up maybe consider more tidy solution
+  const showDisableAlert = (label) => {
+    if (label === 'cervix' || 'mucus') {
+      Alert.alert(
+        labels.secondarySymptom.disabled.title,
+        labels.secondarySymptom.disabled.message
+      )
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -40,7 +50,9 @@ export default function SelectTabGroup({
 
         return (
           <TouchableOpacity
-            onPress={() => !disabled && onSelect(value)}
+            onPress={() =>
+              !disabled ? onSelect(value) : showDisableAlert(label)
+            }
             key={i}
             style={boxStyle}
           >
