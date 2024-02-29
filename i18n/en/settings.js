@@ -80,9 +80,9 @@ export default {
   secondarySymptom: {
     title: 'Secondary symptom',
     cervixModeOn:
-      'Cervix values are being used for symptothermal fertility detection. You can switch here to use cervical mucus values for symptothermal fertility detection',
+      'Cervix values are being used for sympto-thermal fertility detection. You can switch here to use cervical mucus values for sympto-thermal fertility detection',
     cervixModeOff:
-      'By default, cervical mucus values are being used for symptothermal fertility detection. You can switch here to use cervix values for symptothermal fertility detection',
+      'By default, cervical mucus values are being used for sympto-thermal fertility detection. You can switch here to use cervix values for sympto-thermal fertility detection',
     disabled: {
       title: 'Disabled',
       message:
@@ -139,6 +139,6 @@ Making any changes to your password setting will keep your data as it was before
   },
   preOvu: {
     title: 'Infertile days at cycle start',
-    note: `drip. applies the sympto-thermal method for calculating infertile days at the start of the cycle (see ${links.wiki.url} for more info). However, drip. does not currently apply the so called 20-day-rule, which determines infertile days at the cycle start from past cycle lengths in case no past symptothermal info is available.`,
+    note: `drip. applies the sympto-thermal method for calculating infertile days at the start of the cycle (see ${links.wiki.url} for more info). However, drip. does not currently apply the so called 20-day-rule, which determines infertile days at the cycle start from past cycle lengths in case no past sympto-thermal info is available.`,
   },
 }
