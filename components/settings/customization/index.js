@@ -19,6 +19,8 @@ import {
   temperatureTrackingCategoryObservable,
   mucusTrackingCategoryObservable,
   cervixTrackingCategoryObservable,
+  periodPredictionObservable,
+  useCervixAsSecondarySymptomObservable,
   saveDesireTrackingCategory,
   saveFertilityTrackingEnabled,
   saveMoodTrackingCategory,
@@ -30,11 +32,10 @@ import {
   saveSexTrackingCategory,
   saveTemperatureTrackingCategory,
   saveUseCervixAsSecondarySymptom,
-  periodPredictionObservable,
-  useCervixAsSecondarySymptomObservable,
 } from '../../../local-storage'
 import labels from '../../../i18n/en/settings'
 import { SYMPTOMS } from '../../../config'
+import DisabledTemperatureSlider from './disabled-temperature-slider'
 
 const Settings = () => {
   const { t } = useTranslation(null, { keyPrefix: 'symptoms' })
@@ -143,17 +144,11 @@ const Settings = () => {
     },
   ]
 
-  // NOTE: when disabled (!isFertilityTrackingEnabled) button press doesn't yet trigger alert
   const onSelectTab = (value) => {
     if (isMucusTrackingCategoryEnabled && isCervixTrackingCategoryEnabled) {
       setUseCervixAsSecondarySymptom(value)
       saveUseCervixAsSecondarySymptom(value)
-      console.log('show SecSymp value :>> ', value)
-    } else if (!isFertilityTrackingEnabled) {
-      console.log('2 show SecSymp value :>> ', value)
-      secondarySymptomDisabledPrompt()
     } else {
-      console.log('3 show SecSymp value :>> ', value)
       secondarySymptomDisabledPrompt()
     }
   }
@@ -208,8 +203,8 @@ const Settings = () => {
     : labels.secondarySymptom.cervixModeOff
 
   const sliderDisabledPrompt = () => {
-    if (!isTemperatureTrackingCategoryEnabled) {
-      Alert.alert(labels.disabled.title, labels.disabled.message)
+    if (!isFertilityTrackingEnabled) {
+      Alert.alert(labels.tempScale.disabled, labels.tempScale.disabledMessage)
     }
   }
 
@@ -218,8 +213,6 @@ const Settings = () => {
       Alert.alert(labels.disabled.title, labels.fertilityTracking.disabled)
     }
   }
-
-  console.log('useCervixAsSecondarySymptom :>> ', useCervixAsSecondarySymptom)
 
   return (
     <AppPage title={labels.customization.title}>
@@ -280,19 +273,19 @@ const Settings = () => {
           />
         </Segment>
       </Pressable>
-
-      {/* NOTE: still needs to be greyed out and not moveable */}
+      {/* Not ideal to have a extra DisabledTemperatureSlider but right now hard to have always the correct state of fertilityTrackingObservable in TemperatureSlider */}
       <Pressable onPress={sliderDisabledPrompt}>
         <Segment title={labels.tempScale.segmentTitle}>
-          {/* {isTemperatureTrackingCategoryEnabled && (
-          <> */}
           <AppText>{labels.tempScale.segmentExplainer}</AppText>
-          <TemperatureSlider />
-          {/* </>
-        )}
-        {!isTemperatureTrackingCategoryEnabled && (
-          <AppText>{labels.disabled.message}</AppText>
-        )} */}
+          {isTemperatureTrackingCategoryEnabled & isFertilityTrackingEnabled ? (
+            <>
+              <TemperatureSlider />
+            </>
+          ) : (
+            <>
+              <DisabledTemperatureSlider />
+            </>
+          )}
         </Segment>
       </Pressable>
 

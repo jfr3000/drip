@@ -41,12 +41,11 @@ export default {
     max: 'Max',
     loadError: 'Could not load saved temperature scale settings',
     saveError: 'Could not save temperature scale settings',
+    disabled: 'Disabled',
+    disabledMessage:
+      'To use the temperature scale please first enable both temperature tracking and fertility phase calculation above.',
   },
-  disabled: {
-    title: 'This feature is turned off',
-    message:
-      'To use the temperature scale please first enable the temperature tracking category above.',
-  },
+
   tempReminder: {
     title: 'Temperature reminder',
     noTimeSet: 'Set a time for a daily reminder to take your temperature',
