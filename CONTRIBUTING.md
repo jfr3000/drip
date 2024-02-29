@@ -33,7 +33,7 @@ We are an open source project and we highly appreciate contributions. At the sam
   - 🔮 open source
   - 🩸 feminist and gender inclusive
   - 🔒 secure: data entered stays with that person/on their device
-  - 🔬 science based: we implemented the sympto-thermal method
+  - 🔬 science-based: we implemented the sympto-thermal method
 
 This means that we will never implement anything that contradicts these core values. Some examples: We will never build a cloud integration, we will never make an ovulation prediction.
 
