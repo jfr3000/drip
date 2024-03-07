@@ -35,7 +35,6 @@ import {
 } from '../../../local-storage'
 import labels from '../../../i18n/en/settings'
 import { SYMPTOMS } from '../../../config'
-import DisabledTemperatureSlider from './disabled-temperature-slider'
 
 const Settings = () => {
   const { t } = useTranslation(null, { keyPrefix: 'symptoms' })
@@ -81,6 +80,7 @@ const Settings = () => {
   const [isFertilityTrackingEnabled, setFertilityTrackingEnabled] = useState(
     fertilityTrackingObservable.value
   )
+
   const fertilityTrackingToggle = (value) => {
     setFertilityTrackingEnabled(value)
     saveFertilityTrackingEnabled(value)
@@ -203,14 +203,17 @@ const Settings = () => {
     : labels.secondarySymptom.cervixModeOff
 
   const sliderDisabledPrompt = () => {
-    if (!isFertilityTrackingEnabled) {
+    if (!isTemperatureTrackingCategoryEnabled) {
       Alert.alert(labels.tempScale.disabled, labels.tempScale.disabledMessage)
     }
   }
 
   const fertilityDisabledPrompt = () => {
-    if (!isFertilityTrackingEnabled) {
-      Alert.alert(labels.disabled.title, labels.fertilityTracking.disabled)
+    if (!manageFertilityFeature) {
+      Alert.alert(
+        labels.fertilityTracking.disabledTitle,
+        labels.fertilityTracking.disabled
+      )
     }
   }
 
@@ -273,19 +276,11 @@ const Settings = () => {
           />
         </Segment>
       </Pressable>
-      {/* Not ideal to have a extra DisabledTemperatureSlider but right now hard to have always the correct state of fertilityTrackingObservable in TemperatureSlider */}
+
       <Pressable onPress={sliderDisabledPrompt}>
         <Segment title={labels.tempScale.segmentTitle}>
           <AppText>{labels.tempScale.segmentExplainer}</AppText>
-          {isTemperatureTrackingCategoryEnabled & isFertilityTrackingEnabled ? (
-            <>
-              <TemperatureSlider />
-            </>
-          ) : (
-            <>
-              <DisabledTemperatureSlider />
-            </>
-          )}
+          <TemperatureSlider disabled={!isTemperatureTrackingCategoryEnabled} />
         </Segment>
       </Pressable>
 

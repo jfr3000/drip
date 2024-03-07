@@ -43,7 +43,7 @@ export default {
     saveError: 'Could not save temperature scale settings',
     disabled: 'Disabled',
     disabledMessage:
-      'To use the temperature scale please first enable both temperature tracking and fertility phase calculation above.',
+      'To use the temperature scale please first enable temperature tracking above.',
   },
 
   tempReminder: {
@@ -71,8 +71,9 @@ export default {
   },
   fertilityTracking: {
     title: 'Fertility phases calculation',
+    disabledTitle: 'Disabled',
     disabled:
-      'To use this feature please enable temperature tracking and cervical mucus or cervix tracking.',
+      'To use fertility phases calculation please enable temperature tracking and cervical mucus or cervix tracking above.',
     message:
       'If you enter menstrual bleeding, temperature and cervical mucus or cervix data according to the sympto-thermal rules, drip will calculate cycle phases with the provided data.',
     on: 'If you switch this off, drip will not show fertility related information.',

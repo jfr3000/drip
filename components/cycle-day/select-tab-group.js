@@ -21,7 +21,7 @@ export default function SelectTabGroup({
 
   // Disable is only used for secondarySymptom in customization, if more come up maybe consider more tidy solution
   const showDisableAlert = (label) => {
-    if (label === 'cervix' || 'mucus') {
+    if (label === 'cervix' || label === 'mucus') {
       Alert.alert(
         labels.secondarySymptom.disabled.title,
         labels.secondarySymptom.disabled.message
@@ -68,6 +68,7 @@ SelectTabGroup.propTypes = {
   activeButton: PropTypes.number,
   buttons: PropTypes.array.isRequired,
   onSelect: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
 }
 
 const styles = StyleSheet.create({
