@@ -7,6 +7,7 @@ import AppSwitch from '../../common/app-switch'
 import AppText from '../../common/app-text'
 import TemperatureSlider from './temperature-slider'
 import Segment from '../../common/segment'
+import TrackingCategorySwitch from '../../common/tracking-category-switch'
 import SelectTabGroup from '../../cycle-day/select-tab-group'
 
 import {
@@ -220,49 +221,57 @@ const Settings = () => {
   return (
     <AppPage title={labels.customization.title}>
       <Segment title={labels.customization.trackingCategories}>
-        <AppSwitch
+        <TrackingCategorySwitch
           onToggle={temperatureTrackingCategoryToggle}
           text={t(SYMPTOMS[1])}
           value={isTemperatureTrackingCategoryEnabled}
+          symptom={SYMPTOMS[1]}
         />
-        <AppSwitch
+        <TrackingCategorySwitch
           onToggle={(enabled) => {
             mucusTrackingCategoryToggle(enabled)
           }}
           text={t(SYMPTOMS[2])}
           value={isMucusTrackingCategoryEnabled}
+          symptom={SYMPTOMS[2]}
         />
-        <AppSwitch
+        <TrackingCategorySwitch
           onToggle={(enabled) => {
             cervixTrackingCategoryToggle(enabled)
           }}
           text={t(SYMPTOMS[3])}
           value={isCervixTrackingCategoryEnabled}
+          symptom={SYMPTOMS[3]}
         />
-        <AppSwitch
+        <TrackingCategorySwitch
           onToggle={sexTrackingCategoryToggle}
           text={t(SYMPTOMS[4])}
           value={isSexTrackingCategoryEnabled}
+          symptom={SYMPTOMS[4]}
         />
-        <AppSwitch
+        <TrackingCategorySwitch
           onToggle={desireTrackingCategoryToggle}
           text={t(SYMPTOMS[5])}
           value={isDesireTrackingCategoryEnabled}
+          symptom={SYMPTOMS[5]}
         />
-        <AppSwitch
+        <TrackingCategorySwitch
           onToggle={painTrackingCategoryToggle}
           text={t(SYMPTOMS[6])}
           value={isPainTrackingCategoryEnabled}
+          symptom={SYMPTOMS[6]}
         />
-        <AppSwitch
+        <TrackingCategorySwitch
           onToggle={moodTrackingCategoryToggle}
           text={t(SYMPTOMS[7])}
           value={isMoodTrackingCategoryEnabled}
+          symptom={SYMPTOMS[7]}
         />
-        <AppSwitch
+        <TrackingCategorySwitch
           onToggle={noteTrackingCategoryToggle}
           text={t(SYMPTOMS[8])}
           value={isNoteTrackingCategoryEnabled}
+          symptom={SYMPTOMS[8]}
         />
       </Segment>
       <Pressable onPress={fertilityDisabledPrompt}>

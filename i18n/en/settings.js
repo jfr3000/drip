@@ -141,6 +141,6 @@ Making any changes to your password setting will keep your data as it was before
   },
   preOvu: {
     title: 'Infertile days at cycle start',
-    note: `drip. applies the sympto-thermal method for calculating infertile days at the start of the cycle (see ${links.wiki.url} for more info). However, drip. does not currently apply the so called 20-day-rule, which determines infertile days at the cycle start from past cycle lengths in case no past symptothermal info is available.`,
+    note: `drip. applies the sympto-thermal method for calculating infertile days at the start of the cycle (see ${links.wiki.url} for more info). However, drip. does not currently apply the so called 20-day-rule, which determines infertile days at the cycle start from past cycle lengths in case no past sympto-thermal info is available.`,
   },
 }
