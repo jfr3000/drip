@@ -75,16 +75,16 @@ export default {
     disabled:
       'To use fertility phases calculation please enable temperature tracking and cervical mucus or cervix tracking above.',
     message:
-      'If you enter menstrual bleeding, temperature and cervical mucus or cervix data according to the sympto-thermal rules, drip will calculate cycle phases with the provided data.',
+      'If you enter menstrual bleeding, temperature and cervical mucus or cervix data according to the sympto-thermal method, drip will calculate cycle phases with the provided data.',
     on: 'If you switch this off, drip will not show fertility related information.',
     off: 'If you switch this on, drip will show fertility related information.',
   },
   secondarySymptom: {
     title: 'Secondary symptom',
     cervixModeOn:
-      'Cervix values are being used for fertility detection according to the sympto-thermal rules.',
+      'Cervix values are being used for fertility detection according to the sympto-thermal method.',
     cervixModeOff:
-      'Cervical mucus values are being used for fertility detection according to the sympto-thermal rules.',
+      'Cervical mucus values are being used for fertility detection according to the sympto-thermal method.',
     disabled: {
       title: 'Disabled',
       message:

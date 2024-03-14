@@ -20,7 +20,7 @@ export default function SelectTabGroup({
     buttons[0]['label'] === labels.secondarySymptom.mucus
 
   // Disable is only used for secondarySymptom in customization, if more come up maybe consider more tidy solution
-  const showDisableAlert = (label) => {
+  const showDisabledAlert = (label) => {
     if (label === 'cervix' || label === 'mucus') {
       Alert.alert(
         labels.secondarySymptom.disabled.title,
@@ -51,7 +51,7 @@ export default function SelectTabGroup({
         return (
           <TouchableOpacity
             onPress={() =>
-              !disabled ? onSelect(value) : showDisableAlert(label)
+              !disabled ? onSelect(value) : showDisabledAlert(label)
             }
             key={i}
             style={boxStyle}
