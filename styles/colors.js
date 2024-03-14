@@ -18,6 +18,7 @@ const shadesOfPink = ['#c485a6', '#b15c89', pinkColor] // light to dark
 const lightGreenColor = '#bccd67'
 const orangeColor = '#bc6642'
 const mintColor = '#6ca299'
+const turquoiseDark = '#69CBC1'
 
 export default {
   greyDark: '#555',
@@ -27,13 +28,16 @@ export default {
   orange: '#F38337',
   purple: '#3A2671',
   purpleLight: '#938EB2',
-  turquoiseDark: '#69CBC1',
+  turquoiseDark: turquoiseDark,
   turquoise: '#CFECEA',
   turquoiseLight: '#E9F2ED',
   iconColors: {
     bleeding: {
       color: redColor,
       shades: shadesOfRed,
+    },
+    temperature: {
+      color: turquoiseDark,
     },
     mucus: {
       color: violetColor,

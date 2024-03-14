@@ -7,18 +7,16 @@
   "chart": {
     "tutorial": "You can swipe the chart to view more dates."
   },
-  "cycleDay": {
-    "symptomBox": {
-      "bleeding": "bleeding",
-      "temperature": "temperature",
-      "mucus": "cervical mucus",
-      "cervix": "cervix",
-      "note": "note",
-      "desire": "desire",
-      "sex": "sex",
-      "pain": "pain",
-      "mood": "mood"
-    }
+  "symptoms": {
+    "bleeding": "bleeding",
+    "temperature": "temperature",
+    "mucus": "cervical mucus",
+    "cervix": "cervix",
+    "note": "note",
+    "desire": "desire",
+    "sex": "sex",
+    "pain": "pain",
+    "mood": "mood"
   },
   "labels": {
     "bleedingPrediction": {

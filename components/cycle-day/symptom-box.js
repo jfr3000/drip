@@ -20,7 +20,7 @@ const SymptomBox = ({
   editedSymptom,
   setEditedSymptom,
 }) => {
-  const { t } = useTranslation(null, { keyPrefix: 'cycleDay.symptomBox' })
+  const { t } = useTranslation(null, { keyPrefix: 'symptoms' })
   const isSymptomEdited = editedSymptom === symptom
   const isSymptomDisabled = isDateInFuture(date) && symptom !== 'note'
   const isExcluded = symptomData !== null ? symptomData.exclude : false

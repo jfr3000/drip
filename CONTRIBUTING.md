@@ -33,9 +33,10 @@ We are an open source project and we highly appreciate contributions. At the sam
   - 🔮 open source
   - 🩸 feminist and gender inclusive
   - 🔒 secure: data entered stays with that person/on their device
-  - 🔬 science based: we implemented the symptothermal method
-  
+  - 🔬 science-based: we implemented the sympto-thermal method
+
 This means that we will never implement anything that contradicts these core values. Some examples: We will never build a cloud integration, we will never make an ovulation prediction.
+
 - If you would like to make a sustainable contribution to the project, we would be happy to join the game.
 
 ### Reporting Bugs or Making Suggestions
@@ -47,7 +48,6 @@ If you found a bug or have suggestions, please :one: first review the [list of e
 - If you want to contribute to drip's code or translation, please get in touch with us. We can tell you if someone is already working on something similar, if your idea does (not) match drip's core values, etc. Of course, you can always create a drip version for your private use with anything you want, but please don't expect us to review and merge code that has not been discussed before.
 - If you want to open a merge request, yeah :tada: exciting! We are using a template for merge requests to make sure we explain what we have done and why.
 - Keep in mind that people who will review your merge request are more motivated to do so when the merge request is well explained and ideally not too big.
-
 
 ### Thank you
 

@@ -22,6 +22,8 @@ import {
   painTrackingCategoryObservable,
   sexTrackingCategoryObservable,
   temperatureTrackingCategoryObservable,
+  mucusTrackingCategoryObservable,
+  cervixTrackingCategoryObservable,
 } from '../../local-storage'
 import { makeColumnInfo } from '../helpers/chart'
 
@@ -72,6 +74,10 @@ const CycleChart = ({ navigate, setDate }) => {
   const symptomRowEnabledSymptoms = symptomRowSymptoms.filter((symptom) => {
     if (symptom === 'sex') {
       return sexTrackingCategoryObservable.value ? symptom : null
+    } else if (symptom === 'mucus') {
+      return mucusTrackingCategoryObservable.value ? symptom : null
+    } else if (symptom === 'cervix') {
+      return cervixTrackingCategoryObservable.value ? symptom : null
     } else if (symptom === 'desire') {
       return desireTrackingCategoryObservable.value ? symptom : null
     } else if (symptom === 'pain') {

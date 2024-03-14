@@ -1,6 +1,10 @@
 import links from './links'
 
 export default {
+  customization: {
+    title: 'Customization',
+    trackingCategories: 'Tracking categories',
+  },
   export: {
     errors: {
       noData: 'There is no data to export',
@@ -32,17 +36,16 @@ export default {
   tempScale: {
     segmentTitle: 'Temperature scale',
     segmentExplainer:
-      'Change the minimum and maximum value for the temperature chart',
+      'Change the minimum and maximum value for the temperature chart.',
     min: 'Min',
     max: 'Max',
     loadError: 'Could not load saved temperature scale settings',
     saveError: 'Could not save temperature scale settings',
+    disabled: 'Disabled',
+    disabledMessage:
+      'To use the temperature scale please first enable temperature tracking above.',
   },
-  disabled: {
-    title: 'This feature is turned off',
-    message:
-      'Please first enable the temperature tracking category in the customization settings.',
-  },
+
   tempReminder: {
     title: 'Temperature reminder',
     noTimeSet: 'Set a time for a daily reminder to take your temperature',
@@ -66,16 +69,35 @@ export default {
         'To use the period reminder please first enable period predictions in the customization settings.',
     },
   },
-  useCervix: {
+  fertilityTracking: {
+    title: 'Fertility phases calculation',
+    disabledTitle: 'Disabled',
+    disabled:
+      'To use fertility phases calculation please enable temperature tracking and cervical mucus or cervix tracking above.',
+    message:
+      'If you enter menstrual bleeding, temperature and cervical mucus or cervix data according to the sympto-thermal method, drip will calculate cycle phases with the provided data.',
+    on: 'If you switch this off, drip will not show fertility related information.',
+    off: 'If you switch this on, drip will show fertility related information.',
+  },
+  secondarySymptom: {
     title: 'Secondary symptom',
     cervixModeOn:
-      'Cervix values are being used for symptothermal fertility detection. You can switch here to use cervical mucus values for symptothermal fertility detection',
+      'Cervix values are being used for fertility detection according to the sympto-thermal method.',
     cervixModeOff:
-      'By default, cervical mucus values are being used for symptothermal fertility detection. You can switch here to use cervix values for symptothermal fertility detection',
+      'Cervical mucus values are being used for fertility detection according to the sympto-thermal method.',
+    disabled: {
+      title: 'Disabled',
+      message:
+        'To set a secondary symptom please first enable the cervical mucus or cervix tracking category as well as temperature and fertility phases calculation above.',
+      noSecondaryEnabled:
+        'To switch the secondary symptom both cervical mucus and cervix need to be enabled above.',
+    },
+    mucus: 'cervical mucus',
+    cervix: 'cervix',
   },
   periodPrediction: {
     title: 'Period predictions',
-    on: 'drip predicts your 3 next menstrual bleedings based on the statistics of your previously tracked cycles, min 3 complete cycles.',
+    on: 'drip predicts your 3 next menstrual bleedings based on statistics if you previously tracked at least 3 complete cycles.',
     off: 'There are no predictions for menstrual cycles displayed. If turned on the calendar and the home screen will display period predictions.',
   },
   passwordSettings: {
@@ -119,6 +141,6 @@ Making any changes to your password setting will keep your data as it was before
   },
   preOvu: {
     title: 'Infertile days at cycle start',
-    note: `drip. applies the sympto-thermal method for calculating infertile days at the start of the cycle (see ${links.wiki.url} for more info). However, drip. does not currently apply the so called 20-day-rule, which determines infertile days at the cycle start from past cycle lengths in case no past symptothermal info is available.`,
+    note: `drip. applies the sympto-thermal method for calculating infertile days at the start of the cycle (see ${links.wiki.url} for more info). However, drip. does not currently apply the so called 20-day-rule, which determines infertile days at the cycle start from past cycle lengths in case no past sympto-thermal info is available.`,
   },
 }
