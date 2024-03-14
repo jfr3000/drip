@@ -76,6 +76,8 @@ const Home = ({ navigate, setDate }) => {
           <AppText style={styles.turquoiseText}>{prediction}</AppText>
         </View>
       )}
+
+      {!isFertilityTrackingEnabled && <View style={styles.largePadding}></View>}
       <Button isCTA isSmall={false} onPress={navigateToCycleDayView}>
         {t('labels.home.addDataForToday')}
       </Button>
@@ -113,6 +115,9 @@ const styles = StyleSheet.create({
   whiteSubtitle: {
     color: 'white',
     fontSize: Sizes.subtitle,
+  },
+  largePadding: {
+    padding: Spacing.large,
   },
 })
 
