@@ -73,7 +73,7 @@ export default {
     title: 'Fertility phases calculation',
     disabledTitle: 'Disabled',
     disabled:
-      'To use fertility phases calculation please enable temperature tracking and cervical mucus or cervix tracking above.',
+      'To use fertility phases calculation please enable both temperature tracking and either cervical mucus or cervix tracking above.',
     message:
       'If you enter menstrual bleeding, temperature and cervical mucus or cervix data according to the sympto-thermal method, drip will calculate cycle phases with the provided data.',
     on: 'If you switch this off, drip will not show fertility related information.',
@@ -98,7 +98,7 @@ export default {
   periodPrediction: {
     title: 'Period predictions',
     on: 'drip predicts your 3 next menstrual bleedings based on statistics if you previously tracked at least 3 complete cycles.',
-    off: 'There are no predictions for menstrual cycles displayed. If turned on the calendar and the home screen will display period predictions.',
+    off: 'There are no predictions for menstrual cycles displayed. If turned on, the calendar and the home screen will display period predictions.',
   },
   passwordSettings: {
     title: 'App password',
