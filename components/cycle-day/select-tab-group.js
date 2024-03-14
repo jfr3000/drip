@@ -39,7 +39,7 @@ export default function SelectTabGroup({
           isActive && styles.boxActive,
           isSecondarySymptomSwitch && styles.purpleBox,
           isSecondarySymptomSwitch && isActive && styles.activePurpleBox,
-          disabled && styles.inActiveBox,
+          disabled && styles.disabledBox,
         ]
         const textStyle = [
           styles.text,
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
   greyText: {
     color: Colors.grey,
   },
-  inActiveBox: {
+  disabledBox: {
     borderColor: Colors.grey,
     backgroundColor: Colors.turquoiseLight,
   },
