@@ -51,6 +51,7 @@ const Home = ({ navigate, setDate }) => {
     >
       <AppText style={styles.title}>{moment().format('MMM Do YYYY')}</AppText>
 
+      {/* display if at least 1 bleeding day has been entered */}
       {cycleDayNumber && (
         <View style={styles.line}>
           <AppText style={styles.whiteSubtitle}>{cycleDayText}</AppText>
@@ -59,6 +60,8 @@ const Home = ({ navigate, setDate }) => {
           </AppText>
         </View>
       )}
+
+      {/* display if fertility tracking enabled and if phase 1, 2 or 3 has been identified  */}
       {isFertilityTrackingEnabled && phase && (
         <View style={styles.line}>
           <AppText style={styles.whiteSubtitle}>
@@ -71,6 +74,7 @@ const Home = ({ navigate, setDate }) => {
           <Asterisk />
         </View>
       )}
+
       {isPeriodPredictionEnabled && (
         <View style={styles.line}>
           <AppText style={styles.turquoiseText}>{prediction}</AppText>
