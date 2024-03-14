@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
+import PropTypes from 'prop-types'
 import Slider from '@ptomasroos/react-native-multi-slider'
 
 import alertError from '../common/alert-error'
@@ -10,7 +11,7 @@ import { Colors, Sizes } from '../../../styles'
 import labels from '../../../i18n/en/settings'
 import { TEMP_MIN, TEMP_MAX, TEMP_SLIDER_STEP } from '../../../config'
 
-const TemperatureSlider = () => {
+const TemperatureSlider = ({ disabled }) => {
   const savedValue = scaleObservable.value
   const [minTemperature, setMinTemperature] = useState(savedValue.min)
   const [maxTemperature, setMaxTemperature] = useState(savedValue.max)
@@ -25,6 +26,14 @@ const TemperatureSlider = () => {
     }
   }
 
+  const sliderAccentBackground = disabled
+    ? styles.disabledSliderAccentBackground
+    : styles.sliderAccentBackground
+
+  const sliderBackground = disabled
+    ? styles.disabledSliderBackground
+    : styles.sliderBackground
+
   return (
     <View style={styles.container}>
       <Slider
@@ -35,17 +44,23 @@ const TemperatureSlider = () => {
         max={TEMP_MAX}
         min={TEMP_MIN}
         onValuesChange={onTemperatureSliderChange}
-        selectedStyle={styles.sliderAccentBackground}
         step={TEMP_SLIDER_STEP}
         trackStyle={styles.slider}
-        unselectedStyle={styles.sliderBackground}
         values={[minTemperature, maxTemperature]}
+        enabledOne={!disabled}
+        enabledTwo={!disabled}
+        selectedStyle={sliderAccentBackground}
+        unselectedStyle={sliderBackground}
       />
     </View>
   )
 }
 
 export default TemperatureSlider
+
+TemperatureSlider.propTypes = {
+  disabled: PropTypes.bool,
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -54,6 +69,7 @@ const styles = StyleSheet.create({
   },
   marker: {
     backgroundColor: Colors.turquoiseDark,
+
     borderRadius: 50,
     elevation: 4,
     height: Sizes.subtitle,
@@ -66,7 +82,13 @@ const styles = StyleSheet.create({
   sliderAccentBackground: {
     backgroundColor: Colors.turquoiseDark,
   },
+  disabledSliderAccentBackground: {
+    backgroundColor: Colors.grey,
+  },
   sliderBackground: {
     backgroundColor: Colors.turquoise,
+  },
+  disabledSliderBackground: {
+    backgroundColor: Colors.greyLight,
   },
 })

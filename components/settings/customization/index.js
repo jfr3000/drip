@@ -20,6 +20,8 @@ import {
   temperatureTrackingCategoryObservable,
   mucusTrackingCategoryObservable,
   cervixTrackingCategoryObservable,
+  periodPredictionObservable,
+  useCervixAsSecondarySymptomObservable,
   saveDesireTrackingCategory,
   saveFertilityTrackingEnabled,
   saveMoodTrackingCategory,
@@ -31,8 +33,6 @@ import {
   saveSexTrackingCategory,
   saveTemperatureTrackingCategory,
   saveUseCervixAsSecondarySymptom,
-  periodPredictionObservable,
-  useCervixAsSecondarySymptomObservable,
 } from '../../../local-storage'
 import labels from '../../../i18n/en/settings'
 import { SYMPTOMS } from '../../../config'
@@ -81,6 +81,7 @@ const Settings = () => {
   const [isFertilityTrackingEnabled, setFertilityTrackingEnabled] = useState(
     fertilityTrackingObservable.value
   )
+
   const fertilityTrackingToggle = (value) => {
     setFertilityTrackingEnabled(value)
     saveFertilityTrackingEnabled(value)
@@ -179,7 +180,14 @@ const Settings = () => {
   }
 
   const secondarySymptomDisabledPrompt = () => {
-    if (!isMucusTrackingCategoryEnabled == isCervixTrackingCategoryEnabled) {
+    if (!isFertilityTrackingEnabled) {
+      Alert.alert(
+        labels.secondarySymptom.disabled.title,
+        labels.secondarySymptom.disabled.message
+      )
+    } else if (
+      !isMucusTrackingCategoryEnabled == isCervixTrackingCategoryEnabled
+    ) {
       Alert.alert(
         labels.secondarySymptom.disabled.title,
         labels.secondarySymptom.disabled.noSecondaryEnabled
@@ -187,13 +195,26 @@ const Settings = () => {
     }
   }
 
+  const manageFertilityFeature =
+    isTemperatureTrackingCategoryEnabled &&
+    (isMucusTrackingCategoryEnabled || isCervixTrackingCategoryEnabled)
+
   const cervixText = useCervixAsSecondarySymptom
     ? labels.secondarySymptom.cervixModeOn
     : labels.secondarySymptom.cervixModeOff
 
   const sliderDisabledPrompt = () => {
     if (!isTemperatureTrackingCategoryEnabled) {
-      Alert.alert(labels.disabled.title, labels.disabled.message)
+      Alert.alert(labels.tempScale.disabled, labels.tempScale.disabledMessage)
+    }
+  }
+
+  const fertilityDisabledPrompt = () => {
+    if (!manageFertilityFeature) {
+      Alert.alert(
+        labels.fertilityTracking.disabledTitle,
+        labels.fertilityTracking.disabled
+      )
     }
   }
 
@@ -253,53 +274,34 @@ const Settings = () => {
           symptom={SYMPTOMS[8]}
         />
       </Segment>
-      <Pressable onPress={sliderDisabledPrompt}>
+      <Pressable onPress={fertilityDisabledPrompt}>
         <Segment title={labels.fertilityTracking.title}>
-          {isTemperatureTrackingCategoryEnabled &&
-          (isMucusTrackingCategoryEnabled ||
-            isCervixTrackingCategoryEnabled) ? (
-            <>
-              <AppText>{labels.fertilityTracking.message}</AppText>
-              <AppSwitch
-                onToggle={fertilityTrackingToggle}
-                text={fertilityTrackingText}
-                value={isFertilityTrackingEnabled}
-              />
-            </>
-          ) : (
-            <AppText>{labels.disabled.message}</AppText>
-          )}
+          <AppText>{labels.fertilityTracking.message}</AppText>
+          <AppSwitch
+            onToggle={fertilityTrackingToggle}
+            text={fertilityTrackingText}
+            value={isFertilityTrackingEnabled}
+            disabled={!manageFertilityFeature}
+          />
         </Segment>
       </Pressable>
 
       <Pressable onPress={sliderDisabledPrompt}>
         <Segment title={labels.tempScale.segmentTitle}>
-          {isTemperatureTrackingCategoryEnabled && (
-            <>
-              <AppText>{labels.tempScale.segmentExplainer}</AppText>
-              <TemperatureSlider />
-            </>
-          )}
-          {!isTemperatureTrackingCategoryEnabled && (
-            <AppText>{labels.disabled.message}</AppText>
-          )}
+          <AppText>{labels.tempScale.segmentExplainer}</AppText>
+          <TemperatureSlider disabled={!isTemperatureTrackingCategoryEnabled} />
         </Segment>
       </Pressable>
 
       <Pressable onPress={secondarySymptomDisabledPrompt}>
         <Segment title={labels.secondarySymptom.title}>
-          {!isFertilityTrackingEnabled ? (
-            <AppText>{labels.secondarySymptom.disabled.message}</AppText>
-          ) : (
-            <>
-              <AppText>{cervixText}</AppText>
-              <SelectTabGroup
-                activeButton={useCervixAsSecondarySymptom}
-                buttons={secondarySymptomButtons}
-                onSelect={(value) => onSelectTab(value)}
-              />
-            </>
-          )}
+          <AppText>{cervixText}</AppText>
+          <SelectTabGroup
+            activeButton={useCervixAsSecondarySymptom}
+            buttons={secondarySymptomButtons}
+            onSelect={(value) => onSelectTab(value)}
+            disabled={!isFertilityTrackingEnabled}
+          />
         </Segment>
       </Pressable>
 

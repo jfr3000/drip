@@ -36,17 +36,16 @@ export default {
   tempScale: {
     segmentTitle: 'Temperature scale',
     segmentExplainer:
-      'Change the minimum and maximum value for the temperature chart',
+      'Change the minimum and maximum value for the temperature chart.',
     min: 'Min',
     max: 'Max',
     loadError: 'Could not load saved temperature scale settings',
     saveError: 'Could not save temperature scale settings',
+    disabled: 'Disabled',
+    disabledMessage:
+      'To use the temperature scale please first enable temperature tracking above.',
   },
-  disabled: {
-    title: 'This feature is turned off',
-    message:
-      'To use the temperature scale please first enable the temperature tracking category above.',
-  },
+
   tempReminder: {
     title: 'Temperature reminder',
     noTimeSet: 'Set a time for a daily reminder to take your temperature',
@@ -72,21 +71,24 @@ export default {
   },
   fertilityTracking: {
     title: 'Fertility phases calculation',
+    disabledTitle: 'Disabled',
+    disabled:
+      'To use fertility phases calculation please enable temperature tracking and cervical mucus or cervix tracking above.',
     message:
-      'If you enter menstrual bleeding, temperature and cervical mucus or cervix data according to the sympto-thermal rules, drip will calculate cycle phases with the provided data.',
+      'If you enter menstrual bleeding, temperature and cervical mucus or cervix data according to the sympto-thermal method, drip will calculate cycle phases with the provided data.',
     on: 'If you switch this off, drip will not show fertility related information.',
     off: 'If you switch this on, drip will show fertility related information.',
   },
   secondarySymptom: {
     title: 'Secondary symptom',
     cervixModeOn:
-      'Cervix values are being used for sympto-thermal fertility detection. You can switch here to use cervical mucus values for sympto-thermal fertility detection',
+      'Cervix values are being used for fertility detection according to the sympto-thermal method.',
     cervixModeOff:
-      'By default, cervical mucus values are being used for sympto-thermal fertility detection. You can switch here to use cervix values for sympto-thermal fertility detection',
+      'Cervical mucus values are being used for fertility detection according to the sympto-thermal method.',
     disabled: {
       title: 'Disabled',
       message:
-        'To set a secondary symptom please first enable the temperature, cervical mucus or cervix tracking category as well as the fertility feature above.',
+        'To set a secondary symptom please first enable the cervical mucus or cervix tracking category as well as temperature and fertility phases calculation above.',
       noSecondaryEnabled:
         'To switch the secondary symptom both cervical mucus and cervix need to be enabled above.',
     },
