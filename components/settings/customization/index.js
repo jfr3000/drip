@@ -274,6 +274,7 @@ const Settings = () => {
           symptom={SYMPTOMS[8]}
         />
       </Segment>
+
       <Pressable onPress={fertilityDisabledPrompt}>
         <Segment title={labels.fertilityTracking.title}>
           <AppText>{labels.fertilityTracking.message}</AppText>
@@ -286,6 +287,19 @@ const Settings = () => {
         </Segment>
       </Pressable>
 
+      <Segment title={labels.periodPrediction.title}>
+        <AppSwitch
+          onToggle={onPeriodPredictionToggle}
+          text={periodPredictionText}
+          value={isPeriodPredictionEnabled}
+        />
+      </Segment>
+
+      <Segment
+        subheader={labels.customization.subheaderSymptoThermalMethod}
+        last
+      ></Segment>
+
       <Pressable onPress={sliderDisabledPrompt}>
         <Segment title={labels.tempScale.segmentTitle}>
           <AppText>{labels.tempScale.segmentExplainer}</AppText>
@@ -294,7 +308,7 @@ const Settings = () => {
       </Pressable>
 
       <Pressable onPress={secondarySymptomDisabledPrompt}>
-        <Segment title={labels.secondarySymptom.title}>
+        <Segment last title={labels.secondarySymptom.title}>
           <AppText>{cervixText}</AppText>
           <SelectTabGroup
             activeButton={useCervixAsSecondarySymptom}
@@ -304,14 +318,6 @@ const Settings = () => {
           />
         </Segment>
       </Pressable>
-
-      <Segment title={labels.periodPrediction.title} last>
-        <AppSwitch
-          onToggle={onPeriodPredictionToggle}
-          text={periodPredictionText}
-          value={isPeriodPredictionEnabled}
-        />
-      </Segment>
     </AppPage>
   )
 }

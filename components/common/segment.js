@@ -6,13 +6,14 @@ import AppText from './app-text'
 
 import { Colors, Containers, Spacing, Typography } from '../../styles'
 
-const Segment = ({ children, last, title }) => {
+const Segment = ({ children, last, title, subheader }) => {
   const containerStyle = last ? styles.containerLast : styles.container
   const commonStyle = Object.assign({}, containerStyle)
 
   return (
     <View style={commonStyle}>
       {title && <AppText style={styles.title}>{title}</AppText>}
+      {subheader && <AppText style={styles.subheader}>{subheader}</AppText>}
       {children}
     </View>
   )
@@ -23,6 +24,7 @@ Segment.propTypes = {
   last: PropTypes.bool,
   style: PropTypes.object,
   title: PropTypes.string,
+  subheader: PropTypes.string,
 }
 
 const styles = StyleSheet.create({
@@ -38,6 +40,11 @@ const styles = StyleSheet.create({
   },
   title: {
     ...Typography.subtitle,
+  },
+  subheader: {
+    ...Typography.subtitle,
+    fontWeight: 'bold',
+    marginBottom: Spacing.zero,
   },
 })
 
