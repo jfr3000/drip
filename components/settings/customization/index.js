@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { Alert, Pressable } from 'react-native'
+import { Alert, Pressable, StyleSheet, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 
+import AppIcon from '../../common/app-icon'
 import AppPage from '../../common/app-page'
 import AppSwitch from '../../common/app-switch'
 import AppText from '../../common/app-text'
+import { Colors, Spacing, Typography } from '../../../styles'
 import TemperatureSlider from './temperature-slider'
 import Segment from '../../common/segment'
 import TrackingCategorySwitch from '../../common/tracking-category-switch'
@@ -308,7 +310,7 @@ const Settings = () => {
       </Pressable>
 
       <Pressable onPress={secondarySymptomDisabledPrompt}>
-        <Segment last title={labels.secondarySymptom.title}>
+        <Segment title={labels.secondarySymptom.title}>
           <AppText>{cervixText}</AppText>
           <SelectTabGroup
             activeButton={useCervixAsSecondarySymptom}
@@ -318,8 +320,32 @@ const Settings = () => {
           />
         </Segment>
       </Pressable>
+      <Segment last>
+        <View style={styles.line}>
+          <AppIcon
+            color={Colors.purple}
+            name="info-with-circle"
+            style={styles.icon}
+          />
+          <AppText style={styles.title}>{labels.preOvu.title}</AppText>
+        </View>
+        <AppText>{labels.preOvu.note}</AppText>
+      </Segment>
     </AppPage>
   )
 }
 
 export default Settings
+
+const styles = StyleSheet.create({
+  icon: {
+    marginRight: Spacing.base,
+  },
+  line: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  title: {
+    ...Typography.subtitle,
+  },
+})
