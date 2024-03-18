@@ -25,7 +25,7 @@ export default {
 After tracking at least 3 menstrual cycles, drip. will give you an overview of
 · how long your cycles last on average (in "stats"),
 · whether the length of your cycles varied significantly (in "stats" and in bleeding predictions)
-· and predict your next 3 cycles with a range of 3 or 5 days (on home screen and "calendar").
+· and predict your next 3 cycles with a range of 3 or 5 days (on home screen and "calendar") if this functionality is enabled in the customization settings.
 
 The app allows you to track different intensities of bleeding. On the chart and on the calendar, bleeding values are colored in different shades of red. The darker, the more intense your bleeding. Every bleeding value that is not excluded is taken into account for fertility calculation and period predictions.
 
@@ -74,7 +74,7 @@ ${generalInfo.curiousNfp}`,
     title: 'Tracking cervical mucus',
     text: `Cervical mucus can help determine in which phase of the menstrual cycle you are.
 
-By default the secondary symptom the app uses for the sympto-thermal method is cervical mucus.
+By default the secondary symptom the app uses for the sympto-thermal method is cervical mucus. You can change this in the customization settings.
 
 · How to identify fertile cervical mucus?
 Tracking the feeling and the texture of your cervical mucus on a daily basis helps you identify changes of the quality of the cervical mucus. The values you enter for both feeling and texture of your cervical mucus are combined by drip. into one of five values following the sympto-thermal method.
