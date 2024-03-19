@@ -15,6 +15,7 @@ import Temperature from './temperature'
 import { blank, save, shouldShow, symtomPage } from '../helpers/cycle-day'
 import { showToast } from '../helpers/general'
 
+import { fertilityTrackingObservable } from '../../local-storage'
 import { shared as sharedLabels } from '../../i18n/en/labels'
 import info from '../../i18n/en/symptom-info'
 import { Colors, Containers, Sizes, Spacing } from '../../styles'
@@ -25,6 +26,7 @@ const SymptomEditView = ({ date, onClose, symptom, symptomData }) => {
   const [shouldShowInfo, setShouldShowInfo] = useState(false)
   const getParsedData = () => JSON.parse(JSON.stringify(data))
   const onPressLearnMore = () => setShouldShowInfo(!shouldShowInfo)
+  const isFertilityTrackingEnabled = fertilityTrackingObservable.value
 
   const onEditNote = (note) => {
     const parsedData = getParsedData()
@@ -167,15 +169,18 @@ const SymptomEditView = ({ date, onClose, symptom, symptomData }) => {
               </Segment>
             )
           })}
-        {shouldShow(symptomConfig.excludeText) && (
-          <Segment style={styles.segmentBorder}>
-            <AppSwitch
-              onToggle={onExcludeToggle}
-              text={symtomPage[symptom].excludeText}
-              value={data.exclude}
-            />
-          </Segment>
-        )}
+        {/* show exclude AppSwitch for bleeding, mucus, cervix, temperature */}
+        {/* but if fertility is off only for bleeding */}
+        {shouldShow(symptomConfig.excludeText) &&
+          (symptom === 'bleeding' || isFertilityTrackingEnabled) && (
+            <Segment style={styles.segmentBorder}>
+              <AppSwitch
+                onToggle={onExcludeToggle}
+                text={symtomPage[symptom].excludeText}
+                value={data.exclude}
+              />
+            </Segment>
+          )}
         {shouldShow(symptomConfig.note) && (
           <Segment style={styles.segmentBorder}>
             <AppText>{symtomPage[symptom].note}</AppText>

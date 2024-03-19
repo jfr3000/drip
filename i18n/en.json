@@ -112,19 +112,19 @@
       "menuItem": {
         "dataManagement": {
           "name": "Data",
-          "text": "import, export or delete your data"
+          "text": "Import, export or delete your data"
         },
         "customization": {
           "name": "Customization",
-          "text": "define how you want to use drip"
+          "text": "Define how you want to use drip"
         },
         "password": {
           "name": "Password",
-          "text": "set or edit your password"
+          "text": "Set, edit or delete your password"
         },
         "reminders": {
           "name": "Reminders",
-          "text": "turn on/off reminders"
+          "text": "Turn on/off reminders"
         },
         "info": {
           "name": "Info",
