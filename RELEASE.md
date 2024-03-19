@@ -6,8 +6,8 @@ _Note: You need the release-key for Android to bundle a signed release that can 
 
 1. [version updating](#Version-updating)
 2. [android building](#Building-in-Android)
-    - [APK](#APK)
-    - [AAB](#AAB)
+   - [APK](#APK)
+   - [AAB](#AAB)
 3. [release sharing](#Share-the-release)
 
 ## Version updating
@@ -24,6 +24,15 @@ yarn release
 ```
 
 The versionName and versionCode [are defined here](https://gitlab.com/bloodyhealth/drip/-/blob/5401789c46f4a02915ab900ef284581be420451c/android/app/build.gradle#L137-138) and in [package.json](https://gitlab.com/bloodyhealth/drip/-/blob/5401789c46f4a02915ab900ef284581be420451c/package.json#L3).
+
+**Note for iOS**
+
+Update the version number for iOS in `ios/drip/Info.plist` under:
+
+```
+<key>CFBundleShortVersionString</key>
+<string>1.2403.19</string>
+```
 
 ## Building in Android
 
@@ -74,6 +83,17 @@ yarn sign-android-aab-release
 ```
 
 _which is a shortcut for:_ `jarsigner -keystore ./android/app/drip-release-key.keystore ./android/app/build/outputs/bundle/release/app-release.aab drip-release-key`
+
+## Building in iOS
+
+To build an .ipa archive file for an upload to the AppStore you need to go to xCode and select Build -> "Any iOS Device" and under "Product" -> "Archive".
+
+Once the archiving process has completed you can chose to do the following:
+
+"Distribute the app"
+
+- TestFlight & App Store for when you want to upload it for external testing and/or production release
+- TestFlight Internal Only for when you want to upload it for internal testing
 
 ## Share the release
 
